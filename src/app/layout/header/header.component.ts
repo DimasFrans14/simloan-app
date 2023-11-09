@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  toggle(){
+    const element = document.body as HTMLBodyElement;
+    const header = document.querySelector('#header') as HTMLHeadingElement;
+
+    header.classList.toggle('header-closed');
+    element.classList.toggle('toggle-sidebar');
+  }
+
 }
