@@ -17,12 +17,12 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
     RegisterComponent,
     PraloginComponent,
     ForgotPasswordComponent,
-    HeaderComponent,
-    SidebarComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HeaderComponent,
+    SidebarComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
