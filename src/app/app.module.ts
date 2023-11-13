@@ -10,6 +10,10 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { HeaderComponent } from './layout/header/header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { ShlOverviewComponent } from './dashboard/shl/shl-overview/shl-overview.component';
+import { MainComponent } from './dashboard/main/main.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,12 +21,15 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
     RegisterComponent,
     PraloginComponent,
     ForgotPasswordComponent,
+    ShlOverviewComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HeaderComponent,
     SidebarComponent,
+    NgApexchartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
