@@ -1,0 +1,23 @@
+.text-content {
+    color: var(--color-silver-950, #0C0C0F);
+    text-align: center;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%; /* 13px */
+    margin-top: 16px;
+}
+
+.text-version {
+    color: var(--color-silver-500, #9A9A9A);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 100%;
+}
+.flex-container {
+    margin-right: 12px;
+}
+
+.link {
+    text-decoration: none;
+}
