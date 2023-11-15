@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApexAxisChartSeries, ApexChart,  ApexTitleSubtitle } from 'ng-apexcharts';
+import { ApexAxisChartSeries, ApexChart,  ApexPlotOptions,  ApexTitleSubtitle, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
 
 @Component({
   selector: 'app-overview',
@@ -7,6 +7,23 @@ import { ApexAxisChartSeries, ApexChart,  ApexTitleSubtitle } from 'ng-apexchart
   styleUrls: ['./overview.component.css']
 })
 export class ParameterMarketOverviewComponent implements OnInit{
+
+  isVisibleLine: boolean = true;
+  isVisibleBar: boolean = true;
+
+  toggleVisibilityLine() {
+    if(!this.isVisibleBar){
+      this.isVisibleBar = !this.isVisibleBar;
+    }
+    this.isVisibleLine = true;
+  }
+
+  toggleVisibilityBar() {
+    if(this.isVisibleLine){
+      this.isVisibleLine = !this.isVisibleLine;
+    }
+    this.isVisibleBar = false;
+  }
 
   chartSeries: ApexAxisChartSeries = [
     {
@@ -23,8 +40,41 @@ export class ParameterMarketOverviewComponent implements OnInit{
     }
   ];
 
+  chartSeries2: ApexAxisChartSeries = [
+    {
+      name: "Net Profit",
+      data: [111, -55, -57]
+    },
+    {
+      name: "Revenue",
+      data: [76, -85, -101]
+    },
+    {
+      name: "Free Cash Flow",
+      data: [35, -41, -36]
+    }
+  ];
+
   currencyChartDetails: ApexChart = {
     type: 'line',
+    height: 400,
+    // width:,
+    toolbar: {
+      show: true,
+      tools: {
+        download: true,
+        selection: false,
+        zoom: false,
+        zoomin: false,
+        zoomout: false,
+        pan: false,
+        reset: false,
+      }
+    }
+  }
+
+  currencyBarChartDetails: ApexChart = {
+    type: 'bar',
     height: 400,
     // width:,
     toolbar: {
@@ -78,6 +128,8 @@ export class ParameterMarketOverviewComponent implements OnInit{
       color:  '#000000'
     },
   }
+
+
 
   changeChart(){
     alert('Change chart');

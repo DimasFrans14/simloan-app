@@ -5,11 +5,12 @@
     <div class="col-12 bg-white sub-nav border-top" style="margin-top: 60px; padding-left: 282px; padding-bottom: 20px; padding-top: 15px;">
       <div class="d-flex flex-col justify-content-between align-items-center">
         <div>
-          <button class="btn btn-light bg-white" style="font-size: 14px;">Harian</button>
+          <button class="btn btn-light bg-white" style="font-size: 14px; border: 1px solid #e4e4e4">Harian</button>
           <button class="btn btn-primary ms-2" style="font-size: 14px;">Trending</button>
-          <button class="btn btn-light bg-white ms-2" style="font-size: 14px;"><i class="bi bi-calendar me-2"></i>Pilih Tanggal</button>
-          <button class="btn btn-light bg-white ms-2" (click)="changeChart()"><i class="bi bi-graph-up"></i></button>
-          <button class="btn btn-light bg-white ms-2"><i class="bi bi-bar-chart-line"></i></button>
+          <!-- <button class="btn btn-light bg-white ms-2" style="font-size: 14px;"><i class="bi bi-calendar me-2"></i>Pilih Tanggal</button> -->
+          <input type="date" name="date" id="input_date" class="bg-white rounded border-none ms-2" placeholder="Pilih Tanggal">
+          <button class="btn btn-light bg-white ms-2" (click)="toggleVisibilityLine()"><i class="bi bi-graph-up"></i></button>
+          <button class="btn btn-light bg-white ms-2" (click)="toggleVisibilityBar()"><i class="bi bi-bar-chart-line"></i></button>
         </div>
         <div style="font-size: 14px;">
           <p>Indikator:</p>
@@ -50,11 +51,17 @@
   <main id="main" class="main" style="margin-top: 24px;">
     <h4 class="mt-4">Currency</h4>
     <div class="row">
-      <div class="col-12 py-3 px-4 bg-white rounded">
-        <apx-chart [series]="chartSeries" [chart]="currencyChartDetails" [title]="currencyChartTitle"></apx-chart>
-      </div>
-    </div>
 
+      <div class="col-12 py-3 px-4 bg-white rounded">
+        <apx-chart [style.display]="isVisibleLine ? 'block' : 'none'" [series]="chartSeries" [chart]="currencyChartDetails" [title]="currencyChartTitle"></apx-chart>
+        <apx-chart [style.display]="isVisibleBar ? 'none' : 'block'" [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart>
+      </div>
+
+      <!-- <div [style.display]="isVisibleBar ? 'none' : 'block'" class="col-12 py-3 px-4 bg-white rounded">
+        <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart>
+      </div> -->
+
+    </div>
 
     <h4 class="mt-4">Commodity</h4>
     <div class="d-flex flex-row justify-content-between">

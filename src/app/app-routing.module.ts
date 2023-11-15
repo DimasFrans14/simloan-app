@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'forgotpassword', component: ForgotPasswordComponent },
 
   //Dashboard Path
-  { path: 'main', component: MainComponent,},
+  { path: 'main', component: MainComponent },
   { path: 'shloverview', component: ShlOverviewComponent },
   { path: 'market_overview', component: ParameterMarketOverviewComponent },
   { path: 'market_update', component: MarketUpdateComponent },
