@@ -13,6 +13,10 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { ShlOverviewComponent } from './dashboard/shl/shl-overview/shl-overview.component';
 import { MainComponent } from './dashboard/main/main.component';
+import { ParameterMarketOverviewComponent } from './dashboard/paramater_market/overview/overview.component';
+import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
+import { LiabilitiesComponent } from './dashboard/paramater_market/liabilities/liabilities.component';
+import { FinancingCostComponent } from './dashboard/paramater_market/financing-cost/financing-cost.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,11 @@ import { MainComponent } from './dashboard/main/main.component';
     PraloginComponent,
     ForgotPasswordComponent,
     ShlOverviewComponent,
-    MainComponent
+    MainComponent,
+    ParameterMarketOverviewComponent,
+    MarketUpdateComponent,
+    LiabilitiesComponent,
+    FinancingCostComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,9 @@ import { PraloginComponent } from './pralogin/pralogin.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ShlOverviewComponent } from './dashboard/shl/shl-overview/shl-overview.component';
 import { MainComponent } from './dashboard/main/main.component';
+import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
+import { FinancingCostComponent } from './dashboard/paramater_market/financing-cost/financing-cost.component';
+import { ParameterMarketOverviewComponent } from './dashboard/paramater_market/overview/overview.component';
 
 const routes: Routes = [
 
@@ -17,11 +20,15 @@ const routes: Routes = [
   { path: 'forgotpassword', component: ForgotPasswordComponent },
 
   //Dashboard Path
-  { path: 'main', component: MainComponent, },
-  {
-    path: 'shloverview',
-    loadChildren: () => import('./layout/sidebar/sidebar-routing.module').then(m => m.SidebarRoutingModule),
-  },
+  { path: 'main', component: MainComponent,},
+  { path: 'shloverview', component: ShlOverviewComponent },
+  { path: 'market_overview', component: ParameterMarketOverviewComponent },
+  { path: 'market_update', component: MarketUpdateComponent },
+  { path: 'financing_cost', component: FinancingCostComponent },
+  // {
+  //   path: 'shloverview',
+  //   loadChildren: () => import('./layout/sidebar/sidebar-routing.module').then(m => m.SidebarRoutingModule),
+  // },
 ];
 
 @NgModule({

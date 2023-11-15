@@ -1,1 +1,79 @@
-<p>overview works!</p>
+<div>
+  <app-header></app-header>
+  <app-sidebar></app-sidebar>
+  <div id="header" class="header">
+    <div class="col-12 bg-white sub-nav border-top" style="margin-top: 60px; padding-left: 282px; padding-bottom: 20px; padding-top: 15px;">
+      <div class="d-flex flex-col justify-content-between align-items-center">
+        <div>
+          <button class="btn btn-light bg-white" style="font-size: 14px;">Harian</button>
+          <button class="btn btn-primary ms-2" style="font-size: 14px;">Trending</button>
+          <button class="btn btn-light bg-white ms-2" style="font-size: 14px;"><i class="bi bi-calendar me-2"></i>Pilih Tanggal</button>
+          <button class="btn btn-light bg-white ms-2" (click)="changeChart()"><i class="bi bi-graph-up"></i></button>
+          <button class="btn btn-light bg-white ms-2"><i class="bi bi-bar-chart-line"></i></button>
+        </div>
+        <div style="font-size: 14px;">
+          <p>Indikator:</p>
+          <div class="d-flex align-items-center justify-content-center">
+            <div>
+              <span class="text-danger me-2 fw-semibold">RKAP</span>
+            </div>
+            <div>
+              <img src="../../../../assets/icon/bullet.svg" alt="" class="me-2">
+            </div>
+            <div>
+              <span class="text-primary me-2 fw-semibold">Realisasi</span>
+            </div>
+            <div>
+              <img src="../../../../assets/icon/bullet.svg" alt="" class="me-2">
+            </div>
+            <div>
+              <span class="text-secondary fw-semibold">Outlook</span>
+            </div>
+          </div>
+        </div>
+        <div style="font-size: 12px;">
+          <span><i class="bi bi-circle-fill text-success me-2"></i>On Track</span><br/>
+          <span><i class="bi bi-circle-fill text-warning me-2"></i>≤5% Underperformance</span><br/>
+          <span><i class="bi bi-circle-fill text-danger me-2"></i>>5% Underperformance</span>
+        </div>
+        <div>
+          <button class="bg-light rounded p-3" style="border: none;" type="button">
+            <i class="bi bi-download"></i>
+          </button>
+        </div>
+        <div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="main" class="main" style="margin-top: 24px;">
+    <h4 class="mt-4">Currency</h4>
+    <div class="row">
+      <div class="col-12 py-3 px-4 bg-white rounded">
+        <apx-chart [series]="chartSeries" [chart]="currencyChartDetails" [title]="currencyChartTitle"></apx-chart>
+      </div>
+    </div>
+
+
+    <h4 class="mt-4">Commodity</h4>
+    <div class="d-flex flex-row justify-content-between">
+      <div class="bg-white p-2 rounded">
+        <apx-chart [series]="chartSeries" [chart]="commodityChartDetails" [title]="commodityChartTitle"></apx-chart>
+      </div>
+      <div class="bg-white p-2 rounded">
+        <apx-chart [series]="chartSeries" [chart]="commodityChartDetails" [title]="commodityChartTitle"></apx-chart>
+      </div>
+      <div class="bg-white p-2 rounded">
+        <apx-chart [series]="chartSeries" [chart]="commodityChartDetails" [title]="commodityChartTitle"></apx-chart>
+      </div>
+    </div>
+
+    <h4 class="mt-4">Interest Rate</h4>
+    <div>
+      <div class="bg-white rounded p-2">
+        <apx-chart [series]="chartSeries" [chart]="currencyChartDetails"></apx-chart>
+      </div>
+    </div>
+  </main>
+</div>

@@ -27,7 +27,7 @@ export class ShlOverviewComponent implements OnInit {
   chartSeries: ApexAxisChartSeries = [
     {
       name: "Net Profit",
-      data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+      data: [111, 55, 57, 56, 61, 58, 63, 60, 66]
     },
     {
       name: "Revenue",
@@ -35,7 +35,7 @@ export class ShlOverviewComponent implements OnInit {
     },
     {
       name: "Free Cash Flow",
-      data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+      data: [35, 41, 36, 26, 45, 48, 52, 53, 134]
     }
   ];
 
@@ -45,6 +45,15 @@ export class ShlOverviewComponent implements OnInit {
     // width:,
     toolbar: {
       show: true,
+      tools: {
+        download: true,
+        selection: false,
+        zoom: false,
+        zoomin: false,
+        zoomout: false,
+        pan: false,
+        reset: false,
+      }
     }
   }
 
@@ -57,6 +66,8 @@ export class ShlOverviewComponent implements OnInit {
       color:  '#000000'
     },
   }
+
+  // chartToolbar:
 
   constructor(){
 
