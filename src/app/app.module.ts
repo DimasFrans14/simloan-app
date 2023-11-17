@@ -14,9 +14,13 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { ShlOverviewComponent } from './dashboard/shl/shl-overview/shl-overview.component';
 import { MainComponent } from './dashboard/main/main.component';
 import { ParameterMarketOverviewComponent } from './dashboard/paramater_market/overview/overview.component';
-import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
+import { OverviewHarian } from './dashboard/paramater_market/overview-harian/overview-harian.component';
 import { LiabilitiesComponent } from './dashboard/paramater_market/liabilities/liabilities.component';
 import { FinancingCostComponent } from './dashboard/paramater_market/financing-cost/financing-cost.component';
+import { DataService } from './data.service';
+import { HttpClientModule } from '@angular/common/http';
+import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
+// import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
 
 @NgModule({
   declarations: [
@@ -28,9 +32,11 @@ import { FinancingCostComponent } from './dashboard/paramater_market/financing-c
     ShlOverviewComponent,
     MainComponent,
     ParameterMarketOverviewComponent,
-    MarketUpdateComponent,
+    OverviewHarian,
     LiabilitiesComponent,
-    FinancingCostComponent
+    FinancingCostComponent,
+    MarketUpdateComponent,
+    // MarketUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -38,8 +44,9 @@ import { FinancingCostComponent } from './dashboard/paramater_market/financing-c
     HeaderComponent,
     SidebarComponent,
     NgApexchartsModule,
+    HttpClientModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [DataService],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

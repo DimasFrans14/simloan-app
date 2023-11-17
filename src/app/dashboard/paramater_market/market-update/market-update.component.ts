@@ -1,91 +1,46 @@
-import { Component, OnInit } from '@angular/core';
-import { ApexAxisChartSeries, ApexChart,  ApexTitleSubtitle } from 'ng-apexcharts';
-
+import { Component, AfterViewInit } from '@angular/core';
+import * as XLSX from 'xlsx';
+// import * as canvasDatagrid from "canvas-datagrid";
 
 @Component({
   selector: 'app-market-update',
   templateUrl: './market-update.component.html',
   styleUrls: ['./market-update.component.css']
 })
-export class MarketUpdateComponent implements OnInit{
+export class MarketUpdateComponent{
 
-  chartSeries: ApexAxisChartSeries = [
-    {
-      name: "Net Profit",
-      data: [111, 55, 57, 56, 61, 58, 63, 60, 66]
-    },
-    {
-      name: "Revenue",
-      data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-    },
-    {
-      name: "Free Cash Flow",
-      data: [35, 41, 36, 26, 45, 48, 52, 53, 134]
-    }
-  ];
+  excelData: any;
 
-  currencyChartDetails: ApexChart = {
-    type: 'line',
-    height: 400,
-    // width:,
-    toolbar: {
-      show: true,
-      tools: {
-        download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
-      }
+  readExcel(event: any){
+
+    let file = event.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.readAsBinaryString(file);
+
+    fileReader.onload = (e) => {
+      var workbook = XLSX.read(fileReader.result, {type:'binary'});
+      var sheetNames = workbook.SheetNames;
+      this.excelData =  XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[0]])
+      console.log(this.excelData);
     }
   }
 
-  commodityChartDetails: ApexChart = {
-    type: 'line',
-    height: 340,
-    // width:,
-    toolbar: {
-      show: true,
-      tools: {
-        download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
-      }
-    }
-  }
+  // grid:any;
 
-  currencyChartTitle: ApexTitleSubtitle =  {
-    text: "Kurs Rupiah",
-    style: {
-      fontSize:  '18px',
-      fontWeight:  500,
-      // fontFamily:  undefined,
-      color:  '#000000'
-    },
-  }
+  // ngAfterViewInit(): void {
+  //     const element = document.querySelector('#logContent');
+  //     const gridElement = document.createElement('div');
 
-  commodityChartTitle: ApexTitleSubtitle =  {
-    text: "WTI & Brent (USD/Ton)",
-    style: {
-      fontSize:  '18px',
-      fontWeight:  500,
-      // fontFamily:  undefined,
-      color:  '#000000'
-    },
-  }
+  //     const grid = new canvasDatagrid({
+  //       parentNode: gridElement,
+  //       data: [{ col1: 'foo', col2: 0, col3: 'a' },
+  //       { col1: 'bar', col2: 1, col3: 'b' },
+  //       { col1: 'baz', col2: 2, col3: 'c' }]
+  //     })
 
-  constructor(){
+  //     element?.append(gridElement);
 
-  }
-
-  ngOnInit(): void {
-
-  }
+  //     grid.data = this.excelData;
+  // }
 
 }

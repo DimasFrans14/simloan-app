@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,13 @@ export class LoginComponent implements OnInit{
     pass: '',
   }
 
-  constructor(private router: Router) {}
+  dataAccount: any;
+  userEmail: any;
+
+  constructor(
+    private router: Router,
+    private dataService : DataService
+    ) {}
 
   getValueEmail(val: string) {
     console.log(val);
@@ -38,18 +45,31 @@ export class LoginComponent implements OnInit{
   }
 
   checkData() {
-    console.log(this.data);
+    this.dataAccount.map((items: any) => {
+      console.log(items.email);
+    })
+  }
+
+  async getData(){
+    let data = await this.dataService.getData();
+    this.dataAccount = data;
+    console.log(this.dataAccount);
   }
 
   login() {
-    if (this.email === 'user@example.com' && this.pass === '123456') {
+    const foundUser = this.dataAccount.find((item: { email: string }) => item.email === this.email);
+    if (foundUser && this.pass === '123456') {
       this.router.navigate(['/main']);
     } else {
       alert('Email or Password is invalid!');
     }
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    setTimeout(() => {
+      this.checkData();
+    }, 1000);
+    this.getData();
 
   }
 }

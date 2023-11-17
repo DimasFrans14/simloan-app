@@ -1,11 +1,14 @@
 <div>
   <app-header></app-header>
   <app-sidebar></app-sidebar>
+
+  <!-- Sub Header -->
   <div id="header" class="header">
     <div class="col-12 bg-white sub-nav border-top" style="margin-top: 60px; padding-left: 282px; padding-bottom: 20px; padding-top: 15px;">
       <div class="d-flex flex-col justify-content-between align-items-center">
         <div>
-          <button class="btn btn-light bg-white" style="font-size: 14px; border: 1px solid #e4e4e4">Harian</button>
+          <!-- <button class="btn btn-light bg-white" style="font-size: 14px; border: 1px solid #e4e4e4">Harian</button> -->
+          <a routerLink="/overview_harian" class="btn btn-light bg-white ms-2 text-dark" style="font-size: 14px;" >Harian</a>
           <button class="btn btn-primary ms-2" style="font-size: 14px;">Trending</button>
           <!-- <button class="btn btn-light bg-white ms-2" style="font-size: 14px;"><i class="bi bi-calendar me-2"></i>Pilih Tanggal</button> -->
           <input type="date" name="date" id="input_date" class="bg-white rounded border-none ms-2" placeholder="Pilih Tanggal">
@@ -47,24 +50,66 @@
       </div>
     </div>
   </div>
+  <!-- End Sub Header -->
 
   <main id="main" class="main" style="margin-top: 24px;">
     <h4 class="mt-4">Currency</h4>
     <div class="row">
-
       <div class="col-12 py-3 px-4 bg-white rounded">
         <apx-chart [style.display]="isVisibleLine ? 'block' : 'none'" [series]="chartSeries" [chart]="currencyChartDetails" [title]="currencyChartTitle"></apx-chart>
         <apx-chart [style.display]="isVisibleBar ? 'none' : 'block'" [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart>
       </div>
+    </div>
 
-      <!-- <div [style.display]="isVisibleBar ? 'none' : 'block'" class="col-12 py-3 px-4 bg-white rounded">
-        <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart>
-      </div> -->
-
+    <div class="row">
+      <div class="col-12 py-3 px-4 bg-white rounded">
+        <div class="row">
+          <div class="col-7">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" style="font-size: 14px;">Kurs</th>
+                  <th scope="col" style="font-size: 14px;">Change RKAP</th>
+                  <th scope="col" style="font-size: 14px;">Change WoW</th>
+                  <th scope="col" style="font-size: 14px;">Change 1 Day</th>
+                  <th scope="col" style="font-size: 14px;">Change MoM</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" style="font-size: 14px; border-style: none;" class="border-start border-primary">USD</th>
+                  <td>2.53%</td>
+                  <td>2.53%</td>
+                  <td>2.53%</td>
+                  <td>2.53%</td>
+                </tr>
+                <tr>
+                  <th scope="row" style="font-size: 14px; border-style: none;" class="border-start border-success">EUR</th>
+                  <td>2.53%</td>
+                  <td>2.53%</td>
+                  <td>2.53%</td>
+                  <td>2.53%</td>
+                </tr>
+                <tr>
+                  <th scope="row" style="font-size: 14px; border-style: none;" class="border-start border-warning">JPY</th>
+                  <td>2.53%</td>
+                  <td>2.53%</td>
+                  <td>2.53%</td>
+                  <td>2.53%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-5 text-end">
+            <button class="btn btn-transparant btn-sm me-2">Bersihkan Semuanya</button>
+            <button class="btn btn-transparant btn-sm border border-1">Tambah Perbandingan</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <h4 class="mt-4">Commodity</h4>
-    <div class="d-flex flex-row justify-content-between">
+    <div class="d-flex flex-row flex-wrap justify-content-between">
       <div class="bg-white p-2 rounded">
         <apx-chart [series]="chartSeries" [chart]="commodityChartDetails" [title]="commodityChartTitle"></apx-chart>
       </div>

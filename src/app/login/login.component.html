@@ -18,12 +18,12 @@
                   <p class="fw-bold mb-2">Email</p>
                   <div class="input-group mb-3">
                       <span class="input-group-text" id="basic-addon1"><img src="../../assets/icon/mail-01.svg" alt=""></span>
-                      <input type="email" class="form-control" placeholder="nama@email.co.id" aria-label="" aria-describedby="basic-addon1" #pass (keyup)="getValueEmail(pass.value)">
+                      <input type="email" class="form-control" placeholder="nama@email.co.id" aria-label="" aria-describedby="basic-addon1" #email (change)="getValueEmail(email.value)">
                   </div>
                   <p class="fw-bold mb-2">Kata Sandi</p>
                   <div class="input-group mb-2">
                       <span class="input-group-text" id="basic-addon1"><img src="../../assets/icon/lock.svg" alt=""></span>
-                      <input type="password" class="form-control" placeholder="Masukan kata sandi anda" aria-label="" aria-describedby="basic-addon1" #box (keyup)="getValuePass(box.value)">
+                      <input type="password" class="form-control" placeholder="Masukan kata sandi anda" aria-label="" aria-describedby="basic-addon1" #pass (change)="getValuePass(pass.value)">
                   </div>
                   <div class="d-flex justify-content-end">
                       <p class=""><a class="text-black-50 link" routerLink="/forgotpassword" routerLinkActive="active">Lupa Kata Sandi?</a></p>

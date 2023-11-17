@@ -1,6 +1,7 @@
-.sub-nav{
-  margin: 0;
-  padding: 0;
-  /* position: fixed;
-  left:200; */
+.submenu-market:hover{
+  border-bottom: 2px solid blue;
+}
+
+.submenu-market:not(:hover) {
+  border-bottom: 2px solid white;
 }

@@ -7,9 +7,10 @@ import { PraloginComponent } from './pralogin/pralogin.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ShlOverviewComponent } from './dashboard/shl/shl-overview/shl-overview.component';
 import { MainComponent } from './dashboard/main/main.component';
-import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
+import { OverviewHarian } from './dashboard/paramater_market/overview-harian/overview-harian.component';
 import { FinancingCostComponent } from './dashboard/paramater_market/financing-cost/financing-cost.component';
 import { ParameterMarketOverviewComponent } from './dashboard/paramater_market/overview/overview.component';
+import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
 
 const routes: Routes = [
 
@@ -22,9 +23,11 @@ const routes: Routes = [
   //Dashboard Path
   { path: 'main', component: MainComponent },
   { path: 'shloverview', component: ShlOverviewComponent },
-  { path: 'market_overview', component: ParameterMarketOverviewComponent },
-  { path: 'market_update', component: MarketUpdateComponent },
+  { path: 'overview_trending', component: ParameterMarketOverviewComponent },
+  { path: 'overview_harian', component: OverviewHarian },
   { path: 'financing_cost', component: FinancingCostComponent },
+
+  { path: 'market_update', component: MarketUpdateComponent },
   // {
   //   path: 'shloverview',
   //   loadChildren: () => import('./layout/sidebar/sidebar-routing.module').then(m => m.SidebarRoutingModule),

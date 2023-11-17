@@ -461,7 +461,7 @@ h6 {
   border: 1px solid rgba(1, 41, 112, 0.2);
   padding: 7px 38px 7px 8px;
   border-radius: 10px;
-  margin-bottom: 28px;
+  /* margin-bottom: 28px; */
   transition: 0.3s;
   width: 100%;
 }
