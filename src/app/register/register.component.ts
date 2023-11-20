@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class RegisterComponent {
 
+  inputValue:any;
+
+  getValueSelect(val: string) {
+    this.inputValue = val;
+    console.log(val);
+  }
+
+
+
 }
