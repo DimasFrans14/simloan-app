@@ -26,13 +26,13 @@
 
       <!-- Sub Menu -->
       <div class="d-flex justify-content-start align-items-center text-dark mt-3">
-        <a routerLink="/market_update" class="text-dark submenu-market" style="margin-right: 24px; font-size: 14px;">Currency Rate</a>
-        <a routerLink="/market_update" class="text-dark submenu-market" style="margin-right: 24px; font-size: 14px;">Interest Rate</a>
-        <a routerLink="/market_update" class="text-dark submenu-market" style="margin-right: 24px; font-size: 14px;">Bond Yield</a>
-        <a routerLink="/market_update" class="text-dark submenu-market" style="margin-right: 24px; font-size: 14px;">Commodities</a>
-        <a routerLink="/market_update" class="text-dark submenu-market" style="margin-right: 24px; font-size: 14px;">Macro Indicator</a>
-        <a routerLink="/market_update" class="text-dark submenu-market" style="margin-right: 24px; font-size: 14px;">Key Takeways</a>
-        <a routerLink="/market_update" class="text-dark submenu-market" style="margin-right: 24px; font-size: 14px;">Debt Services</a>
+        <a routerLink="/market_update" class="submenu-market" style="margin-right: 24px; font-size: 14px;">Currency Rate</a>
+        <a routerLink="/market_update" class="submenu-market" style="margin-right: 24px; font-size: 14px;">Interest Rate</a>
+        <a routerLink="/market_update" class="submenu-market" style="margin-right: 24px; font-size: 14px;">Bond Yield</a>
+        <a routerLink="/market_update" class="submenu-market" style="margin-right: 24px; font-size: 14px;">Commodities</a>
+        <a routerLink="/market_update" class="submenu-market" style="margin-right: 24px; font-size: 14px;">Macro Indicator</a>
+        <a routerLink="/market_update" class="submenu-market" style="margin-right: 24px; font-size: 14px;">Key Takeways</a>
+        <a routerLink="/market_update" class="submenu-market" style="margin-right: 24px; font-size: 14px;">Debt Services</a>
       </div>
       <!--End Sub Mmenu -->
     </div>
@@ -64,15 +64,84 @@
     <div>
       <input type="file" name="file" id="" (change)="readExcel($event)">
     </div>
-    <div *ngIf="excelData">
-      <!-- <canvas-datagrid class="myGridStyle" data="">
-        {{ item.Name }}
-      </canvas-datagrid> -->
-      <!-- <div id="logContent">
-      </div> -->
-      <ul>
-        <li *ngFor="let item of excelData">{{ item.Name }}</li>
-      </ul>
-    </div>
+    <!-- <div *ngIf="excelDataJSON">
+      <table class="table table-striped">
+        <thead><th>Name</th><th>Birthday</th></thead>
+        <tbody>
+          <tr *ngFor="let item of excelDataJSON">
+            <td>{{item.Name}}</td>
+            <td>{{item.Birthday}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div> -->
+
+    <div class="content" role="main" [innerHTML]="html" #tableau></div>
+    <div class="example-table mt-5"></div>
+
+    <!-- <div>
+      <table class="table mt-5 text-center">
+        <thead>
+          <tr>
+            <th>IDR</th>
+            <th>
+              Exchange Rate
+              <tr>
+                <th>RKAP 23</th>
+                <th>24/02/23</th>
+                <th>20/03/23</th>
+                <th>24/03/23</th>
+                <th>27/03/23</th>
+              </tr>
+            </th>
+            <th>Change RKAP</th>
+            <th>Change MoM</th>
+            <th>Change Wow</th>
+            <th>Change 1 Day</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>USD</td>
+            <td>15000</td>
+            <td>15000</td>
+            <td>15000</td>
+            <td>15000</td>
+            <td>15000</td>
+          </tr>
+          <tr>
+            <td>EUR</td>
+            <td>15000</td>
+            <td>15000</td>
+            <td>15000</td>
+            <td>15000</td>
+            <td>15000</td>
+          </tr>
+          <tr>
+            <td>JPY</td>
+            <td>15000</td>
+            <td>15000</td>
+            <td>15000</td>
+            <td>15000</td>
+            <td>15000</td>
+          </tr>
+          <tr>
+            <td>GBP</td>
+            <td>15000</td>
+            <td>15000</td>
+            <td>15000</td>
+            <td>15000</td>
+            <td>15000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div> -->
+
+    <!-- <div id="gridctr"></div> -->
+
+    <!-- <div *ngIf="excelDataTable">
+      {{excelDataTable}}
+    </div> -->
+
   </main>
 </div>
