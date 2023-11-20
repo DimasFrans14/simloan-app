@@ -1,0 +1,75 @@
+.title{
+    color: var(--color-silver-950, #0C0C0F);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+}
+.title-card1 {
+    font-size: 30px;
+    font-family: satosho,sans-serif;
+    margin: 25px 25px;
+}
+.title-card{
+    color: var(--color-silver-950, #0C0C0F);
+    font-family: Satoshi;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; 
+}
+.angka-card{
+    color: var(--color-silver-950, #0C0C0F);
+    font-family: Satoshi;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.07px;
+}
+.text-card{
+    color: var(--color-silver-500, #9A9A9A);
+    font-family: Satoshi;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+}
+.article-card1{
+    font-size: 14px;
+    margin-left: 30px;
+    margin-right: 370px;
+    margin-bottom: 30px;
+}
+.article-card{
+    margin: 15px 15px;
+}
+.rkap{
+    color: red;
+}
+.realisasi{
+    color: #2EB0C2;
+}
+.outlook{
+    color: #9A9A9A;
+}
+.item-flex{
+    margin-right: 10px;
+}
+.btn-margin{
+    margin: 25px 25px;
+}
+.edit-btn{
+    display: inline-flex;
+    padding: var(--padding-padding-small, 4px) var(--padding-padding-medium, 8px);
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 6px;
+    border: 1px solid var(--color-silver-200, #E4E4E4);
+    background: var(--color-silver-0, #FFF);
+}
+.text-card3{
+    font-size: 14px;
+}
+.item {
+    padding-right: 30px;
+  }

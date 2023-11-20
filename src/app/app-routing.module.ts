@@ -11,6 +11,7 @@ import { OverviewHarian } from './dashboard/paramater_market/overview-harian/ove
 import { FinancingCostComponent } from './dashboard/paramater_market/financing-cost/financing-cost.component';
 import { ParameterMarketOverviewComponent } from './dashboard/paramater_market/overview/overview.component';
 import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
+import { LiabilitiesComponent } from './dashboard/paramater_market/liabilities/liabilities.component';
 
 const routes: Routes = [
 
@@ -26,7 +27,7 @@ const routes: Routes = [
   { path: 'overview_trending', component: ParameterMarketOverviewComponent },
   { path: 'overview_harian', component: OverviewHarian },
   { path: 'financing_cost', component: FinancingCostComponent },
-
+  { path: 'liabilities', component: LiabilitiesComponent},
   { path: 'market_update', component: MarketUpdateComponent },
   // {
   //   path: 'shloverview',

@@ -1,1 +1,176 @@
-<p>financing-cost works!</p>
+<div>
+    <app-header></app-header>
+    <app-sidebar></app-sidebar>
+    <div id="header" class="header">
+        <div class="col-12 bg-white sub-nav border-top"
+            style="margin-top: 60px; padding-left: 282px; padding-bottom: 20px; padding-top: 15px;">
+            <div class="d-flex justify-content-between">
+                <div class="simulasi">Simulasi FINANCIAL COST (BONDS) 30yr</div>
+                <div  class="d-flex justify-content-evenly">
+                    <div class="p-2 btn btn-primary btn-sm gap">Hitung Fincost</div>
+                    <div class="p-2 btn btn-light btn-sm gap"><img src="./assets/icon/download-02.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="main" id="main">
+        <div class="card">
+            <img src="./assets/image/Fincost_Background.svg" class="card-img" alt="...">
+            <div class="card-img-overlay">
+                <div class="d-flex justify-content-between">
+                    <div class="title-card1">Liabilities</div>
+                    <div class="">
+                        <div class="btn edit-btn btn-sm">Edit</div>
+                    </div>
+                </div>
+                <div class="article-card1">
+                    Tahun 2023 merupakan periode yang masih cukup berat untuk mendapatkan pinjaman dengan pricing
+                    rendah. Sebagai gambaran, yield obligasi saat ini mencapai 1.7 kali lipat dibandingkan tahun 2020
+                    dari semula di kisaran 4.00% menjadi 6.75%. Kondisi ini menyebabkan PLN akan menanggung tambahan
+                    Financing Cost sebesar Rp457 miliar per tahun atas jumlah pinjaman yang sama akibat kenaikan kurs
+                    USD dan tingkat bunga. Oleh karena itu, PLN perlu melakukan prioritasasi investasi dan proactive
+                    debt management.
+                </div>
+            </div>
+        </div>
+        <div class="d-flex mt-5">
+            <div class="p-2">
+                <div class="card card2 d-flex justify-content-start" style="width: 18rem;">
+                    <div class="card-header text-center">
+                        Penambahan Utang
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><img src="./assets/icon/debt.svg" alt="">
+                            <p>
+                                Ilustrasi apabila PLN menambah utang sebesar USD 1 miliar pada tahun 2023 denganskema
+                                GMNT
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center  bg-light">GMNT 2020</h5>
+                                    <div class="d-flex flex-column  card-text">
+                                        <div class="d-flex justify-content-between">
+                                            <div>Coupon</div>
+                                            <div>4%</div>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <div>Kurs USD</div>
+                                            <div>Rp.14.302/USD</div>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <div>Tenor</div>
+                                            <div>30 Tahun</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">Estimasi GMNT 2023</h5>
+                                    <div class="d-flex flex-column card-text">
+                                        <div class="d-flex justify-content-between">
+                                            <div>Indicative Rate</div>
+                                            <div>6.75%</div>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <div>Kurs USD</div>
+                                            <div>Rp.15.240/USD</div>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <div>Tenor</div>
+                                            <div>30 Tahun</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-3">Hasil</p>
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">interest Pain(%) 2020</h5>
+                                    <div class="d-flex flex-column card-text">
+                                        <div class="d-flex justify-content-between">
+                                            <div>Triliun</div>
+                                            <div>Rp</div>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <div>Annual</div>
+                                            <div>0.57</div>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <div>Total</div>
+                                            <div>17.16</div>
+                                        </div>
+                                        <div>Bunga yang akan dibayarkan sebesar Rp0.57 T/tahun atau setara dengan
+                                            Rp17.16 T selama 30 tahun</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="bg-secondary-subtle card-title text-center">interest Pain(%) 2023</h5>
+                                    <div class="d-flex flex-column card-text">
+                                        <div class="d-flex justify-content-between">
+                                            <div>Triliun</div>
+                                            <div>Rp</div>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <div>Annual</div>
+                                            <div>30.86</div>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <div>Total</div>
+                                            <div>17.16</div>
+                                        </div>
+                                        <div>Bunga yang akan dibayarkan sebesar Rp1.03 T/tahun atau setara dengan
+                                            Rp30.86 T selama 30 tahun</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <p>Kesimpulan</p>
+                    <div class="card text-center ">
+                        <div class="p-3 bg-secondary-subtle rounded-3 card-header card-text">
+                            PLN akan menanggung tambahan bunga Rp457 miliar/tahuun atau setara dengan Rp 13.70
+                            triliun selama 30 tahun
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between mt-3">
+            <div>Footnote</div>
+            <div class="btn edit-btn btn-sm">Edit</div>
+        </div>
+        <div class="card mt-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        Realisasi penerbitan GMTN PLN tanggal 30 Juni 2020 tenor 30 tahun dan kurs per 30 Juni 2020
+                    </div>
+                    <div class="col">
+                        Indicative rate dari Standard Chartered per 28 Februari 2023 untuk tenor 30 tahun dan kurs acuan
+                        per 28 Februari 2023 Rp15.240
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

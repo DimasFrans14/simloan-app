@@ -1,0 +1,41 @@
+.edit-btn{
+    display: inline-flex;
+    padding: var(--padding-padding-small, 4px) var(--padding-padding-medium, 8px);
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 6px;
+    border: 1px solid var(--color-silver-200, #E4E4E4);
+    background: var(--color-silver-0, #FFF);
+}
+.title-card1 {
+    font-size: 30px;
+    font-family: satosho,sans-serif;
+    margin: 25px 25px;
+}
+.article-card1{
+    font-size: 14px;
+    margin-left: 30px;
+    margin-right: 370px;
+    margin-bottom: 30px;
+}
+.card-title{
+    color: #000;
+    font-family: Satoshi;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+}
+.card-text  {
+    color: var(--color-silver-950, #0C0C0F);
+    font-family: Satoshi;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px; 
+    letter-spacing: 0.07px;
+}
+.gap{
+    margin-right: 15px;
+}
