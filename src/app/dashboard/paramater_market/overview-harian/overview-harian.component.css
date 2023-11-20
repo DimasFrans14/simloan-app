@@ -4,3 +4,8 @@
   /* position: fixed;
   left:200; */
 }
+
+#input_date{
+  border: 1px solid #e4e4e4;
+  padding: 5.5px;
+}

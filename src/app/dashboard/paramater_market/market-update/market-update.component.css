@@ -1,7 +1,11 @@
-.submenu-market:hover{
-  border-bottom: 2px solid blue;
+.submenu-market {
+  color: #000000;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s, color 0.3s;
 }
 
-.submenu-market:not(:hover) {
-  border-bottom: 2px solid white;
+.submenu-market:hover,
+.submenu-market:focus {
+  border-bottom: 2px solid #2E75F0;
+  color: #2E75F0;
 }
