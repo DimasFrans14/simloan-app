@@ -13,17 +13,19 @@ export class MarketUpdateComponent implements OnInit{
 
   constructor(private sanitizer: DomSanitizer){}
 
-  html: SafeHtml = "";
-  @ViewChild('tableau') tableau!: ElementRef<HTMLDivElement>;
+  // html: SafeHtml = "";
+  // @ViewChild('tableau') tableau!: ElementRef<HTMLDivElement>;
 
   excelDataJSON: any;
   excelDataTable: any;
 
-  grid:any;
+  tableDataCurrency: any;
+  tableCurrency:any;
 
-  tabledata: any;
-  table:any;
-  //define some sample data
+  tableDataInterest: any;
+  tableInterest:any;
+
+  tableUpdate:any;
 
   readExcel(event: any){
     let file = event.target.files[0];
@@ -41,37 +43,77 @@ export class MarketUpdateComponent implements OnInit{
 
       console.log(this.excelDataJSON);
 
-      this.table = new Tabulator(".example-table", {
-        height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
-        data:this.excelDataJSON, //assign data to table
-        layout:"fitColumns", //fit columns to width of table (optional)
-        columns:[ //Define Table Columns
-          {title:"Name", field:"Name", width:150, sorter:"string", editor:"input"},
+      this.tableUpdate = new Tabulator(".example-table-2", {
+        height:205,
+        data:this.excelDataJSON,
+        layout:"fitColumns",
+        columns:[
+          {title:"Name", field:"Name", width:150, editor:"input"},
           {title:"Birthday", field:"Birthday", hozAlign:"left"},
-          // {title:"Favourite Color", field:"col"},
-          // {title:"Date Of Birth", field:"dob", sorter:"date", hozAlign:"center"},
         ],
      });
-
-      // if (!this.grid) {
-      //   this.grid = new canvasDatagrid({ parentNode: this.tableau.nativeElement, data: this.excelDataJSON });
-      // } else {
-      //   this.grid.data = this.excelDataJSON;
-      // }
     }
   }
 
-
-
   ngOnInit(): void {
-    // this.tabledata = [
-    //   {id:1, name:"Oli Bob", age:"12", col:"red", dob:""},
-    //   {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
-    //   {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
-    //   {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
-    //   {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-    // ];
+    this.tableDataCurrency = [
+      {id:1, name:"USD", age:"15000", rate:"2,53%", col:"red", dob:"14/05/1982"},
+      {id:2, name:"EUR", age:"15000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
+      {id:3, name:"JPY", age:"15000", rate:"2,53%", col:"green", dob:"22/05/1982"},
+      {id:4, name:"GBP", age:"15000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
+    ];
 
+    this.tableCurrency = new Tabulator(".table-currency", {
+      // height:205,
+      data:this.tableDataCurrency,
+      layout:"fitColumns",
+      columns:[
+        {title:"IDR", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+    {//create column group
+        title:"Exchange Rate",
+        columns:[
+        {title:"RKAP 23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        ],
+        headerHozAlign:"center"
+    },
+    {title:"Change <br/>RKAP", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Change MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Change <br/>WoW", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Change 1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+   });
 
+    this.tableDataInterest = [
+      {id:1, name:"BI7DRR", age:"15000", rate:"2,53%", col:"red", dob:"14/05/1982"},
+      {id:2, name:"FED RATE", age:"15000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
+      {id:3, name:"AVG SOFR", age:"15000", rate:"2,53%", col:"green", dob:"22/05/1982"},
+      {id:4, name:"JIBOR", age:"15000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
+      {id:5, name:"EURIBOR", age:"15000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
+      {id:6, name:"AVERAGE TIME DOPOSITE (3 Mo)", age:"15000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
+    ];
+
+    this.tableInterest = new Tabulator(".table-interest", {
+      // height:205,
+      data:this.tableDataInterest,
+      layout:"fitColumns",
+      columns:[
+        {title:"Rates", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+
+        {title:"RKAP 23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+
+        {title:"Change <br/>RKAP", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Change MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Change <br/>WoW", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Change 1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+   });
   }
 }
