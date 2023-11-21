@@ -1,11 +1,33 @@
 .sub-nav{
-  margin: 0;
-  padding: 0;
-  /* position: fixed;
-  left:200; */
+  margin-top: 60px;
+  padding-left: 282px;
+  padding-bottom: 20px;
+  padding-top: 15px;
 }
 
 #input_date{
   border: 1px solid #e4e4e4;
   padding: 5.5px;
 }
+
+#main {
+  margin-top: 28px;
+}
+
+
+@media (max-width: 1199px) {
+  .sub-nav {
+    /* padding-left: 20px; */
+    padding: 15px;
+    margin: 0px;
+    position: fixed;
+    top: 60px;
+    right: 0px;
+    left: 0px;
+  }
+
+  #main{
+    margin-top: 63px;
+  }
+}
+
