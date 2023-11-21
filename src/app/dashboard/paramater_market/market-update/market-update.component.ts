@@ -85,6 +85,7 @@ export class MarketUpdateComponent implements OnInit{
     {title:"Change <br/>WoW", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     {title:"Change 1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       ],
+
    });
 
     this.tableDataInterest = [

@@ -20,6 +20,7 @@ import { FinancingCostComponent } from './dashboard/paramater_market/financing-c
 import { DataService } from './data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
+import { QuillModule } from 'ngx-quill';
 // import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
 
 @NgModule({
@@ -45,6 +46,34 @@ import { MarketUpdateComponent } from './dashboard/paramater_market/market-updat
     SidebarComponent,
     NgApexchartsModule,
     HttpClientModule,
+    QuillModule.forRoot({
+      bounds:"#quill-container",
+      modules: {
+        syntax: true,
+        toolbar:[
+          ['bold', 'italic', 'underline', 'strike'],
+          ['blockquote', 'code-block'],
+
+          // [{ 'header': 1 }, { 'header': 2 }],
+          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+          // [{ 'script': 'sub'}, { 'script': 'super' }],
+          [{ 'indent': '-1'}, { 'indent': '+1' }],
+          [{ 'direction': 'rtl' }],
+
+          [{ 'size': ['small', false, 'large', 'huge'] }],
+          // [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+          [{ 'color': [] }, { 'background': [] }],
+          // [{ 'font': [] }],
+          [{ 'align': [] }],
+
+          ['link', 'image', 'video'],
+
+          // ['clean'],
+        ]
+      },
+      scrollingContainer: "#quill-container"
+    })
   ],
   providers: [DataService],
   bootstrap: [AppComponent],

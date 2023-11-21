@@ -80,6 +80,12 @@ export class OverviewHarian implements OnInit{
     },
   }
 
+  openModal: boolean = false;
+
+  openModalTakeways(){
+    this.openModal = !this.openModal;
+  }
+
   constructor(){
 
   }
