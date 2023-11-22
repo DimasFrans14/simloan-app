@@ -20,7 +20,11 @@ import { FinancingCostComponent } from './dashboard/paramater_market/financing-c
 import { DataService } from './data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
+<<<<<<< HEAD
 import { NgxDropzoneModule } from 'ngx-dropzone';
+=======
+import { QuillModule } from 'ngx-quill';
+>>>>>>> 85eb07794155efeab7519739b5233df799326dfe
 // import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
 
 @NgModule({
@@ -45,7 +49,38 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     SidebarComponent,
     NgApexchartsModule,
     HttpClientModule,
+<<<<<<< HEAD
     NgxDropzoneModule,
+=======
+    QuillModule.forRoot({
+      bounds:"#quill-container",
+      modules: {
+        syntax: true,
+        toolbar:[
+          ['bold', 'italic', 'underline', 'strike'],
+          ['blockquote', 'code-block'],
+
+          // [{ 'header': 1 }, { 'header': 2 }],
+          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+          // [{ 'script': 'sub'}, { 'script': 'super' }],
+          [{ 'indent': '-1'}, { 'indent': '+1' }],
+          [{ 'direction': 'rtl' }],
+
+          [{ 'size': ['small', false, 'large', 'huge'] }],
+          // [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+          [{ 'color': [] }, { 'background': [] }],
+          // [{ 'font': [] }],
+          [{ 'align': [] }],
+
+          ['link', 'image', 'video'],
+
+          // ['clean'],
+        ]
+      },
+      scrollingContainer: "#quill-container"
+    })
+>>>>>>> 85eb07794155efeab7519739b5233df799326dfe
   ],
   providers: [DataService],
   bootstrap: [AppComponent],

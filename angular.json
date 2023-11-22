@@ -29,12 +29,15 @@
               "src/styles.css",
               "src/assets/css/style.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-              "node_modules/tabulator-tables/dist/css/tabulator.min.css"
+              "node_modules/tabulator-tables/dist/css/tabulator_bootstrap5.min.css",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.snow.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/apexcharts/dist/apexcharts.min.js",
-              "node_modules/tabulator-tables/dist/js/tabulator.min.js"
+              "node_modules/tabulator-tables/dist/js/tabulator.min.js",
+              "node_modules/quill/dist/quill.min.js"
             ]
           },
           "configurations": {
