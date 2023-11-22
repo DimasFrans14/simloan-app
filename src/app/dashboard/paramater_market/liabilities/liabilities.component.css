@@ -33,12 +33,7 @@
     font-style: normal;
     font-weight: 500;
 }
-.article-card1{
-    font-size: 14px;
-    margin-left: 30px;
-    margin-right: 370px;
-    margin-bottom: 30px;
-}
+
 .article-card{
     margin: 15px 15px;
 }
@@ -73,3 +68,6 @@
 .item {
     padding-right: 30px;
   }
+a{
+    font-size: 11px;
+}

@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 export class LiabilitiesComponent {
 
+  files: File[] = [];
+
+  onSelect(event: { addedFiles: any; }) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+  }
+
+  onRemove(event: File) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+
 }

@@ -20,6 +20,7 @@ import { FinancingCostComponent } from './dashboard/paramater_market/financing-c
 import { DataService } from './data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 // import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
 
 @NgModule({
@@ -36,7 +37,6 @@ import { MarketUpdateComponent } from './dashboard/paramater_market/market-updat
     LiabilitiesComponent,
     FinancingCostComponent,
     MarketUpdateComponent,
-    // MarketUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +45,7 @@ import { MarketUpdateComponent } from './dashboard/paramater_market/market-updat
     SidebarComponent,
     NgApexchartsModule,
     HttpClientModule,
+    NgxDropzoneModule,
   ],
   providers: [DataService],
   bootstrap: [AppComponent],

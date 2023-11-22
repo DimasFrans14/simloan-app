@@ -3,12 +3,12 @@
     <app-header></app-header>
     <div id="header" class="header">
         <div class="col-12 bg-white sub-nav border-top"
-            style="margin-top: 60px; padding-left: 282px; padding-bottom: 20px; padding-top: 15px;">
+            style="margin-top: 60px; padding-left: 282px; padding-bottom: 10px; padding-top: 10px;">
             <div class="d-flex justify-content-center">
                 <div class="p-2 flex-fill align-self-center">
                     <h4>Liabilities</h4>
                 </div>
-                <div class="p-2 flex-fill">
+                <div class="p-2 flex-fill" style="font-size: 14px;">
                     <div class="d-flex flex-column align-self-center">
                         <div>Indikator:</div>
                         <div class="d-flex justify-content-start mt-3">
@@ -19,16 +19,49 @@
                     </div>
                 </div>
                 <div class="p-2 flex-fill">
-                    <div class="d-flex flex-column align-self-center">
+                    <div class="d-flex flex-column align-self-center" style="font-size: 12px;">
                         <div> <img src="./assets/icon/Base-green.svg" alt=""> On track</div>
                         <div> <img src="./assets/icon/Base-yellow.svg" alt=""> ≤5% Underperformance</div>
                         <div> <img src="./assets/icon/Base-red.svg" alt=""> >5% Underperformance</div>
                     </div>
                 </div>
-                <div class="p-2 flex-fill align-self-center">
-                    <div class="btn btn-primary btn-sm"><img src="./assets/icon/file-download-03.svg" alt="">Import
-                        Laporan</div>
-                    <div class="btn  btn-light btn-sm"><img src="./assets/icon/download-02.svg" alt=""></div>
+                <div class="p-2 flex-fill">
+                    <div class="d-flex justify-content-start">
+                        <button style="font-size: 12px;" type="button" class="btn btn-primary btn-sm"
+                            data-bs-toggle="modal" data-bs-target="#verticalycentered">
+                            Import Laporan
+                        </button>
+                        <!-- modal input file (import laporan) -->
+                        <div class="modal fade" id="verticalycentered" tabindex="-1" style="display: none;"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-body text-center">
+                                        <div class="card">
+                                            <ngx-dropzone (change)="onSelect($event)">
+                                                <ngx-dropzone-label>
+                                                    <img src="./assets/icon/upload-cloud-02.svg" alt="">
+                                                    <div class="text-center"><a>Click to Upload or drag and drop</a><br>
+                                                        SVG, PNG, JPG or GIF ( max.800x400px)
+                                                    </div>
+                                                </ngx-dropzone-label>
+                                            </ngx-dropzone>
+                                        </div>
+                                        <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                        </ngx-dropzone-preview>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end modal  input file (import laporan) -->
+                        <div class="btn btn-light btn-sm"><img src="./assets/icon/download-02.svg" alt=""></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,9 +78,16 @@
                                         <div class="btn edit-btn btn-sm">Edit</div>
                                     </div>
                                 </div>
-                                <div class="article-card1">
-                                    Prognosa pembayaran debt service tahun 2023 adalah sebesar Rp62.49 triliun, lebih
-                                    rendah Rp3.86 triliun2) dari RKAP 2023
+                                <div class="container">
+                                    <div class="row">
+                                            <div class="d-flex">
+                                            <div class="article-card1">
+                                                Prognosa pembayaran debt service tahun 2023 adalah sebesar Rp62.49
+                                                triliun, lebih
+                                                rendah Rp3.86 triliun2 dari RKAP 2023
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +118,8 @@
                                         <div class="card mt-3">
                                             <div class="article-card text-card3">Saldo utang RKAP1) 2023 adalah sebesar
                                                 Rp424.52T, posisi saldo utang per 31 Juli 2023 Rp374.03T. Sedangkan
-                                                proyeksi per 31 Desember 2023 adalah sebesar Rp375.25T2).</div>
+                                                proyeksi per 31 Desember 2023 adalah sebesar Rp375.25T2).
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -90,61 +131,73 @@
                                             <div class="btn edit-btn btn-sm">Edit</div>
                                         </div>
                                     </div>
-                                    <div class="d-flex justify-content-between mt-2">
-                                        <div class="card">
-                                            <div class="d-flex flex-column article-card item">
-                                                <div class="title-card">SOFR</div>
-                                                <div class="angka-card">6.03</div>
-                                                <div class="text-card">Reference rate (%)</div>
-                                                <div class="angka-card">0.34-2.35</div>
-                                                <div class="text-card">margin (%)</div>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="d-flex flex-column article-card item">
-                                                <div class="title-card">JIBOR 3-Mo</div>
-                                                <div class="angka-card">7.45</div>
-                                                <div class="text-card">Reference rate (%)</div>
-                                                <div class="angka-card">1.20-1.92</div>
-                                                <div class="text-card">margin (%)</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-between mt-2">
-                                        <div class="card">
-                                            <div class="d-flex flex-column article-card item">
-                                                <div class="title-card">JIBOR 6-Mo</div>
-                                                <div class="angka-card">7.77</div>
-                                                <div class="text-card">Reference rate (%)</div>
-                                                <div class="angka-card">1.25-1.75</div>
-                                                <div class="text-card">margin (%)</div>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="d-flex flex-column article-card item">
-                                                <div class="title-card">ATD 3-Mo</div>
-                                                <div class="angka-card">4.82</div>
-                                                <div class="text-card">Reference rate (%)</div>
-                                                <div class="angka-card">2.61-3.23</div>
-                                                <div class="text-card">margin (%)</div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between mt-2">
+                                                <div class="card">
+                                                    <div class="d-flex flex-column article-card item">
+                                                        <div class="title-card">SOFR</div>
+                                                        <div class="angka-card">6.03</div>
+                                                        <div class="text-card">Reference rate (%)</div>
+                                                        <div class="angka-card">0.34-2.35</div>
+                                                        <div class="text-card">margin (%)</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="d-flex flex-column article-card item">
+                                                        <div class="title-card">JIBOR 3-Mo</div>
+                                                        <div class="angka-card">7.45</div>
+                                                        <div class="text-card">Reference rate (%)</div>
+                                                        <div class="angka-card">1.20-1.92</div>
+                                                        <div class="text-card">margin (%)</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="d-flex justify-content-between mt-2">
-                                        <div class="card">
-                                            <div class="d-flex flex-column article-card item">
-                                                <div class="title-card">USD/IDR</div>
-                                                <div class="angka-card">15.000</div>
-                                                <div class="text-card">Kurs (Rp/USD)</div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between mt-2">
+                                                <div class="card">
+                                                    <div class="d-flex flex-column article-card item">
+                                                        <div class="title-card">JIBOR 6-Mo</div>
+                                                        <div class="angka-card">7.77</div>
+                                                        <div class="text-card">Reference rate (%)</div>
+                                                        <div class="angka-card">1.25-1.75</div>
+                                                        <div class="text-card">margin (%)</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="d-flex flex-column article-card item">
+                                                        <div class="title-card">ATD 3-Mo</div>
+                                                        <div class="angka-card">4.82</div>
+                                                        <div class="text-card">Reference rate (%)</div>
+                                                        <div class="angka-card">2.61-3.23</div>
+                                                        <div class="text-card">margin (%)</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="card">
-                                            <div class="d-flex flex-column article-card">
-                                                <div class="title-card">Additional Proceed</div>
-                                                <div class="angka-card">Rp 11.29T</div>
-                                                <div class="text-card">Reference rate (%)</div>
-                                                <div class="angka-card">7.28-9.44</div>
-                                                <div class="text-card">margin (%)</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between mt-2">
+                                                <div class="card">
+                                                    <div class="d-flex flex-column article-card item">
+                                                        <div class="title-card">USD/IDR</div>
+                                                        <div class="angka-card">15.000</div>
+                                                        <div class="text-card">Kurs (Rp/USD)</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="d-flex flex-column article-card">
+                                                        <div class="title-card">Additional Proceed</div>
+                                                        <div class="angka-card">Rp 11.29T</div>
+                                                        <div class="text-card">Reference rate (%)</div>
+                                                        <div class="angka-card">7.28-9.44</div>
+                                                        <div class="text-card">margin (%)</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -165,7 +218,29 @@
                             <div class="title">Footnote</div>
                             <div class="btn edit-btn btn-sm">Edit</div>
                         </div>
-                        <div class="card mt-3 article-card">
+                        <div class="card mt-3 ">
+                            <div class="d-flex">
+                                <div class="p-2 flex-fill">
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex flex-column">
+                                            <div class="text-card">Asumsu Buku RKAP 2023</div>
+                                            <div> <a href="#!">ATD3-Mo</a></div>
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <div class="text-card">Berdasarkan realisasi juli dan pragnosa menggunakan
+                                                <br>castalia. model (baseline) per <b>25 Agustus2023</b>
+                                            </div>
+                                            <div class=""> <a href="#!">link footnote</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-2 flex-fill">
+                                    <div class="d-flex flex-column">
+                                        <div class="text-card">Sudah termasuk Credit Spread Adjustment 0.43%</div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- card kanan1 -->
