@@ -20,11 +20,9 @@ import { FinancingCostComponent } from './dashboard/paramater_market/financing-c
 import { DataService } from './data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
-<<<<<<< HEAD
 import { NgxDropzoneModule } from 'ngx-dropzone';
-=======
 import { QuillModule } from 'ngx-quill';
->>>>>>> 85eb07794155efeab7519739b5233df799326dfe
+import { HitungFincostComponent } from './dashboard/paramater_market/financing-cost/hitung-fincost/hitung-fincost.component';
 // import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
 
 @NgModule({
@@ -41,6 +39,7 @@ import { QuillModule } from 'ngx-quill';
     LiabilitiesComponent,
     FinancingCostComponent,
     MarketUpdateComponent,
+    HitungFincostComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,9 +48,7 @@ import { QuillModule } from 'ngx-quill';
     SidebarComponent,
     NgApexchartsModule,
     HttpClientModule,
-<<<<<<< HEAD
     NgxDropzoneModule,
-=======
     QuillModule.forRoot({
       bounds:"#quill-container",
       modules: {
@@ -80,7 +77,6 @@ import { QuillModule } from 'ngx-quill';
       },
       scrollingContainer: "#quill-container"
     })
->>>>>>> 85eb07794155efeab7519739b5233df799326dfe
   ],
   providers: [DataService],
   bootstrap: [AppComponent],

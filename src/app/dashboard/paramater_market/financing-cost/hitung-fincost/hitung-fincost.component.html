@@ -1,0 +1,347 @@
+<div>
+    <app-header></app-header>
+    <app-sidebar></app-sidebar>
+
+    <div id="header" class="header">
+        <div class="col-12 bg-white sub-nav border-top"
+            style="margin-top: 60px; padding-left: 282px; padding-bottom: 20px; padding-top: 15px;">
+            <div class="d-flex justify-content-between">
+                <div class="simulasi">Simulasi FINANCIAL COST (BONDS) 30yr</div>
+                <div class="p-2 btn btn-light btn-sm gap"><img src="./assets/icon/download-02.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main mt-2" id="main">
+        <div class="btn"><img src="assets/icon/arrow-left.svg" alt=""> BACK</div>
+        <div class="card">
+            <div class="card-body">
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-5">
+                            <p class="required"><label for="#">Pilih Bank</label>*</p>
+                        </div>
+                        <div class="col-7">
+                            <select id="inputState" class="form-select" required>
+                                <option selected="">Select Bank Type</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                        <div class="mt-4"></div>
+                        <div class="col-5">
+                            <p class="required"><label for="#">Pilih Tanggal</label>*</p>
+                        </div>
+                        <div class="col-7">
+                            <input type="date" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class=" text-center mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1032" height="2" viewBox="0 0 1000 2"
+                            fill="none">
+                            <path d="M0 1H1032" stroke="#E4E4E4" />
+                        </svg>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <label for="#">Pilih Nama Obligasi</label>
+                                </div>
+                                <div>
+                                    <select id="inputState" class="form-select" required>
+                                        <option selected="">Obligasi Internasional</option>
+                                        <option>...</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <div>
+                                    <p class="required"><label for="#">Asumsi Pinjaman</label>*</p>
+                                </div>
+                                <div>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-light">$</button>
+                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" required>
+                                        <button type="button" class="btn btn-light btn-sm">USD</button>
+                                        <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item">USD</a></li>
+                                            <li><a class="dropdown-item">IDR</a></li>
+                                            <li><a class="dropdown-item">EUR</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <div>
+                                    <p class="required"><label for="#">Indicative Yield</label>*</p>
+                                </div>
+                                <div>
+                                    <div class="input-group">
+                                        <input class="border border-light-subtle" type="text" name="#" id="#"
+                                            placeholder="665" require>
+                                        <span class="input-group-text" id="basic-addon2">% percentage</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <div>
+                                    <label for="#">Kurs</label>
+                                </div>
+                                <div>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-light">Rp</button>
+                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" >
+                                        <button type="button" class="btn btn-light btn-sm">IDR</button>
+                                        <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item">IDR</a></li>
+                                            <li><a class="dropdown-item">USD</a></li>
+                                            <li><a class="dropdown-item">EUR</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <div>
+                                    <label for="#">Bunga Per Bulan</label>
+                                </div>
+                                <div>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-light">Rp</button>
+                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" readonly>
+                                        <button type="button" class="btn btn-light btn-sm">IDR</button>
+                                        <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item">IDR</a></li>
+                                            <li><a class="dropdown-item">USD</a></li>
+                                            <li><a class="dropdown-item">EUR</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="508" height="2" viewBox="0 0 508 2" fill="none">
+                                <path d="M0 1H508" stroke="#E4E4E4"/>
+                              </svg>
+                            <div class="d-flex justify-content-between mt-2">
+                                <div>
+                                    <label for="#">Bunga Per Tahun</label>
+                                </div>
+                                <div>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-light">Rp</button>
+                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" readonly>
+                                        <button type="button" class="btn btn-light btn-sm">IDR</button>
+                                        <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item">IDR</a></li>
+                                            <li><a class="dropdown-item">USD</a></li>
+                                            <li><a class="dropdown-item">EUR</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <div>
+                                    <label for="#">Total Bunga</label>
+                                </div>
+                                <div>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-light">Rp</button>
+                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" readonly>
+                                        <button type="button" class="btn btn-light btn-sm">IDR</button>
+                                        <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item">IDR</a></li>
+                                            <li><a class="dropdown-item">USD</a></li>
+                                            <li><a class="dropdown-item">EUR</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex justify-content-between">
+                                <div><label for="#">Pilih Nama Obligasi</label></div>
+                                <div>
+                                    <select id="inputState" class="form-select" required>
+                                        <option selected="">Obligasi Internasional</option>
+                                        <option>...</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <div>
+                                    <p class="required"><label for="#">Asumsi Pinjaman</label>*</p>
+                                </div>
+                                <div>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-light">$</button>
+                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" required>
+                                        <button type="button" class="btn btn-light btn-sm">USD</button>
+                                        <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item">USD</a></li>
+                                            <li><a class="dropdown-item">IDR</a></li>
+                                            <li><a class="dropdown-item">EUR</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <div>
+                                    <p class="required"><label for="#">Indicative Yield</label>*</p>
+                                </div>
+                                <div>
+                                    <div class="input-group">
+                                        <input class="border border-light-subtle" type="text" name="#" id="#"
+                                            placeholder="665" require>
+                                        <span class="input-group-text" id="basic-addon2">% percentage</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between  mt-2">
+                                <div>
+                                    <label for="#">Kurs</label>
+                                </div>
+                                <div>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-light">Rp</button>
+                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                                        <button type="button" class="btn btn-light btn-sm">IDR</button>
+                                        <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item">IDR</a></li>
+                                            <li><a class="dropdown-item">USD</a></li>
+                                            <li><a class="dropdown-item">EUR</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <div>
+                                    <label for="#">Bunga Per Bulan</label>
+                                </div>
+                                <div>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-light">Rp</button>
+                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" readonly>
+                                        <button type="button" class="btn btn-light btn-sm">IDR</button>
+                                        <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item">IDR</a></li>
+                                            <li><a class="dropdown-item">USD</a></li>
+                                            <li><a class="dropdown-item">EUR</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="508" height="2" viewBox="0 0 508 2" fill="none">
+                                <path d="M0 1H508" stroke="#E4E4E4"/>
+                              </svg>
+                            <div class="d-flex justify-content-between mt-2">
+                                <div>
+                                    <label for="#">Bunga Per Tahun</label>
+                                </div>
+                                <div>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-light">Rp</button>
+                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button"  readonly>
+                                        <button type="button" class="btn btn-light btn-sm">IDR</button>
+                                        <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item">IDR</a></li>
+                                            <li><a class="dropdown-item">USD</a></li>
+                                            <li><a class="dropdown-item">EUR</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <div>
+                                    <label for="#">Total Bunga</label>
+                                </div>
+                                <div>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-light">Rp</button>
+                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" readonly>
+                                        <button type="button" class="btn btn-light btn-sm">IDR</button>
+                                        <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item">IDR</a></li>
+                                            <li><a class="dropdown-item">USD</a></li>
+                                            <li><a class="dropdown-item">EUR</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row-reverse mt-3">
+                        <div class="btn btn-primary btn-sm">Hitung</div>
+                    </div>
+                </div>
+                <div class=" text-center mt-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1032" height="2" viewBox="0 0 1000 2" fill="none">
+                        <path d="M0 1H1032" stroke="#E4E4E4" />
+                    </svg>
+                </div>
+                <div class="card text-bg-light p-3">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="p-2 flex-grow-1">
+                                <div class="d-flex flex-nowrap">
+                                    <div>Data Range 1</div>
+                                    <div>
+                                        <select name="#" id="#">
+                                            <option value="#" selected>Peratahun</option>
+                                            <option value="#">10 tahun</option>
+                                            <option value="#">30tahun</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <input type="date" requred>
+                                    </div>
+                                    <div><input type="date" requred></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn btn-secondary btn-sm p-2">Update</div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-nowrap">
+                            <div>Data Range 2</div>
+                            <div>
+                                <select name="#" id="#">
+                                    <option value="#" selected>30 Tahun</option>
+                                    <option value="#"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

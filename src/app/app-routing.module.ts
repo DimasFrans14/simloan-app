@@ -12,6 +12,7 @@ import { FinancingCostComponent } from './dashboard/paramater_market/financing-c
 import { ParameterMarketOverviewComponent } from './dashboard/paramater_market/overview/overview.component';
 import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
 import { LiabilitiesComponent } from './dashboard/paramater_market/liabilities/liabilities.component';
+import { HitungFincostComponent } from './dashboard/paramater_market/financing-cost/hitung-fincost/hitung-fincost.component';
 
 const routes: Routes = [
 
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'financing_cost', component: FinancingCostComponent },
   { path: 'liabilities', component: LiabilitiesComponent},
   { path: 'market_update', component: MarketUpdateComponent },
+  { path: 'hitung_fincost', component: HitungFincostComponent},
   // {
   //   path: 'shloverview',
   //   loadChildren: () => import('./layout/sidebar/sidebar-routing.module').then(m => m.SidebarRoutingModule),

@@ -1,42 +1,56 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
-
   <div class="d-flex align-items-center justify-content-between">
-    <a href="index.html" class="logo d-flex align-items-center">
-      <!-- <div class="">
-        <img src="../../../assets/image/Logo.svg" alt="">
-        <p class="" style="font-size: 0.8rem;">Integrated Debt and Covenant Management System</p>
-      </div> -->
-    </a>
-    <!-- <i class="bi bi-list toggle-sidebar-btn" id="toggleSidebar" (click)='toggle()'></i> -->
-  </div><!-- End Logo -->
+    <a href="index.html" class="logo d-flex align-items-center"></a>
+  </div>
 
   <div class="">
-      <Label class="d-flex align-items-center">Beranda</Label>
+    <Label class="d-flex align-items-center">Beranda</Label>
   </div>
+
   <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
-      <!-- User-icon -->
-      <li class="nav-item">
-        <div class="nav-icon">
-          <a href="#"><img src="./assets/icon/bell-01.svg" alt=""></a>
-        </div>
-      </li>
-      <!-- end user-icon -->
-      <div class="flex-container nav-item">
-          <div class="user-jabatan">
-            <p>Staff Pegawai</p>
-          </div>
-          <div class="username">
-            <p>Ceptari Tyas</p>
-          </div>
-      </div>
       <!-- Notification-icon -->
-      <li class="nav-item margin">
-        <div class="nav-icon">
-          <a class="user-icon"  href="#"><img src="./assets/icon/user-03.svg" alt=""></a>
+      <li class="nav-item">
+        <div class="dropdown rounded-circle">
+          <a class="btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="/assets/icon/bell-01.svg" alt="" />
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
         </div>
       </li>
+      <!-- end notification-icon -->
+      <!-- Jabatan-user -->
+      <div class="flex-container"></div>
+      <div class="flex-container nav-item">
+        <div class="user-jabatan">
+          <p>Staff Pegawai</p>
+        </div>
+        <!-- end-Jabatan-User -->
+        <!-- Username -->
+        <div class="username">
+          <p>Ceptari Tyas</p>
+        </div>
+      </div>
+      <!-- end-Username -->
+      <!-- User-icon -->
+      <li class="nav-item margin">
+        <div class="dropdown">
+          <a class="btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="/assets/icon/user-03.svg" alt="" />
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </div>
+      </li>
+      <!-- end-user-icon -->
     </ul>
-  </nav><!-- End Icons Navigation -->
-
+  </nav>
+  <!-- End Icons Navigation -->
 </header>

@@ -1,0 +1,17 @@
+h4 {
+    font-size: 24px;
+}
+h2 {
+    font-size: 30px;
+}
+.gap  {
+    gap: 12px;
+}
+.version {
+    color: var(--color-silver-500, #9A9A9A);
+    font-family: Satoshi;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%; 
+}
