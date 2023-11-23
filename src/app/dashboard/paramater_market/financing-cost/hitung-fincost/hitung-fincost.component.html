@@ -5,9 +5,11 @@
     <div id="header" class="header">
         <div class="col-12 bg-white sub-nav border-top"
             style="margin-top: 60px; padding-left: 282px; padding-bottom: 20px; padding-top: 15px;">
-            <div class="d-flex justify-content-between">
-                <div class="simulasi">Simulasi FINANCIAL COST (BONDS) 30yr</div>
-                <div class="p-2 btn btn-light btn-sm gap"><img src="./assets/icon/download-02.svg" alt="">
+            <div class="container">
+                <div class="d-flex justify-content-between">
+                    <div class="simulasi" style="font-size: 22px;">Simulasi FINANCIAL COST (BONDS) 30yr</div>
+                    <div class="p-2 btn btn-light btn-sm"><img src="./assets/icon/download-02.svg" alt="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -113,7 +115,7 @@
                                 <div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-light">Rp</button>
-                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" readonly>
+                                        <input type="text" class="form-control  bg-light" aria-label="Text input with segmented dropdown button" readonly>
                                         <button type="button" class="btn btn-light btn-sm">IDR</button>
                                         <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="visually-hidden">Toggle Dropdown</span>
@@ -136,7 +138,7 @@
                                 <div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-light">Rp</button>
-                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" readonly>
+                                        <input type="text" class="form-control bg-light" aria-label="Text input with segmented dropdown button" readonly>
                                         <button type="button" class="btn btn-light btn-sm">IDR</button>
                                         <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="visually-hidden">Toggle Dropdown</span>
@@ -156,7 +158,7 @@
                                 <div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-light">Rp</button>
-                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" readonly>
+                                        <input type="text" class="form-control bg-light" aria-label="Text input with segmented dropdown button" readonly>
                                         <button type="button" class="btn btn-light btn-sm">IDR</button>
                                         <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="visually-hidden">Toggle Dropdown</span>
@@ -239,7 +241,7 @@
                                 <div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-light">Rp</button>
-                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" readonly>
+                                        <input type="text" class="form-control bg-light" aria-label="Text input with segmented dropdown button" readonly>
                                         <button type="button" class="btn btn-light btn-sm">IDR</button>
                                         <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="visually-hidden">Toggle Dropdown</span>
@@ -262,7 +264,7 @@
                                 <div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-light">Rp</button>
-                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button"  readonly>
+                                        <input type="text" class="form-control bg-light" aria-label="Text input with segmented dropdown button"  readonly>
                                         <button type="button" class="btn btn-light btn-sm">IDR</button>
                                         <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="visually-hidden">Toggle Dropdown</span>
@@ -282,7 +284,7 @@
                                 <div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-light">Rp</button>
-                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" readonly>
+                                        <input type="text" class="form-control bg-light" aria-label="Text input with segmented dropdown button" readonly>
                                         <button type="button" class="btn btn-light btn-sm">IDR</button>
                                         <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="visually-hidden">Toggle Dropdown</span>
@@ -302,45 +304,87 @@
                     </div>
                 </div>
                 <div class=" text-center mt-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1032" height="2" viewBox="0 0 1000 2" fill="none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1500" height="2" viewBox="0 0 1500 2" fill="none">
                         <path d="M0 1H1032" stroke="#E4E4E4" />
                     </svg>
                 </div>
                 <div class="card text-bg-light p-3">
                     <div class="card-body">
-                        <div class="d-flex">
-                            <div class="p-2 flex-grow-1">
-                                <div class="d-flex flex-nowrap">
-                                    <div>Data Range 1</div>
+                        <div class="d-flex mb-3 justify-content-between">
+                            <div class="me-auto p-2">
+                                <label for="">Data Range 1</label>
+                            </div>
+                            <div class="p-2 flex-fill">
+                                <div class="d-flex">
                                     <div>
-                                        <select name="#" id="#">
-                                            <option value="#" selected>Peratahun</option>
-                                            <option value="#">10 tahun</option>
-                                            <option value="#">30tahun</option>
+                                        <select id="inputState" class="form-select">
+                                            <option selected="">Manual</option>
+                                            <option>...</option>
                                         </select>
                                     </div>
                                     <div>
-                                        <input type="date" requred>
+                                        <input type="date" class="form-control">
                                     </div>
-                                    <div><input type="date" requred></div>
+                                    <div>
+                                        <input type="date" class="form-control">
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <div class="btn btn-secondary btn-sm p-2">Update</div>
+                            <div class="ms-auto p-2">
+                                <button  class="btn update-btn btn-sm">
+                                    <div class="">Update</div>
+                                </button>
                             </div>
                         </div>
-                        <div class="d-flex flex-nowrap">
-                            <div>Data Range 2</div>
-                            <div>
-                                <select name="#" id="#">
-                                    <option value="#" selected>30 Tahun</option>
-                                    <option value="#"></option>
-                                </select>
+                        <div class="d-flex mb-3">
+                            <div class="p-2">
+                                <label for="">Data Range 2</label>
+                            </div>
+                            <div class="p-2 flex-fill">
+                                <select id="inputState" class="form-select">
+                                    <option selected="">30 Tahun</option>
+                                    <option>...</option>
+                                  </select>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                <div class="container">
+                    <div class="d-flex  justify-content-between mt-3">
+                        <div>
+                            <label for="">Selisih Delta/Tahun</label>
+                        </div>
+                        <div>
+                            <div class="d-flex flex-column">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light" aria-label="Text input with segmented dropdown button" placeholder="0.45" readonly>
+                                    <button type="button" class="btn btn-light btn-sm">Tn</button>
+                                </div>
+                                <div class="input-group mt-3">
+                                    <input type="text" class="form-control bg-light" aria-label="Text input with segmented dropdown button" placeholder="0.45" readonly>
+                                    <button type="button" class="btn btn-light btn-sm">Tn</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex  justify-content-between mt-3">
+                        <div>
+                            <label for="">Selisih Delta Total  30 Tahun</label>
+                        </div>
+                        <div>
+                            <div class="d-flex flex-column">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light" aria-label="Text input with segmented dropdown button" placeholder="0.45" readonly>
+                                    <button type="button" class="btn btn-light btn-sm">Tn</button>
+                                </div>
+                                <div class="input-group mt-3">
+                                    <input type="text" class="form-control bg-light" aria-label="Text input with segmented dropdown button" placeholder="0.45" readonly>
+                                    <button type="button" class="btn btn-light btn-sm">Tn</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
