@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class FinancingCostComponent {
 
+  openModal: boolean = false;
+
+  openModalfincost(){
+    this.openModal = !this.openModal;
+  }
+
+  openModalfootnote(){
+    this.openModal = !this.openModal;
+  }
+
 }

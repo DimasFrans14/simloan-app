@@ -4,15 +4,15 @@
     <div id="header" class="header">
         <div class="col-12 bg-white sub-nav border-top"
             style="margin-top: 60px; padding-left: 282px; padding-bottom: 20px; padding-top: 15px;">
-            <div class="d-flex justify-content-between">
-                <div class="simulasi">Simulasi FINANCIAL COST (BONDS) 30yr</div>
-                <div  class="d-flex justify-content-evenly">
-                    <div class="p-2 btn btn-primary btn-sm gap">
-                        <div routerLink="/hitung-fincost" routerLinkActive="active">
+            <div class="container">
+                <div class="d-flex">
+                    <div class="p-2 flex-grow-1 align-self-center" style="font-size: 22px;">Simulasi FINANCIAL COST (BONDS) 30yr</div>
+                    <div class="p-2 btn btn-primary align-self-center">
+                        <div routerLink="/hitung_fincost" routerLinkActive="active">
                             <i class=""></i><span>Hitung Fincost</span>
                         </div>
                     </div>
-                    <div class="p-2 btn btn-light btn-sm gap"><img src="/assets/icon/download-02.svg" alt="">
+                    <div class="p-2 btn btn-light align-self-center"><img src="/assets/icon/download-02.svg" alt="">
                 </div>
             </div>
         </div>
@@ -24,7 +24,31 @@
                 <div class="d-flex justify-content-between">
                     <div class="title-card1">Financial Cost</div>
                     <div class="">
-                        <div class="btn edit-btn btn-sm">Edit</div>
+                        <div class="btn edit-btn btn-sm" (click)="openModalfincost()" data-bs-toggle="modal"
+                        data-bs-target="#fincost">Edit</div>
+                        <!-- modal edit card  fincost -->
+                        <div class="modal fade" id="fincost" tabindex="-1" aria-labelledby="fincost" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="fincost">Financial Cost Card</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body overflow-y-auto">
+
+                                        <quill-editor [styles]="{height: '250px'}">
+                                        </quill-editor>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end modal edit card  fincost -->
                     </div>
                 </div>
                 <div class="card-body">
@@ -162,7 +186,31 @@
         </div>
         <div class="d-flex justify-content-between mt-3">
             <div>Footnote</div>
-            <div class="btn edit-btn btn-sm">Edit</div>
+            <div class="btn edit-btn btn-sm" (click)="openModalfootnote()" data-bs-toggle="modal"
+            data-bs-target="#footnote">Edit</div>
+            <!-- modal edit footnote -->
+            <div class="modal fade" id="footnote" tabindex="-1" aria-labelledby="footnote" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="footnote">Footnote</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body overflow-y-auto">
+
+                            <quill-editor [styles]="{height: '250px'}">
+                            </quill-editor>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end modal edit footnote -->
         </div>
         <div class="card mt-2">
             <div class="container">

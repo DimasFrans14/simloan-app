@@ -19,4 +19,24 @@ export class LiabilitiesComponent {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
+  openModal: boolean = false;
+
+  openModalcard1(){
+    this.openModal = !this.openModal;
+  }
+
+  openModalinfo(){
+    this.openModal = !this.openModal;
+  }
+  openModalfootnote(){
+    this.openModal = !this.openModal;
+  }
+
+  constructor(){
+
+  }
+
+  ngOnInit(): void {
+
+  }
 }
