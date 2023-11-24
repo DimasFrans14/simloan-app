@@ -23,6 +23,7 @@ import { MarketUpdateComponent } from './dashboard/paramater_market/market-updat
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { QuillModule } from 'ngx-quill';
 import { HitungFincostComponent } from './dashboard/paramater_market/financing-cost/hitung-fincost/hitung-fincost.component';
+import { FooterComponent } from './layout/footer/footer.component';
 // import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
 
 @NgModule({
@@ -40,6 +41,7 @@ import { HitungFincostComponent } from './dashboard/paramater_market/financing-c
     FinancingCostComponent,
     MarketUpdateComponent,
     HitungFincostComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
