@@ -1,29 +1,56 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import * as XLSX from 'xlsx';
-// import * as canvasDatagrid from "canvas-datagrid";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
+import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 
 @Component({
   selector: 'app-market-update',
   templateUrl: './market-update.component.html',
   styleUrls: ['./market-update.component.css']
 })
-export class MarketUpdateComponent implements OnInit{
+export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
-  constructor(private sanitizer: DomSanitizer){}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private tableConfig: TableServicesService
+    ){
+      // console.log(tableConfig);
+    }
 
   // html: SafeHtml = "";
   // @ViewChild('tableau') tableau!: ElementRef<HTMLDivElement>;
 
+  // @ViewChild(TableServicesComponent, {static: false}) table!: TableServicesComponent;
+
   excelDataJSON: any;
   excelDataTable: any;
+
+  //variabel data table
 
   tableDataCurrency: any;
   tableCurrency:any;
 
   tableDataInterest: any;
   tableInterest:any;
+
+  tableDataBondYield:any;
+  tableBondYield:any;
+
+  tableDataCommodities: any;
+  tableCommodities: any;
+
+  tablePMI: any;
+  tableDataPMI: any;
+
+  tableRetail: any;
+  tableDataRetail: any;
+
+  tableMoneySupply: any;
+  tableDataMoneySupply: any;
+
+  tableForeignExchange: any;
+  tableDataForeignExchange: any;
 
   tableUpdate:any;
 
@@ -46,7 +73,7 @@ export class MarketUpdateComponent implements OnInit{
       this.tableUpdate = new Tabulator(".example-table-2", {
         height:205,
         data:this.excelDataJSON,
-        layout:"fitColumns",
+        layout:"fitDataTable",
         columns:[
           {title:"Name", field:"Name", width:150, editor:"input"},
           {title:"Birthday", field:"Birthday", hozAlign:"left"},
@@ -56,65 +83,43 @@ export class MarketUpdateComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.tableDataCurrency = [
-      {id:1, name:"USD", age:"15000", rate:"2,53%", col:"red", dob:"14/05/1982"},
-      {id:2, name:"EUR", age:"15000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
-      {id:3, name:"JPY", age:"15000", rate:"2,53%", col:"green", dob:"22/05/1982"},
-      {id:4, name:"GBP", age:"15000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
-    ];
 
-    this.tableCurrency = new Tabulator(".table-currency", {
-      // height:205,
-      data:this.tableDataCurrency,
-      layout:"fitColumns",
-      columns:[
-        {title:"IDR", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:false},
-    {//create column group
-        title:"Exchange Rate",
-        columns:[
-        {title:"RKAP 23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        ],
-        headerHozAlign:"center"
-    },
-    {title:"Change <br/>RKAP", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Change MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Change <br/>WoW", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Change 1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],
-
-   });
-
-    this.tableDataInterest = [
-      {id:1, name:"BI7DRR", age:"15000", rate:"2,53%", col:"red", dob:"14/05/1982"},
-      {id:2, name:"FED RATE", age:"15000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
-      {id:3, name:"AVG SOFR", age:"15000", rate:"2,53%", col:"green", dob:"22/05/1982"},
-      {id:4, name:"JIBOR", age:"15000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
-      {id:5, name:"EURIBOR", age:"15000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
-      {id:6, name:"AVERAGE TIME DOPOSITE (3 Mo)", age:"15000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
-    ];
-
-    this.tableInterest = new Tabulator(".table-interest", {
-      // height:205,
-      data:this.tableDataInterest,
-      layout:"fitColumns",
-      columns:[
-        {title:"Rates", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:false},
-
-        {title:"RKAP 23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-
-        {title:"Change <br/>RKAP", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Change MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Change <br/>WoW", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Change 1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],
-   });
   }
+
+  ngAfterViewInit(): void {
+    this.tableConfig.initializeTableData();
+
+    //Table Currency
+    this.tableDataCurrency = this.tableConfig.tableDataCurrency;
+    this.tableCurrency = this.tableConfig.tableCurrency;
+
+    //Table Interest Rate
+    this.tableDataInterest = this.tableConfig.tableDataInterestRate;
+    this.tableInterest = this.tableConfig.tableInterestRate;
+
+    //Table Bond Yield
+    this.tableDataBondYield = this.tableConfig.tableDataBondYield;
+    this.tableBondYield = this.tableConfig.tableBondYield;
+
+    //Table Commodities
+    this.tableDataCommodities = this.tableConfig.tableDataCommodities;
+    this.tableCommodities = this.tableConfig.tableCommodities;
+
+    //Table Money Supply
+    this.tableDataMoneySupply = this.tableConfig.tableDataMoneySupply;
+    this.tableMoneySupply = this.tableConfig.tableMoneySupply;
+
+    //Table Foreign Excahnge
+    this.tableDataForeignExchange = this.tableConfig.tableDataForeignExchange;
+    this.tableForeignExchange = this.tableConfig.tableForeignExchange;
+
+    //Table PMI
+    this.tableDataPMI = this.tableConfig.tableDataPMI;
+    this.tablePMI = this.tableConfig.tablePMI;
+
+    //Table Retail
+    this.tableDataRetail = this.tableConfig.tableDataRetail;
+    this.tableRetail = this.tableConfig.tableRetail;
+  }
+
 }

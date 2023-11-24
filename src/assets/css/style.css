@@ -1294,3 +1294,11 @@ h6 {
   max-width: 750px;
   /* max-width: 90%; */
 }
+
+.tabulator .tabulator-header{
+  font-size: 12px;
+}
+
+.tabulator-cell{
+  font-size: 14px;
+}

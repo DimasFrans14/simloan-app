@@ -86,7 +86,7 @@
 
     </div>
 
-    <div class="my-tabular-table mt-2"></div>
+    <div class="table-bondYield mt-2"></div>
     <div class="d-flex justify-content-between align-items-center mt-5">
       <div>
         <h4>Commodities</h4>
@@ -98,7 +98,52 @@
 
     </div>
 
-    <div class="my-tabular-table mt-2"></div>
+    <div class="table-commodities mt-2"></div>
+
+    <div class="d-flex justify-content-between align-items-center mt-5">
+      <div>
+        <h4>Macro Indicator</h4>
+      </div>
+
+      <div>
+        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Lihat Detail</button>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <p class="fw-semibold">PDB</p>
+        <div class="table-pdb"></div>
+      </div>
+      <div class="col-6">
+        <p class="fw-semibold">Inflasi</p>
+        <div class="table-inflasi mt-2"></div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-6">
+        <p class="fw-semibold">PMI</p>
+        <div class="table-pmi mt-2"></div>
+      </div>
+      <div class="col-6">
+        <p class="fw-semibold">Retail</p>
+        <div class="table-retail mt-2"></div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-6">
+        <p class="fw-semibold">Money Supply/Uang Beredar (M2)</p>
+        <div class="table-moneySupply mt-2"></div>
+      </div>
+      <div class="col-6">
+        <p class="fw-semibold">Foreign Exchange Reserves/Cadangan Devisa</p>
+        <div class="table-foreignExchange mt-2"></div>
+      </div>
+    </div>
+
 
     <!-- <div class="mt-5">
       <input type="file" name="file" id="" (change)="readExcel($event)">
@@ -116,71 +161,7 @@
     </div> -->
 
     <!-- <div class="content" role="main" [innerHTML]="html" #tableau></div> -->
-    <div class="example-table-2 mt-5"></div>
-
-    <!-- <div>
-      <table class="table mt-5 text-center">
-        <thead>
-          <tr>
-            <th>IDR</th>
-            <th>
-              Exchange Rate
-              <tr>
-                <th>RKAP 23</th>
-                <th>24/02/23</th>
-                <th>20/03/23</th>
-                <th>24/03/23</th>
-                <th>27/03/23</th>
-              </tr>
-            </th>
-            <th>Change RKAP</th>
-            <th>Change MoM</th>
-            <th>Change Wow</th>
-            <th>Change 1 Day</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>USD</td>
-            <td>15000</td>
-            <td>15000</td>
-            <td>15000</td>
-            <td>15000</td>
-            <td>15000</td>
-          </tr>
-          <tr>
-            <td>EUR</td>
-            <td>15000</td>
-            <td>15000</td>
-            <td>15000</td>
-            <td>15000</td>
-            <td>15000</td>
-          </tr>
-          <tr>
-            <td>JPY</td>
-            <td>15000</td>
-            <td>15000</td>
-            <td>15000</td>
-            <td>15000</td>
-            <td>15000</td>
-          </tr>
-          <tr>
-            <td>GBP</td>
-            <td>15000</td>
-            <td>15000</td>
-            <td>15000</td>
-            <td>15000</td>
-            <td>15000</td>
-          </tr>
-        </tbody>
-      </table>
-    </div> -->
-
-    <!-- <div id="gridctr"></div> -->
-
-    <!-- <div *ngIf="excelDataTable">
-      {{excelDataTable}}
-    </div> -->
+    <!-- <div class="example-table-2 mt-5"></div> -->
 
   </main>
 </div>
