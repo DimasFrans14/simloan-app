@@ -63,3 +63,11 @@
   }
 }
 
+.dropdown-menu{
+  padding: 10px;
+}
+
+.dropdown-item:hover{
+  background-color: #e4e4e4;
+  border-radius: 8px;
+}
