@@ -14,6 +14,38 @@
   margin-top: 28px;
 }
 
+.green-circle-card{
+  position: absolute;
+  top: 5%;
+  left: 90%;
+  transform: translateX(-50%) !important;
+  background: green;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+}
+
+.red-circle-card{
+  position: absolute;
+  top: 5%;
+  left: 90%;
+  transform: translateX(-50%) !important;
+  background: red;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+}
+
+.yellow-circle-card{
+  position: absolute;
+  top: 5%;
+  left: 90%;
+  transform: translateX(-50%) !important;
+  background: yellow;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+}
 
 @media (max-width: 1199px) {
   .sub-nav {
@@ -31,3 +63,11 @@
   }
 }
 
+.dropdown-menu{
+  padding: 10px;
+}
+
+.dropdown-item:hover{
+  background-color: #e4e4e4;
+  border-radius: 8px;
+}

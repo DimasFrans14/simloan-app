@@ -61,7 +61,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" [style.display]="isVisibleBar ? 'none' : 'block'">
       <div class="col-12 py-3 px-4 bg-white rounded">
         <div class="row">
           <div class="col-7">
@@ -101,7 +101,7 @@
             </table>
           </div>
           <div class="col-5 text-end">
-            <button class="btn btn-transparant btn-sm me-2">Bersihkan Semuanya</button>
+            <button class="btn btn-transparant btn-sm border border-1 me-2">Bersihkan Semuanya</button>
             <button class="btn btn-transparant btn-sm border border-1">Tambah Perbandingan</button>
           </div>
         </div>

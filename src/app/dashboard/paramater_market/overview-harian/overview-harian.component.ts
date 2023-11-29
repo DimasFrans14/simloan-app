@@ -1,97 +1,84 @@
-import { Component, OnInit } from '@angular/core';
-import { ApexAxisChartSeries, ApexChart,  ApexTitleSubtitle } from 'ng-apexcharts';
-
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import Quill from 'quill';
+import { QuillServicesService } from 'src/app/services/textArea_services/quill-services.service';
 
 @Component({
   selector: 'overview-harian',
   templateUrl: './overview-harian.component.html',
   styleUrls: ['./overview-harian.component.css']
 })
-export class OverviewHarian implements OnInit{
+export class OverviewHarian implements OnInit, AfterViewInit{
 
-  chartSeries: ApexAxisChartSeries = [
-    {
-      name: "Net Profit",
-      data: [111, 55, 57, 56, 61, 58, 63, 60, 66]
-    },
-    {
-      name: "Revenue",
-      data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-    },
-    {
-      name: "Free Cash Flow",
-      data: [35, 41, 36, 26, 45, 48, 52, 53, 134]
-    }
-  ];
+  @ViewChild('keyTakeways') keyTakeways!: ElementRef;
+  @ViewChild('footnote') footnote!: ElementRef;
 
-  currencyChartDetails: ApexChart = {
-    type: 'line',
-    height: 400,
-    // width:,
-    toolbar: {
-      show: true,
-      tools: {
-        download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
-      }
-    }
-  }
-
-  commodityChartDetails: ApexChart = {
-    type: 'line',
-    height: 340,
-    // width:,
-    toolbar: {
-      show: true,
-      tools: {
-        download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
-      }
-    }
-  }
-
-  currencyChartTitle: ApexTitleSubtitle =  {
-    text: "Kurs Rupiah",
-    style: {
-      fontSize:  '18px',
-      fontWeight:  500,
-      // fontFamily:  undefined,
-      color:  '#000000'
-    },
-  }
-
-  commodityChartTitle: ApexTitleSubtitle =  {
-    text: "WTI & Brent (USD/Ton)",
-    style: {
-      fontSize:  '18px',
-      fontWeight:  500,
-      // fontFamily:  undefined,
-      color:  '#000000'
-    },
-  }
+  public quillTakeways!: Quill;
+  public quillFootnote!: Quill;
 
   openModal: boolean = false;
+
+  constructor(private quillConfig: QuillServicesService){
+    console.log(quillConfig);
+  }
 
   openModalTakeways(){
     this.openModal = !this.openModal;
   }
 
-  constructor(){
+  ngOnInit(): void {
 
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit() {
+      const elementKeyTakeways = this.keyTakeways.nativeElement;
+      const elementFootnote = this.footnote.nativeElement;
+      this.quillTakeways = this.quillConfig.initializeQuillKeyTakeways(elementKeyTakeways);
 
+      this.quillFootnote = this.quillConfig.initializeQuillFootnote(elementFootnote);
+  }
+
+  getValue(){
+
+    // const data = {
+    //   value: this.quill.getText()
+    // }
+
+    // let formatData = data.value;
+
+    let value = this.quillTakeways.getText();
+
+    console.log(value);
+  }
+
+  getValue2(){
+
+    // const data = {
+    //   value: this.quill.getText()
+    // }
+
+    // let formatData = data.value;
+
+    let value = this.quillFootnote.getText();
+
+    console.log(value);
+  }
+
+  onChange(){
+    const _this = this;
+    this.quillTakeways.on('text-change', function(delta, oldDelta, source) {
+      if (source === 'user') {
+        _this.getValue()
+      }
+    })
+  }
+
+  onChange2(){
+    const _this = this;
+    this.quillFootnote.on('text-change', function(delta, oldDelta, source) {
+      if (source === 'user') {
+        _this.getValue2()
+      }
+    })
   }
 
 }

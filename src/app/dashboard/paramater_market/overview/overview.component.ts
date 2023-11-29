@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import { ApexAxisChartSeries, ApexChart,  ApexPlotOptions,  ApexTitleSubtitle, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
 
 @Component({
@@ -6,7 +6,12 @@ import { ApexAxisChartSeries, ApexChart,  ApexPlotOptions,  ApexTitleSubtitle, A
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
-export class ParameterMarketOverviewComponent implements OnInit{
+export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
+
+
+  ngOnInit(): void {
+
+  }
 
   isVisibleLine: boolean = true;
   isVisibleBar: boolean = true;
@@ -39,6 +44,7 @@ export class ParameterMarketOverviewComponent implements OnInit{
       data: [35, 41, 36, 26, 45, 48, 52, 53, 134]
     }
   ];
+
 
   chartSeries2: ApexAxisChartSeries = [
     {
@@ -129,6 +135,15 @@ export class ParameterMarketOverviewComponent implements OnInit{
     },
   }
 
+  // chartSeries:any;
+
+  // chartSeries:any;
+  // chartSeries2:any ;
+  // currencyChartDetails:any ;
+  // currencyBarChartDetails:any;
+  // commodityChartDetails:any ;
+  // currencyChartTitle:any ;
+  // commodityChartTitle:any ;
 
 
   changeChart(){
@@ -139,8 +154,21 @@ export class ParameterMarketOverviewComponent implements OnInit{
 
   }
 
-  ngOnInit(): void {
-
+  ngAfterViewInit(): void {
+    // const chartConfig = this.chart?.getChartConfigurations();
+    // if(chartConfig){
+    //   console.log('get');
+    // }
+    // else{
+    //   console.log('dont get');
+    // }
+    // this.chartSeries = chartConfig.chartSeries;
+    // this.chartSeries2 = chartConfig.chartSeries2;
+    // this.currencyChartDetails = chartConfig.currencyChartDetails;
+    // this.currencyBarChartDetails = chartConfig.currencyBarChartDetails;
+    // this.commodityChartDetails = chartConfig.commodityChartDetails;
+    // this.currencyChartTitle = chartConfig.currencyChartTitle;
+    // this.commodityChartTitle = chartConfig.commodityChartTitle;
   }
 
 }
