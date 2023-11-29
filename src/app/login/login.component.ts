@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit{
 
   dataAccount: any;
   userEmail: any;
+  localData: any;
+  parseData: any;
+
 
   constructor(
     private router: Router,
@@ -44,32 +47,46 @@ export class LoginComponent implements OnInit{
     };
   }
 
-  checkData() {
-    this.dataAccount.map((items: any) => {
-      console.log(items.email);
-    })
-  }
+  // checkData() {
+  //   this.dataAccount.map((items: any) => {
+  //     console.log(items.email);
+  //   })
+  // }
 
   async getData(){
     let data = await this.dataService.getData();
     this.dataAccount = data;
-    console.log(this.dataAccount);
+    // console.log(this.dataAccount);
   }
 
   login() {
-    const foundUser = this.dataAccount.find((item: { email: string }) => item.email === this.email);
-    if (foundUser && this.pass === '123456') {
+
+    // Fake API
+    // const foundEmailUser = this.dataAccount.find((item: { email: string }) => item.email === this.email);
+    // const foundPassUser = this.dataAccount.find((item: { username: string }) => item.username === this.pass);
+    // if (foundEmailUser && foundPassUser ) {
+    //   this.router.navigate(['/main']);
+    // } else {
+    //   alert('Email or Password is invalid!');
+    // }
+
+    // Local Storage Data
+    this.localData = localStorage.getItem('dataRegister');
+    this.parseData = JSON.parse(this.localData);
+    // console.log(this.parseData.email);
+
+    if (this.parseData.email === this.email && this.parseData.pass === this.pass) {
       this.router.navigate(['/main']);
     } else {
       alert('Email or Password is invalid!');
     }
+
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.checkData();
-    }, 1000);
+    // setTimeout(() => {
+    //   this.checkData();
+    // }, 1000);
     this.getData();
-
   }
 }
