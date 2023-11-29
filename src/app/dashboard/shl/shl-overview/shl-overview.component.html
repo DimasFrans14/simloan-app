@@ -1,8 +1,47 @@
 <div>
   <app-header></app-header>
   <app-sidebar></app-sidebar>
+
   <main id="main" class="main">
-    <h2>SHL Overview</h2>
-    <apx-chart [series]="chartSeries" [chart]="chartDetails" [title]="chartTitle"></apx-chart>
+    <div class="d-flex flex-column justify-content-center main-section">
+    <div class="d-flex align-items-center justify-content-center">
+      <div class="d-flex flex-column">
+        <div class="text-center">
+          <h4 style="margin-bottom: 16px;">Halo, Ceptari Tyas 👋 </h4>
+        </div>
+        <div>
+          <h2 style="margin-bottom: 40px;">Aktivitas apa yang ingin Anda lakukan?</h2>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex gap-3 align-items-center justify-content-center">
+      <a routerLink="/analisa_shl" routerLinkActive="active">
+        <div class="bg-white rounded d-flex flex-container flex-column align-items-center justify-content-evenly px-3 text-center" style="width: 180px; height: 220px;">
+          <div>
+            <img src="/assets/image/Illustration_4.svg" alt="" class="text-center">
+          </div>
+          <div class="fw-medium" style="font-size: 18px;">
+            <p class="text-dark">Analisa SHL</p>
+          </div>
+        </div>
+      </a>
+      <a routerLink="/report_shl" routerLinkActive="active">
+        <div class="bg-white rounded d-flex flex-container flex-column align-items-center justify-content-evenly px-3 text-center" style="width: 180px; height: 220px;">
+          <div>
+            <img src="/assets/image/Illustration_3.svg" alt="" class="text-center">
+          </div>
+          <div class="fw-medium text" style="font-size: 18px;">
+            <p class="text-dark">Report SHL</p>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="d-flex justify-content-center align-items-center mt-3">
+      <div class="text-content">
+        <p style="font-size: 13px;">Ada masalah? <a href="#">Hubungi PLN Icon+</a> untuk ditindak lanjuti.</p>
+      </div>
+    </div>
+  </div>
   </main>
+  <app-footer></app-footer>
 </div>

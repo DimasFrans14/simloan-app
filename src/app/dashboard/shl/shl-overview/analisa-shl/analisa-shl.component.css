@@ -1,0 +1,61 @@
+.avatar {
+    height: 50px;
+    width: 50px;
+    border-radius: 24px;
+    background: var(--color-blue-crayola-50, #F2F7FF);
+}
+.container-card {
+    margin: 24px 24px;
+}
+img{
+    margin: 12px;
+}
+.header-btn{
+    display: inline-flex;
+    padding: var(--padding-padding-small, 4px) var(--padding-padding-medium, 8px);
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 6px;
+    border: 1px solid var(--color-silver-200, #E4E4E4);
+    background: var(--color-silver-0, #FFF);
+}
+.hide {
+    display: none;
+    z-index: 99;
+    position: absolute;
+    top: 100;
+    left: 50;
+  }
+      
+  .myDIV:hover + .hide {
+    display: block;
+}
+
+#tooltip{
+    position: relative;
+    cursor: pointer;
+}
+
+#tooltipText {
+    z-index: 99;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    visibility: hidden;
+}
+#tooltipText::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+}
+#tooltip:hover #tooltipText {
+    visibility: visible;
+}
+#bottom {
+    top: 25px;
+    left: -50%;
+  }

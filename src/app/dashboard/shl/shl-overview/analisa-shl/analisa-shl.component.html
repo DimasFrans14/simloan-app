@@ -1,0 +1,1300 @@
+<div>
+    <app-header></app-header>
+    <app-sidebar></app-sidebar>
+    <!-- Header -->
+    <div id="header" class="header">
+        <div class="col-12 bg-white sub-nav border-top"
+            style="margin-top: 60px; padding-left: 250px; padding-bottom: 0; padding-top: 0;">
+            <div class="container">
+                <div class="d-flex align-items-center">
+                    <div class="p-2 flex-fill">
+                        <div routerLink="/shloverview" routerLinkActive="active">
+                            <i class="btn" style="color: #606060;"><img src="assets/icon/arrow-left.svg" alt=""> Back to SHL Overview</i>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <button type="button" class="btn header-btn btn-sm dropdown-toggle dropdown-toggle-split"
+                            style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="">All Anak Perusahaan </span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item">USD</a></li>
+                            <li><a class="dropdown-item">IDR</a></li>
+                            <li><a class="dropdown-item">EUR</a></li>
+                        </ul>
+                    </div>
+                    <div class="p-2 ">
+                        <button type="button" class="btn header-btn btn-sm dropdown-toggle dropdown-toggle-split"
+                            style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class=""> September </span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item">USD</a></li>
+                            <li><a class="dropdown-item">IDR</a></li>
+                            <li><a class="dropdown-item">EUR</a></li>
+                        </ul>
+                    </div>
+                    <div class="p-2 ">
+                        <button type="button" class="btn header-btn btn-sm dropdown-toggle dropdown-toggle-split"
+                            style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class=""> 2023 </span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item">USD</a></li>
+                            <li><a class="dropdown-item">IDR</a></li>
+                            <li><a class="dropdown-item">EUR</a></li>
+                        </ul>
+                    </div>
+                    <div class="p-2 ">
+                        <div class="btn header-btn btn-sm" style="color: #9A9A9A; font-size: 14px;">Reset</div>
+                    </div>
+                    <div class="p-2">
+                        <div class="btn btn-light btn-sm"><i class="bi bi-arrow-repeat"></i></div>
+                    </div>
+                    <div class="p-2">
+                        <div class="btn btn-light btn-sm"><i class="bi bi-download"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header -->
+    <main id="main" class="main">
+        <div class="container">
+            <h3>Analisa SHL</h3>
+            <div class="row">
+                <!-- card kiri -->
+                <div class="col-4 mt-3">
+                    <div class="card">
+                        <div class="container-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="avatar"><img src="assets/icon/building-06.svg" alt=""></div>
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bold" style="color: var(--color-silver-950, #0C0C0F);">Indonesia
+                                        Power</div>
+                                    <div style="color:#9A9A9A; font-size: 14px;">Nama Kontrak - Nomor AP</div>
+                                </div>
+                                <div>
+                                    <div class="btn" routerLink="/detail_agreement" routerLinkActive="active">
+                                        <img class="rounded-circle" src="assets/icon/arrow-up-right.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- progress-bar -->
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pagu</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Pagu - 3 Perjanjian</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="btn btn-sm"></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Penarikan</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Penarikan - 3 Penarikan</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pembayaran</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Pembayaran - 3 Pembayaran</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Saldo</label></div>
+                                <!-- tool tip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Saldo - 3 Perjanjian</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <!-- end progress-bar -->
+                        </div>
+                    </div>
+                </div>
+                <!-- end card kiri -->
+                
+                <!-- card tengah -->
+                <div class="col-4 mt-3">
+                    <div class="card">
+                        <div class="container-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="avatar"><img src="assets/icon/building-06.svg" alt=""></div>
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bold" style="color: var(--color-silver-950, #0C0C0F);">Indonesia
+                                        Power</div>
+                                    <div style="color:#9A9A9A; font-size: 14px;">Nama Kontrak - Nomor AP</div>
+                                </div>
+                                <div>
+                                    <div class="btn" routerLink="/detail_agreement" routerLinkActive="active">
+                                        <img class="rounded-circle" src="assets/icon/arrow-up-right.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- progress-bar -->
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pagu</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Pagu - 3 Perjanjian</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="btn btn-sm"></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Penarikan</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Penarikan - 3 Penarikan</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pembayaran</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Pembayaran - 3 Pembayaran</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Saldo</label></div>
+                                <!-- tool tip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Saldo - 3 Perjanjian</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <!-- end progress-bar -->
+                        </div>
+                    </div>
+                </div>
+                <!-- end card tengah -->
+
+                <!-- card kanan -->
+                <div class="col-4 mt-3">
+                    <div class="card">
+                        <div class="container-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="avatar"><img src="assets/icon/building-06.svg" alt=""></div>
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bold" style="color: var(--color-silver-950, #0C0C0F);">Indonesia
+                                        Power</div>
+                                    <div style="color:#9A9A9A; font-size: 14px;">Nama Kontrak - Nomor AP</div>
+                                </div>
+                                <div>
+                                    <div class="btn" routerLink="/detail_agreement" routerLinkActive="active">
+                                        <img class="rounded-circle" src="assets/icon/arrow-up-right.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- progress-bar -->
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pagu</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Pagu - 3 Perjanjian</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="btn btn-sm"></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Penarikan</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Penarikan - 3 Penarikan</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pembayaran</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Pembayaran - 3 Pembayaran</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Saldo</label></div>
+                                <!-- tool tip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Saldo - 3 Perjanjian</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <!-- end progress-bar -->
+                        </div>
+                    </div>
+                </div>
+                <!-- end card kanan -->
+            </div>
+            <div class="row  mt-2">
+                <!-- card kiri -->
+                <div class="col-4 mt-3">
+                    <div class="card">
+                        <div class="container-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="avatar"><img src="assets/icon/building-06.svg" alt=""></div>
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bold" style="color: var(--color-silver-950, #0C0C0F);">Indonesia
+                                        Power</div>
+                                    <div style="color:#9A9A9A; font-size: 14px;">Nama Kontrak - Nomor AP</div>
+                                </div>
+                                <div>
+                                    <div class="btn" routerLink="/detail_agreement" routerLinkActive="active">
+                                        <img class="rounded-circle" src="assets/icon/arrow-up-right.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- progress-bar -->
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pagu</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Pagu - 3 Perjanjian</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="btn btn-sm"></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Penarikan</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Penarikan - 3 Penarikan</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pembayaran</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Pembayaran - 3 Pembayaran</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Saldo</label></div>
+                                <!-- tool tip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Saldo - 3 Perjanjian</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <!-- end progress-bar -->
+                        </div>
+                    </div>
+                </div>
+                <!-- end card kiri -->
+                
+                <!-- card tengah -->
+                <div class="col-4 mt-3">
+                    <div class="card">
+                        <div class="container-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="avatar"><img src="assets/icon/building-06.svg" alt=""></div>
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bold" style="color: var(--color-silver-950, #0C0C0F);">Indonesia
+                                        Power</div>
+                                    <div style="color:#9A9A9A; font-size: 14px;">Nama Kontrak - Nomor AP</div>
+                                </div>
+                                <div>
+                                    <div class="btn" routerLink="/detail_agreement" routerLinkActive="active">
+                                        <img class="rounded-circle" src="assets/icon/arrow-up-right.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- progress-bar -->
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pagu</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Pagu - 3 Perjanjian</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="btn btn-sm"></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Penarikan</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Penarikan - 3 Penarikan</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pembayaran</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Pembayaran - 3 Pembayaran</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Saldo</label></div>
+                                <!-- tool tip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Saldo - 3 Perjanjian</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <!-- end progress-bar -->
+                        </div>
+                    </div>
+                </div>
+                <!-- end card tengah -->
+
+                <!-- card kanan -->
+                <div class="col-4 mt-3">
+                    <div class="card">
+                        <div class="container-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="avatar"><img src="assets/icon/building-06.svg" alt=""></div>
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bold" style="color: var(--color-silver-950, #0C0C0F);">Indonesia
+                                        Power</div>
+                                    <div style="color:#9A9A9A; font-size: 14px;">Nama Kontrak - Nomor AP</div>
+                                </div>
+                                <div>
+                                    <div class="btn" routerLink="/detail_agreement" routerLinkActive="active">
+                                        <img class="rounded-circle" src="assets/icon/arrow-up-right.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- progress-bar -->
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pagu</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Pagu - 3 Perjanjian</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="btn btn-sm"></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Penarikan</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Penarikan - 3 Penarikan</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pembayaran</label></div>
+                                <!-- tooltip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Pembayaran - 3 Pembayaran</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Saldo</label></div>
+                                <!-- tool tip -->
+                                <div id="tooltip">
+                                    <span id="tooltipText">
+                                        <span id="bottom">
+                                            <div class="card">
+                                                <div class="container">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mt-3">Total Saldo - 3 Perjanjian</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                                viewBox="0 0 248 2" fill="none">
+                                                                <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                            </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                        <div><svg xmlns="http://www.w3.org/2000/svg" width="248" height="2"
+                                                            viewBox="0 0 248 2" fill="none">
+                                                            <path d="M0 1L248 0.999978" stroke="#E4E4E4" />
+                                                        </svg></div>
+                                                        <div class="card-text" style="font-size: 14px; color: #B4B4B4;">
+                                                            0132-1.PJ/KEU.01.09/B01060100/2020</div>
+                                                        <div class="fw-bold">Rp 104.032.323,00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    <span><img src="assets/icon/info-circle.svg" alt=""></span>
+                                </div>
+                                <!-- end tooltip -->
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <!-- end progress-bar -->
+                        </div>
+                    </div>
+                </div>
+                <!-- end card kanan -->
+            </div>
+        </div>
+    </main>
+    <app-footer></app-footer>
+</div>

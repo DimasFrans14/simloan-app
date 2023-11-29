@@ -1,0 +1,12 @@
+footer  {
+    margin-left: 300px;
+    margin-right: 25px;
+}
+.footer{
+    color: var(--color-silver-500, #9A9A9A);
+    font-family: Satoshi;
+    font-size: 12px;
+}
+.bg {
+    background: var(--color-silver-100, #F4F5F6);
+}

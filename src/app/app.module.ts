@@ -24,6 +24,12 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { QuillModule } from 'ngx-quill';
 import { HitungFincostComponent } from './dashboard/paramater_market/financing-cost/hitung-fincost/hitung-fincost.component';
 import { FooterComponent } from './layout/footer/footer.component';
+import { ShlAgreementComponent } from './dashboard/shl/shl-agreement/shl-agreement.component';
+import { CreateAgreementComponent } from './dashboard/shl/shl-agreement/create-agreement/create-agreement.component';
+import { AmandementAgreementComponent } from './dashboard/shl/shl-agreement/amandement-agreement/amandement-agreement.component';
+import { AnalisaShlComponent } from './dashboard/shl/shl-overview/analisa-shl/analisa-shl.component';
+import { ReportShlComponent } from './dashboard/shl/shl-overview/report-shl/report-shl.component';
+import { DetailAgreementComponent } from './dashboard/shl/shl-overview/detail-agreement/detail-agreement.component';
 // import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
 
 @NgModule({
@@ -42,6 +48,12 @@ import { FooterComponent } from './layout/footer/footer.component';
     MarketUpdateComponent,
     HitungFincostComponent,
     FooterComponent,
+    ShlAgreementComponent,
+    CreateAgreementComponent,
+    AmandementAgreementComponent,
+    AnalisaShlComponent,
+    ReportShlComponent,
+    DetailAgreementComponent,
   ],
   imports: [
     BrowserModule,
