@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -10,6 +10,23 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   styleUrls: ['./sidebar.component.css']
 })
 
-export class SidebarComponent {
+export class SidebarComponent implements AfterViewInit{
+
+  localData: { roleValue: string } | null = null;
+
+
+  ngAfterViewInit(): void {
+    const localStorageData = localStorage.getItem('dataRegister');
+
+    // let localData: any;
+
+    if (localStorageData !== null) {
+      this.localData = JSON.parse(localStorageData);
+      console.log(this.localData);
+
+    } else {
+      console.log('data kosong');
+    }
+  }
 
 }
