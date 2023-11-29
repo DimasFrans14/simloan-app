@@ -19,6 +19,7 @@ import { AmandementAgreementComponent } from './dashboard/shl/shl-agreement/aman
 import { AnalisaShlComponent } from './dashboard/shl/shl-overview/analisa-shl/analisa-shl.component';
 import { ReportShlComponent } from './dashboard/shl/shl-overview/report-shl/report-shl.component';
 import { DetailAgreementComponent } from './dashboard/shl/shl-overview/detail-agreement/detail-agreement.component';
+import { CurrencyRateComponent } from './dashboard/paramater_market/market-update/child_market_update/currency-rate/currency-rate.component';
 
 const routes: Routes = [
 
@@ -35,7 +36,11 @@ const routes: Routes = [
   { path: 'overview_harian', component: OverviewHarian },
   { path: 'financing_cost', component: FinancingCostComponent },
   { path: 'liabilities', component: LiabilitiesComponent},
-  { path: 'market_update', component: MarketUpdateComponent },
+  { path: 'market_update', component: MarketUpdateComponent, children:
+    [
+      // {path: 'currency_rate', component: CurrencyRateComponent}
+    ]
+  },
   { path: 'hitung_fincost', component: HitungFincostComponent},
   { path: 'shl_agreement', component: ShlAgreementComponent},
   { path: 'create_agreement', component: CreateAgreementComponent},
@@ -47,6 +52,9 @@ const routes: Routes = [
   //   path: 'shloverview',
   //   loadChildren: () => import('./layout/sidebar/sidebar-routing.module').then(m => m.SidebarRoutingModule),
   // },
+
+  //Child Path Market Update Component
+  { path: 'market_update/currency_rate', component: CurrencyRateComponent},
 ];
 
 @NgModule({
