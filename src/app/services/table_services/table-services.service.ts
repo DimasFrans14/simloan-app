@@ -46,9 +46,22 @@ export class TableServicesService {
   tableForeignExchange: any;
   tableDataForeignExchange: any;
 
+  //Table Realisasi
+  tableRealisasi: any;
+  tableDataRealisasi: any;
+
+  //Table RKAP
+  tableDataRKAP: any;
+  tableRKAP: any;
+
+  //Table Outlook
+  tableDataOutlook: any;
+  tableOutlook: any;
+
   constructor() {
     // Initialize properties in a method like ngOnInit() or a custom method
-    this.initializeTableData();
+    // this.initializeTableData();
+    // this.initializeTableDataCurrency()
   }
 
   initializeTableData() {
@@ -152,7 +165,7 @@ export class TableServicesService {
 
     this.tableCommodities = new Tabulator(".table-commodities", {
     // height:205,
-    data:this.tableDataBondYield,
+    data:this.tableDataCommodities,
     layout:"fitColumns",
     columns:[
       {title:"IDR", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:false},
@@ -245,7 +258,7 @@ export class TableServicesService {
 
     this.tableMoneySupply = new Tabulator(".table-moneySupply", {
       // height:205,
-      data:this.tableDataInflasi,
+      data:this.tableDataMoneySupply,
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
@@ -273,7 +286,7 @@ export class TableServicesService {
 
     this.tableForeignExchange = new Tabulator(".table-foreignExchange", {
       // height:205,
-      data:this.tableDataInflasi,
+      data:this.tableDataForeignExchange,
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
@@ -301,7 +314,7 @@ export class TableServicesService {
 
     this.tablePMI = new Tabulator(".table-pmi", {
       // height:205,
-      data:this.tableDataInflasi,
+      data:this.tableDataPMI,
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
@@ -329,7 +342,7 @@ export class TableServicesService {
 
     this.tableRetail = new Tabulator(".table-retail", {
       // height:205,
-      data:this.tableDataInflasi,
+      data:this.tableDataRetail,
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
@@ -339,6 +352,115 @@ export class TableServicesService {
         {title:"2023", field:"thn2023", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       ],
     });
+  }
 
+  initializeTableDataCurrency(){
+
+    this.tableDataCurrency = [
+      {id:1, name:"USD", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
+      {id:2, name:"EUR", age:"12000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
+      {id:3, name:"JPY", age:"13000", rate:"2,53%", col:"green", dob:"22/05/1982"},
+      {id:4, name:"GBP", age:"14000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
+    ];
+
+    this.tableCurrency = new Tabulator(".table-currency", {
+          // height:205,
+      data:this.tableDataCurrency,
+      layout:"fitColumns",
+      columns:[
+        {title:"IDR", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+    {//create column group
+        title:"Exchange Rate",
+        columns:[
+        {title:"RKAP <br/>23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        ],
+        headerHozAlign:"center"
+    },
+    {title:"Change <br/>RKAP", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Change <br/>MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Change <br/>WoW", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Change 1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+   }
+    );
+
+    this.tableDataRealisasi = [
+      {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+  ]
+
+  this.tableRealisasi = new Tabulator(".table-realisasi", {
+    // height:205,
+    data:this.tableDataRealisasi,
+    layout:"fitColumns",
+    columns:[
+      {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    ],
+  });
+
+    this.tableDataRKAP = [
+      {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+  ]
+
+  this.tableRKAP = new Tabulator(".table-RKAP", {
+    // height:205,
+    data:this.tableDataRealisasi,
+    layout:"fitColumns",
+    columns:[
+      {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    ],
+  });
+
+    this.tableDataOutlook = [
+      {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+  ]
+
+  this.tableOutlook = new Tabulator(".table-outlook", {
+    // height:205,
+    data:this.tableDataOutlook,
+    layout:"fitColumns",
+    columns:[
+      {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    ],
+  });
   }
 }
