@@ -135,17 +135,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     },
   }
 
-  // chartSeries:any;
-
-  // chartSeries:any;
-  // chartSeries2:any ;
-  // currencyChartDetails:any ;
-  // currencyBarChartDetails:any;
-  // commodityChartDetails:any ;
-  // currencyChartTitle:any ;
-  // commodityChartTitle:any ;
-
-
   changeChart(){
     alert('Change chart');
   }
@@ -155,20 +144,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   }
 
   ngAfterViewInit(): void {
-    // const chartConfig = this.chart?.getChartConfigurations();
-    // if(chartConfig){
-    //   console.log('get');
-    // }
-    // else{
-    //   console.log('dont get');
-    // }
-    // this.chartSeries = chartConfig.chartSeries;
-    // this.chartSeries2 = chartConfig.chartSeries2;
-    // this.currencyChartDetails = chartConfig.currencyChartDetails;
-    // this.currencyBarChartDetails = chartConfig.currencyBarChartDetails;
-    // this.commodityChartDetails = chartConfig.commodityChartDetails;
-    // this.currencyChartTitle = chartConfig.currencyChartTitle;
-    // this.commodityChartTitle = chartConfig.commodityChartTitle;
+
   }
 
 }
