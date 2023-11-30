@@ -31,6 +31,7 @@ import { AnalisaShlComponent } from './dashboard/shl/shl-overview/analisa-shl/an
 import { ReportShlComponent } from './dashboard/shl/shl-overview/report-shl/report-shl.component';
 import { DetailAgreementComponent } from './dashboard/shl/shl-overview/detail-agreement/detail-agreement.component';
 // import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
+import { CurrencyRateComponent } from './dashboard/paramater_market/market-update/child_market_update/currency-rate/currency-rate.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { DetailAgreementComponent } from './dashboard/shl/shl-overview/detail-ag
     AnalisaShlComponent,
     ReportShlComponent,
     DetailAgreementComponent,
+    CurrencyRateComponent,
   ],
   imports: [
     BrowserModule,

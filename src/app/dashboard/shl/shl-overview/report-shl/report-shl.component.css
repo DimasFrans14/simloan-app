@@ -1,0 +1,12 @@
+.header-btn{
+  width: 200px;
+  /* display: inline-flex; */
+  /* padding: var(--padding-padding-small, 4px) var(--padding-padding-medium, 8px); */
+  padding: 9px 16px;
+  /* justify-content: center; */
+  /* align-items: center; */
+  gap: 4px;
+  border-radius: 6px;
+  border: 1px solid var(--color-silver-200, #E4E4E4);
+  background: var(--color-silver-0, #FFF);
+}
