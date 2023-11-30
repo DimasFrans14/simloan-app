@@ -32,6 +32,7 @@ import { ReportShlComponent } from './dashboard/shl/shl-overview/report-shl/repo
 import { DetailAgreementComponent } from './dashboard/shl/shl-overview/detail-agreement/detail-agreement.component';
 // import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
 import { CurrencyRateComponent } from './dashboard/paramater_market/market-update/child_market_update/currency-rate/currency-rate.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { CurrencyRateComponent } from './dashboard/paramater_market/market-updat
         ]
       },
       scrollingContainer: "#quill-container"
-    })
+    }),
+    BrowserAnimationsModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent],
