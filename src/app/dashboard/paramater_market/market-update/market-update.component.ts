@@ -90,36 +90,36 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     this.tableConfig.initializeTableData();
 
     //Table Currency
-    this.tableDataCurrency = this.tableConfig.tableDataCurrency;
-    this.tableCurrency = this.tableConfig.tableCurrency;
+    // this.tableDataCurrency = this.tableConfig.tableDataCurrency;
+    // this.tableCurrency = this.tableConfig.tableCurrency;
 
     //Table Interest Rate
-    this.tableDataInterest = this.tableConfig.tableDataInterestRate;
-    this.tableInterest = this.tableConfig.tableInterestRate;
+    // this.tableDataInterest = this.tableConfig.tableDataInterestRate;
+    // this.tableInterest = this.tableConfig.tableInterestRate;
 
     //Table Bond Yield
-    this.tableDataBondYield = this.tableConfig.tableDataBondYield;
-    this.tableBondYield = this.tableConfig.tableBondYield;
+    // this.tableDataBondYield = this.tableConfig.tableDataBondYield;
+    // this.tableBondYield = this.tableConfig.tableBondYield;
 
     //Table Commodities
-    this.tableDataCommodities = this.tableConfig.tableDataCommodities;
-    this.tableCommodities = this.tableConfig.tableCommodities;
+    // this.tableDataCommodities = this.tableConfig.tableDataCommodities;
+    // this.tableCommodities = this.tableConfig.tableCommodities;
 
     //Table Money Supply
-    this.tableDataMoneySupply = this.tableConfig.tableDataMoneySupply;
-    this.tableMoneySupply = this.tableConfig.tableMoneySupply;
+    // this.tableDataMoneySupply = this.tableConfig.tableDataMoneySupply;
+    // this.tableMoneySupply = this.tableConfig.tableMoneySupply;
 
     //Table Foreign Excahnge
-    this.tableDataForeignExchange = this.tableConfig.tableDataForeignExchange;
-    this.tableForeignExchange = this.tableConfig.tableForeignExchange;
+    // this.tableDataForeignExchange = this.tableConfig.tableDataForeignExchange;
+    // this.tableForeignExchange = this.tableConfig.tableForeignExchange;
 
     //Table PMI
-    this.tableDataPMI = this.tableConfig.tableDataPMI;
-    this.tablePMI = this.tableConfig.tablePMI;
+    // this.tableDataPMI = this.tableConfig.tableDataPMI;
+    // this.tablePMI = this.tableConfig.tablePMI;
 
     //Table Retail
-    this.tableDataRetail = this.tableConfig.tableDataRetail;
-    this.tableRetail = this.tableConfig.tableRetail;
+    // this.tableDataRetail = this.tableConfig.tableDataRetail;
+    // this.tableRetail = this.tableConfig.tableRetail;
   }
 
 }
