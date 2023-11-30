@@ -1,1 +1,245 @@
-<p>detail-agreement works!</p>
+<div>
+    <app-header></app-header>
+    <app-sidebar></app-sidebar>
+    <!-- Header -->
+    <div id="header" class="header">
+        <div class="col-12 bg-white sub-nav border-top"
+            style="margin-top: 60px; padding-left: 250px; padding-bottom: 0; padding-top: 0;">
+            <div class="container">
+                <div class="d-flex align-items-center">
+                    <div class="p-2 flex-fill">
+                        <div routerLink="/analisa_shl" routerLinkActive="active">
+                            <i class="btn" style="color: #606060;"><img src="assets/icon/arrow-left.svg" alt=""> Back to Analisa SHL</i>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <button type="button" class="btn header-btn btn-sm dropdown-toggle dropdown-toggle-split"
+                            style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="">All Anak Perusahaan </span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item">USD</a></li>
+                            <li><a class="dropdown-item">IDR</a></li>
+                            <li><a class="dropdown-item">EUR</a></li>
+                        </ul>
+                    </div>
+                    <div class="p-2 ">
+                        <button type="button" class="btn header-btn btn-sm dropdown-toggle dropdown-toggle-split"
+                            style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class=""> September </span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item">USD</a></li>
+                            <li><a class="dropdown-item">IDR</a></li>
+                            <li><a class="dropdown-item">EUR</a></li>
+                        </ul>
+                    </div>
+                    <div class="p-2 ">
+                        <button type="button" class="btn header-btn btn-sm dropdown-toggle dropdown-toggle-split"
+                            style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class=""> 2023 </span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item">USD</a></li>
+                            <li><a class="dropdown-item">IDR</a></li>
+                            <li><a class="dropdown-item">EUR</a></li>
+                        </ul>
+                    </div>
+                    <div class="p-2 ">
+                        <div class="btn header-btn btn-sm" style="color: #9A9A9A; font-size: 14px;">Reset</div>
+                    </div>
+                    <div class="p-2">
+                        <div class="btn btn-light btn-sm"><i class="bi bi-arrow-repeat"></i></div>
+                    </div>
+                    <div class="p-2">
+                        <div class="btn btn-light btn-sm"><i class="bi bi-download"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header -->
+    <main id="main" class="main">
+        <div class="container">
+            <h4>Detail Haleyora Powerindo</h4>
+            <div class="card mt-3">
+                <div class="container-card">
+                    <div class="d-flex">
+                        <div class="d-flex justify-content-between align-self-center">
+                            <div class="p-2">
+                                <div class="avatar"><img src="assets/icon/building-06.svg" style="margin: 10px 10px;" alt=""></div>
+                            </div>
+                            <div class="p-2">
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bold" style="color: var(--color-silver-950, #0C0C0F);">Haleyora Powerindo</div>
+                                    <div style="color:#9A9A9A; font-size: 14px;">3 Perjanjian</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <!-- card kiri -->
+                <div class="col-4">
+                    <div class="card">
+                        <div class="container-card">
+                            <div class="d-flex justify-content-start p-2">
+                                <div class="avatar align-items-center"><img src="assets/icon/building-06.svg" alt=""></div>
+                                <div class="" style="margin-left:10px;">
+                                    <div class="d-flex flex-column align-self-center">
+                                        <div class="fw-bold" style="color: var(--color-silver-950, #0C0C0F);">Nomor PJ</div>
+                                        <div style="color:#9A9A9A; font-size: 14px;">Haleyora Powerindo</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- progress-bar -->
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pagu</label></div>
+                                <div class="btn btn-sm"></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Penarikan</label></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pembayaran</label></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Saldo</label></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <!-- end progress-bar -->
+                        </div>
+                    </div>
+                </div>
+                <!-- end card kiri -->
+
+                <!-- card tengah -->
+                <div class="col-4">
+                    <div class="card">
+                        <div class="container-card">
+                            <div class="d-flex justify-content-start p-2">
+                                <div class="avatar align-items-center"><img src="assets/icon/building-06.svg" alt=""></div>
+                                <div class="" style="margin-left:10px;">
+                                    <div class="d-flex flex-column align-self-center">
+                                        <div class="fw-bold" style="color: var(--color-silver-950, #0C0C0F);">Nomor PJ</div>
+                                        <div style="color:#9A9A9A; font-size: 14px;">Haleyora Powerindo</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- progress-bar -->
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pagu</label></div>
+                                <div class="btn btn-sm"></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Penarikan</label></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pembayaran</label></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Saldo</label></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <!-- end progress-bar -->
+                        </div>
+                    </div>
+                </div>
+                <!-- end card tengah -->
+
+                <!-- card kanan -->
+                <div class="col-4">
+                    <div class="card">
+                        <div class="container-card">
+                            <div class="d-flex justify-content-start p-2">
+                                <div class="avatar align-items-center"><img src="assets/icon/building-06.svg" alt=""></div>
+                                <div class="" style="margin-left:10px;">
+                                    <div class="d-flex flex-column align-self-center">
+                                        <div class="fw-bold" style="color: var(--color-silver-950, #0C0C0F);">Nomor PJ</div>
+                                        <div style="color:#9A9A9A; font-size: 14px;">Haleyora Powerindo</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- progress-bar -->
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pagu</label></div>
+                                <div class="btn btn-sm"></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Penarikan</label></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Total Pembayaran</label></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="p-2"><label for="">Saldo</label></div>
+                                <div class="ms-auto p-2 progress-bar" style="width: 25%">25%</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 25%"></div>
+                            </div>
+                            <!-- end progress-bar -->
+                        </div>
+                    </div>
+                </div>
+                <!-- card kanan -->
+            </div>
+        </div>
+    </main>
+    <app-footer></app-footer>
+</div>
