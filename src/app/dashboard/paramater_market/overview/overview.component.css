@@ -3,3 +3,29 @@
   padding: 5.5px;
 }
 
+.sub-nav{
+  margin-top: 60px;
+  padding-left: 282px;
+  padding-bottom: 20px;
+  padding-top: 15px;
+}
+
+#main{
+  margin-top: 40px;
+}
+
+@media (max-width: 1199px) {
+  .sub-nav {
+    /* padding-left: 20px; */
+    padding: 15px;
+    margin: 0px;
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    left: 0px;
+  }
+
+  #main{
+    margin-top: 63px;
+  }
+}

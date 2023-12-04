@@ -25,6 +25,18 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     this.openModal = !this.openModal;
   }
 
+  dataFilterTanggal = {
+    hari: '',
+    bulan: '',
+    triwulan: ''
+  };
+
+  getValueForm(event: any) {
+    console.log(this.dataFilterTanggal)
+    console.log(event);
+
+  }
+
   ngOnInit(): void {
 
   }

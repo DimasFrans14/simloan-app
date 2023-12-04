@@ -11,7 +11,10 @@ export class CurrencyRateComponent implements AfterViewInit {
 
   constructor(
     private tableConfig: TableServicesService,
-  ){}
+  ){
+    // console.log(tableConfig);
+
+  }
 
   // tableDataCurrency: any;
   // tableCurrency:any;
@@ -28,7 +31,6 @@ export class CurrencyRateComponent implements AfterViewInit {
   ngAfterViewInit(): void {
 
     this.tableConfig.initializeTableDataCurrency();
-
   }
 
 }

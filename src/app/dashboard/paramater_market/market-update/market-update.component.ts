@@ -67,18 +67,18 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       this.excelDataTable = XLSX.utils.sheet_to_html(workbook.Sheets[sheetNames[0]]);
 
       // this.html = this.sanitizer.bypassSecurityTrustHtml(this.excelDataTable);
-
+      console.log(event);
       console.log(this.excelDataJSON);
 
-      this.tableUpdate = new Tabulator(".example-table-2", {
-        height:205,
-        data:this.excelDataJSON,
-        layout:"fitDataTable",
-        columns:[
-          {title:"Name", field:"Name", width:150, editor:"input"},
-          {title:"Birthday", field:"Birthday", hozAlign:"left"},
-        ],
-     });
+    //   this.tableUpdate = new Tabulator(".example-table-2", {
+    //     height:205,
+    //     data:this.excelDataJSON,
+    //     layout:"fitDataTable",
+    //     columns:[
+    //       {title:"Name", field:"Name", width:150, editor:"input"},
+    //       {title:"Birthday", field:"Birthday", hozAlign:"left"},
+    //     ],
+    //  });
     }
   }
 

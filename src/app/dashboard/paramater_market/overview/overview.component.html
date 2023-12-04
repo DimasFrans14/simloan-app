@@ -4,7 +4,7 @@
 
   <!-- Sub Header -->
   <div id="header" class="header">
-    <div class="col-12 bg-white sub-nav border-top" style="margin-top: 60px; padding-left: 282px; padding-bottom: 20px; padding-top: 15px;">
+    <div class="col-12 bg-white sub-nav border-top">
       <div class="d-flex flex-col justify-content-between align-items-center">
         <div>
           <!-- <button class="btn btn-light bg-white" style="font-size: 14px; border: 1px solid #e4e4e4">Harian</button> -->
@@ -52,8 +52,15 @@
   </div>
   <!-- End Sub Header -->
 
-  <main id="main" class="main" style="margin-top: 24px;">
-    <h4 class="mt-4">Currency</h4>
+  <main id="main" class="main">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h4 class="mt-4">Currency</h4>
+      </div>
+      <div>
+        <button class="btn btn-transparant btn-sm border border-1 px-3 bg-white">Compare</button>
+      </div>
+    </div>
     <div class="row">
       <div class="col-12 py-3 px-4 bg-white rounded">
         <apx-chart [style.display]="isVisibleLine ? 'block' : 'none'" [series]="chartSeries" [chart]="currencyChartDetails" [title]="currencyChartTitle"></apx-chart>
@@ -108,20 +115,109 @@
       </div>
     </div>
 
-    <h4 class="mt-4">Commodity</h4>
-    <div class="d-flex flex-row flex-wrap justify-content-between">
-      <div class="bg-white p-2 rounded">
-        <apx-chart [series]="chartSeries" [chart]="commodityChartDetails" [title]="commodityChartTitle"></apx-chart>
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h4 class="mt-4">Commodity</h4>
       </div>
-      <div class="bg-white p-2 rounded">
-        <apx-chart [series]="chartSeries" [chart]="commodityChartDetails" [title]="commodityChartTitle"></apx-chart>
+      <div>
+        <button class="btn btn-transparant btn-sm border border-1 px-3 bg-white">Edit</button>
       </div>
-      <div class="bg-white p-2 rounded">
-        <apx-chart [series]="chartSeries" [chart]="commodityChartDetails" [title]="commodityChartTitle"></apx-chart>
+    </div>
+    <div class="d-flex flex-row flex-wrap justify-content-sm-center justify-content-md-center justify-content-lg-between justify-content-xl-between justify-content-xxl-between">
+      <div class="bg-white p-2 m-2 rounded">
+
+        <div class="d-flex align-items-center justify-content-between p-2">
+          <div>
+            <span>WTI & Brent</span>
+          </div>
+          <div>
+            <button type="button" class="btn btn-transparant border border-1"
+                style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <span class="">September</span>
+                  </div>
+                  <div>
+                    <i class="bi bi-chevron-down"></i>
+                  </div>
+                </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item">September</a></li>
+                <li><a class="dropdown-item">Oktober</a></li>
+                <li><a class="dropdown-item">November</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <apx-chart [series]="chartSeries" [chart]="commodityChartDetails"></apx-chart>
+      </div>
+      <div class="bg-white p-2 m-2 rounded">
+
+        <div class="d-flex align-items-center justify-content-between p-2">
+          <div>
+           <span>WTI & Brent</span>
+          </div>
+          <div>
+            <button type="button" class="btn btn-transparant border border-1"
+                style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <span class="">September</span>
+                  </div>
+                  <div>
+                    <i class="bi bi-chevron-down"></i>
+                  </div>
+                </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item">September</a></li>
+                <li><a class="dropdown-item">Oktober</a></li>
+                <li><a class="dropdown-item">November</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <apx-chart [series]="chartSeries" [chart]="commodityChartDetails"></apx-chart>
+      </div>
+      <div class="bg-white p-2 m-2 rounded">
+
+        <div class="d-flex align-items-center justify-content-between p-2">
+          <div>
+           <span>WTI & Brent</span>
+          </div>
+          <div>
+            <button type="button" class="btn btn-transparant border border-1"
+                style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <span class="">September</span>
+                  </div>
+                  <div>
+                    <i class="bi bi-chevron-down"></i>
+                  </div>
+                </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item">September</a></li>
+                <li><a class="dropdown-item">Oktober</a></li>
+                <li><a class="dropdown-item">November</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <apx-chart [series]="chartSeries" [chart]="commodityChartDetails"></apx-chart>
       </div>
     </div>
 
-    <h4 class="mt-4">Interest Rate</h4>
+    <div class="d-flex justify-content-between align-items-center mt-4 mb-2">
+      <div>
+        <h4>Interest Rate</h4>
+      </div>
+      <div>
+        <button class="btn btn-transparant btn-sm border border-1 px-3 bg-white">Edit</button>
+      </div>
+    </div>
     <div>
       <div class="bg-white rounded p-2">
         <apx-chart [series]="chartSeries" [chart]="currencyChartDetails"></apx-chart>
