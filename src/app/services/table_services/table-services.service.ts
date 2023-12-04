@@ -64,6 +64,22 @@ export class TableServicesService {
     // this.initializeTableDataCurrency()
   }
 
+  editCheck = function(cell:any){
+    //cell - the cell component for the editable cell
+
+    //get row data
+    var data = cell.getRow().getData();
+    var value = cell.getValue();
+
+    // console.log([
+    //   data,
+    //   value
+    // ]);
+
+    return data;
+     // only allow the name cell to be edited if the age is over 18
+}
+
   initializeTableData() {
     this.tableDataCurrency = [
       {id:1, name:"USD", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
@@ -81,11 +97,11 @@ export class TableServicesService {
     {//create column group
         title:"Exchange Rate",
         columns:[
-        {title:"RKAP <br/>23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"RKAP <br/>23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
         ],
         headerHozAlign:"center"
     },
