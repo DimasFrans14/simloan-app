@@ -54,8 +54,15 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   tableUpdate:any;
 
+  files: File[] = [];
+
+  data2: any;
+  data3: any;
+  data4: any;
+
+
   readExcel(event: any){
-    let file = event.target.files[0];
+    let file = event.addedFiles[0];
     let fileReader = new FileReader();
     fileReader.readAsBinaryString(file);
 
@@ -64,11 +71,18 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       var workbook = XLSX.read(fileReader.result, {type:'binary'});
       var sheetNames = workbook.SheetNames;
       this.excelDataJSON =  XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[0]]);
-      this.excelDataTable = XLSX.utils.sheet_to_html(workbook.Sheets[sheetNames[0]]);
+      this.data2 =  XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[1]]);
+      this.data3 =  XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[2]]);
+      this.data4 =  XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[3]]);
+
+      // this.excelDataTable = XLSX.utils.sheet_to_html(workbook.Sheets[sheetNames[0]]);
 
       // this.html = this.sanitizer.bypassSecurityTrustHtml(this.excelDataTable);
       console.log(event);
-      console.log(this.excelDataJSON);
+      console.log([this.excelDataJSON, this.data2, this.data3, this.data4]);
+      console.log(sheetNames.length);
+      // console.log(workbook.Sheets);
+
 
     //   this.tableUpdate = new Tabulator(".example-table-2", {
     //     height:205,
@@ -80,6 +94,17 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     //     ],
     //  });
     }
+  }
+
+  onSelect(event: { addedFiles: any; }) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+    this.readExcel(event)
+  }
+
+    onRemove(event: File) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
   }
 
   ngOnInit(): void {
