@@ -34,6 +34,8 @@ import { DetailAgreementComponent } from './dashboard/shl/shl-overview/detail-ag
 import { CurrencyRateComponent } from './dashboard/paramater_market/market-update/child_market_update/currency-rate/currency-rate.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +63,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     HeaderComponent,
     SidebarComponent,
     NgApexchartsModule,
