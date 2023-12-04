@@ -48,7 +48,7 @@ export class ChartService {
 
     this.shlChart = {
       type: 'bar',
-      width: 540,
+      width: 470,
       height: 400,
       // width:,
       toolbar: {
@@ -105,7 +105,7 @@ export class ChartService {
 
     this.APChart = {
       type: 'bar',
-      width: 540,
+      width: 470,
       height: 400,
       // width:,
       toolbar: {

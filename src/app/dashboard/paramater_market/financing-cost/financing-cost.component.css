@@ -33,7 +33,7 @@
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 22px; 
+    line-height: 22px;
     letter-spacing: 0.07px;
 }
 .gap{
@@ -41,4 +41,27 @@
 }
 a {
     text-decoration: none;
+}
+
+.sub-nav{
+  margin-top: 60px;
+  padding-left: 282px;
+  padding-bottom: 20px;
+  padding-top: 15px;
+}
+
+@media (max-width: 1199px) {
+  .sub-nav {
+    /* padding-left: 20px; */
+    padding: 15px;
+    margin: 0px;
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    left: 0px;
+  }
+
+  #main{
+    padding-top: 75px;
+  }
 }

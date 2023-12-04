@@ -48,7 +48,7 @@
               </ul>
           </div>
           <div class="p-2 ">
-              <div class="btn btn-transparant" style="color: #9A9A9A; font-size: 14px;">Reset</div>
+              <div class="btn btn-transparant border border-1" style="color: #9A9A9A; font-size: 14px;">Reset</div>
           </div>
           <div class="p-2">
               <div class="btn btn-light">
@@ -84,7 +84,7 @@
       <div class="me-2 bg-white rounded p-2">
         <div class="d-flex justify-content-between p-2">
           <div>
-            <h4>Total Shl</h4>
+            <h5>Total Shl</h5>
           </div>
           <div class="d-flex align-items-center justify-content-center">
             <div class="me-2">
@@ -127,9 +127,62 @@
         </div>
         <apx-chart [series]="dataChartSHL" [chart]="shlChart" [xaxis]="xAxisSHL" [colors]="colors"></apx-chart>
       </div>
-      <div class="bg-white rounded p-2">
-        <apx-chart [series]="dataChartSHL" [chart]="shlChart" [title]="shlChartTitle" [xaxis]="xAxisSHL" [colors]="colors"></apx-chart>
+      <div class="me-2 bg-white rounded p-2">
+        <div class="d-flex justify-content-between p-2">
+          <div>
+            <h5>Availibility Period</h5>
+          </div>
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="me-2">
+              <button type="button" class="btn btn-transparant border border-1"
+                  style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <span class="">September </span>
+                    </div>
+                    <div>
+                      <i class="bi bi-chevron-down"></i>
+                    </div>
+                  </div>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item">September</a></li>
+                  <li><a class="dropdown-item">Oktober</a></li>
+                  <li><a class="dropdown-item">November</a></li>
+              </ul>
+            </div>
+            <div>
+              <button type="button" class="btn btn-transparant border border-1"
+                  style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <span class="">September</span>
+                    </div>
+                    <div>
+                      <i class="bi bi-chevron-down"></i>
+                    </div>
+                  </div>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item">September</a></li>
+                  <li><a class="dropdown-item">Oktober</a></li>
+                  <li><a class="dropdown-item">November</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <apx-chart [series]="dataChartAP" [chart]="APChart" [xaxis]="xAxisAP" [colors]="colors"></apx-chart>
+      </div>
+      <!-- <div class="bg-white rounded p-2">
+        <apx-chart [series]="dataChartAP" [chart]="APChart" [title]="apChartTitle" [xaxis]="xAxisAP" [colors]="colors"></apx-chart>
+      </div> -->
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <apx-chart [series]="dataChartAP" [chart]="APChart" [title]="apChartTitle" [xaxis]="xAxisAP" [colors]="colors"></apx-chart>
       </div>
     </div>
+
   </main>
 </div>

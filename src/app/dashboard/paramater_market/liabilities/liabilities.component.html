@@ -2,8 +2,7 @@
     <app-sidebar></app-sidebar>
     <app-header></app-header>
     <div id="header" class="header">
-        <div class="col-12 bg-white sub-nav border-top"
-            style="margin-top: 60px; padding-left: 282px; padding-bottom: 10px; padding-top: 10px;">
+        <div class="col-12 bg-white sub-nav border-top">
             <div class="container">
                 <div class="d-flex">
                     <div class="p-2 flex-grow-1 align-self-center" style="font-size: 22px;">Liabilities</div>
@@ -94,344 +93,346 @@
                 </div>
             </div>
         </div>
-        <main class="main mt-2" id="main">
-            <div class="container">
-                <div class="row">
-                    <div class="col-8">
-                        <div class="card">
-                            <img src="assets/image/Liabilities_Background.svg" class="card-img" alt="...">
-                            <div class="card-img-overlay">
-                                <div class="d-flex justify-content-between">
-                                    <div class="title-card1">Liabilities</div>
-                                    <div class="">
-                                        <div class="btn edit-btn btn-sm" (click)="openModalcard1()"
-                                            data-bs-toggle="modal" data-bs-target="#card1">Edit</div>
-                                    </div>
-                                    <!-- modal edit card1 -->
-                                    <div class="modal fade" id="card1" tabindex="-1" aria-labelledby="card1"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog modal-lg modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="card1">Liabilities  Card</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body overflow-y-auto">
 
-                                                    <quill-editor [styles]="{height: '250px'}">
-                                                    </quill-editor>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end modal edit card1 -->
-                                </div>
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="d-flex">
-                                            <div class="article-card1">
-                                                Prognosa pembayaran debt service tahun 2023 adalah sebesar Rp62.49
-                                                triliun, lebih
-                                                rendah Rp3.86 triliun2 dari RKAP 2023
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="d-flex flex-column mt-3">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="title">Interest Bearing Debt <img
-                                                    src="./assets/icon/arrow-narrow-up-right.svg" alt=""></div>
-                                            <div class="btn edit-btn btn-sm">Edit</div>
-                                        </div>
-                                        <div class="card mt-2">
-                                            <div class="card-body">
-                                                <h5 class="card-title text-center">Triliun (Rp)</h5>
-                                                <div class="d-flex justify-content-between" style="font-size: 12px;">
-                                                    <div class="rkap">RKAP</div>
-                                                    <div class="realisasi">Realisasi</div>
-                                                    <div class="outlook">Outlook2</div>
-                                                </div>
-                                                <div class="d-flex justify-content-between" style="font-size: 12px;">
-                                                    <div class="rkap">424.52</div>
-                                                    <div class="realisasi">374.03</div>
-                                                    <div class="outlook">375.25</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card mt-3">
-                                            <div class="article-card text-card3">Saldo utang RKAP1) 2023 adalah sebesar
-                                                Rp424.52T, posisi saldo utang per 31 Juli 2023 Rp374.03T. Sedangkan
-                                                proyeksi per 31 Desember 2023 adalah sebesar Rp375.25T2).
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 mt-3">
-                                    <div class="d-flex flex-column mb-2">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="title">Asumsi Castalia Model 2 <img
-                                                    src="./assets/icon/arrow-narrow-up-right.svg" alt=""></div>
-                                            <div class="btn edit-btn btn-sm">Edit</div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="card">
-                                                <div class="d-flex flex-column article-card item">
-                                                    <div class="title-card">SOFR</div>
-                                                    <div class="angka-card">6.03</div>
-                                                    <div class="text-card">Reference rate (%)</div>
-                                                    <div class="angka-card">0.34-2.35</div>
-                                                    <div class="text-card">margin (%)</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="card">
-                                                <div class="d-flex flex-column article-card item">
-                                                    <div class="title-card">JIBOR 3-Mo</div>
-                                                    <div class="angka-card">7.45</div>
-                                                    <div class="text-card">Reference rate (%)</div>
-                                                    <div class="angka-card">1.20-1.92</div>
-                                                    <div class="text-card">margin (%)</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="col-6">
-                                            <div class="card">
-                                                <div class="d-flex flex-column article-card item">
-                                                    <div class="title-card">JIBOR 6-Mo</div>
-                                                    <div class="angka-card">7.77</div>
-                                                    <div class="text-card">Reference rate (%)</div>
-                                                    <div class="angka-card">1.25-1.75</div>
-                                                    <div class="text-card">margin (%)</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="card">
-                                                <div class="d-flex flex-column article-card item">
-                                                    <div class="title-card">ATD 3-Mo</div>
-                                                    <div class="angka-card">4.82</div>
-                                                    <div class="text-card">Reference rate (%)</div>
-                                                    <div class="angka-card">2.61-3.23</div>
-                                                    <div class="text-card">margin (%)</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="col-6">
-                                            <div class="card">
-                                                <div class="d-flex flex-column article-card item">
-                                                    <div class="title-card">USD/IDR</div>
-                                                    <div class="angka-card">15.000</div>
-                                                    <div class="text-card">Kurs (Rp/USD)</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="card">
-                                                <div class="d-flex flex-column article-card">
-                                                    <div class="title-card">Additional Proceed</div>
-                                                    <div class="angka-card">Rp 11.29T</div>
-                                                    <div class="text-card">Reference rate (%)</div>
-                                                    <div class="angka-card">7.28-9.44</div>
-                                                    <div class="text-card">margin (%)</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <div class="title">Information</div>
-                            <div class="btn edit-btn btn-sm" (click)="openModalinfo()" data-bs-toggle="modal"
-                                data-bs-target="#info">Edit</div>
-                            <!-- modal edit information -->
-                            <div class="modal fade" id="info" tabindex="-1" aria-labelledby="info" aria-hidden="true">
-                                <div class="modal-dialog modal-lg modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="info">Information</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body overflow-y-auto">
-
-                                            <quill-editor [styles]="{height: '250px'}">
-                                            </quill-editor>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end modal  edit information -->
-                        </div>
-                        <div class="card mt-3">
-                            <div class="article-card text-card3 mt-2">
-                                Rencana pemenuhan pendanaan PLN (antara lain skema, size, currency, dan timing) akan
-                                disesuaikan dengan kebutuhan, kondisi likuiditasm dan kondisi market.
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <div class="title">Footnote</div>
-                            <div class="btn edit-btn btn-sm" (click)="openModalfootnote()" data-bs-toggle="modal"
-                            data-bs-target="#footnote">Edit</div>
-                            <!-- modal edit footnote -->
-                            <div class="modal fade" id="footnote" tabindex="-1" aria-labelledby="footnote" aria-hidden="true">
-                                <div class="modal-dialog modal-lg modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="footnote">Footnote</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body overflow-y-auto">
-
-                                            <quill-editor [styles]="{height: '250px'}">
-                                            </quill-editor>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end modal editfootnote -->
-                        </div>
-                        <div class="card mt-3 ">
-                            <div class="d-flex">
-                                <div class="p-2 flex-fill">
-                                    <div class="d-flex flex-column">
-                                        <div class="d-flex flex-column">
-                                            <div class="text-card">Asumsu Buku RKAP 2023</div>
-                                            <div> <a href="#!">ATD3-Mo</a></div>
-                                        </div>
-                                        <div class="d-flex flex-column">
-                                            <div class="text-card">Berdasarkan realisasi juli dan pragnosa menggunakan
-                                                <br>castalia. model (baseline) per <b>25 Agustus2023</b>
-                                            </div>
-                                            <div class=""> <a href="#!">link footnote</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="p-2 flex-fill">
-                                    <div class="d-flex flex-column">
-                                        <div class="text-card">Sudah termasuk Credit Spread Adjustment 0.43%</div>
-                                        <div></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- card kanan1 -->
-                    <div class="col-4">
-                        <div class="title">Realisasi dari RKAP</div>
-                        <div class="d-flex justify-content-between mt-2">
-                            <div class="title">Interest Paid</div>
-                            <div class="btn edit-btn btn-sm">Edit</div>
-                        </div>
-                        <div class="card info-card sales-card mt-2">
-                            <div class="article-card">
-                                <div class="title-card text">Triliun (Rp)</div>
-                                <div class="d-flex justify-content-between">
-                                    <div class="angka-card"> 1% <img src="./assets/icon/arrow-right.svg" alt=""> 0.29
-                                    </div>
-                                    <div class="angka-card"> & </div>
-                                    <div class="angka-card"> Rp100/USD <img src="./assets/icon/arrow-right.svg" alt="">
-                                        0.02</div>
-                                </div>
-                                <div class="text-card mt-2"> Kenaikan 1% atas seluruh tingkat bunga floating dan
-                                    Rp100/USD akan berdampak masing-masing sebesar Rp0.29T dan Rp0.02T</div>
-                            </div>
-                        </div>
-                        <!-- card kanan2 -->
-                        <div class="d-flex justify-content-between mt-2">
-                            <div class="title">Interest Accrual</div>
-                            <div class="btn edit-btn btn-sm">Edit</div>
-                        </div>
-                        <div class="card info-card sales-card mt-2">
-                            <div class="article-card">
-                                <div class="title-card">Triliun (Rp)</div>
-                                <div class="d-flex justify-content-between">
-                                    <div class="angka-card"> 1% <img src="./assets/icon/arrow-right.svg" alt=""> 0.29
-                                    </div>
-                                    <div class="angka-card"> & </div>
-                                    <div class="angka-card"> Rp100/USD <img src="./assets/icon/arrow-right.svg" alt="">
-                                        0.02</div>
-                                </div>
-                                <div class="text-card mt-2"> Kenaikan 1% atas seluruh tingkat bunga floating dan
-                                    Rp100/USD akan berdampak masing-masing sebesar Rp0.29T dan Rp0.02T</div>
-                            </div>
-                        </div>
-                        <!-- card kanan 3 -->
-                        <div class="d-flex justify-content-between mt-2">
-                            <div class="title">Debt Service</div>
-                            <div class="btn edit-btn btn-sm">Edit</div>
-                        </div>
-                        <div class="card info-card sales-card mt-2">
-                            <div class="article-card">
-                                <div class="title-card">Principal Payment + Interest Paid Triliun(Rp)</div>
-                                <div class="d-flex justify-content-between mt-2" style="font-size: 12px;">
-                                    <div class="rkap text-center"> RKAP</div>
-                                    <div class="realisasi text-center">Realisasi</div>
-                                    <div class="outlook text-center">outlook</div>
-                                </div>
-                                <div class="d-flex justify-content-between mt-2" style="font-size: 12px;">
-                                    <div class="rkap text-center"> 66.35</div>
-                                    <div class="realisasi text-center">35.43</div>
-                                    <div class="outlook text-center">62.49</div>
-                                </div>
-                                <div class="d-flex justify-content-between mt-2" style="font-size: 12px;">
-                                    <div class="rkap text-center" style="margin-right: 75px;"></div>
-                                    <div class="realisasi text-center">s.d juli</div>
-                                    <div class="outlook text-center">Proyeksi 2</div>
-                                </div>
-                                <div class="text-card mt-2">Proyeksi debt service pada tahun 2023 adalah sebesar
-                                    Rp.62.49T yang terdiri dari pokok sebesat Rp38.63T dan pembayaran bunga Rp23.86T
-                                </div>
-                            </div>
-                        </div>
-                        <!-- card kanan 4 -->
-                        <div class="d-flex justify-content-between mt-2">
-                            <div class="title">Sensitivitas Interest Bearing Debt</div>
-                            <div class="btn edit-btn btn-sm">Edit</div>
-                        </div>
-                        <div class="card info-card sales-card mt-2">
-                            <div class="article-card">
-                                <div class="title-card">Triliun (Rp)</div>
-                                <div class="d-flex justify-content-between">
-                                    <div class="angka-card">1.15</div>
-                                </div>
-                                <div class="text-card mt-2">Kenaikan Rp100/USD akan berdampak terhadap saldo utang akhir
-                                    tahun sebesar Rp1.15T</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-        <app-footer></app-footer>
     </div>
+    <main class="main mt-2" id="main">
+      <div class="container">
+          <div class="row">
+              <div class="col-8">
+                  <div class="card">
+                      <img src="assets/image/Liabilities_Background.svg" class="card-img" alt="...">
+                      <div class="card-img-overlay">
+                          <div class="d-flex justify-content-between">
+                              <div class="title-card1">Liabilities</div>
+                              <div class="">
+                                  <div class="btn edit-btn btn-sm" (click)="openModalcard1()"
+                                      data-bs-toggle="modal" data-bs-target="#card1">Edit</div>
+                              </div>
+                              <!-- modal edit card1 -->
+                              <div class="modal fade" id="card1" tabindex="-1" aria-labelledby="card1"
+                                  aria-hidden="true">
+                                  <div class="modal-dialog modal-lg modal-dialog-centered">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <h1 class="modal-title fs-5" id="card1">Liabilities  Card</h1>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                  aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body overflow-y-auto">
+
+                                              <quill-editor [styles]="{height: '250px'}">
+                                              </quill-editor>
+                                          </div>
+                                          <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary"
+                                                  data-bs-dismiss="modal">Close</button>
+                                              <button type="button" class="btn btn-primary">Save changes</button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- end modal edit card1 -->
+                          </div>
+                          <div class="container">
+                              <div class="row">
+                                  <div class="d-flex">
+                                      <div class="article-card1">
+                                          Prognosa pembayaran debt service tahun 2023 adalah sebesar Rp62.49
+                                          triliun, lebih
+                                          rendah Rp3.86 triliun2 dari RKAP 2023
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-6">
+                              <div class="d-flex flex-column mt-3">
+                                  <div class="d-flex justify-content-between">
+                                      <div class="title">Interest Bearing Debt <img
+                                              src="./assets/icon/arrow-narrow-up-right.svg" alt=""></div>
+                                      <div class="btn edit-btn btn-sm">Edit</div>
+                                  </div>
+                                  <div class="card mt-2">
+                                      <div class="card-body">
+                                          <h5 class="card-title text-center">Triliun (Rp)</h5>
+                                          <div class="d-flex justify-content-between" style="font-size: 12px;">
+                                              <div class="rkap">RKAP</div>
+                                              <div class="realisasi">Realisasi</div>
+                                              <div class="outlook">Outlook2</div>
+                                          </div>
+                                          <div class="d-flex justify-content-between" style="font-size: 12px;">
+                                              <div class="rkap">424.52</div>
+                                              <div class="realisasi">374.03</div>
+                                              <div class="outlook">375.25</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="card mt-3">
+                                      <div class="article-card text-card3">Saldo utang RKAP1) 2023 adalah sebesar
+                                          Rp424.52T, posisi saldo utang per 31 Juli 2023 Rp374.03T. Sedangkan
+                                          proyeksi per 31 Desember 2023 adalah sebesar Rp375.25T2).
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-6 mt-3">
+                              <div class="d-flex flex-column mb-2">
+                                  <div class="d-flex justify-content-between">
+                                      <div class="title">Asumsi Castalia Model 2 <img
+                                              src="./assets/icon/arrow-narrow-up-right.svg" alt=""></div>
+                                      <div class="btn edit-btn btn-sm">Edit</div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-6">
+                                      <div class="card">
+                                          <div class="d-flex flex-column article-card item">
+                                              <div class="title-card">SOFR</div>
+                                              <div class="angka-card">6.03</div>
+                                              <div class="text-card">Reference rate (%)</div>
+                                              <div class="angka-card">0.34-2.35</div>
+                                              <div class="text-card">margin (%)</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-6">
+                                      <div class="card">
+                                          <div class="d-flex flex-column article-card item">
+                                              <div class="title-card">JIBOR 3-Mo</div>
+                                              <div class="angka-card">7.45</div>
+                                              <div class="text-card">Reference rate (%)</div>
+                                              <div class="angka-card">1.20-1.92</div>
+                                              <div class="text-card">margin (%)</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row mt-3">
+                                  <div class="col-6">
+                                      <div class="card">
+                                          <div class="d-flex flex-column article-card item">
+                                              <div class="title-card">JIBOR 6-Mo</div>
+                                              <div class="angka-card">7.77</div>
+                                              <div class="text-card">Reference rate (%)</div>
+                                              <div class="angka-card">1.25-1.75</div>
+                                              <div class="text-card">margin (%)</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-6">
+                                      <div class="card">
+                                          <div class="d-flex flex-column article-card item">
+                                              <div class="title-card">ATD 3-Mo</div>
+                                              <div class="angka-card">4.82</div>
+                                              <div class="text-card">Reference rate (%)</div>
+                                              <div class="angka-card">2.61-3.23</div>
+                                              <div class="text-card">margin (%)</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row mt-3">
+                                  <div class="col-6">
+                                      <div class="card">
+                                          <div class="d-flex flex-column article-card item">
+                                              <div class="title-card">USD/IDR</div>
+                                              <div class="angka-card">15.000</div>
+                                              <div class="text-card">Kurs (Rp/USD)</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-6">
+                                      <div class="card">
+                                          <div class="d-flex flex-column article-card">
+                                              <div class="title-card">Additional Proceed</div>
+                                              <div class="angka-card">Rp 11.29T</div>
+                                              <div class="text-card">Reference rate (%)</div>
+                                              <div class="angka-card">7.28-9.44</div>
+                                              <div class="text-card">margin (%)</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="d-flex justify-content-between mt-3">
+                      <div class="title">Information</div>
+                      <div class="btn edit-btn btn-sm" (click)="openModalinfo()" data-bs-toggle="modal"
+                          data-bs-target="#info">Edit</div>
+                      <!-- modal edit information -->
+                      <div class="modal fade" id="info" tabindex="-1" aria-labelledby="info" aria-hidden="true">
+                          <div class="modal-dialog modal-lg modal-dialog-centered">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="info">Information</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                          aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body overflow-y-auto">
+
+                                      <quill-editor [styles]="{height: '250px'}">
+                                      </quill-editor>
+                                  </div>
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary"
+                                          data-bs-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary">Save changes</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- end modal  edit information -->
+                  </div>
+                  <div class="card mt-3">
+                      <div class="article-card text-card3 mt-2">
+                          Rencana pemenuhan pendanaan PLN (antara lain skema, size, currency, dan timing) akan
+                          disesuaikan dengan kebutuhan, kondisi likuiditasm dan kondisi market.
+                      </div>
+                  </div>
+                  <div class="d-flex justify-content-between mt-3">
+                      <div class="title">Footnote</div>
+                      <div class="btn edit-btn btn-sm" (click)="openModalfootnote()" data-bs-toggle="modal"
+                      data-bs-target="#footnote">Edit</div>
+                      <!-- modal edit footnote -->
+                      <div class="modal fade" id="footnote" tabindex="-1" aria-labelledby="footnote" aria-hidden="true">
+                          <div class="modal-dialog modal-lg modal-dialog-centered">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="footnote">Footnote</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                          aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body overflow-y-auto">
+
+                                      <quill-editor [styles]="{height: '250px'}">
+                                      </quill-editor>
+                                  </div>
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary"
+                                          data-bs-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary">Save changes</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- end modal editfootnote -->
+                  </div>
+                  <div class="card mt-3 ">
+                      <div class="d-flex">
+                          <div class="p-2 flex-fill">
+                              <div class="d-flex flex-column">
+                                  <div class="d-flex flex-column">
+                                      <div class="text-card">Asumsu Buku RKAP 2023</div>
+                                      <div> <a href="#!">ATD3-Mo</a></div>
+                                  </div>
+                                  <div class="d-flex flex-column">
+                                      <div class="text-card">Berdasarkan realisasi juli dan pragnosa menggunakan
+                                          <br>castalia. model (baseline) per <b>25 Agustus2023</b>
+                                      </div>
+                                      <div class=""> <a href="#!">link footnote</a></div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="p-2 flex-fill">
+                              <div class="d-flex flex-column">
+                                  <div class="text-card">Sudah termasuk Credit Spread Adjustment 0.43%</div>
+                                  <div></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- card kanan1 -->
+              <div class="col-4">
+                  <div class="title">Realisasi dari RKAP</div>
+                  <div class="d-flex justify-content-between mt-2">
+                      <div class="title">Interest Paid</div>
+                      <div class="btn edit-btn btn-sm">Edit</div>
+                  </div>
+                  <div class="card info-card sales-card mt-2">
+                      <div class="article-card">
+                          <div class="title-card text">Triliun (Rp)</div>
+                          <div class="d-flex justify-content-between">
+                              <div class="angka-card"> 1% <img src="./assets/icon/arrow-right.svg" alt=""> 0.29
+                              </div>
+                              <div class="angka-card"> & </div>
+                              <div class="angka-card"> Rp100/USD <img src="./assets/icon/arrow-right.svg" alt="">
+                                  0.02</div>
+                          </div>
+                          <div class="text-card mt-2"> Kenaikan 1% atas seluruh tingkat bunga floating dan
+                              Rp100/USD akan berdampak masing-masing sebesar Rp0.29T dan Rp0.02T</div>
+                      </div>
+                  </div>
+                  <!-- card kanan2 -->
+                  <div class="d-flex justify-content-between mt-2">
+                      <div class="title">Interest Accrual</div>
+                      <div class="btn edit-btn btn-sm">Edit</div>
+                  </div>
+                  <div class="card info-card sales-card mt-2">
+                      <div class="article-card">
+                          <div class="title-card">Triliun (Rp)</div>
+                          <div class="d-flex justify-content-between">
+                              <div class="angka-card"> 1% <img src="./assets/icon/arrow-right.svg" alt=""> 0.29
+                              </div>
+                              <div class="angka-card"> & </div>
+                              <div class="angka-card"> Rp100/USD <img src="./assets/icon/arrow-right.svg" alt="">
+                                  0.02</div>
+                          </div>
+                          <div class="text-card mt-2"> Kenaikan 1% atas seluruh tingkat bunga floating dan
+                              Rp100/USD akan berdampak masing-masing sebesar Rp0.29T dan Rp0.02T</div>
+                      </div>
+                  </div>
+                  <!-- card kanan 3 -->
+                  <div class="d-flex justify-content-between mt-2">
+                      <div class="title">Debt Service</div>
+                      <div class="btn edit-btn btn-sm">Edit</div>
+                  </div>
+                  <div class="card info-card sales-card mt-2">
+                      <div class="article-card">
+                          <div class="title-card">Principal Payment + Interest Paid Triliun(Rp)</div>
+                          <div class="d-flex justify-content-between mt-2" style="font-size: 12px;">
+                              <div class="rkap text-center"> RKAP</div>
+                              <div class="realisasi text-center">Realisasi</div>
+                              <div class="outlook text-center">outlook</div>
+                          </div>
+                          <div class="d-flex justify-content-between mt-2" style="font-size: 12px;">
+                              <div class="rkap text-center"> 66.35</div>
+                              <div class="realisasi text-center">35.43</div>
+                              <div class="outlook text-center">62.49</div>
+                          </div>
+                          <div class="d-flex justify-content-between mt-2" style="font-size: 12px;">
+                              <div class="rkap text-center" style="margin-right: 75px;"></div>
+                              <div class="realisasi text-center">s.d juli</div>
+                              <div class="outlook text-center">Proyeksi 2</div>
+                          </div>
+                          <div class="text-card mt-2">Proyeksi debt service pada tahun 2023 adalah sebesar
+                              Rp.62.49T yang terdiri dari pokok sebesat Rp38.63T dan pembayaran bunga Rp23.86T
+                          </div>
+                      </div>
+                  </div>
+                  <!-- card kanan 4 -->
+                  <div class="d-flex justify-content-between mt-2">
+                      <div class="title">Sensitivitas Interest Bearing Debt</div>
+                      <div class="btn edit-btn btn-sm">Edit</div>
+                  </div>
+                  <div class="card info-card sales-card mt-2">
+                      <div class="article-card">
+                          <div class="title-card">Triliun (Rp)</div>
+                          <div class="d-flex justify-content-between">
+                              <div class="angka-card">1.15</div>
+                          </div>
+                          <div class="text-card mt-2">Kenaikan Rp100/USD akan berdampak terhadap saldo utang akhir
+                              tahun sebesar Rp1.15T</div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </main>
+  <app-footer></app-footer>
 </div>
+

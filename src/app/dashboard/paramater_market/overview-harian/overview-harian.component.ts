@@ -18,7 +18,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   openModal: boolean = false;
 
   constructor(private quillConfig: QuillServicesService){
-    console.log(quillConfig);
+    // console.log(quillConfig);
   }
 
   openModalTakeways(){

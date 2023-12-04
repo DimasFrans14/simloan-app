@@ -17,9 +17,9 @@
   padding-top: 15px;
 }
 
-/* #main{
-  margin-top: 40px;
-} */
+#main{
+  margin-top: 80px;
+}
 
 @media (max-width: 1199px) {
   .sub-nav {
@@ -33,6 +33,6 @@
   }
 
   #main{
-    margin-top: 63px;
+    margin-top: 140px;
   }
 }
