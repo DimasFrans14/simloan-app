@@ -26,9 +26,17 @@ export class ReportShlComponent {
 
   }
 
+
+  //Total SHL Grafik
   dataChartSHL = this.chartService.dataChartSHL;
   shlChart = this.chartService.shlChart;
   shlChartTitle = this.chartService.shlChartTitle;
   colors = this.chartService.colors;
   xAxisSHL = this.chartService.xAxisSHL;
+
+  //Availibility Period Grafik
+  dataChartAP = this.chartService.dataChartAP
+  APChart = this.chartService.APChart
+  apChartTitle = this.chartService.apChartTitle
+  xAxisAP = this.chartService.xAxisAP
 }

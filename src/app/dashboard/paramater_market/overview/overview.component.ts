@@ -100,7 +100,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   commodityChartDetails: ApexChart = {
     type: 'line',
     height: 340,
-    // width:,
+    width: 295,
     toolbar: {
       show: true,
       tools: {

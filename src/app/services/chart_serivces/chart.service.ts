@@ -16,16 +16,24 @@ import { ApexChart,
 export class ChartService {
 
   constructor() {
-    this.initializeChart()
+    this.initializeSHLChart()
+    this.initializeAPChart()
   }
 
+  //SHL
   dataChartSHL: ApexAxisChartSeries = [];
   shlChart!: ApexChart;
   shlChartTitle!: ApexTitleSubtitle;
   colors: any;
   xAxisSHL!: ApexXAxis;
 
-  initializeChart(){
+  //Availability Period
+  dataChartAP: ApexAxisChartSeries = [];
+  APChart!: ApexChart;
+  apChartTitle!: ApexTitleSubtitle;
+  xAxisAP!: ApexXAxis;
+
+  initializeSHLChart(){
 
     this.dataChartSHL = [
       {
@@ -78,6 +86,62 @@ export class ChartService {
         ["Total Pencarian"],
         ["Total Repayment"],
         ["Total Saldo"],
+      ]
+    }
+  }
+
+  initializeAPChart(){
+
+    this.dataChartAP = [
+      {
+        name: "Non Penerusan Pinjaman",
+        data: [21, 22, 10]
+      },
+      {
+        name: "Non Penerusan Pinjaman",
+        data: [28, 10, 21]
+      }
+    ];
+
+    this.APChart = {
+      type: 'bar',
+      width: 540,
+      height: 400,
+      // width:,
+      toolbar: {
+        show: true,
+        tools: {
+          download: true,
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: false,
+        }
+      }
+    }
+
+    this.apChartTitle =  {
+      text: "Availability Period",
+      style: {
+        fontSize:  '18px',
+        fontWeight:  500,
+        // fontFamily:  undefined,
+        color:  '#000000'
+      },
+    }
+
+    this.colors = [
+      '#2EB0C2',
+      '#256979',
+    ]
+
+    this.xAxisAP = {
+      categories: [
+        ["Fasilitas Total Pagu"],
+        ["Pencarian Total"],
+        ["Fasilitas Saldo"],
       ]
     }
   }
