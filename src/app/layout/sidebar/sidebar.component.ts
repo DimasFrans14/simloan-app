@@ -22,7 +22,7 @@ export class SidebarComponent implements AfterViewInit{
 
     if (localStorageData !== null) {
       this.localData = JSON.parse(localStorageData);
-      console.log(this.localData);
+      // console.log(this.localData);
 
     } else {
       console.log('data kosong');

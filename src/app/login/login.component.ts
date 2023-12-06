@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit{
   // }
 
   async getData(){
-    let data = await this.dataService.getData();
+    let data = await this.dataService.fetchDataKurs();
     this.dataAccount = data;
     // console.log(this.dataAccount);
   }

@@ -3,6 +3,11 @@ import * as XLSX from 'xlsx';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
+import { DataService } from 'src/app/data.service';
+
+interface ExcelData {
+  [key: string]: any;
+}
 
 @Component({
   selector: 'app-market-update',
@@ -13,7 +18,8 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   constructor(
     private sanitizer: DomSanitizer,
-    private tableConfig: TableServicesService
+    private tableConfig: TableServicesService,
+    private dataService: DataService
     ){
       // console.log(tableConfig);
     }
@@ -23,7 +29,9 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   // @ViewChild(TableServicesComponent, {static: false}) table!: TableServicesComponent;
 
-  excelDataJSON: any;
+  excelDataJSON: ExcelData[] = [];
+
+  dataExcel: any;
   excelDataTable: any;
 
   //variabel data table
@@ -56,10 +64,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   files: File[] = [];
 
-  data2: any;
-  data3: any;
-  data4: any;
-
+  testData: any;
 
   readExcel(event: any){
     let file = event.addedFiles[0];
@@ -68,31 +73,25 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
     fileReader.onload = (e) => {
 
+      let data;
+
       var workbook = XLSX.read(fileReader.result, {type:'binary'});
       var sheetNames = workbook.SheetNames;
-      this.excelDataJSON =  XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[0]]);
-      this.data2 =  XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[1]]);
-      this.data3 =  XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[2]]);
-      this.data4 =  XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[3]]);
+      // this.excelDataJSON =  XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[0]]);
 
+      for(let i=0; i<sheetNames.length; i++){
+        data = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[i]]);
+        this.excelDataJSON.push(data);
+      }
+
+      this.tableConfig.setData(this.excelDataJSON);
       // this.excelDataTable = XLSX.utils.sheet_to_html(workbook.Sheets[sheetNames[0]]);
 
       // this.html = this.sanitizer.bypassSecurityTrustHtml(this.excelDataTable);
-      console.log(event);
-      console.log([this.excelDataJSON, this.data2, this.data3, this.data4]);
-      console.log(sheetNames.length);
+      // console.log(event);
+      // console.log(sheetNames.length);
       // console.log(workbook.Sheets);
-
-
-    //   this.tableUpdate = new Tabulator(".example-table-2", {
-    //     height:205,
-    //     data:this.excelDataJSON,
-    //     layout:"fitDataTable",
-    //     columns:[
-    //       {title:"Name", field:"Name", width:150, editor:"input"},
-    //       {title:"Birthday", field:"Birthday", hozAlign:"left"},
-    //     ],
-    //  });
+      // console.log(this.excelDataJSON);
     }
   }
 
@@ -108,43 +107,10 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit(): void {
-
   }
 
   ngAfterViewInit(): void {
     this.tableConfig.initializeTableData();
-
-    //Table Currency
-    // this.tableDataCurrency = this.tableConfig.tableDataCurrency;
-    // this.tableCurrency = this.tableConfig.tableCurrency;
-
-    //Table Interest Rate
-    // this.tableDataInterest = this.tableConfig.tableDataInterestRate;
-    // this.tableInterest = this.tableConfig.tableInterestRate;
-
-    //Table Bond Yield
-    // this.tableDataBondYield = this.tableConfig.tableDataBondYield;
-    // this.tableBondYield = this.tableConfig.tableBondYield;
-
-    //Table Commodities
-    // this.tableDataCommodities = this.tableConfig.tableDataCommodities;
-    // this.tableCommodities = this.tableConfig.tableCommodities;
-
-    //Table Money Supply
-    // this.tableDataMoneySupply = this.tableConfig.tableDataMoneySupply;
-    // this.tableMoneySupply = this.tableConfig.tableMoneySupply;
-
-    //Table Foreign Excahnge
-    // this.tableDataForeignExchange = this.tableConfig.tableDataForeignExchange;
-    // this.tableForeignExchange = this.tableConfig.tableForeignExchange;
-
-    //Table PMI
-    // this.tableDataPMI = this.tableConfig.tableDataPMI;
-    // this.tablePMI = this.tableConfig.tablePMI;
-
-    //Table Retail
-    // this.tableDataRetail = this.tableConfig.tableDataRetail;
-    // this.tableRetail = this.tableConfig.tableRetail;
   }
 
 }

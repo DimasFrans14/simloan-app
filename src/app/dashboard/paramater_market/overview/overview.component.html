@@ -58,7 +58,7 @@
         <h4 class="mt-4">Currency</h4>
       </div>
       <div>
-        <button class="btn btn-transparant btn-sm border border-1 px-3 bg-white">Compare</button>
+        <button class="btn btn-transparant btn-sm border border-1 px-3 bg-white" (click)="compare()">Compare</button>
       </div>
     </div>
     <div class="row">
@@ -68,7 +68,7 @@
       </div>
     </div>
 
-    <div class="row" [style.display]="isVisibleBar ? 'none' : 'block'">
+    <div class="row" [style.display]="isCompare ? 'block' : 'none'">
       <div class="col-12 py-3 px-4 bg-white rounded">
         <div class="row">
           <div class="col-7">

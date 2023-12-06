@@ -16,6 +16,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   isVisibleLine: boolean = true;
   isVisibleBar: boolean = true;
 
+  isCompare: boolean = false;
+
+  compare(){
+    this.isCompare = !this.isCompare
+  }
+
   toggleVisibilityLine() {
     if(!this.isVisibleBar){
       this.isVisibleBar = !this.isVisibleBar;

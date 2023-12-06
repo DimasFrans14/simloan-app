@@ -1,4 +1,5 @@
-import { Component, AfterViewInit, Input } from '@angular/core';
+import { Component, AfterViewInit, OnInit ,Input } from '@angular/core';
+import { DataService } from 'src/app/data.service';
 // import { Router } from '@angular/router';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 
@@ -7,29 +8,30 @@ import { TableServicesService } from 'src/app/services/table_services/table-serv
   templateUrl: './currency-rate.component.html',
   styleUrls: ['./currency-rate.component.css']
 })
-export class CurrencyRateComponent implements AfterViewInit {
+export class CurrencyRateComponent implements OnInit, AfterViewInit {
 
   constructor(
     private tableConfig: TableServicesService,
+    private dataService: DataService
   ){
     // console.log(tableConfig);
-
+    // console.log(tableConfig.getData());
   }
 
-  // tableDataCurrency: any;
-  // tableCurrency:any;
+  testData: any;
 
-  // tableDataRealisasi: any;
-  // tableReaslisasi: any;
+  async getData(){
+    let data = await this.dataService.fetchDataKurs();
+    this.testData = data;
+    this.tableConfig.setData(this.testData);
+    // console.log(this.testData);
+  }
 
-  // tableDataRKAP: any;
-  // tableRKAP: any;
-
-  // tableDataOutlook: any;
-  // tableOutlook: any;
+  ngOnInit(): void {
+    this.getData()
+  }
 
   ngAfterViewInit(): void {
-
     this.tableConfig.initializeTableDataCurrency();
   }
 
