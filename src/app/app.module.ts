@@ -35,6 +35,8 @@ import { CurrencyRateComponent } from './dashboard/paramater_market/market-updat
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxCaptureModule } from 'ngx-capture';
 
 @NgModule({
   declarations: [
@@ -64,12 +66,14 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    NgSelectModule,
     ReactiveFormsModule,
     HeaderComponent,
     SidebarComponent,
     NgApexchartsModule,
     HttpClientModule,
     NgxDropzoneModule,
+    NgxCaptureModule,
     QuillModule.forRoot({
       bounds:"#quill-container",
       modules: {
