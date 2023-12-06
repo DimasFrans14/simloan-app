@@ -7,52 +7,60 @@
         <div>
           <button class="btn btn-primary" style="font-size: 14px;">Harian</button>
           <a routerLink="/overview_trending" class="btn btn-light bg-white ms-2 text-dark" style="font-size: 14px;" >Trending</a>
-          <input type="date" name="date" id="input_date" class="bg-white rounded border-none ms-2" placeholder="Pilih Tanggal">
+          <input type="date" name="date" id="input_date" class="bg-white rounded border-none ms-2" placeholder="Pilih Tanggal" #date (change)="getDate(date.value)">
           <!-- <button class="btn btn-light bg-white border border-1 ms-2 text-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Filter Tanggal</button> -->
-            <button class="btn btn-transparant border border-1 dropdown-toggle ms-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <!-- <button class="btn btn-transparant border border-1 dropdown-toggle ms-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               Filter Tanggal
-            </button>
-            <div class="dropdown-menu">
-              <form>
-                <span class="text-secondary">Hari</span>
-                <div class="mb-3 form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            </button> -->
+            <!-- <div class="dropdown-menu">
+              <form (ngSubmit)="onSubmit($event)"> -->
+                <!-- <span class="text-secondary" [style.display]="dateVal ? 'none' : 'block'">Hari</span>
+                <div class="mb-3 form-check" [style.display]="dateVal ? 'none' : 'block'">
+                  <input type="checkbox" class="form-check-input" id="7hari">
                   <label class="form-check-label" for="exampleCheck1" value="7hari">7 Hari</label>
                   <br/>
-                  <input type="checkbox" class="form-check-input" id="exampleCheck2">
+                  <input type="checkbox" class="form-check-input" id="30hari">
                   <label class="form-check-label" for="exampleCheck2" value="30hari">30 Hari</label>
                   <br/>
-                  <input type="checkbox" class="form-check-input" id="exampleCheck3">
+                  <input type="checkbox" class="form-check-input" id="90hari">
                   <label class="form-check-label" for="exampleCheck3" value="90hari">90 Hari</label>
-                </div>
-                <span class="text-secondary">Bulan</span>
-                <div class="mb-3 form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                </div> -->
+                <!-- <span class="text-secondary">Bulan</span> -->
+                <!-- <br/> -->
+                <!-- <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" id="bulanLalu">
                   <label class="form-check-label" for="exampleCheck1" value="bulanLalu">Bulan Lalu</label>
                   <br/>
-                  <input type="checkbox" class="form-check-input" id="exampleCheck2">
+                  <input type="checkbox" class="form-check-input" id="akhirBulan">
                   <label class="form-check-label" for="exampleCheck2" value="akhirBulan">Akhir Bulan</label>
                   <br/>
-                  <input type="checkbox" class="form-check-input" id="exampleCheck3">
+                  <input type="checkbox" class="form-check-input" id="12Bulan">
                   <label class="form-check-label" for="exampleCheck3" value="12Bulan">12 Bulan</label>
-                </div>
+                </div> -->
+                  <!-- <input type="checkbox" class="form-check-input" id="tri1">
+                  <label class="form-check-label text-secondary ms-1" for="exampleCheck1" value="bulan">Bulan</label>
+                  <br/>
+                  <select name="monthFilter" id="monthFilter" class="p-2 rounded border-dark my-2" style="width: 100%;">
+                    <option value="" *ngFor="let month of filteredMonth">{{month.month}}</option>
+                  </select>
+                  <br/>
                 <span class="text-secondary">Triwulan</span>
                 <div class="mb-3 form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <input type="checkbox" class="form-check-input" id="tri1">
                   <label class="form-check-label" for="exampleCheck1" value="tri1">Triwulan I (Jan - Mar)</label>
                   <br/>
-                  <input type="checkbox" class="form-check-input" id="exampleCheck2">
+                  <input type="checkbox" class="form-check-input" id="tri2">
                   <label class="form-check-label" for="exampleCheck2" value="tri2">Triwulan II (Apr - Jun)</label>
                   <br/>
-                  <input type="checkbox" class="form-check-input" id="exampleCheck3">
+                  <input type="checkbox" class="form-check-input" id="tri3">
                   <label class="form-check-label" for="exampleCheck3" value="tri3">Triwulan III (Jul - Sep)</label>
                   <br/>
-                  <input type="checkbox" class="form-check-input" id="exampleCheck3">
+                  <input type="checkbox" class="form-check-input" id="tri4">
                   <label class="form-check-label" for="exampleCheck3" value="tri4">Triwulan IV (Okt - Des)</label>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-            </div>
+                <button type="submit" class="btn btn-primary">Cari</button>
+              </form> -->
+            <!-- </div> -->
         </div>
         <div style="font-size: 14px;">
           <p>Indikator:</p>
@@ -84,8 +92,8 @@
             <i class="bi bi-download"></i>
           </button>
             <ul class="dropdown-menu border border-1">
-              <li><a class="dropdown-item" href="#"><i class="bi bi-filetype-ppt me-2"></i>.PPT</a></li>
-              <li><a class="dropdown-item" href="#"><i class="bi bi-filetype-pdf me-2"></i>.PDF</a></li>
+              <li style="cursor: pointer;"><a class="dropdown-item" (click)="getPPT()"><i class="bi bi-filetype-ppt me-2"></i>.PPT</a></li>
+              <li style="cursor: pointer;"><a class="dropdown-item" href="#"><i class="bi bi-filetype-pdf me-2"></i>.PDF</a></li>
             </ul>
         </div>
         <div>
@@ -96,131 +104,90 @@
 
   <main id="main" class="main">
 
+    <div #screen>
+
+
     <div class="d-flex align-items-center justify-content-between mt-4 mb-2">
       <div>
         <h4>Macro Indicator</h4>
       </div>
 
       <div>
-        <button class="btn btn-light bg-white" style="font-size: 14px;">Edit</button>
+        <button class="btn btn-light bg-white" data-bs-toggle="modal" data-bs-target="#macroIndicatorModal" style="font-size: 14px;">Edit</button>
+      </div>
+    </div>
+
+    <div class="modal fade" id="macroIndicatorModal" tabindex="-1" aria-labelledby="macroIndicatorModalLabel" aria-hidden="true" data-bs-backdrop="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="currenciesModalLabel">Macro Indicator</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body overflow-y-auto">
+            <!-- <div class="search search-bar" style="margin-bottom: 28px;">
+              <form class="search-form" method="POST" action="#">
+                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+              </form>
+            </div> -->
+            <ng-select [items]="macroIndicatorSelect"
+           bindLabel="name"
+           bindValue="id"
+           [(ngModel)]="selectedItems">
+            </ng-select>
+            <div *ngFor="let items of defaultMacroIndicatorItems">
+              <div class="d-flex align-items-center justify-content-between">
+                <div style="max-width: 58px;">
+                  <span style="font-size: 12px;">{{items.currency}}</span>
+                </div>
+                <div>
+                  <span style="font-size: 12px;" class="text-danger">{{items.rate1}}</span>
+                </div>
+                <div>
+                  <span style="font-size: 12px;" class="text-primary">{{items.rate2}}</span>
+                </div>
+                <div>
+                  <span style="font-size: 12px;" class="text-secondary">{{items.rate3}}</span>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            <button type="button" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Card Macro Indicator -->
     <div class="d-flex flex-sm-wrap flex-md-wrap flex-lg-nowrap align-items-center justify-content-center">
-      <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3 position-relative">
-        <span class="fw-semibold mb-3">PDB <span class="text-secondary">(%yoy)</span></span>
-        <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
-          <div class="d-flex flex-column align-items-center me-2 text-danger">
-            <span>RKAP</span>
-            <span>5.30</span>
-          </div>
-          <div class="d-flex flex-column align-items-center me-2 text-primary ">
-            <span>TW II 2023</span>
-            <span>5.17</span>
-          </div>
-          <div class="d-flex flex-column align-items-center text-secondary">
-            <span>4Q23F4</span>
-            <span>5.00</span>
-          </div>
-        </div>
-        <div class="yellow-circle-card"></div>
-      </div>
-
-      <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3 position-relative">
-        <span class="fw-semibold mb-3">PDB <span class="text-secondary">(%yoy)</span></span>
-        <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
-          <div class="d-flex flex-column align-items-center me-2 text-danger">
-            <span>RKAP</span>
-            <span>5.30</span>
-          </div>
-          <div class="d-flex flex-column align-items-center me-2 text-primary ">
-            <span>TW II 2023</span>
-            <span>5.17</span>
-          </div>
-          <div class="d-flex flex-column align-items-center text-secondary">
-            <span>4Q23F4</span>
-            <span>5.00</span>
-          </div>
-        </div>
-        <div class="green-circle-card"></div>
-      </div>
-
-      <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3 position-relative">
-        <span class="fw-semibold mb-3">PDB <span class="text-secondary">(%yoy)</span></span>
-        <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
-          <div class="d-flex flex-column align-items-center me-2 text-danger">
-            <span>RKAP</span>
-            <span>5.30</span>
-          </div>
-          <div class="d-flex flex-column align-items-center me-2 text-primary ">
-            <span>TW II 2023</span>
-            <span>5.17</span>
-          </div>
-          <div class="d-flex flex-column align-items-center text-secondary">
-            <span>4Q23F4</span>
-            <span>5.00</span>
-          </div>
-        </div>
-        <div class="red-circle-card"></div>
-      </div>
-
-      <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3 position-relative">
-        <span class="fw-semibold mb-3">PDB <span class="text-secondary">(%yoy)</span></span>
-        <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
-          <div class="d-flex flex-column align-items-center me-2 text-danger">
-            <span>RKAP</span>
-            <span>5.30</span>
-          </div>
-          <div class="d-flex flex-column align-items-center me-2 text-primary ">
-            <span>TW II 2023</span>
-            <span>5.17</span>
-          </div>
-          <div class="d-flex flex-column align-items-center text-secondary">
-            <span>4Q23F4</span>
-            <span>5.00</span>
-          </div>
-        </div>
-        <div class="green-circle-card"></div>
-      </div>
-
-      <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3 position-relative">
-        <span class="fw-semibold mb-3">PDB <span class="text-secondary">(%yoy)</span></span>
-        <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
-          <div class="d-flex flex-column align-items-center me-2 text-danger">
-            <span>RKAP</span>
-            <span>5.30</span>
-          </div>
-          <div class="d-flex flex-column align-items-center me-2 text-primary ">
-            <span>TW II 2023</span>
-            <span>5.17</span>
-          </div>
-          <div class="d-flex flex-column align-items-center text-secondary">
-            <span>4Q23F4</span>
-            <span>5.00</span>
-          </div>
-        </div>
-        <div class="red-circle-card"></div>
-      </div>
-
-      <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3 position-relative">
-          <span class="fw-semibold mb-3">PDB <span class="text-secondary">(%yoy)</span></span>
-          <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
-            <div class="d-flex flex-column align-items-center me-2 text-danger">
-              <span>RKAP</span>
-              <span>5.30</span>
+      <!-- <div *ngIf="defaultMacroIndicatorItems"> -->
+        <div *ngFor="let items of defaultMacroIndicatorItems">
+          <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3 position-relative mt-2">
+            <span class="fw-semibold text-center mb-3">{{items.currency}}</span>
+            <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
+              <div class="d-flex flex-column align-items-center me-2 text-danger">
+                <span>RKAP</span>
+                <span>{{items.rate1}}</span>
+              </div>
+              <div class="d-flex flex-column align-items-center me-2 text-primary ">
+                <span>TW II 2023</span>
+                <span>{{items.rate2}}</span>
+              </div>
+              <div class="d-flex flex-column align-items-center text-secondary">
+                <span>4Q23F4</span>
+                <span>{{items.rate3}}</span>
+              </div>
             </div>
-            <div class="d-flex flex-column align-items-center me-2 text-primary ">
-              <span>TW II 2023</span>
-              <span>5.17</span>
-            </div>
-            <div class="d-flex flex-column align-items-center text-secondary">
-              <span>4Q23F4</span>
-              <span>5.00</span>
-            </div>
+            <div class="yellow-circle-card"></div>
           </div>
-      <div class="green-circle-card"></div>
-      </div>
+        </div>
+      <!-- </div> -->
     </div>
     <!-- End Card Macro Indicator -->
 
@@ -235,7 +202,7 @@
           </div>
         </div>
 
-        <div class="modal fade" id="commodityModal" tabindex="-1" aria-labelledby="commodityModalLabel" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal fade" id="commodityModal" tabindex="-1" aria-labelledby="commodityModalLabel" aria-hidden="true" data-bs-backdrop="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
@@ -243,100 +210,40 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body overflow-y-auto">
+                <!-- <div class="search search-bar" style="margin-bottom: 28px;">
+                  <form class="search-form" method="POST" action="#">
+                    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+                  </form>
+                </div> -->
+                <ng-select [items]="macroIndicatorSelect"
+               bindLabel="name"
+               bindValue="id"
+               [(ngModel)]="selectedItems">
+                </ng-select>
+                <div *ngFor="let items of defaultMacroIndicatorItems">
                   <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                      <span style="font-size: 14px;">USD/IDR</span>
+                    <div style="max-width: 58px;">
+                      <span style="font-size: 12px;">{{items.currency}}</span>
                     </div>
                     <div>
-                      <span style="font-size: 12px;" class="text-danger">14.800</span>
+                      <span style="font-size: 12px;" class="text-danger">{{items.rate1}}</span>
                     </div>
                     <div>
-                      <span style="font-size: 12px;" class="text-primary">14.800</span>
+                      <span style="font-size: 12px;" class="text-primary">{{items.rate2}}</span>
                     </div>
                     <div>
-                      <span style="font-size: 12px;" class="text-secondary">14.800</span>
+                      <span style="font-size: 12px;" class="text-secondary">{{items.rate3}}</span>
                     </div>
                     <div class="d-flex justify-content-center">
                       <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
-                      <div class="btn btn-transparant"><i class="bi bi-pen"></i></div>
                     </div>
                   </div>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                      <span style="font-size: 14px;">USD/IDR</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 12px;" class="text-danger">14.800</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 12px;" class="text-primary">14.800</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 12px;" class="text-secondary">14.800</span>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                      <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
-                      <div class="btn btn-transparant"><i class="bi bi-pen"></i></div>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                      <span style="font-size: 14px;">USD/IDR</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 12px;" class="text-danger">14.800</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 12px;" class="text-primary">14.800</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 12px;" class="text-secondary">14.800</span>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                      <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
-                      <div class="btn btn-transparant"><i class="bi bi-pen"></i></div>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                      <span style="font-size: 14px;">USD/IDR</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 12px;" class="text-danger">14.800</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 12px;" class="text-primary">14.800</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 12px;" class="text-secondary">14.800</span>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                      <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
-                      <div class="btn btn-transparant"><i class="bi bi-pen"></i></div>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                      <span style="font-size: 14px;">USD/IDR</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 12px;" class="text-danger">14.800</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 12px;" class="text-primary">14.800</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 12px;" class="text-secondary">14.800</span>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                      <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
-                      <div class="btn btn-transparant"><i class="bi bi-pen"></i></div>
-                    </div>
-                  </div>
+                </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary">Simpan</button>
               </div>
             </div>
           </div>
@@ -406,7 +313,7 @@
           </div>
         </div>
 
-         <div class="modal fade" id="currenciesModal" tabindex="-1" aria-labelledby="currenciesModalLabel" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal fade" id="currenciesModal" tabindex="-1" aria-labelledby="currenciesModalLabel" aria-hidden="true" data-bs-backdrop="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
@@ -414,104 +321,44 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body overflow-y-auto">
+                  <!-- <div class="search search-bar" style="margin-bottom: 28px;">
+                    <form class="search-form" method="POST" action="#">
+                      <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                      <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+                    </form>
+                  </div> -->
+                  <ng-select [items]="macroIndicatorSelect"
+                 bindLabel="name"
+                 bindValue="id"
+                 [(ngModel)]="selectedItems">
+                  </ng-select>
+                  <div *ngFor="let items of defaultMacroIndicatorItems">
                     <div class="d-flex align-items-center justify-content-between">
-                      <div>
-                        <span style="font-size: 14px;">USD/IDR</span>
+                      <div style="max-width: 58px;">
+                        <span style="font-size: 12px;">{{items.currency}}</span>
                       </div>
                       <div>
-                        <span style="font-size: 12px;" class="text-danger">14.800</span>
+                        <span style="font-size: 12px;" class="text-danger">{{items.rate1}}</span>
                       </div>
                       <div>
-                        <span style="font-size: 12px;" class="text-primary">14.800</span>
+                        <span style="font-size: 12px;" class="text-primary">{{items.rate2}}</span>
                       </div>
                       <div>
-                        <span style="font-size: 12px;" class="text-secondary">14.800</span>
+                        <span style="font-size: 12px;" class="text-secondary">{{items.rate3}}</span>
                       </div>
                       <div class="d-flex justify-content-center">
                         <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
-                        <div class="btn btn-transparant"><i class="bi bi-pen"></i></div>
                       </div>
                     </div>
-                    <div class="d-flex align-items-center justify-content-between">
-                      <div>
-                        <span style="font-size: 14px;">USD/IDR</span>
-                      </div>
-                      <div>
-                        <span style="font-size: 12px;" class="text-danger">14.800</span>
-                      </div>
-                      <div>
-                        <span style="font-size: 12px;" class="text-primary">14.800</span>
-                      </div>
-                      <div>
-                        <span style="font-size: 12px;" class="text-secondary">14.800</span>
-                      </div>
-                      <div class="d-flex justify-content-center">
-                        <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
-                        <div class="btn btn-transparant"><i class="bi bi-pen"></i></div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between">
-                      <div>
-                        <span style="font-size: 14px;">USD/IDR</span>
-                      </div>
-                      <div>
-                        <span style="font-size: 12px;" class="text-danger">14.800</span>
-                      </div>
-                      <div>
-                        <span style="font-size: 12px;" class="text-primary">14.800</span>
-                      </div>
-                      <div>
-                        <span style="font-size: 12px;" class="text-secondary">14.800</span>
-                      </div>
-                      <div class="d-flex justify-content-center">
-                        <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
-                        <div class="btn btn-transparant"><i class="bi bi-pen"></i></div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between">
-                      <div>
-                        <span style="font-size: 14px;">USD/IDR</span>
-                      </div>
-                      <div>
-                        <span style="font-size: 12px;" class="text-danger">14.800</span>
-                      </div>
-                      <div>
-                        <span style="font-size: 12px;" class="text-primary">14.800</span>
-                      </div>
-                      <div>
-                        <span style="font-size: 12px;" class="text-secondary">14.800</span>
-                      </div>
-                      <div class="d-flex align-items-center justify-content-center">
-                        <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
-                        <div class="btn btn-transparant"><i class="bi bi-pen"></i></div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between">
-                      <div>
-                        <span style="font-size: 14px;">USD/IDR</span>
-                      </div>
-                      <div>
-                        <span style="font-size: 12px;" class="text-danger">14.800</span>
-                      </div>
-                      <div>
-                        <span style="font-size: 12px;" class="text-primary">14.800</span>
-                      </div>
-                      <div>
-                        <span style="font-size: 12px;" class="text-secondary">14.800</span>
-                      </div>
-                      <div class="d-flex align-items-center justify-content-center">
-                        <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
-                        <div class="btn btn-transparant"><i class="bi bi-pen"></i></div>
-                      </div>
-                    </div>
+                  </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                  <button type="button" class="btn btn-primary">Simpan</button>
                 </div>
               </div>
             </div>
-          </div>
+        </div>
 
         <!-- Card Commodity -->
         <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 mb-3 mt-2">
@@ -636,114 +483,81 @@
       </div>
 
       <div>
-        <button class="btn btn-light bg-white" style="font-size: 14px;">Edit</button>
+        <button class="btn btn-light bg-white" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#interestRate">Edit</button>
       </div>
     </div>
 
+    <div class="modal fade" id="interestRate" tabindex="-1" aria-labelledby="interestRateLabel" aria-hidden="true" data-bs-backdrop="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="currenciesModalLabel">Interest Rate</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body overflow-y-auto">
+            <!-- <div class="search search-bar" style="margin-bottom: 28px;">
+              <form class="search-form" method="POST" action="#">
+                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+              </form>
+            </div> -->
+            <ng-select [items]="macroIndicatorSelect"
+           bindLabel="name"
+           bindValue="id"
+           [(ngModel)]="selectedItems">
+            </ng-select>
+            <div *ngFor="let items of defaultMacroIndicatorItems">
+              <div class="d-flex align-items-center justify-content-between">
+                <div style="max-width: 58px;">
+                  <span style="font-size: 12px;">{{items.currency}}</span>
+                </div>
+                <div>
+                  <span style="font-size: 12px;" class="text-danger">{{items.rate1}}</span>
+                </div>
+                <div>
+                  <span style="font-size: 12px;" class="text-primary">{{items.rate2}}</span>
+                </div>
+                <div>
+                  <span style="font-size: 12px;" class="text-secondary">{{items.rate3}}</span>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            <button type="button" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+      </div>
+  </div>
+
     <!-- Card Macro Indicator -->
-    <div class="d-flex flex-sm-wrap flex-md-wrap flex-lg-nowrap align-items-center justify-content-center">
-      <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3">
-        <span class="fw-semibold mb-3">PDB <span class="text-secondary">(%yoy)</span></span>
-        <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
-          <div class="d-flex flex-column align-items-center me-2 text-danger">
-            <span>RKAP</span>
-            <span>5.30</span>
-          </div>
-          <div class="d-flex flex-column align-items-center me-2 text-primary ">
-            <span>TW II 2023</span>
-            <span>5.17</span>
-          </div>
-          <div class="d-flex flex-column align-items-center text-secondary">
-            <span>4Q23F4</span>
-            <span>5.00</span>
-          </div>
-        </div>
-      </div>
-      <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3">
-        <span class="fw-semibold mb-3">PDB <span class="text-secondary">(%yoy)</span></span>
-        <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
-          <div class="d-flex flex-column align-items-center me-2 text-danger">
-            <span>RKAP</span>
-            <span>5.30</span>
-          </div>
-          <div class="d-flex flex-column align-items-center me-2 text-primary ">
-            <span>TW II 2023</span>
-            <span>5.17</span>
-          </div>
-          <div class="d-flex flex-column align-items-center text-secondary">
-            <span>4Q23F4</span>
-            <span>5.00</span>
-          </div>
-        </div>
-      </div>
-      <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3">
-        <span class="fw-semibold mb-3">PDB <span class="text-secondary">(%yoy)</span></span>
-        <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
-          <div class="d-flex flex-column align-items-center me-2 text-danger">
-            <span>RKAP</span>
-            <span>5.30</span>
-          </div>
-          <div class="d-flex flex-column align-items-center me-2 text-primary ">
-            <span>TW II 2023</span>
-            <span>5.17</span>
-          </div>
-          <div class="d-flex flex-column align-items-center text-secondary">
-            <span>4Q23F4</span>
-            <span>5.00</span>
-          </div>
-        </div>
-      </div>
-      <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3">
-        <span class="fw-semibold mb-3">PDB <span class="text-secondary">(%yoy)</span></span>
-        <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
-          <div class="d-flex flex-column align-items-center me-2 text-danger">
-            <span>RKAP</span>
-            <span>5.30</span>
-          </div>
-          <div class="d-flex flex-column align-items-center me-2 text-primary ">
-            <span>TW II 2023</span>
-            <span>5.17</span>
-          </div>
-          <div class="d-flex flex-column align-items-center text-secondary">
-            <span>4Q23F4</span>
-            <span>5.00</span>
-          </div>
-        </div>
-      </div>
-      <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3">
-        <span class="fw-semibold mb-3">PDB <span class="text-secondary">(%yoy)</span></span>
-        <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
-          <div class="d-flex flex-column align-items-center me-2 text-danger">
-            <span>RKAP</span>
-            <span>5.30</span>
-          </div>
-          <div class="d-flex flex-column align-items-center me-2 text-primary ">
-            <span>TW II 2023</span>
-            <span>5.17</span>
-          </div>
-          <div class="d-flex flex-column align-items-center text-secondary">
-            <span>4Q23F4</span>
-            <span>5.00</span>
-          </div>
-        </div>
-      </div>
-        <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3">
-          <span class="fw-semibold mb-3">PDB <span class="text-secondary">(%yoy)</span></span>
-          <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
-            <div class="d-flex flex-column align-items-center me-2 text-danger">
-              <span>RKAP</span>
-              <span>5.30</span>
-            </div>
-            <div class="d-flex flex-column align-items-center me-2 text-primary ">
-              <span>TW II 2023</span>
-              <span>5.17</span>
-            </div>
-            <div class="d-flex flex-column align-items-center text-secondary">
-              <span>4Q23F4</span>
-              <span>5.00</span>
+
+      <div class="d-flex flex-sm-wrap flex-md-wrap flex-lg-nowrap align-items-center justify-content-center">
+        <div *ngFor="let items of interestRateItems">
+          <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3">
+            <span class="fw-semibold text-center mb-3">{{items.currency}}</span>
+            <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
+              <div class="d-flex flex-column align-items-center me-2 text-danger">
+                <span>RKAP</span>
+                <span>{{items.price1}}</span>
+              </div>
+              <div class="d-flex flex-column align-items-center me-2 text-primary ">
+                <span>TW II 2023</span>
+                <span>{{items.price2}}</span>
+              </div>
+              <div class="d-flex flex-column align-items-center text-secondary">
+                <span>4Q23F4</span>
+                <span>{{items.price3}}</span>
+              </div>
             </div>
           </div>
+          <!-- <div class="green-circle-card"></div> -->
         </div>
+      </div>
     </div>
     <!-- End Card Macro Indicator -->
 

@@ -6,6 +6,22 @@ import { TabulatorFull as Tabulator } from 'tabulator-tables';
 })
 export class TableServicesService {
 
+  private sharedData: any;
+  public testData: any;
+
+  setData(data: any) {
+    this.sharedData = data.data.content;
+    console.log('shared data', this.sharedData);
+    // let dataRow = this.sharedData.data.content;
+
+    // console.log(dataRow);
+
+  }
+
+  getData() {
+    return this.sharedData;
+  }
+
   //Data Currency
   tableDataCurrency: any;
   tableCurrency: any;
@@ -58,6 +74,9 @@ export class TableServicesService {
   tableDataOutlook: any;
   tableOutlook: any;
 
+  tableDataOutlook2: any;
+  tableOutlook2: any;
+
   constructor() {
     // Initialize properties in a method like ngOnInit() or a custom method
     // this.initializeTableData();
@@ -68,7 +87,7 @@ export class TableServicesService {
     //cell - the cell component for the editable cell
 
     //get row data
-    var data = cell.getRow().getData();
+    var data = cell.getData();
     var value = cell.getValue();
 
     // console.log([
@@ -476,6 +495,33 @@ export class TableServicesService {
       {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    ],
+  });
+
+
+  //Example for updating data from excel down below
+
+    this.tableDataOutlook2 = [
+      {id:1, kategori:"18 Oktober 2023", beli: "15.731", rate: "4.90", sumber: "4.90"},
+      {id:2, kategori:"17 Oktober 2023", beli: "15.731", rate: "4.90", sumber: "4.90"},
+      {id:3, kategori:"16 Oktober 2023", beli: "15.731", rate: "4.90", sumber: "4.90"},
+      {id:4, kategori:"15 Oktober 2023", beli: "15.731", rate: "4.90", sumber: "4.90"},
+      {id:5, kategori:"14 Oktober 2023", beli: "15.731", rate: "4.90", sumber: "4.90"},
+      {id:6, kategori:"13 Oktober 2023", beli: "15.731", rate: "4.90", sumber: "4.90"},
+      {id:7, kategori:"12 Oktober 2023", beli: "15.731", rate: "4.90", sumber: "4.90"},
+      {id:8, kategori:"11 Oktober 2023", beli: "15.731", rate: "4.90", sumber: "4.90"},
+      {id:9, kategori:"10 Oktober 2023", beli: "15.731", rate: "4.90", sumber: "4.90"},
+  ]
+
+  this.tableOutlook2 = new Tabulator(".table-outlook2", {
+    // height:205,
+    data:this.sharedData,
+    layout:"fitColumns",
+    columns:[
+      {title:"Col1", field:"kategori", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+      {title:"Col2", field:"kode", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"Col3", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"Col4", field:"sumber", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     ],
   });
   }
