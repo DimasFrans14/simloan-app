@@ -17,11 +17,13 @@ export class AppComponent implements OnInit{
   }
 
  async loadData(){
-  let data = await this.dataService.getData();
+  // let data = await this.dataService.fetchDataKurs();
   // console.log(data);
 
-  this.dataArr = data;
-  // console.log('dataArr', this.dataArr);
+  // this.dataArr = data;
+  // console.log(this.dataArr);
+  console.log('init page');
+
  }
 
   ngOnInit() {

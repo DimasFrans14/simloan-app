@@ -4,9 +4,37 @@
   transition: border-bottom 0.3s, color 0.3s;
 }
 
-.submenu-market:hover,
+/* .submenu-market:hover,
 .submenu-market:focus,
 .submenu-market:active {
   border-bottom: 2px solid #2E75F0;
   color: #2E75F0;
+} */
+
+
+.sub-nav{
+  margin-top: 60px;
+  padding-left: 282px;
+  padding-bottom: 0px;
+  padding-top: 15px;
+}
+
+#main{
+  padding-top: 40px;
+}
+
+@media (max-width: 1199px) {
+  .sub-nav {
+    /* padding-left: 20px; */
+    padding: 15px;
+    margin: 0px;
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    left: 0px;
+  }
+
+  #main{
+    padding-top: 140px;
+  }
 }
