@@ -20,6 +20,8 @@ import { AnalisaShlComponent } from './dashboard/shl/shl-overview/analisa-shl/an
 import { ReportShlComponent } from './dashboard/shl/shl-overview/report-shl/report-shl.component';
 import { DetailAgreementComponent } from './dashboard/shl/shl-overview/detail-agreement/detail-agreement.component';
 import { CurrencyRateComponent } from './dashboard/paramater_market/market-update/child_market_update/currency-rate/currency-rate.component';
+import { InterestRateComponent } from './dashboard/paramater_market/market-update/child_market_update/interest-rate/interest-rate.component';
+import { CommoditiesComponent } from './dashboard/paramater_market/market-update/child_market_update/commodities/commodities.component';
 
 const routes: Routes = [
 
@@ -55,6 +57,8 @@ const routes: Routes = [
 
   //Child Path Market Update Component
   { path: 'market_update/currency_rate', component: CurrencyRateComponent},
+  { path: 'market_update/interest_rate', component: InterestRateComponent},
+  { path: 'market_update/commodities', component: CommoditiesComponent},
 ];
 
 @NgModule({

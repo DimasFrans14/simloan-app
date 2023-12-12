@@ -37,6 +37,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxCaptureModule } from 'ngx-capture';
+import { InterestRateComponent } from './dashboard/paramater_market/market-update/child_market_update/interest-rate/interest-rate.component';
+import { CommoditiesComponent } from './dashboard/paramater_market/market-update/child_market_update/commodities/commodities.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { NgxCaptureModule } from 'ngx-capture';
     ReportShlComponent,
     DetailAgreementComponent,
     CurrencyRateComponent,
+    InterestRateComponent,
+    CommoditiesComponent
   ],
   imports: [
     BrowserModule,
