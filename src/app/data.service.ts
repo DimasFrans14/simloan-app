@@ -16,7 +16,63 @@ export class DataService {
   async fetchDataKurs(){
     try {
       return await lastValueFrom(
-        this.http.get('http://10.1.18.47:9051/simloan/ws-v01/master-kurs/list')
+        this.http.get('http://10.1.18.47:9051/simloan/ws-v01/master-kurs/list?data=10')
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async fetchDataCommodities(){
+    try {
+      return await lastValueFrom(
+        this.http.get('http://10.1.18.47:8080/simloan-ws/market/currency/getRateList?date=05/12/202')
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async fetchDataPDB(){
+    try {
+      return await lastValueFrom(
+        this.http.get('http://10.1.18.47:8080/simloan-ws/market/macroindicator/pdb/getList')
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+
+  }
+
+  async fetchDataInflasi(){
+    try {
+      return await lastValueFrom(
+        this.http.get('http://10.1.18.47:8080/simloan-ws/market/macroindicator/inflasi/getList?date=12/12/2023')
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async fetchDataPMI(){
+    try {
+      return await lastValueFrom(
+        this.http.get('http://10.1.18.47:8080/simloan-ws/market/macroindicator/pmi/getList?date=12/12/2023')
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async fetchDataRetail(){
+    try {
+      return await lastValueFrom(
+        this.http.get('http://10.1.18.47:8080/simloan-ws/market/macroindicator/retailsales/getList?date=12/12/2021')
       );
     } catch (error) {
       console.log(error);
@@ -28,14 +84,24 @@ export class DataService {
     try {
       const data = await this.fetchDataKurs();
       if (data) {
-        // Assuming 'result' is the variable where you want to store the data
         this.result = data;
-        console.log(this.result); // Check the retrieved data
+        console.log(this.result);
       } else {
         console.log('No data retrieved');
       }
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  async fetchDataUsers(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/system/users/list`)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
     }
   }
 

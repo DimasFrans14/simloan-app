@@ -4,6 +4,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 import { DataService } from 'src/app/data.service';
+import { Router } from '@angular/router';
 
 interface ExcelData {
   [key: string]: any;
@@ -19,7 +20,8 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   constructor(
     private sanitizer: DomSanitizer,
     private tableConfig: TableServicesService,
-    private dataService: DataService
+    private dataService: DataService,
+    // private router: Router
     ){
       // console.log(tableConfig);
     }
@@ -64,7 +66,10 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   files: File[] = [];
 
+
+  //test dev data source
   testData: any;
+  testAPIdata: any;
 
   readExcel(event: any){
     let file = event.addedFiles[0];
@@ -106,11 +111,27 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    try {
+      const responseCommodities = await this.dataService.fetchDataCommodities();
+      const responsePDB = await this.dataService.fetchDataPDB();
+      const responseInflasi = await this.dataService.fetchDataInflasi();
+      const responsePMI = await this.dataService.fetchDataPMI()
+
+
+      this.tableConfig.getDataCommodities(responseCommodities);
+      this.tableConfig.getDataPDB(responsePDB);
+      this.tableConfig.getDataInflasi(responseInflasi);
+      this.tableConfig.getDataPMI(responsePMI);
+
+    } catch (error) {
+      console.log(error);
+    }
+    this.tableConfig.initializeTableData();
   }
 
   ngAfterViewInit(): void {
-    this.tableConfig.initializeTableData();
+
   }
 
 }
