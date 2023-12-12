@@ -14,25 +14,47 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     private tableConfig: TableServicesService,
     private dataService: DataService
   ){
-    // console.log(tableConfig);
-    // console.log(tableConfig.getData());
+    // console.log(this.tableConfig.initializeTableDataCurrency(), this.tableConfig.initializeTableData());
   }
 
   testData: any;
+  filteredData: String[] = [];
+  isLoading: Boolean = true;
 
   async getData(){
-    let data = await this.dataService.fetchDataKurs();
-    this.testData = data;
-    this.tableConfig.setData(this.testData);
-    // console.log(this.testData);
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+
+    try {
+      const data = await this.dataService.fetchDataCommodities();
+      this.testData = data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2');
+    } catch (error) {
+      console.log(error);
+    }
+
+    // for(let i=0; i<10; i++){
+    //   this.filteredData.push(this.testData.data.content[i]);
+    // }
+
+    // console.log('updated data', this.filteredData);
+    this.tableConfig.setData(this.testData.d.list);
+    console.log('finish get data in func');
+
   }
 
-  ngOnInit(): void {
-    this.getData()
+  async ngOnInit(): Promise<void> {
+    console.log('load data');
+
+    await this.getData();
+    this.tableConfig.initializeTableDataCurrency();
   }
 
   ngAfterViewInit(): void {
-    this.tableConfig.initializeTableDataCurrency();
+    console.log('finish load data');
+
   }
+
 
 }

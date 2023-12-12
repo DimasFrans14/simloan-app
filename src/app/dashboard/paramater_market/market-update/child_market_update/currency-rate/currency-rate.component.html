@@ -25,7 +25,7 @@
       </div>
 
       <!-- Sub Menu -->
-      <div class="d-flex justify-content-start align-items-center text-dark mt-3">
+      <!-- <div class="d-flex justify-content-start align-items-center text-dark mt-3">
         <a class="submenu-market" style="margin-right: 24px; font-size: 14px; color: blue; border-bottom: 3px solid blue;">Currency Rate</a>
         <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Interest Rate</a>
         <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Bond Yield</a>
@@ -33,7 +33,7 @@
         <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Macro Indicator</a>
         <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Key Takeways</a>
         <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Debt Services</a>
-      </div>
+      </div> -->
       <!--End Sub Mmenu -->
     </div>
 
@@ -62,34 +62,99 @@
       </div>
 
       <div>
-        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Lihat Detail</button>
+        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Edit</button>
+        <button class="btn btn-transparant border-secondary bg-white ms-1" style="font-size: 14px;">Tambah</button>
       </div>
 
     </div>
 
+    <div class="row">
+      <div class="col-12">
+        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+        </div>
+        <div class="table-currencyDetail mt-2"></div>
+      </div>
+    </div>
+
     <div class="row mt-4">
       <div class="col-6">
-        <p class="fw-semibold">Realisasi</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <span class="fw-semibold">Realisasi</span>
+          </div>
+          <div>
+            <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Edit</button>
+            <button class="btn btn-transparant border-secondary bg-white ms-1" style="font-size: 14px;">Tambah</button>
+          </div>
+        </div>
+        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+        </div>
         <div class="table-realisasi mt-2"></div>
       </div>
       <div class="col-6">
-        <p class="fw-semibold">RKAP</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <span class="fw-semibold">RKAP</span>
+          </div>
+          <div>
+            <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Edit</button>
+            <button class="btn btn-transparant border-secondary bg-white ms-1" style="font-size: 14px;">Tambah</button>
+          </div>
+        </div>
+        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+        </div>
         <div class="table-RKAP mt-2"></div>
       </div>
     </div>
 
     <div class="row mt-4">
       <div class="col-6">
-        <p class="fw-semibold">Outlook</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <span class="fw-semibold">Outlook</span>
+          </div>
+          <div>
+            <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Edit</button>
+            <button class="btn btn-transparant border-secondary bg-white ms-1" style="font-size: 14px;">Tambah</button>
+          </div>
+        </div>
+        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+        </div>
         <div class="table-outlook mt-2"></div>
       </div>
 
-      <div class="col-6">
+      <!-- <div class="col-6">
         <p class="fw-semibold">Outlook 2</p>
+        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+        </div>
         <div class="table-outlook2 mt-2"></div>
-      </div>
+      </div> -->
     </div>
-
   </main>
 </div>
 
