@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -21,11 +22,13 @@ export class LoginComponent implements OnInit{
   userEmail: any;
   localData: any;
   parseData: any;
+  userAccount: any;
 
 
   constructor(
     private router: Router,
-    private dataService : DataService
+    private dataService : DataService,
+    private auth: AuthService
     ) {}
 
   getValueEmail(val: string) {
@@ -59,7 +62,7 @@ export class LoginComponent implements OnInit{
     // console.log(this.dataAccount);
   }
 
-  login() {
+  async login() {
 
     // Fake API
     // const foundEmailUser = this.dataAccount.find((item: { email: string }) => item.email === this.email);
@@ -71,22 +74,39 @@ export class LoginComponent implements OnInit{
     // }
 
     // Local Storage Data
-    this.localData = localStorage.getItem('dataRegister');
-    this.parseData = JSON.parse(this.localData);
+    // this.localData = localStorage.getItem('dataRegister');
+    // this.parseData = JSON.parse(this.localData);
     // console.log(this.parseData.email);
 
-    if (this.parseData.email === this.email && this.parseData.pass === this.pass) {
+    // if (this.parseData.email === this.email && this.parseData.pass === this.pass) {
+    //   this.router.navigate(['/main']);
+    // } else {
+    //   alert('Email or Password is invalid!');
+    // }
+
+    //Find user in DB
+    try {
+      const response = await this.auth.loginUser()
+      // console.log(response);
+      this.userAccount = response;
+    } catch (error) {
+      console.log(error);
+    }
+
+    /*
+    indeks data ke-n kemungkinan harus diubah menjadi data yang akan ditemukan
+    based on parameter username dan password yang dikirim dari front end
+    */
+    localStorage.setItem('userAccount', JSON.stringify(this.userAccount.data.content[0]))
+
+    if (this.userAccount.data.content[0].email === this.email && this.pass === 'simloan123') {
       this.router.navigate(['/main']);
     } else {
       alert('Email or Password is invalid!');
     }
-
   }
 
   ngOnInit() {
-    // setTimeout(() => {
-    //   this.checkData();
-    // }, 1000);
-    this.getData();
+    // this.getData();
   }
 }

@@ -1,7 +1,9 @@
-
-body {
+.body {
   background-image: url('../../assets/image/Background.svg');
+  background-size: cover;
+  background-attachment: fixed;
 }
+
 .link{
 text-decoration: none;
 }
