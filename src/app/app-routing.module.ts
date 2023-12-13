@@ -22,6 +22,8 @@ import { DetailAgreementComponent } from './dashboard/shl/shl-overview/detail-ag
 import { CurrencyRateComponent } from './dashboard/paramater_market/market-update/child_market_update/currency-rate/currency-rate.component';
 import { InterestRateComponent } from './dashboard/paramater_market/market-update/child_market_update/interest-rate/interest-rate.component';
 import { CommoditiesComponent } from './dashboard/paramater_market/market-update/child_market_update/commodities/commodities.component';
+import { ImportComponent } from './dashboard/financial_debt/import/import.component';
+import { ImportLaporanComponent } from './dashboard/financial_debt/import/import-laporan/import-laporan.component';
 
 const routes: Routes = [
 
@@ -50,6 +52,7 @@ const routes: Routes = [
   { path: 'analisa_shl', component: AnalisaShlComponent},
   { path: 'report_shl', component:  ReportShlComponent},
   { path: 'detail_agreement', component: DetailAgreementComponent},
+  { path: 'financial_import', component: ImportComponent},
   // {
   //   path: 'shloverview',
   //   loadChildren: () => import('./layout/sidebar/sidebar-routing.module').then(m => m.SidebarRoutingModule),
@@ -59,6 +62,10 @@ const routes: Routes = [
   { path: 'market_update/currency_rate', component: CurrencyRateComponent},
   { path: 'market_update/interest_rate', component: InterestRateComponent},
   { path: 'market_update/commodities', component: CommoditiesComponent},
+
+  //child path financiaal-debt
+  {path: 'import_laporan', component: ImportLaporanComponent},
+
 ];
 
 @NgModule({

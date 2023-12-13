@@ -106,6 +106,10 @@ export class TableServicesService {
   tableDataOutlook: any;
   tableOutlook: any;
 
+  //table import findebt
+  tableDataImport:any;
+  tableImport:any;
+
   constructor() {
     // Initialize properties in a method like ngOnInit() or a custom method
     // this.initializeTableData();
@@ -277,6 +281,7 @@ export class TableServicesService {
     },
       columns:[
         {title:"Periode", field:"kuartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 200},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
         {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
       ],
     });
@@ -627,4 +632,31 @@ export class TableServicesService {
 
   });
   }
+  initializeTableDataFindebt(){
+
+    this.tableDataImport = [
+      {id:1, name:"BI7DRR", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
+      {id:2, name:"FED RATE", age:"12000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
+      {id:3, name:"AVG SOFR", age:"13000", rate:"2,53%", col:"green", dob:"22/05/1982"},
+      {id:4, name:"JIBOR", age:"14000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
+      {id:5, name:"EURIBOR", age:"15000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
+      {id:6, name:"AVERAGE TIME DOPOSITE (3 Mo)", age:"15000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
+    ];
+
+    this.tableImport = new Tabulator(".table-import", {
+      // height:205,
+      data:this.tableDataImport, 
+      layout:"fitColumns",
+      columns:[
+        {title:"File", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:true},
+        {title:"Tgl Dibuat", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"Dibuat Oleh", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"Approval", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"Status", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"Action", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      ],
+    });
+  }
+
 }
+
