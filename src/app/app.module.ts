@@ -33,13 +33,19 @@ import { DetailAgreementComponent } from './dashboard/shl/shl-overview/detail-ag
 // import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
 import { CurrencyRateComponent } from './dashboard/paramater_market/market-update/child_market_update/currency-rate/currency-rate.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule,FormBuilder, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, Validator } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxCaptureModule } from 'ngx-capture';
 import { InterestRateComponent } from './dashboard/paramater_market/market-update/child_market_update/interest-rate/interest-rate.component';
 import { CommoditiesComponent } from './dashboard/paramater_market/market-update/child_market_update/commodities/commodities.component';
 import { ImportComponent } from './dashboard/financial_debt/import/import.component';
 import { ImportLaporanComponent } from './dashboard/financial_debt/import/import-laporan/import-laporan.component';
+
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -82,6 +88,13 @@ import { ImportLaporanComponent } from './dashboard/financial_debt/import/import
     NgxDropzoneModule,
     NgxCaptureModule,
     FormsModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    // FormBuilder,
+    // Validators,
     QuillModule.forRoot({
       bounds:"#quill-container",
       modules: {
