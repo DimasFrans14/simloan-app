@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
+import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 
 @Component({
   selector: 'app-import-laporan',
@@ -7,6 +8,7 @@ import {FormBuilder, Validators} from '@angular/forms';
   styleUrls: ['./import-laporan.component.css'],
 })
 export class ImportLaporanComponent {
+  
   fileLabaRugi: File[] = [];
   fileCashFlow: File[] = [];
   fileDokLain: File[] = [];
@@ -47,7 +49,26 @@ export class ImportLaporanComponent {
     this.fileDokLain.splice(this.fileDokLain.indexOf(event), 1);
   }
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(
+    private _formBuilder: FormBuilder, 
+    private tableConfig:TableServicesService
+    ) {}
+
+  tableDataImportCashFlow: any;
+  tableImportCashFlow:any;
+
+  tableDataImportLabaRugi: any;
+  tableImportLabaRugi:any;
+
+  tableDataImportDokumenLain: any;
+  tableImportDokumenLain:any;
+
+  ngAfterViewInit(): void {
+    this.tableConfig.initializetableImportCashFlow();
+    this.tableConfig.initializetableImportLabaRugi();
+    this.tableConfig.initializetableImportDokumenLain();
+  }
 
   ngOnInit(): void {}
+
 }

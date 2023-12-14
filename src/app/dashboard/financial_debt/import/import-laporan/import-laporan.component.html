@@ -36,216 +36,214 @@
     </div>
     <main class="main" id="main">
         <div class="btn" style="font-size: 14px;">
-            <div routerLink="/import" routerLinkActive="active"><img src="assets/icon/arrow-left.svg" alt=""> Back</div>
+            <div routerLink="/financial_import" routerLinkActive="active"><img src="assets/icon/arrow-left.svg" alt="">
+                Back</div>
         </div>
         <div class="container mt-2">
             <h4>Import Laporan</h4>
         </div>
         <div class="card">
-          <mat-stepper [linear]="isLinear" #stepper>
-              <mat-step [stepControl]="firstFormGroup" label="Upload Dokumen">
-                  <form [formGroup]="firstFormGroup">
-                      <div>
-                          <mat-divider></mat-divider>
-                          <div class="container mt-2 mb-2">
-                              <div class="row mb-3">
-                                  <div class="col-6">
-                                      <div class="flex-fill align-self-center fw-bold"><label for="">Tanggal Unggah</label></div>
-                                  </div>
-                                  <div class="col-6">
-                                      <div class="flex-fill"><input type="date" class="form-control" required></div>
-                                  </div>
-                              </div>
-                              <div class="row mb-3">
-                                  <div class="col-6">
-                                      <div class="flex-fill align-self-center fw-bold"><label for="">Jenis Data</label>
-                                      </div>
-                                  </div>
-                                  <div class="col-6">
-                                      <button type="button" class="btn btn-sm header-btn" style="color: black;"
-                                      data-bs-toggle="dropdown" aria-expanded="false">
-                                      <div class="d-flex justify-content-between">
-                                          <div>
-                                              <span class="">Select Type Data</span>
-                                          </div>
-                                          <div>
-                                              <i class="bi bi-chevron-down"></i>
-                                          </div>
-                                      </div>
-                                      </button>
-                                      <ul class="dropdown-menu dropdown-menu-end">
-                                          <li><a class="dropdown-item">RKAP</a></li>
-                                          <li><a class="dropdown-item">Outlook</a></li>
-                                          <li><a class="dropdown-item">Realisasi</a></li>
-                                          <li><a class="dropdown-item">RKAP & Outlook</a></li>
-                                      </ul>
-                                  </div>
-                              </div>
-                              <div class="row mb-3">
-                                  <div class="col-6">
-                                      <div class="flex-fill align-self-center fw-bold"><label for="">Tahun</label></div>
-                                  </div>
-                                  <div class="col-6">
-                                      <div class="flex-fill"><input type="date" class="form-control" required></div>
-                                  </div>
-                              </div>
-                              <mat-divider></mat-divider>
-                              <label class="mt-3 fw-bold" for="">Upload Dokumen</label>
-                              <p style="font-size: 12px; color:#9A9A9A;">Minimum up to 1 each file, size 10mb. File type
-                                  must be .XLS</p>
-                              <div class="row mb-3">
-                                  <div class="col-6">
-                                      <div class="flex-fill align-self-center fw-bold"><label for="">Laporan Laba Rugi</label>
-                                      </div>
-                                  </div>
-                                  <div class="col-6">
-                                      <div class="card">
-                                          <ngx-dropzone (change)="onSelect($event)">
-                                              <ngx-dropzone-label>
-                                                  <img src="./assets/icon/upload-cloud-02.svg" alt="">
-                                                  <div class="text-center"><a>Click to Upload or drag and drop</a><br>
-                                                      SVG, PNG, JPG or GIF ( max.800x400px)
-                                                  </div>
-                                              </ngx-dropzone-label>
-                                          </ngx-dropzone>
-                                      </div>
-                                      <ngx-dropzone-preview *ngFor="let f of fileLabaRugi" [removable]="true"
-                                          (removed)="onRemove(f)">
-                                          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                                      </ngx-dropzone-preview>
-                                  </div>
-                              </div>
-                              <div class="row mb-3">
-                                  <div class="col-6">
-                                      <div class="flex-fill align-self-center fw-bold"><label for="">Laporan Cash Flow</label>
-                                      </div>
-                                  </div>
-                                  <div class="col-6">
-                                      <div class="card">
-                                          <ngx-dropzone (change)="onSelectCashFLow($event)">
-                                              <ngx-dropzone-label>
-                                                  <img src="./assets/icon/upload-cloud-02.svg" alt="">
-                                                  <div class="text-center"><a>Click to Upload or drag and drop</a><br>
-                                                      SVG, PNG, JPG or GIF ( max.800x400px)
-                                                  </div>
-                                              </ngx-dropzone-label>
-                                          </ngx-dropzone>
-                                      </div>
-                                      <ngx-dropzone-preview *ngFor="let f of fileCashFlow" [removable]="true"
-                                          (removed)="onRemoveCashFlow(f)">
-                                          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                                      </ngx-dropzone-preview>
-                                  </div>
-                              </div>
-                              <div class="row mb-3">
-                                  <div class="col-6">
-                                      <div class="flex-fill align-self-center fw-bold"><label for="">Dokumen
-                                              Lainnya</label></div>
-                                  </div>
-                                  <div class="col-6">
-                                      <div class="card">
-                                          <ngx-dropzone (change)="onSelectDokLain($event)">
-                                              <ngx-dropzone-label>
-                                                  <img src="./assets/icon/upload-cloud-02.svg" alt="">
-                                                  <div class="text-center"><a>Click to Upload or drag and drop</a><br>
-                                                      SVG, PNG, JPG or GIF ( max.800x400px)
-                                                  </div>
-                                              </ngx-dropzone-label>
-                                          </ngx-dropzone>
-                                      </div>
-                                      <ngx-dropzone-preview *ngFor="let f of fileDokLain" [removable]="true"
-                                          (removed)="onRemoveDokLain(f)">
-                                          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                                      </ngx-dropzone-preview>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="card bg-light">
-                          <div class="container">
-                              <div class="d-flex justify-content-end p-2">
-                                  <button class="btn btn-primary" matStepperNext>Continue</button>
-                              </div>
-                          </div>
-                      </div>
-                  </form>
-              </mat-step>
-              <mat-step [stepControl]="secondFormGroup" label="Preview">
-                  <form [formGroup]="secondFormGroup">
-                      <div>
-                          <div class="card-body mt-3">
-                              <div class="card bg-light">
-                                  <div class="d-flex justify-content-between">
-                                      <ul class="nav nav-pills mb-2 mt-2" id="pills-tab" role="tablist">
-                                          <div class="p-2">
-                                              <li class="nav-item" role="presentation">
-                                                  <button class="nav-link" id="laporanLabaRugi-tab"
-                                                      data-bs-toggle="pill" data-bs-target="#laporanLabaRugi"
-                                                      type="button" role="tab" aria-controls="laporanLabaRugi"
-                                                      aria-selected="false" tabindex="-1">Laporan Laba Rugi
-                                                  </button>
-                                              </li>
-                                          </div>
-                                          <div class="p-2">
-                                              <li class="nav-item" role="presentation">
-                                                  <button class="nav-link" id="laporanCashFlow-tab"
-                                                      data-bs-toggle="pill" data-bs-target="#laporanCashFlow"
-                                                      type="button" role="tab" aria-controls="laporanCashFlow"
-                                                      aria-selected="false" tabindex="-1">Laporan Cash
-                                                      Flow
-                                                  </button>
-                                              </li>
-                                          </div>
-                                          <div class="p-2">
-                                              <li class="nav-item" role="presentation">
-                                                  <button class="nav-link" id="dokumenLain-tab" data-bs-toggle="pill"
-                                                      data-bs-target="#dokumenLain" type="button" role="tab"
-                                                      aria-controls="dokumenLain" aria-selected="true">Dokumen Lainnya
-                                                  </button>
-                                              </li>
-                                          </div>
-                                          <div class="p-2">
-                                              <li class="nav-item" role="presentation">
-                                                  <button class="nav-link" id="grafik-tab" data-bs-toggle="pill"
-                                                      data-bs-target="#grafik" type="button" role="tab"
-                                                      aria-controls="grafik" aria-selected="true">Grafik
-                                                  </button>
-                                              </li>
-                                          </div>
-                                      </ul>
-                                  </div>
-                              </div>
-                              <div class="tab-content pt-2" id="myTabContent">
-                                  <div class="tab-pane fade" id="laporanLabaRugi" role="tabpanel"
-                                      aria-labelledby="home-tab">
-                                      content 1
-                                  </div>
-                                  <div class="tab-pane fade" id="laporanCashFlow" role="tabpanel"
-                                      aria-labelledby="profile-tab">
-                                      content 2
-                                  </div>
-                                  <div class="tab-pane fade" id="dokumenLain" role="tabpanel"
-                                      aria-labelledby="contact-tab">
-                                      content 3
-                                  </div>
-                                  <div class="tab-pane fade" id="grafik" role="tabpanel"
-                                      aria-labelledby="profile-tab">
-                                      content 4
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="d-flex justify-content-end">
-                          <div class="p-2">
-                              <button class="btn btn-primary" matStepperPrevious>Back</button>
-                          </div>
-                          <div class="p-2">
-                              <button class="btn btn-primary" matStepperNext>Save</button>
-                          </div>
-                      </div>
-                  </form>
-              </mat-step>
-          </mat-stepper>
+            <mat-stepper [linear]="isLinear" #stepper>
+                <mat-step [stepControl]="firstFormGroup" label="Upload Dokumen">
+                    <form [formGroup]="firstFormGroup">
+                        <div>
+                            <mat-divider></mat-divider>
+                            <div class="container mt-2 mb-2">
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <div class="flex-fill align-self-center fw-bold"><label for="">Tanggal
+                                                Unggah</label></div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="flex-fill"><input type="date" class="form-control" required></div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <div class="flex-fill align-self-center fw-bold"><label for="">Jenis
+                                                Data</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="button" class="btn btn-sm header-btn" style="color: black;"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <span class="">Select Type Data</span>
+                                                </div>
+                                                <div>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item">RKAP</a></li>
+                                            <li><a class="dropdown-item">Outlook</a></li>
+                                            <li><a class="dropdown-item">Realisasi</a></li>
+                                            <li><a class="dropdown-item">RKAP & Outlook</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <div class="flex-fill align-self-center fw-bold"><label for="">Tahun</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="flex-fill"><input type="date" class="form-control" required></div>
+                                    </div>
+                                </div>
+                                <mat-divider></mat-divider>
+                                <label class="mt-3 fw-bold" for="">Upload Dokumen</label>
+                                <p style="font-size: 12px; color:#9A9A9A;">Minimum up to 1 each file, size 10mb. File
+                                    type
+                                    must be .XLS</p>
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <div class="flex-fill align-self-center fw-bold"><label for="">Laporan Laba
+                                                Rugi</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card">
+                                            <ngx-dropzone (change)="onSelect($event)">
+                                                <ngx-dropzone-label>
+                                                    <img src="./assets/icon/upload-cloud-02.svg" alt="">
+                                                    <div class="text-center"><a>Click to Upload or drag and drop</a><br>
+                                                        SVG, PNG, JPG or GIF ( max.800x400px)
+                                                    </div>
+                                                </ngx-dropzone-label>
+                                            </ngx-dropzone>
+                                        </div>
+                                        <ngx-dropzone-preview *ngFor="let f of fileLabaRugi" [removable]="true"
+                                            (removed)="onRemove(f)">
+                                            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                        </ngx-dropzone-preview>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <div class="flex-fill align-self-center fw-bold"><label for="">Laporan Cash
+                                                Flow</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card">
+                                            <ngx-dropzone (change)="onSelectCashFLow($event)">
+                                                <ngx-dropzone-label>
+                                                    <img src="./assets/icon/upload-cloud-02.svg" alt="">
+                                                    <div class="text-center"><a>Click to Upload or drag and drop</a><br>
+                                                        SVG, PNG, JPG or GIF ( max.800x400px)
+                                                    </div>
+                                                </ngx-dropzone-label>
+                                            </ngx-dropzone>
+                                        </div>
+                                        <ngx-dropzone-preview *ngFor="let f of fileCashFlow" [removable]="true"
+                                            (removed)="onRemoveCashFlow(f)">
+                                            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                        </ngx-dropzone-preview>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <div class="flex-fill align-self-center fw-bold"><label for="">Dokumen
+                                                Lainnya</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card">
+                                            <ngx-dropzone (change)="onSelectDokLain($event)">
+                                                <ngx-dropzone-label>
+                                                    <img src="./assets/icon/upload-cloud-02.svg" alt="">
+                                                    <div class="text-center"><a>Click to Upload or drag and drop</a><br>
+                                                        SVG, PNG, JPG or GIF ( max.800x400px)
+                                                    </div>
+                                                </ngx-dropzone-label>
+                                            </ngx-dropzone>
+                                        </div>
+                                        <ngx-dropzone-preview *ngFor="let f of fileDokLain" [removable]="true"
+                                            (removed)="onRemoveDokLain(f)">
+                                            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                        </ngx-dropzone-preview>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card bg-light">
+                            <div class="container">
+                                <div class="d-flex justify-content-end p-2">
+                                    <button class="btn btn-primary" matStepperNext>Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="secondFormGroup" label="Preview">
+                    <form [formGroup]="secondFormGroup">
+                        <div>
+                            <div class="card-body mt-3">
+                                <div class="card bg-light">
+                                    <ul class="nav nav-pills mb-2 mt-2 p-2" id="pills-tab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="laporanLabaRugi-tab"
+                                                data-bs-toggle="pill" data-bs-target="#laporanLabaRugi"
+                                                type="button" role="tab" aria-controls="laporanLabaRugi"
+                                                aria-selected="false" tabindex="-1">Laporan Laba Rugi
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="laporanCashFlow-tab"
+                                                data-bs-toggle="pill" data-bs-target="#laporanCashFlow"
+                                                type="button" role="tab" aria-controls="laporanCashFlow"
+                                                aria-selected="false" tabindex="-1">Laporan Cash
+                                                Flow
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="dokumenLain-tab" data-bs-toggle="pill"
+                                                data-bs-target="#dokumenLain" type="button" role="tab"
+                                                aria-controls="dokumenLain" aria-selected="true">Dokumen Lainnya
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="grafik-tab" data-bs-toggle="pill"
+                                                data-bs-target="#grafik" type="button" role="tab"
+                                                aria-controls="grafik" aria-selected="true">Grafik
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content pt-2" id="myTabContent">
+                                    <div class="tab-pane fade" id="laporanLabaRugi" role="tabpanel"
+                                        aria-labelledby="home-tab">
+                                        <div class="table-importCashFlow"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="laporanCashFlow" role="tabpanel"
+                                        aria-labelledby="profile-tab">
+                                        <div class="table-importLabaRugi"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="dokumenLain" role="tabpanel"
+                                        aria-labelledby="contact-tab">
+                                        <div class="table-importDokumenLain"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="grafik" role="tabpanel"
+                                        aria-labelledby="profile-tab">
+                                        content 4
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <div class="p-2">
+                                <button class="btn btn-primary" matStepperPrevious>Back</button>
+                            </div>
+                            <div class="p-2">
+                                <button class="btn btn-primary" matStepperNext>Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </mat-step>
+            </mat-stepper>
         </div>
     </main>
     <app-footer></app-footer>

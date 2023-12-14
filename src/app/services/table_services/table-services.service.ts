@@ -109,6 +109,15 @@ export class TableServicesService {
   //table import findebt
   tableDataImport:any;
   tableImport:any;
+  //table data import laporan cashflow
+  tableDataImportCashFlow:any;
+  tableImportCashFlow:any;
+  //table data import laporan laba rugi
+  tableDataImportLabaRugi:any;
+  tableImportLabaRugi:any;
+  //table data import laporan dokumen lain
+  tableDataImportDokumenLain:any;
+  tableImportDokumenLain:any;
 
   constructor() {
     // Initialize properties in a method like ngOnInit() or a custom method
@@ -654,6 +663,66 @@ export class TableServicesService {
         {title:"Approval", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
         {title:"Status", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
         {title:"Action", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      ],
+    });
+  }
+
+  initializetableImportCashFlow(){
+    this.tableDataImportCashFlow = [
+      {id:1, name:"BI7DRR", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
+      {id:2, name:"FED RATE", age:"12000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
+      {id:3, name:"AVG SOFR", age:"13000", rate:"2,53%", col:"green", dob:"22/05/1982"},
+      {id:4, name:"JIBOR", age:"14000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
+    ];
+    this.tableImportCashFlow = new Tabulator(".table-importCashFlow", {
+      // height:205,
+      data:this.tableDataImportCashFlow, 
+      layout:"fitColumns",
+      columns:[
+        {title:"File", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:true},
+        {title:"Tgl Dibuat", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"Dibuat Oleh", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"Approval", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      ],
+    });
+  }
+
+  initializetableImportLabaRugi(){
+    this.tableDataImportLabaRugi = [
+      {id:1, name:"BI7DRR", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
+      {id:2, name:"FED RATE", age:"12000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
+      {id:3, name:"AVG SOFR", age:"13000", rate:"2,53%", col:"green", dob:"22/05/1982"},
+      {id:4, name:"JIBOR", age:"14000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
+    ];
+    this.tableImportLabaRugi = new Tabulator(".table-importLabaRugi", {
+      // height:205,
+      data:this.tableDataImportLabaRugi, 
+      layout:"fitColumns",
+      columns:[
+        {title:"File", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:true},
+        {title:"Tgl Dibuat", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"Dibuat Oleh", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"Approval", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      ],
+    });
+  }
+
+  initializetableImportDokumenLain(){
+    this.tableDataImportDokumenLain = [
+      {id:1, name:"BI7DRR", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
+      {id:2, name:"FED RATE", age:"12000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
+      {id:3, name:"AVG SOFR", age:"13000", rate:"2,53%", col:"green", dob:"22/05/1982"},
+      {id:4, name:"JIBOR", age:"14000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
+    ];
+    this.tableImportDokumenLain = new Tabulator(".table-importDokumenLain", {
+      // height:205,
+      data:this.tableDataImportDokumenLain, 
+      layout:"fitColumns",
+      columns:[
+        {title:"File", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:true},
+        {title:"Tgl Dibuat", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"Dibuat Oleh", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"Approval", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
       ],
     });
   }
