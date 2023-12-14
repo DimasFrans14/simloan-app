@@ -116,13 +116,19 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       const responseCommodities = await this.dataService.fetchDataCommodities();
       const responsePDB = await this.dataService.fetchDataPDB();
       const responseInflasi = await this.dataService.fetchDataInflasi();
-      const responsePMI = await this.dataService.fetchDataPMI()
+      const responsePMI = await this.dataService.fetchDataPMI();
+      const responseRetail = await this.dataService.fetchDataRetail();
+      const responseMoneySupply = await this.dataService.fetchDataMoneySupply();
+      const responseDevisa = await this.dataService.fetchDataDevisa()
 
 
       this.tableConfig.getDataCommodities(responseCommodities);
       this.tableConfig.getDataPDB(responsePDB);
       this.tableConfig.getDataInflasi(responseInflasi);
       this.tableConfig.getDataPMI(responsePMI);
+      this.tableConfig.getDataRetail(responseRetail);
+      this.tableConfig.getDataMoneySupply(responseMoneySupply);
+      this.tableConfig.getDataDevisa(responseDevisa);
 
     } catch (error) {
       console.log(error);

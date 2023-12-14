@@ -72,7 +72,29 @@ export class DataService {
   async fetchDataRetail(){
     try {
       return await lastValueFrom(
-        this.http.get('http://10.1.18.47:8080/simloan-ws/market/macroindicator/retailsales/getList?date=12/12/2021')
+        this.http.get('http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_retail_sales')
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async fetchDataMoneySupply(){
+    try {
+      return await lastValueFrom(
+        this.http.get('http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_money_supply')
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async fetchDataDevisa(){
+    try {
+      return await lastValueFrom(
+        this.http.get('http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_mrealcadev')
       );
     } catch (error) {
       console.log(error);
