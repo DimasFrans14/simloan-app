@@ -17,6 +17,10 @@ export class TableServicesService {
   public dataRetail: any;
   public dataMoneySupply: any;
   public dataDevisa: any;
+  public dataInterestRate: any;
+  public dataBondYield: any;
+  public dataKurs: any;
+
 
   setData(data: any) {
     this.sharedData = data;
@@ -27,38 +31,53 @@ export class TableServicesService {
 
   getDataCommodities(data: any){
     this.dataCommodities = data.d.list;
-    console.log('data commodities', this.dataCommodities);
+    // console.log('data commodities', this.dataCommodities);
 
   }
   getDataPDB(data: any){
     this.dataPDB = data.d.list;
-    console.log('data pdb', this.dataPDB);
+    // console.log('data pdb', this.dataPDB);
   }
 
   getDataInflasi(data: any){
     this.dataInflasi = data.d.list;
-    console.log('data inflasi', this.dataInflasi);
+    // console.log('data inflasi', this.dataInflasi);
   }
 
   getDataPMI(data: any){
     this.dataPMI = data.d.list;
-    console.log('data PMI', this.dataPMI);
+    // console.log('data PMI', this.dataPMI);
   }
 
   getDataRetail(data: any){
     this.dataRetail = data.data;
-    console.log('data retail', this.dataRetail);
+    // console.log('data retail', this.dataRetail);
 
   }
 
   getDataMoneySupply(data: any){
     this.dataMoneySupply = data.data;
-    console.log('data money supply', this.dataMoneySupply);
+    // console.log('data money supply', this.dataMoneySupply);
   }
 
   getDataDevisa(data: any){
     this.dataDevisa = data.data;
-    console.log('data devisa', this.dataDevisa);
+    // console.log('data devisa', this.dataDevisa);
+  }
+
+  getDataInterestRate(data: any){
+    this.dataInterestRate = data;
+    // console.log('data interest', this.dataInterestRate);
+  }
+
+  getDataBondYield(data: any){
+    this.dataBondYield = data;
+    // console.log('data interest', this.dataBondYield);
+  }
+
+  getDataKurs(data: any){
+    this.dataKurs = data;
+    console.log('data interest', this.dataKurs);
   }
 
   getData() {
@@ -162,18 +181,18 @@ export class TableServicesService {
 
     this.tableCurrency = new Tabulator(".table-currency", {
           // height:205,
-      data:this.tableDataCurrency,
+      data:this.dataKurs,
       layout:"fitColumns",
       columns:[
-        {title:"IDR", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+        {title:"IDR", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
     {//create column group
         title:"Exchange Rate",
         columns:[
-        {title:"RKAP <br/>23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:"RKAP <br/>23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
         ],
         headerHozAlign:"center"
     },
@@ -184,6 +203,7 @@ export class TableServicesService {
       ],
    }
     );
+
 
     this.tableDataInterestRate = [
       {id:1, name:"BI7DRR", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
@@ -196,16 +216,16 @@ export class TableServicesService {
 
     this.tableInterestRate = new Tabulator(".table-interest", {
       // height:205,
-      data:this.tableDataInterestRate,
+      data:this.dataInterestRate,
       layout:"fitColumns",
       columns:[
-        {title:"Rates", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+        {title:"Rates", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
 
-        {title:"RKAP <br/>23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"RKAP <br/>23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
 
         {title:"Change <br/>RKAP", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"Change <br/>MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
@@ -223,17 +243,17 @@ export class TableServicesService {
 
     this.tableBondYield = new Tabulator(".table-bondYield", {
       // height:205,
-      data:this.tableDataBondYield,
+      data:this.dataBondYield,
       layout:"fitColumns",
       columns:[
-        {title:"IDR", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+        {title:"IDR", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
     {//create column group
         title:"Exchange Rate",
         columns:[
-        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
         ],
         headerHozAlign:"center"
     },
@@ -369,6 +389,14 @@ export class TableServicesService {
         {title:"2023", field:"triliun_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
+
+    // const updatedColumnDefinition = {
+    //   title: "New Date Title",
+    // };
+
+    // if(this.tableMoneySupply && this.dataMoneySupply){
+    //   this.tableMoneySupply.updateColumnDefinition('triliun_year_min0', updatedColumnDefinition);
+    // }
 
     this.tableDataForeignExchange = [
         {id:1, month:"Januari", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
@@ -616,16 +644,16 @@ export class TableServicesService {
 
     this.tableInterestRate = new Tabulator(".table-interest", {
       // height:205,
-      data:this.tableDataInterestRate,
+      data:this.dataInterestRate,
       layout:"fitColumns",
       columns:[
-        {title:"Rates", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+        {title:"Rates", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
 
-        {title:"RKAP <br/>23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"RKAP <br/>23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
 
         {title:"Change <br/>RKAP", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"Change <br/>MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},

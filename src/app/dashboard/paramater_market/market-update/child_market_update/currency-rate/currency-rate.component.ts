@@ -26,7 +26,7 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     console.log(this.isLoading, 'loading 1');
 
     try {
-      const data = await this.dataService.fetchDataCommodities();
+      const data = await this.dataService.fetchDataCommoditiesAll();
       this.testData = data;
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2');

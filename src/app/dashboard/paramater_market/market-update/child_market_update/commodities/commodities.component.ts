@@ -22,7 +22,7 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
 
   async getData(){
     try {
-      const response = await this.dataService.fetchDataCommodities();
+      const response = await this.dataService.fetchDataCommoditiesAll();
       this.testData = response
       if(this.testData){
         this.isLoading = false;

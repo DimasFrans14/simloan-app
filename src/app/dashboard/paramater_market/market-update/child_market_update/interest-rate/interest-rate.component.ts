@@ -44,10 +44,22 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
 
   }
 
+  dataRKAP: any;
+  dataInterestRate: any;
+
   async ngOnInit(): Promise<void> {
     console.log('load data');
 
-    await this.getData();
+    try {
+      const responseInterestRate = await this.dataService.fetchDataInterestRateRKAP();
+      this.dataRKAP = responseInterestRate;
+      const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
+      this.dataInterestRate = filteredDataInterestRate;
+      this.tableConfig.getDataInterestRate(filteredDataInterestRate);
+      this.isLoading = false
+    } catch (error) {
+      console.error(error);
+    }
     this.tableConfig.initializeTableDataInterestRate();
   }
 
