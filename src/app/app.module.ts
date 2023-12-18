@@ -46,6 +46,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
+import { FinancialReportComponent } from './dashboard/financial_debt/financial-report/financial-report.component';
+
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -74,9 +78,11 @@ import {MatDividerModule} from '@angular/material/divider';
     CommoditiesComponent,
     ImportComponent,
     ImportLaporanComponent,
+    FinancialReportComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     NgSelectModule,
@@ -93,6 +99,8 @@ import {MatDividerModule} from '@angular/material/divider';
     MatDividerModule,
     MatInputModule,
     MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     // MatButtonModule,
     // FormBuilder,
     // Validators,

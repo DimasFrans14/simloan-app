@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {TabulatorFull as Tabulator} from 'tabulator-tables';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 
 @Component({

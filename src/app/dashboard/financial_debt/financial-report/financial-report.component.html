@@ -1,0 +1,308 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+
+<div id="header" class="header">
+    <div class="col-12 bg-white sub-nav border-top"
+        style="margin-top: 60px; padding-left: 200px; padding-bottom: 0; padding-top: 0;">
+        <div class="container">
+            <div class="d-flex justify-content-around">
+                <div class="p-2">
+                    <div class="d-flex">
+                        <div class="p-2">
+                            <button type="button" class="btn header-btn btn-sm" style="color: black;"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <span class="">Tahun Lalu</span>
+                                    </div>
+                                    <div>
+                                        <i class="bi bi-chevron-down"></i>
+                                    </div>
+                                </div>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item">September</a></li>
+                                <li><a class="dropdown-item">Oktober</a></li>
+                                <li><a class="dropdown-item">November</a></li>
+                            </ul>
+                        </div>
+                        <div class="p-2">
+                            <button type="button" class="btn header-btn btn-sm" style="color: black;"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <span class="">5 Tahun</span>
+                                    </div>
+                                    <div>
+                                        <i class="bi bi-chevron-down"></i>
+                                    </div>
+                                </div>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item">September</a></li>
+                                <li><a class="dropdown-item">Oktober</a></li>
+                                <li><a class="dropdown-item">November</a></li>
+                            </ul>
+                        </div>
+                        <div class="p-2">
+                            <button type="button" class="btn header-btn btn-sm" style="color: black;"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <span class="">Rasio Tertentu</span>
+                                    </div>
+                                    <div>
+                                        <i class="bi bi-chevron-down"></i>
+                                    </div>
+                                </div>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item">September</a></li>
+                                <li><a class="dropdown-item">Oktober</a></li>
+                                <li><a class="dropdown-item">November</a></li>
+                            </ul>
+                        </div>
+                        <div class="p-2">
+                            <div class="btn btn-primary">Terbaru</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <div style="font-size: 14px; padding-right: 50px;">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex justify-content-between">
+                                <div class="flex-column">
+                                    <div>Indikator :</div>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="align-self-center">
+                                            <span class="text-danger me-2 fw-semibold">RKAP</span>
+                                        </div>
+                                        <div class="align-self-center align-items-center">
+                                            <img src="assets/icon/bullet.svg" alt="" class="me-2">
+                                        </div>
+                                        <div class="align-self-center">
+                                            <span class="text-primary me-2 fw-semibold">Realisasi</span>
+                                        </div>
+                                        <div class="align-self-center align-items-center">
+                                            <img src="assets/icon/bullet.svg" alt="" class="me-2">
+                                        </div>
+                                        <div class="align-self-center">
+                                            <span class="text-secondary fw-semibold">Outlook</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="align-self-center align-items-center" style="padding-left: 10px;">
+                                    <div class="btn btn-light btn-sm"><i class="bi bi-download"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main class="main mt-3" id="main">
+    <div class="card-body">
+        <!-- Button Pills Tabs -->
+        <div class="card">
+            <div class="container">
+                <ul class="nav nav-pills d-flex justify-content-around p-2" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active btn-block" id="pills-home-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                            aria-selected="true">Grafik</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                            aria-selected="false" tabindex="-1">Table</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- end Botton Phills Tabs -->
+        <div class="tab-content pt-2" id="myTabContent">
+            <!-- Grafik -->
+            <div class="tab-pane fade active show" id="pills-home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row mt-3">
+                    <h4>Financial Debt Convenant Ratio</h4>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body mt-3">
+                                <div class="d-flex justify-content-between">
+                                    <div class="align-self-center">
+                                        <h5>DCSR Basis Laporan Arus Kas</h5>
+                                    </div>
+                                    <div class="p-2">
+                                        <div class="d-flex justify-content-around">
+                                            <div class="p-1">
+                                                <div class="btn btn-outline-secondary btn-sm"><i
+                                                        class="bi bi-funnel"></i>Filter</div>
+                                            </div>
+                                            <div class="p-1">
+                                                <div class="btn btn-outline-secondary btn-sm"><i
+                                                        class="bi bi-download"></i></div>
+                                            </div>
+                                            <div class="p-1">
+                                                <div class="btn btn-outline-secondary btn-sm"><i
+                                                        class="bi bi-arrows-angle-expand"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <apx-chart [series]="dataChartSHL" [chart]="shlChart" [xaxis]="xAxisSHL"
+                                    [colors]="colors"></apx-chart>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body mt-3">
+                                <div class="d-flex justify-content-between">
+                                    <div class="align-self-center">
+                                        <h5>DCSR Basis Laporan Laba Rugi</h5>
+                                    </div>
+                                    <div class="p-2">
+                                        <div class="d-flex justify-content-around">
+                                            <div class="p-1">
+                                                <div class="btn btn-outline-secondary btn-sm"><i
+                                                        class="bi bi-funnel"></i>Filter</div>
+                                            </div>
+                                            <div class="p-1">
+                                                <div class="btn btn-outline-secondary btn-sm"><i
+                                                        class="bi bi-download"></i></div>
+                                            </div>
+                                            <div class="p-1">
+                                                <div class="btn btn-outline-secondary btn-sm"><i
+                                                        class="bi bi-arrows-angle-expand"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <apx-chart [series]="dataChartSHL" [chart]="shlChart" [xaxis]="xAxisSHL"
+                                    [colors]="colors"></apx-chart>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body mt-3">
+                                <div class="d-flex justify-content-between">
+                                    <div class="align-self-center">
+                                        <h5>DER</h5>
+                                    </div>
+                                    <div class="p-2">
+                                        <div class="d-flex justify-content-around">
+                                            <div class="p-1">
+                                                <div class="btn btn-outline-secondary btn-sm"><i
+                                                        class="bi bi-funnel"></i>Filter</div>
+                                            </div>
+                                            <div class="p-1">
+                                                <div class="btn btn-outline-secondary btn-sm"><i
+                                                        class="bi bi-download"></i></div>
+                                            </div>
+                                            <div class="p-1">
+                                                <div class="btn btn-outline-secondary btn-sm"><i
+                                                        class="bi bi-arrows-angle-expand"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <apx-chart [series]="dataChartSHL" [chart]="shlChart" [xaxis]="xAxisSHL"
+                                    [colors]="colors"></apx-chart>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body mt-3">
+                                <div class="d-flex justify-content-between">
+                                    <div class="align-self-center">
+                                        <h5>CICR</h5>
+                                    </div>
+                                    <div class="p-2">
+                                        <div class="d-flex justify-content-around">
+                                            <div class="p-1">
+                                                <div class="btn btn-outline-secondary btn-sm"><i
+                                                        class="bi bi-funnel"></i>Filter</div>
+                                            </div>
+                                            <div class="p-1">
+                                                <div class="btn btn-outline-secondary btn-sm"><i
+                                                        class="bi bi-download"></i></div>
+                                            </div>
+                                            <div class="p-1">
+                                                <div class="btn btn-outline-secondary btn-sm"><i
+                                                        class="bi bi-arrows-angle-expand"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <apx-chart [series]="dataChartSHL" [chart]="shlChart" [xaxis]="xAxisSHL"
+                                    [colors]="colors"></apx-chart>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end Grafik -->
+            <!-- Table -->
+            <div class="tab-pane fade mt-3" id="pills-profile" role="tabpanel" aria-labelledby="profile-tab">
+                <h4>Overview Financial Convenant Ratio</h4>
+                <div class="d-flex justify-content-between">
+                    <div class="fw-bold">Memo</div>
+                    <div class="btn btn-primary btn-sm">Edit Memo</div>
+                </div>
+                <div class="d-flex justify-content-between mt-3">
+                    <div class="d-flex card p-2">
+                        <div class="flex-colomn">
+                            <div class="fw-bold" style="font-size: 14px;">Outlook DSCR basis Arus Kas</div>
+                            <div style="font-size: 12px; color: #4E4E4E;">DSCR minimum 1,5 kali dibutuhkan Net <br>
+                                Revenue sekitar Rp 19,94T</div>
+                            <div>
+                                <p style="font-size: 30px;">1,17</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex card p-2">
+                        <div class="flex-colomn">
+                            <div class="fw-bold" style="font-size: 14px;">Outlook DSCR basis Arus Kas</div>
+                            <div style="font-size: 12px; color: #4E4E4E;">DSCR minimum 1,5 kali dibutuhkan Net <br>
+                                Revenue sekitar Rp 19,94T</div>
+                            <div>
+                                <p style="font-size: 30px;">1,17</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex card p-2">
+                        <div class="flex-colomn">
+                            <div class="fw-bold" style="font-size: 14px;">Outlook DSCR basis Arus Kas</div>
+                            <div style="font-size: 12px; color: #4E4E4E;">DSCR minimum 1,5 kali dibutuhkan Net <br>
+                                Revenue sekitar Rp 19,94T</div>
+                            <div>
+                                <p style="font-size: 30px;">1,17</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex card p-2">
+                        <div class="flex-colomn">
+                            <div class="fw-bold" style="font-size: 14px;">Outlook DSCR basis Arus Kas</div>
+                            <div style="font-size: 12px; color: #4E4E4E;">DSCR minimum 1,5 kali dibutuhkan Net <br>
+                                Revenue sekitar Rp 19,94T</div>
+                            <div>
+                                <p style="font-size: 30px;">1,17</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-financialReport mt-5"></div>
+
+            <!-- end Table -->
+        </div>
+    </div>
+</main>
+<app-footer></app-footer>

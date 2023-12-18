@@ -24,6 +24,7 @@ import { InterestRateComponent } from './dashboard/paramater_market/market-updat
 import { CommoditiesComponent } from './dashboard/paramater_market/market-update/child_market_update/commodities/commodities.component';
 import { ImportComponent } from './dashboard/financial_debt/import/import.component';
 import { ImportLaporanComponent } from './dashboard/financial_debt/import/import-laporan/import-laporan.component';
+import { FinancialReportComponent } from './dashboard/financial_debt/financial-report/financial-report.component';
 
 const routes: Routes = [
 
@@ -53,6 +54,7 @@ const routes: Routes = [
   { path: 'report_shl', component:  ReportShlComponent},
   { path: 'detail_agreement', component: DetailAgreementComponent},
   { path: 'financial_import', component: ImportComponent},
+  { path: 'financial_report', component: FinancialReportComponent},
   // {
   //   path: 'shloverview',
   //   loadChildren: () => import('./layout/sidebar/sidebar-routing.module').then(m => m.SidebarRoutingModule),

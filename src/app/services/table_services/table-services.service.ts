@@ -137,6 +137,9 @@ export class TableServicesService {
   //table data import laporan dokumen lain
   tableDataImportDokumenLain:any;
   tableImportDokumenLain:any;
+  //table Financial Report
+  tableDataFinancialReport:any;
+  tableFinancialReport:any;
 
   constructor() {
     // Initialize properties in a method like ngOnInit() or a custom method
@@ -761,6 +764,42 @@ export class TableServicesService {
         {title:"Approval", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
       ],
     });
+  }
+
+  initializeTableFinancialReport(){
+    this.tableDataFinancialReport = [
+      {id:1, name:"DSCR Basis Laporan Arus Kas", 2018:"1.23", 2019:"48.91", 2020:"48.91", 2021:"48.91", 2022:"48.91", 2023:"48.91"},
+      {id:2, name:"DSCR Basis Laporan Laba Rugi", 2018:"1.23", 2019:"48.91", 2020:"48.91", 2021:"48.91", 2022:"48.91", 2023:"48.91"},
+      {id:3, name:"CICR", 2018:"1.23", 2019:"48.91", 2020:"48.91", 2021:"48.91", 2022:"48.91", 2023:"1.23"},
+      {id:4, name:"DER", 2018:"1.23", 2019:"48.91", 2020:"48.91", 2021:"48.91", 2022:"48.91", 2023:"1.24"},
+    ];
+    this.tableFinancialReport = new Tabulator(".table-financialReport",{
+      data:this.tableDataFinancialReport,
+      layout:'fitColumns',
+      columns:[
+        {title:"", editor:"tickCross", hozAlign:"center", headerHozAlign:"center"},
+        {title:"Financial Debt Covenant", field:"name", headerHozAlign:"center", hozAlign:'left', width:"250"},
+        {title:"Realization",
+        columns:[
+          {title:"2018", field:"2018", hozAlign:"center", headerHozAlign:"center"},
+          {title:"2019", field:"2019", hozAlign:"center", headerHozAlign:"center"},
+          {title:"2020", field:"2020", hozAlign:"center", headerHozAlign:"center"},
+          {title:"2021", field:"2021", hozAlign:"center", headerHozAlign:"center"},
+          {title:"2022", field:"2022", hozAlign:"center", headerHozAlign:"center"},
+        ], headerHozAlign:"center"
+        },
+        {title:"RKAP",
+        columns:[
+          {title:"2023", field:"2023", hozAlign:"center", headerHozAlign:"center"},
+        ],headerHozAlign:"center"
+        },
+        {title:"Outlook",
+        columns:[
+          {title:"2023", field:"2023", hozAlign:"center", headerHozAlign:"center"},
+        ],headerHozAlign:"center"
+        },
+      ]
+    })
   }
 
 }
