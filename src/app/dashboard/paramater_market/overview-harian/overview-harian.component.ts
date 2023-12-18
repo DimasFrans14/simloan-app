@@ -222,8 +222,32 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     console.log(event);
   }
 
-  ngOnInit(): void {
+  dataRKAP: any;
+  dataInterestRate: any;
+  dataCommodities: any;
+  dataCurrency: any;
 
+  async ngOnInit(): Promise<void> {
+    try {
+      const responseData = await this.dataService.fetchDataInterestRateRKAP();
+      // console.log(responseData);
+
+      this.dataRKAP = responseData;
+      const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
+      this.dataInterestRate = filteredDataInterestRate
+      console.log(this.dataInterestRate);
+
+      const filteredDataCommodities = this.dataRKAP.data.content.filter((item: any) => item.grup === 'COMMODITIES');
+      this.dataCommodities = filteredDataCommodities
+      console.log(this.dataCommodities);
+
+      const filteredDataCurrency = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
+      this.dataCurrency = filteredDataCurrency
+      console.log(this.dataCurrency);
+    }
+    catch(err){
+      console.log(err);
+    }
   }
 
   ngAfterViewInit() {

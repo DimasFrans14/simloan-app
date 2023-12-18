@@ -13,7 +13,14 @@
             </form>
           </div>
             <button type="button" class="btn btn-primary me-2" style="font-size: 14px;">Cari</button>
-            <button class="btn btn-light bg-white me-2" style="font-size: 14px;"><i class="bi bi-calendar me-2"></i>Pilih Tanggal</button>
+            <!-- <button class="btn btn-light bg-white me-2" style="font-size: 14px;"><i class="bi bi-calendar me-2"></i>Pilih Tanggal</button> -->
+            <!-- <input type="date" name="date" id="input_date" class="bg-white rounded border-none ms-2" placeholder="Pilih Tanggal" #date (change)="getDate(date.value)"> -->
+            <mat-form-field class="me-2 input-date">
+              <mat-label class="label-datepicker">Pilih Tanggal</mat-label>
+              <input matInput [matDatepicker]="picker1" autocomplete="off" (dateChange)="onDate($event)" disabled style="color: black;">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1 color="primary" disabled="false"></mat-datepicker>
+            </mat-form-field>
             <button type="button" class="btn btn-transparant border-light me-2" style="font-size: 14px;">Customizable Table</button>
             <button type="button" class="btn btn-transparant border-light me-2" style="font-size: 14px;">Reset</button>
         </div>
@@ -113,7 +120,7 @@
       </div>
 
       <div>
-        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Lihat Detail</button>
+        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/interest_rate">Lihat Detail</button>
       </div>
 
     </div>
@@ -137,7 +144,7 @@
       </div>
 
       <div>
-        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Lihat Detail</button>
+        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/commodities">Lihat Detail</button>
       </div>
 
     </div>

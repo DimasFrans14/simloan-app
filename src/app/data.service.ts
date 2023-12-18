@@ -24,10 +24,31 @@ export class DataService {
     }
   }
 
-  async fetchDataCommodities(){
+  async fetchDataInterestRateRKAP(){
     try {
       return await lastValueFrom(
-        this.http.get('http://10.1.18.47:8080/simloan-ws/market/currency/getRateList?date=05/12/202')
+        this.http.get('http://10.1.18.47:9051/simloan/ws-v01/dashboard/rkap')
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async fetchDataCommoditiesAll(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/currency/getRateList?date=05/12/202`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataCommoditiesByDate(currentDate: any){
+    try {
+      return await lastValueFrom(
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/currency/getRateList?date=${currentDate}`)
       );
     } catch (error) {
       console.log(error);

@@ -5,6 +5,8 @@ import {TabulatorFull as Tabulator} from 'tabulator-tables';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 import { DataService } from 'src/app/data.service';
 import { Router } from '@angular/router';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import * as moment from 'moment';
 
 interface ExcelData {
   [key: string]: any;
@@ -35,6 +37,14 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   dataExcel: any;
   excelDataTable: any;
+
+  selectedDate!: moment.Moment;
+  someFunction() {
+    const formattedDate = moment(this.selectedDate).format('YYYY-MM-DD'); // Contoh format tanggal menggunakan Moment.js
+    // Lakukan sesuatu dengan formattedDate
+    console.log(formattedDate);
+
+  }
 
   //variabel data table
 
@@ -100,6 +110,13 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     }
   }
 
+  getDate(date: any){
+    console.log(date);
+    const formattedDate = moment(this.selectedDate).format('YYYY-MM-DD'); // Contoh format tanggal menggunakan Moment.js
+    // Lakukan sesuatu dengan formattedDate
+    console.log(formattedDate);
+  }
+
   onSelect(event: { addedFiles: any; }) {
     console.log(event);
     this.files.push(...event.addedFiles);
@@ -111,16 +128,45 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     this.files.splice(this.files.indexOf(event), 1);
   }
 
+  dataRKAP: any;
+  dataInterestRate: any;
+
+    async onDate(event: MatDatepickerInputEvent<Date>) {
+      const selectedDate = event.value;
+      console.log(selectedDate);
+
+      const formattedDate = moment(event.value).format("DD/MM/YYYY"); // Contoh format tanggal menggunakan Moment.js
+      // Lakukan sesuatu dengan formattedDate
+      console.log(formattedDate);
+
+      try {
+        const response = await this.dataService.fetchDataCommoditiesByDate(formattedDate);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+  }
+
   async ngOnInit(): Promise<void> {
     try {
-      const responseCommodities = await this.dataService.fetchDataCommodities();
+      const responseCommodities = await this.dataService.fetchDataCommoditiesAll();
       const responsePDB = await this.dataService.fetchDataPDB();
       const responseInflasi = await this.dataService.fetchDataInflasi();
       const responsePMI = await this.dataService.fetchDataPMI();
       const responseRetail = await this.dataService.fetchDataRetail();
       const responseMoneySupply = await this.dataService.fetchDataMoneySupply();
-      const responseDevisa = await this.dataService.fetchDataDevisa()
+      const responseDevisa = await this.dataService.fetchDataDevisa();
 
+      const responseInterestRate = await this.dataService.fetchDataInterestRateRKAP();
+      this.dataRKAP = responseInterestRate;
+      const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
+      this.dataInterestRate = filteredDataInterestRate;
+
+      const filteredDataBondYield = this.dataRKAP.data.content.filter((item: any) => item.grup === 'BOND YIELD');
+      this.dataInterestRate = filteredDataBondYield;
+
+      const filteredDataKurs = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
+      this.dataInterestRate = filteredDataKurs;
 
       this.tableConfig.getDataCommodities(responseCommodities);
       this.tableConfig.getDataPDB(responsePDB);
@@ -129,6 +175,9 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       this.tableConfig.getDataRetail(responseRetail);
       this.tableConfig.getDataMoneySupply(responseMoneySupply);
       this.tableConfig.getDataDevisa(responseDevisa);
+      this.tableConfig.getDataInterestRate(filteredDataInterestRate);
+      this.tableConfig.getDataBondYield(filteredDataBondYield);
+      this.tableConfig.getDataKurs(filteredDataKurs);
 
     } catch (error) {
       console.log(error);

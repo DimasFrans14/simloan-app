@@ -50,6 +50,7 @@ import { FinancialReportComponent } from './dashboard/financial_debt/financial-r
 
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    // MatButtonModule,
+    MatButtonModule,
+    MatMomentDateModule,
     // FormBuilder,
     // Validators,
     QuillModule.forRoot({
