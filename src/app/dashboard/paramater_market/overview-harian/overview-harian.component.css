@@ -59,7 +59,7 @@
   }
 
   #main{
-    margin-top: 63px;
+    margin-top: 10%;
   }
 }
 
@@ -72,6 +72,17 @@
   border-radius: 8px;
 }
 
-/* .mat-mdc-form-field{
-  height: 50px;
-} */
+.label-datepicker{
+  font-size: 14px;
+  color: black;
+}
+
+::ng-deep .mdc-text-field--filled.mdc-text-field--disabled {
+  /* background-color: none; */
+  border: 1px solid rgba(1, 41, 112, 0.2);
+  border-radius: 10px;
+}
+
+.mat-mdc-form-field{
+  width: 40%;
+}

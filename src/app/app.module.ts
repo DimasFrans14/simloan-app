@@ -51,6 +51,8 @@ import { FinancialReportComponent } from './dashboard/financial_debt/financial-r
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import { BondYieldComponent } from './dashboard/paramater_market/market-update/child_market_update/bond-yield/bond-yield.component';
+import { ImportLaporanMarketUpdateComponent } from './dashboard/paramater_market/market-update/child_market_update/import-laporan-market-update/import-laporan-market-update.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,8 @@ import {MatMomentDateModule} from '@angular/material-moment-adapter';
     ImportComponent,
     ImportLaporanComponent,
     FinancialReportComponent,
+    BondYieldComponent,
+    ImportLaporanMarketUpdateComponent,
   ],
   imports: [
     BrowserModule,

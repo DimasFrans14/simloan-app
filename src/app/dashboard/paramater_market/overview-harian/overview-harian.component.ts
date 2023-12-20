@@ -6,6 +6,8 @@ import { NgxCaptureService } from 'ngx-capture';
 import { tap } from 'rxjs';
 import PptxGenJS from 'pptxgenjs';
 import { DataService } from 'src/app/data.service';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import * as moment from 'moment';
 
 @Component({
   selector: 'overview-harian',
@@ -226,11 +228,73 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   dataInterestRate: any;
   dataCommodities: any;
   dataCurrency: any;
+  formatTanggal: any;
+
+  async onDate(event: MatDatepickerInputEvent<Date>) {
+    const selectedDate = event.value;
+    console.log(selectedDate);
+
+    const formattedDate = moment(event.value).format("DD/MM/YYYY");
+    console.log(formattedDate);
+
+    let month;
+    switch (formattedDate.slice(3, 5)) {
+      case '01':
+        month = "Januari";
+        break;
+      case '02':
+        month = "Februari";
+        break;
+      case '03':
+        month = "Maret";
+        break;
+      case '04':
+        month = "April";
+        break;
+      case '05':
+        month = "Mei";
+        break;
+      case '06':
+        month = "Juni";
+        break;
+      case '07':
+        month = "Juli";
+        break;
+      case '08':
+        month = "Agustus";
+        break;
+      case '09':
+        month = "September";
+        break;
+      case '10':
+        month = "Oktober";
+        break;
+      case '11':
+        month = "November";
+        break;
+      case '12':
+        month = "Desember";
+        break;
+    }
+
+    console.log(month);
+
+    try {
+      //TES FETCH BASED ON PARAMS
+      const response = await this.dataService.fetchDataViewInflasiByDate(formattedDate, month);
+      this.formatTanggal = response
+      console.log(this.formatTanggal.data[0].tanggal);
+
+      console.log();
+    } catch (error) {
+      console.log(error);
+    }
+}
 
   async ngOnInit(): Promise<void> {
     try {
       const responseData = await this.dataService.fetchDataInterestRateRKAP();
-      // console.log(responseData);
+      console.log(responseData);
 
       this.dataRKAP = responseData;
       const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');

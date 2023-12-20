@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import { ApexAxisChartSeries, ApexChart,  ApexPlotOptions,  ApexTitleSubtitle, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-overview',
@@ -8,8 +9,81 @@ import { ApexAxisChartSeries, ApexChart,  ApexPlotOptions,  ApexTitleSubtitle, A
 })
 export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
+  constructor(private dataService: DataService){
+    console.log(dataService);
+  }
 
-  ngOnInit(): void {
+  dataKurs: any;
+  dataRKAP: any;
+  lineChartKursSeries: ApexAxisChartSeries = [];
+  lineChartInterestRateSeries: ApexAxisChartSeries = [];
+
+  async ngOnInit(): Promise<void> {
+    try {
+      const response = await this.dataService.fetchDataCommoditiesAll()
+      this.dataKurs = response;
+
+      const responseRKAP = await this.dataService.fetchDataInterestRateRKAP()
+      this.dataRKAP = responseRKAP;
+
+      console.log(this.dataKurs.d.list);
+
+      let dataUSD;
+      let dataInterest;
+
+      dataUSD = this.dataKurs.d.list.filter((item: any) => item.mata_uang === 'USD');
+
+      dataInterest = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
+
+      console.log(dataInterest);
+
+      this.lineChartKursSeries = [
+        {
+          name: `${this.dataKurs.d.list[0].mata_uang}`,
+          data: [dataUSD[0].nilai_rkap, 12000, 13000, 12300, 11000]
+        },
+        {
+          name: `${this.dataKurs.d.list[1].mata_uang}`,
+          data: [13000, dataUSD[0].nilai_rkap, 15000, 12300, 11000]
+        },
+        {
+          name: `${this.dataKurs.d.list[2].mata_uang}`,
+          data: [12300, 11000, dataUSD[0].nilai_rkap, 12300, 11000]
+        }
+      ];
+
+      this.lineChartInterestRateSeries = [
+        {
+          name: `${dataInterest[0].mtu}`,
+          data: [dataInterest[0].rate, 10, 12]
+        },
+        {
+          name: `${dataInterest[1].mtu}`,
+          data: [13, dataInterest[1].rate, 10]
+        },
+        {
+          name: `${dataInterest[2].mtu}`,
+          data: [12, 11, dataInterest[2].rate]
+        },
+        {
+          name: `${dataInterest[3].mtu}`,
+          data: [12, 11, dataInterest[3].rate]
+        },
+        {
+          name: `${dataInterest[4].mtu}`,
+          data: [12, 11, dataInterest[4].rate]
+        },
+        {
+          name: `${dataInterest[5].mtu}`,
+          data: [12, 11, dataInterest[5].rate]
+        }
+      ];
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  ngAfterViewInit(): void {
 
   }
 
@@ -35,21 +109,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     }
     this.isVisibleBar = false;
   }
-
-  chartSeries: ApexAxisChartSeries = [
-    {
-      name: "Net Profit",
-      data: [111, 55, 57, 56, 61, 58, 63, 60, 66]
-    },
-    {
-      name: "Revenue",
-      data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-    },
-    {
-      name: "Free Cash Flow",
-      data: [35, 41, 36, 26, 45, 48, 52, 53, 134]
-    }
-  ];
 
 
   chartSeries2: ApexAxisChartSeries = [
@@ -143,14 +202,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   changeChart(){
     alert('Change chart');
-  }
-
-  constructor(){
-
-  }
-
-  ngAfterViewInit(): void {
-
   }
 
 }

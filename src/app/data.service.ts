@@ -13,10 +13,13 @@ export class DataService {
 
   result: any;
 
+  localDev: string = 'http://10.1.18.47:9051'
+  serverDev: string = 'http://10.1.18.47:8080'
+
   async fetchDataKurs(){
     try {
       return await lastValueFrom(
-        this.http.get('http://10.1.18.47:9051/simloan/ws-v01/master-kurs/list?data=10')
+        this.http.get(`${this.serverDev}/simloan-ws/market/currency/getRateList?date=01/12/202`)
       );
     } catch (error) {
       console.log(error);
@@ -27,7 +30,7 @@ export class DataService {
   async fetchDataInterestRateRKAP(){
     try {
       return await lastValueFrom(
-        this.http.get('http://10.1.18.47:9051/simloan/ws-v01/dashboard/rkap')
+        this.http.get(`${this.localDev}/simloan/ws-v01/dashboard/rkap`)
       );
     } catch (error) {
       console.log(error);
@@ -59,7 +62,7 @@ export class DataService {
   async fetchDataPDB(){
     try {
       return await lastValueFrom(
-        this.http.get('http://10.1.18.47:8080/simloan-ws/market/macroindicator/pdb/getList')
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/macroindicator/pdb/getList`)
       );
     } catch (error) {
       console.log(error);
@@ -71,7 +74,7 @@ export class DataService {
   async fetchDataInflasi(){
     try {
       return await lastValueFrom(
-        this.http.get('http://10.1.18.47:8080/simloan-ws/market/macroindicator/inflasi/getList?date=12/12/2023')
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/macroindicator/inflasi/getList?date=12/12/2023`)
       );
     } catch (error) {
       console.log(error);
@@ -82,7 +85,7 @@ export class DataService {
   async fetchDataPMI(){
     try {
       return await lastValueFrom(
-        this.http.get('http://10.1.18.47:8080/simloan-ws/market/macroindicator/pmi/getList?date=12/12/2023')
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/macroindicator/pmi/getList?date=12/12/2023`)
       );
     } catch (error) {
       console.log(error);
@@ -93,7 +96,7 @@ export class DataService {
   async fetchDataRetail(){
     try {
       return await lastValueFrom(
-        this.http.get('http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_retail_sales')
+        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_retail_sales`)
       );
     } catch (error) {
       console.log(error);
@@ -104,7 +107,7 @@ export class DataService {
   async fetchDataMoneySupply(){
     try {
       return await lastValueFrom(
-        this.http.get('http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_money_supply')
+        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_money_supply`)
       );
     } catch (error) {
       console.log(error);
@@ -115,7 +118,7 @@ export class DataService {
   async fetchDataDevisa(){
     try {
       return await lastValueFrom(
-        this.http.get('http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_mrealcadev')
+        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_mrealcadev`)
       );
     } catch (error) {
       console.log(error);
@@ -140,12 +143,68 @@ export class DataService {
   async fetchDataUsers(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/system/users/list`)
+        this.http.get(`${this.localDev}/simloan/ws-v01/system/users/list`)
       )
     } catch (error) {
       console.log(error);
       return null
     }
   }
+
+  async fetchDataViewInflasiByDate(date: any, month: String | undefined){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_inflasi?bulan=${month}`)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
+  async fetchDataViewnMoneySupplyByDate(date: any, month: String | undefined){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_money_supply?bulan=${month}`)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
+  async fetchDataViewDevisaByDate(date: any, month: String | undefined){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_mrealcadev?bulan=${month}`)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
+  async fetchDataViewPMIByDate(date: any, month: String | undefined){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_real_pmi?bulan=${month}`)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
+  async fetchDataViewRetailByDate(date: any, month: String | undefined){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_retail_sales?bulan=${month}`)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
 
 }
