@@ -65,7 +65,7 @@
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <button type="button" class="btn btn-sm header-btn" style="color: black;"
+                                        <button type="button" class="btn btn-sm dropdown-btn" style="color: black;"
                                             data-bs-toggle="dropdown" aria-expanded="false">
                                             <div class="d-flex justify-content-between">
                                                 <div>
@@ -109,8 +109,8 @@
                                             <ngx-dropzone (change)="onSelect($event)">
                                                 <ngx-dropzone-label>
                                                     <img src="./assets/icon/upload-cloud-02.svg" alt="">
-                                                    <div class="text-center"><a>Click to Upload or drag and drop</a><br>
-                                                        SVG, PNG, JPG or GIF ( max.800x400px)
+                                                    <div class="text-center">
+                                                        <a>Click to Upload or drag and drop</a>
                                                     </div>
                                                 </ngx-dropzone-label>
                                             </ngx-dropzone>
@@ -176,7 +176,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </form> 
                 </mat-step>
                 <mat-step [stepControl]="secondFormGroup" label="Preview">
                     <form [formGroup]="secondFormGroup">
@@ -185,17 +185,17 @@
                                 <div class="card bg-light">
                                     <ul class="nav nav-pills mb-2 mt-2 p-2" id="pills-tab" role="tablist">
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="laporanLabaRugi-tab"
-                                                data-bs-toggle="pill" data-bs-target="#laporanLabaRugi"
-                                                type="button" role="tab" aria-controls="laporanLabaRugi"
-                                                aria-selected="false" tabindex="-1">Laporan Laba Rugi
+                                            <button class="nav-link" id="laporanLabaRugi-tab" data-bs-toggle="pill"
+                                                data-bs-target="#laporanLabaRugi" type="button" role="tab"
+                                                aria-controls="laporanLabaRugi" aria-selected="false"
+                                                tabindex="-1">Laporan Laba Rugi
                                             </button>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="laporanCashFlow-tab"
-                                                data-bs-toggle="pill" data-bs-target="#laporanCashFlow"
-                                                type="button" role="tab" aria-controls="laporanCashFlow"
-                                                aria-selected="false" tabindex="-1">Laporan Cash
+                                            <button class="nav-link" id="laporanCashFlow-tab" data-bs-toggle="pill"
+                                                data-bs-target="#laporanCashFlow" type="button" role="tab"
+                                                aria-controls="laporanCashFlow" aria-selected="false"
+                                                tabindex="-1">Laporan Cash
                                                 Flow
                                             </button>
                                         </li>
@@ -207,8 +207,8 @@
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="grafik-tab" data-bs-toggle="pill"
-                                                data-bs-target="#grafik" type="button" role="tab"
-                                                aria-controls="grafik" aria-selected="true">Grafik
+                                                data-bs-target="#grafik" type="button" role="tab" aria-controls="grafik"
+                                                aria-selected="true">Grafik
                                             </button>
                                         </li>
                                     </ul>

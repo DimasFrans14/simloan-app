@@ -842,7 +842,7 @@ export class TableServicesService {
       layout:'fitColumns',
       columns:[
         {title:"", editor:"tickCross", hozAlign:"center", headerHozAlign:"center"},
-        {title:"Financial Debt Covenant", field:"name", headerHozAlign:"center", hozAlign:'left', width:"250"},
+        {title:"Financial Debt Covenant", field:"name", headerHozAlign:"center", hozAlign:'left', width:"300"},
         {title:"Realization",
         columns:[
           {title:"2018", field:"2018", hozAlign:"center", headerHozAlign:"center"},
