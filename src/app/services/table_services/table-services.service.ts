@@ -33,8 +33,8 @@ export class TableServicesService {
   }
 
   getDataCommodities(data: any){
-    this.dataCommodities = data;
-    // console.log('data commodities', this.dataCommodities);
+    this.dataCommodities = data.d.list;
+    console.log('data commodities', this.dataCommodities);
 
   }
   getDataPDB(data: any){
@@ -291,22 +291,22 @@ export class TableServicesService {
     data:this.dataCommodities,
     layout:"fitColumns",
     columns:[
-      {title:"IDR", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+      {title:"Commodities", field:"keterangan", headerHozAlign:"center", hozAlign:'left', headerSort:false},
   {//create column group
       title:"Exchange Rate",
       columns:[
-      {title:"RKAP <br/>23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"24/02/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"20/03/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"24/02/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"20/03/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
       ],
       headerHozAlign:"center"
   },
-  {title:"Change <br/>MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>WoW", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change Dari RKAP", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>MoM", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>WoW", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>1 Day", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change Dari RKAP", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     ],
 
   });
@@ -691,22 +691,22 @@ export class TableServicesService {
     data:this.dataCommodities,
     layout:"fitColumns",
     columns:[
-      {title:"IDR", field:"mata_uang", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+      {title:"IDR", field:"keterangan", headerHozAlign:"center", hozAlign:'left', headerSort:false},
   {//create column group
       title:"Exchange Rate",
       columns:[
       {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-      {title:"24/02/23", field:"beli", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"20/03/23", field:"beli_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"24/02/23", field:"beli_min2", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"20/03/23", field:"beli_min3", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"24/02/23", field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"20/03/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"24/02/23", field:"nilai_min2", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"20/03/23", field:"nilai_min3", hozAlign:"center", headerHozAlign:"center", editor: "input"},
       ],
       headerHozAlign:"center"
   },
-  {title:"Change <br/>MoM", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change Dari RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>MoM", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>WoW", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>1 Day", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change Dari RKAP", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     ],
 
   });

@@ -233,6 +233,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       // const responseCommodities = await this.dataService.fetchDataCommoditiesAll();
       const responsePDB = await this.dataService.fetchDataPDB();
       const responseKurs = await this.dataService.fetchDataKurs();
+      const responseCommodities = await this.dataService.fetchDataCommoditiesByDate('05/12/2023');
 
       const responseInflasi = await this.dataService.fetchDataInflasi();
       // this.dataInflasi = responseInflasi;
@@ -251,7 +252,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       const filteredDataKurs = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
       const filteredDataCommodities = this.dataRKAP.data.content.filter((item: any) => item.grup === 'COMMODITIES');
 
-      this.tableConfig.getDataCommodities(filteredDataCommodities);
+      this.tableConfig.getDataCommodities(responseCommodities);
       this.tableConfig.getDataPDB(responsePDB);
       this.tableConfig.getDataInflasi(responseInflasi);
       this.tableConfig.getDataPMI(responsePMI);

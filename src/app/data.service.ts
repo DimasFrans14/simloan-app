@@ -51,7 +51,7 @@ export class DataService {
   async fetchDataCommoditiesByDate(currentDate: any){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/currency/getRateList?date=${currentDate}`)
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/commodities/getRateList?date=${currentDate}`)
       );
     } catch (error) {
       console.log(error);
