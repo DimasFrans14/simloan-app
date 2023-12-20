@@ -1,0 +1,68 @@
+<div>
+  <app-header></app-header>
+  <app-sidebar></app-sidebar>
+
+  <main id="main" class="main">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <p class="text-secondary">
+          <a routerLink="/market_update" class="text-secondary">
+            <i class="bi bi-arrow-left me-2"></i>
+            Back to Market Update
+          </a>
+        </p>
+      </div>
+
+    </div>
+    <div class="d-flex flex-column main-section">
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="d-flex flex-column">
+          <div class="text-center">
+            <h2 style="margin-bottom: 40px;">Import Laporan Market Update</h2>
+            <h5 class="text-secondary">Pilih data excel template sesuai kebutuhan anda sekarang</h5>
+          </div>
+          <div>
+            <div class="mb-3">
+              <label for="uploadFile" class="fw-bold mb-1">Pilih Parameter Market Update</label>
+              <ng-select
+                [items]="parameterSelect"
+                bindLabel="name"
+                bindValue="id"
+                [(ngModel)]="parameterItems"
+                placeholder="Pilih Parameter Market Update"
+                (change)="valueSelect($event)">
+              </ng-select>
+            </div>
+            <div class="mb-3" [style.display]="currencyRateID === 1 ? 'block' : 'none'">
+              <label for="uploadFile" class="fw-bold mb-1">Pilih Currency Parameter</label>
+              <ng-select
+                [items]="subParameterSelect"
+                bindLabel="name"
+                bindValue="id"
+                [(ngModel)]="subParameterItems"
+                placeholder="Pilih Currency Parameter"
+                >
+              </ng-select>
+            </div>
+            <div class="mb-3" [style.display]="currencyRateID !== undefined ? 'block' : 'none'">
+              <ngx-dropzone (change)="onSelect($event)">
+                <ngx-dropzone-label>
+                    <img src="./assets/icon/upload-cloud-02.svg" alt="">
+                    <div class="text-center"><span class="text-primary">Click to Upload</span> or drag and drop<br>
+                        SVG, PNG, JPG or GIF ( max.800x400px)
+                    </div>
+                </ngx-dropzone-label>
+            </ngx-dropzone>
+            <ngx-dropzone-preview *ngFor="let f of parameterCurrency" [removable]="true"
+              (removed)="onRemove(f)">
+              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- <app-footer></app-footer> -->
+</div>
