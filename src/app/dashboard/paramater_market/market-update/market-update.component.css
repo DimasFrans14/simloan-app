@@ -18,7 +18,7 @@
 }
 
 #main{
-  margin-top: 80px;
+  margin-top: 100px;
 }
 
 #input_date{
@@ -26,20 +26,28 @@
   padding: 5.5px;
 }
 
-/* ::ng-deep .mat-mdc-form-field{
-  height: 80px;
-} */
+.date-field{
+  /* background-color: blue; */
+}
 
 ::ng-deep .mat-mdc-form-field{
   width: 25%;
+  height: 60px;
+  margin-top: 25px;
 }
 
-/* .input-date{
-  border: 1px solid #e4e4e4;
-} */
+::ng-deep .mdc-text-field--filled.mdc-text-field--disabled {
+  /* background-color: none; */
+  border: 1px solid rgba(1, 41, 112, 0.2);
+  border-radius: 10px;
+}
 
-.mdc-text-field--filled.mdc-text-field--disabled {
-  background-color: blue; /* Ganti dengan warna yang diinginkan */
+::ng-deep .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix{
+  padding-top: 20px;
+}
+
+::ng-deep .mdc-text-field {
+  align-items: center !important;
 }
 
 .label-datepicker{

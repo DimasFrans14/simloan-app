@@ -7,6 +7,12 @@
         <div>
           <button class="btn btn-primary" style="font-size: 14px;">Harian</button>
           <a routerLink="/overview_trending" class="btn btn-light bg-white ms-2 text-dark" style="font-size: 14px;" >Trending</a>
+          <mat-form-field class="ms-2 input-date">
+            <mat-label class="label-datepicker">Pilih Tanggal</mat-label>
+            <input matInput [matDatepicker]="picker1" autocomplete="off" (dateChange)="onDate($event)" disabled style="color: black;">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1 color="primary" disabled="false"></mat-datepicker>
+          </mat-form-field>
           <!-- <input type="date" name="date" id="input_date" class="bg-white rounded border-none ms-2" placeholder="Pilih Tanggal" #date (change)="getDate(date.value)"> -->
           <!-- <button class="btn btn-light bg-white border border-1 ms-2 text-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Filter Tanggal</button> -->
             <!-- <button class="btn btn-transparant border border-1 dropdown-toggle ms-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -92,7 +98,7 @@
             <i class="bi bi-download"></i>
           </button>
             <ul class="dropdown-menu border border-1">
-              <li style="cursor: pointer;"><a class="dropdown-item" (click)="getPPT()"><i class="bi bi-filetype-ppt me-2"></i>.PPT</a></li>
+              <li style="cursor: pointer;"><a class="dropdown-item"><i class="bi bi-filetype-ppt me-2"></i>.PPT</a></li>
               <li style="cursor: pointer;"><a class="dropdown-item" href="#"><i class="bi bi-filetype-pdf me-2"></i>.PDF</a></li>
             </ul>
         </div>
@@ -478,7 +484,7 @@
 
       <div class="d-flex flex-sm-wrap flex-md-wrap flex-lg-nowrap align-items-center justify-content-center">
         <div *ngFor="let items of dataInterestRate">
-          <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3">
+          <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3 mt-2">
             <span class="fw-semibold text-center mb-3">{{items.mtu}}</span>
             <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
               <div class="d-flex flex-column align-items-center me-2 text-danger">

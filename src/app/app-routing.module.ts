@@ -25,6 +25,8 @@ import { CommoditiesComponent } from './dashboard/paramater_market/market-update
 import { ImportComponent } from './dashboard/financial_debt/import/import.component';
 import { ImportLaporanComponent } from './dashboard/financial_debt/import/import-laporan/import-laporan.component';
 import { FinancialReportComponent } from './dashboard/financial_debt/financial-report/financial-report.component';
+import { BondYieldComponent } from './dashboard/paramater_market/market-update/child_market_update/bond-yield/bond-yield.component';
+import { ImportLaporanMarketUpdateComponent } from './dashboard/paramater_market/market-update/child_market_update/import-laporan-market-update/import-laporan-market-update.component';
 
 const routes: Routes = [
 
@@ -64,6 +66,8 @@ const routes: Routes = [
   { path: 'market_update/currency_rate', component: CurrencyRateComponent},
   { path: 'market_update/interest_rate', component: InterestRateComponent},
   { path: 'market_update/commodities', component: CommoditiesComponent},
+  { path: 'market_update/bond_yield', component: BondYieldComponent},
+  { path: 'market_update/importLaporan_marketUpdate', component: ImportLaporanMarketUpdateComponent},
 
   //child path financiaal-debt
   {path: 'import_laporan', component: ImportLaporanComponent},
@@ -73,7 +77,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, { anchorScrolling: 'enabled'})
   ],
   exports: [RouterModule]
 })

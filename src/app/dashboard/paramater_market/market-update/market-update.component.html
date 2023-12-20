@@ -15,7 +15,7 @@
             <button type="button" class="btn btn-primary me-2" style="font-size: 14px;">Cari</button>
             <!-- <button class="btn btn-light bg-white me-2" style="font-size: 14px;"><i class="bi bi-calendar me-2"></i>Pilih Tanggal</button> -->
             <!-- <input type="date" name="date" id="input_date" class="bg-white rounded border-none ms-2" placeholder="Pilih Tanggal" #date (change)="getDate(date.value)"> -->
-            <mat-form-field class="me-2 input-date">
+            <mat-form-field class="me-2 date-field">
               <mat-label class="label-datepicker">Pilih Tanggal</mat-label>
               <input matInput [matDatepicker]="picker1" autocomplete="off" (dateChange)="onDate($event)" disabled style="color: black;">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -33,13 +33,12 @@
 
       <!-- Sub Menu -->
       <div class="d-flex justify-content-start align-items-center text-dark mt-3">
-        <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Currency Rate</a>
-        <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Interest Rate</a>
-        <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Bond Yield</a>
-        <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Commodities</a>
-        <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Macro Indicator</a>
-        <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Key Takeways</a>
-        <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Debt Services</a>
+        <a class="submenu-market" style="margin-right: 24px; font-size: 14px; cursor: pointer;" (click)="onClick('currencyRate')">Currency Rate</a>
+        <a class="submenu-market" style="margin-right: 24px; font-size: 14px; cursor: pointer;" (click)="onClick('interestRate')">Interest Rate</a>
+        <a class="submenu-market" style="margin-right: 24px; font-size: 14px; cursor: pointer;" (click)="onClick('bondYield')">Bond Yield</a>
+        <a class="submenu-market" style="margin-right: 24px; font-size: 14px; cursor: pointer;" (click)="onClick('commodities')">Commodities</a>
+        <a class="submenu-market" style="margin-right: 24px; font-size: 14px; cursor: pointer;" (click)="onClick('macroIndicator')">Macro Indicator</a>
+        <a class="submenu-market" style="margin-right: 24px; font-size: 14px; cursor: pointer;">Debt Services</a>
       </div>
       <!--End Sub Mmenu -->
     </div>
@@ -53,9 +52,8 @@
       </div>
 
       <div>
-        <button class="btn btn-primary" data-bs-toggle="modal"
-        data-bs-target="#verticalycentered"><i class="bi bi-file-earmark-arrow-down me-2"></i>Import Laporan</button>
-        <div class="modal fade" id="verticalycentered" data-bs-backdrop="true" tabindex="-1"
+        <button class="btn btn-primary"  routerLink="/market_update/importLaporan_marketUpdate"><i class="bi bi-file-earmark-arrow-down me-2"></i>Import Laporan</button>
+        <!-- <div class="modal fade" id="verticalycentered" data-bs-backdrop="true" tabindex="-1"
         style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -74,10 +72,7 @@
                                             (removed)="onRemove(f)">
                                             <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                                         </ngx-dropzone-image-preview>
-                    <!-- <ngx-dropzone-preview *ngFor="let f of files" [removable]="true"
-                        (removed)="onRemove(f)">
-                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                    </ngx-dropzone-preview> -->
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
@@ -86,7 +81,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
         <!-- <ngx-dropzone (change)="readExcel($event)">
           <ngx-dropzone-label>
               <img src="./assets/icon/upload-cloud-02.svg" alt="">
@@ -100,11 +95,11 @@
 
     </div>
 
+    <div id="currencyRate" class="pt-2"></div>
     <div class="d-flex justify-content-between align-items-center mt-5">
       <div>
         <h4>Currency Rate</h4>
       <!-- <input type="file" name="" id="" (change)="readExcel($event)"> -->
-
       </div>
 
       <div>
@@ -114,6 +109,8 @@
     </div>
 
     <div class="table-currency mt-2"></div>
+
+    <div id="interestRate" class="pt-2"></div>
     <div class="d-flex justify-content-between align-items-center mt-5">
       <div>
         <h4>Interest Rate</h4>
@@ -126,18 +123,22 @@
     </div>
 
     <div class="table-interest mt-2"></div>
+
+    <div id="bondYield" class="pt-2"></div>
     <div class="d-flex justify-content-between align-items-center mt-5">
       <div>
         <h4>Bond Yield</h4>
       </div>
 
       <div>
-        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Lihat Detail</button>
+        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/bond_yield">Lihat Detail</button>
       </div>
 
     </div>
 
     <div class="table-bondYield mt-2"></div>
+
+    <div id="commodities" class="pt-2"></div>
     <div class="d-flex justify-content-between align-items-center mt-5">
       <div>
         <h4>Commodities</h4>
@@ -145,12 +146,14 @@
 
       <div>
         <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/commodities">Lihat Detail</button>
+        <!-- <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" (click)="updateColumn()">Tes</button> -->
       </div>
 
     </div>
 
     <div class="table-commodities mt-2"></div>
 
+    <div id="macroIndicator" class="pt-2"></div>
     <div class="d-flex justify-content-between align-items-center mt-5">
       <div>
         <h4>Macro Indicator</h4>

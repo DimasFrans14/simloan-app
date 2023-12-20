@@ -1,0 +1,87 @@
+<div>
+  <app-header></app-header>
+  <app-sidebar></app-sidebar>
+  <div id="header" class="header">
+    <div class="col-12 bg-white sub-nav border-top">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-center align-items-center">
+          <div class="search search-bar me-2">
+            <form class="search-form" method="POST" action="#">
+              <input type="text" name="query" placeholder="Cari Nama Label" title="Enter search keyword" style="font-size: 14px;">
+              <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+            </form>
+          </div>
+            <button type="button" class="btn btn-primary me-2" style="font-size: 14px;">Cari</button>
+            <button class="btn btn-light bg-white me-2" style="font-size: 14px;"><i class="bi bi-calendar me-2"></i>Pilih Tanggal</button>
+            <button type="button" class="btn btn-transparant border-light me-2" style="font-size: 14px;">Customizable Table</button>
+            <button type="button" class="btn btn-transparant border-light me-2" style="font-size: 14px;">Reset</button>
+        </div>
+        <div>
+          <button class="bg-light rounded p-3 me-5" style="border: none;" type="button">
+            <i class="bi bi-download"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sub Menu -->
+      <!-- <div class="d-flex justify-content-start align-items-center text-dark mt-3">
+        <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Currency Rate</a>
+        <a class="submenu-market" style="margin-right: 24px; font-size: 14px; color: blue; border-bottom: 3px solid blue;">Interest Rate</a>
+        <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Bond Yield</a>
+        <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Commodities</a>
+        <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Macro Indicator</a>
+        <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Key Takeways</a>
+        <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Debt Services</a>
+      </div> -->
+      <!--End Sub Mmenu -->
+    </div>
+
+  </div>
+
+  <main id="main" class="main">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <p class="text-secondary">
+          <a routerLink="/market_update" class="text-secondary">
+            <i class="bi bi-arrow-left me-2"></i>
+            Back to Market Update
+          </a>
+        </p>
+      </div>
+
+      <div>
+        <button class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down me-2"></i>Import Laporan</button>
+      </div>
+
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-5">
+      <div>
+        <h4>Bond Yield</h4>
+      </div>
+
+      <div>
+        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Edit</button>
+        <button class="btn btn-transparant border-secondary bg-white ms-1" style="font-size: 14px;">Tambah</button>
+      </div>
+
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+        </div>
+        <div class="table-bondYieldDetail mt-2"></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+
