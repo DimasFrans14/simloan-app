@@ -896,5 +896,30 @@ export class TableServicesService {
     const tabel = this.tableForeignExchange;
     tabel.replaceData(data);
   }
+
+  getBackData(){
+    const dataInflasi = this.dataInflasi != undefined ? this.dataInflasi : ``;
+    const tabelInflasi = this.tableInflasi;
+
+    const dataPMI = this.dataPMI != undefined ? this.dataPMI : ``;
+    const tabelPMI = this.tablePMI;
+
+    const dataRetail = this.dataRetail != undefined ? this.dataRetail : ``;
+    const tabelRetail = this.tableRetail;
+
+    const dataMoneySupply = this.dataMoneySupply != undefined ? this.dataMoneySupply : ``;
+    const tabelMoneySupply = this.tableMoneySupply;
+
+    const dataDevisa = this.dataDevisa != undefined ? this.dataDevisa : ``;
+    const tabelForeignExchange = this.tableForeignExchange;
+
+    tabelInflasi.replaceData(dataInflasi);
+    tabelPMI.replaceData(dataPMI);
+    tabelRetail.replaceData(dataRetail);
+    tabelMoneySupply.replaceData(dataMoneySupply);
+    tabelForeignExchange.replaceData(dataDevisa);
+    // console.log(data);
+
+  }
 }
 
