@@ -19,7 +19,7 @@ export class DataService {
   async fetchDataKurs(){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.serverDev}/simloan-ws/market/currency/getRateList?date=01/12/202`)
+        this.http.get(`${this.localDev}/simloan/ws-v01/dashboard/rkap/list_kurs`)
       );
     } catch (error) {
       console.log(error);
@@ -31,6 +31,17 @@ export class DataService {
     try {
       return await lastValueFrom(
         this.http.get(`${this.localDev}/simloan/ws-v01/dashboard/rkap`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async fetchDataBondYield(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${this.localDev}/simloan/ws-v01/dashboard/realisasi/list_rby`)
       );
     } catch (error) {
       console.log(error);
@@ -63,6 +74,17 @@ export class DataService {
     try {
       return await lastValueFrom(
         this.http.get(`http://10.1.18.47:8080/simloan-ws/market/macroindicator/pdb/getList`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async fetchDataInterestRate(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${this.localDev}/simloan/ws-v01/dashboard/realisasi/list/interest?tanggal=`)
       );
     } catch (error) {
       console.log(error);
