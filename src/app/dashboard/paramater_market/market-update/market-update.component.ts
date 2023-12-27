@@ -9,6 +9,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as moment from 'moment';
 
 import { ViewportScroller } from '@angular/common';
+import { MatInput } from '@angular/material/input';
 
 interface ExcelData {
   [key: string]: any;
@@ -30,6 +31,8 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     ){
       // console.log(tableConfig);
     }
+
+    @ViewChild('datePickerValue', {read:MatInput}) inputDate!: MatInput;
 
     public onClick(elementId: string): void {
       this.viewportScroller.scrollToAnchor(elementId);
@@ -230,7 +233,12 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   resetFilter(){
     this.tableConfig.getBackData();
+    console.log(this.inputDate);
+
   }
+
+  keysBondYield: any;
+  filteredInterestRate: any;
 
   async ngOnInit(): Promise<void> {
     try {
@@ -238,6 +246,23 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       const responsePDB = await this.dataService.fetchDataPDB();
       const responseKurs = await this.dataService.fetchDataKurs();
       const responseCommodities = await this.dataService.fetchDataCommoditiesByDate('05/12/2023');
+      const responseBondYield = await this.dataService.fetchDataBondYield();
+      const responseDataInterestRate = await this.dataService.fetchDataInterestRate();
+
+
+      //Sementara Interest Rate difilter karna masih bingung untuk aliran datanya
+      this.filteredInterestRate = responseDataInterestRate
+      let limitedDIR :any[] = [];
+      for(let i=0; i<5; i++){
+        limitedDIR.push(this.filteredInterestRate.data.content[i])
+      }
+
+      console.log(limitedDIR);
+
+      // const keyBY = Object.keys(responseBondYield)
+      this.keysBondYield = responseBondYield
+      // console.log(Object.keys(this.keysBondYield.data.content[0]));
+
 
       const responseInflasi = await this.dataService.fetchDataInflasi();
       // this.dataInflasi = responseInflasi;
@@ -251,8 +276,10 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       this.dataRKAP = responseInterestRate;
 
       //Grouping data from one API
-      const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
+      // const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
       const filteredDataBondYield = this.dataRKAP.data.content.filter((item: any) => item.grup === 'BOND YIELD');
+      console.log(filteredDataBondYield);
+
       const filteredDataKurs = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
       const filteredDataCommodities = this.dataRKAP.data.content.filter((item: any) => item.grup === 'COMMODITIES');
 
@@ -263,7 +290,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       this.tableConfig.getDataRetail(responseRetail);
       this.tableConfig.getDataMoneySupply(responseMoneySupply);
       this.tableConfig.getDataDevisa(responseDevisa);
-      this.tableConfig.getDataInterestRate(filteredDataInterestRate);
+      this.tableConfig.getDataInterestRate(limitedDIR);
       this.tableConfig.getDataBondYield(filteredDataBondYield);
       this.tableConfig.getDataKurs(responseKurs);
 

@@ -21,7 +21,7 @@ export class TableServicesService {
   public dataMoneySupply: any;
   public dataDevisa: any;
   public dataInterestRate: any;
-  public dataBondYield: any;
+  public dataBondYield: any[] = [];
   public dataKurs: any;
 
 
@@ -75,11 +75,23 @@ export class TableServicesService {
 
   getDataBondYield(data: any){
     this.dataBondYield = data;
+    // console.log(key);
+    // this.dataBondYield.push(key)
+    // console.log(this.dataBondYield);
+
+    // for(let i=0; i<10; i++){
+    //  this.dataBondYield.push(data.data.content[i])
+    // }
+
+    // this.dataBondYield.push(key)
+
+    // console.log(this.dataBondYield.length - 1);
+    // let keys = Object.keys(this.dataBondYield)
     // console.log('data interest', this.dataBondYield);
   }
 
   getDataKurs(data: any){
-    this.dataKurs = data.d.list;
+    this.dataKurs = data.data.content;
     console.log('data kurs', this.dataKurs);
   }
 
@@ -163,6 +175,9 @@ export class TableServicesService {
   tableDataFinancialReport:any;
   tableFinancialReport:any;
 
+  tabelPreview: any;
+  dataTabelPreview: any;
+
   constructor() {
     // Initialize properties in a method like ngOnInit() or a custom method
     // this.initializeTableData();
@@ -234,7 +249,7 @@ export class TableServicesService {
       data:this.dataInterestRate,
       layout:"fitColumns",
       columns:[
-        {title:"Rates", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+        {title:"Rates", field:"kode", headerHozAlign:"center", hozAlign:'left', headerSort:false},
 
         {title:"RKAP <br/>23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
         {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
@@ -261,9 +276,9 @@ export class TableServicesService {
       data:this.dataBondYield,
       layout:"fitColumns",
       columns:[
-        {title:"IDR", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+        {title:"Tenor", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
     {//create column group
-        title:"Exchange Rate",
+        title:"Yield",
         columns:[
         {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
         {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
@@ -293,7 +308,7 @@ export class TableServicesService {
     columns:[
       {title:"Commodities", field:"keterangan", headerHozAlign:"center", hozAlign:'left', headerSort:false},
   {//create column group
-      title:"Exchange Rate",
+      title:"Price",
       columns:[
       {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input"},
       {title:"24/02/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
@@ -866,6 +881,31 @@ export class TableServicesService {
     })
   }
 
+  tablePreview(){
+    this.tabelPreview = new Tabulator(".table-preview", {
+      // height:205,
+      data:this.dataTabelPreview,
+      layout:"fitColumns",
+      columns:[
+        {title:"IDR", field:"Name", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+    {//create column group
+        title:"Exchange Rate",
+        columns:[
+        {title:"24/02/23", field:"Rating", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"Rating", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"Rating", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"Rating", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        ],
+        headerHozAlign:"center"
+    },
+    {title:"Yield Change <br/>MoM", field:"Rating", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>WoW", field:"Rating", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>1 Day", field:"Rating", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+
+  });
+}
+
 
   editTitle(){
     const tabel = this.tableCommodities;
@@ -919,7 +959,11 @@ export class TableServicesService {
     tabelMoneySupply.replaceData(dataMoneySupply);
     tabelForeignExchange.replaceData(dataDevisa);
     // console.log(data);
+  }
 
+  previewData(data: any){
+    console.log('preview data: ', data);
+    this.dataTabelPreview = data;
   }
 }
 
