@@ -1,0 +1,55 @@
+.sub-nav{
+  margin-top: 60px;
+  padding-left: 282px;
+  padding-bottom: 20px;
+  padding-top: 15px;
+}
+
+#input_date{
+  border: 1px solid #e4e4e4;
+  padding: 5.5px;
+}
+
+#main {
+  padding-top: 3%;
+}
+
+@media (max-width: 1199px) {
+  .sub-nav {
+    /* padding-left: 20px; */
+    padding: 15px;
+    margin: 0px;
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    left: 0px;
+  }
+
+  #main{
+    margin-top: 10%;
+  }
+}
+
+.dropdown-menu{
+  padding: 10px;
+}
+
+.dropdown-item:hover{
+  background-color: #e4e4e4;
+  border-radius: 8px;
+}
+
+.label-datepicker{
+  font-size: 14px;
+  color: black;
+}
+
+::ng-deep .mdc-text-field--filled.mdc-text-field--disabled {
+  /* background-color: none; */
+  border: 1px solid rgba(1, 41, 112, 0.2);
+  border-radius: 10px;
+}
+
+.mat-mdc-form-field{
+  width: 40%;
+}

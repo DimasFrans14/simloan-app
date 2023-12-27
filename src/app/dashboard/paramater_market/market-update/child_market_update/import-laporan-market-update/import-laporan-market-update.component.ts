@@ -65,6 +65,7 @@ export class ImportLaporanMarketUpdateComponent {
       for(let i=0; i<sheetNames.length; i++){
         data = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[i]]);
         this.excelDataJSON.push(data);
+        this.tableConfig.previewData(data);
       }
 
       this.tableConfig.setData(this.excelDataJSON);
