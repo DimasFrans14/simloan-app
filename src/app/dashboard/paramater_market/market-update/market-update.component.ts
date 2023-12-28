@@ -9,6 +9,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as moment from 'moment';
 
 import { ViewportScroller } from '@angular/common';
+import { MatInput } from '@angular/material/input';
 
 interface ExcelData {
   [key: string]: any;
@@ -31,6 +32,8 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       // console.log(tableConfig);
     }
 
+    @ViewChild('datePickerValue', {read:MatInput}) inputDate!: MatInput;
+
     public onClick(elementId: string): void {
       this.viewportScroller.scrollToAnchor(elementId);
   }
@@ -45,13 +48,12 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   dataExcel: any;
   excelDataTable: any;
 
-  selectedDate!: moment.Moment;
-  someFunction() {
-    const formattedDate = moment(this.selectedDate).format('YYYY-MM-DD'); // Contoh format tanggal menggunakan Moment.js
-    // Lakukan sesuatu dengan formattedDate
-    console.log(formattedDate);
+  // selectedDate!: moment.Moment;
 
-  }
+  // someFunction() {
+  //   const formattedDate = moment(this.selectedDate).format('YYYY-MM-DD');
+  //   console.log(formattedDate);
+  // }
 
   //variabel data table
 
@@ -143,96 +145,124 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   dataRetail: any;
   dataDevisa: any;
 
+  selectedMonth!: string;
+  selectedDate!: string;
+
     async onDate(event: MatDatepickerInputEvent<Date>) {
-      const selectedDate = event.value;
-      console.log(selectedDate);
-
       const formattedDate = moment(event.value).format("DD/MM/YYYY");
-      // Lakukan sesuatu dengan formattedDate
-      console.log(formattedDate.slice(3,5));
+      // console.log(formattedDate.slice(3,5));
+      this.selectedDate = formattedDate;
 
-      let month;
       switch (formattedDate.slice(3, 5)) {
         case '01':
-          month = "Januari";
+          this.selectedMonth = "Januari";
           break;
         case '02':
-          month = "Februari";
+          this.selectedMonth = "Februari";
           break;
         case '03':
-          month = "Maret";
+          this.selectedMonth = "Maret";
           break;
         case '04':
-          month = "April";
+          this.selectedMonth = "April";
           break;
         case '05':
-          month = "Mei";
+          this.selectedMonth = "Mei";
           break;
         case '06':
-          month = "Juni";
+          this.selectedMonth = "Juni";
           break;
         case '07':
-          month = "Juli";
+          this.selectedMonth = "Juli";
           break;
         case '08':
-          month = "Agustus";
+          this.selectedMonth = "Agustus";
           break;
         case '09':
-          month = "September";
+          this.selectedMonth = "September";
           break;
         case '10':
-          month = "Oktober";
+          this.selectedMonth = "Oktober";
           break;
         case '11':
-          month = "November";
+          this.selectedMonth = "November";
           break;
         case '12':
-          month = "Desember";
+          this.selectedMonth = "Desember";
           break;
       }
 
-      console.log(month);
-
-      try {
-        //FETCH BASED ON PARAMS
-        const responseInflasi = await this.dataService.fetchDataViewInflasiByDate(formattedDate, month);
-        this.dataInflasi = responseInflasi
-        this.tableConfig.updateTabelInflasi(this.dataInflasi.data);
-
-        // const date = this.dataInflasi.data[0].tanggal.slice(-4)
-        // console.log(date);
-
-
-        const responsePMI = await this.dataService.fetchDataViewPMIByDate(formattedDate, month);
-        this.dataPMI = responsePMI
-        this.tableConfig.updateTabelPMI(this.dataPMI.data);
-
-        const responseRetail = await this.dataService.fetchDataViewRetailByDate(formattedDate, month);
-        this.dataRetail = responseRetail
-        this.tableConfig.updateTabelRetail(this.dataRetail.data);
-
-        const responseMoneySupply = await this.dataService.fetchDataViewnMoneySupplyByDate(formattedDate, month)
-        this.dataMoneySupply = responseMoneySupply;
-        this.tableConfig.updateTabelMoneySuply(this.dataMoneySupply.data);
-
-        const responseDevisa = await this.dataService.fetchDataViewDevisaByDate(formattedDate, month);
-        this.dataDevisa = responseDevisa
-        this.tableConfig.updateTabelDevisa(this.dataDevisa.data);
-
-      } catch (error) {
-        console.log(error);
-      }
+      // console.log(month);
   }
 
   updateColumn(){
     this.tableConfig.editTitle();
   }
 
+  async searchData(){
+    try {
+      //FETCH BASED ON PARAMS
+      const responseInflasi = await this.dataService.fetchDataViewInflasiByDate(this.selectedDate, this.selectedMonth);
+      this.dataInflasi = responseInflasi
+      this.tableConfig.updateTabelInflasi(this.dataInflasi.data);
+
+      // const date = this.dataInflasi.data[0].tanggal.slice(-4)
+      // console.log(date);
+
+
+      const responsePMI = await this.dataService.fetchDataViewPMIByDate(this.selectedDate, this.selectedMonth);
+      this.dataPMI = responsePMI
+      this.tableConfig.updateTabelPMI(this.dataPMI.data);
+
+      const responseRetail = await this.dataService.fetchDataViewRetailByDate(this.selectedDate, this.selectedMonth);
+      this.dataRetail = responseRetail
+      this.tableConfig.updateTabelRetail(this.dataRetail.data);
+
+      const responseMoneySupply = await this.dataService.fetchDataViewnMoneySupplyByDate(this.selectedDate,this.selectedMonth)
+      this.dataMoneySupply = responseMoneySupply;
+      this.tableConfig.updateTabelMoneySuply(this.dataMoneySupply.data);
+
+      const responseDevisa = await this.dataService.fetchDataViewDevisaByDate(this.selectedDate, this.selectedMonth);
+      this.dataDevisa = responseDevisa
+      this.tableConfig.updateTabelDevisa(this.dataDevisa.data);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  resetFilter(){
+    this.tableConfig.getBackData();
+    // console.log([this.inputDate.value]);
+    this.inputDate.value = '';
+  }
+
+  keysBondYield: any;
+  filteredInterestRate: any;
+
   async ngOnInit(): Promise<void> {
     try {
       // const responseCommodities = await this.dataService.fetchDataCommoditiesAll();
       const responsePDB = await this.dataService.fetchDataPDB();
       const responseKurs = await this.dataService.fetchDataKurs();
+      const responseCommodities = await this.dataService.fetchDataCommoditiesByDate('05/12/2023');
+      const responseBondYield = await this.dataService.fetchDataBondYield();
+      const responseDataInterestRate = await this.dataService.fetchDataInterestRate();
+
+
+      //Sementara Interest Rate difilter karna masih bingung untuk aliran datanya
+      this.filteredInterestRate = responseDataInterestRate
+      let limitedDIR :any[] = [];
+      for(let i=0; i<5; i++){
+        limitedDIR.push(this.filteredInterestRate.data.content[i])
+      }
+
+      console.log(limitedDIR);
+
+      // const keyBY = Object.keys(responseBondYield)
+      this.keysBondYield = responseBondYield
+      // console.log(Object.keys(this.keysBondYield.data.content[0]));
+
 
       const responseInflasi = await this.dataService.fetchDataInflasi();
       // this.dataInflasi = responseInflasi;
@@ -246,19 +276,21 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       this.dataRKAP = responseInterestRate;
 
       //Grouping data from one API
-      const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
+      // const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
       const filteredDataBondYield = this.dataRKAP.data.content.filter((item: any) => item.grup === 'BOND YIELD');
+      console.log(filteredDataBondYield);
+
       const filteredDataKurs = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
       const filteredDataCommodities = this.dataRKAP.data.content.filter((item: any) => item.grup === 'COMMODITIES');
 
-      this.tableConfig.getDataCommodities(filteredDataCommodities);
+      this.tableConfig.getDataCommodities(responseCommodities);
       this.tableConfig.getDataPDB(responsePDB);
       this.tableConfig.getDataInflasi(responseInflasi);
       this.tableConfig.getDataPMI(responsePMI);
       this.tableConfig.getDataRetail(responseRetail);
       this.tableConfig.getDataMoneySupply(responseMoneySupply);
       this.tableConfig.getDataDevisa(responseDevisa);
-      this.tableConfig.getDataInterestRate(filteredDataInterestRate);
+      this.tableConfig.getDataInterestRate(limitedDIR);
       this.tableConfig.getDataBondYield(filteredDataBondYield);
       this.tableConfig.getDataKurs(responseKurs);
 

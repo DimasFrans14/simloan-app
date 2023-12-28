@@ -21,7 +21,7 @@ export class TableServicesService {
   public dataMoneySupply: any;
   public dataDevisa: any;
   public dataInterestRate: any;
-  public dataBondYield: any;
+  public dataBondYield: any[] = [];
   public dataKurs: any;
 
 
@@ -33,8 +33,8 @@ export class TableServicesService {
   }
 
   getDataCommodities(data: any){
-    this.dataCommodities = data;
-    // console.log('data commodities', this.dataCommodities);
+    this.dataCommodities = data.d.list;
+    console.log('data commodities', this.dataCommodities);
 
   }
   getDataPDB(data: any){
@@ -75,11 +75,23 @@ export class TableServicesService {
 
   getDataBondYield(data: any){
     this.dataBondYield = data;
+    // console.log(key);
+    // this.dataBondYield.push(key)
+    // console.log(this.dataBondYield);
+
+    // for(let i=0; i<10; i++){
+    //  this.dataBondYield.push(data.data.content[i])
+    // }
+
+    // this.dataBondYield.push(key)
+
+    // console.log(this.dataBondYield.length - 1);
+    // let keys = Object.keys(this.dataBondYield)
     // console.log('data interest', this.dataBondYield);
   }
 
   getDataKurs(data: any){
-    this.dataKurs = data.d.list;
+    this.dataKurs = data.data.content;
     console.log('data kurs', this.dataKurs);
   }
 
@@ -163,6 +175,9 @@ export class TableServicesService {
   tableDataFinancialReport:any;
   tableFinancialReport:any;
 
+  tabelPreview: any;
+  dataTabelPreview: any;
+
   constructor() {
     // Initialize properties in a method like ngOnInit() or a custom method
     // this.initializeTableData();
@@ -234,7 +249,7 @@ export class TableServicesService {
       data:this.dataInterestRate,
       layout:"fitColumns",
       columns:[
-        {title:"Rates", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+        {title:"Rates", field:"kode", headerHozAlign:"center", hozAlign:'left', headerSort:false},
 
         {title:"RKAP <br/>23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
         {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
@@ -261,9 +276,9 @@ export class TableServicesService {
       data:this.dataBondYield,
       layout:"fitColumns",
       columns:[
-        {title:"IDR", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+        {title:"Tenor", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
     {//create column group
-        title:"Exchange Rate",
+        title:"Yield",
         columns:[
         {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
         {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
@@ -291,22 +306,22 @@ export class TableServicesService {
     data:this.dataCommodities,
     layout:"fitColumns",
     columns:[
-      {title:"IDR", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+      {title:"Commodities", field:"keterangan", headerHozAlign:"center", hozAlign:'left', headerSort:false},
   {//create column group
-      title:"Exchange Rate",
+      title:"Price",
       columns:[
-      {title:"RKAP <br/>23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"24/02/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"20/03/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"24/02/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"20/03/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
       ],
       headerHozAlign:"center"
   },
-  {title:"Change <br/>MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>WoW", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change Dari RKAP", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>MoM", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>WoW", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>1 Day", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change Dari RKAP", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     ],
 
   });
@@ -691,22 +706,22 @@ export class TableServicesService {
     data:this.dataCommodities,
     layout:"fitColumns",
     columns:[
-      {title:"IDR", field:"mata_uang", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+      {title:"IDR", field:"keterangan", headerHozAlign:"center", hozAlign:'left', headerSort:false},
   {//create column group
       title:"Exchange Rate",
       columns:[
       {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-      {title:"24/02/23", field:"beli", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"20/03/23", field:"beli_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"24/02/23", field:"beli_min2", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"20/03/23", field:"beli_min3", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"24/02/23", field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"20/03/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"24/02/23", field:"nilai_min2", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"20/03/23", field:"nilai_min3", hozAlign:"center", headerHozAlign:"center", editor: "input"},
       ],
       headerHozAlign:"center"
   },
-  {title:"Change <br/>MoM", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change Dari RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>MoM", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>WoW", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>1 Day", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change Dari RKAP", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     ],
 
   });
@@ -876,6 +891,31 @@ export class TableServicesService {
     })
   }
 
+  tablePreview(){
+    this.tabelPreview = new Tabulator(".table-preview", {
+      // height:205,
+      data:this.dataTabelPreview,
+      layout:"fitColumns",
+      columns:[
+        {title:"IDR", field:"Name", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+    {//create column group
+        title:"Exchange Rate",
+        columns:[
+        {title:"24/02/23", field:"Rating", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"Rating", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"Rating", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"Rating", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        ],
+        headerHozAlign:"center"
+    },
+    {title:"Yield Change <br/>MoM", field:"Rating", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>WoW", field:"Rating", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>1 Day", field:"Rating", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+
+  });
+}
+
 
   editTitle(){
     const tabel = this.tableCommodities;
@@ -905,6 +945,35 @@ export class TableServicesService {
   public updateTabelDevisa(data: any){
     const tabel = this.tableForeignExchange;
     tabel.replaceData(data);
+  }
+
+  getBackData(){
+    const dataInflasi = this.dataInflasi != undefined ? this.dataInflasi : ``;
+    const tabelInflasi = this.tableInflasi;
+
+    const dataPMI = this.dataPMI != undefined ? this.dataPMI : ``;
+    const tabelPMI = this.tablePMI;
+
+    const dataRetail = this.dataRetail != undefined ? this.dataRetail : ``;
+    const tabelRetail = this.tableRetail;
+
+    const dataMoneySupply = this.dataMoneySupply != undefined ? this.dataMoneySupply : ``;
+    const tabelMoneySupply = this.tableMoneySupply;
+
+    const dataDevisa = this.dataDevisa != undefined ? this.dataDevisa : ``;
+    const tabelForeignExchange = this.tableForeignExchange;
+
+    tabelInflasi.replaceData(dataInflasi);
+    tabelPMI.replaceData(dataPMI);
+    tabelRetail.replaceData(dataRetail);
+    tabelMoneySupply.replaceData(dataMoneySupply);
+    tabelForeignExchange.replaceData(dataDevisa);
+    // console.log(data);
+  }
+
+  previewData(data: any){
+    console.log('preview data: ', data);
+    this.dataTabelPreview = data;
   }
 }
 

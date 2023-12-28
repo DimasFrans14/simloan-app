@@ -27,6 +27,7 @@ import { ImportLaporanComponent } from './dashboard/financial_debt/import/import
 import { FinancialReportComponent } from './dashboard/financial_debt/financial-report/financial-report.component';
 import { BondYieldComponent } from './dashboard/paramater_market/market-update/child_market_update/bond-yield/bond-yield.component';
 import { ImportLaporanMarketUpdateComponent } from './dashboard/paramater_market/market-update/child_market_update/import-laporan-market-update/import-laporan-market-update.component';
+import { PreviewLaporanComponent } from './dashboard/paramater_market/market-update/child_market_update/preview-laporan/preview-laporan.component';
 
 const routes: Routes = [
 
@@ -68,6 +69,7 @@ const routes: Routes = [
   { path: 'market_update/commodities', component: CommoditiesComponent},
   { path: 'market_update/bond_yield', component: BondYieldComponent},
   { path: 'market_update/importLaporan_marketUpdate', component: ImportLaporanMarketUpdateComponent},
+  { path: 'market_update/preview_laporan', component: PreviewLaporanComponent},
 
   //child path financiaal-debt
   {path: 'import_laporan', component: ImportLaporanComponent},
