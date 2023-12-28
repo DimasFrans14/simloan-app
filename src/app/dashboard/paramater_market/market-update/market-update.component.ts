@@ -233,8 +233,8 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   resetFilter(){
     this.tableConfig.getBackData();
-    console.log(this.inputDate);
-
+    // console.log([this.inputDate.value]);
+    this.inputDate.value = '';
   }
 
   keysBondYield: any;
