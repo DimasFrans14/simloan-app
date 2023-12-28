@@ -18,6 +18,7 @@ export class ChartService {
   constructor() {
     this.initializeSHLChart()
     this.initializeAPChart()
+    this.initializeDcsrCashFlowChart()
   }
 
   //SHL
@@ -32,6 +33,13 @@ export class ChartService {
   APChart!: ApexChart;
   apChartTitle!: ApexTitleSubtitle;
   xAxisAP!: ApexXAxis;
+
+  //Financial Report Chart
+  dataDcsrCashFlow: ApexAxisChartSeries = [];
+  dcsrCashFlowChart!: ApexChart;
+  dcsrCashFlowChartTitle!: ApexTitleSubtitle;
+  xAxisDcsrCashFlow!: ApexXAxis;
+
 
   initializeSHLChart(){
 
@@ -145,4 +153,71 @@ export class ChartService {
       ]
     }
   }
+
+  initializeDcsrCashFlowChart(){
+    this.dataDcsrCashFlow = [
+      {
+        name: "Net Reveneue basis Arus Kas",
+        type: "column",
+        data: [21, 22, 20, 28, 21, 22, 23, 28]
+      },
+      {
+        name: "Total Debt Service",
+        type: "column",
+        data: [28, 10, 21, 22, 28, 10, 21, 22]
+      },
+      {
+        name: "DCSR Basis Arus Kas",
+        type: "line",
+        data: [28, 10, 21, 22, 28, 10, 21, 22]
+      },
+      {name: "Batasan Minimum",
+        type: "line",
+        data: [15, 15, 15, 15, 15, 15, 15, 15]
+      }
+    ];
+
+    this.dcsrCashFlowChart = {
+      type: 'line',
+      width: 470,
+      height: 400,
+      // width:,
+      toolbar: {
+        show: true,
+        tools: {
+          download: true,
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: false,
+        }
+      }
+    }
+
+    this.dcsrCashFlowChartTitle =  {
+      text: "Total SHL",
+      style: {
+        fontSize:  '18px',
+        fontWeight:  500,
+        // fontFamily:  undefined,
+        color:  '#000000'
+      },
+    }
+
+    this.xAxisDcsrCashFlow = {
+      categories: [
+        ["2018"],
+        ["2019"],
+        ["2020"],
+        ["2021"],
+        ["2022"],
+        ["2023"],
+        ["RKAP"],
+        ["Outlook"],
+      ]
+    }
+  }
+
 }

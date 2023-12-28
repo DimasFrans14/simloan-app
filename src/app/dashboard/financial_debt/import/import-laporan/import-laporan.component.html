@@ -7,22 +7,7 @@
             <div class="container">
                 <div class="d-flex align-items-center">
                     <div class="p-2">
-                        <button type="button" class="btn btn-sm header-btn" style="color: black;"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <span>Day</span>
-                                </div>
-                                <div>
-                                    <i class="bi bi-chevron-down"></i>
-                                </div>
-                            </div>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item">September</a></li>
-                            <li><a class="dropdown-item">Oktober</a></li>
-                            <li><a class="dropdown-item">November</a></li>
-                        </ul>
+                        <input type="date">
                     </div>
                     <div class="p-2">
                         <div class="btn btn-transparant" style="color: #9A9A9A; font-size: 14px;">Reset</div>
@@ -51,17 +36,7 @@
                             <div class="container mt-2 mb-2">
                                 <div class="row mb-3">
                                     <div class="col-6">
-                                        <div class="flex-fill align-self-center fw-bold"><label for="">Tanggal
-                                                Unggah</label></div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="flex-fill"><input type="date" class="form-control" required></div>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-6">
-                                        <div class="flex-fill align-self-center fw-bold"><label for="">Jenis
-                                                Data</label>
+                                        <div class="flex-fill align-self-center fw-bold"><label for="">Jenis Data</label>
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -172,7 +147,8 @@
                         <div class="card bg-light">
                             <div class="container">
                                 <div class="d-flex justify-content-end p-2">
-                                    <button class="btn btn-primary" matStepperNext>Continue</button>
+                                    <div><button class="btn bg-white btn-outline-dark">Cancel</button></div>
+                                    <div><button class="btn btn-primary" matStepperNext>Continue</button></div>
                                 </div>
                             </div>
                         </div>

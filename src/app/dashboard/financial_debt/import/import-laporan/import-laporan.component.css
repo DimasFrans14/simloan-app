@@ -24,4 +24,9 @@
     background: var(--color-silver-0, #FFF);
   }
 
+  input{
+    border-radius: 5px;
+    padding: 3px 3px 3px 3px;
+  }
+
   

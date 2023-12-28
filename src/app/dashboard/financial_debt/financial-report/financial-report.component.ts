@@ -12,11 +12,10 @@ export class FinancialReportComponent {
     console.log(chartService);
   }
 
-  dataChartSHL = this.chartService.dataChartSHL;
-  shlChart = this.chartService.shlChart;
-  shlChartTitle = this.chartService.shlChartTitle;
-  colors = this.chartService.colors;
-  xAxisSHL = this.chartService.xAxisSHL;
+  dataDcsrCashFlow = this.chartService.dataDcsrCashFlow;
+  dcsrCashFlowChart = this.chartService.dcsrCashFlowChart;
+  dcsrCashFlowChartTitle = this.chartService.dcsrCashFlowChartTitle;
+  xAxisDcsrCashFlow = this.chartService.xAxisDcsrCashFlow;
 
   tableDataImport: any;
   tableImport:any
