@@ -31,6 +31,13 @@ img{
   .myDIV:hover + .hide {
     display: block;
 }
+.progress-bar {
+    font-size: 10px;
+    color: #606060;
+}
+.nominal{
+    font-size: 12px;
+}
 
 #tooltip{
     position: relative;

@@ -862,12 +862,21 @@ export class TableServicesService {
       {id:3, name:"CICR", 2018:"1.23", 2019:"48.91", 2020:"48.91", 2021:"48.91", 2022:"48.91", 2023:"1.23"},
       {id:4, name:"DER", 2018:"1.23", 2019:"48.91", 2020:"48.91", 2021:"48.91", 2022:"48.91", 2023:"1.24"},
     ];
+
+    const infoBtn = function(cell: any, formatterParams: any){
+      return "<button type='button' class='btn'><i class='bi bi-info-circle'></i></i></button>";
+    }
+
+    const checkBox = function(cell:any, formatterParams: any){
+      return "<input type='checkbox'></input>"
+    }
+
     this.tableFinancialReport = new Tabulator(".table-financialReport",{
       data:this.tableDataFinancialReport,
       layout:'fitColumns',
       columns:[
-        {title:"", editor:"tickCross", hozAlign:"center", headerHozAlign:"center"},
-        {title:"Financial Debt Covenant", field:"name", headerHozAlign:"center", hozAlign:'left', width:"300"},
+        {title:"",formatter:checkBox, width:50, hozAlign:"center", headerHozAlign:"center"},
+        {title:"Financial Debt Covenant",field:"name",headerHozAlign:"center", tooltip:'true', hozAlign:'left', width:"300"},
         {title:"Realization",
         columns:[
           {title:"2018", field:"2018", hozAlign:"center", headerHozAlign:"center"},

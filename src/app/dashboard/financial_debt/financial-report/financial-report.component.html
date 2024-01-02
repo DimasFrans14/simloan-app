@@ -1,6 +1,7 @@
 <app-header></app-header>
 <app-sidebar></app-sidebar>
 
+<!-- header -->
 <div id="header" class="header">
     <div class="col-12 bg-white sub-nav border-top"
         style="margin-top: 60px; padding-left: 200px; padding-bottom: 0; padding-top: 0;">
@@ -103,6 +104,7 @@
         </div>
     </div>
 </div>
+<!-- end header -->
 
 <main class="main mt-3" id="main">
     <div class="card-body">
@@ -129,6 +131,7 @@
             <div class="tab-pane fade active show" id="pills-home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row mt-3">
                     <h4>Financial Debt Convenant Ratio</h4>
+                    <!-- grafik dcsr basis laporan arus kas -->
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body mt-3">
@@ -153,10 +156,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <apx-chart [series]="dataDcsrCashFlow" [chart]="dcsrCashFlowChart" [xaxis]="xAxisDcsrCashFlow"></apx-chart>
+                                <apx-chart [series]="dataDcsrCashFlow" [chart]="dcsrCashFlowChart" [xaxis]="xAxisDcsrCashFlow" [stroke]="dcsrCashFlowstroke"></apx-chart>
                             </div>
                         </div>
                     </div>
+                    <!-- end grafik dcsr basis laporan arus kas -->
+
+                    <!-- grafik dcsr basis laporan laba rugi -->
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body mt-3">
@@ -181,12 +187,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <apx-chart [series]="dataDcsrCashFlow" [chart]="dcsrCashFlowChart" [xaxis]="xAxisDcsrCashFlow"></apx-chart>
+                                <apx-chart [series]="dataDcsrLabaRugi" [chart]="dcsrLabaRugiChart" [xaxis]="xAxisDcsrLabaRugi" [stroke]="dcsrLabaRugistroke"></apx-chart>
                             </div>
                         </div>
                     </div>
+                    <!-- end grafik dcsr basis laporan laba rugi -->
                 </div>
                 <div class="row mt-3">
+                    <!-- grafik DER -->
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body mt-3">
@@ -211,10 +219,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <apx-chart [series]="dataDcsrCashFlow" [chart]="dcsrCashFlowChart" [xaxis]="xAxisDcsrCashFlow"></apx-chart>
+                                <apx-chart [series]="dataDER" [chart]="DERChart" [xaxis]="xAxisDER" [stroke]="DERstroke"></apx-chart>
                             </div>
                         </div>
                     </div>
+                    <!-- end grafik DER -->
+
+                    <!-- grafik CICR -->
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body mt-3">
@@ -239,10 +250,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <apx-chart [series]="dataDcsrCashFlow" [chart]="dcsrCashFlowChart" [xaxis]="xAxisDcsrCashFlow"></apx-chart>
+                                <apx-chart [series]="dataCICR" [chart]="CICRChart" [xaxis]="xAxisCICR" [stroke]="CICRstroke"></apx-chart>
                             </div>
                         </div>
                     </div>
+                    <!-- end grafik CICR -->
                 </div>
             </div>
             <!-- end Grafik -->
