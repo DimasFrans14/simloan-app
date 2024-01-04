@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import {TabulatorFull as Tabulator} from 'tabulator-tables';
+// import {TabulatorFull as Tabulator} from 'tabulator-tables';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 import { DataService } from 'src/app/data.service';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as moment from 'moment';
 
@@ -147,13 +147,29 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   selectedMonth!: string;
   selectedDate!: string;
+  yesterday!: string;
+  twoDaysBefore!: string;
+  threeDaysBefore!:string;
+
+  //Limiting Datepicker to Today
+  maxDate = new Date();
 
     async onDate(event: MatDatepickerInputEvent<Date>) {
-      const formattedDate = moment(event.value).format("DD/MM/YYYY");
-      // console.log(formattedDate.slice(3,5));
-      this.selectedDate = formattedDate;
+      const formattedToday = moment(event.value).format("DD/MM/YYYY");
 
-      switch (formattedDate.slice(3, 5)) {
+      let yesterday = moment(event.value).subtract(1, 'days').format("DD/MM/YYYY");
+      let twoDaysBefore = moment(event.value).subtract(2, 'days').format("DD/MM/YYYY");
+      let threeDaysBefore = moment(event.value).subtract(3, 'days').format("DD/MM/YYYY");
+
+      console.log([formattedToday, yesterday, twoDaysBefore, threeDaysBefore]);
+
+      // console.log(moment(tes).format("DD/MM/YYYY"));
+      this.selectedDate = formattedToday;
+      this.yesterday = yesterday;
+      this.twoDaysBefore = twoDaysBefore;
+      this.threeDaysBefore = threeDaysBefore;
+
+      switch (formattedToday.slice(3, 5)) {
         case '01':
           this.selectedMonth = "Januari";
           break;
@@ -202,29 +218,31 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   async searchData(){
     try {
       //FETCH BASED ON PARAMS
-      const responseInflasi = await this.dataService.fetchDataViewInflasiByDate(this.selectedDate, this.selectedMonth);
-      this.dataInflasi = responseInflasi
-      this.tableConfig.updateTabelInflasi(this.dataInflasi.data);
+      // const responseInflasi = await this.dataService.fetchDataViewInflasiByDate(this.selectedDate, this.selectedMonth);
+      // this.dataInflasi = responseInflasi
+      // this.tableConfig.updateTabelInflasi(this.dataInflasi.data);
 
       // const date = this.dataInflasi.data[0].tanggal.slice(-4)
       // console.log(date);
 
 
-      const responsePMI = await this.dataService.fetchDataViewPMIByDate(this.selectedDate, this.selectedMonth);
-      this.dataPMI = responsePMI
-      this.tableConfig.updateTabelPMI(this.dataPMI.data);
+      // const responsePMI = await this.dataService.fetchDataViewPMIByDate(this.selectedDate, this.selectedMonth);
+      // this.dataPMI = responsePMI
+      // this.tableConfig.updateTabelPMI(this.dataPMI.data);
 
-      const responseRetail = await this.dataService.fetchDataViewRetailByDate(this.selectedDate, this.selectedMonth);
-      this.dataRetail = responseRetail
-      this.tableConfig.updateTabelRetail(this.dataRetail.data);
+      // const responseRetail = await this.dataService.fetchDataViewRetailByDate(this.selectedDate, this.selectedMonth);
+      // this.dataRetail = responseRetail
+      // this.tableConfig.updateTabelRetail(this.dataRetail.data);
 
-      const responseMoneySupply = await this.dataService.fetchDataViewnMoneySupplyByDate(this.selectedDate,this.selectedMonth)
-      this.dataMoneySupply = responseMoneySupply;
-      this.tableConfig.updateTabelMoneySuply(this.dataMoneySupply.data);
+      // const responseMoneySupply = await this.dataService.fetchDataViewnMoneySupplyByDate(this.selectedDate,this.selectedMonth)
+      // this.dataMoneySupply = responseMoneySupply;
+      // this.tableConfig.updateTabelMoneySuply(this.dataMoneySupply.data);
 
-      const responseDevisa = await this.dataService.fetchDataViewDevisaByDate(this.selectedDate, this.selectedMonth);
-      this.dataDevisa = responseDevisa
-      this.tableConfig.updateTabelDevisa(this.dataDevisa.data);
+      // const responseDevisa = await this.dataService.fetchDataViewDevisaByDate(this.selectedDate, this.selectedMonth);
+      // this.dataDevisa = responseDevisa
+      // this.tableConfig.updateTabelDevisa(this.dataDevisa.data);
+
+      this.tableConfig.initializeTableData(this.threeDaysBefore, this.twoDaysBefore, this.yesterday, this.selectedDate)
 
     } catch (error) {
       console.log(error);
@@ -235,6 +253,23 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     this.tableConfig.getBackData();
     // console.log([this.inputDate.value]);
     this.inputDate.value = '';
+
+    let today = new Date();
+    let formatToday = moment(today).format("DD/MM/YYYY").toString();
+
+    let getYesterday = new Date();
+    let yesterday = getYesterday.setDate(getYesterday.getDate() - 1);
+    let formatYesterday = moment(yesterday).format("DD/MM/YYYY").toString();
+
+    let getTwoDaysBefore = new Date();
+    let twoDaysBefore = getTwoDaysBefore.setDate(getTwoDaysBefore.getDate() - 2);
+    let formatTwoDaysBefore = moment(twoDaysBefore).format("DD/MM/YYYY").toString();
+
+    let getThreeDaysBefore = new Date();
+    let threeDaysBefore = getThreeDaysBefore.setDate(getThreeDaysBefore.getDate() - 3);
+    let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
+
+    this.tableConfig.initializeTableData(formatThreeDaysBefore, formatTwoDaysBefore, formatYesterday, formatToday);
   }
 
   keysBondYield: any;
@@ -297,7 +332,23 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     } catch (error) {
       console.log(error);
     }
-    this.tableConfig.initializeTableData();
+
+    let today = new Date();
+    let formatToday = moment(today).format("DD/MM/YYYY").toString();
+
+    let getYesterday = new Date();
+    let yesterday = getYesterday.setDate(getYesterday.getDate() - 1);
+    let formatYesterday = moment(yesterday).format("DD/MM/YYYY").toString();
+
+    let getTwoDaysBefore = new Date();
+    let twoDaysBefore = getTwoDaysBefore.setDate(getTwoDaysBefore.getDate() - 2);
+    let formatTwoDaysBefore = moment(twoDaysBefore).format("DD/MM/YYYY").toString();
+
+    let getThreeDaysBefore = new Date();
+    let threeDaysBefore = getThreeDaysBefore.setDate(getThreeDaysBefore.getDate() - 3);
+    let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
+
+    this.tableConfig.initializeTableData(formatThreeDaysBefore, formatTwoDaysBefore, formatYesterday, formatToday);
     // console.log(this.tableConfig.initializeTableData());
   }
 

@@ -201,7 +201,7 @@ export class TableServicesService {
      // only allow the name cell to be edited if the age is over 18
 }
 
-  initializeTableData() {
+  initializeTableData(threeDaysBefore: string, twoDaysBefore: string, yesterday: string, today: string) {
     this.tableDataCurrency = [
       {id:1, name:"USD", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
       {id:2, name:"EUR", age:"12000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
@@ -219,10 +219,10 @@ export class TableServicesService {
         title:"Exchange Rate",
         columns:[
         {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:"24/02/23", field:"beli_min1", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:"20/03/23", field:"beli_min2", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:"24/02/23", field:"beli_min3", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:"20/03/23", field:"beli_min4", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:threeDaysBefore, field:"beli_min1", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:twoDaysBefore, field:"beli_min2", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:yesterday, field:"beli_min3", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:today, field:"beli_min4", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
         ],
         headerHozAlign:"center"
     },
@@ -252,10 +252,10 @@ export class TableServicesService {
         {title:"Rates", field:"kode", headerHozAlign:"center", hozAlign:'left', headerSort:false},
 
         {title:"RKAP <br/>23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:threeDaysBefore, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:twoDaysBefore, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:yesterday, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:today, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
 
         {title:"Change <br/>RKAP", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"Change <br/>MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
@@ -280,10 +280,10 @@ export class TableServicesService {
     {//create column group
         title:"Yield",
         columns:[
-        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: threeDaysBefore, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: twoDaysBefore, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: yesterday, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: today, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
         ],
         headerHozAlign:"center"
     },
@@ -311,10 +311,10 @@ export class TableServicesService {
       title:"Price",
       columns:[
       {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"24/02/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"20/03/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"24/02/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"20/03/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:threeDaysBefore, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:twoDaysBefore, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:yesterday, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:today, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
       ],
       headerHozAlign:"center"
   },

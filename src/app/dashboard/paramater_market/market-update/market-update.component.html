@@ -17,7 +17,7 @@
             <!-- <input type="date" name="date" id="input_date" class="bg-white rounded border-none ms-2" placeholder="Pilih Tanggal" #date (change)="getDate(date.value)"> -->
             <mat-form-field class="me-2 date-field">
               <mat-label class="label-datepicker">Pilih Tanggal</mat-label>
-              <input #datePickerValue matInput [matDatepicker]="picker1" autocomplete="off" (dateChange)="onDate($event)" disabled style="color: black;">
+              <input #datePickerValue matInput [matDatepicker]="picker1" [max]="maxDate" autocomplete="off" (dateChange)="onDate($event)" disabled style="color: black;">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1 color="primary" disabled="false"></mat-datepicker>
             </mat-form-field>
