@@ -33,10 +33,10 @@ img{
 }
 .progress-bar {
     font-size: 10px;
-    color: #606060;
 }
 .nominal{
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: 700;
 }
 
 #tooltip{
@@ -66,3 +66,9 @@ img{
     top: 25px;
     left: -50%;
   }
+.title {
+    margin-left: 10px;
+}
+.btn{
+    padding: 0px 0px 0px 0px;
+}
