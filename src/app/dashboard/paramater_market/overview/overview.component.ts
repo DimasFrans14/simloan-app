@@ -10,7 +10,7 @@ import { DataService } from 'src/app/data.service';
 export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   constructor(private dataService: DataService){
-    console.log(dataService);
+    // console.log(dataService);
   }
 
   dataKurs: any;
@@ -39,16 +39,22 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
       this.lineChartKursSeries = [
         {
-          name: `${this.dataKurs.d.list[0].mata_uang}`,
-          data: [dataUSD[0].nilai_rkap, 12000, 13000, 12300, 11000]
+          // name: `${this.dataKurs.d.list[0].mata_uang}`,
+          name: `Data 1`,
+          // data: [dataUSD[0].nilai_rkap, 12000, 13000, 12300, 11000]
+          data: [12300, 12000, 13000, 12300, 11000]
         },
         {
-          name: `${this.dataKurs.d.list[1].mata_uang}`,
-          data: [13000, dataUSD[0].nilai_rkap, 15000, 12300, 11000]
+          // name: `${this.dataKurs.d.list[1].mata_uang}`,
+          name: `Data 2`,
+          // data: [13000, dataUSD[0].nilai_rkap, 15000, 12300, 11000]
+          data: [13000, 11000, 15000, 12300, 11000]
         },
         {
-          name: `${this.dataKurs.d.list[2].mata_uang}`,
-          data: [12300, 11000, dataUSD[0].nilai_rkap, 12300, 11000]
+          // name: `${this.dataKurs.d.list[2].mata_uang}`,
+          name: `Data 3`,
+          // data: [12300, 11000, dataUSD[0].nilai_rkap, 12300, 11000]
+          data: [12300, 11000, 15000, 12300, 11000]
         }
       ];
 
