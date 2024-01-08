@@ -228,5 +228,8 @@ export class DataService {
     }
   }
 
+  getDataAnalisaSHL() {
+    return this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/trx-shl/analisa_shl`);
+  }
 
 }

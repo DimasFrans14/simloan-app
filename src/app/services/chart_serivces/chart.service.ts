@@ -57,13 +57,13 @@ export class ChartService {
   DERChartTitle!: ApexTitleSubtitle;
   DERstroke!:ApexStroke;
   xAxisDER!: ApexXAxis;
-
-  //chart DER
+  //chart CICR
   dataCICR: ApexAxisChartSeries = [];
   CICRChart!: ApexChart;
   CICRChartTitle!: ApexTitleSubtitle;
   CICRstroke!:ApexStroke;
   xAxisCICR!: ApexXAxis;
+
   initializeSHLChart(){
 
     this.dataChartSHL = [
@@ -220,15 +220,15 @@ export class ChartService {
     },
 
     this.dcsrstroke = {
-      width: 5,
+      width: 1,
       curve: "straight",
-      dashArray: [0, 0, 0, 8]
+      dashArray: [0, 0, 0, 10]
     }
 
     this.dcsrCashFlowChartTitle =  {
       text: "DCSR Basis Laporan Arus Kas",
       style: {
-        fontSize:  '18px',
+        fontSize:  '12px',
         fontWeight:  500,
         // fontFamily:  undefined,
         color:  '#000000'
