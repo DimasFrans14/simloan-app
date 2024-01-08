@@ -15,12 +15,12 @@
           </mat-form-field>
           <!-- <input type="date" name="date" id="input_date" class="bg-white rounded border-none ms-2" placeholder="Pilih Tanggal" #date (change)="getDate(date.value)"> -->
           <!-- <button class="btn btn-light bg-white border border-1 ms-2 text-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Filter Tanggal</button> -->
-            <!-- <button class="btn btn-transparant border border-1 dropdown-toggle ms-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-transparant border border-1 dropdown-toggle ms-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               Filter Tanggal
-            </button> -->
-            <!-- <div class="dropdown-menu">
-              <form (ngSubmit)="onSubmit($event)"> -->
-                <!-- <span class="text-secondary" [style.display]="dateVal ? 'none' : 'block'">Hari</span>
+            </button>
+            <div class="dropdown-menu">
+              <form (ngSubmit)="onSubmit($event)">
+                <span class="text-secondary" [style.display]="dateVal ? 'none' : 'block'">Hari</span>
                 <div class="mb-3 form-check" [style.display]="dateVal ? 'none' : 'block'">
                   <input type="checkbox" class="form-check-input" id="7hari">
                   <label class="form-check-label" for="exampleCheck1" value="7hari">7 Hari</label>
@@ -30,10 +30,10 @@
                   <br/>
                   <input type="checkbox" class="form-check-input" id="90hari">
                   <label class="form-check-label" for="exampleCheck3" value="90hari">90 Hari</label>
-                </div> -->
-                <!-- <span class="text-secondary">Bulan</span> -->
-                <!-- <br/> -->
-                <!-- <div class="mb-3 form-check">
+                </div>
+                <span class="text-secondary">Bulan</span>
+                <br/>
+                <div class="mb-3 form-check">
                   <input type="checkbox" class="form-check-input" id="bulanLalu">
                   <label class="form-check-label" for="exampleCheck1" value="bulanLalu">Bulan Lalu</label>
                   <br/>
@@ -42,8 +42,8 @@
                   <br/>
                   <input type="checkbox" class="form-check-input" id="12Bulan">
                   <label class="form-check-label" for="exampleCheck3" value="12Bulan">12 Bulan</label>
-                </div> -->
-                  <!-- <input type="checkbox" class="form-check-input" id="tri1">
+                </div>
+                  <input type="checkbox" class="form-check-input" id="tri1">
                   <label class="form-check-label text-secondary ms-1" for="exampleCheck1" value="bulan">Bulan</label>
                   <br/>
                   <select name="monthFilter" id="monthFilter" class="p-2 rounded border-dark my-2" style="width: 100%;">
@@ -65,8 +65,8 @@
                   <label class="form-check-label" for="exampleCheck3" value="tri4">Triwulan IV (Okt - Des)</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Cari</button>
-              </form> -->
-            <!-- </div> -->
+              </form>
+            </div>
         </div>
         <div style="font-size: 14px;">
           <p>Indikator:</p>

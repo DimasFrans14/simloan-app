@@ -335,9 +335,9 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   getValue(){
 
-    let value = this.quillTakeways.getText();
+    let value = this.quillTakeways.getContents();
 
-    console.log(value);
+    console.log(JSON.stringify(value));
   }
 
   getValue2(){
@@ -351,6 +351,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     this.quillTakeways.on('text-change', function(delta, oldDelta, source) {
       if (source === 'user') {
         _this.getValue()
+        console.log('dari onchange');
       }
     })
   }

@@ -34,7 +34,7 @@ export class TableServicesService {
 
   getDataCommodities(data: any){
     this.dataCommodities = data.d.list;
-    console.log('data commodities', this.dataCommodities);
+    // console.log('data commodities', this.dataCommodities);
 
   }
   getDataPDB(data: any){
@@ -92,7 +92,7 @@ export class TableServicesService {
 
   getDataKurs(data: any){
     this.dataKurs = data.data.content;
-    console.log('data kurs', this.dataKurs);
+    // console.log('data kurs', this.dataKurs);
   }
 
   getData() {
@@ -933,7 +933,7 @@ export class TableServicesService {
 
   public updateTabelInflasi(data: any){
     const tabel = this.tableInflasi;
-    tabel.replaceData(data);
+    tabel.replaceData(data.data);
   }
 
   public updateTabelPMI(data: any){
@@ -983,6 +983,39 @@ export class TableServicesService {
   previewData(data: any){
     console.log('preview data: ', data);
     this.dataTabelPreview = data;
+  }
+
+  customizeTableColumn(columnName: any, checked: any){
+
+    let nameColumn = [
+      'mata_uang',
+      'nilai_rkap',
+      'change_rkap',
+      'change_mom',
+      'change_wow',
+      'change_1day'
+    ]
+
+    let hiddenColumns: any[] = [];
+    let showColumn = nameColumn.filter((item: any) => !columnName.includes(item));
+
+    for(let i=0; i<checked.length; i++){
+      if(checked[i] == true){
+        for(let j=0; j<columnName.length; j++){
+          this.tableCurrency.hideColumn(columnName[j]);
+        }
+        console.log('true');
+      }
+      else{
+        console.log('false');
+        this.tableCurrency.showColumn(showColumn[i]);
+      }
+    }
+    console.log([columnName, showColumn, hiddenColumns, checked]);
+  }
+
+  showColumn(){
+    this.tableCurrency.showColumn('mata_uang');
   }
 }
 

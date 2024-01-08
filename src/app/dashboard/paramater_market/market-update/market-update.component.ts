@@ -217,32 +217,33 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   async searchData(){
     try {
+
+      this.tableConfig.initializeTableData(this.threeDaysBefore, this.twoDaysBefore, this.yesterday, this.selectedDate)
+
       //FETCH BASED ON PARAMS
-      // const responseInflasi = await this.dataService.fetchDataViewInflasiByDate(this.selectedDate, this.selectedMonth);
-      // this.dataInflasi = responseInflasi
-      // this.tableConfig.updateTabelInflasi(this.dataInflasi.data);
+      const responseInflasi = await this.dataService.fetchDataViewInflasiByDate(this.selectedDate, this.selectedMonth);
+      this.dataInflasi = responseInflasi
+      this.tableConfig.updateTabelInflasi(this.dataInflasi);
 
       // const date = this.dataInflasi.data[0].tanggal.slice(-4)
       // console.log(date);
 
 
-      // const responsePMI = await this.dataService.fetchDataViewPMIByDate(this.selectedDate, this.selectedMonth);
-      // this.dataPMI = responsePMI
-      // this.tableConfig.updateTabelPMI(this.dataPMI.data);
+      const responsePMI = await this.dataService.fetchDataViewPMIByDate(this.selectedDate, this.selectedMonth);
+      this.dataPMI = responsePMI
+      this.tableConfig.updateTabelPMI(this.dataPMI.data);
 
-      // const responseRetail = await this.dataService.fetchDataViewRetailByDate(this.selectedDate, this.selectedMonth);
-      // this.dataRetail = responseRetail
-      // this.tableConfig.updateTabelRetail(this.dataRetail.data);
+      const responseRetail = await this.dataService.fetchDataViewRetailByDate(this.selectedDate, this.selectedMonth);
+      this.dataRetail = responseRetail
+      this.tableConfig.updateTabelRetail(this.dataRetail.data);
 
-      // const responseMoneySupply = await this.dataService.fetchDataViewnMoneySupplyByDate(this.selectedDate,this.selectedMonth)
-      // this.dataMoneySupply = responseMoneySupply;
-      // this.tableConfig.updateTabelMoneySuply(this.dataMoneySupply.data);
+      const responseMoneySupply = await this.dataService.fetchDataViewnMoneySupplyByDate(this.selectedDate,this.selectedMonth)
+      this.dataMoneySupply = responseMoneySupply;
+      this.tableConfig.updateTabelMoneySuply(this.dataMoneySupply.data);
 
-      // const responseDevisa = await this.dataService.fetchDataViewDevisaByDate(this.selectedDate, this.selectedMonth);
-      // this.dataDevisa = responseDevisa
-      // this.tableConfig.updateTabelDevisa(this.dataDevisa.data);
-
-      this.tableConfig.initializeTableData(this.threeDaysBefore, this.twoDaysBefore, this.yesterday, this.selectedDate)
+      const responseDevisa = await this.dataService.fetchDataViewDevisaByDate(this.selectedDate, this.selectedMonth);
+      this.dataDevisa = responseDevisa
+      this.tableConfig.updateTabelDevisa(this.dataDevisa.data);
 
     } catch (error) {
       console.log(error);
@@ -275,6 +276,30 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   keysBondYield: any;
   filteredInterestRate: any;
 
+  onSubmit(event: any) {
+    let targetColumn = [];
+    let targetBool = [];
+    for(let i=0; i<event.target.length - 1; i++){
+      if(event.target[i].checked){
+        targetColumn.push(event.target[i].id);
+      }
+    }
+    for(let i=0; i<event.target.length - 1; i++){
+      if(event.target[i]){
+        targetBool.push(event.target[i].checked);
+      }
+    }
+    this.tableConfig.customizeTableColumn(targetColumn, targetBool)
+  }
+
+  hideColumn(){
+    // this.tableConfig.hideColumn();
+  }
+
+  showColumn(){
+    this.tableConfig.showColumn();
+  }
+
   async ngOnInit(): Promise<void> {
     try {
       // const responseCommodities = await this.dataService.fetchDataCommoditiesAll();
@@ -292,7 +317,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
         limitedDIR.push(this.filteredInterestRate.data.content[i])
       }
 
-      console.log(limitedDIR);
+      // console.log(limitedDIR);
 
       // const keyBY = Object.keys(responseBondYield)
       this.keysBondYield = responseBondYield
@@ -313,7 +338,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       //Grouping data from one API
       // const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
       const filteredDataBondYield = this.dataRKAP.data.content.filter((item: any) => item.grup === 'BOND YIELD');
-      console.log(filteredDataBondYield);
+      // console.log(filteredDataBondYield);
 
       const filteredDataKurs = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
       const filteredDataCommodities = this.dataRKAP.data.content.filter((item: any) => item.grup === 'COMMODITIES');
