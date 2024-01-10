@@ -61,27 +61,27 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.lineChartInterestRateSeries = [
         {
           name: `${dataInterest[0].mtu}`,
-          data: [dataInterest[0].rate, 10, 12]
+          data: [dataInterest[0].rate, 10, 12, 16, 11]
         },
         {
           name: `${dataInterest[1].mtu}`,
-          data: [13, dataInterest[1].rate, 10]
+          data: [13, dataInterest[1].rate, 10, 12, 15]
         },
         {
           name: `${dataInterest[2].mtu}`,
-          data: [12, 11, dataInterest[2].rate]
+          data: [12, 11, dataInterest[2].rate, 15, 11]
         },
         {
           name: `${dataInterest[3].mtu}`,
-          data: [12, 11, dataInterest[3].rate]
+          data: [12, 11, dataInterest[3].rate, 15, 11]
         },
         {
           name: `${dataInterest[4].mtu}`,
-          data: [12, 11, dataInterest[4].rate]
+          data: [12, 11, dataInterest[4].rate, 15, 11]
         },
         {
           name: `${dataInterest[5].mtu}`,
-          data: [12, 11, dataInterest[5].rate]
+          data: [12, 11, dataInterest[5].rate, 15, 11]
         }
       ];
     } catch (error) {
