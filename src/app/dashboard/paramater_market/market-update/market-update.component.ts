@@ -71,6 +71,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   files: File[] = [];
 
+  isLoading: Boolean = false;
 
   //test dev data source
   testData: any;
@@ -200,6 +201,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   async searchData(){
     try {
 
+
       this.tableConfig.initializeTableData(this.threeDaysBefore, this.twoDaysBefore, this.yesterday, this.selectedDate)
 
       //FETCH BASED ON PARAMS
@@ -283,6 +285,8 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   async ngOnInit(): Promise<void> {
     try {
       // const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll();
+      this.isLoading = true;
+      console.log('load before fetch: ' + this.isLoading);
       const responsePDB = await this.marketUpdateService.fetchDataPDB();
       const responseKurs = await this.marketUpdateService.fetchDataKurs();
       const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesByDate('05/12/2023');
@@ -331,6 +335,9 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       // this.tableConfig.getDataInterestRate(limitedDIR);
       this.tableConfig.getDataBondYield(filteredDataBondYield);
       this.tableConfig.getDataKurs(responseKurs);
+
+      this.isLoading = false;
+      console.log('load after fetch: ' + this.isLoading);
 
     } catch (error) {
       console.log(error);
