@@ -28,6 +28,7 @@ import { FinancialReportComponent } from './dashboard/financial_debt/financial-r
 import { BondYieldComponent } from './dashboard/paramater_market/market-update/child_market_update/bond-yield/bond-yield.component';
 import { ImportLaporanMarketUpdateComponent } from './dashboard/paramater_market/market-update/child_market_update/import-laporan-market-update/import-laporan-market-update.component';
 import { PreviewLaporanComponent } from './dashboard/paramater_market/market-update/child_market_update/preview-laporan/preview-laporan.component';
+import { OverviewComponent } from './dashboard/adm_pinjaman/overview/overview.component';
 
 const routes: Routes = [
 
@@ -58,10 +59,7 @@ const routes: Routes = [
   { path: 'detail_agreement', component: DetailAgreementComponent},
   { path: 'financial_import', component: ImportComponent},
   { path: 'financial_report', component: FinancialReportComponent},
-  // {
-  //   path: 'shloverview',
-  //   loadChildren: () => import('./layout/sidebar/sidebar-routing.module').then(m => m.SidebarRoutingModule),
-  // },
+  { path: 'adm_overview', component: OverviewComponent},
 
   //Child Path Market Update Component
   { path: 'market_update/currency_rate', component: CurrencyRateComponent},
