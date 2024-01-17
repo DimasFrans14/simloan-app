@@ -289,7 +289,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       console.log('load before fetch: ' + this.isLoading);
       const responsePDB = await this.marketUpdateService.fetchDataPDB();
       const responseKurs = await this.marketUpdateService.fetchDataKurs();
-      const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesByDate('05/12/2023');
+      const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll();
       const responseBondYield = await this.marketUpdateService.fetchDataBondYield();
       // const responseDataInterestRate = await this.marketUpdateService.fetchDataInterestRate();
 
@@ -333,7 +333,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       this.tableConfig.getDataMoneySupply(responseMoneySupply);
       this.tableConfig.getDataDevisa(responseDevisa);
       // this.tableConfig.getDataInterestRate(limitedDIR);
-      this.tableConfig.getDataBondYield(filteredDataBondYield);
+      this.tableConfig.getDataBondYield(responseBondYield);
       this.tableConfig.getDataKurs(responseKurs);
 
       this.isLoading = false;
@@ -341,6 +341,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
     } catch (error) {
       console.log(error);
+      this.isLoading = false;
     }
 
     let today = new Date();

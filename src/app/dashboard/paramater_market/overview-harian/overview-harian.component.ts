@@ -337,7 +337,8 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
     let value = this.quillTakeways.getContents();
 
-    console.log(JSON.stringify(value));
+    // console.log(JSON.stringify(value));
+    console.log(value.ops ? value.ops[0].insert : '');
   }
 
   getValue2(){

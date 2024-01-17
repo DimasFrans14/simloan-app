@@ -1,5 +1,4 @@
 import { Injectable, AfterViewInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { TabulatorFull as Tabulator } from 'tabulator-tables';
 
 @Injectable({
@@ -21,7 +20,7 @@ export class TableServicesService {
   public dataMoneySupply: any;
   public dataDevisa: any;
   public dataInterestRate: any;
-  public dataBondYield: any[] = [];
+  public dataBondYield: any;
   public dataKurs: any;
 
   objectKeys: any;
@@ -34,7 +33,7 @@ export class TableServicesService {
   }
 
   getDataCommodities(data: any){
-    this.dataCommodities = data.d.list;
+    this.dataCommodities = data.data.content;
     // console.log('data commodities', this.dataCommodities);
 
   }
@@ -75,7 +74,7 @@ export class TableServicesService {
   }
 
   getDataBondYield(data: any){
-    this.dataBondYield = data;
+    this.dataBondYield = data.data.content;
     // console.log(key);
     // this.dataBondYield.push(key)
     // console.log(this.dataBondYield);
@@ -182,6 +181,8 @@ export class TableServicesService {
   tabelPreview: any;
   dataTabelPreview: any;
 
+  fileExcel!: File;
+
   constructor() {
     // Initialize properties in a method like ngOnInit() or a custom method
     // this.initializeTableData();
@@ -216,11 +217,11 @@ export class TableServicesService {
     {//create column group
         title:"Exchange Rate",
         columns:[
-        {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:threeDaysBefore, field:"beli_min1", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:twoDaysBefore, field:"beli_min2", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:yesterday, field:"beli_min3", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:today, field:"beli_min4", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:"RKAP <br/>23", field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:threeDaysBefore, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:twoDaysBefore, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:yesterday, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:today, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
         ],
         headerHozAlign:"center"
     },
@@ -257,14 +258,14 @@ export class TableServicesService {
       data:this.dataBondYield,
       layout:"fitColumns",
       columns:[
-        {title:"Tenor", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+        {title:"Tenor", field:"grup", headerHozAlign:"center", hozAlign:'left', headerSort:false},
     {//create column group
         title:"Yield",
         columns:[
-        {title: threeDaysBefore, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title: twoDaysBefore, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title: yesterday, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title: today, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: threeDaysBefore, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: twoDaysBefore, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: yesterday, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: today, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
         ],
         headerHozAlign:"center"
     },
@@ -280,14 +281,14 @@ export class TableServicesService {
       data:this.dataBondYield,
       layout:"fitColumns",
       columns:[
-        {title:"Tenor", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+        {title:"Tenor", field:"grup", headerHozAlign:"center", hozAlign:'left', headerSort:false},
     {//create column group
         title:"Yield",
         columns:[
-        {title: threeDaysBefore, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title: twoDaysBefore, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title: yesterday, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title: today, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: threeDaysBefore, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: twoDaysBefore, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: yesterday, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: today, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
         ],
         headerHozAlign:"center"
     },
@@ -303,15 +304,15 @@ export class TableServicesService {
     data:this.dataCommodities,
     layout:"fitColumns",
     columns:[
-      {title:"Commodities", field:"keterangan", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+      {title:"Commodities", field:"kode_item", headerHozAlign:"center", hozAlign:'left', headerSort:false},
   {//create column group
       title:"Price",
       columns:[
-      {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:threeDaysBefore, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:twoDaysBefore, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:yesterday, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:today, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"RKAP <br/>23", field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:threeDaysBefore, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:twoDaysBefore, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:yesterday, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:today, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input"},
       ],
       headerHozAlign:"center"
   },
@@ -348,10 +349,10 @@ export class TableServicesService {
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
 
@@ -867,15 +868,16 @@ export class TableServicesService {
     // console.log(data);
   }
 
-  previewData(data: any){
+  previewData(data: any, file: File){
 
     console.log('preview data: ', data);
-
+    this.fileExcel = file;
     this.objectKeys = Object.keys(data[0])
 
     this.dataTabelPreview = data;
     console.log(this.objectKeys);
     // this.tabelPreview(this.objectKeys)
+    console.log('file', this.fileExcel);
   }
 
   customizeTableColumn(columnName: any, checked: any){

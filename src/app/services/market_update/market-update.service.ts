@@ -17,7 +17,7 @@ export class MarketUpdateService {
   async fetchDataKurs(){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.localDev}/simloan/ws-v01/dashboard/rkap/list_kurs`)
+        this.http.get(`${this.localDev}/simloan/ws-v01/master-kurs/list/mrk`)
       );
     } catch (error) {
       console.log(error);
@@ -39,7 +39,7 @@ export class MarketUpdateService {
   async fetchDataBondYield(){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.localDev}/simloan/ws-v01/dashboard/realisasi/list_rby`)
+        this.http.get(`${this.localDev}/simloan/ws-v01/dashboard/realisasi/non-macro/list_rby`)
       );
     } catch (error) {
       console.log(error);
@@ -50,7 +50,7 @@ export class MarketUpdateService {
   async fetchDataCommoditiesAll(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/currency/getRateList?date=05/12/202`)
+        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/master-rkap-commodities`)
       );
     } catch (error) {
       console.log(error);
@@ -200,4 +200,19 @@ export class MarketUpdateService {
       return null
     }
   }
+
+  importLaporanMarketUpdate = async (data: any, params: string) => {
+    try {
+      const headers = { 'content-type': 'application/json'}
+      const body = JSON.stringify(data);
+      console.log(params);
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/macro/create?globalDashRealMacroIndicatorEnum=${params}`, data,{'headers':headers})
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
 }
