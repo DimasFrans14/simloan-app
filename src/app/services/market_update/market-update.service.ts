@@ -17,7 +17,7 @@ export class MarketUpdateService {
   async fetchDataKurs(){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.localDev}/simloan/ws-v01/master-kurs/list/mrk`)
+        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_master_kurs`)
       );
     } catch (error) {
       console.log(error);

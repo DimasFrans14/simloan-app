@@ -91,7 +91,7 @@ export class TableServicesService {
   }
 
   getDataKurs(data: any){
-    this.dataKurs = data.data.content;
+    this.dataKurs = data.data;
     // console.log('data kurs', this.dataKurs);
   }
 
@@ -210,6 +210,7 @@ export class TableServicesService {
 
     this.tableCurrency = new Tabulator(".table-currency", {
           // height:205,
+      height: "335px",
       data:this.dataKurs,
       layout:"fitColumns",
       columns:[
@@ -217,11 +218,11 @@ export class TableServicesService {
     {//create column group
         title:"Exchange Rate",
         columns:[
-        {title:"RKAP <br/>23", field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:threeDaysBefore, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:twoDaysBefore, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:yesterday, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:today, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:"RKAP <br/>23", field:"rate_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:threeDaysBefore, field:"kurs_min3", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:twoDaysBefore, field:"kurs_min2", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:yesterday, field:"kurs_min1", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:today, field:"kurs", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
         ],
         headerHozAlign:"center"
     },
