@@ -331,15 +331,16 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       else{
         console.log('no excel data');
       }
+
   }
 
-  getValue(){
+  quillContent!: any;
 
-    let value = this.quillTakeways.getContents();
-
-    // console.log(JSON.stringify(value));
-    console.log(value.ops ? value.ops[0].insert : '');
-  }
+  getValue() {
+    let value = this.quillTakeways.root.innerHTML;
+    this.quillContent = value;
+    console.log(value);
+}
 
   getValue2(){
     let value = this.quillFootnote.getText();
@@ -348,13 +349,13 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   }
 
   onChange(){
-    const _this = this;
-    this.quillTakeways.on('text-change', function(delta, oldDelta, source) {
-      if (source === 'user') {
-        _this.getValue()
-        console.log('dari onchange');
-      }
-    })
+    // const _this = this;
+    // this.quillTakeways.on('text-change', function(delta, oldDelta, source) {
+    //   if (source === 'user') {
+    //     _this.getValue()
+    //     console.log('dari onchange');
+    //   }
+    // })
   }
 
   onChange2(){
