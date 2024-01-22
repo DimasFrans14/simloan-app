@@ -69,7 +69,6 @@ export class PreviewLaporanComponent implements OnInit{
 
         localStorage.removeItem('params_upload');
         localStorage.removeItem('indikator_params');
-
         alert('up realisasi done')
 
         this.router.navigate(["market_update/importLaporan_marketUpdate"])
@@ -77,8 +76,14 @@ export class PreviewLaporanComponent implements OnInit{
         console.log(error);
       }
     }
+    else if(indikatorParams === 'RKAP'){
+      alert('up params RKAP')
+    }
+    else if(indikatorParams === 'Outlook'){
+      alert('up params Outlook')
+    }
     else{
-      alert('bukan realisasi');
+      alert('No parameter!');
     }
 
   }
