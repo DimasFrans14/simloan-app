@@ -9,7 +9,12 @@ import { ApexChart,
   ApexGrid,
   ApexTitleSubtitle,
   ApexXAxis,
-  ApexStroke} from 'ng-apexcharts';
+  ApexStroke,
+  ApexMarkers,
+  ApexFill,
+  ApexTooltip,
+  ApexResponsive,
+  ApexNonAxisChartSeries} from 'ng-apexcharts';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +28,9 @@ export class ChartService {
     this.initializeDcsrLabaRugiChart()
     this.initializeDERChart()
     this.initializeCICRChart()
+    this.initializeOutstandingDebtSummaryTahunan()
+    this.initializeAdmBarChart()
+    this.initializeColumnAdmChart()
   }
 
   //SHL
@@ -63,6 +71,32 @@ export class ChartService {
   CICRChartTitle!: ApexTitleSubtitle;
   CICRstroke!:ApexStroke;
   xAxisCICR!: ApexXAxis;
+
+  annualOutstandingSeries: ApexAxisChartSeries = [];
+  chartAdm!: ApexChart;
+  xAxis!: ApexXAxis;
+  markers!: ApexMarkers;
+  stroke!: ApexStroke;
+  yAxis!: ApexYAxis | ApexYAxis[];
+  dataLabels!: ApexDataLabels;
+  title!:ApexTitleSubtitle;
+  legend!: ApexLegend;
+  fill!: ApexFill
+  tooltip!: ApexTooltip;
+
+  seriesBar!: ApexNonAxisChartSeries;
+  chartAdmBar!: ApexChart;
+  responsiveBarChart!: ApexResponsive[];
+  labelsBar!: any;
+
+  columnAdmChartSeries!: ApexAxisChartSeries;
+  columnAdmChart!: ApexChart;
+  columnAdmChartLabel!: ApexDataLabels;
+  columnAdmChartPlot!: ApexPlotOptions;
+  columnAdmChartYaxis!: ApexYAxis;
+  columnAdmChartXaxis!: ApexXAxis;
+  columnAdmChartFill!: ApexFill;
+  columnAdmChartTitle!: ApexTitleSubtitle;
 
   initializeSHLChart(){
 
@@ -459,6 +493,275 @@ export class ChartService {
         ["RKAP"],
         ["Outlook"],
       ]
+    }
+  }
+
+  initializeOutstandingDebtSummaryTahunan(){
+    this.annualOutstandingSeries = [
+      {
+        name: "Income",
+        type: "column",
+        data: [1.4, 2, 2.5, 1.5, 2.5, 2.8, 3.8, 4.6]
+      },
+      {
+        name: "Cashflow",
+        type: "column",
+        data: [1.1, 3, 3.1, 4, 4.1, 4.9, 6.5, 8.5]
+      },
+      {
+        name: "Revenue",
+        type: "line",
+        data: [20, 29, 37, 36, 44, 45, 50, 58]
+      }
+    ]
+
+    this.chartAdm = {
+      height: 350,
+      type: "line",
+      stacked: false
+    }
+
+    this.dataLabels = {
+      enabled: true
+    }
+
+    this.stroke = {
+      width: [1, 1, 4]
+    }
+
+    this.title = {
+      text: "Outstanding Debt Summary (Tahunan)",
+      align: "left",
+      offsetX: 110
+    }
+
+    this.xAxis = {
+      categories: [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016]
+    }
+
+    this.yAxis = [
+      {
+        axisTicks: {
+          show: true
+        },
+        axisBorder: {
+          show: true,
+          color: "#008FFB"
+        },
+        labels: {
+          style: {
+            colors: "#008FFB"
+          }
+        },
+        title: {
+          text: "Income (thousand crores)",
+          style: {
+            color: "#008FFB"
+          }
+        },
+        tooltip: {
+          enabled: true
+        }
+      },
+      {
+        seriesName: "Income",
+        opposite: true,
+        axisTicks: {
+          show: true
+        },
+        axisBorder: {
+          show: true,
+          color: "#00E396"
+        },
+        labels: {
+          style: {
+            colors: "#00E396"
+          }
+        },
+        title: {
+          text: "Operating Cashflow (thousand crores)",
+          style: {
+            color: "#00E396"
+          }
+        }
+      },
+      {
+        seriesName: "Revenue",
+        opposite: true,
+        axisTicks: {
+          show: true
+        },
+        axisBorder: {
+          show: true,
+          color: "#FEB019"
+        },
+        labels: {
+          style: {
+            colors: "#FEB019"
+          }
+        },
+        title: {
+          text: "Revenue (thousand crores)",
+          style: {
+            color: "#FEB019"
+          }
+        }
+      }
+    ]
+
+    this.tooltip = {
+      fixed: {
+        enabled: true,
+        position: "topLeft", // topRight, topLeft, bottomRight, bottomLeft
+        offsetY: 30,
+        offsetX: 60
+      }
+    }
+
+    this.legend = {
+      horizontalAlign: "left",
+      offsetX: 40
+    }
+
+  }
+
+  initializeAdmBarChart(){
+    this.seriesBar = [44, 55, 13, 43, 22]
+
+    this.chartAdmBar = {
+      type: 'donut',
+      height: 200
+    }
+
+    this.labelsBar = ["Team A", "Team B", "Team C", "Team D", "Team E"]
+
+    this.responsiveBarChart = [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200,
+          },
+          legend: {
+            position: "bottom"
+          }
+        }
+      }
+    ]
+  }
+
+  initializeColumnAdmChart(){
+    this.columnAdmChartSeries = [
+      {
+        name: "Inflation",
+        data: [2.3, 3.1, 4.0, 10.1],
+        color: "#268294"
+      },
+      {
+        name: "Deflection",
+        data: [4.0, 3.6, 3.2, 2.3],
+        color: "#2EB0C2"
+      },
+    ]
+
+    this.columnAdmChart = {
+      height: 350,
+      type: "bar"
+    }
+
+    this.columnAdmChartPlot = {
+      bar: {
+        dataLabels: {
+          position: "top" // top, center, bottom
+        },
+        borderRadius: 3,
+      }
+    }
+
+    this.columnAdmChartLabel = {
+      enabled: true,
+        formatter: function(val) {
+          return val + "%";
+        },
+        offsetY: -20,
+        style: {
+          fontSize: "12px",
+          colors: ["#304758"]
+        }
+    }
+
+    this.columnAdmChartXaxis = {
+      categories: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+      ],
+      position: "bottom",
+      labels: {
+        // offsetY: -18
+      },
+      axisBorder: {
+        show: false
+      },
+      axisTicks: {
+        show: false
+      },
+      crosshairs: {
+        fill: {
+          type: "gradient",
+          gradient: {
+            colorFrom: "#D8E3F0",
+            colorTo: "#BED1E6",
+            stops: [0, 100],
+            opacityFrom: 0.4,
+            opacityTo: 0.7
+          }
+        }
+      },
+      tooltip: {
+        enabled: false,
+        offsetY: -35
+      }
+    }
+
+    this.columnAdmChartFill = {
+      type: "gradient",
+        gradient: {
+          shade: "light",
+          type: "horizontal",
+          shadeIntensity: 0.25,
+          gradientToColors: undefined,
+          inverseColors: true,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [50, 0, 100, 100]
+        }
+    }
+
+    this.columnAdmChartYaxis = {
+      axisBorder: {
+        show: false
+      },
+      axisTicks: {
+        show: false
+      },
+      labels: {
+        show: true,
+        formatter: function(val) {
+          return val + "%";
+        },
+      }
+    }
+
+    this.columnAdmChartTitle = {
+      text: "Monthly Inflation in Argentina, 2002",
+        floating: false,
+        // offsetY: 0,
+        align: "center",
+        style: {
+          color: "#444"
+        }
     }
   }
 
