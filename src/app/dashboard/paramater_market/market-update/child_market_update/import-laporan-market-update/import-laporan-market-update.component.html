@@ -25,9 +25,9 @@
             <div class="mb-3">
               <label for="uploadFile" class="fw-bold mb-1">Pilih Parameter Market Update</label>
               <ng-select
-                [items]="parameterSelect"
-                bindLabel="name"
-                bindValue="id"
+                [items]="masterCategoryParams.data.content"
+                bindLabel="deskripsi"
+                bindValue="id_ctg_rs_psr"
                 [(ngModel)]="parameterItems"
                 placeholder="Pilih Parameter Market Update"
                 (change)="paramsSelect($event)">
@@ -49,9 +49,9 @@
             <div class="mb-3">
               <label for="uploadFile" class="fw-bold mb-1">Pilih Indikator Market Update</label>
               <ng-select
-                [items]="marketUpdateID === 1 ? dataCurrency : marketUpdateID === 2 ? dataInteresRate : marketUpdateID === 3 ? dataBondYield : marketUpdateID === 4 ? dataCommodities : macroIndicatorParams"
-                bindLabel="name"
-                bindValue="id"
+                [items]="selectedSubCategoryParams ? selectedSubCategoryParams : masterSubCategoryParams.data.content"
+                bindLabel="deskripsi"
+                bindValue="id_ctg_rspsr"
                 [(ngModel)]="dataParameterItems"
                 placeholder="Pilih Indikator Market Update"
                 [disabled]="disableIndikator"

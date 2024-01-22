@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MasterCategoryRisetPasarService } from 'src/app/services/master_category_riset_pasar/master-category-riset-pasar.service';
 import { TablePreviewServices } from 'src/app/services/tablePreview_Services/table-preview-services.service';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 import * as XLSX from 'xlsx';
@@ -12,11 +13,12 @@ interface ExcelData {
   templateUrl: './import-laporan-market-update.component.html',
   styleUrls: ['./import-laporan-market-update.component.css']
 })
-export class ImportLaporanMarketUpdateComponent {
+export class ImportLaporanMarketUpdateComponent implements OnInit {
 
   constructor(
     private tableConfig: TableServicesService,
-    private tablePrevew: TablePreviewServices
+    private tablePrevew: TablePreviewServices,
+    private masterCategory: MasterCategoryRisetPasarService
   ){
 
   }
@@ -37,6 +39,10 @@ export class ImportLaporanMarketUpdateComponent {
 
   isDisabled: boolean = true;
   disableIndikator: boolean = true;
+
+  masterCategoryParams: any;
+  masterSubCategoryParams: any;
+  selectedSubCategoryParams: any;
 
   parameterSelect = [
     { id: 1, name: 'Currency Rate' },
@@ -101,9 +107,11 @@ export class ImportLaporanMarketUpdateComponent {
   indikatorID !: number;
   indikatorName!: string;
 
+  isChange: boolean = false;
+
   paramsSelect(event: any){
     console.log(event);
-    this.marketUpdateID = event ? event.id : '';
+    this.marketUpdateID = event ? event.id_ctg_rs_psr : '';
     console.log(this.marketUpdateID);
     if(event != undefined){
       this.disableIndikator = false
@@ -111,6 +119,11 @@ export class ImportLaporanMarketUpdateComponent {
     else{
       this.disableIndikator = true
     }
+
+
+    const filter = this.masterSubCategoryParams.data.content.filter((item: any) => item.id_ctg_rs_psr === this.marketUpdateID)
+    console.log(filter);
+    this.selectedSubCategoryParams = filter
   }
 
   indikatorSelect(event: any){
@@ -124,8 +137,8 @@ export class ImportLaporanMarketUpdateComponent {
 
   getValueParams = (event: any) => {
     console.log(event);
-    const { id, name } = event;
-    this.dataParameterName = name;
+    const { id, kode } = event;
+    this.dataParameterName = kode;
     this.dataParameterID = id;
     console.log(this.dataParameterName);
     localStorage.setItem('params_upload', JSON.parse(JSON.stringify(this.dataParameterName)))
@@ -207,6 +220,20 @@ export class ImportLaporanMarketUpdateComponent {
     this.parameterCurrency.splice(this.parameterCurrency.indexOf(event), 1);
     this.excelDataJSON = []
     console.log(this.excelDataJSON);
+  }
+
+  async ngOnInit(): Promise<void> {
+    try {
+      const responseMasterCategory = await this.masterCategory.fetchMasterCategory();
+      const responseSubCategory = await this.masterCategory.fetchMasterSubCategory();
+
+
+      this.masterCategoryParams = responseMasterCategory;
+      this.masterSubCategoryParams = responseSubCategory;
+      console.log(this.masterCategoryParams, this.masterSubCategoryParams);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 }
