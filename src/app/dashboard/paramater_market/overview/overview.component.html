@@ -58,7 +58,7 @@
         <h4 class="mt-4">Currency</h4>
       </div>
       <div>
-        <button class="btn btn-transparant btn-sm border border-1 px-3 bg-white" (click)="compare()">Compare</button>
+        <button class="btn btn-transparant btn-sm border border-1 px-3 bg-white" (click)="compare()" [innerHTML]="isCompare ? 'Close' : 'Compare'"></button>
       </div>
     </div>
     <div class="row">

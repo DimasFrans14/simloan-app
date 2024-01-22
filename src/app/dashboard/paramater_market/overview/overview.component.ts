@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import { ApexAxisChartSeries, ApexChart,  ApexPlotOptions,  ApexTitleSubtitle, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
 import { DataService } from 'src/app/data.service';
+import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 
 @Component({
   selector: 'app-overview',
@@ -9,7 +10,10 @@ import { DataService } from 'src/app/data.service';
 })
 export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
-  constructor(private dataService: DataService){
+  constructor(
+    private dataService: DataService,
+    private marketUpdateService: MarketUpdateService
+    ){
     // console.log(dataService);
   }
 
@@ -18,45 +22,54 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   lineChartKursSeries: ApexAxisChartSeries = [];
   lineChartInterestRateSeries: ApexAxisChartSeries = [];
 
+  compareValue: string = 'Compare'
+
   async ngOnInit(): Promise<void> {
     try {
-      const response = await this.dataService.fetchDataCommoditiesAll()
-      this.dataKurs = response;
+      const responseKurs = await this.marketUpdateService.fetchDataKurs()
+      this.dataKurs = responseKurs;
 
       const responseRKAP = await this.dataService.fetchDataInterestRateRKAP()
       this.dataRKAP = responseRKAP;
 
-      console.log(this.dataKurs.d.list);
+      console.log(this.dataKurs);
 
       let dataUSD;
       let dataInterest;
 
-      dataUSD = this.dataKurs.d.list.filter((item: any) => item.mata_uang === 'USD');
+      // dataUSD = this.dataKurs.d.list.filter((item: any) => item.mata_uang === 'USD');
 
       dataInterest = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
 
       console.log(dataInterest);
 
-      this.lineChartKursSeries = [
-        {
-          // name: `${this.dataKurs.d.list[0].mata_uang}`,
-          name: `Data 1`,
-          // data: [dataUSD[0].nilai_rkap, 12000, 13000, 12300, 11000]
-          data: [12300, 12000, 13000, 12300, 11000]
-        },
-        {
-          // name: `${this.dataKurs.d.list[1].mata_uang}`,
-          name: `Data 2`,
-          // data: [13000, dataUSD[0].nilai_rkap, 15000, 12300, 11000]
-          data: [13000, 11000, 15000, 12300, 11000]
-        },
-        {
-          // name: `${this.dataKurs.d.list[2].mata_uang}`,
-          name: `Data 3`,
-          // data: [12300, 11000, dataUSD[0].nilai_rkap, 12300, 11000]
-          data: [12300, 11000, 15000, 12300, 11000]
-        }
-      ];
+      // this.lineChartKursSeries = [
+      //   {
+      //     name: `${this.dataKurs.data[0].mata_uang}`,
+      //     data: [12300, 12000, 13000, 12300, 11000]
+      //   },
+      //   {
+      //     name: `${this.dataKurs.data[1].mata_uang}`,
+      //     data: [13000, 11000, 15000, 12300, 11000]
+      //   },
+      //   {
+      //     name: `${this.dataKurs.data[2].mata_uang}`,
+      //     data: [12300, 11000, 15000, 12300, 11000]
+      //   }
+      // ];
+
+      this.lineChartKursSeries = [];
+
+      for (let i = 0; i < this.dataKurs.data.length ; i++) {
+        const mataUang = this.dataKurs.data[i].mata_uang;
+        const dataValues = [this.dataKurs.data[i].kurs_min3, this.dataKurs.data[i].kurs_min4, this.dataKurs.data[i].kurs_min5, this.dataKurs.data[i].kurs_min6];
+
+        this.lineChartKursSeries.push({
+          name: `${mataUang}`,
+          data: dataValues
+        });
+      }
+
 
       this.lineChartInterestRateSeries = [
         {
@@ -140,14 +153,14 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       show: true,
       tools: {
         download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
       }
-    }
+    },
   }
 
   currencyBarChartDetails: ApexChart = {
