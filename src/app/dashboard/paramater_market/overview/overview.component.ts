@@ -143,8 +143,17 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.chartSeries2 = [];
 
       for (let i = 0; i < this.dataKurs.data.length ; i++) {
+
+        typeof(this.dataKurs.data[i].kurs) === 'string' ? parseFloat(this.dataKurs.data[i].kurs.replace(/,/g, '')) : parseFloat(this.dataKurs.data[i].kurs)
+
+        typeof(this.dataKurs.data[i].kurs_min1) === 'string' ? parseFloat(this.dataKurs.data[i].kurs_min1.replace(/,/g, '')) : parseFloat(this.dataKurs.data[i].kurs_min1)
+
+        typeof(this.dataKurs.data[i].kurs_min2) === 'string' ? parseFloat(this.dataKurs.data[i].kurs_min2.replace(/,/g, '')) : parseFloat(this.dataKurs.data[i].kurs_min2)
+
+        typeof(this.dataKurs.data[i].kurs_min3) === 'string' ? parseFloat(this.dataKurs.data[i].kurs_min3.replace(/,/g, '')) : parseFloat(this.dataKurs.data[i].kurs_min3)
+
         const mataUang = this.dataKurs.data[i].mata_uang;
-        const dataValues = [this.dataKurs.data[i].kurs_min3, this.dataKurs.data[i].kurs_min4, this.dataKurs.data[i].kurs_min5, this.dataKurs.data[i].kurs_min6];
+        const dataValues = [this.dataKurs.data[i].kurs_min3, this.dataKurs.data[i].kurs_min2, this.dataKurs.data[i].kurs_min1, this.dataKurs.data[i].kurs];
 
         this.lineChartKursSeries.push({
           name: `${mataUang}`,
@@ -157,6 +166,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         })
       }
       console.log(typeof(this.dataKurs.data[0].kurs_min2));
+      console.log(this.dataKurs.data);
+
 
 
       this.lineYAxis = {
