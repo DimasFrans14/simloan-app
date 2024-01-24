@@ -1,0 +1,16 @@
+.sub-nav{
+    margin-top: 60px;
+    padding-left: 255px;
+    padding-right: 20px;
+    padding-bottom: 0px;
+    padding-top: 10px;
+  }
+.borderless{
+  border:none;
+}
+body{
+  scroll-behavior: smooth;
+}
+a{
+  text-decoration: none;
+}

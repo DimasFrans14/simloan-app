@@ -28,9 +28,13 @@ import { FinancialReportComponent } from './dashboard/financial_debt/financial-r
 import { BondYieldComponent } from './dashboard/paramater_market/market-update/child_market_update/bond-yield/bond-yield.component';
 import { ImportLaporanMarketUpdateComponent } from './dashboard/paramater_market/market-update/child_market_update/import-laporan-market-update/import-laporan-market-update.component';
 import { PreviewLaporanComponent } from './dashboard/paramater_market/market-update/child_market_update/preview-laporan/preview-laporan.component';
+import { CreateLiabilitiesComponent } from './dashboard/paramater_market/liabilities/create-liabilities/create-liabilities.component';
+import { FieldErrorDisplayComponent } from './field-error-display/field-error-display.component';
+import { PreviewLiabilitiesComponent } from './dashboard/paramater_market/liabilities/preview-liabilities/preview-liabilities.component';
 
 const routes: Routes = [
-
+  //error msg
+  {path: 'error', component:FieldErrorDisplayComponent},
   //Login Path
   { path: '', component: PraloginComponent },
   { path: 'login', component: LoginComponent },
@@ -71,8 +75,11 @@ const routes: Routes = [
   { path: 'market_update/importLaporan_marketUpdate', component: ImportLaporanMarketUpdateComponent},
   { path: 'market_update/preview_laporan', component: PreviewLaporanComponent},
 
-  //child path financiaal-debt
+  //child path financial-debt
   {path: 'import_laporan', component: ImportLaporanComponent},
+  //child path liabilities
+  { path: 'create_liabilities', component: CreateLiabilitiesComponent},
+  { path: 'preview_liabilities', component: PreviewLiabilitiesComponent}
 
 ];
 

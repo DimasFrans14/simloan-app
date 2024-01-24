@@ -1,0 +1,42 @@
+.sub-nav{
+    margin-top: 60px;
+    padding-left: 250px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+a {
+    text-decoration: none;
+}
+#main{
+    margin-top: 10px;
+}
+.card-body{
+    padding: 30px 10px 10px 30px;
+}
+p{
+    color: #4E4E4E;
+}
+.bi-caret-right-fill{
+    padding-top: 10px;
+}
+.mr-2{
+    margin-right: 10px;
+}
+.btn-outline-dark{
+    color: black;
+}
+.btn-outline-primary{
+    color: blue;
+}
+
+.sub-footer{
+    padding-left: 300px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  ::ng-deep .mat-form-field-infix {
+    padding: 12px 12px;
+   }

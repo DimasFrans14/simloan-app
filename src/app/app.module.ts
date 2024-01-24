@@ -54,6 +54,9 @@ import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import { BondYieldComponent } from './dashboard/paramater_market/market-update/child_market_update/bond-yield/bond-yield.component';
 import { ImportLaporanMarketUpdateComponent } from './dashboard/paramater_market/market-update/child_market_update/import-laporan-market-update/import-laporan-market-update.component';
 import { PreviewLaporanComponent } from './dashboard/paramater_market/market-update/child_market_update/preview-laporan/preview-laporan.component';
+import { CreateLiabilitiesComponent } from './dashboard/paramater_market/liabilities/create-liabilities/create-liabilities.component';
+import { FieldErrorDisplayComponent } from './field-error-display/field-error-display.component';
+import { PreviewLiabilitiesComponent } from './dashboard/paramater_market/liabilities/preview-liabilities/preview-liabilities.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +89,9 @@ import { PreviewLaporanComponent } from './dashboard/paramater_market/market-upd
     BondYieldComponent,
     ImportLaporanMarketUpdateComponent,
     PreviewLaporanComponent,
+    CreateLiabilitiesComponent,
+    FieldErrorDisplayComponent,
+    PreviewLiabilitiesComponent,
   ],
   imports: [
     BrowserModule,

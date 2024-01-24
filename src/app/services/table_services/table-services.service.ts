@@ -178,6 +178,10 @@ export class TableServicesService {
   tabelPreview: any;
   dataTabelPreview: any;
 
+  tableDataCreateLiabiliteis:any;
+  tableCreateLiabiilities:any;
+
+
   constructor() {
     // Initialize properties in a method like ngOnInit() or a custom method
     // this.initializeTableData();
@@ -923,7 +927,46 @@ export class TableServicesService {
       ],
 
   });
-}
+
+  
+  }
+
+  initializeTableCreateLiabilities(){
+
+    this.tableDataCreateLiabiliteis = [
+      {id:1, create_date:"17/04/2023", create_by:"John smith", status:"Approved", approver:"VP-Elena", mod_date:"-", notes:"-", action:""},
+      {id:2, create_date:"17/04/2023", create_by:"John smith", status:"Rejected", approver:"VP-Elena", mod_date:"-", notes:"-", action:""},
+      {id:3, create_date:"17/04/2023", create_by:"John smith", status:"Revision needed", approver:"VP-Elena", mod_date:"-", notes:"-", action:""},
+      {id:4, create_date:"17/04/2023", create_by:"John smith", status:"Waiting", approver:"VP-Elena", mod_date:"-", notes:"-", action:""},
+      {id:5, create_date:"17/04/2023", create_by:"John smith", status:"Draft", approver:"VP-Elena", mod_date:"-", notes:"-", action:""},
+      {id:6, create_date:"17/04/2023", create_by:"John smith", status:"Expired", approver:"VP-Elena", mod_date:"-", notes:"-", action:""},
+      {id:7, create_date:"17/04/2023", create_by:"John smith", status:"Approved", approver:"VP-Elena", mod_date:"-", notes:"-", action:""},
+    ];
+
+    const actionBtn = function(cell: any, formatterParams: any){
+      return "<button type='button' class='btn'><i class='bi bi-eye'></i></button> <button type='button' class='btn'><i class='bi bi-pencil-square'></i></button> <button type='button' class='btn'><i class='bi bi-three-dots'></i></button>";
+    }
+
+    this.tableCreateLiabiilities = new Tabulator(".table-createLiabilities", {
+      // height:205,
+      data:this.tableDataCreateLiabiliteis,
+      layout:"fitColumns",
+      columns:[
+        {title:"ID", field:"id", width:100, hozAlign:"center", headerHozAlign:"center"},
+        {title:"Creation Date", field:"create_date", headerHozAlign:"center", hozAlign:'center', headerSort:true},
+        {title:"Created By", field:"create_by", hozAlign:"center", headerHozAlign:"center"},
+        {title:"Status", field:"status", hozAlign:"center", headerHozAlign:"center"},
+        {title:"Approver", field:"approver", hozAlign:"center", headerHozAlign:"center"},
+        {title:"Modification Date", field:"mod_date", hozAlign:"center", headerHozAlign:"center"},
+        {title:"Notes", field:"notes",hozAlign:"center", headerHozAlign:"center"},
+        {title: "Action", field:"action", formatter:actionBtn, width:200,hozAlign:"center", headerHozAlign:"center", formatterParams:{
+          labelField: "action",
+          url:"https://icons.getbootstrap.com/",
+          target:"_blank"
+        }},
+      ],
+    });
+  }
 
 
   editTitle(){

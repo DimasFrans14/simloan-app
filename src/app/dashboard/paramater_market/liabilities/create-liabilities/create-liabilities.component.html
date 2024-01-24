@@ -1,0 +1,865 @@
+<div>
+    <app-sidebar></app-sidebar>
+    <app-header></app-header>
+    <!-- sub nav -->
+    <div id="header" class="header">
+        <div class="col-12 bg-white sub-nav border-bottom border-top">
+            <div class="container">
+                <div class="d-flex justify-content-between">
+                    <div class="btn" data-bs-toggle="modal" data-bs-target="#exitCreateLiabilities">
+                        <a><i class="bi bi-arrow-left"></i></a>
+                    </div>
+                    <!-- modal back -->
+                    <div class="modal fade" id="exitCreateLiabilities" tabindex="-1"
+                        aria-labelledby="exitCreateLiabilitiesLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="d-flex flex-column">
+                                        <div class="align-self-center">
+                                            <img src="assets/image/ask.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <div class="align-self-center">
+                                            <h5 class="text-center">Apakah anda yakin ingin <br> keluar dari halaman
+                                                Create Liabilities?</h5>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <div class="align-self-center flex-nowrap">
+                                            <p class="text-center">Jika anda memilih "Buang Saja", data yang ada di <br>
+                                                halaman ini akan hilang </p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary mr-2"
+                                            routerLink="/liabilities" routerLinkActive="active"
+                                            data-bs-dismiss="modal">Buang Saja</button>
+                                        <button type="button" class="btn btn-primary btn-sm">Ya, Simpan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end modal back -->
+                    <div style="font-size: 22px;" class="flex-fill">Create Liabilities</div>
+                    <div style="font-size: 12px; color: #606060;" class="align-self-center"> Created by {{today |
+                        date:"MMM dd, yyyy 'at' hh:mm a"}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end sub nav -->
+    <main id="main" class="main">
+        <mat-stepper #stepper>
+            <!-- Interest BEaring Debt -->
+            <mat-step [stepControl]="interestBearingDebtStep">
+                <form [formGroup]="interestBearingDebt">
+                    <ng-template matStepLabel>Interest Bearing Debt</ng-template>
+                        <div class="d-flex flex-fill justify-content-between flex-column mt-3">
+                            <h6 class="fw-bold">Interest Bearing Debt*</h6>
+                            <p>(Triliun)</p>
+                            <div class="d-flex justify-content-between">
+                                <!-- RKAP -->
+                                <div class="flex-fill p-1">
+                                    <div><label for="#RKAP-label" class="form-label fw-bold">RKAP</label></div>
+                                    <div><input matInput type="text" class="form-control" id="RKAP-label" placeholder="0.00" formControlName="rkap" required></div>
+                                    <p>{{interestBearingDebt.value.rkap | json}}</p>
+                                </div>
+                                <!-- end RKAP -->
+                                <!-- Realisasi -->
+                                <div class=" flex-fill p-1">
+                                    <div><label for="RKAP-label" class="form-label fw-bold">Realisasi</label></div>
+                                    <div><input type="text" class="form-control" id="realisasi"placeholder="0.00" formControlName="realisasi"></div>
+                                    <p>{{interestBearingDebt.value.realisasi}}</p>
+                                </div>
+                                <!-- end Realisasi -->
+                                <!-- Outlook -->
+                                <div class="flex-fill p-1">
+                                    <div><label for="RKAP-label" class="form-label fw-bold">Outlook</label></div>
+                                    <div><input matInput type="text" class="form-control" id="outlook"placeholder="0.00" formControlName="outlook"></div>
+                                    <p>{{interestBearingDebt.value.outlook}}</p>
+                                </div>
+                                <!-- end outlook -->
+                            </div>
+                            <p> Form Status : {{interestBearingDebt.status}}</p>
+                            <p> Form Value : {{interestBearingDebt.value|json}}</p>
+                            <div>
+                                <label for="RKAP-label" class="form-label fw-bold">Project Description</label>
+                            </div>
+                            <div><quill-editor #description [styles]="{width: '1075px', height: '200px'}" formControlName="description"></quill-editor></div>
+                            {{interestBearingDebt.value.description}}
+                        </div>
+                    <div class="d-flex flex-row-reverse">
+                        <button class="btn" matStepperNext>Next</button>
+                        <button class="btn" matStepperPrevious>Back</button>
+                    </div>
+                </form>
+            </mat-step>
+            <!-- End Interest Bearing Debt -->
+            <!-- Asumsi Castalia Model -->
+            <mat-step [stepControl]="asumsiCastaliaStep">
+                <form [formGroup]="asumsiCastalia">
+                    <ng-template matStepLabel>Asumsi Castalia Model</ng-template>
+                    <div class="d-flex flex-fill justify-content-between flex-column mt-3">
+                        <div class="d-flex justify-content-between">
+                            <h6 class="fw-bold">Asumsi Castalia Model*</h6>
+                            <button type="button" class="btn btn-outline-primary bg-white" data-bs-toggle="modal"
+                                data-bs-target="#tambahParameter">Tambah Parameter</button>
+                            <!-- modal Tambah parameter -->
+                            <div class="modal fade" id="tambahParameter" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="d-flex flex-column">
+                                                <div class="d-flex justify-content-center">
+                                                    <h5 class="fw-bold">Tambah Parameter</h5>
+                                                </div>
+                                                <div class="d-flex justify-content-center">
+                                                    <p class="fw-bold">Interest Rate</p>
+                                                </div>
+                                                <div class="d-flex justify-content-center">
+                                                    <button id="" (click)="toggleSOFR()" data-bs-dismiss="modal"
+                                                        class="btn">SOFR</button>
+                                                    <button id="" (click)="toggleInterestRate()" data-bs-dismiss="modal"
+                                                        class="btn">Interest rate</button>
+                                                    <button id="" (click)="toggleJibor3MO()" data-bs-dismiss="modal"
+                                                        class="btn">JIBOR 3-MO</button>
+                                                </div>
+                                                <div class="d-flex justify-content-center">
+                                                    <button id="" (click)="toggleJibor6MO()" data-bs-dismiss="modal"
+                                                        class="btn">JIBOR 6-MO</button>
+                                                    <button id="" (click)="toggleAtd3MO()" data-bs-dismiss="modal"
+                                                        class="btn">ATD 3-MO</button>
+                                                    <button id="" (click)="toggleAdditional()" data-bs-dismiss="modal"
+                                                        class="btn">ADDITIONAL</button>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <div class="d-flex justify-content-center align-items-end fw-bold p-2">
+                                                    Kurs</div>
+                                                <div class="d-flex justify-content-center">
+                                                    <button id="" class="btn" (click)="toggleUsdIdr()"
+                                                        data-bs-dismiss="modal">USD/IDR</button>
+                                                    <button id="" class="btn" (click)="toggleEurIdr()"
+                                                        data-bs-dismiss="modal">EUR/IDR</button>
+                                                    <button id="" class="btn" (click)="toggleJpyIdr()"
+                                                        data-bs-dismiss="modal">JPY/IDR</button>
+                                                </div>
+                                                <div class="d-flex justify-content-center p-2">
+                                                    <button id="" class="btn" (click)="toggleGbpIdr()"
+                                                        data-bs-dismiss="modal">GBP/IDR</button>
+                                                    <button id="" class="btn" (click)="toggleChnIdr()"
+                                                        data-bs-dismiss="modal">CHN/IDR</button>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-center p-2">
+                                                <div class="">
+                                                    <button type="button" class="btn btn-outline-dark bg-white"
+                                                        data-bs-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end modal Tambah parameter -->
+                        </div>
+                        <!-- SOFR -->
+                        <div id="SOFRCastalia" class="mb-3 flex-fill" *ngIf="hideSOFR">
+                            <div class="d-flex justify-content-between">
+                                <label for="sofr-label" class="form-label fw-bold">SOFR</label>
+                                <div class="btn" data-bs-toggle="modal" data-bs-target="#sofrDelete">delete</div>
+                            </div>
+                            <!-- modal -->
+                            <div class="modal fade" id="sofrDelete" tabindex="-1" aria-labelledby="sofrDeleteLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="d-flex flex-column">
+                                                <div class="align-self-center">
+                                                    <img src="assets/image/cross.png" alt="">
+                                                </div>
+                                                <div class="align-self-center">
+                                                    <h5 class="text-center mt-2">Anda yakin ingin <br>
+                                                        menghapus "SOFR"?</h5>
+                                                </div>
+                                                <div class="align-self-center p-2">
+                                                    <button type="button" class="btn btn-outline-dark mr-2"
+                                                        data-bs-dismiss="modal">cancel</button>
+                                                    <button type="button" (click)="toggleSOFR()" id="bt"
+                                                        class="btn btn-danger" data-bs-dismiss="modal">Ya,
+                                                        Hapus</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end modal -->
+                            <div class="d-flex justify-content-between">
+                                <div class="input-group mb-3 p-1">
+                                    <input type="text" class="form-control" id="sofr1" formControlName="sofrReference" placeholder="Reference Rate (0.0)">
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                    <p>{{asumsiCastalia.value.sofrReference}}</p>
+                                </div>
+                                <div class="input-group mb-3 p-1">
+                                    <input type="text" class="form-control" id="sofr2" formControlName="sofrMargin" placeholder="Margin (0.0)">
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                </div>
+                                <p>{{asumsiCastalia.value.sofrMargin}}</p>
+                            </div>
+                        </div>
+                        <!-- end SOFR -->
+                        <!-- Interest Rate -->
+                        <div id="interestRateCastalia" class="mb-2 flex-fill" *ngIf="hideInterestRate">
+                            <div class="d-flex justify-content-between">
+                                <label for="interestRateCastalia-label" class="form-label fw-bold">Interest Rate</label>
+                                <div class="btn" data-bs-toggle="modal" data-bs-target="#interestRateCastaliaDelete">
+                                    delete
+                                </div>
+                                <!-- modal -->
+                                <div class="modal fade" id="interestRateCastaliaDelete" tabindex="-1"
+                                    aria-labelledby="interestRateCastaliaDeleteLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="d-flex flex-column">
+                                                    <div class="align-self-center">
+                                                        <img src="assets/image/cross.png" alt="">
+                                                    </div>
+                                                    <div class="align-self-center">
+                                                        <h5 class="text-center mt-2">Anda yakin ingin <br>
+                                                            menghapus "Interest Rate"?</h5>
+                                                    </div>
+                                                    <div class="align-self-center p-2">
+                                                        <button type="button" class="btn btn-outline-dark mr-2"
+                                                            data-bs-dismiss="modal">cancel</button>
+                                                        <button type="button" (click)="toggleInterestRate()"
+                                                            class="btn btn-danger" data-bs-dismiss="modal">Ya,
+                                                            Hapus</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end modal -->
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="input-group mb-3 p-2">
+                                    <input type="text" class="form-control" id="jibor3MO1" formControlName="interestRateReference" placeholder="Reference Rate (0.0)">
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                    <p>{{asumsiCastalia.value.interestRateReference}}</p>
+                                </div>
+                                <div class="input-group mb-3 p-2">
+                                    <input type="text" class="form-control" id="jibor3MO2" formControlName="interestRateMargin" placeholder="Margin (0.0)">
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                    <p>{{asumsiCastalia.value.interestRateMargin}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Interest Rate -->
+                        <!-- Jibor 3-MO -->
+                        <div id="jibor3MoCastalia" class="mb-2 flex-fill" *ngIf="hideJibor3MO">
+                            <div class="d-flex justify-content-between">
+                                <label for="jibor3MO-label" class="form-label fw-bold">JIBOR 3-MO</label>
+                                <div class="btn" data-bs-toggle="modal" data-bs-target="#jibor3moDelete">delete
+                                </div>
+                                <!-- modal -->
+                                <div class="modal fade" id="jibor3moDelete" tabindex="-1"
+                                    aria-labelledby="jibor3moDeleteLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="d-flex flex-column">
+                                                    <div class="align-self-center">
+                                                        <img src="assets/image/cross.png" alt="">
+                                                    </div>
+                                                    <div class="align-self-center">
+                                                        <h5 class="text-center mt-2">Anda yakin ingin <br>
+                                                            menghapus "SOFR"?</h5>
+                                                    </div>
+                                                    <div class="align-self-center p-2">
+                                                        <button type="button" class="btn btn-outline-dark mr-2"
+                                                            data-bs-dismiss="modal">cancel</button>
+                                                        <button type="button" (click)="toggleJibor3MO()"
+                                                            class="btn btn-danger" data-bs-dismiss="modal">Ya,
+                                                            Hapus</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end modal -->
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="input-group mb-3 p-2">
+                                    <input type="text" class="form-control" id="jibor3MO1" formControlName="jibor3MoReference" placeholder="Reference Rate (0.0)">
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                    <p>{{asumsiCastalia.value.jibor3MoReference}}</p>
+                                </div>
+                                <div class="input-group mb-3 p-2">
+                                    <input type="text" class="form-control" id="jibor3MO2" formControlName="jibor3MoMargin" placeholder="margin (0.0)">
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                    <p>{{asumsiCastalia.value.jibor3MoMargin}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end jibor 3-MO -->
+                        <!-- jibor 6-MO -->
+                        <div id="jibor6MoCastalia" class="mb-2 flex-fill" *ngIf="hideJibor6MO">
+                            <div class="d-flex justify-content-between">
+                                <label for="jibor6MO-label" class="form-label fw-bold">JIBOR 6-MO</label>
+                                <div class="btn" data-bs-toggle="modal" data-bs-target="#jibor6moDelete">delete
+                                </div>
+                                <!-- modal -->
+                                <div class="modal fade" id="jibor6moDelete" tabindex="-1"
+                                    aria-labelledby="jibor6moDeleteLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="d-flex flex-column">
+                                                    <div class="align-self-center">
+                                                        <img src="assets/image/cross.png" alt="">
+                                                    </div>
+                                                    <div class="align-self-center">
+                                                        <h5 class="text-center mt-2">Anda yakin ingin <br>
+                                                            menghapus "SOFR"?</h5>
+                                                    </div>
+                                                    <div class="align-self-center p-2">
+                                                        <button type="button" class="btn btn-outline-dark mr-2"
+                                                            data-bs-dismiss="modal">cancel</button>
+                                                        <button type="button" (click)="toggleJibor6MO()"
+                                                            class="btn btn-danger" data-bs-dismiss="modal">Ya,
+                                                            Hapus</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="input-group mb-3 p-2">
+                                    <input type="text" class="form-control" id="jibor6MO1" formControlName="jibor6MoReference" placeholder="Reference Rate">
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                    <p>{{asumsiCastalia.value.jibor6MoReference}}</p>
+                                </div>
+                                <div class="input-group mb-3 p-2">
+                                    <input type="text" class="form-control" id="jibor6MO2" formControlName="jibor6MoMargin" placeholder="Margin (0.0)">
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                    <p>{{asumsiCastalia.value.jibor6MoMargin}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end jibor 6-MO -->
+                        <!-- ATD 3MO -->
+                        <div id="Atd3MoCastalia" class="mb-2 flex-fill" *ngIf="hideAtd3MO">
+                            <div class="d-flex justify-content-between">
+                                <label for="atd3mo-label" class="form-label fw-bold">ATD 3-MO</label>
+                                <div class="btn" data-bs-toggle="modal" data-bs-target="#atd3moDelete">delete
+                                </div>
+                                <!-- modal -->
+                                <div class="modal fade" id="atd3moDelete" tabindex="-1"
+                                    aria-labelledby="atd3moDeleteLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="d-flex flex-column">
+                                                    <div class="align-self-center">
+                                                        <img src="assets/image/cross.png" alt="">
+                                                    </div>
+                                                    <div class="align-self-center">
+                                                        <h5 class="text-center mt-2">Anda yakin ingin <br>
+                                                            menghapus "SOFR"?</h5>
+                                                    </div>
+                                                    <div class="align-self-center p-2">
+                                                        <button type="button" class="btn btn-outline-dark mr-2"
+                                                            data-bs-dismiss="modal">cancel</button>
+                                                        <button type="button" (click)="toggleAtd3MO()"
+                                                            class="btn btn-danger" data-bs-dismiss="modal">Ya,
+                                                            Hapus</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="input-group mb-3 p-2">
+                                    <input type="text" class="form-control" id="atd3mo1" formControlName="atd3MoReference" placeholder="Reference Rate (0.0)">
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                    <p>{{asumsiCastalia.value.atd3MoReference}}</p>
+                                </div>
+                                <div class="input-group mb-3 p-2">
+                                    <input type="text" class="form-control" id="atd3mo2" formControlName="atd3MoMargin" placeholder="Margin (0.0)">
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                    <p>{{asumsiCastalia.value.atd3MoMargin}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end ATD 3-MO -->
+                        <!-- USD/IDR -->
+                        <div id="UsdIdrCastalia" class="mb-2 flex-fill" *ngIf="hideUsdIdr">
+                            <div class="d-flex justify-content-between">
+                                <label for="USDIDR-label" class="form-label fw-bold">USD/IDR</label>
+                                <div class="btn" data-bs-toggle="modal" data-bs-target="#usdDelete">delete</div>
+                                <!-- modal -->
+                                <div class="modal fade" id="usdDelete" tabindex="-1" aria-labelledby="usdDeleteLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="d-flex flex-column">
+                                                    <div class="align-self-center">
+                                                        <img src="assets/image/cross.png" alt="">
+                                                    </div>
+                                                    <div class="align-self-center">
+                                                        <h5 class="text-center mt-2">Anda yakin ingin <br>
+                                                            menghapus "USD/IDR"?</h5>
+                                                    </div>
+                                                    <div class="align-self-center p-2">
+                                                        <button type="button" class="btn btn-outline-dark mr-2"
+                                                            data-bs-dismiss="modal">cancel</button>
+                                                        <button type="button" (click)="toggleUsdIdr()"
+                                                            class="btn btn-danger" data-bs-dismiss="modal">Ya,
+                                                            Hapus</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between d-inline-flex">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="USDIDR1" formControlName="usdIdr" placeholder="6.03">
+                                    <span class="input-group-text" id="basic-addon2">USD/IDR</span>
+                                    <p>{{asumsiCastalia.value.usdIdr}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end USD/IDR -->
+                        <!-- EUR/IDR -->
+                        <div id="EurIdrCastalia" class="mb-2 flex-fill" *ngIf="hideEurIdr">
+                            <div class="d-flex justify-content-between">
+                                <label for="eurIdr-label" class="form-label fw-bold">EUR/IDR</label>
+                                <div class="btn" data-bs-toggle="modal" data-bs-target="#eurIdrDelete">delete</div>
+                                <!-- modal -->
+                                <div class="modal fade" id="eurIdrDelete" tabindex="-1"
+                                    aria-labelledby="eurIdrDeleteLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="d-flex flex-column">
+                                                    <div class="align-self-center">
+                                                        <img src="assets/image/cross.png" alt="">
+                                                    </div>
+                                                    <div class="align-self-center">
+                                                        <h5 class="text-center mt-2">Anda yakin ingin <br>
+                                                            menghapus "EUR/IDR"?</h5>
+                                                    </div>
+                                                    <div class="align-self-center p-2">
+                                                        <button type="button" class="btn btn-outline-dark mr-2"
+                                                            data-bs-dismiss="modal">cancel</button>
+                                                        <button type="button" (click)="toggleEurIdr()"
+                                                            class="btn btn-danger" data-bs-dismiss="modal">Ya,
+                                                            Hapus</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between d-inline-flex">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="USDIDR1" formControlName="eurIdr" placeholder="6.03">
+                                    <span class="input-group-text" id="basic-addon2">EUR/IDR</span>
+                                    <p>{{asumsiCastalia.value.eurIdr}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end EUR/IDR -->
+                        <!-- JPY/IDR -->
+                        <div id="jpyIdrCastalia" class="mb-2 flex-fill" *ngIf="hideJpyIdr">
+                            <div class="d-flex justify-content-between">
+                                <label for="jpyIdr-label" class="form-label fw-bold">JPY/IDR</label>
+                                <div class="btn" data-bs-toggle="modal" data-bs-target="#jpyIdrDelete">delete</div>
+                                <!-- modal -->
+                                <div class="modal fade" id="jpyIdrDelete" tabindex="-1"
+                                    aria-labelledby="jpyIdrDeleteLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="d-flex flex-column">
+                                                    <div class="align-self-center">
+                                                        <img src="assets/image/cross.png" alt="">
+                                                    </div>
+                                                    <div class="align-self-center">
+                                                        <h5 class="text-center mt-2">Anda yakin ingin <br>
+                                                            menghapus "JPY/IDR"?</h5>
+                                                    </div>
+                                                    <div class="align-self-center p-2">
+                                                        <button type="button" class="btn btn-outline-dark mr-2"
+                                                            data-bs-dismiss="modal">cancel</button>
+                                                        <button type="button" (click)="toggleJpyIdr()"
+                                                            class="btn btn-danger" data-bs-dismiss="modal">Ya,
+                                                            Hapus</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between d-inline-flex">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="USDIDR1" formControlName="jpyIdr" placeholder="6.03">
+                                    <span class="input-group-text" id="basic-addon2">JPY/IDR</span>
+                                    <p>{{asumsiCastalia.value.jpyIdr}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end JPY/IDR -->
+                        <!-- GBP/IDR -->
+                        <div id="gbpIdrCastalia" class="mb-2 flex-fill" *ngIf="hideGbpIdr">
+                            <div class="d-flex justify-content-between">
+                                <label for="gbpIdr-label" class="form-label fw-bold">GBP/IDR</label>
+                                <div class="btn" data-bs-toggle="modal" data-bs-target="#gbpIdrDelete">delete</div>
+                                <!-- modal -->
+                                <div class="modal fade" id="gbpIdrDelete" tabindex="-1"
+                                    aria-labelledby="bgpIdrDeleteLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="d-flex flex-column">
+                                                    <div class="align-self-center">
+                                                        <img src="assets/image/cross.png" alt="">
+                                                    </div>
+                                                    <div class="align-self-center">
+                                                        <h5 class="text-center mt-2">Anda yakin ingin <br>
+                                                            menghapus "GBP/IDR"?</h5>
+                                                    </div>
+                                                    <div class="align-self-center p-2">
+                                                        <button type="button" class="btn btn-outline-dark mr-2"
+                                                            data-bs-dismiss="modal">cancel</button>
+                                                        <button type="button" (click)="toggleGbpIdr()"
+                                                            class="btn btn-danger" data-bs-dismiss="modal">Ya,
+                                                            Hapus</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between d-inline-flex">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="USDIDR1"  formControlName="bgpIdr" placeholder="6.03">
+                                    <span class="input-group-text" id="basic-addon2">GBP/IDR</span>
+                                    <p>{{asumsiCastalia.value.bgpIdr}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end BGP/IDR -->
+                        <!-- CHN/IDR -->
+                        <div id="chnIdrCastalia" class="mb-2 flex-fill" *ngIf="hideChnIdr">
+                            <div class="d-flex justify-content-between">
+                                <label for="chnIdr-label" class="form-label fw-bold">CHN/IDR</label>
+                                <div class="btn" data-bs-toggle="modal" data-bs-target="#chnIdrDelete">delete</div>
+                                <!-- modal -->
+                                <div class="modal fade" id="chnIdrDelete" tabindex="-1"
+                                    aria-labelledby="chnIdrDeleteLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="d-flex flex-column">
+                                                    <div class="align-self-center">
+                                                        <img src="assets/image/cross.png" alt="">
+                                                    </div>
+                                                    <div class="align-self-center">
+                                                        <h5 class="text-center mt-2">Anda yakin ingin <br>
+                                                            menghapus "CHN/IDR"?</h5>
+                                                    </div>
+                                                    <div class="align-self-center p-2">
+                                                        <button type="button" class="btn btn-outline-dark mr-2"
+                                                            data-bs-dismiss="modal">cancel</button>
+                                                        <button type="button" (click)="toggleChnIdr()"
+                                                            class="btn btn-danger" data-bs-dismiss="modal">Ya,
+                                                            Hapus</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between d-inline-flex">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="USDIDR1" formControlName="chnIdr" placeholder="6.03">
+                                    <span class="input-group-text" id="basic-addon2">CHN/IDR</span>
+                                    <p>{{asumsiCastalia.value.chnIdr}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end CHN/IDR -->
+                        <!-- Additional -->
+                        <div id="AdditionalCastalia" class="mb-2 flex-fill" *ngIf="hideAdditional">
+                            <div class="d-flex justify-content-between">
+                                <label for="additional-label" class="form-label fw-bold">Additional
+                                    Proceed</label>
+                                <div class="btn" data-bs-toggle="modal" data-bs-target="#additionalDelete">
+                                    delete</div>
+                                <!-- modal -->
+                                <div class="modal fade" id="additionalDelete" tabindex="-1"
+                                    aria-labelledby="additionalDeleteLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="d-flex flex-column">
+                                                    <div class="align-self-center">
+                                                        <img src="assets/image/cross.png" alt="">
+                                                    </div>
+                                                    <div class="align-self-center">
+                                                        <h5 class="text-center mt-2">Anda yakin ingin <br>
+                                                            menghapus "SOFR"?</h5>
+                                                    </div>
+                                                    <div class="align-self-center p-2">
+                                                        <button type="button" class="btn btn-outline-dark mr-2"
+                                                            data-bs-dismiss="modal">cancel</button>
+                                                        <button type="button" (click)="toggleAdditional()"
+                                                            class="btn btn-danger" data-bs-dismiss="modal">Ya,
+                                                            Hapus</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="input-group mb-3 p-2">
+                                    <input type="text" class="form-control" id="additional1" formControlName="additionalProceedReference" placeholder="Reference Rate (0.0)">
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                    <p>{{asumsiCastalia.value.additionalProceedReference}}</p>
+                                </div>
+                                <div class="input-group mb-3 p-2">
+                                    <input type="text" class="form-control" id="additional2" formControlName="additionalProceedMargin" placeholder="Rate">
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                    <p>{{asumsiCastalia.value.additionalProceedMargin}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end Additional -->
+                    </div>
+                    <div class="d-flex flex-row-reverse">
+                        <button class="btn" matStepperNext>Next</button>
+                        <button class="btn" matStepperPrevious>Back</button>
+                    </div>
+                </form>
+            </mat-step>
+            <!-- End Asumsi Castalia  Model -->
+            <!-- Proyeksi -->
+            <mat-step [stepControl]="proyeksiStep">
+                <form [formGroup]="proyeksi">
+                    <ng-template matStepLabel>Proyeksi</ng-template>
+                    <div class="d-flex flex-fill justify-content-between flex-column p-2 mt-3">
+                        <div class="d-flex justify-content-between">
+                            <h6 class="fw-bold">Proyeksi*</h6>
+                        </div>
+                        <!-- Interest Paid -->
+                        <div class="mb-2 flex-fill justify-content-between">
+                            <div class="d-flex flex-column justify-content-between">
+                                <label for="interestPaid" class="form-label fw-bold">Interest Paid</label>
+                                <p>(Triliun Rp)</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="input-group mb-3 align-self-center">
+                                    <input type="text" class="form-control" id="interestPaid" placeholder="1" readonly
+                                        disabled>
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                </div>
+                                <i class="bi bi-caret-right-fill p-2"></i>
+                                <input type="text" class="form-control mb-3" id="sofr2" formControlName="interestPaid1" placeholder="0.00">
+                                <p>{{proyeksi.value.interestPaid1}}</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <input type="text" class="form-control mb-3" id="interestPaid" placeholder="Rp.100/USD"
+                                    readonly disabled>
+                                <i class="bi bi-caret-right-fill p-2"></i>
+                                <input type="text" class="form-control mb-3" id="sofr2" formControlName="interestPaid2" placeholder="0.00">
+                                <p>{{proyeksi.value.interestPaid2}}</p>
+                            </div>
+                            <div>
+                                <label for="Description" class="form-label fw-bold">Description</label>
+                                <div class="p-2">
+                                    <quill-editor [styles]="{width: '1075px', height: '200px'}">
+                                    </quill-editor>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Interest Paid -->
+                        <!-- interest Accrual -->
+                        <div class="mb-2 flex-fill justify-content-between">
+                            <div class="d-flex flex-column justify-content-between">
+                                <label for="interestPaid" class="form-label fw-bold">Interest Accrual</label>
+                                <p>(Triliun Rp)</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="input-group mb-3 align-self-center">
+                                    <input type="text" class="form-control" id="interestPaid" placeholder="1" readonly
+                                        disabled>
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                </div>
+                                <i class="bi bi-caret-right-fill p-2"></i>
+                                <input type="text" class="form-control mb-3" id="sofr2" formControlName="interestAccrual1" placeholder="0.00">
+                                <p>{{proyeksi.value.interestAccrual1}}</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <input type="text" class="form-control mb-3" id="interestPaid" placeholder="Rp.100/USD"
+                                    readonly disabled>
+                                <i class="bi bi-caret-right-fill p-2"></i>
+                                <input type="text" class="form-control mb-3" id="sofr2" formControlName="interestAccrual2" placeholder="0.00">
+                                <p>{{proyeksi.value.interestAccrual2}}</p>
+                            </div>
+                            <div>
+                                <label for="Description" class="form-label fw-bold">Description</label>
+                                <div class="p-2">
+                                    <quill-editor [styles]="{width: '1075px', height: '200px'}">
+                                    </quill-editor>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Interest Accrual -->
+                        <!-- Debt Service -->
+                        <div class="mb-2 justify-content-between">
+                            <div class="d-flex flex-column justify-content-between">
+                                <label for="interestPaid" class="form-label fw-bold">Debt Service</label>
+                                <p>Principal Repayment + Interest Paid (Triliun Rp)</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="flex-fill p-2">
+                                    <label for="RKAP" class="form-label fw-bold">RKAP</label>
+                                    <input type="text" class="form-control mb-3" id="RKAP" formControlName="rkapDebtService" placeholder="0.00">
+                                    <p>{{proyeksi.value.rkapDebtService}}</p>
+                                </div>
+                                <div class="p-2">
+                                    <label for="realisasi" class="form-label fw-bold">Realisasi</label>
+                                    <input type="text" class="form-control mb-3" id="realisasi" formControlName="realisasiDebtService" placeholder="0.00">
+                                    <p>{{proyeksi.value.realisasiDebtService}}</p>
+                                </div>
+                                <div class="p-3">
+                                    <p>s/d</p>
+                                </div>
+                                <div class="p-2 align-self-center">
+                                    <input type="text" class="form-control mb-3" id="RealisasiBulan" formControlName="bulanDebtService" placeholder="Bulan">
+                                    <p>{{proyeksi.value.bulanDebtService}}</p>
+                                </div>
+                                <div class="flex-fill p-2">
+                                    <label for="outlook" class="form-label fw-bold">Outlook</label>
+                                    <input type="text" class="form-control mb-3" id="outlook" formControlName="outlookDebtService" placeholder="0.00">
+                                    <p>{{proyeksi.value.outlookDebtService}}</p>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="Description" class="form-label fw-bold">Description</label>
+                                <div class="p-2">
+                                    <quill-editor id="DescriptionDebtService"
+                                        [styles]="{width: '1075px', height: '200px'}">
+                                    </quill-editor>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Debt Service -->
+                        <!-- sensitivitas Interest Bearing Debt -->
+                        <div class="mb-2 justify-content-between">
+                            <div class="d-flex flex-column justify-content-between">
+                                <div class="p-2">
+                                    <label for="outlook" class="form-label fw-bold">Sensitivitas Interest
+                                        Bearing
+                                        Debt</label>
+                                    <p>Triliun(Rp)</p>
+                                    <div class="d-inline-flex">
+                                        <input type="text" class="form-control mb-3" id="outlook" formControlName="sensitivitasBearingDebt" placeholder="0.00">
+                                        <p>{{proyeksi.value.sensitivitasBearingDebt}}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="Description" class="form-label fw-bold">Description</label>
+                                    <div class="p-2">
+                                        <quill-editor id="DescriptionDebtService"
+                                            [styles]="{width: '1075px', height: '200px'}">
+                                        </quill-editor>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Sensitivitas Bearing Debt -->
+                        <div class="d-flex flex-row-reverse">
+                            <button class="btn" matStepperNext>Next</button>
+                            <button class="btn" matStepperPrevious>Back</button>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+            <!-- End Proyeksi -->
+            <!-- Summary -->
+            <mat-step [stepControl]="interestBearingDebtStep">
+                <form [formGroup]="interestBearingDebt">
+                    <ng-template matStepLabel>Summary</ng-template>
+                    <div class="d-flex flex-fill justify-content-between flex-column mt-3">
+                        <h6 class="fw-bold">Summary*</h6>
+                        <div class="d-flex justify-content-between">
+                            <div class="flex-column">
+                                <div class="p-2">
+                                    <label for="Description" class="form-label fw-bold">Summary
+                                        Liabilities</label>
+                                    <quill-editor [styles]="{width: '1075px', height: '200px'}">
+                                    </quill-editor>
+                                </div>
+                                <div class="p-2">
+                                    <label for="Description" class="form-label fw-bold">Information</label>
+                                    <quill-editor [styles]="{width: '1075px', height: '200px'}">
+                                    </quill-editor>
+                                </div>
+                                <div class="p-2">
+                                    <label for="Description" class="form-label fw-bold">Footnote</label>
+                                    <quill-editor [styles]="{width: '1075px', height: '200px'}">
+                                    </quill-editor>
+                                </div>
+                                <div class="d-flex flex-row-reverse">
+                                    <button class="btn" matStepperNext (click)="onSubmit()">Next</button>
+                                    <button class="btn" matStepperPrevious>Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+            <!-- End Summary -->
+        </mat-stepper>
+    </main>
+    <footer class="">
+        <div class="sub-footer border-bottom border-top bg-white">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex">
+                    <div class="p-2"><img src="/assets/image/Check.png" alt=""></div>
+                    <div class="p-2">Saved Just Now</div>
+                    <div class="p-2"><i class="bi bi-info-circle"></i></div>
+                </div>
+                <div class="d-flex flex-row-reverse">
+                    <div class="p-2"><button class="btn btn-primary">Continue</button></div>
+                    <div class="p-2"><button class="btn">Save as draft</button></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <app-footer></app-footer>
+</div>

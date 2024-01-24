@@ -1,0 +1,259 @@
+<app-sidebar></app-sidebar>
+<app-header></app-header>
+<div id="header" class="header">
+    <div class="col-12 bg-white sub-nav border-bottom border-top">
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                <div class="btn" routerLink="/liabilities">
+                    <i class="bi bi-arrow-left"></i>
+                </div>
+                <div style="font-size: 22px;" class="flex-fill">Preview</div>
+                <div style="font-size: 12px; color: #606060;" class="align-self-center"> Created by {{today |
+                    date:"MMM dd, yyyy 'at' hh:mm a"}}</div>
+            </div>
+        </div>
+        <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#dashboard"
+                    type="button" role="tab" aria-controls="home" aria-selected="false">Interest Bearing Debt</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#data-table"
+                    type="button" role="tab" aria-controls="profile" aria-selected="false" tabindex="-1">Asumsi Castalia Model</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#data-table"
+                    type="button" role="tab" aria-controls="profile" aria-selected="false" tabindex="-1">Proyeksi</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#data-table"
+                    type="button" role="tab" aria-controls="profile" aria-selected="false" tabindex="-1">Summary</button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<main id="main" class="main">
+<div class="comtainter">
+    <!-- Interest Bearing Debt -->
+    <div id="interestBearingDebt" class="card borderless">
+        <div class="card-body">
+            <div class="d-flex flex-fill mt-3">
+                <h5 class="fw-bold">Interest Bearing Debt</h5>
+            </div>
+            <div>(Triliun)</div>
+            <div class="card borderless mt-2" style="background-color: #F8F8F8;">
+                <div class="d-flex justify-content-between p-3">
+                    <div class="flex-column">
+                        <div class="fw-bold">RKAP</div>
+                        <div class="mt-2">4.24</div>
+                    </div>
+                    <div class="flex-column">
+                        <div class="fw-bold">Realisasi</div>
+                        <div class="mt-2">4.24</div>
+                    </div>
+                    <div class="flex-column">
+                        <div class="fw-bold">Outlook</div>
+                        <div class="mt-2">4.24</div>
+                    </div>
+                </div>
+            </div>
+            <div class="fw-bold mt-3">Project Description</div>
+            <div class="mt-2">Saldo utang RKAP1) 2023 adalah sebesar Rp424.52T, posisi saldo utang per 31 Juli 2023 Rp374.03T. Sedangkan proyeksi per 31 Desember 2023 adalah sebesar Rp375.25T.</div>
+        </div>
+    </div>
+    <!-- End Interest Bearing Debt -->
+    <!-- Asumsi Castalia Model -->
+    <div id="asumsuCastaliaModel" class="card borderless mt-3">
+        <div class="card-body">
+            <div class="d-flex flex-fill mt-3">
+                <h5 class="fw-bold">Asumsi Castalia Model</h5>
+            </div>
+            <!-- SOFR -->
+            <div class="fw-bold mt-3">SOFR</div>
+            <div class="card borderless mt-2" style="background-color: #F8F8F8;">
+                <div class="d-flex p-3">
+                    <div class="flex-column flex-fill">
+                        <div class="">Reference Rate</div>
+                        <div class="mt-2">4.24</div>
+                    </div>
+                    <div class="flex-column flex-fill">
+                        <div class="">Margin</div>
+                        <div class="mt-2">4.24</div>
+                    </div>
+                </div>
+            </div>
+            <!-- End SOFR -->
+            <!-- JIBOR 3-MO -->
+            <div class="fw-bold mt-3">JIBOR 3-MO</div>
+            <div class="card borderless mt-2" style="background-color: #F8F8F8;">
+                <div class="d-flex p-3">
+                    <div class="flex-column flex-fill">
+                        <div class="">Reference Rate</div>
+                        <div class="mt-2">4.24</div>
+                    </div>
+                    <div class="flex-column flex-fill">
+                        <div class="">Margin</div>
+                        <div class="mt-2">4.24</div>
+                    </div>
+                </div>
+            </div>
+            <!-- End JIBOR 3-MO -->
+            <!-- JIBOR 6-MO -->
+            <div class="fw-bold mt-3">JIBOR 6-MO</div>
+            <div class="card borderless mt-2" style="background-color: #F8F8F8;">
+                <div class="d-flex p-3">
+                    <div class="flex-column flex-fill">
+                        <div class="">Reference Rate</div>
+                        <div class="mt-2">4.24</div>
+                    </div>
+                    <div class="flex-column flex-fill">
+                        <div class="">Margin</div>
+                        <div class="mt-2">4.24</div>
+                    </div>
+                </div>
+            </div>
+            <!-- End JIBOR 6-MO -->
+            <!-- ATD 3-MO -->
+            <div class="fw-bold mt-3">ATD 3-MO</div>
+            <div class="card borderless mt-2" style="background-color: #F8F8F8;">
+                <div class="d-flex p-3">
+                    <div class="flex-column flex-fill">
+                        <div class="">Reference Rate</div>
+                        <div class="mt-2">4.24</div>
+                    </div>
+                    <div class="flex-column flex-fill">
+                        <div class="">Margin</div>
+                        <div class="mt-2">4.24</div>
+                    </div>
+                </div>
+            </div>
+            <!-- End ATD 3-MO -->
+            <!-- USD/IDR -->
+            <div class="fw-bold mt-3">USD/IDR</div>
+            <div class="card borderless mt-2" style="background-color: #F8F8F8;">
+                <div class="d-flex p-3">
+                    <div class="flex-column flex-fill">
+                        <div class="mt-2">15.000</div>
+                    </div>
+                </div>
+            </div>
+            <!-- End USD/IDR -->
+            <!-- Additional Proceed -->
+            <div class="fw-bold mt-3">Additional Proceed</div>
+            <div class="card borderless mt-2" style="background-color: #F8F8F8;">
+                <div class="d-flex p-3">
+                    <div class="flex-column flex-fill">
+                        <div class="">Reference Rate</div>
+                        <div class="mt-2">4.24</div>
+                    </div>
+                    <div class="flex-column flex-fill">
+                        <div class="">Margin</div>
+                        <div class="mt-2">4.24</div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Additional Proceed -->
+        </div>
+    </div>
+    <!-- End Asumsi Castalia Model -->
+    <!-- Proyeksi -->
+    <div id="proyeksi" class="card borderless mt-3">
+        <div class="card-body">
+            <div class="d-flex flex-fill mt-3">
+                <h5 class="fw-bold">Proyeksi</h5>
+            </div>
+            <!-- Interest Paid -->
+            <div class="fw-bold">Interest Paid</div>
+            <div>(Triliun)</div>
+            <div class="card borderless mt-2" style="background-color: #F8F8F8;">
+                <div class="d-flex">
+                    <div class="p-2">1%</div>
+                    <div class="p-1"><img src="assets/icon/arrow-right.png"></div>
+                    <div class="p-2">0.29</div>
+                    <div class="fw-bold p-2">&</div>
+                    <div class="p-2">Rp 100/USD</div>
+                    <div class="p-1"><img src="assets/icon/arrow-right.png"></div>
+                    <div class="p-2">0.02</div>
+                </div>
+            </div>
+            <div class="fw-bold mt-3">Description</div>
+            <div class="mt-2">Saldo utang RKAP1) 2023 adalah sebesar Rp424.52T, posisi saldo utang per 31 Juli 2023 Rp374.03T. Sedangkan proyeksi per 31 Desember 2023 adalah sebesar Rp375.25T.</div>
+            <!-- End Interest Paid -->
+            <mat-divider class="mt-3"></mat-divider>
+            <!-- Interest Accrual -->
+            <div class="fw-bold mt-3">Interest Accrual</div>
+            <div>(Triliun)</div>
+            <div class="card borderless mt-2" style="background-color: #F8F8F8;">
+                <div class="d-flex">
+                    <div class="p-2">1%</div>
+                    <div class="p-1"><img src="assets/icon/arrow-right.png"></div>
+                    <div class="p-2">0.29</div>
+                    <div class="fw-bold p-2">&</div>
+                    <div class="p-2">Rp 100/USD</div>
+                    <div class="p-1"><img src="assets/icon/arrow-right.png"></div>
+                    <div class="p-2">0.02</div>
+                </div>
+            </div>
+            <div class="fw-bold mt-3">Description</div>
+            <div class="mt-2">Saldo utang RKAP1) 2023 adalah sebesar Rp424.52T, posisi saldo utang per 31 Juli 2023 Rp374.03T. Sedangkan proyeksi per 31 Desember 2023 adalah sebesar Rp375.25T.</div>
+            <!-- End Interest Accrual -->
+            <mat-divider class="mt-3"></mat-divider>
+            <!-- Debt Service -->
+            <div class="fw-bold mt-3">Debt Service</div>
+            <div>Principal Repayment + Interest Paid (Triliun Rp)</div>
+            <div class="card borderless mt-2" style="background-color: #F8F8F8;">
+                <div class="d-flex justify-content-between">
+                    <div class="flex-column p-3">
+                        <div class="fw-bold">RKAP</div>
+                        <div class="mt-2">4.24</div>
+                    </div>
+                    <div class="flex-column p-3">
+                        <div class="fw-bold">Realisasi</div>
+                        <div class="mt-2">4.24 s/d Juli</div>
+                    </div>
+                    <div class="flex-column p-3">
+                        <div class="fw-bold">Outlook</div>
+                        <div class="mt-2">4.24</div>
+                    </div>
+                </div>
+            </div>
+            <div class="fw-bold mt-3">Description</div>
+            <div class="mt-2">Saldo utang RKAP1) 2023 adalah sebesar Rp424.52T, posisi saldo utang per 31 Juli 2023 Rp374.03T. Sedangkan proyeksi per 31 Desember 2023 adalah sebesar Rp375.25T.</div>
+            <!-- End Debt Service -->
+            <mat-divider class="mt-3"></mat-divider>
+            <!-- Sensitivitas Interest Bearing Debt -->
+            <div class="fw-bold mt-3">Sensitivitas Bearing Debt</div>
+            <div>(Triliun Rp)</div>
+            <div class="card borderless mt-2" style="background-color: #F8F8F8;">
+                <div class="d-flex p-2">
+                    <div>1.15</div>
+                </div>
+            </div>
+            <div class="fw-bold mt-3">Description</div>
+            <div class="mt-2">Saldo utang RKAP1) 2023 adalah sebesar Rp424.52T, posisi saldo utang per 31 Juli 2023 Rp374.03T. Sedangkan proyeksi per 31 Desember 2023 adalah sebesar Rp375.25T.</div>
+            <!-- End Sensitivitas Interest Bearing Debt -->
+        </div>
+    </div>
+    <!-- End Proyeksi -->
+    <!-- Summary -->
+    <div id="summary" class="card borderless mt-3">
+        <div class="card-body">
+            <div class="d-flex flex-fill mt-3">
+                <h5 class="fw-bold">Summary</h5>
+            </div>
+            <div class="fw-bold mt-3">Sumary Liabilities</div>
+            <div class="mt-2">Prognosa pembayaran debt service tahun 2023 adalah sebesar Rp62.49 triliun, lebih rendah Rp3.86 triliun dari RKAP 2023.</div>
+            <mat-divider class="mt-3"></mat-divider>
+            <div class="fw-bold mt-3">Information</div>
+            <div class="mt-2">Prognosa pembayaran debt service tahun 2023 adalah sebesar Rp62.49 triliun, lebih rendah Rp3.86 triliun dari RKAP 2023.</div>
+            <mat-divider class="mt-3"></mat-divider>
+            <div class="fw-bold mt-3">Footnote</div>
+            <div class="mt-2">Prognosa pembayaran debt service tahun 2023 adalah sebesar Rp62.49 triliun, lebih rendah Rp3.86 triliun dari RKAP 2023.</div>
+            <mat-divider class="mt-3"></mat-divider>
+        </div>
+    </div>
+    <!-- End Summary -->
+</div>
+</main>
+<app-footer></app-footer>

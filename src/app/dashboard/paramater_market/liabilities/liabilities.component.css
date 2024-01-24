@@ -18,22 +18,9 @@
     font-weight: 500;
     line-height: 24px;
 }
-.angka-card{
-    color: var(--color-silver-950, #0C0C0F);
-    font-family: Satoshi;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    letter-spacing: 0.07px;
+.card{
+  border: none;
 }
-.text-card{
-    color: var(--color-silver-500, #9A9A9A);
-    font-family: Satoshi;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-}
-
 .article-card{
     margin: 15px 15px;
 }
@@ -52,16 +39,7 @@
 .btn-margin{
     margin: 25px 25px;
 }
-.edit-btn{
-    display: inline-flex;
-    padding: var(--padding-padding-small, 4px) var(--padding-padding-medium, 8px);
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-    border-radius: 6px;
-    border: 1px solid var(--color-silver-200, #E4E4E4);
-    background: var(--color-silver-0, #FFF);
-}
+
 .text-card3{
     font-size: 14px;
 }
@@ -75,7 +53,7 @@ a{
 .sub-nav{
   margin-top: 60px;
   padding-left: 282px;
-  padding-bottom: 20px;
+  padding-bottom: 0px;
   padding-top: 15px;
 }
 
@@ -97,4 +75,64 @@ a{
   #main{
     padding-top: 125px;
   }
+}
+
+#input_date{
+    border: 1px solid #e4e4e4;
+    padding: 5.5px;
+  }
+  
+  
+  ::ng-deep .mat-mdc-form-field{
+    width: 60%;
+    height: 60px;
+    margin-top: 0px;
+  }
+  
+  ::ng-deep .mdc-text-field--filled.mdc-text-field--disabled {
+    /* background-color: none; */
+    border: 1px solid rgba(1, 41, 112, 0.2);
+    border-radius: 10px;
+  }
+  
+  ::ng-deep .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix{
+    padding-top: 0px;
+  }
+  
+  ::ng-deep .mdc-text-field {
+    align-items: center !important;
+  }
+  
+  ::ng-deep .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control{
+    font-size: 14px !important;
+  }
+  
+  .label-datepicker{
+    font-size: 14px;
+    color: black;
+  }
+  .p-left{
+    padding-left: 25px;
+  }
+/* halfmodal */
+.left-modal {
+  position: absolute;
+  margin-left: 930px;
+  top: 0;
+  right: 0;
+  width: 600px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.left-modal .modal-dialog {
+  margin: 0;
+}
+
+.left-modal .modal-content {
+  border-radius: 5px 0 0 5px;
+}
+
+.left-modal .modal-header {
+  border-radius: 0 5px 5px 0;
 }

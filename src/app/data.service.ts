@@ -218,7 +218,7 @@ export class DataService {
   }
 
   async fetchDataViewRetailByDate(date: any, month: String | undefined){
-    try {
+    try { 
       return await lastValueFrom(
         this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_retail_sales?bulan=${month}`)
       )
@@ -232,4 +232,13 @@ export class DataService {
     return this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/trx-shl/analisa_shl`);
   }
 
+  // async fetchDataAnalisaSHL() {
+  //   try {
+  //     const response = await fetch(`http://10.1.18.47:9051/simloan/ws-v01/trx-shl/analisa_shl`); 
+  //     const data = await response.json();
+  //     return data;
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   }
+  // }
 }
