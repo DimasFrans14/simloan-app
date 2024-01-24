@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit{
   parseData: any;
   userAccount: any;
 
+  isLoading: boolean = false;
 
   constructor(
     private router: Router,
@@ -56,53 +57,27 @@ export class LoginComponent implements OnInit{
   //   })
   // }
 
-  async getData(){
-    let data = await this.dataService.fetchDataKurs();
-    this.dataAccount = data;
-    // console.log(this.dataAccount);
-  }
-
   async login() {
 
-    // Fake API
-    // const foundEmailUser = this.dataAccount.find((item: { email: string }) => item.email === this.email);
-    // const foundPassUser = this.dataAccount.find((item: { username: string }) => item.username === this.pass);
-    // if (foundEmailUser && foundPassUser ) {
-    //   this.router.navigate(['/main']);
-    // } else {
-    //   alert('Email or Password is invalid!');
-    // }
-
-    // Local Storage Data
-    // this.localData = localStorage.getItem('dataRegister');
-    // this.parseData = JSON.parse(this.localData);
-    // console.log(this.parseData.email);
-
-    // if (this.parseData.email === this.email && this.parseData.pass === this.pass) {
-    //   this.router.navigate(['/main']);
-    // } else {
-    //   alert('Email or Password is invalid!');
-    // }
-
-    //Find user in DB
+    this.isLoading = true;
     try {
-      const response = await this.auth.loginUser()
-      // console.log(response);
+      const response = await this.auth.loginUser(this.email, this.pass)
+      console.log(response);
       this.userAccount = response;
     } catch (error) {
       console.log(error);
     }
 
-    /*
-    indeks data ke-n kemungkinan harus diubah menjadi data yang akan ditemukan
-    based on parameter username dan password yang dikirim dari front end
-    */
-    localStorage.setItem('userAccount', JSON.stringify(this.userAccount.data.content[0]))
+    localStorage.setItem('token', JSON.stringify(this.userAccount.data.token).replace(/"/g, ''))
+    localStorage.setItem('role', JSON.stringify(this.userAccount.data.user_akses))
 
-    if (this.userAccount.data.content[0].email === this.email && this.pass === 'simloan123') {
+    if (this.userAccount.success) {
+      this.isLoading = false;
+      alert(this.userAccount.message);
       this.router.navigate(['/main']);
     } else {
-      alert('Email or Password is invalid!');
+      this.isLoading = false;
+      alert(this.userAccount.message);
     }
   }
 

@@ -10,6 +10,7 @@ import * as moment from 'moment';
 
 import { ViewportScroller } from '@angular/common';
 import { MatInput } from '@angular/material/input';
+import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 
 interface ExcelData {
   [key: string]: any;
@@ -23,10 +24,9 @@ interface ExcelData {
 export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   constructor(
-    private sanitizer: DomSanitizer,
     private tableConfig: TableServicesService,
-    private dataService: DataService,
-    private viewportScroller: ViewportScroller
+    private viewportScroller: ViewportScroller,
+    private marketUpdateService: MarketUpdateService
     // private router: Router
     ){
       // console.log(tableConfig);
@@ -38,24 +38,10 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       this.viewportScroller.scrollToAnchor(elementId);
   }
 
-  // html: SafeHtml = "";
-  // @ViewChild('tableau') tableau!: ElementRef<HTMLDivElement>;
-
-  // @ViewChild(TableServicesComponent, {static: false}) table!: TableServicesComponent;
-
   excelDataJSON: ExcelData[] = [];
 
   dataExcel: any;
   excelDataTable: any;
-
-  // selectedDate!: moment.Moment;
-
-  // someFunction() {
-  //   const formattedDate = moment(this.selectedDate).format('YYYY-MM-DD');
-  //   console.log(formattedDate);
-  // }
-
-  //variabel data table
 
   tableDataCurrency: any;
   tableCurrency:any;
@@ -85,6 +71,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   files: File[] = [];
 
+  isLoading: Boolean = false;
 
   //test dev data source
   testData: any;
@@ -112,9 +99,6 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       // this.excelDataTable = XLSX.utils.sheet_to_html(workbook.Sheets[sheetNames[0]]);
 
       // this.html = this.sanitizer.bypassSecurityTrustHtml(this.excelDataTable);
-      // console.log(event);
-      // console.log(sheetNames.length);
-      // console.log(workbook.Sheets);
       console.log(this.excelDataJSON);
     }
   }
@@ -122,7 +106,6 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   getDate(date: any){
     console.log(date);
     const formattedDate = moment(this.selectedDate).format('YYYY-MM-DD'); // Contoh format tanggal menggunakan Moment.js
-    // Lakukan sesuatu dengan formattedDate
     console.log(formattedDate);
   }
 
@@ -217,32 +200,33 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   async searchData(){
     try {
+
+
+      this.tableConfig.initializeTableData(this.threeDaysBefore, this.twoDaysBefore, this.yesterday, this.selectedDate)
+
       //FETCH BASED ON PARAMS
-      // const responseInflasi = await this.dataService.fetchDataViewInflasiByDate(this.selectedDate, this.selectedMonth);
-      // this.dataInflasi = responseInflasi
-      // this.tableConfig.updateTabelInflasi(this.dataInflasi.data);
+      const responseInflasi = await this.marketUpdateService.fetchDataViewInflasiByDate(this.selectedDate, this.selectedMonth);
+      this.dataInflasi = responseInflasi
+      this.tableConfig.updateTabelInflasi(this.dataInflasi);
 
       // const date = this.dataInflasi.data[0].tanggal.slice(-4)
       // console.log(date);
 
+      const responsePMI = await this.marketUpdateService.fetchDataViewPMIByDate(this.selectedDate, this.selectedMonth);
+      this.dataPMI = responsePMI
+      this.tableConfig.updateTabelPMI(this.dataPMI.data);
 
-      // const responsePMI = await this.dataService.fetchDataViewPMIByDate(this.selectedDate, this.selectedMonth);
-      // this.dataPMI = responsePMI
-      // this.tableConfig.updateTabelPMI(this.dataPMI.data);
+      const responseRetail = await this.marketUpdateService.fetchDataViewRetailByDate(this.selectedDate, this.selectedMonth);
+      this.dataRetail = responseRetail
+      this.tableConfig.updateTabelRetail(this.dataRetail.data);
 
-      // const responseRetail = await this.dataService.fetchDataViewRetailByDate(this.selectedDate, this.selectedMonth);
-      // this.dataRetail = responseRetail
-      // this.tableConfig.updateTabelRetail(this.dataRetail.data);
+      const responseMoneySupply = await this.marketUpdateService.fetchDataViewnMoneySupplyByDate(this.selectedDate,this.selectedMonth)
+      this.dataMoneySupply = responseMoneySupply;
+      this.tableConfig.updateTabelMoneySuply(this.dataMoneySupply.data);
 
-      // const responseMoneySupply = await this.dataService.fetchDataViewnMoneySupplyByDate(this.selectedDate,this.selectedMonth)
-      // this.dataMoneySupply = responseMoneySupply;
-      // this.tableConfig.updateTabelMoneySuply(this.dataMoneySupply.data);
-
-      // const responseDevisa = await this.dataService.fetchDataViewDevisaByDate(this.selectedDate, this.selectedMonth);
-      // this.dataDevisa = responseDevisa
-      // this.tableConfig.updateTabelDevisa(this.dataDevisa.data);
-
-      this.tableConfig.initializeTableData(this.threeDaysBefore, this.twoDaysBefore, this.yesterday, this.selectedDate)
+      const responseDevisa = await this.marketUpdateService.fetchDataViewDevisaByDate(this.selectedDate, this.selectedMonth);
+      this.dataDevisa = responseDevisa
+      this.tableConfig.updateTabelDevisa(this.dataDevisa.data);
 
     } catch (error) {
       console.log(error);
@@ -251,7 +235,6 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   resetFilter(){
     this.tableConfig.getBackData();
-    // console.log([this.inputDate.value]);
     this.inputDate.value = '';
 
     let today = new Date();
@@ -275,45 +258,69 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   keysBondYield: any;
   filteredInterestRate: any;
 
+  onSubmit(event: any) {
+    let targetColumn = [];
+    let targetBool = [];
+    for(let i=0; i<event.target.length - 1; i++){
+      if(event.target[i].checked){
+        targetColumn.push(event.target[i].id);
+      }
+    }
+    for(let i=0; i<event.target.length - 1; i++){
+      if(event.target[i]){
+        targetBool.push(event.target[i].checked);
+      }
+    }
+    this.tableConfig.customizeTableColumn(targetColumn, targetBool)
+  }
+
+  hideColumn(){
+    // this.tableConfig.hideColumn();
+  }
+
+  showColumn(){
+    this.tableConfig.showColumn();
+  }
+
   async ngOnInit(): Promise<void> {
     try {
-      // const responseCommodities = await this.dataService.fetchDataCommoditiesAll();
-      const responsePDB = await this.dataService.fetchDataPDB();
-      const responseKurs = await this.dataService.fetchDataKurs();
-      const responseCommodities = await this.dataService.fetchDataCommoditiesByDate('05/12/2023');
-      const responseBondYield = await this.dataService.fetchDataBondYield();
-      const responseDataInterestRate = await this.dataService.fetchDataInterestRate();
+      // const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll();
+      this.isLoading = true;
+      console.log('load before fetch: ' + this.isLoading);
+      const responsePDB = await this.marketUpdateService.fetchDataPDB();
+      const responseKurs = await this.marketUpdateService.fetchDataKurs();
+      const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll();
+      const responseBondYield = await this.marketUpdateService.fetchDataBondYield();
+      // const responseDataInterestRate = await this.marketUpdateService.fetchDataInterestRate();
 
+      // this.filteredInterestRate = responseDataInterestRate
+      // let limitedDIR :any[] = [];
+      // for(let i=0; i<5; i++){
+      //   limitedDIR.push(this.filteredInterestRate.data.content[i])
+      // }
 
-      //Sementara Interest Rate difilter karna masih bingung untuk aliran datanya
-      this.filteredInterestRate = responseDataInterestRate
-      let limitedDIR :any[] = [];
-      for(let i=0; i<5; i++){
-        limitedDIR.push(this.filteredInterestRate.data.content[i])
-      }
-
-      console.log(limitedDIR);
+      // console.log(limitedDIR);
 
       // const keyBY = Object.keys(responseBondYield)
       this.keysBondYield = responseBondYield
       // console.log(Object.keys(this.keysBondYield.data.content[0]));
 
 
-      const responseInflasi = await this.dataService.fetchDataInflasi();
+      const responseInflasi = await this.marketUpdateService.fetchDataInflasi();
       // this.dataInflasi = responseInflasi;
 
-      const responsePMI = await this.dataService.fetchDataPMI();
-      const responseRetail = await this.dataService.fetchDataRetail();
-      const responseMoneySupply = await this.dataService.fetchDataMoneySupply();
-      const responseDevisa = await this.dataService.fetchDataDevisa();
+      const responsePMI = await this.marketUpdateService.fetchDataPMI();
+      const responseRetail = await this.marketUpdateService.fetchDataRetail();
+      const responseMoneySupply = await this.marketUpdateService.fetchDataMoneySupply();
+      const responseDevisa = await this.marketUpdateService.fetchDataDevisa();
 
-      const responseInterestRate = await this.dataService.fetchDataInterestRateRKAP();
+      const responseInterestRate = await this.marketUpdateService.fetchDataInterestRateRKAP();
       this.dataRKAP = responseInterestRate;
 
       //Grouping data from one API
       // const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
       const filteredDataBondYield = this.dataRKAP.data.content.filter((item: any) => item.grup === 'BOND YIELD');
-      console.log(filteredDataBondYield);
+      // console.log(filteredDataBondYield);
 
       const filteredDataKurs = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
       const filteredDataCommodities = this.dataRKAP.data.content.filter((item: any) => item.grup === 'COMMODITIES');
@@ -325,12 +332,16 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       this.tableConfig.getDataRetail(responseRetail);
       this.tableConfig.getDataMoneySupply(responseMoneySupply);
       this.tableConfig.getDataDevisa(responseDevisa);
-      this.tableConfig.getDataInterestRate(limitedDIR);
-      this.tableConfig.getDataBondYield(filteredDataBondYield);
+      // this.tableConfig.getDataInterestRate(limitedDIR);
+      this.tableConfig.getDataBondYield(responseBondYield);
       this.tableConfig.getDataKurs(responseKurs);
+
+      this.isLoading = false;
+      console.log('load after fetch: ' + this.isLoading);
 
     } catch (error) {
       console.log(error);
+      this.isLoading = false;
     }
 
     let today = new Date();

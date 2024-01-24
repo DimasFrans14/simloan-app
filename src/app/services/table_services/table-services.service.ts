@@ -1,5 +1,4 @@
 import { Injectable, AfterViewInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { TabulatorFull as Tabulator } from 'tabulator-tables';
 
 @Injectable({
@@ -21,9 +20,10 @@ export class TableServicesService {
   public dataMoneySupply: any;
   public dataDevisa: any;
   public dataInterestRate: any;
-  public dataBondYield: any[] = [];
+  public dataBondYield: any;
   public dataKurs: any;
 
+  objectKeys: any;
 
   setData(data: any) {
     this.sharedData = data;
@@ -33,22 +33,22 @@ export class TableServicesService {
   }
 
   getDataCommodities(data: any){
-    this.dataCommodities = data.d.list;
-    console.log('data commodities', this.dataCommodities);
+    this.dataCommodities = data.data;
+    // console.log('data commodities', this.dataCommodities);
 
   }
   getDataPDB(data: any){
-    this.dataPDB = data.d.list;
+    this.dataPDB = data.data.content;
     // console.log('data pdb', this.dataPDB);
   }
 
   getDataInflasi(data: any){
-    this.dataInflasi = data.d.list;
+    this.dataInflasi = data.data;
     // console.log('data inflasi', this.dataInflasi);
   }
 
   getDataPMI(data: any){
-    this.dataPMI = data.d.list;
+    this.dataPMI = data.data;
     // console.log('data PMI', this.dataPMI);
   }
 
@@ -74,7 +74,7 @@ export class TableServicesService {
   }
 
   getDataBondYield(data: any){
-    this.dataBondYield = data;
+    this.dataBondYield = data.data.content;
     // console.log(key);
     // this.dataBondYield.push(key)
     // console.log(this.dataBondYield);
@@ -91,8 +91,8 @@ export class TableServicesService {
   }
 
   getDataKurs(data: any){
-    this.dataKurs = data.data.content;
-    console.log('data kurs', this.dataKurs);
+    this.dataKurs = data.data;
+    // console.log('data kurs', this.dataKurs);
   }
 
   getData() {
@@ -117,6 +117,9 @@ export class TableServicesService {
 
   //Data Bond Yield
   tableBondYield: any;
+
+  tableBondYieldSBN: any;
+  tableBondYieldUST: any;
   tableDataBondYield: any;
 
   //Data Commodities
@@ -178,6 +181,8 @@ export class TableServicesService {
   tabelPreview: any;
   dataTabelPreview: any;
 
+  fileExcel!: File;
+
   tableDataCreateLiabiliteis:any;
   tableCreateLiabiilities:any;
 
@@ -206,15 +211,10 @@ export class TableServicesService {
 }
 
   initializeTableData(threeDaysBefore: string, twoDaysBefore: string, yesterday: string, today: string) {
-    this.tableDataCurrency = [
-      {id:1, name:"USD", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
-      {id:2, name:"EUR", age:"12000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
-      {id:3, name:"JPY", age:"13000", rate:"2,53%", col:"green", dob:"22/05/1982"},
-      {id:4, name:"GBP", age:"14000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
-    ];
 
     this.tableCurrency = new Tabulator(".table-currency", {
           // height:205,
+      height: "335px",
       data:this.dataKurs,
       layout:"fitColumns",
       columns:[
@@ -222,11 +222,11 @@ export class TableServicesService {
     {//create column group
         title:"Exchange Rate",
         columns:[
-        {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:threeDaysBefore, field:"beli_min1", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:twoDaysBefore, field:"beli_min2", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:yesterday, field:"beli_min3", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:today, field:"beli_min4", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:"RKAP <br/>23", field:"rate_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:threeDaysBefore, field:"kurs_min3", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:twoDaysBefore, field:"kurs_min2", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:yesterday, field:"kurs_min1", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:today, field:"kurs", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
         ],
         headerHozAlign:"center"
     },
@@ -237,16 +237,6 @@ export class TableServicesService {
       ],
    }
     );
-
-
-    this.tableDataInterestRate = [
-      {id:1, name:"BI7DRR", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
-      {id:2, name:"FED RATE", age:"12000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
-      {id:3, name:"AVG SOFR", age:"13000", rate:"2,53%", col:"green", dob:"22/05/1982"},
-      {id:4, name:"JIBOR", age:"14000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
-      {id:5, name:"EURIBOR", age:"15000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
-      {id:6, name:"AVERAGE TIME DOPOSITE (3 Mo)", age:"15000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
-    ];
 
     this.tableInterestRate = new Tabulator(".table-interest", {
       // height:205,
@@ -268,26 +258,19 @@ export class TableServicesService {
       ],
    });
 
-    this.tableDataBondYield = [
-    {id:1, name:"USD", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
-    {id:2, name:"EUR", age:"12000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
-    {id:3, name:"JPY", age:"13000", rate:"2,53%", col:"green", dob:"22/05/1982"},
-    {id:4, name:"GBP", age:"14000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
-  ];
-
-    this.tableBondYield = new Tabulator(".table-bondYield", {
+    this.tableBondYieldSBN = new Tabulator(".table-bondYieldSBN", {
       // height:205,
       data:this.dataBondYield,
       layout:"fitColumns",
       columns:[
-        {title:"Tenor", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+        {title:"Tenor", field:"grup", headerHozAlign:"center", hozAlign:'left', headerSort:false},
     {//create column group
         title:"Yield",
         columns:[
-        {title: threeDaysBefore, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title: twoDaysBefore, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title: yesterday, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title: today, field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: threeDaysBefore, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: twoDaysBefore, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: yesterday, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: today, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
         ],
         headerHozAlign:"center"
     },
@@ -298,52 +281,53 @@ export class TableServicesService {
 
   });
 
-    this.tableDataCommodities = [
-      {id:1, name:"USD", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
-      {id:2, name:"EUR", age:"12000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
-      {id:3, name:"JPY", age:"13000", rate:"2,53%", col:"green", dob:"22/05/1982"},
-      {id:4, name:"GBP", age:"14000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
-    ];
+    this.tableBondYieldUST = new Tabulator(".table-bondYieldUST", {
+      // height:205,
+      data:this.dataBondYield,
+      layout:"fitColumns",
+      columns:[
+        {title:"Tenor", field:"grup", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+    {//create column group
+        title:"Yield",
+        columns:[
+        {title: threeDaysBefore, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: twoDaysBefore, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: yesterday, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: today, field:"5yr", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        ],
+        headerHozAlign:"center"
+    },
+    {title:"Yield Change <br/>MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>WoW", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+
+  });
 
     this.tableCommodities = new Tabulator(".table-commodities", {
     // height:205,
     data:this.dataCommodities,
     layout:"fitColumns",
     columns:[
-      {title:"Commodities", field:"keterangan", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+      {title:"Commodities", field:"kode_item", headerHozAlign:"center", hozAlign:'left', headerSort:false},
   {//create column group
       title:"Price",
       columns:[
-      {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:threeDaysBefore, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:twoDaysBefore, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"RKAP <br/>23", field:"nilai_min0", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:threeDaysBefore, field:"nilai_min3", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:twoDaysBefore, field:"nilai_min2", hozAlign:"center", headerHozAlign:"center", editor: "input"},
       {title:yesterday, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:today, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:today, field:"nilai_min0", hozAlign:"center", headerHozAlign:"center", editor: "input"},
       ],
       headerHozAlign:"center"
   },
-  {title:"Change <br/>MoM", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>WoW", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>1 Day", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change Dari RKAP", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>MoM", field:"persen_change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>WoW", field:"persen_change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>1 Day", field:"persen_change1_day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change Dari RKAP", field:"persen_change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     ],
 
   });
-
-    this.tableDataPDB = [
-        {id:1, name:"Q4 2023F", pdb: "4.90"},
-        {id:2, name:"Q4 2023F", pdb: "4.90"},
-        {id:3, name:"Q4 2023F", pdb: "4.90"},
-        {id:4, name:"Q4 2023F", pdb: "4.90"},
-        {id:5, name:"Q4 2023F", pdb: "4.90"},
-        {id:6, name:"Q4 2023F", pdb: "4.90"},
-        {id:7, name:"Q4 2023F", pdb: "4.90"},
-        {id:8, name:"Q4 2023F", pdb: "4.90"},
-        {id:9, name:"Q4 2023F", pdb: "4.90"},
-        {id:10, name:"Q4 2023F", pdb: "4.90"},
-        {id:11, name:"Q4 2023F", pdb: "4.90"},
-        {id:12, name:"Q4 2023F", pdb: "4.90", frozen:true},
-    ]
 
     this.tablePDB = new Tabulator(".table-pdb", {
       // height:20,
@@ -354,26 +338,11 @@ export class TableServicesService {
         alert("The user has moved column: " + column.getField()); //display the columns field name
     },
       columns:[
-        {title:"Periode", field:"kuartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 200, bottomCalc: this.customBottomCalc},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 200, bottomCalc: this.customBottomCalc},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
         {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
       ],
     });
-
-    this.tableDataInflasi = [
-        {id:1, month:"Januari", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:2, month:"Februari", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:3, month:"Maret", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:4, month:"April", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:5, month:"Mei", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:6, month:"Juni", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:7, month:"Juli", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:8, month:"Agustus", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:9, month:"September", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:10, month:"Oktober", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:11, month:"November", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:12, month:"Desember", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-    ]
 
     this.tableInflasi = new Tabulator(".table-inflasi", {
       // height:205,
@@ -385,27 +354,12 @@ export class TableServicesService {
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
-
-    this.tableDataMoneySupply = [
-        {id:1, month:"Januari", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:2, month:"Februari", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:3, month:"Maret", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:4, month:"April", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:5, month:"Mei", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:6, month:"Juni", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:7, month:"Juli", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:8, month:"Agustus", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:9, month:"September", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:10, month:"Oktober", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:11, month:"November", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:12, month:"Desember", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-    ]
 
     this.tableMoneySupply = new Tabulator(".table-moneySupply", {
       // height:205,
@@ -424,29 +378,6 @@ export class TableServicesService {
       ],
     });
 
-    // const updatedColumnDefinition = {
-    //   title: "New Date Title",
-    // };
-
-    // if(this.tableMoneySupply && this.dataMoneySupply){
-    //   this.tableMoneySupply.updateColumnDefinition('triliun_year_min0', updatedColumnDefinition);
-    // }
-
-    this.tableDataForeignExchange = [
-        {id:1, month:"Januari", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:2, month:"Februari", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:3, month:"Maret", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:4, month:"April", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:5, month:"Mei", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:6, month:"Juni", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:7, month:"Juli", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:8, month:"Agustus", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:9, month:"September", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:10, month:"Oktober", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:11, month:"November", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:12, month:"Desember", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-    ]
-
     this.tableForeignExchange = new Tabulator(".table-foreignExchange", {
       // height:205,
       height:"555px",
@@ -464,21 +395,6 @@ export class TableServicesService {
       ],
     });
 
-    this.tableDataPMI = [
-        {id:1, month:"Januari", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:2, month:"Februari", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:3, month:"Maret", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:4, month:"April", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:5, month:"Mei", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:6, month:"Juni", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:7, month:"Juli", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:8, month:"Agustus", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:9, month:"September", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:10, month:"Oktober", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:11, month:"November", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:12, month:"Desember", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-    ]
-
     this.tablePMI = new Tabulator(".table-pmi", {
       // height:205,
       height:"555px",
@@ -495,21 +411,6 @@ export class TableServicesService {
         {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
-
-    this.tableDataRetail = [
-        {id:1, month:"Januari", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:2, month:"Februari", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:3, month:"Maret", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:4, month:"April", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:5, month:"Mei", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:6, month:"Juni", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:7, month:"Juli", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:8, month:"Agustus", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:9, month:"September", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:10, month:"Oktober", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:11, month:"November", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-        {id:12, month:"Desember", thn2020: "4.90", thn2021: "4.90", thn2022: "4.90", thn2023: "4.90"},
-    ]
 
     this.tableRetail = new Tabulator(".table-retail", {
       // height:205,
@@ -698,12 +599,6 @@ export class TableServicesService {
   }
 
   initializeTableDataCommodities(){
-    this.tableDataCommodities = [
-      {id:1, name:"USD", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
-      {id:2, name:"EUR", age:"12000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
-      {id:3, name:"JPY", age:"13000", rate:"2,53%", col:"green", dob:"22/05/1982"},
-      {id:4, name:"GBP", age:"14000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
-    ];
 
     this.tableCommodities = new Tabulator(".table-commoditiesDetail", {
     // height:205,
@@ -732,12 +627,6 @@ export class TableServicesService {
   }
 
   initializeTableDataBondYield(){
-    this.tableDataBondYield = [
-      {id:1, name:"USD", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
-      {id:2, name:"EUR", age:"12000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
-      {id:3, name:"JPY", age:"13000", rate:"2,53%", col:"green", dob:"22/05/1982"},
-      {id:4, name:"GBP", age:"14000", rate:"2,53%", col:"orange", dob:"01/08/1980"},
-    ];
 
       this.tableBondYield = new Tabulator(".table-bondYieldDetail", {
         // height:205,
@@ -904,26 +793,26 @@ export class TableServicesService {
     })
   }
 
-  tablePreview(){
+  tablePreview(threeDaysBefore: string, twoDaysBefore: string, yesterday: string, today: string, objectKeys:any){
     this.tabelPreview = new Tabulator(".table-preview", {
       // height:205,
       data:this.dataTabelPreview,
       layout:"fitColumns",
       columns:[
-        {title:"IDR", field:"Name", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+        {title:objectKeys[1], field:objectKeys[1], headerHozAlign:"center", hozAlign:'left', headerSort:false},
     {//create column group
         title:"Exchange Rate",
         columns:[
-        {title:"24/02/23", field:"Rating", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"Rating", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"Rating", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"Rating", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:threeDaysBefore, field:objectKeys[3], hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:twoDaysBefore, field:objectKeys[3], hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:yesterday, field:objectKeys[3], hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:today, field:objectKeys[3], hozAlign:"center", headerHozAlign:"center", editor: "input"},
         ],
         headerHozAlign:"center"
     },
-    {title:"Yield Change <br/>MoM", field:"Rating", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Yield Change <br/>WoW", field:"Rating", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Yield Change <br/>1 Day", field:"Rating", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>MoM", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>WoW", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>1 Day", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       ],
 
   });
@@ -976,7 +865,7 @@ export class TableServicesService {
 
   public updateTabelInflasi(data: any){
     const tabel = this.tableInflasi;
-    tabel.replaceData(data);
+    tabel.replaceData(data.data);
   }
 
   public updateTabelPMI(data: any){
@@ -1023,9 +912,49 @@ export class TableServicesService {
     // console.log(data);
   }
 
-  previewData(data: any){
+  previewData(data: any, file: File){
+
     console.log('preview data: ', data);
+    this.fileExcel = file;
+    this.objectKeys = Object.keys(data[0])
+
     this.dataTabelPreview = data;
+    console.log(this.objectKeys);
+    // this.tabelPreview(this.objectKeys)
+    console.log('file', this.fileExcel);
+  }
+
+  customizeTableColumn(columnName: any, checked: any){
+
+    let nameColumn = [
+      'mata_uang',
+      'nilai_rkap',
+      'change_rkap',
+      'change_mom',
+      'change_wow',
+      'change_1day'
+    ]
+
+    let hiddenColumns: any[] = [];
+    let showColumn = nameColumn.filter((item: any) => !columnName.includes(item));
+
+    for(let i=0; i<checked.length; i++){
+      if(checked[i] == true){
+        for(let j=0; j<columnName.length; j++){
+          this.tableCurrency.hideColumn(columnName[j]);
+        }
+        console.log('true');
+      }
+      else{
+        console.log('false');
+        this.tableCurrency.showColumn(showColumn[i]);
+      }
+    }
+    console.log([columnName, showColumn, hiddenColumns, checked]);
+  }
+
+  showColumn(){
+    this.tableCurrency.showColumn('mata_uang');
   }
 }
 

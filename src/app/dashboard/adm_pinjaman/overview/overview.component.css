@@ -1,0 +1,66 @@
+.sub-nav{
+  margin-top: 60px;
+  padding-left: 285px;
+}
+
+.header-btn{
+  width: 200px;
+  /* display: inline-flex; */
+  /* padding: var(--padding-padding-small, 4px) var(--padding-padding-medium, 8px); */
+  padding: 9px 16px;
+  /* justify-content: center; */
+  /* align-items: center; */
+  gap: 4px;
+  border-radius: 6px;
+  border: 1px solid var(--color-silver-200, #E4E4E4);
+  background: var(--color-silver-0, #FFF);
+}
+
+#main{
+  margin-top: 15px;
+}
+
+::ng-deep .mat-mdc-form-field{
+  width: 100%;
+  height: 60px;
+  margin-top: 25px;
+}
+
+::ng-deep .mdc-text-field--filled.mdc-text-field--disabled {
+  /* background-color: none; */
+  border: 1px solid rgba(1, 41, 112, 0.2);
+  border-radius: 10px;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix{
+  padding-top: 20px;
+}
+
+::ng-deep .mdc-text-field {
+  align-items: center !important;
+}
+
+::ng-deep .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control{
+  font-size: 14px !important;
+}
+
+.label-datepicker{
+  font-size: 14px;
+  color: black;
+}
+
+@media (max-width: 1199px) {
+  .sub-nav {
+    /* padding-left: 20px; */
+    padding: 15px;
+    margin: 0px;
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    left: 0px;
+  }
+/*
+  #main{
+    margin-top: 20%;
+  } */
+}

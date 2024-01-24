@@ -57,6 +57,8 @@ import { PreviewLaporanComponent } from './dashboard/paramater_market/market-upd
 import { CreateLiabilitiesComponent } from './dashboard/paramater_market/liabilities/create-liabilities/create-liabilities.component';
 import { FieldErrorDisplayComponent } from './field-error-display/field-error-display.component';
 import { PreviewLiabilitiesComponent } from './dashboard/paramater_market/liabilities/preview-liabilities/preview-liabilities.component';
+import { OverviewComponent } from './dashboard/adm_pinjaman/overview/overview.component';
+import { LoanProfileComponent } from './dashboard/adm_pinjaman/loan-profile/loan-profile.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +94,8 @@ import { PreviewLiabilitiesComponent } from './dashboard/paramater_market/liabil
     CreateLiabilitiesComponent,
     FieldErrorDisplayComponent,
     PreviewLiabilitiesComponent,
+    OverviewComponent,
+    LoanProfileComponent,
   ],
   imports: [
     BrowserModule,

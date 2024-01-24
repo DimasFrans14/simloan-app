@@ -13,15 +13,12 @@
                           <h2 class="fw-bold mb-2 text-center">Daftar</h2>
                           <p class="text-black-50 mb-2 text-center">harap mengisi formulir untuk meminta akses SIMLOAN. kami akan menginformasikan anda 1-2 hari melalui email.</p>
                           <div class="mb-3">
-                              <label for="" class="form-label fw-bold mb-2">Pilih Divisi</label>
-                              <select id="" class="form-select" aria-placeholder="Pilih divisi anda" #selectDivision (change)="getValueDivision(selectDivision.value)">
-                                  <option value="">Pilih Divisi Anda</option>
-                                  <option value="1">Administrator</option>
-                                  <option value="2">SHL</option>
-                                  <option value="3">Castalia</option>
-                                  <option value="4">Market</option>
-                              </select>
-                          </div>
+                            <label for="" class="form-label fw-bold mb-2">Pilih Kewenangan PIC</label>
+                            <select id="" class="form-select" aria-placeholder="Pilih Role" #selectDivision [(ngModel)]="selectedDivisionId" (change)="getValueDivision()">
+                                <!-- <option value="">Pilih kewenangan</option> -->
+                                <option [value]="item.id_devisi" *ngFor="let item of optionDivisi">{{item.devisi}}</option>
+                            </select>
+                        </div>
                           <label for="" class="form-label fw-bold mb-2">Nama Anda</label>
                           <div class="input-group mb-2">
                               <span class="input-group-text" id="basic-addon1"><img src="../../assets/icon/user-03.svg" alt=""></span>
@@ -47,16 +44,12 @@
                           </div>
                           <div class="mb-3">
                               <label for="" class="form-label fw-bold mb-2">Pilih Kewenangan PIC</label>
-                              <select id="" class="form-select" aria-placeholder="Pilih divisi ande" #selectRole (change)="getValueSelect(selectRole.value)">
-                                  <option value="">Pilih Tingkatan Pengguna</option>
-                                  <option value="1">Administrator</option>
-                                  <option value="2">VP</option>
-                                  <option value="3">Manager</option>
-                                  <option value="4">Staff Pegawai</option>
-                                  <option value="5">Anak Perusahaan</option>
+                              <select id="" class="form-select" aria-placeholder="Pilih Role" #selectRole [(ngModel)]="selectedRoleId" (change)="getValueSelect()">
+                                  <!-- <option value="">Pilih kewenangan</option> -->
+                                  <option [value]="item.id_role" *ngFor="let item of optionRole">{{item.role_name}}</option>
                               </select>
                           </div>
-                          <div  [style.display]="roleValue === '5' ? 'block' : 'none'">
+                          <div  [style.display]="selectedRoleId === 5 ? 'block' : 'none'">
                             <label for="" class="form-label fw-bold mb-2">Nama Perusahaan</label>
                             <div class="input-group mb-2">
                               <span class="input-group-text" id="basic-addon1"><img src="assets/icon/user-03.svg" alt=""></span>
@@ -64,7 +57,7 @@
                             </div>
                           </div>
                           <div class="d-grid gap-2">
-                              <button class="btn btn-primary btn-lg" type="button" (click)="getData()">
+                              <button class="btn btn-primary btn-lg" type="button" (click)="registUser()">
                                   Kirim
                               </button>
                           </div>
