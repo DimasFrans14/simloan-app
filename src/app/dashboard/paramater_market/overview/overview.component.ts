@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
-import { ApexAxisChartSeries, ApexChart,  ApexPlotOptions,  ApexTitleSubtitle, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
+import { ApexAnnotations, ApexAxisChartSeries, ApexChart,  ApexPlotOptions,  ApexTitleSubtitle, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
 import { DataService } from 'src/app/data.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 
@@ -20,14 +20,95 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   dataKurs: any;
   dataRKAP: any;
   lineChartKursSeries: ApexAxisChartSeries = [];
+  chartSeries2: ApexAxisChartSeries = [];
   lineChartInterestRateSeries: ApexAxisChartSeries = [];
+  lineYAxis!: ApexYAxis;
+  tesXaxis!: ApexXAxis;
 
-  compareValue: string = 'Compare'
+  selectedItems!: number;
+
+  tesLocalStorageKurs: any;
+  tesFilterKurs : any;
+
+  dataCompare = [
+    {
+      'id_kurs': 1,
+      'kurs': 'USD',
+      'changeRKAP': '2,53%',
+      'changeWoW': '3,53%',
+      'changeMoM': '4,53%',
+      'change_1Day': '5,53'
+    },
+    {
+      'id_kurs': 2,
+      'kurs': 'EUR',
+      'changeRKAP': '2,53%',
+      'changeWoW': '3,53%',
+      'changeMoM': '4,53%',
+      'change_1Day': '5,53'
+    },
+    {
+      'id_kurs': 3,
+      'kurs': 'JPY',
+      'changeRKAP': '2,53%',
+      'changeWoW': '3,53%',
+      'changeMoM': '4,53%',
+      'change_1Day': '5,53'
+    },
+  ]
+
+  sampleData = {
+      'id_kurs': 4,
+      'kurs': 'AUD',
+      'changeRKAP': '2,53%',
+      'changeWoW': '3,53%',
+      'changeMoM': '4,53%',
+      'change_1Day': '5,53'
+  }
+
+  addSample(){
+    this.dataCompare.push(this.sampleData)
+  }
+
+  getValueCompare(event: any){
+    console.log(event);
+  }
+
+  hideValueCompare: boolean = false;
+  hideCompare(event: any){
+    const check = this.tesLocalStorageKurs.filter(
+      (item: any) => item.mata_uang.includes(event)
+    )
+    if(event != undefined){
+      this.hideValueCompare = !this.hideValueCompare
+      console.log(check);
+      for(let i=0; i<check.length; i++){
+        if(this.tesLocalStorageKurs.length > 6){
+          const tes = this.tesLocalStorageKurs.filter(
+            (item: any) => item.mata_uang != check[i].mata_uang
+          )
+          console.log(tes);
+          this.tesLocalStorageKurs = tes
+          return this.tesLocalStorageKurs
+        }
+        else{
+          alert('data tidak boleh kurang dari 6');
+          return this.tesLocalStorageKurs
+        }
+      }
+    }
+    else{
+      console.log('else');
+    }
+    // console.log(this.tesLocalStorageKurs, this.dataKurs.data);
+
+  }
 
   async ngOnInit(): Promise<void> {
     try {
       const responseKurs = await this.marketUpdateService.fetchDataKurs()
       this.dataKurs = responseKurs;
+      localStorage.setItem('compareData', JSON.stringify(this.dataKurs.data))
 
       const responseRKAP = await this.dataService.fetchDataInterestRateRKAP()
       this.dataRKAP = responseRKAP;
@@ -59,6 +140,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       // ];
 
       this.lineChartKursSeries = [];
+      this.chartSeries2 = [];
 
       for (let i = 0; i < this.dataKurs.data.length ; i++) {
         const mataUang = this.dataKurs.data[i].mata_uang;
@@ -68,7 +150,30 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           name: `${mataUang}`,
           data: dataValues
         });
+
+        this.chartSeries2.push({
+          name: `${mataUang}`,
+          data: dataValues
+        })
       }
+      console.log(typeof(this.dataKurs.data[0].kurs_min2));
+
+
+      this.lineYAxis = {
+        // tickAmount: 50,
+      }
+
+      this.tesXaxis = {
+        categories:[
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      }
+
+      console.log(this.lineChartKursSeries);
+
 
 
       this.lineChartInterestRateSeries = [
@@ -97,6 +202,14 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           data: [12, 11, dataInterest[5].rate, 15, 11]
         }
       ];
+
+      this.tesLocalStorageKurs = localStorage.getItem('compareData');
+      this.tesLocalStorageKurs = JSON.parse(this.tesLocalStorageKurs)
+      this.tesFilterKurs = this.tesLocalStorageKurs.filter(
+        (item: any) => ['USD', 'GBP', 'AUD', 'JPY'].includes(item.mata_uang)
+      );
+
+      console.log(this.tesFilterKurs);
     } catch (error) {
       console.log(error);
     }
@@ -130,20 +243,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   }
 
 
-  chartSeries2: ApexAxisChartSeries = [
-    {
-      name: "Net Profit",
-      data: [111, -55, -57]
-    },
-    {
-      name: "Revenue",
-      data: [76, -85, -101]
-    },
-    {
-      name: "Free Cash Flow",
-      data: [35, -41, -36]
-    }
-  ];
+  // chartSeries2: ApexAxisChartSeries = [
+  //   {
+  //     name: "Net Profit",
+  //     data: [111, -55, -57]
+  //   },
+  //   {
+  //     name: "Revenue",
+  //     data: [76, -85, -101]
+  //   },
+  //   {
+  //     name: "Free Cash Flow",
+  //     data: [35, -41, -36]
+  //   }
+  // ];
 
   currencyChartDetails: ApexChart = {
     type: 'line',
@@ -171,12 +284,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       show: true,
       tools: {
         download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
       }
     }
   }

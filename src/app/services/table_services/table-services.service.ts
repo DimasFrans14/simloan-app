@@ -33,22 +33,22 @@ export class TableServicesService {
   }
 
   getDataCommodities(data: any){
-    this.dataCommodities = data.data.content;
+    this.dataCommodities = data.data;
     // console.log('data commodities', this.dataCommodities);
 
   }
   getDataPDB(data: any){
-    this.dataPDB = data.d.list;
+    this.dataPDB = data.data.content;
     // console.log('data pdb', this.dataPDB);
   }
 
   getDataInflasi(data: any){
-    this.dataInflasi = data.d.list;
+    this.dataInflasi = data.data;
     // console.log('data inflasi', this.dataInflasi);
   }
 
   getDataPMI(data: any){
-    this.dataPMI = data.d.list;
+    this.dataPMI = data.data;
     // console.log('data PMI', this.dataPMI);
   }
 
@@ -309,18 +309,18 @@ export class TableServicesService {
   {//create column group
       title:"Price",
       columns:[
-      {title:"RKAP <br/>23", field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:threeDaysBefore, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:twoDaysBefore, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:yesterday, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:today, field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"RKAP <br/>23", field:"nilai_min0", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:threeDaysBefore, field:"nilai_min3", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:twoDaysBefore, field:"nilai_min2", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:yesterday, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:today, field:"nilai_min0", hozAlign:"center", headerHozAlign:"center", editor: "input"},
       ],
       headerHozAlign:"center"
   },
-  {title:"Change <br/>MoM", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>WoW", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>1 Day", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change Dari RKAP", field:"nilai_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>MoM", field:"persen_change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>WoW", field:"persen_change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>1 Day", field:"persen_change1_day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change Dari RKAP", field:"persen_change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     ],
 
   });
@@ -334,7 +334,7 @@ export class TableServicesService {
         alert("The user has moved column: " + column.getField()); //display the columns field name
     },
       columns:[
-        {title:"Periode", field:"kuartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 200, bottomCalc: this.customBottomCalc},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 200, bottomCalc: this.customBottomCalc},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
         {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
       ],

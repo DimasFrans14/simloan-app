@@ -50,7 +50,7 @@ export class MarketUpdateService {
   async fetchDataCommoditiesAll(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/master-rkap-commodities`)
+        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_real_rkap_commodities`)
       );
     } catch (error) {
       console.log(error);
@@ -68,10 +68,22 @@ export class MarketUpdateService {
     }
   }
 
+  async fetchDataCommoditiesOverview(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/trx-overview/view_overcommodities
+        `)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
   async fetchDataPDB(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/macroindicator/pdb/getList`)
+        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb`)
       );
     } catch (error) {
       console.log(error);
@@ -94,7 +106,7 @@ export class MarketUpdateService {
   async fetchDataInflasi(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/macroindicator/inflasi/getList?date=12/12/2023`)
+        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_inflasi`)
       );
     } catch (error) {
       console.log(error);
@@ -105,7 +117,8 @@ export class MarketUpdateService {
   async fetchDataPMI(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/macroindicator/pmi/getList?date=12/12/2023`)
+        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_real_pmi
+        `)
       );
     } catch (error) {
       console.log(error);

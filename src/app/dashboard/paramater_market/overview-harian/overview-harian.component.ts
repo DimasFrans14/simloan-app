@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import Quill from 'quill';
 import { QuillServicesService } from 'src/app/services/textArea_services/quill-services.service';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
@@ -8,11 +8,14 @@ import PptxGenJS from 'pptxgenjs';
 import { DataService } from 'src/app/data.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as moment from 'moment';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 
 @Component({
   selector: 'overview-harian',
   templateUrl: './overview-harian.component.html',
-  styleUrls: ['./overview-harian.component.css']
+  styleUrls: ['./overview-harian.component.css'],
+  // encapsulation: ViewEncapsulation.
 })
 export class OverviewHarian implements OnInit, AfterViewInit{
 
@@ -23,9 +26,10 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   constructor(private quillConfig: QuillServicesService,
      private tableConfig: TableServicesService,
      private captureService: NgxCaptureService,
-     private dataService: DataService){
+     private marketUpdateService: MarketUpdateService,
+     private sanitizer: DomSanitizer){
     // console.log(this.tableConfig.getData());
-    // console.log(this.dataService.setData());
+    // console.log(this.marketUpdateService.setData());
   }
 
   public quillTakeways!: Quill;
@@ -281,7 +285,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
     try {
       //TES FETCH BASED ON PARAMS
-      const response = await this.dataService.fetchDataViewInflasiByDate(formattedDate, month);
+      const response = await this.marketUpdateService.fetchDataViewInflasiByDate(formattedDate, month);
       this.formatTanggal = response
       console.log(this.formatTanggal.data[0].tanggal);
 
@@ -293,7 +297,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   async ngOnInit(): Promise<void> {
     try {
-      const responseData = await this.dataService.fetchDataInterestRateRKAP();
+      const responseData = await this.marketUpdateService.fetchDataInterestRateRKAP();
       console.log(responseData);
 
       this.dataRKAP = responseData;
@@ -301,8 +305,13 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       this.dataInterestRate = filteredDataInterestRate
       console.log(this.dataInterestRate);
 
-      const filteredDataCommodities = this.dataRKAP.data.content.filter((item: any) => item.grup === 'COMMODITIES');
-      this.dataCommodities = filteredDataCommodities
+      const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview()
+
+      console.log(commoditiesOverview);
+      this.dataCommodities = commoditiesOverview
+
+      this.dataCommodities = this.dataCommodities.data.filter((item: any) => item.tanggal == '01/11/2022');
+
       console.log(this.dataCommodities);
 
       const filteredDataCurrency = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
@@ -335,12 +344,18 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   }
 
   quillContent!: any;
+  quillInnerHTML: any
+  transformYourHtml(htmlTextWithStyle: any) {
+    const innerHTML = this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
+    this.quillInnerHTML = innerHTML
+}
 
   getValue() {
     let value = this.quillTakeways.root.innerHTML;
     this.quillContent = value;
     console.log(value);
-}
+    this.transformYourHtml(this.quillContent)
+  }
 
   getValue2(){
     let value = this.quillFootnote.getText();

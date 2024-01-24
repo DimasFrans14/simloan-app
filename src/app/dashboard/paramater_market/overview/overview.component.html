@@ -8,45 +8,73 @@
       <div class="d-flex flex-col justify-content-between align-items-center">
         <div>
           <!-- <button class="btn btn-light bg-white" style="font-size: 14px; border: 1px solid #e4e4e4">Harian</button> -->
-          <a routerLink="/overview_harian" class="btn btn-light bg-white ms-2 text-dark" style="font-size: 14px;" >Harian</a>
-          <button class="btn btn-primary ms-2" style="font-size: 14px;">Trending</button>
+          <a
+            routerLink="/overview_harian"
+            class="btn btn-light bg-white ms-2 text-dark"
+            style="font-size: 14px"
+            >Harian</a
+          >
+          <button class="btn btn-primary ms-2" style="font-size: 14px">
+            Trending
+          </button>
           <!-- <button class="btn btn-light bg-white ms-2" style="font-size: 14px;"><i class="bi bi-calendar me-2"></i>Pilih Tanggal</button> -->
-          <input type="date" name="date" id="input_date" class="bg-white rounded border-none ms-2" placeholder="Pilih Tanggal">
-          <button class="btn btn-light bg-white ms-2" (click)="toggleVisibilityLine()"><i class="bi bi-graph-up"></i></button>
-          <button class="btn btn-light bg-white ms-2" (click)="toggleVisibilityBar()"><i class="bi bi-bar-chart-line"></i></button>
+          <!-- <input type="date" name="date" id="input_date" class="bg-white rounded border-none ms-2" placeholder="Pilih Tanggal"> -->
+          <button
+            class="btn btn-light bg-white ms-2"
+            (click)="toggleVisibilityLine()"
+          >
+            <i class="bi bi-graph-up"></i>
+          </button>
+          <button
+            class="btn btn-light bg-white ms-2"
+            (click)="toggleVisibilityBar()"
+          >
+            <i class="bi bi-bar-chart-line"></i>
+          </button>
         </div>
-        <div style="font-size: 14px;">
+        <div style="font-size: 14px">
           <p>Indikator:</p>
           <div class="d-flex align-items-center justify-content-center">
             <div>
               <span class="text-danger me-2 fw-semibold">RKAP</span>
             </div>
             <div>
-              <img src="assets/icon/bullet.svg" alt="" class="me-2">
+              <img src="assets/icon/bullet.svg" alt="" class="me-2" />
             </div>
             <div>
               <span class="text-primary me-2 fw-semibold">Realisasi</span>
             </div>
             <div>
-              <img src="assets/icon/bullet.svg" alt="" class="me-2">
+              <img src="assets/icon/bullet.svg" alt="" class="me-2" />
             </div>
             <div>
               <span class="text-secondary fw-semibold">Outlook</span>
             </div>
           </div>
         </div>
-        <div style="font-size: 12px;">
-          <span><i class="bi bi-circle-fill text-success me-2"></i>On Track</span><br/>
-          <span><i class="bi bi-circle-fill text-warning me-2"></i>≤5% Underperformance</span><br/>
-          <span><i class="bi bi-circle-fill text-danger me-2"></i>>5% Underperformance</span>
+        <div style="font-size: 12px">
+          <span
+            ><i class="bi bi-circle-fill text-success me-2"></i>On Track</span
+          ><br />
+          <span
+            ><i class="bi bi-circle-fill text-warning me-2"></i>≤5%
+            Underperformance</span
+          ><br />
+          <span
+            ><i class="bi bi-circle-fill text-danger me-2"></i>>5%
+            Underperformance</span
+          >
         </div>
         <div>
-          <button class="bg-light rounded p-3" style="border: none;" type="button">
+          <button
+            class="bg-light rounded p-3"
+            style="border: none"
+            type="button"
+          >
             <i class="bi bi-download"></i>
           </button>
         </div>
-        <div>
-        </div>
+        <div></div>
       </div>
     </div>
   </div>
@@ -58,13 +86,28 @@
         <h4 class="mt-4">Currency</h4>
       </div>
       <div>
-        <button class="btn btn-transparant btn-sm border border-1 px-3 bg-white" (click)="compare()" [innerHTML]="isCompare ? 'Close' : 'Compare'"></button>
+        <button
+          class="btn btn-transparant btn-sm border border-1 px-3 bg-white"
+          (click)="compare()"
+          [innerHTML]="isCompare ? 'Close' : 'Compare'"
+        ></button>
       </div>
     </div>
     <div class="row">
       <div class="col-12 py-3 px-4 bg-white rounded">
-        <apx-chart [style.display]="isVisibleLine ? 'block' : 'none'" [series]="lineChartKursSeries" [chart]="currencyChartDetails" [title]="currencyChartTitle"></apx-chart>
-        <apx-chart [style.display]="isVisibleBar ? 'none' : 'block'" [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart>
+        <apx-chart
+          [style.display]="isVisibleLine ? 'block' : 'none'"
+          [series]="lineChartKursSeries"
+          [chart]="currencyChartDetails"
+          [title]="currencyChartTitle"
+          [yaxis]="lineYAxis"
+        ></apx-chart>
+        <apx-chart
+          [style.display]="isVisibleBar ? 'none' : 'block'"
+          [series]="chartSeries2"
+          [chart]="currencyBarChartDetails"
+          [title]="currencyChartTitle"
+        ></apx-chart>
       </div>
     </div>
 
@@ -75,41 +118,118 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col" style="font-size: 14px;">Kurs</th>
-                  <th scope="col" style="font-size: 14px;">Change RKAP</th>
-                  <th scope="col" style="font-size: 14px;">Change WoW</th>
-                  <th scope="col" style="font-size: 14px;">Change 1 Day</th>
-                  <th scope="col" style="font-size: 14px;">Change MoM</th>
+                  <th scope="col" style="font-size: 14px">Kurs</th>
+                  <th scope="col" style="font-size: 14px">Change RKAP</th>
+                  <th scope="col" style="font-size: 14px">Change WoW</th>
+                  <th scope="col" style="font-size: 14px">Change MoM</th>
+                  <th scope="col" style="font-size: 14px">Change 1 Day</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row" style="font-size: 14px; border-style: none;" class="border-start border-primary">USD</th>
-                  <td>2.53%</td>
-                  <td>2.53%</td>
-                  <td>2.53%</td>
-                  <td>2.53%</td>
-                </tr>
-                <tr>
-                  <th scope="row" style="font-size: 14px; border-style: none;" class="border-start border-success">EUR</th>
-                  <td>2.53%</td>
-                  <td>2.53%</td>
-                  <td>2.53%</td>
-                  <td>2.53%</td>
-                </tr>
-                <tr>
-                  <th scope="row" style="font-size: 14px; border-style: none;" class="border-start border-warning">JPY</th>
-                  <td>2.53%</td>
-                  <td>2.53%</td>
-                  <td>2.53%</td>
-                  <td>2.53%</td>
+                <tr *ngFor="let item of tesLocalStorageKurs">
+                  <th scope="row" style="font-size: 14px; border-style: none" >
+                    {{ item.mata_uang }}
+                  </th>
+                  <td>{{ item.change_rkap }}</td>
+                  <td>{{ item.change_now }}</td>
+                  <td>{{ item.change_now }}</td>
+                  <td>{{ item.change1_day }}</td>
+                  <td><i class="bi bi-x-lg" (click)="hideCompare(item.mata_uang)" style="cursor: pointer;"></i></td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div class="col-5 text-end">
-            <button class="btn btn-transparant btn-sm border border-1 me-2">Bersihkan Semuanya</button>
-            <button class="btn btn-transparant btn-sm border border-1">Tambah Perbandingan</button>
+            <button class="btn btn-transparant btn-sm border border-1 me-2">
+              Bersihkan Semuanya
+            </button>
+            <button
+              class="btn btn-transparant btn-sm border border-1"
+              data-bs-toggle="modal"
+              data-bs-target="#macroIndicatorModal"
+            >
+              Tambah Perbandingan
+            </button>
+          </div>
+          <div
+            class="modal fade"
+            id="macroIndicatorModal"
+            tabindex="-1"
+            aria-labelledby="macroIndicatorModalLabel"
+            aria-hidden="true"
+            data-bs-backdrop="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="currenciesModalLabel">
+                    Compare
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body overflow-y-auto">
+                  <!-- <div class="search search-bar" style="margin-bottom: 28px;">
+              <form class="search-form" method="POST" action="#">
+                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+              </form>
+            </div> -->
+                  <ng-select
+                    [items]="tesLocalStorageKurs"
+                    bindLabel="mata_uang"
+                    bindValue="change1_day"
+                    [(ngModel)]="selectedItems"
+                    (change)="getValueCompare($event)"
+                  >
+                  </ng-select>
+                  <div *ngFor="let items of tesLocalStorageKurs">
+                    <div
+                      class="d-flex align-items-center justify-content-between"
+                    >
+                      <div style="max-width: 58px">
+                        <span style="font-size: 12px">{{ items.mata_uang }}</span>
+                      </div>
+                      <div>
+                        <span style="font-size: 12px" class="text-danger">{{
+                          items.change_rkap
+                        }}</span>
+                      </div>
+                      <div>
+                        <span style="font-size: 12px" class="text-primary">{{
+                          items.change_now
+                        }}</span>
+                      </div>
+                      <div>
+                        <span style="font-size: 12px" class="text-secondary">{{
+                          items.change1_day
+                        }}</span>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <div class="btn btn-transparant" (click)="addSample()">
+                          <i class="bi bi-plus-lg"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Tutup
+                  </button>
+                  <button type="button" class="btn btn-primary">Simpan</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -120,33 +240,43 @@
         <h4 class="mt-4">Commodity</h4>
       </div>
       <div>
-        <button class="btn btn-transparant btn-sm border border-1 px-3 bg-white">Edit</button>
+        <button
+          class="btn btn-transparant btn-sm border border-1 px-3 bg-white"
+        >
+          Edit
+        </button>
       </div>
     </div>
 
-    <div class="d-flex flex-row flex-wrap justify-content-sm-center justify-content-md-center justify-content-lg-between justify-content-xl-between justify-content-xxl-between">
+    <div
+      class="d-flex flex-row flex-wrap justify-content-sm-center justify-content-md-center justify-content-lg-between justify-content-xl-between justify-content-xxl-between"
+    >
       <div class="bg-white p-2 m-2 rounded">
-
         <div class="d-flex align-items-center justify-content-between p-2">
           <div>
             <span>WTI & Brent</span>
           </div>
           <div>
-            <button type="button" class="btn btn-transparant border border-1"
-                style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="d-flex justify-content-between">
-                  <div>
-                    <span class="">September</span>
-                  </div>
-                  <div>
-                    <i class="bi bi-chevron-down"></i>
-                  </div>
+            <button
+              type="button"
+              class="btn btn-transparant border border-1"
+              style="color: black"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <div class="d-flex justify-content-between">
+                <div>
+                  <span class="">September</span>
                 </div>
+                <div>
+                  <i class="bi bi-chevron-down"></i>
+                </div>
+              </div>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item">September</a></li>
-                <li><a class="dropdown-item">Oktober</a></li>
-                <li><a class="dropdown-item">November</a></li>
+              <li><a class="dropdown-item">September</a></li>
+              <li><a class="dropdown-item">Oktober</a></li>
+              <li><a class="dropdown-item">November</a></li>
             </ul>
           </div>
         </div>
@@ -154,70 +284,104 @@
         <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
         <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
 
-        <apx-chart [style.display]="isVisibleLine ? 'block' : 'none'" [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+        <apx-chart
+          [style.display]="isVisibleLine ? 'block' : 'none'"
+          [series]="lineChartKursSeries"
+          [chart]="commodityChartDetails"
+        ></apx-chart>
 
-        <apx-chart [style.display]="isVisibleBar ? 'none' : 'block'" [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart>
-
+        <apx-chart
+          [style.display]="isVisibleBar ? 'none' : 'block'"
+          [series]="chartSeries2"
+          [chart]="currencyBarChartDetails"
+          [title]="currencyChartTitle"
+        ></apx-chart>
       </div>
       <div class="bg-white p-2 m-2 rounded">
-
         <div class="d-flex align-items-center justify-content-between p-2">
           <div>
-           <span>WTI & Brent</span>
+            <span>WTI & Brent</span>
           </div>
           <div>
-            <button type="button" class="btn btn-transparant border border-1"
-                style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="d-flex justify-content-between">
-                  <div>
-                    <span class="">September</span>
-                  </div>
-                  <div>
-                    <i class="bi bi-chevron-down"></i>
-                  </div>
+            <button
+              type="button"
+              class="btn btn-transparant border border-1"
+              style="color: black"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <div class="d-flex justify-content-between">
+                <div>
+                  <span class="">September</span>
                 </div>
+                <div>
+                  <i class="bi bi-chevron-down"></i>
+                </div>
+              </div>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item">September</a></li>
-                <li><a class="dropdown-item">Oktober</a></li>
-                <li><a class="dropdown-item">November</a></li>
+              <li><a class="dropdown-item">September</a></li>
+              <li><a class="dropdown-item">Oktober</a></li>
+              <li><a class="dropdown-item">November</a></li>
             </ul>
           </div>
         </div>
 
-        <apx-chart [style.display]="isVisibleLine ? 'block' : 'none'" [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+        <apx-chart
+          [style.display]="isVisibleLine ? 'block' : 'none'"
+          [series]="lineChartKursSeries"
+          [chart]="commodityChartDetails"
+        ></apx-chart>
 
-        <apx-chart [style.display]="isVisibleBar ? 'none' : 'block'" [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart>
+        <apx-chart
+          [style.display]="isVisibleBar ? 'none' : 'block'"
+          [series]="chartSeries2"
+          [chart]="currencyBarChartDetails"
+          [title]="currencyChartTitle"
+        ></apx-chart>
       </div>
       <div class="bg-white p-2 m-2 rounded">
-
         <div class="d-flex align-items-center justify-content-between p-2">
           <div>
-           <span>WTI & Brent</span>
+            <span>WTI & Brent</span>
           </div>
           <div>
-            <button type="button" class="btn btn-transparant border border-1"
-                style="color: black;" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="d-flex justify-content-between">
-                  <div>
-                    <span class="">September</span>
-                  </div>
-                  <div>
-                    <i class="bi bi-chevron-down"></i>
-                  </div>
+            <button
+              type="button"
+              class="btn btn-transparant border border-1"
+              style="color: black"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <div class="d-flex justify-content-between">
+                <div>
+                  <span class="">September</span>
                 </div>
+                <div>
+                  <i class="bi bi-chevron-down"></i>
+                </div>
+              </div>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item">September</a></li>
-                <li><a class="dropdown-item">Oktober</a></li>
-                <li><a class="dropdown-item">November</a></li>
+              <li><a class="dropdown-item">September</a></li>
+              <li><a class="dropdown-item">Oktober</a></li>
+              <li><a class="dropdown-item">November</a></li>
             </ul>
           </div>
         </div>
 
-        <apx-chart [style.display]="isVisibleLine ? 'block' : 'none'" [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+        <apx-chart
+          [style.display]="isVisibleLine ? 'block' : 'none'"
+          [series]="lineChartKursSeries"
+          [chart]="commodityChartDetails"
+        ></apx-chart>
 
-        <apx-chart [style.display]="isVisibleBar ? 'none' : 'block'" [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart>
+        <apx-chart
+          [style.display]="isVisibleBar ? 'none' : 'block'"
+          [series]="chartSeries2"
+          [chart]="currencyBarChartDetails"
+          [title]="currencyChartTitle"
+        ></apx-chart>
       </div>
     </div>
 
@@ -226,14 +390,26 @@
         <h4>Interest Rate</h4>
       </div>
       <div>
-        <button class="btn btn-transparant btn-sm border border-1 px-3 bg-white">Edit</button>
+        <button
+          class="btn btn-transparant btn-sm border border-1 px-3 bg-white"
+        >
+          Edit
+        </button>
       </div>
     </div>
     <div>
       <div class="bg-white rounded p-2">
-        <apx-chart [style.display]="isVisibleLine ? 'block' : 'none'" [series]="lineChartInterestRateSeries" [chart]="currencyChartDetails"></apx-chart>
+        <apx-chart
+          [style.display]="isVisibleLine ? 'block' : 'none'"
+          [series]="lineChartInterestRateSeries"
+          [chart]="currencyChartDetails"
+        ></apx-chart>
 
-        <apx-chart [style.display]="isVisibleBar ? 'none' : 'block'" [series]="lineChartInterestRateSeries" [chart]="currencyBarChartDetails"></apx-chart>
+        <apx-chart
+          [style.display]="isVisibleBar ? 'none' : 'block'"
+          [series]="lineChartInterestRateSeries"
+          [chart]="currencyBarChartDetails"
+        ></apx-chart>
       </div>
     </div>
   </main>
