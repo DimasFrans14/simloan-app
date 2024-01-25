@@ -66,8 +66,32 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       'change_1Day': '5,53'
   }
 
-  addSample(){
-    this.dataCompare.push(this.sampleData)
+  addSample(event: any){
+    // console.log(event);
+    const check = this.tesLocalStorageKurs.filter(
+      (item: any) => item.mata_uang.includes(event)
+    )
+
+    const getRow = this.tesFilterKurs.filter(
+      (item: any) => item.mata_uang.includes(event)
+    )
+    console.log(check);
+
+    if(event != undefined){
+      const data = this.tesLocalStorageKurs.filter((item: any) => item.mata_uang.includes(event))
+      console.log(data);
+      if(data.length < 1){
+        this.tesLocalStorageKurs.push(getRow[0])
+        console.log(this.tesLocalStorageKurs);
+        return this.tesLocalStorageKurs
+      }
+      else{
+        return null
+      }
+    }
+    else{
+      return null
+    }
   }
 
   getValueCompare(event: any){
@@ -83,7 +107,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.hideValueCompare = !this.hideValueCompare
       console.log(check);
       for(let i=0; i<check.length; i++){
-        if(this.tesLocalStorageKurs.length > 6){
+        if(this.tesLocalStorageKurs.length > 2){
           const tes = this.tesLocalStorageKurs.filter(
             (item: any) => item.mata_uang != check[i].mata_uang
           )
@@ -92,7 +116,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           return this.tesLocalStorageKurs
         }
         else{
-          alert('data tidak boleh kurang dari 6');
+          alert('data tidak boleh kurang dari 2');
           return this.tesLocalStorageKurs
         }
       }
@@ -101,7 +125,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       console.log('else');
     }
     // console.log(this.tesLocalStorageKurs, this.dataKurs.data);
+  }
 
+  cancelCompare(){
+    const getCompareDate: any = localStorage.getItem('compareData')
+    this.tesLocalStorageKurs = JSON.parse(getCompareDate)
   }
 
   async ngOnInit(): Promise<void> {
@@ -215,12 +243,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       ];
 
       this.tesLocalStorageKurs = localStorage.getItem('compareData');
-      this.tesLocalStorageKurs = JSON.parse(this.tesLocalStorageKurs)
-      this.tesFilterKurs = this.tesLocalStorageKurs.filter(
-        (item: any) => ['USD', 'GBP', 'AUD', 'JPY'].includes(item.mata_uang)
-      );
+      this.tesFilterKurs = localStorage.getItem('compareData');
 
-      console.log(this.tesFilterKurs);
+      this.tesLocalStorageKurs = JSON.parse(this.tesLocalStorageKurs)
+      this.tesFilterKurs = JSON.parse(this.tesFilterKurs)
     } catch (error) {
       console.log(error);
     }

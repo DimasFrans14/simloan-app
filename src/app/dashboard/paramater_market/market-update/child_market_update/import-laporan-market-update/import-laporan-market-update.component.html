@@ -25,7 +25,7 @@
             <div class="mb-3">
               <label for="uploadFile" class="fw-bold mb-1">Pilih Parameter Market Update</label>
               <ng-select
-                [items]="masterCategoryParams.data.content"
+                [items]="masterCategoryParams"
                 bindLabel="deskripsi"
                 bindValue="id_ctg_rs_psr"
                 [(ngModel)]="parameterItems"
@@ -49,7 +49,7 @@
             <div class="mb-3">
               <label for="uploadFile" class="fw-bold mb-1">Pilih Indikator Market Update</label>
               <ng-select
-                [items]="selectedSubCategoryParams ? selectedSubCategoryParams : masterSubCategoryParams.data.content"
+                [items]="masterSubCategoryParams"
                 bindLabel="deskripsi"
                 bindValue="id_ctg_rspsr"
                 [(ngModel)]="dataParameterItems"

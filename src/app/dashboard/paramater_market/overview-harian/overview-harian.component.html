@@ -222,30 +222,37 @@
                     <button type="submit" title="Search"><i class="bi bi-search"></i></button>
                   </form>
                 </div> -->
-                <ng-select [items]="macroIndicatorSelect"
-               bindLabel="name"
-               bindValue="id"
+                <ng-select [items]="dataCommodities"
+               bindLabel="keterangan"
+               bindValue="index_rows"
                [(ngModel)]="selectedItems">
                 </ng-select>
-                <div *ngFor="let items of defaultMacroIndicatorItems">
+                <!-- <div *ngFor="let items of defaultMacroIndicatorItems"> -->
                   <div class="d-flex align-items-center justify-content-between">
-                    <div style="max-width: 58px;">
-                      <span style="font-size: 12px;">{{items.currency}}</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 12px;" class="text-danger">{{items.rate1}}</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 12px;" class="text-primary">{{items.rate2}}</span>
-                    </div>
-                    <div>
-                      <span style="font-size: 12px;" class="text-secondary">{{items.rate3}}</span>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                      <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
-                    </div>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col" style="font-size: 14px">Commodities</th>
+                          <th scope="col" style="font-size: 14px">Realiasi</th>
+                          <th scope="col" style="font-size: 14px">RKAP</th>
+                          <th scope="col" style="font-size: 14px">Outlook</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of listEditCommodities">
+                          <th scope="row" style="font-size: 14px; border-style: none" >
+                            {{ item.keterangan }}
+                          </th>
+                          <td>{{ item.nilai_realisasi }}</td>
+                          <td>{{ item.nilai_rkap }}</td>
+                          <td>{{ item.nilai_realisasi }}</td>
+                          <td><i class="bi bi-plus-slash-minus"
+                 style="cursor: pointer;" (click)="getValueRow(item.index_rows)"></i></td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
-                </div>
+                <!-- </div> -->
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -256,8 +263,8 @@
         </div>
 
         <!-- Card Commodity -->
-        <div *ngIf="dataCommodities">
-          <div *ngFor="let item of dataCommodities">
+        <div *ngFor="let item of dataCommodities">
+            <!-- <div *ngIf="i < 3"> -->
             <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 mb-3 mt-2">
           <span class="fw-semibold mb-3">{{item.keterangan}}</span>
           <div class="d-flex align-items-center justify-content-between" style="font-size: 12px;">
@@ -275,8 +282,8 @@
             </div>
           </div>
             </div>
+          <!-- </div> -->
           </div>
-        </div>
 
       </div>
       <div class="col-4">

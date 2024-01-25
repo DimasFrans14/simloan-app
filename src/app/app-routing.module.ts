@@ -32,6 +32,12 @@ import { OverviewComponent } from './dashboard/adm_pinjaman/overview/overview.co
 import { CreateLiabilitiesComponent } from './dashboard/paramater_market/liabilities/create-liabilities/create-liabilities.component';
 import { FieldErrorDisplayComponent } from './field-error-display/field-error-display.component';
 import { PreviewLiabilitiesComponent } from './dashboard/paramater_market/liabilities/preview-liabilities/preview-liabilities.component';
+import { PdbComponent } from './dashboard/paramater_market/market-update/child_market_update/pdb/pdb/pdb.component';
+import { InflasiComponent } from './dashboard/paramater_market/market-update/child_market_update/inflasi/inflasi/inflasi.component';
+import { PmiComponent } from './dashboard/paramater_market/market-update/child_market_update/pmi/pmi/pmi.component';
+import { RetailSalesComponent } from './dashboard/paramater_market/market-update/child_market_update/retail_sales/retail-sales/retail-sales.component';
+import { MoneySuplyComponent } from './dashboard/paramater_market/market-update/child_market_update/money_suply/money-suply/money-suply.component';
+import { CadanganDevisaComponent } from './dashboard/paramater_market/market-update/child_market_update/cadangan_devisa/cadangan-devisa/cadangan-devisa.component';
 
 const routes: Routes = [
   //error msg
@@ -70,6 +76,12 @@ const routes: Routes = [
   { path: 'market_update/interest_rate', component: InterestRateComponent},
   { path: 'market_update/commodities', component: CommoditiesComponent},
   { path: 'market_update/bond_yield', component: BondYieldComponent},
+  { path: 'market_update/pdb', component: PdbComponent},
+  { path: 'market_update/inflasi', component: InflasiComponent},
+  { path: 'market_update/pmi', component: PmiComponent},
+  { path: 'market_update/retail_sales', component: RetailSalesComponent},
+  { path: 'market_update/money_supply', component: MoneySuplyComponent},
+  { path: 'market_update/cadev', component: CadanganDevisaComponent},
   { path: 'market_update/importLaporan_marketUpdate', component: ImportLaporanMarketUpdateComponent},
   { path: 'market_update/preview_laporan', component: PreviewLaporanComponent},
 

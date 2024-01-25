@@ -246,15 +246,22 @@
         <h4>Macro Indicator</h4>
       </div>
 
-      <div>
+      <!-- <div>
         <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Lihat Detail</button>
-      </div>
+      </div> -->
 
     </div>
 
     <div class="row">
       <div class="col-6">
-        <p class="fw-semibold">PDB</p>
+        <div class="d-flex justify-content-between align-items-center" style="max-width: 420px;">
+          <div>
+            <p class="fw-semibold">PDB</p>
+          </div>
+          <div>
+            <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;"  routerLink="/market_update/pdb">Lihat Detail</button>
+          </div>
+        </div>
         <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
           <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
             <div class="spinner-border" role="status">
@@ -265,7 +272,10 @@
         <div class="table-pdb"></div>
       </div>
       <div class="col-6">
-        <p class="fw-semibold">Inflasi</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="fw-semibold">Inflasi</p>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;"  routerLink="/market_update/inflasi">Lihat Detail</button>
+        </div>
         <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
           <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
             <div class="spinner-border" role="status">
@@ -279,7 +289,10 @@
 
     <div class="row mt-4">
       <div class="col-6">
-        <p class="fw-semibold">PMI</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="fw-semibold">PMI</p>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;"  routerLink="/market_update/pmi">Lihat Detail</button>
+        </div>
         <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
           <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
             <div class="spinner-border" role="status">
@@ -290,7 +303,10 @@
         <div class="table-pmi mt-2"></div>
       </div>
       <div class="col-6">
-        <p class="fw-semibold">Retail</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="fw-semibold">Retail</p>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;"  routerLink="/market_update/retail_sales">Lihat Detail</button>
+        </div>
         <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
           <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
             <div class="spinner-border" role="status">
@@ -304,7 +320,10 @@
 
     <div class="row mt-4">
       <div class="col-6">
-        <p class="fw-semibold">Money Supply/Uang Beredar (M2)</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="fw-semibold">Money Supply/Uang Beredar (M2)</p>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/money_supply">Lihat Detail</button>
+        </div>
         <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
           <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
             <div class="spinner-border" role="status">
@@ -315,7 +334,10 @@
         <div class="table-moneySupply mt-2"></div>
       </div>
       <div class="col-6">
-        <p class="fw-semibold">Foreign Exchange Reserves/Cadangan Devisa</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="fw-semibold">Foreign Exchange Reserves/Cadangan Devisa</p>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;"  routerLink="/market_update/cadev">Lihat Detail</button>
+        </div>
         <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
           <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
             <div class="spinner-border" role="status">

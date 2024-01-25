@@ -140,7 +140,7 @@
             </table>
           </div>
           <div class="col-5 text-end">
-            <button class="btn btn-transparant btn-sm border border-1 me-2">
+            <button class="btn btn-transparant btn-sm border border-1 me-2" (click)="cancelCompare()">
               Bersihkan Semuanya
             </button>
             <button
@@ -187,46 +187,48 @@
                     (change)="getValueCompare($event)"
                   >
                   </ng-select>
-                  <div *ngFor="let items of tesLocalStorageKurs">
+                  <!-- <div *ngFor="let items of tesLocalStorageKurs"> -->
                     <div
                       class="d-flex align-items-center justify-content-between"
                     >
-                      <div style="max-width: 58px">
-                        <span style="font-size: 12px">{{ items.mata_uang }}</span>
-                      </div>
-                      <div>
-                        <span style="font-size: 12px" class="text-danger">{{
-                          items.change_rkap
-                        }}</span>
-                      </div>
-                      <div>
-                        <span style="font-size: 12px" class="text-primary">{{
-                          items.change_now
-                        }}</span>
-                      </div>
-                      <div>
-                        <span style="font-size: 12px" class="text-secondary">{{
-                          items.change1_day
-                        }}</span>
-                      </div>
-                      <div class="d-flex justify-content-center">
-                        <div class="btn btn-transparant" (click)="addSample()">
-                          <i class="bi bi-plus-lg"></i>
-                        </div>
-                      </div>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col" style="font-size: 14px">Kurs</th>
+                          <th scope="col" style="font-size: 14px">Change RKAP</th>
+                          <th scope="col" style="font-size: 14px">Change WoW</th>
+                          <th scope="col" style="font-size: 14px">Change MoM</th>
+                          <th scope="col" style="font-size: 14px">Change 1 Day</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of tesFilterKurs">
+                          <th scope="row" style="font-size: 14px; border-style: none" >
+                            {{ item.mata_uang }}
+                          </th>
+                          <td>{{ item.change_rkap }}</td>
+                          <td>{{ item.change_now }}</td>
+                          <td>{{ item.change_now }}</td>
+                          <td>{{ item.change1_day }}</td>
+                          <td><i class="bi bi-plus-lg" (click)="addSample(item.mata_uang)" style="cursor: pointer;"></i></td>
+                        </tr>
+                      </tbody>
+                    </table>
                     </div>
-                  </div>
+                  <!-- </div> -->
                 </div>
 
                 <div class="modal-footer">
-                  <button
+                  <!-- <button
                     type="button"
                     class="btn btn-secondary"
                     data-bs-dismiss="modal"
                   >
                     Tutup
-                  </button>
-                  <button type="button" class="btn btn-primary">Simpan</button>
+                  </button> -->
+                    <button type="button" class="btn btn-primary"
+                    data-bs-dismiss="modal"
+                    >Simpan</button>
                 </div>
               </div>
             </div>

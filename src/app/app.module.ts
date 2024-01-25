@@ -59,6 +59,12 @@ import { FieldErrorDisplayComponent } from './field-error-display/field-error-di
 import { PreviewLiabilitiesComponent } from './dashboard/paramater_market/liabilities/preview-liabilities/preview-liabilities.component';
 import { OverviewComponent } from './dashboard/adm_pinjaman/overview/overview.component';
 import { LoanProfileComponent } from './dashboard/adm_pinjaman/loan-profile/loan-profile.component';
+import { PdbComponent } from './dashboard/paramater_market/market-update/child_market_update/pdb/pdb/pdb.component';
+import { InflasiComponent } from './dashboard/paramater_market/market-update/child_market_update/inflasi/inflasi/inflasi.component';
+import { PmiComponent } from './dashboard/paramater_market/market-update/child_market_update/pmi/pmi/pmi.component';
+import { RetailSalesComponent } from './dashboard/paramater_market/market-update/child_market_update/retail_sales/retail-sales/retail-sales.component';
+import { MoneySuplyComponent } from './dashboard/paramater_market/market-update/child_market_update/money_suply/money-suply/money-suply.component';
+import { CadanganDevisaComponent } from './dashboard/paramater_market/market-update/child_market_update/cadangan_devisa/cadangan-devisa/cadangan-devisa.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +102,12 @@ import { LoanProfileComponent } from './dashboard/adm_pinjaman/loan-profile/loan
     PreviewLiabilitiesComponent,
     OverviewComponent,
     LoanProfileComponent,
+    PdbComponent,
+    InflasiComponent,
+    PmiComponent,
+    RetailSalesComponent,
+    MoneySuplyComponent,
+    CadanganDevisaComponent,
   ],
   imports: [
     BrowserModule,

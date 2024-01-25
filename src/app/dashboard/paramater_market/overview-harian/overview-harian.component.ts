@@ -231,8 +231,42 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   dataRKAP: any;
   dataInterestRate: any;
   dataCommodities: any;
+  listEditCommodities: any;
   dataCurrency: any;
   formatTanggal: any;
+  changeIcon: boolean = false;
+
+  getValueRow(event: any){
+    console.log(event);
+
+    // const listedDataCommodities = this.dataCommodities.includes(event)
+
+    const updatedData = this.dataCommodities.filter((item: any) => item.index_rows !== event)
+
+    const getRow = this.listEditCommodities.filter((item: any) => item.index_rows == event)
+    const checkData = this.dataCommodities.includes(getRow[0])
+
+    this.dataCommodities = updatedData;
+
+    console.log(checkData);
+
+    if(checkData){
+      console.log('clear data');
+      this.changeIcon = true;
+    }
+    else{
+      if(this.dataCommodities.length < 3){
+        this.dataCommodities.push(getRow[0]);
+        this.changeIcon = false;
+      }
+      else{
+        alert('data lebih dari 3')
+      }
+      console.log('add data');
+    }
+
+    console.log(this.dataCommodities, updatedData, getRow);
+  }
 
   async onDate(event: MatDatepickerInputEvent<Date>) {
     const selectedDate = event.value;
@@ -308,9 +342,13 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview()
 
       console.log(commoditiesOverview);
-      this.dataCommodities = commoditiesOverview
+      this.dataCommodities = commoditiesOverview;
+      this.listEditCommodities = commoditiesOverview;
+      this.listEditCommodities = this.listEditCommodities.data.filter((item: any) => item.tanggal == '01/11/2022');
+      console.log(this.listEditCommodities);
 
-      this.dataCommodities = this.dataCommodities.data.filter((item: any) => item.tanggal == '01/11/2022');
+
+      this.dataCommodities = this.dataCommodities.data.filter((item: any) => item.tanggal == '01/11/2022').slice(0, 3);
 
       console.log(this.dataCommodities);
 

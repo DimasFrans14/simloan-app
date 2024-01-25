@@ -26,7 +26,8 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
   parameterCurrency: File[] = [];
   fileMarketUpdate: File[] = [];
 
-  excelDataJSON: ExcelData[] = [];
+  // excelDataJSON: ExcelData[] = [];
+  excelDataJSON: any;
 
   //ngmodel selection
   parameterItems!: number;
@@ -110,9 +111,9 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
   isChange: boolean = false;
 
   paramsSelect(event: any){
-    console.log(event);
+    // console.log(event);
     this.marketUpdateID = event ? event.id_ctg_rs_psr : '';
-    console.log(this.marketUpdateID);
+    // console.log(this.marketUpdateID);
     if(event != undefined){
       this.disableIndikator = false
     }
@@ -120,27 +121,26 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
       this.disableIndikator = true
     }
 
-
     const filter = this.masterSubCategoryParams.data.content.filter((item: any) => item.id_ctg_rs_psr === this.marketUpdateID)
-    console.log(filter);
+    // console.log(filter);
     this.selectedSubCategoryParams = filter
   }
 
   indikatorSelect(event: any){
-    console.log(event);
+    // console.log(event);
     const { id, name } = event;
     this.indikatorID = id;
     this.indikatorName = name;
     localStorage.setItem('indikator_params', this.indikatorName)
-    console.log(this.indikatorID);
+    // console.log(this.indikatorID);
   }
 
   getValueParams = (event: any) => {
-    console.log(event);
-    const { id, kode } = event;
+    // console.log(event);
+    const { id_sub_ctgrspsr, kode } = event;
     this.dataParameterName = kode;
-    this.dataParameterID = id;
-    console.log(this.dataParameterName);
+    this.dataParameterID = id_sub_ctgrspsr;
+    // console.log(this.dataParameterName);
     localStorage.setItem('params_upload', JSON.parse(JSON.stringify(this.dataParameterName)))
   }
 
@@ -148,50 +148,53 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
     let file = event.addedFiles[0];
     let fileReader = new FileReader();
     fileReader.readAsBinaryString(file);
-    console.log(event);
+    // console.log(event);
 
     fileReader.onload = (e) => {
 
       let data;
-      // let objectKeys;
 
-      var workbook = XLSX.read(fileReader.result, {type:'binary'});
+      var workbook = XLSX.read(fileReader.result, {type:'binary', cellDates: true});
       var sheetNames = workbook.SheetNames;
-      // this.excelDataJSON =  XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[0]]);
 
       for(let i=0; i<sheetNames.length; i++){
         data = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[i]]);
-        this.excelDataJSON.push(data);
+        const sheetNameExcel = workbook.SheetNames[i]
+        if(sheetNameExcel === this.dataParameterName){
+          this.excelDataJSON = data;
+          console.log('data if',  data);
+        }
+        else{
+          // console.log('sheetname doesnt match');
+        }
       }
 
       this.tableConfig.setData(this.excelDataJSON);
 
-      let objectKeys: string[] = [];
+      // let objectKeys: string[] = [];
 
-      if (data && typeof data[0] === 'object') {
-        objectKeys = Object.keys(data[0] as object);
-      } else {
-        console.log('kosong');
-      }
+      // if (data && typeof data[0] === 'object') {
+      //   objectKeys = Object.keys(data[0] as object);
+      // } else {
+      //   console.log('kosong');
+      // }
 
-      let parsingDataExcel = this.excelDataJSON;
-
-      if(this.dataParameterID != undefined){
-        const index = this.dataParameterID - 1;
-        console.log(index);
-        const selectedData = this.excelDataJSON[index];
-        // this.tableConfig.previewData(selectedData, file);
-        this.tablePrevew.previewData(selectedData, file, this.dataParameterName)
-        console.log(this.dataParameterName);
-        console.log(selectedData);
+      if(this.dataParameterName != undefined){
+        for(let i=0; i< this.excelDataJSON.length; i++){
+          this.excelDataJSON[i].TANGGAL = this.excelDataJSON[i].TANGGAL.toISOString();
+          this.excelDataJSON[i].TAHUN = this.excelDataJSON[i].TAHUN.toISOString();
+          this.excelDataJSON[i].TANGGAL = this.excelDataJSON[i].TANGGAL.slice(0,10)
+          this.excelDataJSON[i].TAHUN = this.excelDataJSON[i].TAHUN.slice(0,4)
+        }
+        // console.log(this.excelDataJSON);
       }
       else{
-        console.log('else');
+        console.log('parameter name undefined');
       }
 
-      console.log('parsing', parsingDataExcel);
-      let filterredInflasi = parsingDataExcel.filter((item:any) => item[0].hasOwnProperty('Inflasi'));
-
+      // console.log('parsing', parsingDataExcel);
+      // let filterredInflasi = parsingDataExcel.filter((item:any) => item[0].hasOwnProperty('Inflasi'));
+      console.log(this.excelDataJSON);
   }
 
   if(this.excelDataJSON.length < 0){
@@ -203,7 +206,7 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
 }
 
   onSelect(event: { addedFiles: any; }) {
-    console.log(event);
+    // console.log(event);
     this.parameterCurrency.push(...event.addedFiles);
     this.readExcel(event)
 
@@ -227,13 +230,14 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
       const responseMasterCategory = await this.masterCategory.fetchMasterCategory();
       const responseSubCategory = await this.masterCategory.fetchMasterSubCategory();
 
-
       this.masterCategoryParams = responseMasterCategory;
       this.masterSubCategoryParams = responseSubCategory;
-      console.log(this.masterCategoryParams, this.masterSubCategoryParams);
     } catch (error) {
       console.log(error);
     }
+
+    this.masterCategoryParams = this.masterCategoryParams.data.content;
+    this.masterSubCategoryParams = this.masterSubCategoryParams.data.content;
   }
 
 }
