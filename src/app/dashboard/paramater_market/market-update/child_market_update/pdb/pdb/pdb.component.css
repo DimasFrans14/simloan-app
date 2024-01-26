@@ -1,0 +1,15 @@
+.submenu-market {
+    color: #000000;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.3s, color 0.3s;
+}
+
+.sub-nav {
+    margin-top: 60px;
+    padding-left: 282px;
+    padding-bottom: 5px;
+    padding-top: 15px;
+}
+#main{
+    margin-top: 20px;
+}

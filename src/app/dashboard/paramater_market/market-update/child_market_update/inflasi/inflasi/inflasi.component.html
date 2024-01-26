@@ -1,8 +1,108 @@
-<div>
-  <app-header></app-header>
-  <app-sidebar></app-sidebar>
-
-  <main id="main" class="main">
-
-  </main>
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+<div id="header" class="header">
+  <div class="col-12 bg-white sub-nav border-top">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex justify-content-center align-items-center">
+        <div class="search search-bar me-2">
+          <form class="search-form" method="POST" action="#">
+            <input type="text" name="query" placeholder="Cari Nama Label" title="Enter search keyword"
+              style="font-size: 14px;">
+            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+          </form>
+        </div>
+        <button type="button" class="btn btn-primary me-2" style="font-size: 14px;">Cari</button>
+        <button class="btn btn-light bg-white me-2" style="font-size: 14px;"><i class="bi bi-calendar me-2"></i>Pilih
+          Tanggal</button>
+        <button type="button" class="btn btn-transparant border-light me-2" style="font-size: 14px;">Customizable
+          Table</button>
+        <button type="button" class="btn btn-transparant border-light me-2" style="font-size: 14px;">Reset</button>
+      </div>
+      <div>
+        <button class="bg-light rounded p-3 me-5" style="border: none;" type="button">
+          <i class="bi bi-download"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
+<main id="main" class="main">
+  <div>
+    <p class="text-secondary">
+      <a routerLink="/market_update" class="text-secondary">
+        <i class="bi bi-arrow-left me-2"></i>
+        Back to Market Update
+      </a>
+    </p>
+  </div>
+<div class="comtainner">
+  <div class="d-flex justify-content-between">
+    <div class="flex-fill align-self-center fw-semibold"><h4>Inflasi</h4></div>
+    <div class="p-1"><button class="btn btn-outline-dark btn-sm bg-white" style="color: black;">Edit</button></div>
+    <div class="p-1"><button class="btn btn-outline-dark btn-sm bg-white" style="color: black;">Tambah</button></div>
+  </div>
+  <!-- Tabble Detail -->
+  <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+    <div class="d-flex align-items-center justify-content-center">
+      <div class="spinner-border" role="status">
+      </div>
+      <span class="text-dark ms-1">Memuat data tabel...</span>
+    </div>
+  </div>
+  <div class="table-currencyDetail mt-2"></div>
+  <!-- end table detail -->
+  <div class="d-flex justify-content-between">
+    <div class="flex-fill align-self-center fw-semibold p-1"><h5>Realisasi</h5></div>
+    <div class="p-1"><button class="btn btn-outline-dark btn-sm bg-white" style="color: black;">Edit</button></div>
+    <div class="p-1"><button class="btn btn-outline-dark btn-sm bg-white" style="color: black;">Tambah</button></div>
+    
+    <div class="flex-fill align-self-center fw-semibold"><h5>RKAP</h5></div>
+    <div class="p-1"><button class="btn btn-outline-dark btn-sm bg-white" style="color: black;">Edit</button></div>
+    <div class="p-1"><button class="btn btn-outline-dark btn-sm bg-white" style="color: black;">Tambah</button></div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <!-- Table Realisasi -->
+      <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+        <div class="d-flex align-items-center justify-content-center">
+          <div class="spinner-border" role="status">
+          </div>
+          <span class="text-dark ms-1">Memuat data tabel...</span>
+        </div>
+      <div class="table-realisasi mt-2"></div>
+    </div>
+    <!-- End Table Realisasi -->
+    </div>
+    <div class="col-6">
+      <!-- Table RKAP -->
+      <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+        <div class="d-flex align-items-center justify-content-center">
+          <div class="spinner-border" role="status">
+          </div>
+          <span class="text-dark ms-1">Memuat data tabel...</span>
+        </div>
+      <div class="table-rkap mt-2"></div>
+    </div>
+    <!-- End Table RKAP -->
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <div class="flex-fill align-self-center fw-semibold p-1"><h5>Outlook</h5></div>
+    <div class="p-1"><button class="btn btn-outline-dark btn-sm bg-white" style="color: black;">Edit</button></div>
+    <div class="p-1"><button class="btn btn-outline-dark btn-sm bg-white" style="color: black;">Tambah</button></div>
+  </div>
+  <!-- Table Outlook -->
+  <div class="col-6">
+    <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="spinner-border" role="status">
+        </div>
+        <span class="text-dark ms-1">Memuat data tabel...</span>
+      </div>
+    </div>
+    <div class="table-outlook mt-2"></div>
+  </div>
+  <!-- End Table Outlook -->
+</div>
+</main>
+<app-footer></app-footer>

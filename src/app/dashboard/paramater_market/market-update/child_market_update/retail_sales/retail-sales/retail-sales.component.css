@@ -1,0 +1,28 @@
+.submenu-market {
+    color: #000000;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.3s, color 0.3s;
+}
+
+.sub-nav {
+    margin-top: 60px;
+    padding-left: 282px;
+    padding-bottom: 10px;
+    padding-top: 15px;
+}
+
+@media (max-width: 1199px) {
+    .sub-nav {
+        /* padding-left: 20px; */
+        padding: 15px;
+        margin: 0px;
+        position: absolute;
+        top: 60px;
+        right: 0px;
+        left: 0px;
+    }
+
+    #main {
+        padding-top: 140px;
+    }
+}
