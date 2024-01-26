@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
-import { ApexAnnotations, ApexAxisChartSeries, ApexChart,  ApexPlotOptions,  ApexStroke,  ApexTitleSubtitle, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
+import { ApexAnnotations, ApexAxisChartSeries, ApexChart,  ApexLegend,  ApexPlotOptions,  ApexStroke,  ApexTitleSubtitle, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
 import { DataService } from 'src/app/data.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 
@@ -26,6 +26,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   lineYAxis!: ApexYAxis | ApexYAxis[];
   tesXaxis!: ApexXAxis;
   stroke!: ApexStroke;
+  kursLegends!: ApexLegend;
 
   selectedItems!: number;
 
@@ -162,6 +163,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   valueJPY: any;
   kursJPY: any;
 
+  USDDataChart: any;
+
   async ngOnInit(): Promise<void> {
     try {
       const responseKurs = await this.marketUpdateService.fetchDataKurs()
@@ -228,7 +231,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
         ],
         type:'datetime',
+      }
 
+      this.kursLegends = {
+        markers:{
+          onClick() {
+              alert('clicked')
+          },
+        },
+        onItemClick:{
+          toggleDataSeries: true
+        },
+        onItemHover:{
+          highlightDataSeries: false
+        }
       }
 
       const defaultKurs = this.dataKurs.data.filter((item: any) => ['SGD', 'EUR', 'JPY'].includes(item.mata_uang));
@@ -286,8 +302,14 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
       // console.log(tes);
 
+      console.log(this.kursLegends);
+
       for(let i=0; i < 3 ; i++){
         const kurs = this.trendKursData.d.arrayData[i].kurs;
+
+        if(kurs == 'USD'){
+          this.USDDataChart = this.trendKursData.d.arrayData[i].data
+        }
 
         if(kurs == 'JPY'){
           const jpyValue = this.trendKursData.d.arrayData[i].data
@@ -382,9 +404,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
     this.lineYAxis = [
       {
+        showAlways: true,
         seriesName: "USD",
-        min:11000,
-        max:16000,
+        // min:11000,
+        // max:16000,
         axisTicks: {
           show: true
         },
@@ -456,8 +479,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         }
       }
     ]
-
-
   }
 
   ngAfterViewInit(): void {
@@ -540,6 +561,14 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         reset: true,
       }
     },
+    events:{
+      legendClick(chart, seriesIndex, options) {
+          const firstData = options.config.series[0].data;
+          console.log(options.config);
+          options.config.series[0].data = firstData
+          // console.log(firstData);
+      },
+    }
   }
 
   currencyBarChartDetails: ApexChart = {
