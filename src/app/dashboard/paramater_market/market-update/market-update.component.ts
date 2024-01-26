@@ -11,6 +11,7 @@ import * as moment from 'moment';
 import { ViewportScroller } from '@angular/common';
 import { MatInput } from '@angular/material/input';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
+import { OverviewChartService } from 'src/app/services/chart_serivces/overviewChart/overview-chart.service';
 
 interface ExcelData {
   [key: string]: any;
@@ -26,10 +27,11 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   constructor(
     private tableConfig: TableServicesService,
     private viewportScroller: ViewportScroller,
-    private marketUpdateService: MarketUpdateService
+    private marketUpdateService: MarketUpdateService,
+    private lineChartCommodity: OverviewChartService
     // private router: Router
     ){
-      // console.log(tableConfig);
+      // console.log(this.lineChartCommodity);
     }
 
     @ViewChild('datePickerValue', {read:MatInput}) inputDate!: MatInput;
@@ -76,6 +78,12 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   //test dev data source
   testData: any;
   testAPIdata: any;
+
+  commoditySeries = this.lineChartCommodity.lineSeries;
+  commodityXaxis = this.lineChartCommodity.lineXAxis;
+  commodityYaxis = this.lineChartCommodity.lineYaxis;
+  commodityChart = this.lineChartCommodity.lineChartDetail;
+  commodityStroke = this.lineChartCommodity.lineStroke;
 
   readExcel(event: any){
     let file = event.addedFiles[0];
@@ -284,8 +292,10 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   async ngOnInit(): Promise<void> {
     try {
+
       // const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll();
       this.isLoading = true;
+      // this.lineChartCommodity.initializeCommoditiesLineChart();
       console.log('load before fetch: ' + this.isLoading);
       const responsePDB = await this.marketUpdateService.fetchDataPDB();
       const responseKurs = await this.marketUpdateService.fetchDataKurs();

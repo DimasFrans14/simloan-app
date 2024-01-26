@@ -95,13 +95,51 @@
     </div>
     <div class="row">
       <div class="col-12 py-3 px-4 bg-white rounded">
-        <apx-chart
+        <div class="bg-white">
+          <div class="d-flex justify-content-between align-items-center pb-3">
+            <div>
+              <h5>Kurs Rupiah</h5>
+            </div>
+            <div class="d-flex align-items-center">
+              <div>
+                <button type="button" class="btn btn-light rounded-pill text-dark bg-white ms-1" [disabled]="true"><span style="font-size: 13px;">1W</span></button>
+              </div>
+              <div>
+                <button type="button" class="btn btn-light rounded-pill text-dark bg-white ms-1"><span style="font-size: 13px;">1M</span></button>
+              </div>
+              <div>
+                <button type="button" class="btn btn-light rounded-pill text-dark bg-white ms-1"><span style="font-size: 13px;">1Y</span></button>
+              </div>
+              <div>
+                <button type="button" class="btn btn-light rounded-pill text-dark bg-white ms-1"><span style="font-size: 13px;">3Y</span></button>
+              </div>
+              <div>
+        <button class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2" style="font-size: 14px;" type="button" data-bs-toggle="dropdown" aria-expanded="false">Customize Chart</button>
+        <div class="dropdown-menu ps-2">
+          <form (ngSubmit)="onSubmit($event)">
+            <div style="font-size: 15px;">
+              <input type="checkbox" name="IDR" id="USD">
+              <label class="ms-2" value="usd" for="IDR">USD</label>
+              <br/>
+              <input type="checkbox" name="Exchange Rate" id="USD">
+              <label class="ms-2" value="aud" for="Exchange Rate">AUD</label>
+              <br/>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm mt-2">Save Change</button>
+          </form>
+        </div>
+      </div>
+            </div>
+          </div>
+          <apx-chart
           [style.display]="isVisibleLine ? 'block' : 'none'"
           [series]="lineChartKursSeries"
           [chart]="currencyChartDetails"
-          [title]="currencyChartTitle"
           [yaxis]="lineYAxis"
-        ></apx-chart>
+          [xaxis]="tesXaxis"
+          [stroke]="stroke"
+          ></apx-chart>
+        </div>
         <apx-chart
           [style.display]="isVisibleBar ? 'none' : 'block'"
           [series]="chartSeries2"
@@ -253,10 +291,11 @@
     <div
       class="d-flex flex-row flex-wrap justify-content-sm-center justify-content-md-center justify-content-lg-between justify-content-xl-between justify-content-xxl-between"
     >
-      <div class="bg-white p-2 m-2 rounded">
+      <ng-container *ngFor="let item of chartCommodities">
+        <div class="bg-white p-2 m-2 rounded">
         <div class="d-flex align-items-center justify-content-between p-2">
           <div>
-            <span>WTI & Brent</span>
+            <span>{{item.name}}</span>
           </div>
           <div>
             <button
@@ -298,93 +337,10 @@
           [chart]="currencyBarChartDetails"
           [title]="currencyChartTitle"
         ></apx-chart>
-      </div>
-      <div class="bg-white p-2 m-2 rounded">
-        <div class="d-flex align-items-center justify-content-between p-2">
-          <div>
-            <span>WTI & Brent</span>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-transparant border border-1"
-              style="color: black"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <div class="d-flex justify-content-between">
-                <div>
-                  <span class="">September</span>
-                </div>
-                <div>
-                  <i class="bi bi-chevron-down"></i>
-                </div>
-              </div>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item">September</a></li>
-              <li><a class="dropdown-item">Oktober</a></li>
-              <li><a class="dropdown-item">November</a></li>
-            </ul>
-          </div>
         </div>
+      </ng-container>
 
-        <apx-chart
-          [style.display]="isVisibleLine ? 'block' : 'none'"
-          [series]="lineChartKursSeries"
-          [chart]="commodityChartDetails"
-        ></apx-chart>
 
-        <apx-chart
-          [style.display]="isVisibleBar ? 'none' : 'block'"
-          [series]="chartSeries2"
-          [chart]="currencyBarChartDetails"
-          [title]="currencyChartTitle"
-        ></apx-chart>
-      </div>
-      <div class="bg-white p-2 m-2 rounded">
-        <div class="d-flex align-items-center justify-content-between p-2">
-          <div>
-            <span>WTI & Brent</span>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-transparant border border-1"
-              style="color: black"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <div class="d-flex justify-content-between">
-                <div>
-                  <span class="">September</span>
-                </div>
-                <div>
-                  <i class="bi bi-chevron-down"></i>
-                </div>
-              </div>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item">September</a></li>
-              <li><a class="dropdown-item">Oktober</a></li>
-              <li><a class="dropdown-item">November</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <apx-chart
-          [style.display]="isVisibleLine ? 'block' : 'none'"
-          [series]="lineChartKursSeries"
-          [chart]="commodityChartDetails"
-        ></apx-chart>
-
-        <apx-chart
-          [style.display]="isVisibleBar ? 'none' : 'block'"
-          [series]="chartSeries2"
-          [chart]="currencyBarChartDetails"
-          [title]="currencyChartTitle"
-        ></apx-chart>
-      </div>
     </div>
 
     <div class="d-flex justify-content-between align-items-center mt-4 mb-2">
@@ -405,6 +361,7 @@
           [style.display]="isVisibleLine ? 'block' : 'none'"
           [series]="lineChartInterestRateSeries"
           [chart]="currencyChartDetails"
+          [stroke]="stroke"
         ></apx-chart>
 
         <apx-chart

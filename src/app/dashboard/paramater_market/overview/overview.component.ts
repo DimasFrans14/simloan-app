@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
-import { ApexAnnotations, ApexAxisChartSeries, ApexChart,  ApexPlotOptions,  ApexTitleSubtitle, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
+import * as moment from 'moment';
+import { ApexAnnotations, ApexAxisChartSeries, ApexChart,  ApexPlotOptions,  ApexStroke,  ApexTitleSubtitle, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
 import { DataService } from 'src/app/data.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 
@@ -22,13 +23,37 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   lineChartKursSeries: ApexAxisChartSeries = [];
   chartSeries2: ApexAxisChartSeries = [];
   lineChartInterestRateSeries: ApexAxisChartSeries = [];
-  lineYAxis!: ApexYAxis;
+  lineYAxis!: ApexYAxis | ApexYAxis[];
   tesXaxis!: ApexXAxis;
+  stroke!: ApexStroke;
 
   selectedItems!: number;
 
   tesLocalStorageKurs: any;
   tesFilterKurs : any;
+
+  chartCommodities = [
+    {
+      'id': 1,
+      'name': 'WTI & BRENT (USD/Ton)'
+    },
+    {
+      'id': 2,
+      'name': 'ICP (USD/Barel)'
+    },
+    {
+      'id': 3,
+      'name': 'Coal (Newcastle) (USD/Ton)'
+    },
+    {
+      'id': 4,
+      'name': 'LNG (JKM) (USD/MMBtu)'
+    },
+    {
+      'id': 5,
+      'name': 'Batubara (USD/Ton)'
+    },
+  ]
 
   dataCompare = [
     {
@@ -132,6 +157,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.tesLocalStorageKurs = JSON.parse(getCompareDate)
   }
 
+  trendKursCategories: any;
+  trendKursData: any;
+  valueJPY: any;
+  kursJPY: any;
+
   async ngOnInit(): Promise<void> {
     try {
       const responseKurs = await this.marketUpdateService.fetchDataKurs()
@@ -141,7 +171,30 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       const responseRKAP = await this.dataService.fetchDataInterestRateRKAP()
       this.dataRKAP = responseRKAP;
 
-      console.log(this.dataKurs);
+      const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll()
+
+      const trendKurs = await this.marketUpdateService.fetchDataKursTrend();
+      console.log(trendKurs);
+
+      this.valueJPY = trendKurs;
+      this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
+
+      const map = this.valueJPY.map((item: any) => {
+        return item.data.map((value: any) => {
+          const val = value / 100;
+          const slice = val.toString().slice(0,6)
+          const toNumber = parseFloat(slice)
+          return toNumber
+        });
+      });
+
+      console.log(map);
+      this.valueJPY = map;
+
+      this.trendKursCategories = trendKurs
+      this.trendKursData = trendKurs;
+      // console.log(responseCommodities);
+      // console.log(this.dataKurs);
 
       let dataUSD;
       let dataInterest;
@@ -150,7 +203,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
       dataInterest = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
 
-      console.log(dataInterest);
+      // console.log(dataInterest);
 
       // this.lineChartKursSeries = [
       //   {
@@ -169,50 +222,126 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
       this.lineChartKursSeries = [];
       this.chartSeries2 = [];
-
-      for (let i = 0; i < this.dataKurs.data.length ; i++) {
-
-        typeof(this.dataKurs.data[i].kurs) === 'string' ? parseFloat(this.dataKurs.data[i].kurs.replace(/,/g, '')) : parseFloat(this.dataKurs.data[i].kurs)
-
-        typeof(this.dataKurs.data[i].kurs_min1) === 'string' ? parseFloat(this.dataKurs.data[i].kurs_min1.replace(/,/g, '')) : parseFloat(this.dataKurs.data[i].kurs_min1)
-
-        typeof(this.dataKurs.data[i].kurs_min2) === 'string' ? parseFloat(this.dataKurs.data[i].kurs_min2.replace(/,/g, '')) : parseFloat(this.dataKurs.data[i].kurs_min2)
-
-        typeof(this.dataKurs.data[i].kurs_min3) === 'string' ? parseFloat(this.dataKurs.data[i].kurs_min3.replace(/,/g, '')) : parseFloat(this.dataKurs.data[i].kurs_min3)
-
-        const mataUang = this.dataKurs.data[i].mata_uang;
-        const dataValues = [this.dataKurs.data[i].kurs_min3, this.dataKurs.data[i].kurs_min2, this.dataKurs.data[i].kurs_min1, this.dataKurs.data[i].kurs];
-
-        this.lineChartKursSeries.push({
-          name: `${mataUang}`,
-          data: dataValues
-        });
-
-        this.chartSeries2.push({
-          name: `${mataUang}`,
-          data: dataValues
-        })
-      }
-      console.log(typeof(this.dataKurs.data[0].kurs_min2));
-      console.log(this.dataKurs.data);
-
-
-
-      this.lineYAxis = {
-        // tickAmount: 50,
-      }
-
+      this.lineYAxis = [];
       this.tesXaxis = {
-        categories:[
-          "A",
-          "B",
-          "C",
-          "D"
-        ]
+        categories: [
+
+        ],
+        type:'datetime',
+
+      }
+
+      const defaultKurs = this.dataKurs.data.filter((item: any) => ['SGD', 'EUR', 'JPY'].includes(item.mata_uang));
+
+      const getJPY = this.dataKurs.data.filter((item: any) => ['JPY'].includes(item.mata_uang));
+
+      let tes: any;
+      // this.dataKurs.data = this.dataKurs.data.slice(4,6);
+
+      // console.log(getJPY);
+
+      // for (let i = 0; i < defaultKurs.length ; i++) {
+
+      //   typeof(defaultKurs[i].kurs) === 'string' ? parseFloat(defaultKurs[i].kurs.replace(/,/g, '')) : parseFloat(defaultKurs[i].kurs)
+
+      //   typeof(defaultKurs[i].kurs_min1) === 'string' ? parseFloat(defaultKurs[i].kurs_min1.replace(/,/g, '')) : parseFloat(defaultKurs[i].kurs_min1)
+
+      //   typeof(defaultKurs[i].kurs_min2) === 'string' ? parseFloat(defaultKurs[i].kurs_min2.replace(/,/g, '')) : parseFloat(defaultKurs[i].kurs_min2)
+
+      //   typeof(defaultKurs[i].kurs_min3) === 'string' ? parseFloat(defaultKurs[i].kurs_min3.replace(/,/g, '')) : parseFloat(defaultKurs[i].kurs_min3)
+
+      //   const mataUang = defaultKurs[i].mata_uang;
+
+      //   const dataValues = [parseFloat(defaultKurs[i].kurs_min3.replace(/,/g, '')), defaultKurs[i].kurs_min2, defaultKurs[i].kurs_min1, defaultKurs[i].kurs];
+
+      //   tes = dataValues
+      //   const dataValues = [10000,11000,14000,15000,12000,15000,10000,11000,14000,15000,11000,10000];
+      //   const dataValues2 = [20,10,30,40,20,50,40,20,40,20,30,10];
+
+      //   console.log([dataValues, mataUang]);
+
+      //   if(['EUR','SGD'].includes(mataUang)){
+      //     this.lineChartKursSeries.push(
+      //       {
+      //         name: `${mataUang}`,
+      //         data: dataValues
+      //       }
+      //       );
+      //   }
+      //   else{
+      //     this.lineChartKursSeries.push(
+      //       {
+      //         name: `${mataUang}`,
+      //         data: [10,15,12,11]
+      //       },
+      //       );
+      //   }
+
+
+      //     this.chartSeries2.push({
+      //       name: `${mataUang}`,
+      //       data: dataValues
+      //     })
+      //   }
+
+      // console.log(tes);
+
+      for(let i=0; i < 3 ; i++){
+        const kurs = this.trendKursData.d.arrayData[i].kurs;
+
+        if(kurs == 'JPY'){
+          const jpyValue = this.trendKursData.d.arrayData[i].data
+          const kursJPY = this.trendKursData.d.arrayData[i].kurs
+          // this.valueJPY = this.trendKursData.d.arrayData[i].kurs
+          console.log(this.valueJPY);
+
+          console.log('JPY', jpyValue, kursJPY);
+
+          this.lineChartKursSeries.push({
+            name: kursJPY,
+            data: this.valueJPY[0]
+          })
+        }
+        else{
+          this.lineChartKursSeries.push(
+            {
+            name: `${kurs}`,
+            data: this.trendKursData.d.arrayData[i].data
+            },
+          )
+        }
       }
 
       console.log(this.lineChartKursSeries);
 
+      for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
+        const currentDate = this.trendKursCategories.d.arrayTanggal[i];
+        console.log('Current Date:', currentDate);
+
+        this.tesXaxis.categories.push(currentDate);
+      }
+
+      console.log('Updated Categories:', this.tesXaxis.categories);
+
+
+
+        console.log(defaultKurs);
+        console.log(this.trendKursCategories.d.arrayTanggal);
+        console.log(this.trendKursCategories.d.arrayData);
+
+        let tempArr: Date[] = [];
+        for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++) {
+          let formatDate = 'YYYY-MM-DD';
+          tempArr.push(moment(this.trendKursCategories.d.arrayTanggal[i], formatDate).toDate());
+        }
+        // console.log(tempArr);
+
+      this.stroke = {
+        curve: 'smooth',
+        width: 1
+      }
+
+      console.log(this.lineChartKursSeries);
 
 
       this.lineChartInterestRateSeries = [
@@ -250,6 +379,85 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     } catch (error) {
       console.log(error);
     }
+
+    this.lineYAxis = [
+      {
+        seriesName: "USD",
+        min:11000,
+        max:16000,
+        axisTicks: {
+          show: true
+        },
+        axisBorder: {
+          show: true,
+          color: "#008FFB"
+        },
+        labels: {
+          style: {
+            colors: ["#008FFB"]
+          }
+        },
+        title: {
+          text: "Axe 1",
+          style: {
+            color: "#008FFB"
+          }
+        },
+        tooltip: {
+          enabled: true
+        }
+      },
+      {
+        seriesName: "THB",
+        opposite: true,
+        // min: 0,
+        // max: 1,
+        axisTicks: {
+          show: true
+        },
+        axisBorder: {
+          show: true,
+          color: "#FEB019"
+        },
+        labels: {
+          style: {
+            colors: ["#FEB019"]
+          }
+        },
+        title: {
+          text: "Axe 2",
+          style: {
+            color: "#FEB019"
+          }
+        },
+        tooltip: {
+          enabled: true
+        }
+      },
+      {
+        show: true,
+        seriesName: "USD",
+        // min: 0,
+        // max: 200,
+        axisTicks: {
+          show: true,
+        },
+        axisBorder: {
+          show: false,
+        },
+        labels: {
+          show:false,
+        },
+        title: {
+          text: "",
+        },
+        tooltip: {
+          enabled: false
+        }
+      }
+    ]
+
+
   }
 
   ngAfterViewInit(): void {
@@ -277,6 +485,27 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.isVisibleLine = !this.isVisibleLine;
     }
     this.isVisibleBar = false;
+  }
+
+  onSubmit(event: any) {
+    console.log(event.target[0].id);
+
+    // if(){
+
+    // }
+    // let targetColumn = [];
+    // let targetBool = [];
+    // for(let i=0; i<event.target.length - 1; i++){
+    //   if(event.target[i].checked){
+    //     targetColumn.push(event.target[i].id);
+    //   }
+    // }
+    // for(let i=0; i<event.target.length - 1; i++){
+    //   if(event.target[i]){
+    //     targetBool.push(event.target[i].checked);
+    //   }
+    // }
+    // this.tableConfig.customizeTableColumn(targetColumn, targetBool)
   }
 
 
