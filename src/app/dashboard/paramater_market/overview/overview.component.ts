@@ -279,7 +279,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.lineChartKursSeries.push(
             {
             name: `${kurs}`,
-            data: this.defaultKurs[i].data
+            data: this.defaultKurs[i].data,
             },
           )
         }
@@ -295,9 +295,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         this.lineYAxis.push({
           showAlways: true,
           seriesName: kurs,
-          tickAmount: 20,
-          min:15000,
-          max:19000,
+          // tickAmount: 20,
+          // min:15000,
+          // max:19000,
           axisTicks: {
             show: true
           },
@@ -328,6 +328,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
             showAlways: true,
             seriesName: kurs,
+            min: 105,
+            max: 108,
             tickAmount: 15,
             opposite: true,
             // min: 0,
@@ -357,7 +359,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         )
       }
       else{
-        // console.log(kurs);
+        console.log(kurs);
 
         this.lineYAxis.push({
           // show: true,
@@ -365,6 +367,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           seriesName: "USD",
           // min: 0,
           // max: 200,
+
           axisTicks: {
             show: false,
           },
@@ -587,12 +590,18 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
       if(kursName === 'JPY'){
         console.log(kursName);
+        // const valJPY = this.valueJPY[0]
+        // const lastIndex = this.valueJPY[0].length
+
+        // console.log(valJPY, lastIndex);
 
         this.lineYAxis.push({
 
           showAlways: true,
           seriesName: kursName,
-          tickAmount: 15,
+          min: 105,
+          max: 108,
+          tickAmount: 20,
           opposite: true,
           // min: 0,
           // max: 1,
@@ -627,8 +636,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           {
             showAlways: true,
             seriesName: kursName,
-            tickAmount: 20,
-            // min:11000,
+            // tickAmount: 20,
+            // min:15000,
             // max:16000,
             axisTicks: {
               show: true
@@ -662,8 +671,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           // show: true,
           showAlways: true,
           seriesName: filteredData[0].kurs,
-          // min: 0,
-          // max: 200,
           axisTicks: {
             show: false,
           },
