@@ -187,7 +187,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.valueJPY = trendKurs;
       this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
 
-      const map = this.valueJPY.map((item: any) => {
+      const updateValueJPY = this.valueJPY.map((item: any) => {
         return item.data.map((value: any) => {
           const val = value / 100;
           const slice = val.toString().slice(0,6)
@@ -196,8 +196,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         });
       });
 
-      console.log(map);
-      this.valueJPY = map;
+      console.log(updateValueJPY);
+      this.valueJPY = updateValueJPY;
 
       this.trendKursCategories = trendKurs
       this.trendKursData = trendKurs;
@@ -571,12 +571,58 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
     for(let i=0; i<filteredData.length; i++){
       const kursName = filteredData[i].kurs
-      this.lineChartKursSeries.push({
-        name: kursName,
-        data: filteredData[i].data
-      })
 
-      if(kursName !== 'JPY' && i < 1){
+      if(kursName != 'JPY'){
+        this.lineChartKursSeries.push({
+          name: kursName,
+          data: filteredData[i].data
+        })
+      }
+      else{
+        this.lineChartKursSeries.push({
+          name: kursName,
+          data: this.valueJPY[0]
+        })
+      }
+
+      if(kursName === 'JPY'){
+        console.log(kursName);
+
+        this.lineYAxis.push({
+
+          showAlways: true,
+          seriesName: kursName,
+          tickAmount: 15,
+          opposite: true,
+          // min: 0,
+          // max: 1,
+          axisTicks: {
+            show: true
+          },
+          axisBorder: {
+            show: true,
+            color: "#000"
+          },
+          labels: {
+            style: {
+              colors: ["##000"]
+            }
+          },
+          title: {
+            text: "Hundred",
+            style: {
+              color: "##000"
+            }
+          },
+          tooltip: {
+            enabled: true
+          }
+        },
+        )
+      }
+      else if(kursName != 'JPY' && i < 1){
+        console.log(kursName);
+
         this.lineYAxis.push(
           {
             showAlways: true,
@@ -608,11 +654,14 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               },
         )
       }
-      else if(i < filteredData.length){
+      else{
+        console.log(kursName);
+        console.log(filteredData[0].kurs);
+
         this.lineYAxis.push({
           // show: true,
-          // showAlways: true,
-          // seriesName: "USD",
+          showAlways: true,
+          seriesName: filteredData[0].kurs,
           // min: 0,
           // max: 200,
           axisTicks: {
@@ -632,40 +681,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           }
         })
       }
-      else{
-        this.lineYAxis.push({
-
-          showAlways: true,
-          seriesName: kursName,
-          tickAmount: 15,
-          opposite: true,
-          // min: 0,
-          // max: 1,
-          axisTicks: {
-            show: true
-          },
-          axisBorder: {
-            show: true,
-            color: "#000"
-          },
-          labels: {
-            style: {
-              colors: ["##000"]
-            }
-          },
-          title: {
-            text: "Hundred",
-            style: {
-              color: "##000"
-            }
-          },
-          tooltip: {
-            enabled: true
-          }
-        },
-      )
-      }
-
     }
   }
 
