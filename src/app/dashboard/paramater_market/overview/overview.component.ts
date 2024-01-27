@@ -243,7 +243,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           toggleDataSeries: true
         },
         onItemHover:{
-          highlightDataSeries: false
+          highlightDataSeries: true
         }
       }
 
@@ -251,65 +251,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
       const getJPY = this.dataKurs.data.filter((item: any) => ['JPY'].includes(item.mata_uang));
 
-      let tes: any;
-      // this.dataKurs.data = this.dataKurs.data.slice(4,6);
-
-      // console.log(getJPY);
-
-      // for (let i = 0; i < defaultKurs.length ; i++) {
-
-      //   typeof(defaultKurs[i].kurs) === 'string' ? parseFloat(defaultKurs[i].kurs.replace(/,/g, '')) : parseFloat(defaultKurs[i].kurs)
-
-      //   typeof(defaultKurs[i].kurs_min1) === 'string' ? parseFloat(defaultKurs[i].kurs_min1.replace(/,/g, '')) : parseFloat(defaultKurs[i].kurs_min1)
-
-      //   typeof(defaultKurs[i].kurs_min2) === 'string' ? parseFloat(defaultKurs[i].kurs_min2.replace(/,/g, '')) : parseFloat(defaultKurs[i].kurs_min2)
-
-      //   typeof(defaultKurs[i].kurs_min3) === 'string' ? parseFloat(defaultKurs[i].kurs_min3.replace(/,/g, '')) : parseFloat(defaultKurs[i].kurs_min3)
-
-      //   const mataUang = defaultKurs[i].mata_uang;
-
-      //   const dataValues = [parseFloat(defaultKurs[i].kurs_min3.replace(/,/g, '')), defaultKurs[i].kurs_min2, defaultKurs[i].kurs_min1, defaultKurs[i].kurs];
-
-      //   tes = dataValues
-      //   const dataValues = [10000,11000,14000,15000,12000,15000,10000,11000,14000,15000,11000,10000];
-      //   const dataValues2 = [20,10,30,40,20,50,40,20,40,20,30,10];
-
-      //   console.log([dataValues, mataUang]);
-
-      //   if(['EUR','SGD'].includes(mataUang)){
-      //     this.lineChartKursSeries.push(
-      //       {
-      //         name: `${mataUang}`,
-      //         data: dataValues
-      //       }
-      //       );
-      //   }
-      //   else{
-      //     this.lineChartKursSeries.push(
-      //       {
-      //         name: `${mataUang}`,
-      //         data: [10,15,12,11]
-      //       },
-      //       );
-      //   }
-
-
-      //     this.chartSeries2.push({
-      //       name: `${mataUang}`,
-      //       data: dataValues
-      //     })
-      //   }
-
-      // console.log(tes);
-
       console.log(this.kursLegends);
 
-      for(let i=0; i < 3 ; i++){
+      for(let i=0; i < this.trendKursData.d.arrayData.length ; i++){
         const kurs = this.trendKursData.d.arrayData[i].kurs;
-
-        if(kurs == 'USD'){
-          this.USDDataChart = this.trendKursData.d.arrayData[i].data
-        }
 
         if(kurs == 'JPY'){
           const jpyValue = this.trendKursData.d.arrayData[i].data
@@ -334,36 +279,124 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         }
       }
 
+      for(let i=0; i< this.trendKursData.d.arrayData.length; i++){
+
+      const kurs = this.trendKursData.d.arrayData[i].kurs
+
+      if(i < 1){
+        // console.log(kurs);
+
+        this.lineYAxis.push({
+          showAlways: true,
+          seriesName: kurs,
+          // tickAmount: 50,
+          // min:11000,
+          // max:16000,
+          axisTicks: {
+            show: false
+          },
+          axisBorder: {
+            show: true,
+            color: "#008FFB"
+          },
+          labels: {
+            style: {
+              colors: ["#008FFB"]
+            }
+          },
+          title: {
+            text: "Axe 1",
+            style: {
+              color: "#008FFB"
+            }
+          },
+          tooltip: {
+            enabled: true
+          }
+            },)
+      }
+      else if(kurs === 'JPY'){
+        // console.log(kurs);
+
+        this.lineYAxis.push({
+
+            showAlways: true,
+            seriesName: kurs,
+            opposite: true,
+            // min: 0,
+            // max: 1,
+            axisTicks: {
+              show: false
+            },
+            axisBorder: {
+              show: true,
+              color: "#FEB019"
+            },
+            labels: {
+              style: {
+                colors: ["#FEB019"]
+              }
+            },
+            title: {
+              text: "Axe 2",
+              style: {
+                color: "#FEB019"
+              }
+            },
+            tooltip: {
+              enabled: true
+            }
+          },
+        )
+      }
+      else{
+        // console.log(kurs);
+
+        this.lineYAxis.push({
+          // show: true,
+          // showAlways: true,
+          seriesName: "USD",
+          // min: 0,
+          // max: 200,
+          axisTicks: {
+            show: false,
+          },
+          axisBorder: {
+            show: false,
+          },
+          labels: {
+            show:false,
+          },
+          title: {
+            text: "",
+          },
+          tooltip: {
+            enabled: false
+          }
+        })
+      }
+    }
+
       console.log(this.lineChartKursSeries);
 
       for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
         const currentDate = this.trendKursCategories.d.arrayTanggal[i];
-        console.log('Current Date:', currentDate);
+        // console.log('Current Date:', currentDate);
 
         this.tesXaxis.categories.push(currentDate);
       }
 
-      console.log('Updated Categories:', this.tesXaxis.categories);
-
-
-
-        console.log(defaultKurs);
-        console.log(this.trendKursCategories.d.arrayTanggal);
-        console.log(this.trendKursCategories.d.arrayData);
-
-        let tempArr: Date[] = [];
-        for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++) {
-          let formatDate = 'YYYY-MM-DD';
-          tempArr.push(moment(this.trendKursCategories.d.arrayTanggal[i], formatDate).toDate());
-        }
-        // console.log(tempArr);
+      // console.log('Updated Categories:', this.tesXaxis.categories);
+        // console.log(defaultKurs);
+        // console.log(this.trendKursCategories.d.arrayTanggal);
+        // console.log(this.trendKursCategories.d.arrayData);
 
       this.stroke = {
         curve: 'smooth',
         width: 1
       }
 
-      console.log(this.lineChartKursSeries);
+      // console.log(this.lineChartKursSeries);
 
 
       this.lineChartInterestRateSeries = [
@@ -402,83 +435,81 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       console.log(error);
     }
 
-    this.lineYAxis = [
-      {
-        showAlways: true,
-        seriesName: "USD",
-        // min:11000,
-        // max:16000,
-        axisTicks: {
-          show: true
-        },
-        axisBorder: {
-          show: true,
-          color: "#008FFB"
-        },
-        labels: {
-          style: {
-            colors: ["#008FFB"]
-          }
-        },
-        title: {
-          text: "Axe 1",
-          style: {
-            color: "#008FFB"
-          }
-        },
-        tooltip: {
-          enabled: true
-        }
-      },
-      {
-        seriesName: "THB",
-        opposite: true,
-        // min: 0,
-        // max: 1,
-        axisTicks: {
-          show: true
-        },
-        axisBorder: {
-          show: true,
-          color: "#FEB019"
-        },
-        labels: {
-          style: {
-            colors: ["#FEB019"]
-          }
-        },
-        title: {
-          text: "Axe 2",
-          style: {
-            color: "#FEB019"
-          }
-        },
-        tooltip: {
-          enabled: true
-        }
-      },
-      {
-        show: true,
-        seriesName: "USD",
-        // min: 0,
-        // max: 200,
-        axisTicks: {
-          show: true,
-        },
-        axisBorder: {
-          show: false,
-        },
-        labels: {
-          show:false,
-        },
-        title: {
-          text: "",
-        },
-        tooltip: {
-          enabled: false
-        }
-      }
-    ]
+    // this.lineYAxis = [
+    //   {
+    //     showAlways: true,
+    //     seriesName: "USD",
+    //     axisTicks: {
+    //       show: true
+    //     },
+    //     axisBorder: {
+    //       show: true,
+    //       color: "#008FFB"
+    //     },
+    //     labels: {
+    //       style: {
+    //         colors: ["#008FFB"]
+    //       }
+    //     },
+    //     title: {
+    //       text: "Axe 1",
+    //       style: {
+    //         color: "#008FFB"
+    //       }
+    //     },
+    //     tooltip: {
+    //       enabled: true
+    //     }
+    //   },
+    //   {
+    //     showAlways: true,
+    //     seriesName: "THB",
+    //     opposite: true,
+    //     axisTicks: {
+    //       show: true
+    //     },
+    //     axisBorder: {
+    //       show: true,
+    //       color: "#FEB019"
+    //     },
+    //     labels: {
+    //       style: {
+    //         colors: ["#FEB019"]
+    //       }
+    //     },
+    //     title: {
+    //       text: "Axe 2",
+    //       style: {
+    //         color: "#FEB019"
+    //       }
+    //     },
+    //     tooltip: {
+    //       enabled: true
+    //     }
+    //   },
+    //   {
+    //     show: true,
+    //     seriesName: "USD",
+    //     axisTicks: {
+    //       show: true,
+    //     },
+    //     axisBorder: {
+    //       show: false,
+    //     },
+    //     labels: {
+    //       show:false,
+    //     },
+    //     title: {
+    //       text: "",
+    //     },
+    //     tooltip: {
+    //       enabled: false
+    //     }
+    //   }
+    // ]
+    // this.lineYAxis = [];
+
+    console.log(this.lineYAxis);
   }
 
   ngAfterViewInit(): void {
@@ -563,10 +594,21 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     },
     events:{
       legendClick(chart, seriesIndex, options) {
-          const firstData = options.config.series[0].data;
           console.log(options.config);
-          options.config.series[0].data = firstData
+          // console.log(options.series.length);
           // console.log(firstData);
+
+          for(let i=0; i<options.config.series.length; i++){
+            if(seriesIndex === i){
+              options.config.yaxis[i].labels.show === true
+              console.log('same', options.config.yaxis[i].labels.show, options.config.series[i].name, seriesIndex);
+            }
+            else{
+              options.config.yaxis[i].labels.show === false
+              console.log('not same', options.config.yaxis[i].labels.show, options.config.series[i].name, seriesIndex);
+            }
+          }
+
       },
     }
   }
