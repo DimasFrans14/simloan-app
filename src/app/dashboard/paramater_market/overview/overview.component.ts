@@ -247,19 +247,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         }
       }
 
-      const defaultKurs = this.dataKurs.data.filter((item: any) => ['SGD', 'EUR', 'JPY'].includes(item.mata_uang));
+      const defaultKurs = this.trendKursData.d.arrayData.filter((item: any) => ['USD', 'EUR', 'JPY'].includes(item.kurs));
+
 
       const getJPY = this.dataKurs.data.filter((item: any) => ['JPY'].includes(item.mata_uang));
 
-      console.log(this.kursLegends);
+      console.log(defaultKurs);
 
-      for(let i=0; i < this.trendKursData.d.arrayData.length ; i++){
-        const kurs = this.trendKursData.d.arrayData[i].kurs;
+      for(let i=0; i < defaultKurs.length ; i++){
+        const kurs = defaultKurs[i].kurs;
 
         if(kurs == 'JPY'){
-          const jpyValue = this.trendKursData.d.arrayData[i].data
-          const kursJPY = this.trendKursData.d.arrayData[i].kurs
-          // this.valueJPY = this.trendKursData.d.arrayData[i].kurs
+          const jpyValue = defaultKurs[i].data
+          const kursJPY = defaultKurs[i].kurs
+          // this.valueJPY = defaultKurs[i].kurs
           console.log(this.valueJPY);
 
           console.log('JPY', jpyValue, kursJPY);
@@ -273,15 +274,15 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.lineChartKursSeries.push(
             {
             name: `${kurs}`,
-            data: this.trendKursData.d.arrayData[i].data
+            data: defaultKurs[i].data
             },
           )
         }
       }
 
-      for(let i=0; i< this.trendKursData.d.arrayData.length; i++){
+      for(let i=0; i< defaultKurs.length; i++){
 
-      const kurs = this.trendKursData.d.arrayData[i].kurs
+      const kurs = defaultKurs[i].kurs
 
       if(i < 1){
         // console.log(kurs);
@@ -510,6 +511,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     // this.lineYAxis = [];
 
     console.log(this.lineYAxis);
+    console.log(this.currencyChartDetails);
+
   }
 
   ngAfterViewInit(): void {
@@ -598,16 +601,16 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           // console.log(options.series.length);
           // console.log(firstData);
 
-          for(let i=0; i<options.config.series.length; i++){
-            if(seriesIndex === i){
-              options.config.yaxis[i].labels.show === true
-              console.log('same', options.config.yaxis[i].labels.show, options.config.series[i].name, seriesIndex);
-            }
-            else{
-              options.config.yaxis[i].labels.show === false
-              console.log('not same', options.config.yaxis[i].labels.show, options.config.series[i].name, seriesIndex);
-            }
-          }
+          // for(let i=0; i<options.config.series.length; i++){
+          //   if(seriesIndex === i){
+          //     const change = options.config.yaxis[i].showAlways === true
+          //     console.log('same', change, options.config.series[i].name, seriesIndex);
+          //   }
+          //   else{
+          //     options.config.yaxis[i].showAlways === false
+          //     console.log('not same', options.config.yaxis[i].showAlways, options.config.series[i].name, seriesIndex);
+          //   }
+          // }
 
       },
     }
