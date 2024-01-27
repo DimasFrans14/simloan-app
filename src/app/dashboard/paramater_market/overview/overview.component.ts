@@ -158,10 +158,13 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.tesLocalStorageKurs = JSON.parse(getCompareDate)
   }
 
+  allTrendDataKurs: any;
   trendKursCategories: any;
   trendKursData: any;
   valueJPY: any;
   kursJPY: any;
+
+  defaultKurs: any;
 
   USDDataChart: any;
 
@@ -179,6 +182,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       const trendKurs = await this.marketUpdateService.fetchDataKursTrend();
       console.log(trendKurs);
 
+      this.allTrendDataKurs = trendKurs;
+      this.allTrendDataKurs = this.allTrendDataKurs.d.arrayData
       this.valueJPY = trendKurs;
       this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
 
@@ -247,20 +252,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         }
       }
 
-      const defaultKurs = this.trendKursData.d.arrayData.filter((item: any) => ['USD', 'EUR', 'JPY'].includes(item.kurs));
+      this.defaultKurs = this.trendKursData.d.arrayData.filter((item: any) => ['USD', 'EUR', 'JPY'].includes(item.kurs));
 
 
       const getJPY = this.dataKurs.data.filter((item: any) => ['JPY'].includes(item.mata_uang));
 
-      console.log(defaultKurs);
+      console.log(this.defaultKurs);
 
-      for(let i=0; i < defaultKurs.length ; i++){
-        const kurs = defaultKurs[i].kurs;
+      for(let i=0; i < this.defaultKurs.length ; i++){
+        const kurs = this.defaultKurs[i].kurs;
 
         if(kurs == 'JPY'){
-          const jpyValue = defaultKurs[i].data
-          const kursJPY = defaultKurs[i].kurs
-          // this.valueJPY = defaultKurs[i].kurs
+          const jpyValue = this.defaultKurs[i].data
+          const kursJPY = this.defaultKurs[i].kurs
+          // this.valueJPY = this.defaultKurs[i].kurs
           console.log(this.valueJPY);
 
           console.log('JPY', jpyValue, kursJPY);
@@ -274,41 +279,41 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.lineChartKursSeries.push(
             {
             name: `${kurs}`,
-            data: defaultKurs[i].data
+            data: this.defaultKurs[i].data
             },
           )
         }
       }
 
-      for(let i=0; i< defaultKurs.length; i++){
+      for(let i=0; i< this.defaultKurs.length; i++){
 
-      const kurs = defaultKurs[i].kurs
+      const kurs = this.defaultKurs[i].kurs
 
-      if(i < 1){
+      if(kurs === 'USD'){
         // console.log(kurs);
 
         this.lineYAxis.push({
           showAlways: true,
           seriesName: kurs,
-          // tickAmount: 50,
+          tickAmount: 25,
           // min:11000,
           // max:16000,
           axisTicks: {
-            show: false
+            show: true
           },
           axisBorder: {
             show: true,
-            color: "#008FFB"
+            color: "#000"
           },
           labels: {
             style: {
-              colors: ["#008FFB"]
+              colors: ["#000"]
             }
           },
           title: {
-            text: "Axe 1",
+            text: "Thousand",
             style: {
-              color: "#008FFB"
+              color: "#000"
             }
           },
           tooltip: {
@@ -323,25 +328,26 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
             showAlways: true,
             seriesName: kurs,
+            tickAmount: 15,
             opposite: true,
             // min: 0,
             // max: 1,
             axisTicks: {
-              show: false
+              show: true
             },
             axisBorder: {
               show: true,
-              color: "#FEB019"
+              color: "#000"
             },
             labels: {
               style: {
-                colors: ["#FEB019"]
+                colors: ["##000"]
               }
             },
             title: {
-              text: "Axe 2",
+              text: "Hundred",
               style: {
-                color: "#FEB019"
+                color: "##000"
               }
             },
             tooltip: {
@@ -394,7 +400,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
       this.stroke = {
         curve: 'smooth',
-        width: 1
+        width: 1.5
       }
 
       // console.log(this.lineChartKursSeries);
@@ -542,8 +548,34 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.isVisibleBar = false;
   }
 
-  onSubmit(event: any) {
-    console.log(event.target[0].id);
+  async onSubmit(event: any) {
+
+    console.log(this.allTrendDataKurs);
+    let targetColumn: any[] = [];
+    let targetBool = [];
+    for(let i=0; i<event.target.length - 1; i++){
+      if(event.target[i].checked){
+        targetColumn.push(event.target[i].id);
+      }
+    }
+
+    console.log(targetColumn);
+
+    const filteredData = this.allTrendDataKurs.filter(
+      (item: any) => targetColumn.includes(item.kurs)
+    )
+
+    console.log(filteredData);
+
+    this.defaultKurs = filteredData
+
+    this.currencyChartDetails.events = {
+      updated(chart, options) {
+        console.log(chart, options);
+      },
+    }
+
+    return this.defaultKurs
 
     // if(){
 
