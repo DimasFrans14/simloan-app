@@ -252,7 +252,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         }
       }
 
-      this.defaultKurs = this.trendKursData.d.arrayData.filter((item: any) => ['USD', 'EUR', 'JPY'].includes(item.kurs));
+      this.defaultKurs = this.trendKursData.d.arrayData.filter((item: any) => ['USD', 'EUR', 'GBP' ,'JPY'].includes(item.kurs));
 
 
       const getJPY = this.dataKurs.data.filter((item: any) => ['JPY'].includes(item.mata_uang));
@@ -295,9 +295,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         this.lineYAxis.push({
           showAlways: true,
           seriesName: kurs,
-          tickAmount: 25,
-          // min:11000,
-          // max:16000,
+          tickAmount: 20,
+          min:15000,
+          max:19000,
           axisTicks: {
             show: true
           },
@@ -548,11 +548,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.isVisibleBar = false;
   }
 
-  async onSubmit(event: any) {
+  onSubmit(event: any) {
 
     console.log(this.allTrendDataKurs);
     let targetColumn: any[] = [];
-    let targetBool = [];
     for(let i=0; i<event.target.length - 1; i++){
       if(event.target[i].checked){
         targetColumn.push(event.target[i].id);
@@ -567,32 +566,107 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
     console.log(filteredData);
 
-    this.defaultKurs = filteredData
+    this.lineChartKursSeries = [];
+    this.lineYAxis = [];
 
-    this.currencyChartDetails.events = {
-      updated(chart, options) {
-        console.log(chart, options);
-      },
+    for(let i=0; i<filteredData.length; i++){
+      const kursName = filteredData[i].kurs
+      this.lineChartKursSeries.push({
+        name: kursName,
+        data: filteredData[i].data
+      })
+
+      if(kursName !== 'JPY' && i < 1){
+        this.lineYAxis.push(
+          {
+            showAlways: true,
+            seriesName: kursName,
+            tickAmount: 20,
+            // min:11000,
+            // max:16000,
+            axisTicks: {
+              show: true
+            },
+            axisBorder: {
+              show: true,
+              color: "#000"
+            },
+            labels: {
+              style: {
+                colors: ["#000"]
+              }
+            },
+            title: {
+              text: "Thousand",
+              style: {
+                color: "#000"
+              }
+            },
+            tooltip: {
+              enabled: true
+            }
+              },
+        )
+      }
+      else if(i < filteredData.length){
+        this.lineYAxis.push({
+          // show: true,
+          // showAlways: true,
+          // seriesName: "USD",
+          // min: 0,
+          // max: 200,
+          axisTicks: {
+            show: false,
+          },
+          axisBorder: {
+            show: false,
+          },
+          labels: {
+            show:false,
+          },
+          title: {
+            text: "",
+          },
+          tooltip: {
+            enabled: false
+          }
+        })
+      }
+      else{
+        this.lineYAxis.push({
+
+          showAlways: true,
+          seriesName: kursName,
+          tickAmount: 15,
+          opposite: true,
+          // min: 0,
+          // max: 1,
+          axisTicks: {
+            show: true
+          },
+          axisBorder: {
+            show: true,
+            color: "#000"
+          },
+          labels: {
+            style: {
+              colors: ["##000"]
+            }
+          },
+          title: {
+            text: "Hundred",
+            style: {
+              color: "##000"
+            }
+          },
+          tooltip: {
+            enabled: true
+          }
+        },
+      )
+      }
+
     }
-
-    return this.defaultKurs
-
-    // if(){
-
-    // }
-    // let targetColumn = [];
-    // let targetBool = [];
-    // for(let i=0; i<event.target.length - 1; i++){
-    //   if(event.target[i].checked){
-    //     targetColumn.push(event.target[i].id);
-    //   }
-    // }
-    // for(let i=0; i<event.target.length - 1; i++){
-    //   if(event.target[i]){
-    //     targetBool.push(event.target[i].checked);
-    //   }
-    // }
-    // this.tableConfig.customizeTableColumn(targetColumn, targetBool)
   }
 
 
