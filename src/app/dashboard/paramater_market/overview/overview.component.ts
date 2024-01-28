@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { ApexAnnotations, ApexAxisChartSeries, ApexChart,  ApexLegend,  ApexPlotOptions,  ApexStroke,  ApexTitleSubtitle, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
+import { filter } from 'rxjs';
 import { DataService } from 'src/app/data.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 
@@ -588,6 +589,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         })
       }
 
+
+
       if(kursName === 'JPY'){
         console.log(kursName);
         // const valJPY = this.valueJPY[0]
@@ -667,26 +670,82 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         console.log(kursName);
         console.log(filteredData[0].kurs);
 
-        this.lineYAxis.push({
-          // show: true,
-          showAlways: true,
-          seriesName: filteredData[0].kurs,
-          axisTicks: {
-            show: false,
-          },
-          axisBorder: {
-            show: false,
-          },
-          labels: {
-            show:false,
-          },
-          title: {
-            text: "",
-          },
-          tooltip: {
-            enabled: false
+        if(filteredData[0].kurs === 'JPY'){
+          if(i >= 2){
+            this.lineYAxis.push({
+              // show: true,
+              showAlways: true,
+              seriesName: filteredData[1].kurs,
+              axisTicks: {
+                show: false,
+              },
+              axisBorder: {
+                show: false,
+              },
+              labels: {
+                show:false,
+              },
+              title: {
+                text: "",
+              },
+              tooltip: {
+                enabled: false
+              }
+            })
           }
-        })
+          else{
+            this.lineYAxis.push({
+              showAlways: true,
+              seriesName: filteredData[1].kurs,
+              // tickAmount: 20,
+              // min:15000,
+              // max:16000,
+              axisTicks: {
+                show: true
+              },
+              axisBorder: {
+                show: true,
+                color: "#000"
+              },
+              labels: {
+                style: {
+                  colors: ["#000"]
+                }
+              },
+              title: {
+                text: "Thousand",
+                style: {
+                  color: "#000"
+                }
+              },
+              tooltip: {
+                enabled: true
+              }
+                })
+          }
+        }
+        else{
+          this.lineYAxis.push({
+            // show: true,
+            showAlways: true,
+            seriesName: filteredData[0].kurs,
+            axisTicks: {
+              show: false,
+            },
+            axisBorder: {
+              show: false,
+            },
+            labels: {
+              show:false,
+            },
+            title: {
+              text: "",
+            },
+            tooltip: {
+              enabled: false
+            }
+          })
+        }
       }
     }
   }
