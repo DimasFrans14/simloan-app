@@ -23,7 +23,6 @@ export class ReportShlComponent {
     private chartService: ChartService
   ){
     console.log(chartService);
-
   }
 
 
@@ -33,6 +32,7 @@ export class ReportShlComponent {
   shlChartTitle = this.chartService.shlChartTitle;
   colors = this.chartService.colors;
   xAxisSHL = this.chartService.xAxisSHL;
+  shlStroke = this.chartService.shlStroke;
 
   //Availibility Period Grafik
   dataChartAP = this.chartService.dataChartAP

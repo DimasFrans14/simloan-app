@@ -21,6 +21,7 @@ import { ApexChart,
 })
 export class ChartService {
 
+
   constructor() {
     this.initializeSHLChart()
     this.initializeAPChart()
@@ -31,7 +32,378 @@ export class ChartService {
     this.initializeOutstandingDebtSummaryTahunan()
     this.initializeAdmBarChart()
     this.initializeColumnAdmChart()
+    this.initializedWtiBrent()
+    this.initializedIcp()
+    this.initializedCoal()
+    this.initializedLng()
+    this.initializedBatuBara()
   }
+  //Commodities Market Update //
+    // WTI & BRENT //
+    dataChartWtiBrent: ApexAxisChartSeries = [];
+    wtiBrentChart!: ApexChart;
+    wtiBrentChartTitle!: ApexTitleSubtitle;
+    wtiBrentChartColors: any;
+    xAxisWtiBrentChart!: ApexXAxis;
+    yAxisWtiBrent!:ApexYAxis;
+    wtiBrentStroke!:  ApexStroke;
+
+  initializedWtiBrent() {
+
+    this.dataChartWtiBrent = [
+      {
+        name: "Oil (WTI)",
+        data: [67, 85, 110, 120]
+      },
+      {
+        name: "OIL (BRENT)",
+        data: [70, 90, 100, 122]
+      }
+    ];
+
+    this.wtiBrentChart = {
+      type: 'line',
+      width: 350,
+      // width:,
+      toolbar: {
+        show: true,
+        tools: {
+          download: true,
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: false,
+        }
+      }
+    }
+    this.wtiBrentStroke ={
+      curve: "smooth",
+      width: 1,
+    }
+
+    this.wtiBrentChartTitle =  {
+      text: "WTI & Brent (USD/Ton)",
+      style: {
+        fontSize:  '18px',
+        fontWeight:  500,
+        // fontFamily:  undefined,
+        color:  '#000000'
+      },
+    }
+
+    this.wtiBrentChartColors = [
+      '#2EB0C2',
+      '#256979',
+    ]
+
+    this.xAxisWtiBrentChart = {
+      categories: [
+        ["2021"],
+        ["2022"],
+        ["2023"],
+        ["2024"],
+      ]
+    }
+    this.yAxisWtiBrent = {
+      show: true,
+      tickAmount: 4,
+      min: 45.00,
+      max: 125.00,
+      
+    }
+  }
+    // End WTI & BRENT //
+    // ICP //
+    dataChartIcp: ApexAxisChartSeries=[];
+    icpChart!: ApexChart;
+    icpChartTitle!: ApexTitleSubtitle;
+    icpChartColors!: any;
+    xAxixIcpChart!: ApexXAxis;
+    yAxisIcp!:ApexYAxis;
+    icpStroke!:ApexStroke;
+
+    initializedIcp() {
+
+      this.dataChartIcp = [
+        {
+          data: [56, 30, 130, 120]
+        }
+      ];
+  
+      this.icpChart = {
+        type: 'line',
+        width: 350,
+        // width:,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: false,
+            zoom: false,
+            zoomin: false,
+            zoomout: false,
+            pan: false,
+            reset: false,
+          }
+        }
+      }
+      this.icpStroke ={
+        curve: "smooth",
+        width: 1,
+      }
+  
+      this.icpChartTitle =  {
+        text: "ICP (USD/Barel)",
+        style: {
+          fontSize:  '18px',
+          fontWeight:  500,
+          // fontFamily:  undefined,
+          color:  '#000000'
+        },
+      }
+  
+      this.icpChartColors = [
+        '#2EB0C2',
+        '#256979',
+      ]
+  
+      this.xAxixIcpChart = {
+        categories: [
+          ["2021"],
+          ["2022"],
+          ["2023"],
+          ["2024"],
+        ]
+      }
+      this.yAxisIcp = {
+        show: true,
+        tickAmount: 6,
+        min: 20,
+        max: 140.00,
+        
+      }
+    }
+    // end ICP //
+    // COAL NEWCASTLE //
+    dataChartCoal: ApexAxisChartSeries=[];
+    coalChart!: ApexChart;
+    coalChartTitle!: ApexTitleSubtitle;
+    coalChartColors!: any;
+    xAxixCoalChart!: ApexXAxis;
+    yAxisCoal!:ApexYAxis;
+    coalStroke!:ApexStroke;
+
+    initializedCoal() {
+
+      this.dataChartCoal = [
+        {
+          data: [400, 200, 350, 420]
+        }
+      ];
+  
+      this.coalChart = {
+        type: 'line',
+        width: 350,
+        // width:,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: false,
+            zoom: false,
+            zoomin: false,
+            zoomout: false,
+            pan: false,
+            reset: false,
+          }
+        }
+      }
+      this.coalStroke ={
+        curve: "smooth",
+        width: 1,
+      }
+  
+      this.coalChartTitle =  {
+        text: "ICP (USD/Barel)",
+        style: {
+          fontSize:  '18px',
+          fontWeight:  500,
+          // fontFamily:  undefined,
+          color:  '#000000'
+        },
+      }
+  
+      this.coalChartColors = [
+        '#2EB0C2',
+        '#256979',
+      ]
+  
+      this.xAxixCoalChart = {
+        categories: [
+          ["2021"],
+          ["2022"],
+          ["2023"],
+          ["2024"],
+        ]
+      }
+
+      this.yAxisCoal = {
+        show: true,
+        tickAmount: 9,
+        min: 50,
+        max: 500,
+        
+      }
+    }
+    // End COAL NEWCASTLE //
+
+    // LNG //
+    dataChartLng: ApexAxisChartSeries=[];
+    lngChart!: ApexChart;
+    lngChartTitle!: ApexTitleSubtitle;
+    lngChartColors!: any;
+    xAxixLngChart!: ApexXAxis;
+    yAxisLng!:ApexYAxis;
+    lngStroke!:ApexStroke;
+
+    initializedLng() {
+
+      this.dataChartLng = [
+        {
+          data: [400, 200, 350, 420]
+        }
+      ];
+  
+      this.lngChart = {
+        type: 'line',
+        width: 350,
+        // width:,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: false,
+            zoom: false,
+            zoomin: false,
+            zoomout: false,
+            pan: false,
+            reset: false,
+          }
+        }
+      }
+      this.lngStroke ={
+        curve: "smooth",
+        width: 1,
+      }
+  
+      this.lngChartTitle =  {
+        text: "ICP (USD/Barel)",
+        style: {
+          fontSize:  '18px',
+          fontWeight:  500,
+          // fontFamily:  undefined,
+          color:  '#000000'
+        },
+      }
+  
+      this.lngChartColors = [
+        '#2EB0C2',
+        '#256979',
+      ]
+  
+      this.xAxixLngChart = {
+        categories: [
+          ["2021"],
+          ["2022"],
+          ["2023"],
+          ["2024"],
+        ]
+      }
+
+      this.yAxisLng = {
+        show: true,
+        tickAmount: 9,
+        min: 50,
+        max: 500,
+        
+      }
+    }
+    // End LNG //
+
+    // Batu Bara //
+    dataChartBatuBara: ApexAxisChartSeries=[];
+    batuBaraChart!: ApexChart;
+    batuBaraChartTitle!: ApexTitleSubtitle;
+    batuBaraChartColors!: any;
+    xAxixBatuBaraChart!: ApexXAxis;
+    yAxisBatuBara!:ApexYAxis;
+    batuBaraStroke!:ApexStroke
+
+    initializedBatuBara() {
+
+      this.dataChartBatuBara = [
+        {
+          data: [400, 200, 350, 420]
+        }
+      ];
+  
+      this.batuBaraChart = {
+        type: 'line',
+        width: 350,
+        // width:,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: false,
+            zoom: false,
+            zoomin: false,
+            zoomout: false,
+            pan: false,
+            reset: false,
+          }
+        }
+      }
+      this.batuBaraStroke ={
+        curve: "smooth",
+        width: 1,
+      }
+  
+      this.batuBaraChartTitle =  {
+        text: "ICP (USD/Barel)",
+        style: {
+          fontSize:  '18px',
+          fontWeight:  500,
+          // fontFamily:  undefined,
+          color:  '#000000'
+        },
+      }
+  
+      this.batuBaraChartColors = [
+        '#2EB0C2',
+        '#256979',
+      ]
+  
+      this.xAxixBatuBaraChart = {
+        categories: [
+          ["2021"],
+          ["2022"],
+          ["2023"],
+          ["2024"],
+        ]
+      }
+
+      this.yAxisBatuBara= {
+        show: true,
+        tickAmount: 9,
+        min: 50,
+        max: 500,
+        
+      }
+    }
+    // end Batu Bara //
 
   //SHL
   dataChartSHL: ApexAxisChartSeries = [];
@@ -39,6 +411,7 @@ export class ChartService {
   shlChartTitle!: ApexTitleSubtitle;
   colors: any;
   xAxisSHL!: ApexXAxis;
+  shlStroke!:  ApexStroke;
 
   //Availability Period
   dataChartAP: ApexAxisChartSeries = [];
@@ -112,7 +485,7 @@ export class ChartService {
     ];
 
     this.shlChart = {
-      type: 'bar',
+      type: 'line',
       width: 470,
       height: 400,
       // width:,
@@ -128,6 +501,10 @@ export class ChartService {
           reset: false,
         }
       }
+    }
+    this.shlStroke ={
+      curve: "smooth",
+      width: 1,
     }
 
     this.shlChartTitle =  {
@@ -254,8 +631,8 @@ export class ChartService {
     },
 
     this.dcsrstroke = {
+      curve: "smooth",
       width: 1,
-      curve: "straight",
       dashArray: [0, 0, 0, 10]
     }
 
@@ -325,8 +702,8 @@ export class ChartService {
     },
 
     this.dcsrLabaRugistroke = {
-      width: 5,
-      curve: "straight",
+      width: 1,
+      curve: "smooth",
       dashArray: [0, 0, 0, 8]
     }
 

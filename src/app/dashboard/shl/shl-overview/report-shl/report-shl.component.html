@@ -73,7 +73,7 @@
   <main id="main" class="main">
     <div class="d-flex justify-content-center align-items-center flex-wrap">
       <div class="me-2 bg-white rounded p-2">
-        <apx-chart [series]="dataChartSHL" [chart]="shlChart" [title]="shlChartTitle" [xaxis]="xAxisSHL" [colors]="colors"></apx-chart>
+        <apx-chart [series]="dataChartSHL" [chart]="shlChart" [title]="shlChartTitle" [xaxis]="xAxisSHL" [colors]="colors" ></apx-chart>
       </div>
       <div class="bg-white rounded p-2">
         <apx-chart [series]="dataChartAP" [chart]="APChart" [title]="apChartTitle" [xaxis]="xAxisAP" [colors]="colors"></apx-chart>
@@ -125,7 +125,7 @@
             </div>
           </div>
         </div>
-        <apx-chart [series]="dataChartSHL" [chart]="shlChart" [xaxis]="xAxisSHL" [colors]="colors"></apx-chart>
+        <apx-chart [series]="dataChartSHL" [chart]="shlChart" [xaxis]="xAxisSHL" [stroke]="shlStroke" [colors]="colors"></apx-chart>
       </div>
       <div class="me-2 bg-white rounded p-2">
         <div class="d-flex justify-content-between p-2">

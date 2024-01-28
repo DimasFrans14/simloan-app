@@ -82,6 +82,7 @@
 
   <main id="main" class="main">
     <div class="d-flex justify-content-between align-items-center">
+      <!-- Currency -->
       <div>
         <h4 class="mt-4">Currency</h4>
       </div>
@@ -185,8 +186,7 @@
             <button
               class="btn btn-transparant btn-sm border border-1"
               data-bs-toggle="modal"
-              data-bs-target="#macroIndicatorModal"
-            >
+              data-bs-target="#macroIndicatorModal">
               Tambah Perbandingan
             </button>
           </div>
@@ -275,73 +275,176 @@
         </div>
       </div>
     </div>
-
-    <div class="d-flex justify-content-between align-items-center">
-      <div>
-        <h4 class="mt-4">Commodity</h4>
-      </div>
-      <div>
-        <button
-          class="btn btn-transparant btn-sm border border-1 px-3 bg-white"
-        >
-          Edit
-        </button>
-      </div>
+    <!-- Commodity -->
+    <div class="d-flex justify-content-between mt-5">
+      <h4>Commodity</h4>
+      <div  class="align-self-center"><button class="btn btn-transparant btn-sm border border-1 px-3 bg-white">Edit</button></div>
     </div>
 
-    <div
-      class="d-flex flex-row flex-wrap justify-content-sm-center justify-content-md-center justify-content-lg-between justify-content-xl-between justify-content-xxl-between"
-    >
-      <ng-container *ngFor="let item of chartCommodities">
-        <div class="bg-white p-2 m-2 rounded">
-        <div class="d-flex align-items-center justify-content-between p-2">
-          <div>
-            <span>{{item.name}}</span>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-transparant border border-1"
-              style="color: black"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <div class="d-flex justify-content-between">
-                <div>
-                  <span class="">September</span>
+    <div class="d-flex flex-row flex-wrap justify-content-sm-around">
+      <!-- <ng-container *ngFor="let item of chartCommodities"> -->
+        <!-- <div class="bg-white p-1 m-2 rounded"> -->
+
+        <!-- WTI & Brent -->
+        <div class="card rounded p-2 mt-3">
+          <div class="d-flex align-items-center justify-content-between p-1">
+            <div class="flex-fill fw-semibold">WTI & Brent (USD/Ton)</div>
+            <div>
+              <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="d-flex justify-content-between">
+                  <div class="p-1">Year</div>
+                  <div class="p-1"><i class="bi bi-chevron-down"></i></div>
                 </div>
-                <div>
-                  <i class="bi bi-chevron-down"></i>
-                </div>
-              </div>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item">September</a></li>
-              <li><a class="dropdown-item">Oktober</a></li>
-              <li><a class="dropdown-item">November</a></li>
-            </ul>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item">Month</a></li>
+                <li><a class="dropdown-item">Week</a></li>
+                <li><a class="dropdown-item">Day</a></li>
+              </ul>
+            </div>
           </div>
+          <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
+          <apx-chart id="1"
+            [style.display]="isVisibleLine ? 'block' : 'none'"
+            [series]="dataChartWtiBrent"
+            [chart]="wtiBrentChart"
+            [stroke]="wtiBrentStroke"
+            [colors]="wtiBrentColors"
+            [xaxis]="xAxisWtiBrent"
+            [yaxis]="yAxisWtiBrent">
+          </apx-chart>
         </div>
-
-        <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
-        <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
-
-        <apx-chart
-          [style.display]="isVisibleLine ? 'block' : 'none'"
-          [series]="lineChartKursSeries"
-          [chart]="commodityChartDetails"
-        ></apx-chart>
-
-        <apx-chart
-          [style.display]="isVisibleBar ? 'none' : 'block'"
-          [series]="chartSeries2"
-          [chart]="currencyBarChartDetails"
-          [title]="currencyChartTitle"
-        ></apx-chart>
+        <!-- end WTI Brent -->
+        <!-- ICP -->
+        <div class="card rounded p-2 mt-3">
+          <div class="d-flex align-items-center justify-content-between p-1">
+            <div class="flex-fill fw-semibold">ICP (USD/Barel)</div>
+            <div>
+              <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="d-flex justify-content-between">
+                  <div class="p-1">Year</div>
+                  <div class="p-1"><i class="bi bi-chevron-down"></i></div>
+                </div>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item">Month</a></li>
+                <li><a class="dropdown-item">Week</a></li>
+                <li><a class="dropdown-item">Day</a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
+          <!-- ICP -->
+          <apx-chart  id="2"
+            [style.display]="isVisibleLine ? 'block' : 'none'"
+            [series]="dataChartIcp"
+            [chart]="icpChart"
+            [stroke]="icpStroke"
+            [colors]="icpColors"
+            [xaxis]="xAxisIcpChart"
+            [yaxis]="yAxisIcp">
+          </apx-chart>
         </div>
-      </ng-container>
-
-
+        <!-- end ICP -->
+        <!-- COAL NEWCASTLE -->
+        <div class="card rounded p-2 mt-3">
+          <div class="d-flex align-items-center justify-content-between p-1">
+            <div class="flex-fill fw-semibold">COAL (Newcastle)</div>
+            <div>
+              <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="d-flex justify-content-between">
+                  <div class="p-1">Year</div>
+                  <div class="p-1"><i class="bi bi-chevron-down"></i></div>
+                </div>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item">Month</a></li>
+                <li><a class="dropdown-item">Week</a></li>
+                <li><a class="dropdown-item">Day</a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
+          <!-- ICP -->
+          <apx-chart  id="2"
+            [style.display]="isVisibleLine ? 'block' : 'none'"
+            [series]="dataChartCoal"
+            [chart]="coalChart"
+            [stroke]="coalStroke"
+            [colors]="coalColors"
+            [xaxis]="xAxisCoalChart"
+            [yaxis]="yAxisCoal">
+          </apx-chart>
+        </div>
+        <!-- end COAL NEWCASTLE -->
+        <!-- LNG -->
+        <div class="card rounded p-2 mt-3">
+          <div class="d-flex align-items-center justify-content-between p-1">
+            <div class="flex-fill fw-semibold">LNG (JKM) (USD/MMBtu)</div>
+            <div>
+              <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="d-flex justify-content-between">
+                  <div class="p-1">Year</div>
+                  <div class="p-1"><i class="bi bi-chevron-down"></i></div>
+                </div>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item">Month</a></li>
+                <li><a class="dropdown-item">Week</a></li>
+                <li><a class="dropdown-item">Day</a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
+          <!-- ICP -->
+          <apx-chart  id="2"
+            [style.display]="isVisibleLine ? 'block' : 'none'"
+            [series]="dataChartLng"
+            [chart]="lngChart"
+            [stroke]="lngStroke"
+            [colors]="lngColors"
+            [xaxis]="xAxisLngChart"
+            [yaxis]="yAxisLng">
+          </apx-chart>
+        </div>
+        <!-- end LNG -->
+        <!-- Batu Bara -->
+        <div class="card rounded p-2 mt-3">
+          <div class="d-flex align-items-center justify-content-between p-1">
+            <div class="flex-fill fw-semibold">Batu Bara (USD/Ton)</div>
+            <div>
+              <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="d-flex justify-content-between">
+                  <div class="p-1">Year</div>
+                  <div class="p-1"><i class="bi bi-chevron-down"></i></div>
+                </div>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item">Month</a></li>
+                <li><a class="dropdown-item">Week</a></li>
+                <li><a class="dropdown-item">Day</a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
+          <!-- ICP -->
+          <apx-chart  id="2"
+            [style.display]="isVisibleLine ? 'block' : 'none'"
+            [series]="dataChartBatuBara"
+            [chart]="batuBaraChart"
+            [stroke]="batuBaraStroke"
+            [colors]="batuBaraColors"
+            [xaxis]="xAxisBatuBaraChart"
+            [yaxis]="yAxisBatuBara">
+          </apx-chart>
+        </div>
+        <!-- end Batu BAra -->
+      <!-- </ng-container> -->
     </div>
 
     <div class="d-flex justify-content-between align-items-center mt-4 mb-2">

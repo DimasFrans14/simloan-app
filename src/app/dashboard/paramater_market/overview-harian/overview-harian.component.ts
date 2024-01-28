@@ -36,6 +36,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   public quillFootnote!: Quill;
 
   openModal: boolean = false;
+  openModalFootnote1: boolean = false;
 
   selectedItems!: number;
 
@@ -222,6 +223,9 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   openModalTakeways(){
     this.openModal = !this.openModal;
   }
+  openModalFootnote(){
+    this.openModalFootnote1 = !this.openModalFootnote1;
+  }
 
   getValueForm(event: any) {
     console.log(this.dataFilterTanggal)
@@ -364,8 +368,8 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   ngAfterViewInit() {
       const elementKeyTakeways = this.keyTakeways.nativeElement;
       const elementFootnote = this.footnote.nativeElement;
-      this.quillTakeways = this.quillConfig.initializeQuillKeyTakeways(elementKeyTakeways);
 
+      this.quillTakeways = this.quillConfig.initializeQuillKeyTakeways(elementKeyTakeways);
       this.quillFootnote = this.quillConfig.initializeQuillFootnote(elementFootnote);
 
       if(this.excelMacroIndicator != undefined){
@@ -382,26 +386,34 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   }
 
   quillContent!: any;
-  quillInnerHTML: any
+  quillInnerHTML: any;
   transformYourHtml(htmlTextWithStyle: any) {
     const innerHTML = this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
     this.quillInnerHTML = innerHTML
-}
+  }
 
-  getValue() {
+  getValueKeyTakeaways() {
     let value = this.quillTakeways.root.innerHTML;
     this.quillContent = value;
     console.log(value);
     this.transformYourHtml(this.quillContent)
   }
 
-  getValue2(){
-    let value = this.quillFootnote.getText();
-
-    console.log(value);
+  quillContentFootnote!: any;
+  quillInnerHTMLFootnote: any;
+  transformYourHtmlFootnote(htmlTextWithStyle: any) {
+    const innerHTML = this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
+    this.quillInnerHTMLFootnote = innerHTML
   }
 
-  onChange(){
+  getValueFootnote(){
+    let value = this.quillFootnote.root.innerHTML;
+    this.quillContentFootnote = value;
+    console.log(value);
+    this.transformYourHtmlFootnote(this.quillContentFootnote)
+  }
+
+  onChangeKeyTakeaways(){
     // const _this = this;
     // this.quillTakeways.on('text-change', function(delta, oldDelta, source) {
     //   if (source === 'user') {
@@ -411,13 +423,13 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     // })
   }
 
-  onChange2(){
-    const _this = this;
-    this.quillFootnote.on('text-change', function(delta, oldDelta, source) {
-      if (source === 'user') {
-        _this.getValue2()
-      }
-    })
+  onChangeFootnote(){
+    // const _this = this;
+    // this.quillFootnote.on('text-change', function(delta, oldDelta, source) {
+    //   if (source === 'user') {
+    //     _this.getValueFootnote()
+    //   }
+    // })
   }
 
 }

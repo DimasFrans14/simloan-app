@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { ApexAnnotations, ApexAxisChartSeries, ApexChart,  ApexLegend,  ApexPlotOptions,  ApexStroke,  ApexTitleSubtitle, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
 import { DataService } from 'src/app/data.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
+import { ChartService } from 'src/app/services/chart_serivces/chart.service';
 
 @Component({
   selector: 'app-overview',
@@ -13,10 +14,59 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   constructor(
     private dataService: DataService,
-    private marketUpdateService: MarketUpdateService
+    private marketUpdateService: MarketUpdateService,
+    private chartService: ChartService,
     ){
     // console.log(dataService);
   }
+
+  // chart WTI & Brent
+  dataChartWtiBrent = this.chartService.dataChartWtiBrent;
+  wtiBrentChart = this.chartService.wtiBrentChart;
+  wtiBrentChartTitle = this.chartService.wtiBrentChartTitle;
+  wtiBrentColors = this.chartService.wtiBrentChartColors;
+  xAxisWtiBrent = this.chartService.xAxisWtiBrentChart;
+  yAxisWtiBrent = this.chartService.yAxisWtiBrent;
+  wtiBrentStroke = this.chartService.wtiBrentStroke;
+  // end chart WTI brent
+
+  // chart ICP
+  dataChartIcp = this.chartService.dataChartIcp;
+  icpChart = this.chartService.icpChart;
+  icpChartTitle = this.chartService.icpChartTitle;
+  icpColors = this.chartService.icpChartColors;
+  xAxisIcpChart = this.chartService.xAxixIcpChart;
+  yAxisIcp = this.chartService.yAxisIcp;
+  icpStroke = this.chartService.icpStroke;
+  // end ICP
+  // chart ICP
+  dataChartCoal = this.chartService.dataChartCoal;
+  coalChart = this.chartService.coalChart;
+  coalChartTitle = this.chartService.coalChartTitle;
+  coalColors = this.chartService.coalChartColors;
+  xAxisCoalChart = this.chartService.xAxixCoalChart;
+  yAxisCoal = this.chartService.yAxisCoal;
+  coalStroke = this.chartService.coalStroke;
+  // end ICP
+  // chart LNG
+  dataChartLng = this.chartService.dataChartLng;
+  lngChart = this.chartService.lngChart;
+  lngChartTitle = this.chartService.lngChartTitle;
+  lngColors = this.chartService.lngChartColors;
+  xAxisLngChart = this.chartService.xAxixLngChart;
+  yAxisLng = this.chartService.yAxisLng;
+  lngStroke = this.chartService.lngStroke;
+  // end LNG
+
+// chart Batu Bara
+dataChartBatuBara = this.chartService.dataChartBatuBara;
+batuBaraChart = this.chartService.batuBaraChart;
+batuBaraChartTitle = this.chartService.batuBaraChartTitle;
+batuBaraColors = this.chartService.batuBaraChartColors;
+xAxisBatuBaraChart = this.chartService.xAxixBatuBaraChart;
+yAxisBatuBara = this.chartService.yAxisLng;
+batuBaraStroke = this.chartService.batuBaraStroke;
+// end Batu Bara
 
   dataKurs: any;
   dataRKAP: any;
@@ -228,7 +278,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.lineYAxis = [];
       this.tesXaxis = {
         categories: [
-
         ],
         type:'datetime',
       }
@@ -591,8 +640,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   commodityChartDetails: ApexChart = {
     type: 'line',
-    height: 340,
-    width: 295,
+    // height: 340,
+    width: 350,
     toolbar: {
       show: true,
       tools: {
@@ -606,6 +655,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       }
     }
   }
+  // this.stroke:{
+  //   curve: "smooth",
+  //   width:1
+  // }
 
   currencyChartTitle: ApexTitleSubtitle =  {
     text: "Kurs Rupiah",
