@@ -119,15 +119,15 @@
         <div class="dropdown-menu ps-2">
           <form (ngSubmit)="onSubmit($event)">
             <div style="font-size: 15px;">
-              <input type="checkbox" name="IDR" id="USD">
-              <label class="ms-2" value="usd" for="IDR">USD</label>
-              <br/>
-              <input type="checkbox" name="Exchange Rate" id="USD">
-              <label class="ms-2" value="aud" for="Exchange Rate">AUD</label>
-              <br/>
+              <ng-container *ngFor="let item of allTrendDataKurs">
+                <input type="checkbox" name="selectedKurs" [id]="item.kurs" >
+                <label class="ms-2" for="item.kurs">{{item.kurs}}</label>
+                <br/>
+              </ng-container>
             </div>
             <button type="submit" class="btn btn-primary btn-sm mt-2">Save Change</button>
           </form>
+
         </div>
       </div>
             </div>

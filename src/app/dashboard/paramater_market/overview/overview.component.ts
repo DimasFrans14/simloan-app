@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { ApexAnnotations, ApexAxisChartSeries, ApexChart,  ApexLegend,  ApexPlotOptions,  ApexStroke,  ApexTitleSubtitle, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
+import { filter } from 'rxjs';
 import { DataService } from 'src/app/data.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 import { ChartService } from 'src/app/services/chart_serivces/chart.service';
@@ -208,10 +209,13 @@ batuBaraStroke = this.chartService.batuBaraStroke;
     this.tesLocalStorageKurs = JSON.parse(getCompareDate)
   }
 
+  allTrendDataKurs: any;
   trendKursCategories: any;
   trendKursData: any;
   valueJPY: any;
   kursJPY: any;
+
+  defaultKurs: any;
 
   USDDataChart: any;
 
@@ -229,10 +233,12 @@ batuBaraStroke = this.chartService.batuBaraStroke;
       const trendKurs = await this.marketUpdateService.fetchDataKursTrend();
       console.log(trendKurs);
 
+      this.allTrendDataKurs = trendKurs;
+      this.allTrendDataKurs = this.allTrendDataKurs.d.arrayData
       this.valueJPY = trendKurs;
       this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
 
-      const map = this.valueJPY.map((item: any) => {
+      const updateValueJPY = this.valueJPY.map((item: any) => {
         return item.data.map((value: any) => {
           const val = value / 100;
           const slice = val.toString().slice(0,6)
@@ -241,8 +247,8 @@ batuBaraStroke = this.chartService.batuBaraStroke;
         });
       });
 
-      console.log(map);
-      this.valueJPY = map;
+      console.log(updateValueJPY);
+      this.valueJPY = updateValueJPY;
 
       this.trendKursCategories = trendKurs
       this.trendKursData = trendKurs;
@@ -292,78 +298,24 @@ batuBaraStroke = this.chartService.batuBaraStroke;
           toggleDataSeries: true
         },
         onItemHover:{
-          highlightDataSeries: false
+          highlightDataSeries: true
         }
       }
 
-      const defaultKurs = this.dataKurs.data.filter((item: any) => ['SGD', 'EUR', 'JPY'].includes(item.mata_uang));
+      this.defaultKurs = this.trendKursData.d.arrayData.filter((item: any) => ['USD', 'EUR', 'GBP' ,'JPY'].includes(item.kurs));
+
 
       const getJPY = this.dataKurs.data.filter((item: any) => ['JPY'].includes(item.mata_uang));
 
-      let tes: any;
-      // this.dataKurs.data = this.dataKurs.data.slice(4,6);
+      console.log(this.defaultKurs);
 
-      // console.log(getJPY);
-
-      // for (let i = 0; i < defaultKurs.length ; i++) {
-
-      //   typeof(defaultKurs[i].kurs) === 'string' ? parseFloat(defaultKurs[i].kurs.replace(/,/g, '')) : parseFloat(defaultKurs[i].kurs)
-
-      //   typeof(defaultKurs[i].kurs_min1) === 'string' ? parseFloat(defaultKurs[i].kurs_min1.replace(/,/g, '')) : parseFloat(defaultKurs[i].kurs_min1)
-
-      //   typeof(defaultKurs[i].kurs_min2) === 'string' ? parseFloat(defaultKurs[i].kurs_min2.replace(/,/g, '')) : parseFloat(defaultKurs[i].kurs_min2)
-
-      //   typeof(defaultKurs[i].kurs_min3) === 'string' ? parseFloat(defaultKurs[i].kurs_min3.replace(/,/g, '')) : parseFloat(defaultKurs[i].kurs_min3)
-
-      //   const mataUang = defaultKurs[i].mata_uang;
-
-      //   const dataValues = [parseFloat(defaultKurs[i].kurs_min3.replace(/,/g, '')), defaultKurs[i].kurs_min2, defaultKurs[i].kurs_min1, defaultKurs[i].kurs];
-
-      //   tes = dataValues
-      //   const dataValues = [10000,11000,14000,15000,12000,15000,10000,11000,14000,15000,11000,10000];
-      //   const dataValues2 = [20,10,30,40,20,50,40,20,40,20,30,10];
-
-      //   console.log([dataValues, mataUang]);
-
-      //   if(['EUR','SGD'].includes(mataUang)){
-      //     this.lineChartKursSeries.push(
-      //       {
-      //         name: `${mataUang}`,
-      //         data: dataValues
-      //       }
-      //       );
-      //   }
-      //   else{
-      //     this.lineChartKursSeries.push(
-      //       {
-      //         name: `${mataUang}`,
-      //         data: [10,15,12,11]
-      //       },
-      //       );
-      //   }
-
-
-      //     this.chartSeries2.push({
-      //       name: `${mataUang}`,
-      //       data: dataValues
-      //     })
-      //   }
-
-      // console.log(tes);
-
-      console.log(this.kursLegends);
-
-      for(let i=0; i < 3 ; i++){
-        const kurs = this.trendKursData.d.arrayData[i].kurs;
-
-        if(kurs == 'USD'){
-          this.USDDataChart = this.trendKursData.d.arrayData[i].data
-        }
+      for(let i=0; i < this.defaultKurs.length ; i++){
+        const kurs = this.defaultKurs[i].kurs;
 
         if(kurs == 'JPY'){
-          const jpyValue = this.trendKursData.d.arrayData[i].data
-          const kursJPY = this.trendKursData.d.arrayData[i].kurs
-          // this.valueJPY = this.trendKursData.d.arrayData[i].kurs
+          const jpyValue = this.defaultKurs[i].data
+          const kursJPY = this.defaultKurs[i].kurs
+          // this.valueJPY = this.defaultKurs[i].kurs
           console.log(this.valueJPY);
 
           console.log('JPY', jpyValue, kursJPY);
@@ -377,42 +329,134 @@ batuBaraStroke = this.chartService.batuBaraStroke;
           this.lineChartKursSeries.push(
             {
             name: `${kurs}`,
-            data: this.trendKursData.d.arrayData[i].data
+            data: this.defaultKurs[i].data,
             },
           )
         }
       }
 
+      for(let i=0; i< this.defaultKurs.length; i++){
+
+      const kurs = this.defaultKurs[i].kurs
+
+      if(kurs === 'USD'){
+        // console.log(kurs);
+
+        this.lineYAxis.push({
+          showAlways: true,
+          seriesName: kurs,
+          // tickAmount: 20,
+          // min:15000,
+          // max:19000,
+          axisTicks: {
+            show: true
+          },
+          axisBorder: {
+            show: true,
+            color: "#000"
+          },
+          labels: {
+            style: {
+              colors: ["#000"]
+            }
+          },
+          title: {
+            text: "Thousand",
+            style: {
+              color: "#000"
+            }
+          },
+          tooltip: {
+            enabled: true
+          }
+            },)
+      }
+      else if(kurs === 'JPY'){
+        // console.log(kurs);
+
+        this.lineYAxis.push({
+
+            showAlways: true,
+            seriesName: kurs,
+            min: 105,
+            max: 108,
+            tickAmount: 15,
+            opposite: true,
+            // min: 0,
+            // max: 1,
+            axisTicks: {
+              show: true
+            },
+            axisBorder: {
+              show: true,
+              color: "#000"
+            },
+            labels: {
+              style: {
+                colors: ["##000"]
+              }
+            },
+            title: {
+              text: "Hundred",
+              style: {
+                color: "##000"
+              }
+            },
+            tooltip: {
+              enabled: true
+            }
+          },
+        )
+      }
+      else{
+        console.log(kurs);
+
+        this.lineYAxis.push({
+          // show: true,
+          // showAlways: true,
+          seriesName: "USD",
+          // min: 0,
+          // max: 200,
+
+          axisTicks: {
+            show: false,
+          },
+          axisBorder: {
+            show: false,
+          },
+          labels: {
+            show:false,
+          },
+          title: {
+            text: "",
+          },
+          tooltip: {
+            enabled: false
+          }
+        })
+      }
+    }
+
       console.log(this.lineChartKursSeries);
 
       for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
         const currentDate = this.trendKursCategories.d.arrayTanggal[i];
-        console.log('Current Date:', currentDate);
+        // console.log('Current Date:', currentDate);
 
         this.tesXaxis.categories.push(currentDate);
       }
 
-      console.log('Updated Categories:', this.tesXaxis.categories);
-
-
-
-        console.log(defaultKurs);
-        console.log(this.trendKursCategories.d.arrayTanggal);
-        console.log(this.trendKursCategories.d.arrayData);
-
-        let tempArr: Date[] = [];
-        for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++) {
-          let formatDate = 'YYYY-MM-DD';
-          tempArr.push(moment(this.trendKursCategories.d.arrayTanggal[i], formatDate).toDate());
-        }
-        // console.log(tempArr);
+      // console.log('Updated Categories:', this.tesXaxis.categories);
+        // console.log(defaultKurs);
+        // console.log(this.trendKursCategories.d.arrayTanggal);
+        // console.log(this.trendKursCategories.d.arrayData);
 
       this.stroke = {
         curve: 'smooth',
-        width: 1
+        width: 1.5
       }
 
-      console.log(this.lineChartKursSeries);
+      // console.log(this.lineChartKursSeries);
 
 
       this.lineChartInterestRateSeries = [
@@ -451,83 +495,83 @@ batuBaraStroke = this.chartService.batuBaraStroke;
       console.log(error);
     }
 
-    this.lineYAxis = [
-      {
-        showAlways: true,
-        seriesName: "USD",
-        // min:11000,
-        // max:16000,
-        axisTicks: {
-          show: true
-        },
-        axisBorder: {
-          show: true,
-          color: "#008FFB"
-        },
-        labels: {
-          style: {
-            colors: ["#008FFB"]
-          }
-        },
-        title: {
-          text: "Axe 1",
-          style: {
-            color: "#008FFB"
-          }
-        },
-        tooltip: {
-          enabled: true
-        }
-      },
-      {
-        seriesName: "THB",
-        opposite: true,
-        // min: 0,
-        // max: 1,
-        axisTicks: {
-          show: true
-        },
-        axisBorder: {
-          show: true,
-          color: "#FEB019"
-        },
-        labels: {
-          style: {
-            colors: ["#FEB019"]
-          }
-        },
-        title: {
-          text: "Axe 2",
-          style: {
-            color: "#FEB019"
-          }
-        },
-        tooltip: {
-          enabled: true
-        }
-      },
-      {
-        show: true,
-        seriesName: "USD",
-        // min: 0,
-        // max: 200,
-        axisTicks: {
-          show: true,
-        },
-        axisBorder: {
-          show: false,
-        },
-        labels: {
-          show:false,
-        },
-        title: {
-          text: "",
-        },
-        tooltip: {
-          enabled: false
-        }
-      }
-    ]
+    // this.lineYAxis = [
+    //   {
+    //     showAlways: true,
+    //     seriesName: "USD",
+    //     axisTicks: {
+    //       show: true
+    //     },
+    //     axisBorder: {
+    //       show: true,
+    //       color: "#008FFB"
+    //     },
+    //     labels: {
+    //       style: {
+    //         colors: ["#008FFB"]
+    //       }
+    //     },
+    //     title: {
+    //       text: "Axe 1",
+    //       style: {
+    //         color: "#008FFB"
+    //       }
+    //     },
+    //     tooltip: {
+    //       enabled: true
+    //     }
+    //   },
+    //   {
+    //     showAlways: true,
+    //     seriesName: "THB",
+    //     opposite: true,
+    //     axisTicks: {
+    //       show: true
+    //     },
+    //     axisBorder: {
+    //       show: true,
+    //       color: "#FEB019"
+    //     },
+    //     labels: {
+    //       style: {
+    //         colors: ["#FEB019"]
+    //       }
+    //     },
+    //     title: {
+    //       text: "Axe 2",
+    //       style: {
+    //         color: "#FEB019"
+    //       }
+    //     },
+    //     tooltip: {
+    //       enabled: true
+    //     }
+    //   },
+    //   {
+    //     show: true,
+    //     seriesName: "USD",
+    //     axisTicks: {
+    //       show: true,
+    //     },
+    //     axisBorder: {
+    //       show: false,
+    //     },
+    //     labels: {
+    //       show:false,
+    //     },
+    //     title: {
+    //       text: "",
+    //     },
+    //     tooltip: {
+    //       enabled: false
+    //     }
+    //   }
+    // ]
+    // this.lineYAxis = [];
+
+    console.log(this.lineYAxis);
+    console.log(this.currencyChartDetails);
+
   }
 
   ngAfterViewInit(): void {
@@ -558,24 +602,201 @@ batuBaraStroke = this.chartService.batuBaraStroke;
   }
 
   onSubmit(event: any) {
-    console.log(event.target[0].id);
 
-    // if(){
+    console.log(this.allTrendDataKurs);
+    let targetColumn: any[] = [];
+    for(let i=0; i<event.target.length - 1; i++){
+      if(event.target[i].checked){
+        targetColumn.push(event.target[i].id);
+      }
+    }
 
-    // }
-    // let targetColumn = [];
-    // let targetBool = [];
-    // for(let i=0; i<event.target.length - 1; i++){
-    //   if(event.target[i].checked){
-    //     targetColumn.push(event.target[i].id);
-    //   }
-    // }
-    // for(let i=0; i<event.target.length - 1; i++){
-    //   if(event.target[i]){
-    //     targetBool.push(event.target[i].checked);
-    //   }
-    // }
-    // this.tableConfig.customizeTableColumn(targetColumn, targetBool)
+    console.log(targetColumn);
+
+    const filteredData = this.allTrendDataKurs.filter(
+      (item: any) => targetColumn.includes(item.kurs)
+    )
+
+    console.log(filteredData);
+
+    this.lineChartKursSeries = [];
+    this.lineYAxis = [];
+
+    for(let i=0; i<filteredData.length; i++){
+      const kursName = filteredData[i].kurs
+
+      if(kursName != 'JPY'){
+        this.lineChartKursSeries.push({
+          name: kursName,
+          data: filteredData[i].data
+        })
+      }
+      else{
+        this.lineChartKursSeries.push({
+          name: kursName,
+          data: this.valueJPY[0]
+        })
+      }
+
+
+
+      if(kursName === 'JPY'){
+        console.log(kursName);
+        // const valJPY = this.valueJPY[0]
+        // const lastIndex = this.valueJPY[0].length
+
+        // console.log(valJPY, lastIndex);
+
+        this.lineYAxis.push({
+
+          showAlways: true,
+          seriesName: kursName,
+          min: 105,
+          max: 108,
+          tickAmount: 20,
+          opposite: true,
+          // min: 0,
+          // max: 1,
+          axisTicks: {
+            show: true
+          },
+          axisBorder: {
+            show: true,
+            color: "#000"
+          },
+          labels: {
+            style: {
+              colors: ["##000"]
+            }
+          },
+          title: {
+            text: "Hundred",
+            style: {
+              color: "##000"
+            }
+          },
+          tooltip: {
+            enabled: true
+          }
+        },
+        )
+      }
+      else if(kursName != 'JPY' && i < 1){
+        console.log(kursName);
+
+        this.lineYAxis.push(
+          {
+            showAlways: true,
+            seriesName: kursName,
+            // tickAmount: 20,
+            // min:15000,
+            // max:16000,
+            axisTicks: {
+              show: true
+            },
+            axisBorder: {
+              show: true,
+              color: "#000"
+            },
+            labels: {
+              style: {
+                colors: ["#000"]
+              }
+            },
+            title: {
+              text: "Thousand",
+              style: {
+                color: "#000"
+              }
+            },
+            tooltip: {
+              enabled: true
+            }
+              },
+        )
+      }
+      else{
+        console.log(kursName);
+        console.log(filteredData[0].kurs);
+
+        if(filteredData[0].kurs === 'JPY'){
+          if(i >= 2){
+            this.lineYAxis.push({
+              // show: true,
+              showAlways: true,
+              seriesName: filteredData[1].kurs,
+              axisTicks: {
+                show: false,
+              },
+              axisBorder: {
+                show: false,
+              },
+              labels: {
+                show:false,
+              },
+              title: {
+                text: "",
+              },
+              tooltip: {
+                enabled: false
+              }
+            })
+          }
+          else{
+            this.lineYAxis.push({
+              showAlways: true,
+              seriesName: filteredData[1].kurs,
+              // tickAmount: 20,
+              // min:15000,
+              // max:16000,
+              axisTicks: {
+                show: true
+              },
+              axisBorder: {
+                show: true,
+                color: "#000"
+              },
+              labels: {
+                style: {
+                  colors: ["#000"]
+                }
+              },
+              title: {
+                text: "Thousand",
+                style: {
+                  color: "#000"
+                }
+              },
+              tooltip: {
+                enabled: true
+              }
+                })
+          }
+        }
+        else{
+          this.lineYAxis.push({
+            // show: true,
+            showAlways: true,
+            seriesName: filteredData[0].kurs,
+            axisTicks: {
+              show: false,
+            },
+            axisBorder: {
+              show: false,
+            },
+            labels: {
+              show:false,
+            },
+            title: {
+              text: "",
+            },
+            tooltip: {
+              enabled: false
+            }
+          })
+        }
+      }
+    }
   }
 
 
@@ -612,10 +833,21 @@ batuBaraStroke = this.chartService.batuBaraStroke;
     },
     events:{
       legendClick(chart, seriesIndex, options) {
-          const firstData = options.config.series[0].data;
           console.log(options.config);
-          options.config.series[0].data = firstData
+          // console.log(options.series.length);
           // console.log(firstData);
+
+          // for(let i=0; i<options.config.series.length; i++){
+          //   if(seriesIndex === i){
+          //     const change = options.config.yaxis[i].showAlways === true
+          //     console.log('same', change, options.config.series[i].name, seriesIndex);
+          //   }
+          //   else{
+          //     options.config.yaxis[i].showAlways === false
+          //     console.log('not same', options.config.yaxis[i].showAlways, options.config.series[i].name, seriesIndex);
+          //   }
+          // }
+
       },
     }
   }
