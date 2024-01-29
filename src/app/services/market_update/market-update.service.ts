@@ -47,6 +47,17 @@ export class MarketUpdateService {
     }
   }
 
+  async fetchDataInterestRateTrending(){
+    try {
+      return await lastValueFrom(
+        this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/interest/getLineChart?start_date=01/01/2023&end_date=31/01/2023')
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
   async fetchDataBondYield(){
     try {
       return await lastValueFrom(
