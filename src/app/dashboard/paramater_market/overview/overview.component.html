@@ -305,14 +305,23 @@
           </div>
           <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
           <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
-          <apx-chart id="1"
+          <apx-chart
             [style.display]="isVisibleLine ? 'block' : 'none'"
-            [series]="dataChartWtiBrent"
-            [chart]="wtiBrentChart"
+            [series]="dataChartWtibrent"
+            [chart]="wtiBrentLineChart"
             [stroke]="wtiBrentStroke"
-            [colors]="wtiBrentColors"
-            [xaxis]="xAxisWtiBrent"
-            [yaxis]="yAxisWtiBrent">
+            [colors]="wtiBrentChartColors"
+            [xaxis]="xAxisWtiChartBrent"
+            [yaxis]="yAxisWtiBrentChart">
+          </apx-chart>
+          <apx-chart
+            [style.display]="isVisibleLine ? 'none' : 'block'"
+            [series]="dataChartWtibrent"
+            [chart]="wtiBrentBarChart">
+            [stroke]="wtiBrentStroke"
+            [colors]="wtiBrentChartColors"
+            [xaxis]="xAxisWtiChartBrent"
+            [yaxis]="yAxisWtiBrentChart">
           </apx-chart>
         </div>
         <!-- end WTI Brent -->
@@ -337,12 +346,21 @@
           <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
           <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
           <!-- ICP -->
-          <apx-chart  id="2"
+          <apx-chart
             [style.display]="isVisibleLine ? 'block' : 'none'"
-            [series]="dataChartIcp"
-            [chart]="icpChart"
+            [series]="dataIcpChart"
+            [chart]="icplineChart"
             [stroke]="icpStroke"
-            [colors]="icpColors"
+            [colors]="icpChartColors"
+            [xaxis]="xAxisIcpChart"
+            [yaxis]="yAxisIcp">
+          </apx-chart>
+          <apx-chart
+            [style.display]="isVisibleBar ? 'none' : 'block'"
+            [series]="dataIcpChart"
+            [chart]="icpBarChart">
+            [stroke]="icpStroke"
+            [colors]="icpChartColors"
             [xaxis]="xAxisIcpChart"
             [yaxis]="yAxisIcp">
           </apx-chart>
@@ -369,14 +387,23 @@
           <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
           <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
           <!-- ICP -->
-          <apx-chart  id="2"
+          <apx-chart
             [style.display]="isVisibleLine ? 'block' : 'none'"
             [series]="dataChartCoal"
-            [chart]="coalChart"
+            [chart]="coalLineChart"
             [stroke]="coalStroke"
-            [colors]="coalColors"
-            [xaxis]="xAxisCoalChart"
-            [yaxis]="yAxisCoal">
+            [colors]="coalChartColors"
+            [xaxis]="xAxisChartCoal"
+            [yaxis]="yAxisCoalChart">
+          </apx-chart>
+          <apx-chart
+            [style.display]="isVisibleLine ? 'none' : 'block'"
+            [series]="dataChartCoal"
+            [chart]="coalBarChart">
+            [stroke]="coalStroke"
+            [colors]="coalChartColors"
+            [xaxis]="xAxisChartCoal"
+            [yaxis]="yAxisCoalChart">
           </apx-chart>
         </div>
         <!-- end COAL NEWCASTLE -->
@@ -401,12 +428,21 @@
           <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
           <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
           <!-- ICP -->
-          <apx-chart  id="2"
+          <apx-chart
             [style.display]="isVisibleLine ? 'block' : 'none'"
-            [series]="dataChartLng"
-            [chart]="lngChart"
+            [series]="dataLngChart"
+            [chart]="lngLineChart"
             [stroke]="lngStroke"
-            [colors]="lngColors"
+            [colors]="lngChartColors"
+            [xaxis]="xAxisLngChart"
+            [yaxis]="yAxisLng">
+          </apx-chart>
+          <apx-chart
+            [style.display]="isVisibleLine ? 'none' : 'block'"
+            [series]="dataLngChart"
+            [chart]="lngBarChart"
+            [stroke]="lngStroke"
+            [colors]="lngChartColors"
             [xaxis]="xAxisLngChart"
             [yaxis]="yAxisLng">
           </apx-chart>
@@ -433,12 +469,21 @@
           <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
           <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
           <!-- ICP -->
-          <apx-chart  id="2"
+          <apx-chart
             [style.display]="isVisibleLine ? 'block' : 'none'"
-            [series]="dataChartBatuBara"
-            [chart]="batuBaraChart"
+            [series]="dataBatuBaraChart"
+            [chart]="batuBaraLineChart"
             [stroke]="batuBaraStroke"
-            [colors]="batuBaraColors"
+            [colors]="batuBaraChartColors"
+            [xaxis]="xAxisBatuBaraChart"
+            [yaxis]="yAxisBatuBara">
+          </apx-chart>
+          <apx-chart
+            [style.display]="isVisibleLine ? 'none' : 'block'"
+            [series]="dataBatuBaraChart"
+            [chart]="batuBaraBarChart"
+            [stroke]="batuBaraStroke"
+            [colors]="batuBaraChartColors"
             [xaxis]="xAxisBatuBaraChart"
             [yaxis]="yAxisBatuBara">
           </apx-chart>

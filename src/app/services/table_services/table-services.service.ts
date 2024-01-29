@@ -19,6 +19,7 @@ export class TableServicesService {
   public dataRetail: any;
   public dataMoneySupply: any;
   public dataDevisa: any;
+  public dataRealisasiCadev: any;
   public dataInterestRate: any;
   public dataBondYield: any;
   public dataKurs: any;
@@ -65,6 +66,10 @@ export class TableServicesService {
 
   getDataDevisa(data: any){
     this.dataDevisa = data.data;
+    // console.log('data devisa', this.dataDevisa);
+  }
+  getDataRealisasiCadev(data: any){
+    this.dataRealisasiCadev = data.data;
     // console.log('data devisa', this.dataDevisa);
   }
 
@@ -149,6 +154,10 @@ export class TableServicesService {
   //Table Foreign Exchange
   tableForeignExchange: any;
   tableDataForeignExchange: any;
+
+  //table Realisasi Cadangan Devisa
+  tableRealisasiCadev: any;
+  tableDataRealisasiCCadev: any;
 
   //Table Realisasi
   tableRealisasi: any;
@@ -392,6 +401,23 @@ export class TableServicesService {
         {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+      ],
+    });
+
+    this.tableRealisasiCadev = new Tabulator(".table-realisasiCadev", {
+      // height:205,
+      height:"555px",
+      data:this.dataRealisasiCadev,
+      layout:"fitColumns",
+      // frozenRows: 4,
+      // movableRows: true,
+      // movableColumns: true,
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
 

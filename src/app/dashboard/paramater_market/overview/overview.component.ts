@@ -4,7 +4,6 @@ import { ApexAnnotations, ApexAxisChartSeries, ApexChart,  ApexLegend,  ApexPlot
 import { filter } from 'rxjs';
 import { DataService } from 'src/app/data.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
-import { ChartService } from 'src/app/services/chart_serivces/chart.service';
 
 @Component({
   selector: 'app-overview',
@@ -16,58 +15,19 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   constructor(
     private dataService: DataService,
     private marketUpdateService: MarketUpdateService,
-    private chartService: ChartService,
     ){
     // console.log(dataService);
   }
-
-  // chart WTI & Brent
-  dataChartWtiBrent = this.chartService.dataChartWtiBrent;
-  wtiBrentChart = this.chartService.wtiBrentChart;
-  wtiBrentChartTitle = this.chartService.wtiBrentChartTitle;
-  wtiBrentColors = this.chartService.wtiBrentChartColors;
-  xAxisWtiBrent = this.chartService.xAxisWtiBrentChart;
-  yAxisWtiBrent = this.chartService.yAxisWtiBrent;
-  wtiBrentStroke = this.chartService.wtiBrentStroke;
-  // end chart WTI brent
-
-  // chart ICP
-  dataChartIcp = this.chartService.dataChartIcp;
-  icpChart = this.chartService.icpChart;
-  icpChartTitle = this.chartService.icpChartTitle;
-  icpColors = this.chartService.icpChartColors;
-  xAxisIcpChart = this.chartService.xAxixIcpChart;
-  yAxisIcp = this.chartService.yAxisIcp;
-  icpStroke = this.chartService.icpStroke;
-  // end ICP
-  // chart ICP
-  dataChartCoal = this.chartService.dataChartCoal;
-  coalChart = this.chartService.coalChart;
-  coalChartTitle = this.chartService.coalChartTitle;
-  coalColors = this.chartService.coalChartColors;
-  xAxisCoalChart = this.chartService.xAxixCoalChart;
-  yAxisCoal = this.chartService.yAxisCoal;
-  coalStroke = this.chartService.coalStroke;
-  // end ICP
-  // chart LNG
-  dataChartLng = this.chartService.dataChartLng;
-  lngChart = this.chartService.lngChart;
-  lngChartTitle = this.chartService.lngChartTitle;
-  lngColors = this.chartService.lngChartColors;
-  xAxisLngChart = this.chartService.xAxixLngChart;
-  yAxisLng = this.chartService.yAxisLng;
-  lngStroke = this.chartService.lngStroke;
-  // end LNG
-
+  
 // chart Batu Bara
-dataChartBatuBara = this.chartService.dataChartBatuBara;
-batuBaraChart = this.chartService.batuBaraChart;
-batuBaraChartTitle = this.chartService.batuBaraChartTitle;
-batuBaraColors = this.chartService.batuBaraChartColors;
-xAxisBatuBaraChart = this.chartService.xAxixBatuBaraChart;
-yAxisBatuBara = this.chartService.yAxisLng;
-batuBaraStroke = this.chartService.batuBaraStroke;
-// end Batu Bara
+  // dataChartBatuBara = this.chartService.dataChartBatuBara;
+  // batuBaraChart = this.chartService.batuBaraChart;
+  // batuBaraChartTitle = this.chartService.batuBaraChartTitle;
+  // batuBaraColors = this.chartService.batuBaraChartColors;
+  // xAxisBatuBaraChart = this.chartService.xAxixBatuBaraChart;
+  // yAxisBatuBara = this.chartService.yAxisLng;
+  // batuBaraStroke = this.chartService.batuBaraStroke;
+  // end Batu Bara
 
   dataKurs: any;
   dataRKAP: any;
@@ -851,7 +811,324 @@ batuBaraStroke = this.chartService.batuBaraStroke;
       },
     }
   }
-
+  //Wti Brent
+  dataChartWtibrent:ApexAxisChartSeries=[
+    {
+      name: "Oil (WTI)",
+      data: [67, 85, 110, 120]
+    },
+    {
+      name: "OIL (BRENT)",
+      data: [70, 90, 100, 122]
+    }
+  ]
+  wtiBrentLineChart:ApexChart={
+    type: 'line',
+    width: 350,
+    toolbar: {
+      show: true,
+      tools: {
+        download: true,
+        selection: false,
+        zoom: false,
+        zoomin: false,
+        zoomout: false,
+        pan: false,
+        reset: false,
+      }
+    }
+  }
+  wtiBrentBarChart:ApexChart={
+    type: 'bar',
+    width: 350,
+    toolbar: {
+      show: true,
+      tools: {
+        download: true,
+        selection: false,
+        zoom: false,
+        zoomin: false,
+        zoomout: false,
+        pan: false,
+        reset: false,
+      }
+    }
+  }
+  wtiBrentChartColors:any=[
+    '#2EB0C2',
+    '#256979'
+  ]
+  xAxisWtiChartBrent:ApexXAxis={
+    categories: [
+      ["2021"],
+      ["2022"],
+      ["2023"],
+      ["2024"],
+    ]
+  }
+  yAxisWtiBrentChart:ApexYAxis={
+    show: true,
+      tickAmount: 4,
+      min: 45.00,
+      max: 125.00,
+  }
+  wtiBrentStroke:ApexStroke ={
+    curve:'smooth',
+    width:1
+  }
+  // End Wti Brent
+  // ICP //
+  icpStroke:ApexStroke ={
+    curve:'smooth',
+    width:1
+  }
+  yAxisIcp:ApexYAxis={
+    show: true,
+      tickAmount: 6,
+      min: 20,
+      max: 140.00,
+  }
+  xAxisIcpChart:ApexXAxis ={
+    categories: [
+      ["2021"],
+      ["2022"],
+      ["2023"],
+      ["2024"],
+    ]
+  }
+  dataIcpChart:ApexAxisChartSeries =[
+    {
+      data: [56, 30, 130, 120]
+    }
+  ]
+  icpChartColors:any=[
+    '#2EB0C2',
+    '#256979'
+  ]
+  icplineChart:ApexChart ={
+    type: 'line',
+    width: 350,
+    // width:,
+    toolbar: {
+      show: true,
+      tools: {
+        download: true,
+        selection: false,
+        zoom: false,
+        zoomin: false,
+        zoomout: false,
+        pan: false,
+        reset: false,
+      }
+    }
+  }
+  icpBarChart:ApexChart = {
+    type: 'bar',
+    width: 350,
+    toolbar: {
+      show: true,
+      tools: {
+        download: true,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
+      }
+    }
+  }
+// end ICP //
+// Coal //
+dataChartCoal:ApexAxisChartSeries=[
+  {
+    name: "Oil (WTI)",
+    data: [67, 85, 110, 120]
+  },
+  {
+    name: "OIL (BRENT)",
+    data: [70, 90, 100, 122]
+  }
+]
+coalLineChart:ApexChart={
+  type: 'line',
+  width: 350,
+  toolbar: {
+    show: true,
+    tools: {
+      download: true,
+      selection: false,
+      zoom: false,
+      zoomin: false,
+      zoomout: false,
+      pan: false,
+      reset: false,
+    }
+  }
+}
+coalBarChart:ApexChart={
+  type: 'bar',
+  width: 350,
+  toolbar: {
+    show: true,
+    tools: {
+      download: true,
+      selection: false,
+      zoom: false,
+      zoomin: false,
+      zoomout: false,
+      pan: false,
+      reset: false,
+    }
+  }
+}
+coalChartColors:any=[
+  '#2EB0C2',
+  '#256979'
+]
+xAxisChartCoal:ApexXAxis={
+  categories: [
+    ["2021"],
+    ["2022"],
+    ["2023"],
+    ["2024"],
+  ]
+}
+yAxisCoalChart:ApexYAxis={
+  show: true,
+    tickAmount: 4,
+    min: 45.00,
+    max: 125.00,
+}
+coalStroke:ApexStroke ={
+  curve:'smooth',
+  width:1
+}
+// end Coal //
+// chart LNG
+  lngStroke:ApexStroke ={
+    curve:'smooth',
+    width:1
+  }
+  yAxisLng:ApexYAxis={
+    show: true,
+      tickAmount: 6,
+      min: 20,
+      max: 140.00,
+  }
+  xAxisLngChart:ApexXAxis ={
+    categories: [
+      ["2021"],
+      ["2022"],
+      ["2023"],
+      ["2024"],
+    ]
+  }
+  dataLngChart:ApexAxisChartSeries =[
+    {
+      data: [56, 30, 130, 120]
+    }
+  ]
+  lngChartColors:any=[
+    '#2EB0C2',
+    '#256979'
+  ]
+  lngLineChart:ApexChart ={
+    type: 'line',
+    width: 350,
+    // width:,
+    toolbar: {
+      show: true,
+      tools: {
+        download: true,
+        selection: false,
+        zoom: false,
+        zoomin: false,
+        zoomout: false,
+        pan: false,
+        reset: false,
+      }
+    }
+  }
+  lngBarChart:ApexChart = {
+    type: 'bar',
+    width: 350,
+    toolbar: {
+      show: true,
+      tools: {
+        download: true,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
+      }
+    }
+  }
+  // end LNG
+  // chart LNG
+  batuBaraStroke:ApexStroke ={
+    curve:'smooth',
+    width:1
+  }
+  yAxisBatuBara:ApexYAxis={
+    show: true,
+      tickAmount: 6,
+      min: 20,
+      max: 140.00,
+  }
+  xAxisBatuBaraChart:ApexXAxis ={
+    categories: [
+      ["2021"],
+      ["2022"],
+      ["2023"],
+      ["2024"],
+    ]
+  }
+  dataBatuBaraChart:ApexAxisChartSeries =[
+    {
+      data: [56, 30, 130, 120]
+    }
+  ]
+  batuBaraChartColors:any=[
+    '#2EB0C2',
+    '#256979'
+  ]
+  batuBaraLineChart:ApexChart ={
+    type: 'line',
+    width: 350,
+    // width:,
+    toolbar: {
+      show: true,
+      tools: {
+        download: true,
+        selection: false,
+        zoom: false,
+        zoomin: false,
+        zoomout: false,
+        pan: false,
+        reset: false,
+      }
+    }
+  }
+  batuBaraBarChart:ApexChart = {
+    type: 'bar',
+    width: 350,
+    toolbar: {
+      show: true,
+      tools: {
+        download: true,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
+      }
+    }
+  }
+  // end LNG
   currencyBarChartDetails: ApexChart = {
     type: 'bar',
     height: 400,

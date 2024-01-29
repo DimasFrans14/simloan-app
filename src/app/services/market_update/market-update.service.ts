@@ -239,4 +239,15 @@ export class MarketUpdateService {
     }
   }
 
+  async fetchDataRealisasiCadev(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-cad-devisa`)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
 }
