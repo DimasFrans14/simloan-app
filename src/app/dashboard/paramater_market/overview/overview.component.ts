@@ -73,11 +73,14 @@ batuBaraStroke = this.chartService.batuBaraStroke;
   dataRKAP: any;
   lineChartKursSeries: ApexAxisChartSeries = [];
   chartSeries2: ApexAxisChartSeries = [];
-  lineChartInterestRateSeries: ApexAxisChartSeries = [];
   lineYAxis!: ApexYAxis | ApexYAxis[];
   tesXaxis!: ApexXAxis;
   stroke!: ApexStroke;
-  kursLegends!: ApexLegend;
+
+
+  lineChartInterestRateSeries: ApexAxisChartSeries = [];
+  interestRateXaxis!: ApexXAxis;
+  interestRateLegend!: ApexLegend;
 
   selectedItems!: number;
 
@@ -209,13 +212,20 @@ batuBaraStroke = this.chartService.batuBaraStroke;
     this.tesLocalStorageKurs = JSON.parse(getCompareDate)
   }
 
+  defaultKurs: any;
+
+  //Line Chart Kurs
   allTrendDataKurs: any;
   trendKursCategories: any;
   trendKursData: any;
   valueJPY: any;
   kursJPY: any;
 
-  defaultKurs: any;
+  //Line Chart Interest Rate
+  allTrendDataInterestRate: any;
+  trendInterestRateCategories: any;
+  trendInterestData: any;
+
 
   USDDataChart: any;
 
@@ -232,6 +242,13 @@ batuBaraStroke = this.chartService.batuBaraStroke;
 
       const trendKurs = await this.marketUpdateService.fetchDataKursTrend();
       console.log(trendKurs);
+
+      const trendInterestRate = await this.marketUpdateService.fetchDataInterestRateTrending();
+
+      this.allTrendDataInterestRate = trendInterestRate;
+      this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
+      this.trendInterestRateCategories = trendInterestRate;
+      this.trendInterestData = trendInterestRate;
 
       this.allTrendDataKurs = trendKurs;
       this.allTrendDataKurs = this.allTrendDataKurs.d.arrayData
@@ -288,18 +305,8 @@ batuBaraStroke = this.chartService.batuBaraStroke;
         type:'datetime',
       }
 
-      this.kursLegends = {
-        markers:{
-          onClick() {
-              alert('clicked')
-          },
-        },
-        onItemClick:{
-          toggleDataSeries: true
-        },
-        onItemHover:{
-          highlightDataSeries: true
-        }
+      this.interestRateLegend = {
+        position: 'right'
       }
 
       this.defaultKurs = this.trendKursData.d.arrayData.filter((item: any) => ['USD', 'EUR', 'GBP' ,'JPY'].includes(item.kurs));
@@ -457,34 +464,26 @@ batuBaraStroke = this.chartService.batuBaraStroke;
       }
 
       // console.log(this.lineChartKursSeries);
+      this.lineChartInterestRateSeries = [];
+      for(let i=0; i< this.trendInterestData.d.arrayData.length; i++){
 
+        const nameInterest = this.trendInterestData.d.arrayData[i].kode;
+        const dataInterest = this.trendInterestData.d.arrayData[i].data;
 
-      this.lineChartInterestRateSeries = [
-        {
-          name: `${dataInterest[0].mtu}`,
-          data: [dataInterest[0].rate, 10, 12, 16, 11]
-        },
-        {
-          name: `${dataInterest[1].mtu}`,
-          data: [13, dataInterest[1].rate, 10, 12, 15]
-        },
-        {
-          name: `${dataInterest[2].mtu}`,
-          data: [12, 11, dataInterest[2].rate, 15, 11]
-        },
-        {
-          name: `${dataInterest[3].mtu}`,
-          data: [12, 11, dataInterest[3].rate, 15, 11]
-        },
-        {
-          name: `${dataInterest[4].mtu}`,
-          data: [12, 11, dataInterest[4].rate, 15, 11]
-        },
-        {
-          name: `${dataInterest[5].mtu}`,
-          data: [12, 11, dataInterest[5].rate, 15, 11]
-        }
-      ];
+        this.lineChartInterestRateSeries.push({
+          name: nameInterest,
+          data: dataInterest
+        })
+      }
+
+    this.interestRateXaxis = {
+      categories: [],
+      type:'datetime',
+    }
+    for(let i=0; i<this.trendInterestRateCategories.d.arrayTanggal.length; i++){
+      const currentDate = this.trendInterestRateCategories.d.arrayTanggal[i];
+      this.interestRateXaxis.categories.push(currentDate)
+    }
 
       this.tesLocalStorageKurs = localStorage.getItem('compareData');
       this.tesFilterKurs = localStorage.getItem('compareData');

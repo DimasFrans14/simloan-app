@@ -103,43 +103,78 @@
             </div>
             <div class="d-flex align-items-center">
               <div>
-                <button type="button" class="btn btn-light rounded-pill text-dark bg-white ms-1" [disabled]="true"><span style="font-size: 13px;">1W</span></button>
+                <button
+                  type="button"
+                  class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                  [disabled]="true"
+                >
+                  <span style="font-size: 13px">1W</span>
+                </button>
               </div>
               <div>
-                <button type="button" class="btn btn-light rounded-pill text-dark bg-white ms-1"><span style="font-size: 13px;">1M</span></button>
+                <button
+                  type="button"
+                  class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                >
+                  <span style="font-size: 13px">1M</span>
+                </button>
               </div>
               <div>
-                <button type="button" class="btn btn-light rounded-pill text-dark bg-white ms-1"><span style="font-size: 13px;">1Y</span></button>
+                <button
+                  type="button"
+                  class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                >
+                  <span style="font-size: 13px">1Y</span>
+                </button>
               </div>
               <div>
-                <button type="button" class="btn btn-light rounded-pill text-dark bg-white ms-1"><span style="font-size: 13px;">3Y</span></button>
+                <button
+                  type="button"
+                  class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                >
+                  <span style="font-size: 13px">3Y</span>
+                </button>
               </div>
               <div>
-        <button class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2" style="font-size: 14px;" type="button" data-bs-toggle="dropdown" aria-expanded="false">Customize Chart</button>
-        <div class="dropdown-menu ps-2">
-          <form (ngSubmit)="onSubmit($event)">
-            <div style="font-size: 15px;">
-              <ng-container *ngFor="let item of allTrendDataKurs">
-                <input type="checkbox" name="selectedKurs" [id]="item.kurs" >
-                <label class="ms-2" for="item.kurs">{{item.kurs}}</label>
-                <br/>
-              </ng-container>
-            </div>
-            <button type="submit" class="btn btn-primary btn-sm mt-2">Save Change</button>
-          </form>
-
-        </div>
-      </div>
+                <button
+                  class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
+                  style="font-size: 14px"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Customize Chart
+                </button>
+                <div class="dropdown-menu ps-2">
+                  <form (ngSubmit)="onSubmit($event)">
+                    <div style="font-size: 15px">
+                      <ng-container *ngFor="let item of allTrendDataKurs">
+                        <input
+                          type="checkbox"
+                          name="selectedKurs"
+                          [id]="item.kurs"
+                        />
+                        <label class="ms-2" for="item.kurs">{{
+                          item.kurs
+                        }}</label>
+                        <br />
+                      </ng-container>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm mt-2">
+                      Save Change
+                    </button>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
           <apx-chart
-          [style.display]="isVisibleLine ? 'block' : 'none'"
-          [series]="lineChartKursSeries"
-          [chart]="currencyChartDetails"
-          [yaxis]="lineYAxis"
-          [xaxis]="tesXaxis"
-          [stroke]="stroke"
-          [legend]="kursLegends"
+            [style.display]="isVisibleLine ? 'block' : 'none'"
+            [series]="lineChartKursSeries"
+            [chart]="currencyChartDetails"
+            [yaxis]="lineYAxis"
+            [xaxis]="tesXaxis"
+            [stroke]="stroke"
           ></apx-chart>
         </div>
         <apx-chart
@@ -167,26 +202,36 @@
               </thead>
               <tbody>
                 <tr *ngFor="let item of tesLocalStorageKurs">
-                  <th scope="row" style="font-size: 14px; border-style: none" >
+                  <th scope="row" style="font-size: 14px; border-style: none">
                     {{ item.mata_uang }}
                   </th>
                   <td>{{ item.change_rkap }}</td>
                   <td>{{ item.change_now }}</td>
                   <td>{{ item.change_now }}</td>
                   <td>{{ item.change1_day }}</td>
-                  <td><i class="bi bi-x-lg" (click)="hideCompare(item.mata_uang)" style="cursor: pointer;"></i></td>
+                  <td>
+                    <i
+                      class="bi bi-x-lg"
+                      (click)="hideCompare(item.mata_uang)"
+                      style="cursor: pointer"
+                    ></i>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div class="col-5 text-end">
-            <button class="btn btn-transparant btn-sm border border-1 me-2" (click)="cancelCompare()">
+            <button
+              class="btn btn-transparant btn-sm border border-1 me-2"
+              (click)="cancelCompare()"
+            >
               Bersihkan Semuanya
             </button>
             <button
               class="btn btn-transparant btn-sm border border-1"
               data-bs-toggle="modal"
-              data-bs-target="#macroIndicatorModal">
+              data-bs-target="#macroIndicatorModal"
+            >
               Tambah Perbandingan
             </button>
           </div>
@@ -227,33 +272,50 @@
                   >
                   </ng-select>
                   <!-- <div *ngFor="let items of tesLocalStorageKurs"> -->
-                    <div
-                      class="d-flex align-items-center justify-content-between"
-                    >
+                  <div
+                    class="d-flex align-items-center justify-content-between"
+                  >
                     <table class="table">
                       <thead>
                         <tr>
                           <th scope="col" style="font-size: 14px">Kurs</th>
-                          <th scope="col" style="font-size: 14px">Change RKAP</th>
-                          <th scope="col" style="font-size: 14px">Change WoW</th>
-                          <th scope="col" style="font-size: 14px">Change MoM</th>
-                          <th scope="col" style="font-size: 14px">Change 1 Day</th>
+                          <th scope="col" style="font-size: 14px">
+                            Change RKAP
+                          </th>
+                          <th scope="col" style="font-size: 14px">
+                            Change WoW
+                          </th>
+                          <th scope="col" style="font-size: 14px">
+                            Change MoM
+                          </th>
+                          <th scope="col" style="font-size: 14px">
+                            Change 1 Day
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor="let item of tesFilterKurs">
-                          <th scope="row" style="font-size: 14px; border-style: none" >
+                          <th
+                            scope="row"
+                            style="font-size: 14px; border-style: none"
+                          >
                             {{ item.mata_uang }}
                           </th>
                           <td>{{ item.change_rkap }}</td>
                           <td>{{ item.change_now }}</td>
                           <td>{{ item.change_now }}</td>
                           <td>{{ item.change1_day }}</td>
-                          <td><i class="bi bi-plus-lg" (click)="addSample(item.mata_uang)" style="cursor: pointer;"></i></td>
+                          <td>
+                            <i
+                              class="bi bi-plus-lg"
+                              (click)="addSample(item.mata_uang)"
+                              style="cursor: pointer"
+                            ></i>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
-                    </div>
+                  </div>
                   <!-- </div> -->
                 </div>
 
@@ -265,9 +327,13 @@
                   >
                     Tutup
                   </button> -->
-                    <button type="button" class="btn btn-primary"
+                  <button
+                    type="button"
+                    class="btn btn-primary"
                     data-bs-dismiss="modal"
-                    >Simpan</button>
+                  >
+                    Simpan
+                  </button>
                 </div>
               </div>
             </div>
@@ -278,172 +344,218 @@
     <!-- Commodity -->
     <div class="d-flex justify-content-between mt-5">
       <h4>Commodity</h4>
-      <div  class="align-self-center"><button class="btn btn-transparant btn-sm border border-1 px-3 bg-white">Edit</button></div>
+      <div class="align-self-center">
+        <button
+          class="btn btn-transparant btn-sm border border-1 px-3 bg-white"
+        >
+          Edit
+        </button>
+      </div>
     </div>
 
     <div class="d-flex flex-row flex-wrap justify-content-sm-around">
       <!-- <ng-container *ngFor="let item of chartCommodities"> -->
-        <!-- <div class="bg-white p-1 m-2 rounded"> -->
+      <!-- <div class="bg-white p-1 m-2 rounded"> -->
 
-        <!-- WTI & Brent -->
-        <div class="card rounded p-2 mt-3">
-          <div class="d-flex align-items-center justify-content-between p-1">
-            <div class="flex-fill fw-semibold">WTI & Brent (USD/Ton)</div>
-            <div>
-              <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="d-flex justify-content-between">
-                  <div class="p-1">Year</div>
-                  <div class="p-1"><i class="bi bi-chevron-down"></i></div>
-                </div>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item">Month</a></li>
-                <li><a class="dropdown-item">Week</a></li>
-                <li><a class="dropdown-item">Day</a></li>
-              </ul>
-            </div>
+      <!-- WTI & Brent -->
+      <div class="card rounded p-2 mt-3">
+        <div class="d-flex align-items-center justify-content-between p-1">
+          <div class="flex-fill fw-semibold">WTI & Brent (USD/Ton)</div>
+          <div>
+            <button
+              type="button"
+              class="btn btn-sm btn-transparant border"
+              style="color: black"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <div class="d-flex justify-content-between">
+                <div class="p-1">Year</div>
+                <div class="p-1"><i class="bi bi-chevron-down"></i></div>
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item">Month</a></li>
+              <li><a class="dropdown-item">Week</a></li>
+              <li><a class="dropdown-item">Day</a></li>
+            </ul>
           </div>
-          <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
-          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
-          <apx-chart id="1"
-            [style.display]="isVisibleLine ? 'block' : 'none'"
-            [series]="dataChartWtiBrent"
-            [chart]="wtiBrentChart"
-            [stroke]="wtiBrentStroke"
-            [colors]="wtiBrentColors"
-            [xaxis]="xAxisWtiBrent"
-            [yaxis]="yAxisWtiBrent">
-          </apx-chart>
         </div>
-        <!-- end WTI Brent -->
+        <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
+        <apx-chart
+          id="1"
+          [style.display]="isVisibleLine ? 'block' : 'none'"
+          [series]="dataChartWtiBrent"
+          [chart]="wtiBrentChart"
+          [stroke]="wtiBrentStroke"
+          [colors]="wtiBrentColors"
+          [xaxis]="xAxisWtiBrent"
+          [yaxis]="yAxisWtiBrent"
+        >
+        </apx-chart>
+      </div>
+      <!-- end WTI Brent -->
+      <!-- ICP -->
+      <div class="card rounded p-2 mt-3">
+        <div class="d-flex align-items-center justify-content-between p-1">
+          <div class="flex-fill fw-semibold">ICP (USD/Barel)</div>
+          <div>
+            <button
+              type="button"
+              class="btn btn-sm btn-transparant border"
+              style="color: black"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <div class="d-flex justify-content-between">
+                <div class="p-1">Year</div>
+                <div class="p-1"><i class="bi bi-chevron-down"></i></div>
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item">Month</a></li>
+              <li><a class="dropdown-item">Week</a></li>
+              <li><a class="dropdown-item">Day</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
         <!-- ICP -->
-        <div class="card rounded p-2 mt-3">
-          <div class="d-flex align-items-center justify-content-between p-1">
-            <div class="flex-fill fw-semibold">ICP (USD/Barel)</div>
-            <div>
-              <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="d-flex justify-content-between">
-                  <div class="p-1">Year</div>
-                  <div class="p-1"><i class="bi bi-chevron-down"></i></div>
-                </div>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item">Month</a></li>
-                <li><a class="dropdown-item">Week</a></li>
-                <li><a class="dropdown-item">Day</a></li>
-              </ul>
-            </div>
+        <apx-chart
+          id="2"
+          [style.display]="isVisibleLine ? 'block' : 'none'"
+          [series]="dataChartIcp"
+          [chart]="icpChart"
+          [stroke]="icpStroke"
+          [colors]="icpColors"
+          [xaxis]="xAxisIcpChart"
+          [yaxis]="yAxisIcp"
+        >
+        </apx-chart>
+      </div>
+      <!-- end ICP -->
+      <!-- COAL NEWCASTLE -->
+      <div class="card rounded p-2 mt-3">
+        <div class="d-flex align-items-center justify-content-between p-1">
+          <div class="flex-fill fw-semibold">COAL (Newcastle)</div>
+          <div>
+            <button
+              type="button"
+              class="btn btn-sm btn-transparant border"
+              style="color: black"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <div class="d-flex justify-content-between">
+                <div class="p-1">Year</div>
+                <div class="p-1"><i class="bi bi-chevron-down"></i></div>
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item">Month</a></li>
+              <li><a class="dropdown-item">Week</a></li>
+              <li><a class="dropdown-item">Day</a></li>
+            </ul>
           </div>
-          <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
-          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
-          <!-- ICP -->
-          <apx-chart  id="2"
-            [style.display]="isVisibleLine ? 'block' : 'none'"
-            [series]="dataChartIcp"
-            [chart]="icpChart"
-            [stroke]="icpStroke"
-            [colors]="icpColors"
-            [xaxis]="xAxisIcpChart"
-            [yaxis]="yAxisIcp">
-          </apx-chart>
         </div>
-        <!-- end ICP -->
-        <!-- COAL NEWCASTLE -->
-        <div class="card rounded p-2 mt-3">
-          <div class="d-flex align-items-center justify-content-between p-1">
-            <div class="flex-fill fw-semibold">COAL (Newcastle)</div>
-            <div>
-              <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="d-flex justify-content-between">
-                  <div class="p-1">Year</div>
-                  <div class="p-1"><i class="bi bi-chevron-down"></i></div>
-                </div>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item">Month</a></li>
-                <li><a class="dropdown-item">Week</a></li>
-                <li><a class="dropdown-item">Day</a></li>
-              </ul>
-            </div>
+        <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
+        <!-- ICP -->
+        <apx-chart
+          id="2"
+          [style.display]="isVisibleLine ? 'block' : 'none'"
+          [series]="dataChartCoal"
+          [chart]="coalChart"
+          [stroke]="coalStroke"
+          [colors]="coalColors"
+          [xaxis]="xAxisCoalChart"
+          [yaxis]="yAxisCoal"
+        >
+        </apx-chart>
+      </div>
+      <!-- end COAL NEWCASTLE -->
+      <!-- LNG -->
+      <div class="card rounded p-2 mt-3">
+        <div class="d-flex align-items-center justify-content-between p-1">
+          <div class="flex-fill fw-semibold">LNG (JKM) (USD/MMBtu)</div>
+          <div>
+            <button
+              type="button"
+              class="btn btn-sm btn-transparant border"
+              style="color: black"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <div class="d-flex justify-content-between">
+                <div class="p-1">Year</div>
+                <div class="p-1"><i class="bi bi-chevron-down"></i></div>
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item">Month</a></li>
+              <li><a class="dropdown-item">Week</a></li>
+              <li><a class="dropdown-item">Day</a></li>
+            </ul>
           </div>
-          <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
-          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
-          <!-- ICP -->
-          <apx-chart  id="2"
-            [style.display]="isVisibleLine ? 'block' : 'none'"
-            [series]="dataChartCoal"
-            [chart]="coalChart"
-            [stroke]="coalStroke"
-            [colors]="coalColors"
-            [xaxis]="xAxisCoalChart"
-            [yaxis]="yAxisCoal">
-          </apx-chart>
         </div>
-        <!-- end COAL NEWCASTLE -->
-        <!-- LNG -->
-        <div class="card rounded p-2 mt-3">
-          <div class="d-flex align-items-center justify-content-between p-1">
-            <div class="flex-fill fw-semibold">LNG (JKM) (USD/MMBtu)</div>
-            <div>
-              <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="d-flex justify-content-between">
-                  <div class="p-1">Year</div>
-                  <div class="p-1"><i class="bi bi-chevron-down"></i></div>
-                </div>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item">Month</a></li>
-                <li><a class="dropdown-item">Week</a></li>
-                <li><a class="dropdown-item">Day</a></li>
-              </ul>
-            </div>
+        <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
+        <!-- ICP -->
+        <apx-chart
+          id="2"
+          [style.display]="isVisibleLine ? 'block' : 'none'"
+          [series]="dataChartLng"
+          [chart]="lngChart"
+          [stroke]="lngStroke"
+          [colors]="lngColors"
+          [xaxis]="xAxisLngChart"
+          [yaxis]="yAxisLng"
+        >
+        </apx-chart>
+      </div>
+      <!-- end LNG -->
+      <!-- Batu Bara -->
+      <div class="card rounded p-2 mt-3">
+        <div class="d-flex align-items-center justify-content-between p-1">
+          <div class="flex-fill fw-semibold">Batu Bara (USD/Ton)</div>
+          <div>
+            <button
+              type="button"
+              class="btn btn-sm btn-transparant border"
+              style="color: black"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <div class="d-flex justify-content-between">
+                <div class="p-1">Year</div>
+                <div class="p-1"><i class="bi bi-chevron-down"></i></div>
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item">Month</a></li>
+              <li><a class="dropdown-item">Week</a></li>
+              <li><a class="dropdown-item">Day</a></li>
+            </ul>
           </div>
-          <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
-          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
-          <!-- ICP -->
-          <apx-chart  id="2"
-            [style.display]="isVisibleLine ? 'block' : 'none'"
-            [series]="dataChartLng"
-            [chart]="lngChart"
-            [stroke]="lngStroke"
-            [colors]="lngColors"
-            [xaxis]="xAxisLngChart"
-            [yaxis]="yAxisLng">
-          </apx-chart>
         </div>
-        <!-- end LNG -->
-        <!-- Batu Bara -->
-        <div class="card rounded p-2 mt-3">
-          <div class="d-flex align-items-center justify-content-between p-1">
-            <div class="flex-fill fw-semibold">Batu Bara (USD/Ton)</div>
-            <div>
-              <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="d-flex justify-content-between">
-                  <div class="p-1">Year</div>
-                  <div class="p-1"><i class="bi bi-chevron-down"></i></div>
-                </div>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item">Month</a></li>
-                <li><a class="dropdown-item">Week</a></li>
-                <li><a class="dropdown-item">Day</a></li>
-              </ul>
-            </div>
-          </div>
-          <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+        <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
           <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
-          <!-- ICP -->
-          <apx-chart  id="2"
-            [style.display]="isVisibleLine ? 'block' : 'none'"
-            [series]="dataChartBatuBara"
-            [chart]="batuBaraChart"
-            [stroke]="batuBaraStroke"
-            [colors]="batuBaraColors"
-            [xaxis]="xAxisBatuBaraChart"
-            [yaxis]="yAxisBatuBara">
-          </apx-chart>
-        </div>
-        <!-- end Batu BAra -->
+        <!-- ICP -->
+        <apx-chart
+          id="2"
+          [style.display]="isVisibleLine ? 'block' : 'none'"
+          [series]="dataChartBatuBara"
+          [chart]="batuBaraChart"
+          [stroke]="batuBaraStroke"
+          [colors]="batuBaraColors"
+          [xaxis]="xAxisBatuBaraChart"
+          [yaxis]="yAxisBatuBara"
+        >
+        </apx-chart>
+      </div>
+      <!-- end Batu BAra -->
       <!-- </ng-container> -->
     </div>
 
@@ -461,12 +573,78 @@
     </div>
     <div>
       <div class="bg-white rounded p-2">
+        <div class="d-flex align-items-center justify-content-end py-2">
+          <div>
+            <button
+              type="button"
+              class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              [disabled]="true"
+            >
+              <span style="font-size: 13px">1W</span>
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="btn btn-light rounded-pill text-dark bg-white ms-1"
+            >
+              <span style="font-size: 13px">1M</span>
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="btn btn-light rounded-pill text-dark bg-white ms-1"
+            >
+              <span style="font-size: 13px">1Y</span>
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="btn btn-light rounded-pill text-dark bg-white ms-1"
+            >
+              <span style="font-size: 13px">3Y</span>
+            </button>
+          </div>
+          <div>
+            <button
+              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
+              style="font-size: 14px"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              [disabled]="true"
+            >
+              Customize Chart
+            </button>
+            <div class="dropdown-menu ps-2">
+              <form (ngSubmit)="onSubmit($event)">
+                <div style="font-size: 15px">
+                  <ng-container *ngFor="let item of allTrendDataKurs">
+                    <input
+                      type="checkbox"
+                      name="selectedKurs"
+                      [id]="item.kurs"
+                    />
+                    <label class="ms-2" for="item.kurs">{{ item.kurs }}</label>
+                    <br />
+                  </ng-container>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm mt-2">
+                  Save Change
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
         <apx-chart
           [style.display]="isVisibleLine ? 'block' : 'none'"
           [series]="lineChartInterestRateSeries"
           [chart]="currencyChartDetails"
+          [xaxis]="interestRateXaxis"
           [stroke]="stroke"
-          [legend]="kursLegends"
+          [legend]="interestRateLegend"
         ></apx-chart>
 
         <apx-chart
