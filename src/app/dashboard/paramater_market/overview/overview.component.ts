@@ -18,7 +18,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     ){
     // console.log(dataService);
   }
-  
+
 // chart Batu Bara
   // dataChartBatuBara = this.chartService.dataChartBatuBara;
   // batuBaraChart = this.chartService.batuBaraChart;
@@ -560,7 +560,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.isVisibleBar = false;
   }
 
-  onSubmit(event: any) {
+  filterCurrencyLineChart(event: any) {
 
     console.log(this.allTrendDataKurs);
     let targetColumn: any[] = [];
@@ -755,6 +755,38 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           })
         }
       }
+    }
+  }
+
+  filterInterestRateLineChart(event: any) {
+
+    console.log(this.allTrendDataInterestRate);
+    let targetColumn: any[] = [];
+    for(let i=0; i<event.target.length - 1; i++){
+      if(event.target[i].checked){
+        targetColumn.push(event.target[i].id);
+      }
+    }
+
+    console.log(targetColumn);
+
+    const filteredData = this.allTrendDataInterestRate.filter(
+      (item: any) => targetColumn.includes(item.kode)
+    )
+
+    console.log(filteredData);
+
+    this.lineChartInterestRateSeries = []
+
+    for(let i=0; i < filteredData.length; i++){
+
+      const interestRateName = filteredData[i].kode
+      const dataInterestRate = filteredData[i].data
+
+      this.lineChartInterestRateSeries.push({
+        name: interestRateName,
+        data: dataInterestRate
+      })
     }
   }
 

@@ -146,7 +146,7 @@
                   Customize Chart
                 </button>
                 <div class="dropdown-menu ps-2">
-                  <form (ngSubmit)="onSubmit($event)">
+                  <form (ngSubmit)="filterCurrencyLineChart($event)">
                     <div style="font-size: 15px">
                       <ng-container *ngFor="let item of allTrendDataKurs">
                         <input
@@ -179,7 +179,7 @@
         </div>
         <apx-chart
           [style.display]="isVisibleBar ? 'none' : 'block'"
-          [series]="chartSeries2"
+          [series]="lineChartKursSeries"
           [chart]="currencyBarChartDetails"
           [title]="currencyChartTitle"
         ></apx-chart>
@@ -625,20 +625,19 @@
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-              [disabled]="true"
             >
               Customize Chart
             </button>
             <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="onSubmit($event)">
+              <form (ngSubmit)="filterInterestRateLineChart($event)">
                 <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataKurs">
+                  <ng-container *ngFor="let item of allTrendDataInterestRate">
                     <input
                       type="checkbox"
-                      name="selectedKurs"
-                      [id]="item.kurs"
+                      name="selectedInterestRate"
+                      [id]="item.kode"
                     />
-                    <label class="ms-2" for="item.kurs">{{ item.kurs }}</label>
+                    <label class="ms-2" for="item.kode">{{ item.kode }}</label>
                     <br />
                   </ng-container>
                 </div>
