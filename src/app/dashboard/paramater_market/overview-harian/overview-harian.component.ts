@@ -39,6 +39,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   openModalFootnote1: boolean = false;
 
   selectedItems!: number;
+  selectedKurs!: string;
 
   PPTFile = new PptxGenJS()
   img = '';
@@ -236,7 +237,10 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   dataInterestRate: any;
   dataCommodities: any;
   listEditCommodities: any;
+
   dataCurrency: any;
+  listEditCurrency: any;
+
   formatTanggal: any;
   changeIcon: boolean = false;
 
@@ -270,6 +274,38 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     }
 
     console.log(this.dataCommodities, updatedData, getRow);
+  }
+
+  getValueRowKurs(event: any){
+    console.log(event);
+
+    const updatedData = this.dataCurrency.filter((item: any) => item.mata_uang !== event)
+
+    const getRow = this.listEditCurrency.filter((item: any) => item.mata_uang == event)
+
+    const checkData = this.dataCurrency.includes(getRow[0])
+
+    this.dataCurrency = updatedData;
+
+    console.log(checkData);
+
+    if(checkData){
+      console.log('clear data');
+      this.changeIcon = true;
+    }
+    else{
+      if(this.dataCurrency.length < 3){
+        this.dataCurrency.push(getRow[0]);
+        this.changeIcon = false;
+      }
+      else{
+        alert('data lebih dari 3')
+      }
+      console.log('add data');
+    }
+
+    console.log(this.dataCurrency, updatedData, getRow);
+
   }
 
   async onDate(event: MatDatepickerInputEvent<Date>) {
@@ -343,9 +379,10 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       this.dataInterestRate = filteredDataInterestRate
       console.log(this.dataInterestRate);
 
-      const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview()
+      const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview();
+      const currenciesOverview = await this.marketUpdateService.fetchDataKurs()
 
-      console.log(commoditiesOverview);
+      console.log(commoditiesOverview, currenciesOverview);
       this.dataCommodities = commoditiesOverview;
       this.listEditCommodities = commoditiesOverview;
       this.listEditCommodities = this.listEditCommodities.data.filter((item: any) => item.tanggal == '01/11/2022');
@@ -356,9 +393,12 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
       console.log(this.dataCommodities);
 
-      const filteredDataCurrency = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
-      this.dataCurrency = filteredDataCurrency
-      console.log(this.dataCurrency);
+      // const filteredDataCurrency = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
+      this.dataCurrency = currenciesOverview;
+      this.dataCurrency = this.dataCurrency.data.slice(0,3);
+      this.listEditCurrency = currenciesOverview;
+      this.listEditCurrency = this.listEditCurrency.data;
+      // console.log(this.dataCurrency, this.listEditCurrency) ;
     }
     catch(err){
       console.log(err);
