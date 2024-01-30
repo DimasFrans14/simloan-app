@@ -23,6 +23,11 @@
   /* padding-top: 40px; */
 }
 
+::ng-deep .cdk-overlay-container {
+  position: fixed;
+  z-index: 9999;
+}
+
 @media (max-width: 1199px) {
   .sub-nav {
     /* padding-left: 20px; */

@@ -466,7 +466,7 @@ export class TableServicesService {
     ];
 
     this.tableCurrencyDetail = new Tabulator(".table-currencyDetail", {
-          // height:205,
+      height: "335px",
       data:this.sharedData,
       layout:"fitColumns",
       columns:[
@@ -474,17 +474,17 @@ export class TableServicesService {
     {//create column group
         title:"Exchange Rate",
         columns:[
-        {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"beli", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"beli_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"beli_min2", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"beli_min3", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"RKAP <br/>23", field:"rate_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"kurs", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"kurs_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"24/02/23", field:"kurs_min2", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"20/03/23", field:"kurs_min3", hozAlign:"center", headerHozAlign:"center", editor: "input"},
         ],
         headerHozAlign:"center"
     },
     {title:"Change <br/>MoM", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Change <br/>1 Day", field:"change1_day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     {title:"Change Dari RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       ],
    }
@@ -843,7 +843,7 @@ export class TableServicesService {
 
   });
 
-  
+
   }
 
   initializeTableCreateLiabilities(){
