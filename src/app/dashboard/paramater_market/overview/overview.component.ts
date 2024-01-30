@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { ApexAnnotations, ApexAxisChartSeries, ApexChart,  ApexLegend,  ApexPlotOptions,  ApexStroke,  ApexTitleSubtitle, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
 import { filter } from 'rxjs';
 import { DataService } from 'src/app/data.service';
+import { OverviewChartService } from 'src/app/services/chart_serivces/overviewChart/overview-chart.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   constructor(
     private dataService: DataService,
     private marketUpdateService: MarketUpdateService,
+    private overviewChart: OverviewChartService
     ){
     // console.log(dataService);
   }
@@ -41,6 +43,15 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   lineChartInterestRateSeries: ApexAxisChartSeries = [];
   interestRateXaxis!: ApexXAxis;
   interestRateLegend!: ApexLegend;
+
+  dataChartWtibrent!:ApexAxisChartSeries;
+  xAxisWtiChartBrent!:ApexXAxis;
+
+  dataIcpChart!:ApexAxisChartSeries;
+  xAxisIcpChart!:ApexXAxis;
+
+  dataChartCoal!:ApexAxisChartSeries;
+  xAxisChartCoal!:ApexXAxis;
 
   selectedItems!: number;
 
@@ -186,8 +197,14 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   trendInterestRateCategories: any;
   trendInterestData: any;
 
+  //Line Chart Commodities
+  allTrendWTIBRENT: any;
+  allTrendICP: any;
+  allTrendCOAL: any;
 
   USDDataChart: any;
+
+  dataWTIBRENT: any;
 
   async ngOnInit(): Promise<void> {
     try {
@@ -204,6 +221,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       console.log(trendKurs);
 
       const trendInterestRate = await this.marketUpdateService.fetchDataInterestRateTrending();
+
+      const trendWTIBRENTCommodities = await this.marketUpdateService.fetchDataCommoditiesWTIBRENTTrend();
+      const trendICPCommodities = await this.marketUpdateService.fetchDataCommoditiesICPTrend();
+
+      const trendCOALCommodities = await this.marketUpdateService.fetchDataCommoditiesCOALTrend();
+
+      console.log(trendCOALCommodities);
+
+
+      this.allTrendWTIBRENT = trendWTIBRENTCommodities;
+      this.allTrendICP = trendICPCommodities;
+      this.allTrendCOAL= trendCOALCommodities;
+
+      console.log(trendICPCommodities);
 
       this.allTrendDataInterestRate = trendInterestRate;
       this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
@@ -238,23 +269,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       // dataUSD = this.dataKurs.d.list.filter((item: any) => item.mata_uang === 'USD');
 
       dataInterest = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
-
-      // console.log(dataInterest);
-
-      // this.lineChartKursSeries = [
-      //   {
-      //     name: `${this.dataKurs.data[0].mata_uang}`,
-      //     data: [12300, 12000, 13000, 12300, 11000]
-      //   },
-      //   {
-      //     name: `${this.dataKurs.data[1].mata_uang}`,
-      //     data: [13000, 11000, 15000, 12300, 11000]
-      //   },
-      //   {
-      //     name: `${this.dataKurs.data[2].mata_uang}`,
-      //     data: [12300, 11000, 15000, 12300, 11000]
-      //   }
-      // ];
 
       this.lineChartKursSeries = [];
       this.chartSeries2 = [];
@@ -443,6 +457,78 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     for(let i=0; i<this.trendInterestRateCategories.d.arrayTanggal.length; i++){
       const currentDate = this.trendInterestRateCategories.d.arrayTanggal[i];
       this.interestRateXaxis.categories.push(currentDate)
+    }
+
+    this.dataChartWtibrent = [];
+
+    for(let i=0; i < this.allTrendWTIBRENT.d.arrayData.length; i++){
+      const commoditiesName = this.allTrendWTIBRENT.d.arrayData[i].kode
+      const dataWTIBRENT = this.allTrendWTIBRENT.d.arrayData[i].data
+
+      console.log(dataWTIBRENT);
+
+
+      this.dataChartWtibrent.push({
+        name: commoditiesName,
+        data: dataWTIBRENT
+      })
+    }
+
+    this.xAxisWtiChartBrent = {
+      categories: [],
+      type:'datetime',
+    }
+    for(let i=0; i < this.allTrendWTIBRENT.d.arrayTanggal.length; i++){
+      const date = this.allTrendWTIBRENT.d.arrayTanggal[i]
+      this.xAxisWtiChartBrent.categories.push(date);
+    }
+
+    this.dataIcpChart = [];
+    for(let i =0; i < this.allTrendICP.d.arrayData.length; i++){
+      const commoditiesName = this.allTrendICP.d.arrayData[i].kode
+      const dataICP = this.allTrendICP.d.arrayData[i].data
+
+      console.log(commoditiesName, dataICP);
+
+
+      this.dataIcpChart.push({
+        name: commoditiesName,
+        data: dataICP
+      })
+    }
+
+    this.xAxisIcpChart = {
+      categories: [],
+      type: 'datetime'
+    }
+
+    for(let i=0; i < this.allTrendICP.d.arrayTanggal.length; i++){
+      const date = this.allTrendICP.d.arrayTanggal[i]
+      this.xAxisIcpChart.categories.push(date)
+    }
+
+    this.dataChartCoal = []
+    for(let i=0; i < this.allTrendCOAL.d.arrayData.length; i++){
+      const commoditiesName = this.allTrendCOAL.d.arrayData[i].kode
+      const dataCOAL = this.allTrendCOAL.d.arrayData[i].data
+
+      console.log(commoditiesName, dataCOAL);
+
+
+      this.dataChartCoal.push({
+        name: commoditiesName,
+        data: dataCOAL
+      })
+    }
+
+    this.xAxisChartCoal = {
+      categories: [],
+      type: 'datetime'
+    }
+
+    for(let i=0; i< this.allTrendCOAL.d.arrayTanggal.length; i++){
+      const date = this.allTrendCOAL.d.arrayTanggal[i]
+      this.xAxisChartCoal.categories.push(date)
     }
 
       this.tesLocalStorageKurs = localStorage.getItem('compareData');
@@ -843,16 +929,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     }
   }
   //Wti Brent
-  dataChartWtibrent:ApexAxisChartSeries=[
-    {
-      name: "Oil (WTI)",
-      data: [67, 85, 110, 120]
-    },
-    {
-      name: "OIL (BRENT)",
-      data: [70, 90, 100, 122]
-    }
-  ]
   wtiBrentLineChart:ApexChart={
     type: 'line',
     width: 350,
@@ -889,19 +965,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     '#2EB0C2',
     '#256979'
   ]
-  xAxisWtiChartBrent:ApexXAxis={
-    categories: [
-      ["2021"],
-      ["2022"],
-      ["2023"],
-      ["2024"],
-    ]
-  }
+
   yAxisWtiBrentChart:ApexYAxis={
     show: true,
       tickAmount: 4,
-      min: 45.00,
-      max: 125.00,
+      // min: 45.00,
+      // max: 125.00,
   }
   wtiBrentStroke:ApexStroke ={
     curve:'smooth',
@@ -916,22 +985,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   yAxisIcp:ApexYAxis={
     show: true,
       tickAmount: 6,
-      min: 20,
-      max: 140.00,
+      // min: 20,
+      // max: 140.00,
   }
-  xAxisIcpChart:ApexXAxis ={
-    categories: [
-      ["2021"],
-      ["2022"],
-      ["2023"],
-      ["2024"],
-    ]
-  }
-  dataIcpChart:ApexAxisChartSeries =[
-    {
-      data: [56, 30, 130, 120]
-    }
-  ]
   icpChartColors:any=[
     '#2EB0C2',
     '#256979'
@@ -971,16 +1027,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   }
 // end ICP //
 // Coal //
-dataChartCoal:ApexAxisChartSeries=[
-  {
-    name: "Oil (WTI)",
-    data: [67, 85, 110, 120]
-  },
-  {
-    name: "OIL (BRENT)",
-    data: [70, 90, 100, 122]
-  }
-]
+
 coalLineChart:ApexChart={
   type: 'line',
   width: 350,
@@ -1017,19 +1064,12 @@ coalChartColors:any=[
   '#2EB0C2',
   '#256979'
 ]
-xAxisChartCoal:ApexXAxis={
-  categories: [
-    ["2021"],
-    ["2022"],
-    ["2023"],
-    ["2024"],
-  ]
-}
+
 yAxisCoalChart:ApexYAxis={
   show: true,
     tickAmount: 4,
-    min: 45.00,
-    max: 125.00,
+    // min: 45.00,
+    // max: 125.00,
 }
 coalStroke:ApexStroke ={
   curve:'smooth',

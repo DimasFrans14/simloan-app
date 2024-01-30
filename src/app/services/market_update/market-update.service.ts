@@ -102,6 +102,60 @@ export class MarketUpdateService {
     }
   }
 
+  async fetchDataCommoditiesWTIBRENTTrend(){
+    const option = {
+      params: {
+        "kategori": "['WTI', 'BRENT']",
+        "start_date": "01/01/2023",
+        "end_date": "31/01/2023"
+      }
+    }
+    try {
+      return await lastValueFrom(
+        this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
+  async fetchDataCommoditiesICPTrend(){
+    const option = {
+      params: {
+        "kategori": "['ICP']",
+        "start_date": "01/01/2023",
+        "end_date": "31/01/2023"
+      }
+    }
+    try {
+      return await lastValueFrom(
+        this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
+  async fetchDataCommoditiesCOALTrend(){
+    const option = {
+      params: {
+        "kategori": "['COAL']",
+        "start_date": "01/01/2023",
+        "end_date": "31/01/2023"
+      }
+    }
+    try {
+      return await lastValueFrom(
+        this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
   async fetchDataPDB(){
     try {
       return await lastValueFrom(
