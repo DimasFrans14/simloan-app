@@ -209,7 +209,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     try {
 
 
-      this.tableConfig.initializeTableData(this.threeDaysBefore, this.twoDaysBefore, this.yesterday, this.selectedDate)
+      this.tableConfig.initializeTableData(this.getLabelDate[0].h_min_30, this.getLabelDate[0].h_min_7, this.getLabelDate[0].h_min_1, this.getLabelDate[0].h_min_0)
 
       //FETCH BASED ON PARAMS
       const responseInflasi = await this.marketUpdateService.fetchDataViewInflasiByDate(this.selectedDate, this.selectedMonth);
@@ -259,7 +259,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     let threeDaysBefore = getThreeDaysBefore.setDate(getThreeDaysBefore.getDate() - 3);
     let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
 
-    this.tableConfig.initializeTableData(formatThreeDaysBefore, formatTwoDaysBefore, formatYesterday, formatToday);
+    this.tableConfig.initializeTableData(this.getLabelDate[0].h_min_30, this.getLabelDate[0].h_min_7, this.getLabelDate[0].h_min_1, this.getLabelDate[0].h_min_0);
   }
 
   keysBondYield: any;

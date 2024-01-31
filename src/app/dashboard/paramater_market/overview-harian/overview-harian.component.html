@@ -312,8 +312,8 @@
                   </form>
                 </div> -->
                 <ng-select [items]="dataCurrency"
-               bindLabel="mata_uang"
-               bindValue="mata_uang"
+               bindLabel="kode"
+               bindValue="kode"
                [(ngModel)]="selectedKurs">
                 </ng-select>
                 <!-- <div *ngFor="let items of defaultMacroIndicatorItems"> -->
@@ -330,13 +330,13 @@
                       <tbody>
                         <tr *ngFor="let item of listEditCurrency">
                           <th scope="row" style="font-size: 14px; border-style: none" >
-                            {{ item.mata_uang }}
+                            {{ item.kode }}
                           </th>
-                          <td>{{ item.change_now }}</td>
-                          <td>{{ item.change_now }}</td>
-                          <td>{{ item.change1_day }}</td>
+                          <td>{{ item.change_wow }}</td>
+                          <td>{{ item.change_mom }}</td>
+                          <td>{{ item.change_1day }}</td>
                           <td><i class="bi bi-plus-slash-minus"
-                 style="cursor: pointer;" (click)="getValueRowKurs(item.mata_uang)"></i></td>
+                 style="cursor: pointer;" (click)="getValueRowKurs(item.kode)"></i></td>
                         </tr>
                       </tbody>
                     </table>
@@ -353,21 +353,21 @@
 
         <!-- Card Commodity -->
         <div *ngIf="dataCurrency">
-          <div *ngFor="let item of dataCurrency.slice(0,3)">
+          <div *ngFor="let item of dataCurrency">
             <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 mb-3 mt-2">
-          <span class="fw-semibold mb-3">{{item.mata_uang}}</span>
+          <span class="fw-semibold mb-3">{{item.kode}}</span>
           <div class="d-flex align-items-center justify-content-between" style="font-size: 12px;">
             <div class="d-flex flex-column align-items-center me-2 text-danger">
               <span>RKAP</span>
-              <span>{{item.change_now}}</span>
+              <span>{{item.nilai_rkap}}</span>
             </div>
             <div class="d-flex flex-column align-items-center me-2 text-primary ">
-              <span>2022</span>
-              <span>5.17</span>
+              <span>Januari</span>
+              <span>{{item.change_1day}}</span>
             </div>
             <div class="d-flex flex-column align-items-center text-secondary">
               <span>4Q23F4</span>
-              <span>{{item.change_now}}</span>
+              <span>{{item.change_wow}}</span>
             </div>
           </div>
             </div>
