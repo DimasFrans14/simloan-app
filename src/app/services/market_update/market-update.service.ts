@@ -17,7 +17,7 @@ export class MarketUpdateService {
   async fetchDataKurs(){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_master_kurs`)
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/currency/getList`)
       );
     } catch (error) {
       console.log(error);
@@ -61,7 +61,8 @@ export class MarketUpdateService {
   async fetchDataBondYield(){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.localDev}/simloan/ws-v01/dashboard/realisasi/non-macro/list_rby`)
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/bondyield/getList
+`)
       );
     } catch (error) {
       console.log(error);
@@ -190,7 +191,8 @@ export class MarketUpdateService {
   async fetchDataInterestRate(){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.localDev}/simloan/ws-v01/dashboard/realisasi/list/interest?tanggal=`)
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/interest/getList
+        `)
       );
     } catch (error) {
       console.log(error);

@@ -97,7 +97,7 @@ export class BondYieldComponent {
       if(this.testData){
         this.isLoading = false;
         const filteredData = this.testData.data.content.filter((item: any) => item.grup === 'BOND YIELD');
-        this.tableConfig.getDataBondYield(filteredData)
+        // this.tableConfig.getDataBondYield(filteredData)
         console.log(filteredData);
       }
       else{

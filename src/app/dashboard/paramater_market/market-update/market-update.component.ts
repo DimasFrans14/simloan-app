@@ -129,7 +129,6 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   }
 
   dataRKAP: any;
-  dataInterestRate: any;
   dataInflasi: any;
   dataMoneySupply: any;
   dataPMI: any;
@@ -210,7 +209,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     try {
 
 
-      this.tableConfig.initializeTableData(this.threeDaysBefore, this.twoDaysBefore, this.yesterday, this.selectedDate)
+      this.tableConfig.initializeTableData(this.getLabelDate[0].h_min_30, this.getLabelDate[0].h_min_7, this.getLabelDate[0].h_min_1, this.getLabelDate[0].h_min_0)
 
       //FETCH BASED ON PARAMS
       const responseInflasi = await this.marketUpdateService.fetchDataViewInflasiByDate(this.selectedDate, this.selectedMonth);
@@ -260,7 +259,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     let threeDaysBefore = getThreeDaysBefore.setDate(getThreeDaysBefore.getDate() - 3);
     let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
 
-    this.tableConfig.initializeTableData(formatThreeDaysBefore, formatTwoDaysBefore, formatYesterday, formatToday);
+    this.tableConfig.initializeTableData(this.getLabelDate[0].h_min_30, this.getLabelDate[0].h_min_7, this.getLabelDate[0].h_min_1, this.getLabelDate[0].h_min_0);
   }
 
   keysBondYield: any;
@@ -290,6 +289,14 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     this.tableConfig.showColumn();
   }
 
+  dataKurs: any;
+  getLabelDate: any;
+
+  dataInterestRate: any;
+
+  dataBondYieldSBN: any;
+  dataBondYieldUST: any;
+
   async ngOnInit(): Promise<void> {
     try {
 
@@ -299,16 +306,28 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       console.log('load before fetch: ' + this.isLoading);
       const responsePDB = await this.marketUpdateService.fetchDataPDB();
       const responseKurs = await this.marketUpdateService.fetchDataKurs();
+      const responseInterestRate = await this.marketUpdateService.fetchDataInterestRate();
       const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll();
       const responseBondYield = await this.marketUpdateService.fetchDataBondYield();
-      // const responseDataInterestRate = await this.marketUpdateService.fetchDataInterestRate();
 
-      // this.filteredInterestRate = responseDataInterestRate
-      // let limitedDIR :any[] = [];
-      // for(let i=0; i<5; i++){
-      //   limitedDIR.push(this.filteredInterestRate.data.content[i])
-      // }
+      this.dataKurs = responseKurs;
+      this.dataKurs = this.dataKurs.d.list.filter((item: any) => !item.kode.includes('Label'));
 
+      this.getLabelDate = responseKurs
+      this.getLabelDate = this.getLabelDate.d.list.filter((item: any) => item.kode.includes('Label'));
+
+      console.log(this.getLabelDate);
+
+      this.dataInterestRate = responseInterestRate;
+      this.dataInterestRate = this.dataInterestRate.d.list.filter((item: any) => !item.kode.includes('Label'))
+
+      this.dataBondYieldSBN = responseBondYield;
+      this.dataBondYieldSBN = this.dataBondYieldSBN.d.list.filter((item: any) => item.tipe.includes('SBN') && item.tenor != 'Label')
+
+      this.dataBondYieldUST = responseBondYield;
+      this.dataBondYieldUST = this.dataBondYieldUST.d.list.filter((item: any) => item.tipe.includes('US TREASURY'))
+
+      console.log(this.dataBondYieldSBN, this.dataBondYieldUST);
       // console.log(limitedDIR);
 
       // const keyBY = Object.keys(responseBondYield)
@@ -324,17 +343,19 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       const responseMoneySupply = await this.marketUpdateService.fetchDataMoneySupply();
       const responseDevisa = await this.marketUpdateService.fetchDataDevisa();
 
-      const responseInterestRate = await this.marketUpdateService.fetchDataInterestRateRKAP();
       this.dataRKAP = responseInterestRate;
 
       //Grouping data from one API
       // const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
-      const filteredDataBondYield = this.dataRKAP.data.content.filter((item: any) => item.grup === 'BOND YIELD');
+      // const filteredDataBondYield = this.dataRKAP.data.content.filter((item: any) => item.grup === 'BOND YIELD');
       // console.log(filteredDataBondYield);
 
-      const filteredDataKurs = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
-      const filteredDataCommodities = this.dataRKAP.data.content.filter((item: any) => item.grup === 'COMMODITIES');
+      // const filteredDataKurs = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
+      // const filteredDataCommodities = this.dataRKAP.data.content.filter((item: any) => item.grup === 'COMMODITIES');
 
+      this.tableConfig.getDataKurs(this.dataKurs);
+      this.tableConfig.getDataInterestRate(this.dataInterestRate);
+      this.tableConfig.getDataBondYield(this.dataBondYieldSBN, this.dataBondYieldUST);
       this.tableConfig.getDataCommodities(responseCommodities);
       this.tableConfig.getDataPDB(responsePDB);
       this.tableConfig.getDataInflasi(responseInflasi);
@@ -342,12 +363,11 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       this.tableConfig.getDataRetail(responseRetail);
       this.tableConfig.getDataMoneySupply(responseMoneySupply);
       this.tableConfig.getDataDevisa(responseDevisa);
-      // this.tableConfig.getDataInterestRate(limitedDIR);
-      this.tableConfig.getDataBondYield(responseBondYield);
-      this.tableConfig.getDataKurs(responseKurs);
 
       this.isLoading = false;
       console.log('load after fetch: ' + this.isLoading);
+      console.log(responseKurs, responseInterestRate, responseBondYield);
+
 
     } catch (error) {
       console.log(error);
@@ -369,7 +389,10 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     let threeDaysBefore = getThreeDaysBefore.setDate(getThreeDaysBefore.getDate() - 3);
     let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
 
-    this.tableConfig.initializeTableData(formatThreeDaysBefore, formatTwoDaysBefore, formatYesterday, formatToday);
+    console.log(this.getLabelDate[0].h_min_30, this.getLabelDate[0].h_min_7, this.getLabelDate[0].h_min_1, this.getLabelDate[0].h_min_0);
+
+
+    this.tableConfig.initializeTableData(this.getLabelDate[0].h_min_30, this.getLabelDate[0].h_min_7, this.getLabelDate[0].h_min_1, this.getLabelDate[0].h_min_0);
     // console.log(this.tableConfig.initializeTableData());
   }
 

@@ -279,9 +279,9 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   getValueRowKurs(event: any){
     console.log(event);
 
-    const updatedData = this.dataCurrency.filter((item: any) => item.mata_uang !== event)
+    const updatedData = this.dataCurrency.filter((item: any) => item.kode !== event)
 
-    const getRow = this.listEditCurrency.filter((item: any) => item.mata_uang == event)
+    const getRow = this.listEditCurrency.filter((item: any) => item.kode == event)
 
     const checkData = this.dataCurrency.includes(getRow[0])
 
@@ -395,9 +395,10 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
       // const filteredDataCurrency = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
       this.dataCurrency = currenciesOverview;
-      this.dataCurrency = this.dataCurrency.data.slice(0,3);
+      // this.dataCurrency = this.dataCurrency.data.slice(0,3);
+      this.dataCurrency = this.dataCurrency.d.list.slice(0,3);
       this.listEditCurrency = currenciesOverview;
-      this.listEditCurrency = this.listEditCurrency.data;
+      this.listEditCurrency = this.listEditCurrency.d.list.filter((item: any) => !['Label'].includes(item.kode));
       // console.log(this.dataCurrency, this.listEditCurrency) ;
     }
     catch(err){
