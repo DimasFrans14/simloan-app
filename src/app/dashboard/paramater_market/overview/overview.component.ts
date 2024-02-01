@@ -5,6 +5,7 @@ import { filter } from 'rxjs';
 import { DataService } from 'src/app/data.service';
 import { OverviewChartService } from 'src/app/services/chart_serivces/overviewChart/overview-chart.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
+import { __values } from 'tslib';
 
 @Component({
   selector: 'app-overview',
@@ -325,9 +326,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         this.lineYAxis.push({
           showAlways: true,
           seriesName: kurs,
-          // tickAmount: 20,
+          // tickAmount: 30,
           // min:15000,
-          // max:19000,
+          // max:20000,
           axisTicks: {
             show: true
           },
@@ -359,7 +360,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             showAlways: true,
             seriesName: kurs,
             min: 105,
-            max: 108,
+            max: 110,
             tickAmount: 15,
             opposite: true,
             // min: 0,
@@ -424,6 +425,14 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         // console.log('Current Date:', currentDate);
 
         this.tesXaxis.categories.push(currentDate);
+        if(i < 1){
+          this.tesXaxis.labels = {
+            formatter: function(value, timestamp){
+              // console.log(moment(new Date(value)).format("DD/MM/YYYY"));
+              return moment(new Date(value)).format("DD MMM")
+            }
+          }
+        }
       }
 
       // console.log('Updated Categories:', this.tesXaxis.categories);
@@ -454,6 +463,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           const nameInterest = this.trendInterestData.d.arrayData[i].kode;
           const dataInterest = this.trendInterestData.d.arrayData[i].data;
+
+          // for(let j=0; j < )
 
           this.lineChartInterestRateSeries.push({
             name: nameInterest,

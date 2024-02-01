@@ -291,18 +291,18 @@ export class TableServicesService {
     {//create column group
         title:"Exchange Rate",
         columns:[
-        {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-        {title:today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
+        {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center",  editable: this.editCheck},
+        {title:lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center",  editable: this.editCheck},
+        {title:lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center",  editable: this.editCheck},
+        {title:yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center",  editable: this.editCheck},
+        {title:today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center",  editable: this.editCheck},
         ],
         headerHozAlign:"center"
     },
-    {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Change 1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+    {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+    {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+    {title:"Change 1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
    }
     );
@@ -312,18 +312,18 @@ export class TableServicesService {
       data:this.dataInterestRate,
       layout:"fitColumns",
       columns:[
-        {title:"Rates", field:"kode", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+        {title:"Rates", field:"kode", headerHozAlign:"center", hozAlign:'left', headerSort:false, minWidth: 150},
 
-        {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", },
+        {title:lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center", },
+        {title:lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center", },
+        {title:yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center", },
+        {title:today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center", },
 
-        {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Change 1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"Change 1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
    });
 
@@ -336,16 +336,16 @@ export class TableServicesService {
     {//create column group
         title:"Yield",
         columns:[
-        {title: lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title: lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title: yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title: today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center", },
+        {title: lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center", },
+        {title: yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center", },
+        {title: today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center", },
         ],
         headerHozAlign:"center"
     },
-    {title:"Yield Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Yield Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Yield Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+    {title:"Yield Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+    {title:"Yield Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
 
   });
@@ -359,16 +359,16 @@ export class TableServicesService {
     {//create column group
         title:"Yield",
         columns:[
-        {title: lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title: lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title: yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title: today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title: lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center", },
+        {title: lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center", },
+        {title: yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center", },
+        {title: today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center", },
         ],
         headerHozAlign:"center"
     },
-    {title:"Yield Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Yield Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Yield Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+    {title:"Yield Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+    {title:"Yield Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
 
   });
@@ -382,18 +382,18 @@ export class TableServicesService {
   {//create column group
       title:"Price",
       columns:[
-      {title:"RKAP <br/>23", field:"nilai_min0", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:lastMonth, field:"nilai_min3", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:lastWeek, field:"nilai_min2", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:yesterday, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:today, field:"nilai_min0", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", },
+      {title:lastMonth, field:"nilai_min3", hozAlign:"center", headerHozAlign:"center", },
+      {title:lastWeek, field:"nilai_min2", hozAlign:"center", headerHozAlign:"center", },
+      {title:yesterday, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", },
+      {title:today, field:"nilai_min0", hozAlign:"center", headerHozAlign:"center", },
       ],
       headerHozAlign:"center"
   },
-  {title:"Change <br/>MoM", field:"persen_change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>WoW", field:"persen_change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>1 Day", field:"persen_change1_day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change Dari RKAP", field:"persen_change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>MoM", field:"persen_change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+  {title:"Change <br/>WoW", field:"persen_change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+  {title:"Change <br/>1 Day", field:"persen_change1_day", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+  {title:"Change Dari RKAP", field:"persen_change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
     ],
 
   });
@@ -407,9 +407,9 @@ export class TableServicesService {
         alert("The user has moved column: " + column.getField()); //display the columns field name
     },
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 200, bottomCalc: this.customBottomCalc},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
-        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true,  minWidth: 200, bottomCalc: this.customBottomCalc},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false,  minWidth: 100},
+        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false,  minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
       ],
     });
 
@@ -422,11 +422,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
 
@@ -439,11 +439,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"triliun_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"triliun_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"triliun_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"triliun_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"triliun_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"triliun_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"triliun_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"triliun_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
 
@@ -456,11 +456,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
 
@@ -469,11 +469,11 @@ export class TableServicesService {
     //   data:this.dataRealisasiCadev,
     //   layout:"fitColumns",
     //   columns:[
-    //     {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-    //     {title:"2020", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-    //     {title:"2021", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-    //     {title:"2022", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-    //     {title:"2023", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+    //     {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+    //     {title:"2020", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+    //     {title:"2021", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+    //     {title:"2022", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+    //     {title:"2023", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
     //   ],
     // });
 
@@ -486,11 +486,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
 
@@ -503,11 +503,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
   }
@@ -522,9 +522,9 @@ export class TableServicesService {
         alert("The user has moved column: " + column.getField()); //display the columns field name
     },
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 200, bottomCalc: this.customBottomCalc},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
-        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true,  minWidth: 200, bottomCalc: this.customBottomCalc},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false,  minWidth: 100},
+        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false,  minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
       ],
     });
     //realisasi
@@ -536,9 +536,9 @@ export class TableServicesService {
         alert("The user has moved column: " + column.getField()); //display the columns field name
     },
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 200, bottomCalc: this.customBottomCalc},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
-        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true,  minWidth: 200, bottomCalc: this.customBottomCalc},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false,  minWidth: 100},
+        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false,  minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
       ],
     });
     //Rkap
@@ -553,9 +553,9 @@ export class TableServicesService {
       data:this.tableDataRkapPdb,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"periode", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Periode", field:"periode", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
     });
     this.tableDataOutlookPdb = [
@@ -569,9 +569,9 @@ export class TableServicesService {
       data:this.tableDataOutlookPdb,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"periode", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Periode", field:"periode", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
     });
   }
@@ -586,11 +586,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
     this.tableRealisasiInflasi = new Tabulator(".table-ralisasiInflasi", {
@@ -602,11 +602,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
     this.tableDataRkapInflasi = [
@@ -623,11 +623,11 @@ export class TableServicesService {
       data:this.tableDataRkapInflasi,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
     });
     this.tableDataOutlookInflasi = [
@@ -644,11 +644,11 @@ export class TableServicesService {
       data:this.tableDataOutlookInflasi,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
     });
   }
@@ -663,11 +663,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
     this.tableRealisasiPmi = new Tabulator(".table-ralisasiPmi", {
@@ -679,11 +679,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
     this.tableDataRkapPmi = [
@@ -700,11 +700,11 @@ export class TableServicesService {
       data:this.tableDataRkapPmi,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
     });
     this.tableDataOutlookPmi = [
@@ -721,11 +721,11 @@ export class TableServicesService {
       data:this.tableDataOutlookPmi,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
     });
   }
@@ -740,11 +740,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
     this.tableRealisasiRetail = new Tabulator(".table-ralisasiRetail", {
@@ -756,11 +756,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
     this.tableDataRkapRetail = [
@@ -777,11 +777,11 @@ export class TableServicesService {
       data:this.tableDataRkapRetail,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
     });
     this.tableDataOutlookRetail = [
@@ -798,11 +798,11 @@ export class TableServicesService {
       data:this.tableDataOutlookRetail,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
     });
   }
@@ -817,11 +817,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"triliun_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"triliun_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"triliun_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"triliun_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"triliun_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"triliun_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"triliun_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"triliun_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
     this.tableRealisasiMoneySupply = new Tabulator(".table-realisasiMoneySupply", {
@@ -833,11 +833,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"triliun_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"triliun_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"triliun_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"triliun_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"triliun_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"triliun_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"triliun_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"triliun_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
     this.tableDataRkapMoneySupply = [
@@ -854,11 +854,11 @@ export class TableServicesService {
       data:this.tableDataRkapMoneySupply,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
     });
     this.tableDataOutlookMoneySupply = [
@@ -875,11 +875,11 @@ export class TableServicesService {
       data:this.tableDataOutlookMoneySupply,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
     });
   }
@@ -894,11 +894,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
     this.tableRealisasiForeignExchange = new Tabulator(".table-realisasiForeignExchange", {
@@ -910,11 +910,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
       ],
     });
     this.tableDataRkapForeignExchange = [
@@ -931,11 +931,11 @@ export class TableServicesService {
       data:this.tableDataRkapForeignExchange,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
     });
     this.tableDataOutlookForeignExchange = [
@@ -952,11 +952,11 @@ export class TableServicesService {
       data:this.tableDataOutlookForeignExchange,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
     });
   }
@@ -979,18 +979,18 @@ export class TableServicesService {
     {//create column group
         title:"Exchange Rate",
         columns:[
-        {title:"RKAP <br/>23", field:"rate_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"kurs", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"kurs_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"kurs_min2", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"kurs_min3", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"RKAP <br/>23", field:"rate_rkap", hozAlign:"center", headerHozAlign:"center", },
+        {title:"24/02/23", field:"kurs", hozAlign:"center", headerHozAlign:"center", },
+        {title:"20/03/23", field:"kurs_min1", hozAlign:"center", headerHozAlign:"center", },
+        {title:"24/02/23", field:"kurs_min2", hozAlign:"center", headerHozAlign:"center", },
+        {title:"20/03/23", field:"kurs_min3", hozAlign:"center", headerHozAlign:"center", },
         ],
         headerHozAlign:"center"
     },
-    {title:"Change <br/>MoM", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Change <br/>1 Day", field:"change1_day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Change Dari RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Change <br/>MoM", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+    {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+    {title:"Change <br/>1 Day", field:"change1_day", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+    {title:"Change Dari RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
    }
     );
@@ -1012,11 +1012,11 @@ export class TableServicesService {
     data:this.tableDataRealisasi,
     layout:"fitColumns",
     columns:[
-      {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
     ],
   });
 
@@ -1037,11 +1037,11 @@ export class TableServicesService {
     data:this.tableDataRealisasi,
     layout:"fitColumns",
     columns:[
-      {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
     ],
   });
 
@@ -1062,11 +1062,11 @@ export class TableServicesService {
     data:this.tableDataOutlook,
     layout:"fitColumns",
     columns:[
-      {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
     ],
   });
 
@@ -1090,10 +1090,10 @@ export class TableServicesService {
   //   data:this.sharedData,
   //   layout:"fitColumns",
   //   columns:[
-  //     {title:"Mata Uang", field:"mataUang", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-  //     {title:"Jual", field:"beli", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  //     {title:"Beli", field:"jual", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  //     {title:"TimeStamp", field:"timeCreated", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  //     {title:"Mata Uang", field:"mataUang", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+  //     {title:"Jual", field:"beli", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+  //     {title:"Beli", field:"jual", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+  //     {title:"TimeStamp", field:"timeCreated", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
   //   ],
   // });
   }
@@ -1115,16 +1115,16 @@ export class TableServicesService {
       columns:[
         {title:"Rates", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
 
-        {title:"RKAP <br/>23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"RKAP <br/>23", field:"rate", hozAlign:"center", headerHozAlign:"center", },
+        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", },
+        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", },
+        {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", },
+        {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", },
 
-        {title:"Change <br/>RKAP", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Change <br/>MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Change <br/>WoW", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Change 1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Change <br/>RKAP", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"Change <br/>MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"Change <br/>WoW", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+        {title:"Change 1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
    });
   }
@@ -1140,18 +1140,18 @@ export class TableServicesService {
   {//create column group
       title:"Exchange Rate",
       columns:[
-      {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input", editable: this.editCheck},
-      {title:"24/02/23", field:"nilai", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"20/03/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"24/02/23", field:"nilai_min2", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:"20/03/23", field:"nilai_min3", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center",  editable: this.editCheck},
+      {title:"24/02/23", field:"nilai", hozAlign:"center", headerHozAlign:"center", },
+      {title:"20/03/23", field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", },
+      {title:"24/02/23", field:"nilai_min2", hozAlign:"center", headerHozAlign:"center", },
+      {title:"20/03/23", field:"nilai_min3", hozAlign:"center", headerHozAlign:"center", },
       ],
       headerHozAlign:"center"
   },
-  {title:"Change <br/>MoM", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>WoW", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>1 Day", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change Dari RKAP", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>MoM", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+  {title:"Change <br/>WoW", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+  {title:"Change <br/>1 Day", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+  {title:"Change Dari RKAP", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
     ],
 
   });
@@ -1168,16 +1168,16 @@ export class TableServicesService {
       {//create column group
           title:"Exchange Rate",
           columns:[
-          {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-          {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-          {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-          {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+          {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", },
+          {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", },
+          {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", },
+          {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", },
           ],
           headerHozAlign:"center"
       },
-      {title:"Yield Change <br/>MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"Yield Change <br/>WoW", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"Yield Change <br/>1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"Yield Change <br/>MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+      {title:"Yield Change <br/>WoW", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+      {title:"Yield Change <br/>1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
         ],
 
     });
@@ -1232,9 +1232,9 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"File", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:true},
-        {title:"Tgl Dibuat", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"Dibuat Oleh", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"Approval", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"Tgl Dibuat", field:"age", hozAlign:"center", headerHozAlign:"center", },
+        {title:"Dibuat Oleh", field:"age", hozAlign:"center", headerHozAlign:"center", },
+        {title:"Approval", field:"age", hozAlign:"center", headerHozAlign:"center", },
       ],
     });
   }
@@ -1252,9 +1252,9 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"File", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:true},
-        {title:"Tgl Dibuat", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"Dibuat Oleh", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"Approval", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"Tgl Dibuat", field:"age", hozAlign:"center", headerHozAlign:"center", },
+        {title:"Dibuat Oleh", field:"age", hozAlign:"center", headerHozAlign:"center", },
+        {title:"Approval", field:"age", hozAlign:"center", headerHozAlign:"center", },
       ],
     });
   }
@@ -1272,9 +1272,9 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"File", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:true},
-        {title:"Tgl Dibuat", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"Dibuat Oleh", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:"Approval", field:"age", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"Tgl Dibuat", field:"age", hozAlign:"center", headerHozAlign:"center", },
+        {title:"Dibuat Oleh", field:"age", hozAlign:"center", headerHozAlign:"center", },
+        {title:"Approval", field:"age", hozAlign:"center", headerHozAlign:"center", },
       ],
     });
   }
@@ -1334,16 +1334,16 @@ export class TableServicesService {
     {//create column group
         title:"Exchange Rate",
         columns:[
-        {title:lastMonth, field:objectKeys[3], hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:lastWeek, field:objectKeys[3], hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:yesterday, field:objectKeys[3], hozAlign:"center", headerHozAlign:"center", editor: "input"},
-        {title:today, field:objectKeys[3], hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:lastMonth, field:objectKeys[3], hozAlign:"center", headerHozAlign:"center", },
+        {title:lastWeek, field:objectKeys[3], hozAlign:"center", headerHozAlign:"center", },
+        {title:yesterday, field:objectKeys[3], hozAlign:"center", headerHozAlign:"center", },
+        {title:today, field:objectKeys[3], hozAlign:"center", headerHozAlign:"center", },
         ],
         headerHozAlign:"center"
     },
-    {title:"Yield Change <br/>MoM", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Yield Change <br/>WoW", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Yield Change <br/>1 Day", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>MoM", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+    {title:"Yield Change <br/>WoW", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+    {title:"Yield Change <br/>1 Day", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       ],
 
   });

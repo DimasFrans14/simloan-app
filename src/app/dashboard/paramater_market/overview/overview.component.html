@@ -183,7 +183,11 @@
           [style.display]="isVisibleBar ? 'none' : 'block'"
           [series]="lineChartKursSeries"
           [chart]="currencyBarChartDetails"
-          [title]="currencyChartTitle"
+          [yaxis]="lineYAxis"
+          [xaxis]="tesXaxis"
+          [stroke]="stroke"
+          [tooltip]="lineChartKursTooltip"
+          [markers]="lineChartKursMarkers"
         ></apx-chart>
       </div>
     </div>
