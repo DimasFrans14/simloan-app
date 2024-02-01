@@ -166,6 +166,26 @@ export class MarketUpdateService {
       return null;
     }
   }
+  async fetchDataRkapPdb(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataOutlookPdb(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
 
   async fetchDataInterestRate(){
     try {

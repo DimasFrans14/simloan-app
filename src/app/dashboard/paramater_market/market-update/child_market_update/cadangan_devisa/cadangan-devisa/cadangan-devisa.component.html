@@ -40,8 +40,6 @@
 <div class="comtainner">
   <div class="d-flex justify-content-between">
     <div class="flex-fill align-self-center fw-semibold"><h4>Foreign Exchange Reserves/Cadangan Devisa</h4></div>
-    <div class="p-1"><button class="btn btn-outline-dark btn-sm bg-white" style="color: black;">Edit</button></div>
-    <div class="p-1"><button class="btn btn-outline-dark btn-sm bg-white" style="color: black;">Tambah</button></div>
   </div>
   <!-- Tabble Detail -->
   <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
@@ -51,7 +49,7 @@
       <span class="text-dark ms-1">Memuat data tabel...</span>
     </div>
   </div>
-  <div class="table-currencyDetail mt-2"></div>
+  <div class="table-detailForeignExchange mt-2"></div>
   <!-- end table detail -->
   <div class="row mt-4">
     <div class="col-6">
@@ -60,9 +58,52 @@
           <span class="fw-semibold">Realisasi</span>
         </div>
         <div>
-          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Edit</button>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#editRealisasi">Edit</button>
           <button class="btn btn-transparant border-secondary bg-white ms-1" style="font-size: 14px;">Tambah</button>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="editRealisasi" tabindex="-1" aria-labelledby="editRealisasiLabel" aria-hidden="true" data-bs-backdrop="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Realisasi</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form (ngSubmit)="onSubmitRealisasi()">
+              <div class="modal-body">
+                  <mat-form-field class="me-2 date-field">
+                    <mat-label class="label-datepicker">Pilih</mat-label>
+                  <input #datePickerValue matInput [matDatepicker]="picker1" [max]="maxDate" autocomplete="off" disabled (dateChange)="onDate($event)" style="color: black;" name="tanggal" [(ngModel)]="formDataRealisasi.tahun">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1 color="primary" disabled="false" style="z-index: 3;"></mat-datepicker>
+                </mat-form-field>
+                <br/>
+                <label for="" class="fw-bold mb-1">Pilih Periode</label>
+                <ng-select
+                  [items]="dataDetail"
+                  bindLabel="periode"
+                  bindValue="periode"
+                  [(ngModel)]="realisasiPdbItem"
+                  placeholder="Pilih Periode"
+                  (change)="realisasiPdbSelect($event)"
+                  name="nama_kurs"
+                  [(ngModel)]="formDataRealisasi.periode">
+                </ng-select>
+                <br/>
+                <!-- <input type="number" > -->
+                <label for="" class="fw-bold mb-1">Masukan Nilai PDB</label>
+                <input class="form-control" type="number" placeholder="Masukan nilai kurs" aria-label="Masukan nilai kurs" name="nilai" id="nilai" #nilaiEditRealKurs [(ngModel)]="formDataRealisasi.nilai_realisasi">
+                <br/>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+        <!-- End Modal -->
       </div>
       <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
         <div class="d-flex align-items-center justify-content-center">
@@ -71,7 +112,7 @@
           <span class="text-dark ms-1">Memuat data tabel...</span>
         </div>
       </div>
-      <div class="table-realisasi mt-2"></div>
+      <div class="table-realisasiForeignExchange mt-2"></div>
     </div>
     <div class="col-6">
       <div class="d-flex justify-content-between align-items-center">
@@ -79,9 +120,52 @@
           <span class="fw-semibold">RKAP</span>
         </div>
         <div>
-          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Edit</button>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#editRKAP">Edit</button>
           <button class="btn btn-transparant border-secondary bg-white ms-1" style="font-size: 14px;">Tambah</button>
         </div>
+        <!-- modal RKAP -->
+        <div class="modal fade" id="editRKAP" tabindex="-1" aria-labelledby="editRKAPLabel" aria-hidden="true" data-bs-backdrop="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">RKAP</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form (ngSubmit)="onSubmitRKAP()">
+              <div class="modal-body">
+                  <mat-form-field class="me-2 date-field">
+                    <mat-label class="label-datepicker">Pilih Tanggal</mat-label>
+                  <input #datePickerValue matInput [matDatepicker]="picker2" [max]="maxDate" autocomplete="off" disabled (dateChange)="onDate($event)" style="color: black;" name="tanggal" [(ngModel)]="formDataRKAP.tanggal">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2 color="primary" disabled="false" style="z-index: 3;"></mat-datepicker>
+                </mat-form-field>
+                <br/>
+                <label for="" class="fw-bold mb-1">Pilih Kurs</label>
+                <ng-select
+                  [items]="dataDetail"
+                  bindLabel="mata_uang"
+                  bindValue="mata_uang"
+                  [(ngModel)]="realisasiPdbItem"
+                  placeholder="Pilih Kurs"
+                  (change)="realisasiPdbSelect($event)"
+                  name="nama_kurs"
+                  [(ngModel)]="formDataRKAP.nama_kurs">
+                </ng-select>
+                <br/>
+                <!-- <input type="number" > -->
+                <label for="" class="fw-bold mb-1">Masukan Nilai</label>
+                <input class="form-control" type="number" placeholder="Masukan nilai kurs" aria-label="Masukan nilai kurs" name="nilai" id="nilai" #nilaiEditRealKurs [(ngModel)]="formDataRKAP.nilai_rkap">
+                <br/>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+        <!-- end modal RKAP -->
       </div>
       <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
         <div class="d-flex align-items-center justify-content-center">
@@ -90,7 +174,7 @@
           <span class="text-dark ms-1">Memuat data tabel...</span>
         </div>
       </div>
-      <div class="table-RKAP mt-2"></div>
+      <div class="table-rkapForeignExchange mt-2"></div>
     </div>
   </div>
 
@@ -101,9 +185,53 @@
           <span class="fw-semibold">Outlook</span>
         </div>
         <div>
-          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Edit</button>
+          <button class="btn btn-transparant border-secondary bg-white" data-bs-toggle="modal" data-bs-target="#editOutlook" style="font-size: 14px;">Edit</button>
           <button class="btn btn-transparant border-secondary bg-white ms-1" style="font-size: 14px;">Tambah</button>
         </div>
+        <!-- modal outlook -->
+        <div class="modal fade" id="editOutlook" tabindex="-1" aria-labelledby="editOutlookLabel" aria-hidden="true" data-bs-backdrop="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">RKAP</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form (ngSubmit)="onSubmitOutlook()">
+              <div class="modal-body">
+                  <mat-form-field class="me-2 date-field">
+                    <mat-label class="label-datepicker">Pilih Tanggal</mat-label>
+                  <input #datePickerValue matInput [matDatepicker]="picker3" [max]="maxDate" autocomplete="off" disabled (dateChange)="onDate($event)" style="color: black;" name="tanggal" [(ngModel)]="formDataOutlook.tanggal">
+                  <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                  <mat-datepicker #picker3 color="primary" disabled="false" style="z-index: 3;"></mat-datepicker>
+                </mat-form-field>
+                <br/>
+                <label for="" class="fw-bold mb-1">Pilih Kurs</label>
+                <ng-select
+                  [items]="dataDetail"
+                  bindLabel="mata_uang"
+                  bindValue="mata_uang"
+                  [(ngModel)]="realisasiPdbItem"
+                  placeholder="Pilih Kurs"
+                  (change)="realisasiPdbSelect($event)"
+                  name="nama_kurs"
+                  [(ngModel)]="formDataOutlook.nama_kurs">
+                </ng-select>
+                <br/>
+                <!-- <input type="number" > -->
+                <label for="" class="fw-bold mb-1">Masukan Nilai</label>
+                <input class="form-control" type="number" placeholder="Masukan nilai kurs" aria-label="Masukan nilai kurs" name="nilai" id="nilai" #nilaiEditRealKurs [(ngModel)]="formDataOutlook.nilai_outlook">
+                <br/>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
+
+            </div>
+          </div>
+        </div>
+        <!-- end modal outlook -->
       </div>
       <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
         <div class="d-flex align-items-center justify-content-center">
@@ -112,7 +240,7 @@
           <span class="text-dark ms-1">Memuat data tabel...</span>
         </div>
       </div>
-      <div class="table-outlook mt-2"></div>
+      <div class="table-outlookForeignExchange mt-2"></div>
     </div>
 
     <!-- <div class="col-6">

@@ -7,6 +7,7 @@ import { TabulatorFull as Tabulator } from 'tabulator-tables';
 export class TableServicesService {
 
   public sharedData: any;
+  public sharedDataPdb:any;
   public testData: any;
 
   public dataCommodities: any;
@@ -31,6 +32,9 @@ export class TableServicesService {
     // console.log('shared data', this.sharedData);
     // let dataRow = this.sharedData.data.content;
     // console.log(dataRow);
+  }
+  setDataPdb(data:any){
+    this.sharedDataPdb = data;
   }
 
   getDataCommodities(data: any){
@@ -194,6 +198,60 @@ export class TableServicesService {
 
   tableDataCreateLiabiliteis:any;
   tableCreateLiabiilities:any;
+
+  tableDataDetailPdb:any;
+  tableDetailPdb:any;
+  tableDataRealisasiPdb:any;
+  tableRealisasiPdb:any;
+  tableDataRkapPdb:any;
+  tableRkapPdb:any;
+  tableDataOutlookPdb:any;
+  tableOutlookPdb:any;
+
+  tableDataDetailInflasi:any;
+  tableDetailInflasi:any;
+  tableDataRealisasiInflasi:any;
+  tableRealisasiInflasi:any;
+  tableDataRkapInflasi:any;
+  tableRkapInflasi:any;
+  tableDataOutlookInflasi:any;
+  tableOutlookInflasi:any;
+
+  tableDataDetailPmi:any;
+  tableDetailPmi:any;
+  tableDataRealisasiPmi:any;
+  tableRealisasiPmi:any;
+  tableDataRkapPmi:any;
+  tableRkapPmi:any;
+  tableDataOutlookPmi:any;
+  tableOutlookPmi:any;
+
+  tableDataDetailRetail:any;
+  tableDetailRetail:any;
+  tableDataRealisasiRetail:any;
+  tableRealisasiRetail:any;
+  tableDataRkapRetail:any;
+  tableRkapRetail:any;
+  tableDataOutlookRetail:any;
+  tableOutlookRetail:any;
+
+  tableDataDetailMoneySupply:any;
+  tableDetailMoneySupply:any;
+  tableDataRealisasiMoneySupply:any;
+  tableRealisasiMoneySupply:any;
+  tableDataRkapMoneySupply:any;
+  tableRkapMoneySupply:any;
+  tableDataOutlookMoneySupply:any;
+  tableOutlookMoneySupply:any;
+
+  tableDataDetailForeignExchange:any;
+  tableDetailForeignExchange:any;
+  tableDataRealisasiForeignExchange:any;
+  tableRealisasiForeignExchange:any;
+  tableDataRkapForeignExchange:any;
+  tableRkapForeignExchange:any;
+  tableDataOutlookForeignExchange:any;
+  tableOutlookForeignExchange:any;
 
 
   constructor() {
@@ -452,6 +510,455 @@ export class TableServicesService {
         {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+      ],
+    });
+  }
+
+  initializeTableDataPDB(){
+    // detail
+    this.tablePDB = new Tabulator(".table-DetailPdb", {
+      height: "350px",
+      data:this.dataPDB,
+      layout:"fitDataTable",
+      columnMoved:function(column, columns){
+        alert("The user has moved column: " + column.getField()); //display the columns field name
+    },
+      columns:[
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 200, bottomCalc: this.customBottomCalc},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
+        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+      ],
+    });
+    //realisasi
+    this.tableRealisasiPdb = new Tabulator(".table-realisasiPdb", {
+      height:"350px",
+      data:this.dataPDB,
+      layout:"fitDataTable",
+      columnMoved:function(column, columns){
+        alert("The user has moved column: " + column.getField()); //display the columns field name
+    },
+      columns:[
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 200, bottomCalc: this.customBottomCalc},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
+        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+      ],
+    });
+    //Rkap
+    this.tableDataRkapPdb = [
+      {periode:"Q1", tahun:"2022", pdb:"5.06"},
+      {periode:"Q2", tahun:"2022", pdb:"5.06"},
+      {periode:"Q3", tahun:"2022", pdb:"5.06"},
+      {periode:"Q4", tahun:"2022", pdb:"5.06"},
+    ]
+    this.tableRkapPdb = new Tabulator(".table-rkapPdb", {
+      // height:205,
+      data:this.tableDataRkapPdb,
+      layout:"fitColumns",
+      columns:[
+        {title:"Periode", field:"periode", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+    });
+    this.tableDataOutlookPdb = [
+      {periode:"Q1", tahun:"2022", pdb:"4.06"},
+      {periode:"Q2", tahun:"2022", pdb:"4.06"},
+      {periode:"Q3", tahun:"2022", pdb:"4.06"},
+      {periode:"Q4", tahun:"2022", pdb:"4.06"},
+    ]
+    this.tableOutlookPdb = new Tabulator(".table-outlookPdb", {
+      // height:205,
+      data:this.tableDataOutlookPdb,
+      layout:"fitColumns",
+      columns:[
+        {title:"Periode", field:"periode", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+    });
+  }
+
+  initializeTableDataInflasi(){
+    this.tableInflasi = new Tabulator(".table-detailInflasi", {
+      // height:205,
+      height:"555px",
+      data:this.dataInflasi,
+      layout:"fitColumns",
+      // frozenRows: 4,
+      // movableRows: true,
+      // movableColumns: true,
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+      ],
+    });
+    this.tableRealisasiInflasi = new Tabulator(".table-ralisasiInflasi", {
+      // height:205,
+      height:"555px",
+      data:this.dataInflasi,
+      layout:"fitColumns",
+      // frozenRows: 4,
+      // movableRows: true,
+      // movableColumns: true,
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+      ],
+    });
+    this.tableDataRkapInflasi = [
+      {bulan:"Januari", nilai:"1.59"},
+      {bulan:"Februari", nilai:"1.59"},
+      {bulan:"Maret", nilai:"1.59"},
+      {bulan:"April", nilai:"1.59"},
+      {bulan:"Mei", nilai:"1.59"},
+      {bulan:"Juni", nilai:"1.59"},
+      {bulan:"Juli", nilai:"1.59"},
+    ]
+    this.tableRkapInflasi = new Tabulator(".table-rkapInflasi", {
+      // height:205,
+      data:this.tableDataRkapInflasi,
+      layout:"fitColumns",
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+    });
+    this.tableDataOutlookInflasi = [
+      {bulan:"Januari", nilai:"2.59"},
+      {bulan:"Februari", nilai:"2.59"},
+      {bulan:"Maret", nilai:"2.59"},
+      {bulan:"April", nilai:"2.59"},
+      {bulan:"Mei", nilai:"2.59"},
+      {bulan:"Juni", nilai:"2.59"},
+      {bulan:"Juli", nilai:"2.59"},
+    ]
+    this.tableOutlookInflasi = new Tabulator(".table-otulookInflasi", {
+      // height:205,
+      data:this.tableDataOutlookInflasi,
+      layout:"fitColumns",
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+    });
+  }
+
+  initializeTableDataPMI(){
+    this.tableDetailPmi = new Tabulator(".table-detailPmi", {
+      // height:205,
+      height:"555px",
+      data:this.dataPMI,
+      layout:"fitColumns",
+      // frozenRows: 4,
+      // movableRows: true,
+      // movableColumns: true,
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+      ],
+    });
+    this.tableRealisasiPmi = new Tabulator(".table-ralisasiPmi", {
+      // height:205,
+      height:"555px",
+      data:this.dataPMI,
+      layout:"fitColumns",
+      // frozenRows: 4,
+      // movableRows: true,
+      // movableColumns: true,
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+      ],
+    });
+    this.tableDataRkapPmi = [
+      {bulan:"Januari", nilai:"1.59"},
+      {bulan:"Februari", nilai:"1.59"},
+      {bulan:"Maret", nilai:"1.59"},
+      {bulan:"April", nilai:"1.59"},
+      {bulan:"Mei", nilai:"1.59"},
+      {bulan:"Juni", nilai:"1.59"},
+      {bulan:"Juli", nilai:"1.59"},
+    ]
+    this.tableRkapPmi = new Tabulator(".table-rkapPmi", {
+      // height:205,
+      data:this.tableDataRkapPmi,
+      layout:"fitColumns",
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+    });
+    this.tableDataOutlookPmi = [
+      {bulan:"Januari", nilai:"2.59"},
+      {bulan:"Februari", nilai:"2.59"},
+      {bulan:"Maret", nilai:"2.59"},
+      {bulan:"April", nilai:"2.59"},
+      {bulan:"Mei", nilai:"2.59"},
+      {bulan:"Juni", nilai:"2.59"},
+      {bulan:"Juli", nilai:"2.59"},
+    ]
+    this.tableOutlookPmi = new Tabulator(".table-outlookPmi", {
+      // height:205,
+      data:this.tableDataOutlookPmi,
+      layout:"fitColumns",
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+    });
+  }
+
+  initializeTableDataRetail(){
+    this.tableDetailRetail = new Tabulator(".table-detailRetail", {
+      // height:205,
+      height:"555px",
+      data:this.dataRetail,
+      layout:"fitColumns",
+      // frozenRows: 4,
+      // movableRows: true,
+      // movableColumns: true,
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+      ],
+    });
+    this.tableRealisasiRetail = new Tabulator(".table-ralisasiRetail", {
+      // height:205,
+      height:"555px",
+      data:this.dataRetail,
+      layout:"fitColumns",
+      // frozenRows: 4,
+      // movableRows: true,
+      // movableColumns: true,
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+      ],
+    });
+    this.tableDataRkapRetail = [
+      {bulan:"Januari", nilai:"1.59"},
+      {bulan:"Februari", nilai:"1.59"},
+      {bulan:"Maret", nilai:"1.59"},
+      {bulan:"April", nilai:"1.59"},
+      {bulan:"Mei", nilai:"1.59"},
+      {bulan:"Juni", nilai:"1.59"},
+      {bulan:"Juli", nilai:"1.59"},
+    ]
+    this.tableRkapRetail = new Tabulator(".table-rkapRetail", {
+      // height:205,
+      data:this.tableDataRkapRetail,
+      layout:"fitColumns",
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+    });
+    this.tableDataOutlookRetail = [
+      {bulan:"Januari", nilai:"2.59"},
+      {bulan:"Februari", nilai:"2.59"},
+      {bulan:"Maret", nilai:"2.59"},
+      {bulan:"April", nilai:"2.59"},
+      {bulan:"Mei", nilai:"2.59"},
+      {bulan:"Juni", nilai:"2.59"},
+      {bulan:"Juli", nilai:"2.59"},
+    ]
+    this.tableOutlookRetail = new Tabulator(".table-outlookRetail", {
+      // height:205,
+      data:this.tableDataOutlookRetail,
+      layout:"fitColumns",
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+    });
+  }
+
+  initializeTableDataMoneySupply(){
+    this.tableDetailMoneySupply = new Tabulator(".table-detailMoneySupply", {
+      // height:205,
+      height:"555px",
+      data:this.dataMoneySupply,
+      layout:"fitColumns",
+      // frozenRows: 4,
+      // movableRows: true,
+      // movableColumns: true,
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"triliun_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"triliun_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"triliun_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"triliun_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+      ],
+    });
+    this.tableRealisasiMoneySupply = new Tabulator(".table-realisasiMoneySupply", {
+      // height:205,
+      height:"555px",
+      data:this.dataMoneySupply,
+      layout:"fitColumns",
+      // frozenRows: 4,
+      // movableRows: true,
+      // movableColumns: true,
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"triliun_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"triliun_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"triliun_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"triliun_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+      ],
+    });
+    this.tableDataRkapMoneySupply = [
+      {bulan:"Januari", nilai:"1.59"},
+      {bulan:"Februari", nilai:"1.59"},
+      {bulan:"Maret", nilai:"1.59"},
+      {bulan:"April", nilai:"1.59"},
+      {bulan:"Mei", nilai:"1.59"},
+      {bulan:"Juni", nilai:"1.59"},
+      {bulan:"Juli", nilai:"1.59"},
+    ]
+    this.tableRkapMoneySupply = new Tabulator(".table-rkapMoneySupply", {
+      // height:205,
+      data:this.tableDataRkapMoneySupply,
+      layout:"fitColumns",
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+    });
+    this.tableDataOutlookMoneySupply = [
+      {bulan:"Januari", nilai:"2.59"},
+      {bulan:"Februari", nilai:"2.59"},
+      {bulan:"Maret", nilai:"2.59"},
+      {bulan:"April", nilai:"2.59"},
+      {bulan:"Mei", nilai:"2.59"},
+      {bulan:"Juni", nilai:"2.59"},
+      {bulan:"Juli", nilai:"2.59"},
+    ]
+    this.tableOutlookMoneySupply = new Tabulator(".table-outlookMoneySupply", {
+      // height:205,
+      data:this.tableDataOutlookMoneySupply,
+      layout:"fitColumns",
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+    });
+  }
+
+  initializeTableDataForeignExchange(){
+    this.tableDetailForeignExchange = new Tabulator(".table-detailForeignExchange", {
+      // height:205,
+      height:"555px",
+      data:this.dataDevisa,
+      layout:"fitColumns",
+      // frozenRows: 4,
+      // movableRows: true,
+      // movableColumns: true,
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+      ],
+    });
+    this.tableRealisasiForeignExchange = new Tabulator(".table-realisasiForeignExchange", {
+      // height:205,
+      height:"555px",
+      data:this.dataDevisa,
+      layout:"fitColumns",
+      // frozenRows: 4,
+      // movableRows: true,
+      // movableColumns: true,
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
+        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+      ],
+    });
+    this.tableDataRkapForeignExchange = [
+      {bulan:"Januari", nilai:"1.59"},
+      {bulan:"Februari", nilai:"1.59"},
+      {bulan:"Maret", nilai:"1.59"},
+      {bulan:"April", nilai:"1.59"},
+      {bulan:"Mei", nilai:"1.59"},
+      {bulan:"Juni", nilai:"1.59"},
+      {bulan:"Juli", nilai:"1.59"},
+    ]
+    this.tableRkapForeignExchange = new Tabulator(".table-rkapForeignExchange", {
+      // height:205,
+      data:this.tableDataRkapForeignExchange,
+      layout:"fitColumns",
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+    });
+    this.tableDataOutlookForeignExchange = [
+      {bulan:"Januari", nilai:"1.59"},
+      {bulan:"Februari", nilai:"1.59"},
+      {bulan:"Maret", nilai:"1.59"},
+      {bulan:"April", nilai:"1.59"},
+      {bulan:"Mei", nilai:"1.59"},
+      {bulan:"Juni", nilai:"1.59"},
+      {bulan:"Juli", nilai:"1.59"},
+    ]
+    this.tableOutlookForeignExchange = new Tabulator(".table-outlookForeignExchange", {
+      // height:205,
+      data:this.tableDataOutlookForeignExchange,
+      layout:"fitColumns",
+      columns:[
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       ],
     });
   }
