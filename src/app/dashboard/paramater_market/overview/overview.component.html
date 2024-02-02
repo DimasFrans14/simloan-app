@@ -135,7 +135,7 @@
                   <span style="font-size: 13px">3Y</span>
                 </button>
               </div>
-              <div>
+              <div [style.display]="isVisibleLine ? 'block' : 'none'">
                 <button
                   class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
                   style="font-size: 14px"
@@ -143,7 +143,7 @@
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Customize Chart
+                  Customize Line Chart
                 </button>
                 <div class="dropdown-menu ps-2">
                   <form (ngSubmit)="filterCurrencyLineChart($event)">
@@ -166,13 +166,44 @@
                   </form>
                 </div>
               </div>
+              <div [style.display]="isVisibleLine ? 'none' : 'block'">
+                <button
+                  class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
+                  style="font-size: 14px"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Customize Bar Chart
+                </button>
+                <div class="dropdown-menu ps-2">
+                  <form (ngSubmit)="filterCurrencyBarChart($event)">
+                    <div style="font-size: 15px">
+                      <ng-container *ngFor="let item of allTrendDataBarChart">
+                        <input
+                          type="checkbox"
+                          name="selectedKursBarChart"
+                          [id]="item.kode"
+                        />
+                        <label class="ms-2" for="item.kode">{{
+                          item.kode
+                        }}</label>
+                        <br />
+                      </ng-container>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm mt-2">
+                      Save Change
+                    </button>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
           <apx-chart
             [style.display]="isVisibleLine ? 'block' : 'none'"
             [series]="lineChartKursSeries"
             [chart]="currencyChartDetails"
-            [yaxis]="lineYAxis"
+            [yaxis]="lineYAxisKurs"
             [xaxis]="tesXaxis"
             [stroke]="stroke"
             [tooltip]="lineChartKursTooltip"
@@ -181,10 +212,11 @@
         </div>
         <apx-chart
           [style.display]="isVisibleBar ? 'none' : 'block'"
-          [series]="lineChartKursSeries"
+          [series]="barChartKursSeries"
           [chart]="currencyBarChartDetails"
-          [yaxis]="lineYAxis"
-          [xaxis]="tesXaxis"
+          [yaxis]="barYAxisKurs"
+          [xaxis]="barXAxisKurs"
+          [dataLabels]="barDataLabels"
           [stroke]="stroke"
           [tooltip]="lineChartKursTooltip"
           [markers]="lineChartKursMarkers"
