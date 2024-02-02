@@ -833,6 +833,48 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     for(let i=0; i<filteredData.length; i++){
       const kursName = filteredData[i].kurs
 
+      var minVal;
+      var maxVal;
+
+      let minValJPY;
+      let maxValJPY;
+
+      if(kursName != 'JPY' && i < 1){
+        let combinedArray = filteredData[i].data.concat(filteredData[1].data, filteredData[2].data)
+        console.log(combinedArray);
+
+        minVal = combinedArray[0];
+        maxVal = combinedArray[0];
+
+        for(let j=0; j<combinedArray.length; j++){
+          if (combinedArray[j] < minVal) {
+            minVal = combinedArray[j];
+          }
+          else if(combinedArray[j] > maxVal){
+            maxVal = combinedArray[j]
+          }
+        }
+        console.log(minVal, maxVal);
+      }
+
+      if(kursName == 'JPY'){
+        // let combinedArray = this.defaultKurs[i].data
+        // console.log(combinedArray);
+
+        minValJPY = this.valueJPY[0][0];
+        maxValJPY = this.valueJPY[0][0];
+
+        for(let j=0; j<this.valueJPY[0].length; j++){
+          if (this.valueJPY[0][j] < minValJPY) {
+            minValJPY = this.valueJPY[0][j];
+          }
+          else if(this.valueJPY[0][j] > maxValJPY){
+            maxValJPY = this.valueJPY[0][j]
+          }
+        }
+        console.log(minValJPY, maxValJPY);
+      }
+
       if(kursName != 'JPY'){
         this.lineChartKursSeries.push({
           name: kursName,
@@ -859,8 +901,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           showAlways: true,
           seriesName: kursName,
-          min: 105,
-          max: 108,
+          min: minValJPY,
+          max: maxValJPY,
           tickAmount: 20,
           opposite: true,
           // min: 0,
@@ -897,8 +939,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             showAlways: true,
             seriesName: kursName,
             // tickAmount: 20,
-            // min:15000,
-            // max:16000,
+            min:minVal,
+            max:maxVal,
             axisTicks: {
               show: true
             },
@@ -925,14 +967,16 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       }
       else{
         console.log(kursName);
-        console.log(filteredData[0].kurs);
 
         if(filteredData[0].kurs === 'JPY'){
+          console.log(filteredData[i].kurs);
           if(i >= 2){
             this.lineYAxisKurs.push({
               // show: true,
               showAlways: true,
               seriesName: filteredData[1].kurs,
+              min: minVal,
+              max: maxVal,
               axisTicks: {
                 show: false,
               },
@@ -955,8 +999,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               showAlways: true,
               seriesName: filteredData[1].kurs,
               // tickAmount: 20,
-              // min:15000,
-              // max:16000,
+              min:minVal,
+              max:maxVal,
               axisTicks: {
                 show: true
               },
@@ -982,10 +1026,14 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           }
         }
         else{
+          console.log(filteredData[i].kurs);
+
           this.lineYAxisKurs.push({
             // show: true,
             showAlways: true,
             seriesName: filteredData[0].kurs,
+            min: minVal,
+            max: maxVal,
             axisTicks: {
               show: false,
             },
