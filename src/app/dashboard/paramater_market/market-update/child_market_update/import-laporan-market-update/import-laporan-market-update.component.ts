@@ -121,9 +121,16 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
       this.disableIndikator = true
     }
 
-    const filter = this.masterSubCategoryParams.data.content.filter((item: any) => item.id_ctg_rs_psr === this.marketUpdateID)
+    console.log([event, this.marketUpdateID, this.selectedSubCategoryParams]);
+    console.log(this.masterSubCategoryParams);
+
+    const filter = this.masterSubCategoryParams.filter((item: any) => item.id_ctg_rs_psr === this.marketUpdateID)
     // console.log(filter);
     this.selectedSubCategoryParams = filter
+
+    console.log(filter);
+
+    localStorage.setItem('category_params', event.kode)
   }
 
   indikatorSelect(event: any){
@@ -141,7 +148,7 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
     this.dataParameterName = kode;
     this.dataParameterID = id_sub_ctgrspsr;
     // console.log(this.dataParameterName);
-    localStorage.setItem('params_upload', JSON.parse(JSON.stringify(this.dataParameterName)))
+    localStorage.setItem('subCategory_params', JSON.parse(JSON.stringify(this.dataParameterName)))
   }
 
   readExcel(event: any){
@@ -170,6 +177,7 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
       }
 
       this.tableConfig.setData(this.excelDataJSON);
+      this.tablePrevew.previewData(this.excelDataJSON, file)
 
       // let objectKeys: string[] = [];
 
@@ -181,10 +189,10 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
 
       if(this.dataParameterName != undefined){
         for(let i=0; i< this.excelDataJSON.length; i++){
-          this.excelDataJSON[i].TANGGAL = this.excelDataJSON[i].TANGGAL.toISOString();
-          this.excelDataJSON[i].TAHUN = this.excelDataJSON[i].TAHUN.toISOString();
-          this.excelDataJSON[i].TANGGAL = this.excelDataJSON[i].TANGGAL.slice(0,10)
-          this.excelDataJSON[i].TAHUN = this.excelDataJSON[i].TAHUN.slice(0,4)
+          // this.excelDataJSON[i].TANGGAL = this.excelDataJSON[i].TANGGAL.toISOString();
+          // this.excelDataJSON[i].TAHUN = this.excelDataJSON[i].TAHUN.toISOString();
+          // this.excelDataJSON[i].TANGGAL = this.excelDataJSON[i].TANGGAL.slice(0,10)
+          // this.excelDataJSON[i].TAHUN = this.excelDataJSON[i].TAHUN.slice(0,4)
         }
         // console.log(this.excelDataJSON);
       }
@@ -194,14 +202,14 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
 
       // console.log('parsing', parsingDataExcel);
       // let filterredInflasi = parsingDataExcel.filter((item:any) => item[0].hasOwnProperty('Inflasi'));
-      console.log(this.excelDataJSON);
-  }
+      console.log(this.excelDataJSON, file);
 
-  if(this.excelDataJSON.length < 0){
-    this.isDisabled = true;
-  }
-  else{
-    this.isDisabled = false;
+      if(this.excelDataJSON.length < 0){
+        this.isDisabled = true;
+      }
+      else{
+        this.isDisabled = false;
+      }
   }
 }
 

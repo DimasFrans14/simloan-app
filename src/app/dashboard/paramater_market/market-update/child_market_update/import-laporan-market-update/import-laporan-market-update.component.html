@@ -49,9 +49,9 @@
             <div class="mb-3">
               <label for="uploadFile" class="fw-bold mb-1">Pilih Indikator Market Update</label>
               <ng-select
-                [items]="masterSubCategoryParams"
+                [items]="selectedSubCategoryParams"
                 bindLabel="deskripsi"
-                bindValue="id_ctg_rspsr"
+                bindValue="id_sub_ctgrspsr"
                 [(ngModel)]="dataParameterItems"
                 placeholder="Pilih Indikator Market Update"
                 [disabled]="disableIndikator"
@@ -88,7 +88,7 @@
             </ngx-dropzone-preview>
             </div>
             <div class="text-center">
-              <button type="button" class="btn btn-primary" routerLink="/market_update/preview_laporan" [disabled]="isDisabled">Lihat Hasil Upload</button>
+              <button type="button" class="btn btn-primary" routerLink="/market_update/preview_laporan" [disabled]="false">Lihat Hasil Upload</button>
             </div>
           </div>
         </div>
