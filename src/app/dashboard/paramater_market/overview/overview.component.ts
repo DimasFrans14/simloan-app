@@ -513,9 +513,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
     for(let i=0; i < this.trendKursDataBarChart.d.arrayData.length; i++){
 
-      const kurs = this.defaultKurs[i].kurs
+      const kurs = this.trendKursDataBarChart.d.arrayData[i].kode
 
-      if(kurs === 'USD'){
+      if(i < 1){
 
         this.barYAxisKurs.push({
           showAlways: true,
@@ -545,40 +545,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           }
             },)
       }
-      else if(kurs === 'JPY'){
-
-        this.barYAxisKurs.push({
-
-            showAlways: true,
-            seriesName: kurs,
-            // min: -1,
-            // max: 1,
-            tickAmount: 15,
-            opposite: true,
-            axisTicks: {
-              show: true
-            },
-            axisBorder: {
-              show: true,
-              color: "#000"
-            },
-            labels: {
-              style: {
-                colors: ["##000"]
-              }
-            },
-            title: {
-              text: "Bar",
-              style: {
-                color: "##000"
-              }
-            },
-            tooltip: {
-              enabled: true
-            }
-          },
-        )
-      }
       else{
 
         this.barYAxisKurs.push({
@@ -600,6 +566,27 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           }
         })
       }
+      // else{
+
+      //   this.barYAxisKurs.push({
+      //     seriesName: "USD",
+      //     axisTicks: {
+      //       show: false,
+      //     },
+      //     axisBorder: {
+      //       show: false,
+      //     },
+      //     labels: {
+      //       show:false,
+      //     },
+      //     title: {
+      //       text: "",
+      //     },
+      //     tooltip: {
+      //       enabled: false
+      //     }
+      //   })
+      // }
     }
 
     // console.log(this.barChartKursSeries);
@@ -1087,38 +1074,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.barYAxisKurs = [];
 
     for(let i=0; i<filteredData.length; i++){
-      const kursName = filteredData[i].kurs
+      const kursName = filteredData[i].kode
 
-      if(kursName != 'JPY'){
-        this.barChartKursSeries.push({
-          name: kursName,
-          data: filteredData[i].data
-        })
-      }
-      else{
-        this.barChartKursSeries.push({
-          name: kursName,
-          data: filteredData[i].data
-        })
-      }
+      this.barChartKursSeries.push({
+        name: kursName,
+        data: filteredData[i].data
+      })
 
-      if(kursName === 'JPY'){
-        console.log(kursName);
-        // const valJPY = this.valueJPY[0]
-        // const lastIndex = this.valueJPY[0].length
-
-        // console.log(valJPY, lastIndex);
+      if(i < 1){
 
         this.barYAxisKurs.push({
-
           showAlways: true,
           seriesName: kursName,
-          min: 0,
-          max: 2,
-          tickAmount: 20,
-          opposite: true,
-          // min: 0,
-          // max: 1,
+          // min:-1,
+          // max:1,
           axisTicks: {
             show: true
           },
@@ -1128,135 +1097,40 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           },
           labels: {
             style: {
-              colors: ["##000"]
+              colors: ["#000"]
             }
           },
           title: {
-            text: "Hundred",
+            text: "Bar Chart",
             style: {
-              color: "##000"
+              color: "#000"
             }
           },
           tooltip: {
             enabled: true
           }
-        },
-        )
-      }
-      else if(kursName != 'JPY' && i < 1){
-        console.log(kursName);
-
-        this.barYAxisKurs.push(
-          {
-            showAlways: true,
-            seriesName: kursName,
-            // tickAmount: 20,
-            // min:15000,
-            // max:16000,
-            axisTicks: {
-              show: true
-            },
-            axisBorder: {
-              show: true,
-              color: "#000"
-            },
-            labels: {
-              style: {
-                colors: ["#000"]
-              }
-            },
-            title: {
-              text: "Thousand",
-              style: {
-                color: "#000"
-              }
-            },
-            tooltip: {
-              enabled: true
-            }
-              },
-        )
+            },)
       }
       else{
-        console.log(kursName);
-        console.log(filteredData[0].kurs);
 
-        if(filteredData[0].kurs === 'JPY'){
-          if(i >= 2){
-            this.barYAxisKurs.push({
-              // show: true,
-              showAlways: true,
-              seriesName: filteredData[1].kurs,
-              axisTicks: {
-                show: false,
-              },
-              axisBorder: {
-                show: false,
-              },
-              labels: {
-                show:false,
-              },
-              title: {
-                text: "",
-              },
-              tooltip: {
-                enabled: false
-              }
-            })
+        this.barYAxisKurs.push({
+          seriesName: "USD",
+          axisTicks: {
+            show: false,
+          },
+          axisBorder: {
+            show: false,
+          },
+          labels: {
+            show:false,
+          },
+          title: {
+            text: "",
+          },
+          tooltip: {
+            enabled: false
           }
-          else{
-            this.barYAxisKurs.push({
-              showAlways: true,
-              seriesName: filteredData[1].kurs,
-              // tickAmount: 20,
-              // min:15000,
-              // max:16000,
-              axisTicks: {
-                show: true
-              },
-              axisBorder: {
-                show: true,
-                color: "#000"
-              },
-              labels: {
-                style: {
-                  colors: ["#000"]
-                }
-              },
-              title: {
-                text: "Thousand",
-                style: {
-                  color: "#000"
-                }
-              },
-              tooltip: {
-                enabled: true
-              }
-                })
-          }
-        }
-        else{
-          this.barYAxisKurs.push({
-            // show: true,
-            showAlways: true,
-            seriesName: filteredData[0].kurs,
-            axisTicks: {
-              show: false,
-            },
-            axisBorder: {
-              show: false,
-            },
-            labels: {
-              show:false,
-            },
-            title: {
-              text: "",
-            },
-            tooltip: {
-              enabled: false
-            }
-          })
-        }
+        })
       }
     }
   }
