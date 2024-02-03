@@ -60,14 +60,8 @@
       <div>
         <h4>Commodities</h4>
       </div>
-
-      <div>
-        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" (click)="getCommoditiesData()">Edit</button>
-        <button class="btn btn-transparant border-secondary bg-white ms-1" style="font-size: 14px;" (click)="getCommoditiesData()">Tambah</button>
-      </div>
-
     </div>
-
+    <!-- Table Detail Commodities -->
     <div class="row mb-3">
       <div class="col-12">
         <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
@@ -80,7 +74,48 @@
         <div class="table-commoditiesDetail mt-2"></div>
       </div>
     </div>
-
+    <!-- End Table Commodities -->
+    <div class="row">
+      <!-- Table Realisasi -->
+      <div class="col-6">
+        <h5 class="fw-semibold">Realisasi</h5>
+        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+        </div>
+        <div class="table-realisasi mt-2"></div>
+      </div>
+      <!-- End Table Realisasi -->
+      <!-- Table RKAP -->
+      <div class="col-6">
+        <h5 class="fw-semibold">Realisasi</h5>
+        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+        </div>
+        <div class="table-RKAP mt-2"></div>
+      </div>
+      <!-- End Table RKAP -->
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <h5 class="fw-semibold">Realisasi</h5>
+        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+        </div>
+        <div class="table-Outlook mt-2"></div>
+      </div>
+    </div>
   </main>
 </div>
 

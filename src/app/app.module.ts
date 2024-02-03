@@ -65,6 +65,7 @@ import { PmiComponent } from './dashboard/paramater_market/market-update/child_m
 import { RetailSalesComponent } from './dashboard/paramater_market/market-update/child_market_update/retail_sales/retail-sales/retail-sales.component';
 import { MoneySuplyComponent } from './dashboard/paramater_market/market-update/child_market_update/money_suply/money-suply/money-suply.component';
 import { CadanganDevisaComponent } from './dashboard/paramater_market/market-update/child_market_update/cadangan_devisa/cadangan-devisa/cadangan-devisa.component';
+import { UsTreasuryComponent } from './dashboard/paramater_market/market-update/child_market_update/us-treasury/us-treasury.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +109,7 @@ import { CadanganDevisaComponent } from './dashboard/paramater_market/market-upd
     RetailSalesComponent,
     MoneySuplyComponent,
     CadanganDevisaComponent,
+    UsTreasuryComponent,
   ],
   imports: [
     BrowserModule,

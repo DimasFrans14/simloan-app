@@ -125,6 +125,12 @@ export class TableServicesService {
   //Data Interest Rate
   tableInterestRate: any;
   tableDataInterestRate: any;
+  tableRealisasiInterestRate: any;
+  tableDataRealisasiInterestRate: any;
+  tableRkapInterestRate: any;
+  tableDataRkapInterestRate: any;
+  tableOutlookInterestRate: any;
+  tableDataOutlookInterestRate: any;
 
   //Data Bond Yield
   tableBondYield: any;
@@ -512,7 +518,134 @@ export class TableServicesService {
     });
   }
 
+  initializeTableDataUsTreasury(){
+    const editBtn = function(cell: any){
+      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    }
+
+    this.tableBondYieldUST = new Tabulator(".table-bondYieldUST", {
+        // height:205,
+        data:this.dataBondYieldUST,
+        layout:"fitColumns",
+        columns:[
+          {title:"Tenor", field:"tenor", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+      {//create column group
+          title:"Yield",
+          columns:[
+          {title: "Last Month", field:"h_min_30", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+          {title: "lastWeek", field:"h_min_7", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+          {title: "yesterday", field:"h_min_1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+          {title: "today", field:"h_min_0", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+          ],
+          headerHozAlign:"center"
+      },
+      {title:"Yield Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"Yield Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"Yield Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        ],
+    });
+    this.tableDataRealisasi = [
+      {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      ];
+  
+    this.tableRealisasi = new Tabulator(".table-realisasi", {
+      // height:205,
+      data:this.tableDataRealisasi,
+      layout:"fitColumns",
+      columns:[
+        {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
+    });
+  
+    this.tableDataRKAP = [
+      {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      ];
+      this.tableRKAP = new Tabulator(".table-rkap", {
+        // height:205,
+        data:this.tableDataRKAP,
+        layout:"fitColumns",
+        columns:[
+          {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+          {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+          {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+          {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+          {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+          {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+            const rowData = cell.getRow().getData();
+            const rowId = rowData.id;
+            console.log('RKAP_ID: ', rowId);
+            // Update the row data
+            rowData.name = 'New Name';
+            cell.getRow().update(rowData);
+          }
+        }],
+      });
+  
+      this.tableDataOutlook = [
+        {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+        {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+        {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+        {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+        {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+        {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+        {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+        {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+        {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+        ];
+        this.tableOutlook = new Tabulator(".table-Outlook", {
+          // height:205,
+          data:this.tableDataOutlook,
+          layout:"fitColumns",
+          columns:[
+            {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+            {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+            {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+            {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+            {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+            {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+              const rowData = cell.getRow().getData();
+              const rowId = rowData.id;
+              console.log('RKAP_ID: ', rowId);
+              // Update the row data
+              rowData.name = 'New Name';
+              cell.getRow().update(rowData);
+            }
+          }],
+        })
+  }
+
   initializeTableDataPDB(){
+    const editBtn = function(cell: any){
+      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    }
     // detail
     this.tablePDB = new Tabulator(".table-DetailPdb", {
       height: "350px",
@@ -524,7 +657,7 @@ export class TableServicesService {
       columns:[
         {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 200, bottomCalc: this.customBottomCalc},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
-        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}}
       ],
     });
     //realisasi
@@ -539,7 +672,15 @@ export class TableServicesService {
         {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 200, bottomCalc: this.customBottomCalc},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
         {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
     //Rkap
     this.tableDataRkapPdb = [
@@ -556,7 +697,15 @@ export class TableServicesService {
         {title:"Periode", field:"periode", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
     this.tableDataOutlookPdb = [
       {periode:"Q1", tahun:"2022", pdb:"4.06"},
@@ -572,11 +721,22 @@ export class TableServicesService {
         {title:"Periode", field:"periode", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
   }
 
   initializeTableDataInflasi(){
+    const editBtn = function(cell: any){
+      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    }
     this.tableInflasi = new Tabulator(".table-detailInflasi", {
       // height:205,
       height:"555px",
@@ -606,8 +766,16 @@ export class TableServicesService {
         {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
-      ],
+        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1},maxWidth:100},
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
     this.tableDataRkapInflasi = [
       {bulan:"Januari", nilai:"1.59"},
@@ -628,7 +796,15 @@ export class TableServicesService {
         {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
     this.tableDataOutlookInflasi = [
       {bulan:"Januari", nilai:"2.59"},
@@ -649,11 +825,22 @@ export class TableServicesService {
         {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
   }
 
   initializeTableDataPMI(){
+    const editBtn = function(cell: any){
+      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    }
     this.tableDetailPmi = new Tabulator(".table-detailPmi", {
       // height:205,
       height:"555px",
@@ -683,8 +870,15 @@ export class TableServicesService {
         {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
     this.tableDataRkapPmi = [
       {bulan:"Januari", nilai:"1.59"},
@@ -704,8 +898,15 @@ export class TableServicesService {
         {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
     this.tableDataOutlookPmi = [
       {bulan:"Januari", nilai:"2.59"},
@@ -725,12 +926,22 @@ export class TableServicesService {
         {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
   }
 
   initializeTableDataRetail(){
+    const editBtn = function(cell: any){
+      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    }
     this.tableDetailRetail = new Tabulator(".table-detailRetail", {
       // height:205,
       height:"555px",
@@ -760,8 +971,15 @@ export class TableServicesService {
         {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
     this.tableDataRkapRetail = [
       {bulan:"Januari", nilai:"1.59"},
@@ -781,8 +999,15 @@ export class TableServicesService {
         {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
     this.tableDataOutlookRetail = [
       {bulan:"Januari", nilai:"2.59"},
@@ -802,12 +1027,22 @@ export class TableServicesService {
         {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
   }
 
   initializeTableDataMoneySupply(){
+    const editBtn = function(cell: any){
+      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    }
     this.tableDetailMoneySupply = new Tabulator(".table-detailMoneySupply", {
       // height:205,
       height:"555px",
@@ -821,8 +1056,7 @@ export class TableServicesService {
         {title:"2020", field:"triliun_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2021", field:"triliun_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2022", field:"triliun_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"triliun_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
-      ],
+        ],
     });
     this.tableRealisasiMoneySupply = new Tabulator(".table-realisasiMoneySupply", {
       // height:205,
@@ -837,8 +1071,15 @@ export class TableServicesService {
         {title:"2020", field:"triliun_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2021", field:"triliun_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2022", field:"triliun_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"triliun_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
     this.tableDataRkapMoneySupply = [
       {bulan:"Januari", nilai:"1.59"},
@@ -858,8 +1099,15 @@ export class TableServicesService {
         {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
     this.tableDataOutlookMoneySupply = [
       {bulan:"Januari", nilai:"2.59"},
@@ -879,12 +1127,23 @@ export class TableServicesService {
         {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
   }
 
   initializeTableDataForeignExchange(){
+    const editBtn = function(cell: any){
+      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    }
+    
     this.tableDetailForeignExchange = new Tabulator(".table-detailForeignExchange", {
       // height:205,
       height:"555px",
@@ -914,8 +1173,15 @@ export class TableServicesService {
         {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
     this.tableDataRkapForeignExchange = [
       {bulan:"Januari", nilai:"1.59"},
@@ -935,8 +1201,15 @@ export class TableServicesService {
         {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
     this.tableDataOutlookForeignExchange = [
       {bulan:"Januari", nilai:"1.59"},
@@ -956,13 +1229,24 @@ export class TableServicesService {
         {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
     });
   }
 
   initializeTableDataCurrency(){
-
+    //        
+    const editBtn = function(cell: any){
+      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    }
+    
     this.tableDataCurrencyDetail = [
       {id:1, name:"USD", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
       {id:2, name:"EUR", age:"12000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
@@ -991,8 +1275,9 @@ export class TableServicesService {
     {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     {title:"Change <br/>1 Day", field:"change1_day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     {title:"Change Dari RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    
       ],
-   }
+    },
     );
 
     this.tableDataRealisasi = [
@@ -1006,7 +1291,7 @@ export class TableServicesService {
       {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
   ]
-
+  
   this.tableRealisasi = new Tabulator(".table-realisasi", {
     // height:205,
     data:this.tableDataRealisasi,
@@ -1017,10 +1302,19 @@ export class TableServicesService {
       {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    ],
+      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+        const rowData = cell.getRow().getData();
+        const rowId = rowData.id;
+        console.log('RealisasiID: ', rowId);
+
+        // Update the row data
+        rowData.name = 'New Name';
+        cell.getRow().update(rowData);
+      }
+    }],
   });
 
-    this.tableDataRKAP = [
+    this.tableDataRealisasi = [
       {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
@@ -1042,7 +1336,16 @@ export class TableServicesService {
       {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    ],
+      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+        const rowData = cell.getRow().getData();
+        const rowId = rowData.id;
+        console.log('RKAPID: ', rowId);
+
+        // Update the row data
+        rowData.name = 'New Name';
+        cell.getRow().update(rowData);
+      }
+    }],
   });
 
     this.tableDataOutlook = [
@@ -1067,7 +1370,16 @@ export class TableServicesService {
       {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    ],
+      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+        const rowData = cell.getRow().getData();
+        const rowId = rowData.id;
+        console.log('ID: ', rowId);
+
+        // Update the row data
+        rowData.name = 'New Name';
+        cell.getRow().update(rowData);
+      }
+    }],
   });
 
 
@@ -1099,6 +1411,10 @@ export class TableServicesService {
   }
 
   initializeTableDataInterestRate(){
+    const editBtn = function(cell: any){
+      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    }
+
     this.tableDataInterestRate = [
       {id:1, name:"BI7DRR", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
       {id:2, name:"FED RATE", age:"12000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
@@ -1110,10 +1426,10 @@ export class TableServicesService {
 
     this.tableInterestRate = new Tabulator(".table-interest", {
       // height:205,
-      data:this.dataInterestRate,
+      data:this.tableDataInterestRate,
       layout:"fitColumns",
       columns:[
-        {title:"Rates", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+        {title:"Rates", field:"name", headerHozAlign:"center", hozAlign:'left', headerSort:false},
 
         {title:"RKAP <br/>23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
         {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
@@ -1127,9 +1443,110 @@ export class TableServicesService {
         {title:"Change 1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       ],
    });
+
+   this.tableDataRealisasi = [
+    {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    ];
+    this.tableRealisasi = new Tabulator(".table-realisasiInterestRate", {
+      // height:205,
+      data:this.tableDataRealisasi,
+      layout:"fitColumns",
+      columns:[
+        {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
+    });
+
+    this.tableDataRkapInterestRate = [
+      {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      ];
+      this.tableRkapInterestRate = new Tabulator(".table-rkapInterestRate", {
+        // height:205,
+        data:this.tableDataRkapInterestRate,
+        layout:"fitColumns",
+        columns:[
+          {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+          {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+          {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+          {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+          {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+          {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+            const rowData = cell.getRow().getData();
+            const rowId = rowData.id;
+            console.log('RKAP_ID: ', rowId);
+            // Update the row data
+            rowData.name = 'New Name';
+            cell.getRow().update(rowData);
+          }
+        }],
+    });
+    
+    this.tableDataOutlookInterestRate = [
+      {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    ];
+
+    this.tableOutlookInterestRate = new Tabulator(".table-outlookInterestRate", {
+      // height:205,
+      data:this.tableDataOutlookInterestRate,
+      layout:"fitColumns",
+      columns:[
+        {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('Outlook_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
+    });
   }
 
   initializeTableDataCommodities(){
+
+    const editBtn = function(cell: any){
+      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    }
 
     this.tableCommodities = new Tabulator(".table-commoditiesDetail", {
     // height:205,
@@ -1153,34 +1570,230 @@ export class TableServicesService {
   {title:"Change <br/>1 Day", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
   {title:"Change Dari RKAP", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     ],
-
   });
+
+  this.tableDataRealisasi = [
+    {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+  ];
+
+  this.tableRealisasi = new Tabulator(".table-realisasi", {
+    // height:205,
+    data:this.tableDataRealisasi,
+    layout:"fitColumns",
+      columns:[
+        {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('Realisasi_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
+    });
+
+    this.tableDataRKAP = [
+      {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    ];
+  
+    this.tableRKAP = new Tabulator(".table-RKAP", {
+      // height:205,
+      data:this.tableDataRKAP,
+      layout:"fitColumns",
+        columns:[
+        {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('RKAP_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
+    });
+
+    this.tableDataOutlook = [
+      {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    ];
+  
+    this.tableOutlook = new Tabulator(".table-Outlook", {
+      // height:205,
+      data:this.tableDataOutlook,
+      layout:"fitColumns",
+        columns:[
+        {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('Outlook_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
+    });
   }
 
   initializeTableDataBondYield(){
+    const editBtn = function(cell: any){
+      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    }
+    this.tableBondYieldUST = new Tabulator(".table-bondYieldDetail", {
+      // height:205,
+      data:this.dataBondYieldUST,
+      layout:"fitColumns",
+      columns:[
+        {title:"Tenor", field:"tenor", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+    {//create column group
+        title:"Yield",
+        columns:[
+        {title:"LastMonth", field:"h_min_30", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"Lastweek", field:"h_min_7", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"yesterday", field:"h_min_1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        {title:"today", field:"h_min_0", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+        ],
+        headerHozAlign:"center"
+    },
+    {title:"Yield Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      ],
+  });
 
-      this.tableBondYield = new Tabulator(".table-bondYieldDetail", {
+  this.tableDataRealisasi = [
+    {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    ];
+
+  this.tableRealisasi = new Tabulator(".table-realisasi", {
+    // height:205,
+    data:this.tableDataRealisasi,
+    layout:"fitColumns",
+    columns:[
+      {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+        const rowData = cell.getRow().getData();
+        const rowId = rowData.id;
+        console.log('realisasi_ID: ', rowId);
+        // Update the row data
+        rowData.name = 'New Name';
+        cell.getRow().update(rowData);
+      }
+    }],
+  });
+
+  this.tableDataRKAP = [
+    {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+    ];
+    this.tableRKAP = new Tabulator(".table-rkap", {
+      // height:205,
+      data:this.tableDataRKAP,
+      layout:"fitColumns",
+      columns:[
+        {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          const rowData = cell.getRow().getData();
+          const rowId = rowData.id;
+          console.log('RKAP_ID: ', rowId);
+          // Update the row data
+          rowData.name = 'New Name';
+          cell.getRow().update(rowData);
+        }
+      }],
+    });
+
+    this.tableDataOutlook = [
+      {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      ];
+      this.tableOutlook = new Tabulator(".table-Outlook", {
         // height:205,
-        data:this.dataBondYieldSBN,
+        data:this.tableDataOutlook,
         layout:"fitColumns",
         columns:[
-          {title:"IDR", field:"mtu", headerHozAlign:"center", hozAlign:'left', headerSort:false},
-      {//create column group
-          title:"Exchange Rate",
-          columns:[
-          {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-          {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-          {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-          {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-          ],
-          headerHozAlign:"center"
-      },
-      {title:"Yield Change <br/>MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"Yield Change <br/>WoW", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"Yield Change <br/>1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        ],
-
-    });
+          {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+          {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+          {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+          {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+          {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+          {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+            const rowData = cell.getRow().getData();
+            const rowId = rowData.id;
+            console.log('RKAP_ID: ', rowId);
+            // Update the row data
+            rowData.name = 'New Name';
+            cell.getRow().update(rowData);
+          }
+        }],
+      })
   }
 
   initializeTableDataFindebt(){
@@ -1487,5 +2100,13 @@ export class TableServicesService {
   showColumn(){
     this.tableCurrency.showColumn('mata_uang');
   }
-}
 
+  editRow(index: number) {
+    const row = this.tableRealisasi.getRow(index);
+    if (row) {
+      const rowData = row.getData();
+      const rowId = rowData.id;
+      console.log('rowID:', rowId);
+    }
+  }
+}

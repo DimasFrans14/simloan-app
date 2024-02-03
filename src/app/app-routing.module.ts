@@ -38,6 +38,7 @@ import { PmiComponent } from './dashboard/paramater_market/market-update/child_m
 import { RetailSalesComponent } from './dashboard/paramater_market/market-update/child_market_update/retail_sales/retail-sales/retail-sales.component';
 import { MoneySuplyComponent } from './dashboard/paramater_market/market-update/child_market_update/money_suply/money-suply/money-suply.component';
 import { CadanganDevisaComponent } from './dashboard/paramater_market/market-update/child_market_update/cadangan_devisa/cadangan-devisa/cadangan-devisa.component';
+import { UsTreasuryComponent } from './dashboard/paramater_market/market-update/child_market_update/us-treasury/us-treasury.component';
 
 const routes: Routes = [
   //error msg
@@ -81,6 +82,7 @@ const routes: Routes = [
   { path: 'market_update/pmi', component: PmiComponent},
   { path: 'market_update/retail_sales', component: RetailSalesComponent},
   { path: 'market_update/money_supply', component: MoneySuplyComponent},
+  { path: 'market_update/usTrasury', component: UsTreasuryComponent},
   { path: 'market_update/cadev', component: CadanganDevisaComponent},
   { path: 'market_update/importLaporan_marketUpdate', component: ImportLaporanMarketUpdateComponent},
   { path: 'market_update/preview_laporan', component: PreviewLaporanComponent},

@@ -79,20 +79,20 @@ export class BondYieldComponent {
 
   kursSelect: any;
 
-  async getBondYieldData(){
-    try {
-      const response = await this.dataService.fetchDataKurs();
-      this.kursSelect = response;
-      this.kursSelect = this.kursSelect.d.list;
-      console.log(this.kursSelect);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // async getBondYieldData(){
+  //   try {
+  //     const response = await this.dataService.fetchDataBondYield();
+  //     this.kursSelect = response;
+  //     this.kursSelect = this.kursSelect.d.list;
+  //     console.log(this.kursSelect);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   async getData(){
     try {
-      const response = await this.dataService.fetchDataInterestRateRKAP();
+      const response = await this.dataService.fetchDataKurs();
       this.testData = response
       if(this.testData){
         this.isLoading = false;

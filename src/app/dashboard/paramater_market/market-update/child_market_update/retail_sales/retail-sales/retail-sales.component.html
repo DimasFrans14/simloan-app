@@ -40,8 +40,6 @@
 <div class="comtainner">
   <div class="d-flex justify-content-between">
     <div class="flex-fill align-self-center fw-semibold"><h4>Retail</h4></div>
-    <div class="p-1"><button class="btn btn-outline-dark btn-sm bg-white" style="color: black;">Edit</button></div>
-    <div class="p-1"><button class="btn btn-outline-dark btn-sm bg-white" style="color: black;">Tambah</button></div>
   </div>
   <!-- Tabble Detail -->
   <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
@@ -54,6 +52,7 @@
   <div class="table-detailRetail mt-2"></div>
   <!-- end table detail -->
   <div class="row mt-4">
+    <!-- Table Realisasi -->
     <div class="col-6">
       <div class="d-flex justify-content-between align-items-center">
         <div>
@@ -69,14 +68,12 @@
       </div>
       <div class="table-ralisasiRetail mt-2"></div>
     </div>
+    <!-- End Table Realisasi -->
+    <!-- Table RKAP -->
     <div class="col-6">
       <div class="d-flex justify-content-between align-items-center">
         <div>
           <span class="fw-semibold">RKAP</span>
-        </div>
-        <div>
-          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Edit</button>
-          <button class="btn btn-transparant border-secondary bg-white ms-1" style="font-size: 14px;">Tambah</button>
         </div>
       </div>
       <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
@@ -88,6 +85,7 @@
       </div>
       <div class="table-rkapRetail mt-2"></div>
     </div>
+    <!-- End Table RKAP -->
   </div>
 
   <div class="row mt-4">
@@ -95,10 +93,6 @@
       <div class="d-flex justify-content-between align-items-center">
         <div>
           <span class="fw-semibold">Outlook</span>
-        </div>
-        <div>
-          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Edit</button>
-          <button class="btn btn-transparant border-secondary bg-white ms-1" style="font-size: 14px;">Tambah</button>
         </div>
       </div>
       <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">

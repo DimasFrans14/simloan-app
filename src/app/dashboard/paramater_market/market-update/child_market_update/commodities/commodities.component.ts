@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { DataService } from 'src/app/data.service';
+import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 
 @Component({
@@ -11,16 +13,39 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
 
   constructor(
     private tableConfig: TableServicesService,
-    private dataService: DataService
+    private marketUpdateService: MarketUpdateService
   ){
     // console.log(this.tableConfig.initializeTableDataCurrency(), this.tableConfig.initializeTableData());
   }
 
-  testData: any;
+  dataDetail: any;
   filteredData: String[] = [];
   isLoading: Boolean = true;
-  selectedItems!: number;
+  realisasiPdbItem!: number;
 
+  tanggalEditKurs: any;
+  namaEditKurs: any;
+  nilaiEditKurs: any;
+
+  maxDate = new Date();
+
+  formDataRealisasi = {
+    'tahun': '',
+    'periode':'',
+    'nilai_realisasi':''
+  }
+
+  formDataRKAP = {
+    'tanggal': '',
+    'nama_kurs':'',
+    'nilai_rkap':''
+  }
+
+  formDataOutlook = {
+    'tanggal': '',
+    'nama_kurs':'',
+    'nilai_outlook':''
+  }
 
   defaultMacroIndicatorItems = [
     {
@@ -78,32 +103,69 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
 
   kursSelect: any;
 
-  async getCommoditiesData(){
-    try {
-      const response = await this.dataService.fetchDataKurs();
-      this.kursSelect = response;
-      this.kursSelect = this.kursSelect.d.list;
-      console.log(this.kursSelect);
-    } catch (error) {
-      console.log(error);
-    }
+  async getCurrencyRateData(){
+    // try {
+    //   const response = await this.dataService.fetchDataKurs();
+    //   this.kursSelect = response;
+    //   this.kursSelect = this.kursSelect.d.list;
+    //   console.log(this.kursSelect);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
   async getData(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+
     try {
-      const response = await this.dataService.fetchDataCommoditiesAll();
-      this.testData = response
-      if(this.testData){
-        this.isLoading = false;
-        this.tableConfig.getDataCommodities(this.testData)
-        console.log('berhasil load data');
-      }
-      else{
-        console.log('data gagal di load');
-      }
+      const data = await this.marketUpdateService.fetchDataCommoditiesAll();
+      this.dataDetail = data;
+      this.dataDetail = this.dataDetail.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetail);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
+
+    // for(let i=0; i<10; i++){
+    //   this.filteredData.push(this.dataDetail.data.content[i]);
+    // }
+
+    // console.log('updated data', this.filteredData);
+    this.tableConfig.setDataPdb(this.dataDetail);
+    console.log('finish get data in func');
+
+  }
+
+  onDate(event: any){
+    console.log(event);
+
+    console.log(moment(event.value._d).format("DD/MM/YYYY"));
+
+    this.tanggalEditKurs = moment(event.value._d).format("DD/MM/YYYY");
+  }
+
+  realisasiPdbSelect = (event: any) => {
+    console.log(event);
+  }
+
+  nilaiEditRealKurs = (val: any) => {
+    console.log(val);
+  }
+
+  onSubmitRealisasi() {
+    this.formDataRealisasi.tahun = this.tanggalEditKurs
+    console.log('Data yang di-submit:', this.formDataRealisasi);
+  }
+
+  onSubmitRKAP() {
+    this.formDataRKAP.tanggal = this.tanggalEditKurs
+    console.log('Data yang di-submit:', this.formDataRKAP);
+  }
+  onSubmitOutlook() {
+    this.formDataOutlook.tanggal = this.tanggalEditKurs
+    console.log('Data yang di-submit:', this.formDataOutlook);
   }
 
   async ngOnInit(): Promise<void> {
@@ -115,6 +177,7 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     console.log('finish load data');
+
   }
 
 }

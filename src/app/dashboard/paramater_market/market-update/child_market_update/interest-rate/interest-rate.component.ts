@@ -1,5 +1,7 @@
 import { Component, AfterViewInit, OnInit ,Input } from '@angular/core';
+import * as moment from 'moment';
 import { DataService } from 'src/app/data.service';
+import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 // import { Router } from '@angular/router';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 
@@ -12,16 +14,39 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
 
   constructor(
     private tableConfig: TableServicesService,
-    private dataService: DataService
+    private marketUpdateService: MarketUpdateService
   ){
     // console.log(this.tableConfig.initializeTableDataCurrency(), this.tableConfig.initializeTableData());
   }
 
-  testData: any;
+  dataDetail: any;
   filteredData: String[] = [];
   isLoading: Boolean = true;
-  kursSelect: any;
-  selectedItems!: number;
+  realisasiKursItem!: number;
+
+  tanggalEditKurs: any;
+  namaEditKurs: any;
+  nilaiEditKurs: any;
+
+  maxDate = new Date();
+
+  formDataRealisasi = {
+    'tanggal': '',
+    'nama_kurs':'',
+    'nilai_realisasi':''
+  }
+
+  formDataRKAP = {
+    'tanggal': '',
+    'nama_kurs':'',
+    'nilai_rkap':''
+  }
+
+  formDataOutlook = {
+    'tanggal': '',
+    'nama_kurs':'',
+    'nilai_outlook':''
+  }
 
   defaultMacroIndicatorItems = [
     {
@@ -77,16 +102,17 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
     { id: 6, name: 'Yield SBN 10-Yr' },
   ];
 
+  kursSelect: any;
 
-  async getInterestRateData(){
-    try {
-      const response = await this.dataService.fetchDataKurs();
-      this.kursSelect = response;
-      this.kursSelect = this.kursSelect.d.list;
-      console.log(this.kursSelect);
-    } catch (error) {
-      console.log(error);
-    }
+  async getCurrencyRateData(){
+    // try {
+    //   const response = await this.dataService.fetchDataKurs();
+    //   this.kursSelect = response;
+    //   this.kursSelect = this.kursSelect.d.list;
+    //   console.log(this.kursSelect);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
   async getData(){
@@ -94,40 +120,59 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
     console.log(this.isLoading, 'loading 1');
 
     try {
-      const data = await this.dataService.fetchDataKurs();
-      this.testData = data;
+      const data = await this.marketUpdateService.fetchDataInterestRate();
+      this.dataDetail = data;
+      this.dataDetail = this.dataDetail.data;
       this.isLoading = false;
-      console.log(this.isLoading, 'loading 2');
+      console.log(this.isLoading, 'loading 2', this.dataDetail);
     } catch (error) {
       console.log(error);
     }
 
-    for(let i=0; i<10; i++){
-      this.filteredData.push(this.testData.data.content[i]);
-    }
+    // for(let i=0; i<10; i++){
+    //   this.filteredData.push(this.dataDetail.data.content[i]);
+    // }
 
     // console.log('updated data', this.filteredData);
-    this.tableConfig.setData(this.filteredData);
+    this.tableConfig.setData(this.dataDetail);
     console.log('finish get data in func');
 
   }
 
-  dataRKAP: any;
-  dataInterestRate: any;
+  onDate(event: any){
+    console.log(event);
+
+    console.log(moment(event.value._d).format("DD/MM/YYYY"));
+
+    this.tanggalEditKurs = moment(event.value._d).format("DD/MM/YYYY");
+  }
+
+  realisasiKursSelect = (event: any) => {
+    console.log(event);
+  }
+
+  nilaiEditRealKurs = (val: any) => {
+    console.log(val);
+  }
+
+  onSubmitRealisasi() {
+    this.formDataRealisasi.tanggal = this.tanggalEditKurs
+    console.log('Data yang di-submit:', this.formDataRealisasi);
+  }
+
+  onSubmitRKAP() {
+    this.formDataRKAP.tanggal = this.tanggalEditKurs
+    console.log('Data yang di-submit:', this.formDataRKAP);
+  }
+  onSubmitOutlook() {
+    this.formDataOutlook.tanggal = this.tanggalEditKurs
+    console.log('Data yang di-submit:', this.formDataOutlook);
+  }
 
   async ngOnInit(): Promise<void> {
     console.log('load data');
 
-    try {
-      const responseInterestRate = await this.dataService.fetchDataInterestRateRKAP();
-      this.dataRKAP = responseInterestRate;
-      const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
-      this.dataInterestRate = filteredDataInterestRate;
-      this.tableConfig.getDataInterestRate(filteredDataInterestRate);
-      this.isLoading = false
-    } catch (error) {
-      console.error(error);
-    }
+    await this.getData();
     this.tableConfig.initializeTableDataInterestRate();
   }
 

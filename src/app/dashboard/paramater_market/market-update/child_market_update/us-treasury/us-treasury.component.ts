@@ -1,16 +1,14 @@
-import { Component, AfterViewInit, OnInit ,Input, ViewChild, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import * as moment from 'moment';
-import { DataService } from 'src/app/data.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
-// import { Router } from '@angular/router';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 
 @Component({
-  selector: 'app-currency-rate',
-  templateUrl: './currency-rate.component.html',
-  styleUrls: ['./currency-rate.component.css']
+  selector: 'app-us-treasury',
+  templateUrl: './us-treasury.component.html',
+  styleUrls: ['./us-treasury.component.css']
 })
-export class CurrencyRateComponent implements OnInit, AfterViewInit {
+export class UsTreasuryComponent {
   constructor(
     private tableConfig: TableServicesService,
     private marketUpdateService: MarketUpdateService
@@ -119,7 +117,7 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     console.log(this.isLoading, 'loading 1');
 
     try {
-      const data = await this.marketUpdateService.fetchDataKurs();
+      const data = await this.marketUpdateService.fetchDataBondYield();
       this.dataDetail = data;
       this.dataDetail = this.dataDetail.data;
       this.isLoading = false;
@@ -172,13 +170,11 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     console.log('load data');
 
     await this.getData();
-    this.tableConfig.initializeTableDataCurrency();
+    this.tableConfig.initializeTableDataUsTreasury();
   }
 
   ngAfterViewInit(): void {
     console.log('finish load data');
 
   }
-
-
 }

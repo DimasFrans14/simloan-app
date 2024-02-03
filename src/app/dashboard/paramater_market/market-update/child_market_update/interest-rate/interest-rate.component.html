@@ -26,8 +26,8 @@
 
       <!-- Sub Menu -->
       <!-- <div class="d-flex justify-content-start align-items-center text-dark mt-3">
-        <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Currency Rate</a>
-        <a class="submenu-market" style="margin-right: 24px; font-size: 14px; color: blue; border-bottom: 3px solid blue;">Interest Rate</a>
+        <a class="submenu-market" style="margin-right: 24px; font-size: 14px; color: blue; border-bottom: 3px solid blue;">Currency Rate</a>
+        <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Interest Rate</a>
         <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Bond Yield</a>
         <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Commodities</a>
         <a class="submenu-market" style="margin-right: 24px; font-size: 14px;">Macro Indicator</a>
@@ -61,62 +61,13 @@
         <h4>Interest Rate</h4>
       </div>
 
-      <div>
-        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#macroIndicatorModal" (click)="getInterestRateData()">Edit</button>
-        <button class="btn btn-transparant border-secondary bg-white ms-1" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#macroIndicatorModal" (click)="getInterestRateData()">Tambah</button>
-      </div>
-
-      <!-- Modal -->
-      <div class="modal fade" id="macroIndicatorModal" tabindex="-1" aria-labelledby="macroIndicatorModalLabel" aria-hidden="true" data-bs-backdrop="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="currenciesModalLabel">Macro Indicator</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body overflow-y-auto">
-              <!-- <div class="search search-bar" style="margin-bottom: 28px;">
-                <form class="search-form" method="POST" action="#">
-                  <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-                  <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-                </form>
-              </div> -->
-              <ng-select [items]="kursSelect"
-             bindLabel="mata_uang"
-             bindValue="nilai_rkap"
-             [(ngModel)]="selectedItems">
-              </ng-select>
-              <div *ngFor="let items of kursSelect">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div style="max-width: 58px;">
-                    <span style="font-size: 12px;">{{items.mata_uang}}</span>
-                  </div>
-                  <div>
-                    <span style="font-size: 12px;" class="text-danger">{{items.beli_min1}}</span>
-                  </div>
-                  <div>
-                    <span style="font-size: 12px;" class="text-primary">{{items.beli_min2}}</span>
-                  </div>
-                  <div>
-                    <span style="font-size: 12px;" class="text-secondary">{{items.beli_min3}}</span>
-                  </div>
-                  <div class="d-flex justify-content-center">
-                    <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-              <button type="button" class="btn btn-primary">Simpan</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <!-- <div>
+        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#macroIndicatorModal" (click)="getCurrencyRateData()">Edit</button>
+        <button class="btn btn-transparant border-secondary bg-white ms-1" data-bs-toggle="modal" data-bs-target="#macroIndicatorModal" (click)="getCurrencyRateData()" style="font-size: 14px;">Tambah</button>
+      </div> -->
     </div>
-
-    <div class="row mb-3">
+    <!-- Table Detail Interest Rate -->
+    <div class="row">
       <div class="col-12">
         <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
           <div class="d-flex align-items-center justify-content-center">
@@ -128,7 +79,73 @@
         <div class="table-interest mt-2"></div>
       </div>
     </div>
+    <!-- End Table Interest Rate -->
+    <div class="row mt-4">
+      <!-- Table Realisasi -->
+      <div class="col-6">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <span class="fw-semibold">Realisasi</span>
+          </div>
+        </div>
+        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+        </div>
+        <div class="table-realisasiInterestRate mt-2"></div>
+      </div>
+      <!-- End Table Realisasi -->
+      <!-- Table Outlook -->
+      <div class="col-6">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <span class="fw-semibold">RKAP</span>
+          </div>
+          <!-- Modal -->
+        </div>
+        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+        </div>
+        <div class="table-rkapInterestRate mt-2"></div>
+      </div>
+    </div>
 
+    <div class="row mt-4">
+      <div class="col-6">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <span class="fw-semibold">Outlook</span>
+          </div>
+        </div>
+        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+        </div>
+        <div class="table-outlookInterestRate mt-2"></div>
+      </div>
+
+      <!-- <div class="col-6">
+        <p class="fw-semibold">Outlook 2</p>
+        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+        </div>
+        <div class="table-outlook2 mt-2"></div>
+      </div> -->
+    </div>
   </main>
 </div>
 
