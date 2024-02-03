@@ -229,7 +229,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll()
 
       const trendKurs = await this.marketUpdateService.fetchDataKursTrend();
-      console.log(trendKurs);
+      // console.log(trendKurs);
 
       const trendInterestRate = await this.marketUpdateService.fetchDataInterestRateTrending();
 
@@ -346,7 +346,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         }
       }
 
-      console.log(this.lineChartKursSeries);
+      // console.log(this.lineChartKursSeries);
 
 
 
@@ -374,7 +374,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               maxVal = combinedArray[j]
             }
           }
-          console.log(minVal, maxVal);
+          // console.log(minVal, maxVal);
         }
 
         if(kurs == 'JPY'){
@@ -392,27 +392,27 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               maxValJPY = this.valueJPY[0][j]
             }
           }
-          console.log(minValJPY, maxValJPY);
+          // console.log(minValJPY, maxValJPY);
         }
 
 
       if(kurs === 'USD'){
         console.log(kurs);
         // console.log(this.defaultKurs[i].data);
-        console.log(minVal, maxVal);
+        // console.log(minVal, maxVal);
 
         this.lineYAxisKurs.push({
           showAlways: true,
           seriesName: kurs,
           min: minVal - 200,
           max: maxVal,
-          forceNiceScale: false,
+          // forceNiceScale: true,
           // tickAmount: 15,
           axisTicks: {
             show: true
           },
           axisBorder: {
-            show: true,
+            show: false,
             color: "#000"
           },
           labels: {
@@ -432,7 +432,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             },)
       }
       else if(kurs === 'JPY'){
-        console.log(kurs);
+        // console.log(kurs);
 
         this.lineYAxisKurs.push({
 
@@ -448,7 +448,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               show: true
             },
             axisBorder: {
-              show: true,
+              show: false,
               color: "#000"
             },
             labels: {
@@ -469,14 +469,14 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         )
       }
       else{
-        console.log(kurs);
-        console.log(minVal, maxVal);
+        // console.log(kurs);
+        // console.log(minVal, maxVal);
 
         this.lineYAxisKurs.push({
           show: true,
           showAlways: true,
           seriesName: "USD",
-          min:minVal - 50,
+          min:minVal - 200,
           max:maxVal,
 
           axisTicks: {
@@ -498,7 +498,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       }
     }
 
-    console.log(this.lineYAxisKurs);
+    // console.log(this.lineYAxisKurs);
 
 
     for(let i=0; i < this.trendKursDataBarChart.d.arrayData.length; i++){
@@ -680,8 +680,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.interestRateXaxis.categories.push(currentDate)
         }
 
-        console.log(this.lineChartInterestRateSeries);
-        console.log(this.interestRateXaxis);
+        // console.log(this.lineChartInterestRateSeries);
+        // console.log(this.interestRateXaxis);
       }
       else{
         console.log('masuk else');
@@ -695,7 +695,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         const commoditiesName = this.allTrendWTIBRENT.d.arrayData[i].kode
         const dataWTIBRENT = this.allTrendWTIBRENT.d.arrayData[i].data
 
-        console.log(dataWTIBRENT);
+        // console.log(dataWTIBRENT);
 
 
         this.dataChartWtibrent.push({
@@ -724,7 +724,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         const commoditiesName = this.allTrendICP.d.arrayData[i].kode
         const dataICP = this.allTrendICP.d.arrayData[i].data
 
-        console.log(commoditiesName, dataICP);
+        // console.log(commoditiesName, dataICP);
 
         this.dataIcpChart.push({
           name: commoditiesName,
@@ -749,7 +749,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         const commoditiesName = this.allTrendCOAL.d.arrayData[i].kode
         const dataCOAL = this.allTrendCOAL.d.arrayData[i].data
 
-        console.log(commoditiesName, dataCOAL);
+        // console.log(commoditiesName, dataCOAL);
 
         this.dataChartCoal.push({
           name: commoditiesName,
@@ -777,8 +777,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       console.log(error);
     }
 
-    console.log(this.lineYAxisKurs);
-    console.log(this.currencyChartDetails);
+    // console.log(this.lineYAxisKurs);
+    // console.log(this.currencyChartDetails);
 
   }
 
@@ -811,7 +811,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   filterCurrencyLineChart(event: any) {
 
-    console.log(this.allTrendDataKurs);
+    // console.log(this.allTrendDataKurs);
     let targetColumn: any[] = [];
     for(let i=0; i<event.target.length - 1; i++){
       if(event.target[i].checked){
@@ -825,39 +825,47 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       (item: any) => targetColumn.includes(item.kurs)
     )
 
-    console.log(filteredData);
+    // console.log(filteredData);
 
     this.lineChartKursSeries = [];
     this.lineYAxisKurs = [];
 
+    let combinedArray: any[] = [];
+    for(let i=0; i < filteredData.length; i++){
+      if(filteredData[i].kurs != 'JPY'){
+        combinedArray = combinedArray.concat(filteredData[i].data)
+      }
+    }
+    // console.log(combinedArray);
+
+
     for(let i=0; i<filteredData.length; i++){
       const kursName = filteredData[i].kurs
 
-      var minVal;
-      var maxVal;
+      var minValFiltered;
+      var maxValFiltered;
 
       let minValJPY;
       let maxValJPY;
 
-      if(kursName != 'JPY' && i < 1){
-        let combinedArray = filteredData[i].data.concat(filteredData[1].data, filteredData[2].data)
-        console.log(combinedArray);
+      if(kursName != 'JPY'){
+        // let combinedArray = filteredData[i].data.concat(filteredData[1].data, filteredData[2].data)
+        // console.log(combinedArray);
 
-        minVal = combinedArray[0];
-        maxVal = combinedArray[0];
+        minValFiltered = combinedArray[0];
+        maxValFiltered = combinedArray[0];
 
         for(let j=0; j<combinedArray.length; j++){
-          if (combinedArray[j] < minVal) {
-            minVal = combinedArray[j];
+          if (combinedArray[j] < minValFiltered) {
+            minValFiltered = combinedArray[j];
           }
-          else if(combinedArray[j] > maxVal){
-            maxVal = combinedArray[j]
+          else if(combinedArray[j] > maxValFiltered){
+            maxValFiltered = combinedArray[j]
           }
         }
-        console.log(minVal, maxVal);
+        console.log(minValFiltered, maxValFiltered);
       }
-
-      if(kursName == 'JPY'){
+      else if(kursName == 'JPY'){
         // let combinedArray = this.defaultKurs[i].data
         // console.log(combinedArray);
 
@@ -891,7 +899,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
 
       if(kursName === 'JPY'){
-        console.log(kursName);
+        // console.log(kursName);
         // const valJPY = this.valueJPY[0]
         // const lastIndex = this.valueJPY[0].length
 
@@ -903,15 +911,15 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           seriesName: kursName,
           min: minValJPY,
           max: maxValJPY,
-          tickAmount: 20,
+          tickAmount: 15,
           opposite: true,
           // min: 0,
           // max: 1,
           axisTicks: {
-            show: true
+            show: false
           },
           axisBorder: {
-            show: true,
+            show: false,
             color: "#000"
           },
           labels: {
@@ -932,20 +940,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         )
       }
       else if(kursName != 'JPY' && i < 1){
-        console.log(kursName);
+        // console.log(kursName);
 
         this.lineYAxisKurs.push(
           {
             showAlways: true,
             seriesName: kursName,
-            // tickAmount: 20,
-            min:minVal,
-            max:maxVal,
+            // tickAmount: 15,
+            min:minValFiltered - 200,
+            max:maxValFiltered,
             axisTicks: {
-              show: true
+              show: false
             },
             axisBorder: {
-              show: true,
+              show: false,
               color: "#000"
             },
             labels: {
@@ -969,14 +977,14 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         console.log(kursName);
 
         if(filteredData[0].kurs === 'JPY'){
-          console.log(filteredData[i].kurs);
+          // console.log(filteredData[i].kurs);
           if(i >= 2){
             this.lineYAxisKurs.push({
               // show: true,
               showAlways: true,
               seriesName: filteredData[1].kurs,
-              min: minVal,
-              max: maxVal,
+              min: minValFiltered - 200,
+              max: maxValFiltered,
               axisTicks: {
                 show: false,
               },
@@ -999,8 +1007,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               showAlways: true,
               seriesName: filteredData[1].kurs,
               // tickAmount: 20,
-              min:minVal,
-              max:maxVal,
+              min:minValFiltered - 200,
+              max:maxValFiltered,
               axisTicks: {
                 show: true
               },
@@ -1026,14 +1034,16 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           }
         }
         else{
-          console.log(filteredData[i].kurs);
+          // console.log(filteredData[i].kurs);
+          // console.log(minValFiltered, maxValFiltered);
+
 
           this.lineYAxisKurs.push({
             // show: true,
             showAlways: true,
             seriesName: filteredData[0].kurs,
-            min: minVal,
-            max: maxVal,
+            min: minValFiltered - 200,
+            max: maxValFiltered,
             axisTicks: {
               show: false,
             },
