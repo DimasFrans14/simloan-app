@@ -1,5 +1,6 @@
 import { Injectable, AfterViewInit } from '@angular/core';
 import { TabulatorFull as Tabulator } from 'tabulator-tables';
+import { MarketUpdateService } from '../market_update/market-update.service';
 
 @Injectable({
   providedIn: 'root'
@@ -110,8 +111,19 @@ export class TableServicesService {
     return this.sharedData;
   }
 
+  dataDetail: any;
+  dataDetailRealisasi: any;
+  dataDetailRKAP: any;
+  dataDetailOutlook: any;
+
+  getDetailData(dataDetail: any[], dataRealisasiDetail: any[], dataRKAPDetail : any[], dataOutlookDetail: any[]){
+    // console.log(dataDetail, dataRealisasiDetail);
+
+    this.dataDetail = dataDetail;
+    this.dataDetailRealisasi = dataRealisasiDetail
+  }
+
   customBottomCalc(values: any, data: any, calcParams: any) {
-    // Mengembalikan string "Total" untuk ditampilkan di baris bawah tabel
     return "Total";
 }
 
@@ -262,7 +274,9 @@ export class TableServicesService {
   tableOutlookForeignExchange:any;
 
 
-  constructor() {
+  constructor(
+    private marketUpdateService: MarketUpdateService
+  ) {
     // Initialize properties in a method like ngOnInit() or a custom method
     // this.initializeTableData();
     // this.initializeTableDataCurrency()
@@ -555,7 +569,7 @@ export class TableServicesService {
       {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       ];
-  
+
     this.tableRealisasi = new Tabulator(".table-realisasi", {
       // height:205,
       data:this.tableDataRealisasi,
@@ -576,7 +590,7 @@ export class TableServicesService {
         }
       }],
     });
-  
+
     this.tableDataRKAP = [
       {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
@@ -608,7 +622,7 @@ export class TableServicesService {
           }
         }],
       });
-  
+
       this.tableDataOutlook = [
         {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
         {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
@@ -644,7 +658,7 @@ export class TableServicesService {
 
   initializeTableDataPDB(){
     const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+      return `<button class="btn btn-uotline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
     }
     // detail
     this.tablePDB = new Tabulator(".table-DetailPdb", {
@@ -735,12 +749,13 @@ export class TableServicesService {
 
   initializeTableDataInflasi(){
     const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+      return `<button class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>
+      `;
     }
     this.tableInflasi = new Tabulator(".table-detailInflasi", {
       // height:205,
       height:"555px",
-      data:this.dataInflasi,
+      data:this.dataDetail,
       layout:"fitColumns",
       // frozenRows: 4,
       // movableRows: true,
@@ -756,7 +771,7 @@ export class TableServicesService {
     this.tableRealisasiInflasi = new Tabulator(".table-ralisasiInflasi", {
       // height:205,
       height:"555px",
-      data:this.dataInflasi,
+      data:this.dataDetailRealisasi,
       layout:"fitColumns",
       // frozenRows: 4,
       // movableRows: true,
@@ -769,9 +784,13 @@ export class TableServicesService {
         {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1},maxWidth:100},
         {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
           const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
+          const rowId = rowData.bulan;
           console.log('realisasi_ID: ', rowId);
           // Update the row data
+          const getData = this.marketUpdateService.getDataInflasiByParams(rowId);
+
+          console.log(getData);
+
           rowData.name = 'New Name';
           cell.getRow().update(rowData);
         }
@@ -1241,11 +1260,11 @@ export class TableServicesService {
   }
 
   initializeTableDataCurrency(){
-    //        
+    //
     const editBtn = function(cell: any){
       return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
     }
-    
+
     this.tableDataCurrencyDetail = [
       {id:1, name:"USD", age:"11000", rate:"2,53%", col:"red", dob:"14/05/1982"},
       {id:2, name:"EUR", age:"12000", rate:"2,53%", col:"blue", dob:"14/05/1982"},
@@ -1274,7 +1293,7 @@ export class TableServicesService {
     {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
     {title:"Change <br/>1 Day", field:"change1_day", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
     {title:"Change Dari RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-    
+
       ],
     },
     );
@@ -1290,7 +1309,7 @@ export class TableServicesService {
       {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
   ]
-  
+
   this.tableRealisasi = new Tabulator(".table-realisasi", {
     // height:205,
     data:this.tableDataRealisasi,
@@ -1506,7 +1525,7 @@ export class TableServicesService {
           }
         }],
     });
-    
+
     this.tableDataOutlookInterestRate = [
       {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
@@ -1615,7 +1634,7 @@ export class TableServicesService {
       {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
     ];
-  
+
     this.tableRKAP = new Tabulator(".table-RKAP", {
       // height:205,
       data:this.tableDataRKAP,
@@ -1648,7 +1667,7 @@ export class TableServicesService {
       {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
     ];
-  
+
     this.tableOutlook = new Tabulator(".table-Outlook", {
       // height:205,
       data:this.tableDataOutlook,

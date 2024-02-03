@@ -121,6 +121,7 @@ export class InflasiComponent {
       this.dataDetail = data;
       this.dataDetail = this.dataDetail.data;
       this.isLoading = false;
+      console.log(this.dataDetail);
       console.log(this.isLoading, 'loading 2', this.dataDetail);
     } catch (error) {
       console.log(error);
@@ -169,7 +170,20 @@ export class InflasiComponent {
   async ngOnInit(): Promise<void> {
     console.log('load data');
 
-    await this.getDataInflasi();
+    try {
+      const data = await this.marketUpdateService.fetchDataInflasi();
+      this.dataDetail = data;
+      this.dataDetail = this.dataDetail.data;
+      this.isLoading = false;
+      console.log(this.dataDetail);
+
+      this.tableConfig.getDetailData(this.dataDetail, this.dataDetail, this.dataDetail, this.dataDetail)
+
+      console.log(this.isLoading, 'loading 2', this.dataDetail);
+    } catch (error) {
+      console.log(error);
+    }
+
     this.tableConfig.initializeTableDataInflasi();
   }
 
