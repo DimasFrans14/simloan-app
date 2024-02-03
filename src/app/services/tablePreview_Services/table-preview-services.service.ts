@@ -16,19 +16,20 @@ export class TablePreviewServices {
 
   tableName!: string;
 
-  previewData(data: any, file: File, previewName: string){
+  previewData(data: any, file: File){
 
     console.log('preview data: ', data);
-    // this.fileExcel = file;
+    this.fileExcel = file;
     this.objectKeys = Object.keys(data[0])
-    console.log(previewName);
+    // console.log(previewName);
 
-    this.tableName = previewName
+    // this.tableName = previewName
 
     this.dataTabelPreview = data;
     console.log(this.objectKeys);
     // this.tabelPreview(this.objectKeys)
     console.log('file', this.fileExcel);
+    console.log('data', this.dataTabelPreview);
   }
 
   tablePreviewMacroIndicator(object: any){

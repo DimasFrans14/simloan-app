@@ -56,36 +56,68 @@ export class PreviewLaporanComponent implements OnInit{
     "dashRealMacroIndicators": this.tablePreview.dataTabelPreview
   };
 
-
   sendDataExcel = async () => {
 
-    let params = localStorage.getItem('params_upload')?.replace(/"/g, '')
+    let categoryParams = localStorage.getItem('category_params')?.replace(/"/g, '')
+    let subCategory_params = localStorage.getItem('subCategory_params')?.replace(/"/g, '')
     let indikatorParams = localStorage.getItem('indikator_params');
 
-    if(indikatorParams === 'Realisasi'){
-      try {
-        const response = await this.marketUpdateService.importLaporanMarketUpdate(this.fileExcelMacroIndicators, JSON.parse(JSON.stringify(params)))
-        console.log(response);
+    const firstParams = ['CURRENCY_RATE', 'INTEREST_RATE', 'BOND_YIELD', 'COMMODITIES', 'MACRO_INDICATOR']
 
-        localStorage.removeItem('params_upload');
-        localStorage.removeItem('indikator_params');
-        alert('up realisasi done')
+    if(categoryParams){
+      if(firstParams.includes(categoryParams)){
+        switch (categoryParams) {
+          case 'CURRENCY_RATE':
+              console.log('Ini adalah bagian untuk CURRENCY_RATE');
+              break;
+          case 'INTEREST_RATE':
+              console.log('Ini adalah bagian untuk INTEREST_RATE');
+              break;
+          case 'BOND_YIELD':
+              console.log('Ini adalah bagian untuk INTEREST_RATE');
+              break;
+          case 'COMMODITIES':
+              const dataExcel = this.tablePreview.fileExcel
 
-        this.router.navigate(["market_update/importLaporan_marketUpdate"])
-      } catch (error) {
-        console.log(error);
+              if(indikatorParams === 'Realisasi'){
+                try {
+                  const response = await this.marketUpdateService.importLaporanMarketUpdateCommodities(dataExcel, JSON.parse(JSON.stringify(subCategory_params)))
+                  console.log(response);
+
+                  localStorage.removeItem('category_params');
+                  localStorage.removeItem('subCategory_params');
+                  localStorage.removeItem('indikator_params');
+                  alert('up realisasi done');
+
+                  this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+                } catch (error) {
+                  console.log(error);
+                }
+                // this.tablePreview.previewData(
+
+                // )
+              }
+              else if(indikatorParams === 'RKAP'){
+                alert('up params RKAP')
+              }
+              else if(indikatorParams === 'Outlook'){
+                alert('up params Outlook')
+              }
+              else{
+                alert('No parameter!');
+              }
+              break;
+          case 'MACRO_INDICATOR':
+              console.log('Ini adalah bagian untuk COMMODITIES');
+              break;
+          default:
+              console.log('Kategori tidak dikenali');
+      }
+      }
+      else{
+        alert('Error No Params!')
       }
     }
-    else if(indikatorParams === 'RKAP'){
-      alert('up params RKAP')
-    }
-    else if(indikatorParams === 'Outlook'){
-      alert('up params Outlook')
-    }
-    else{
-      alert('No parameter!');
-    }
-
   }
 
 }
