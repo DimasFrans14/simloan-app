@@ -240,7 +240,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
       const trendBarChartKurs = await this.marketUpdateService.fetchDataKursTrendBarChart()
 
-      // console.log(trendBarChartKurs);
+      console.log(trendBarChartKurs);
 
       this.trendKursDataBarChart = trendBarChartKurs;
       this.allTrendDataBarChart = trendBarChartKurs;

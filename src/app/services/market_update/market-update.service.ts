@@ -384,7 +384,25 @@ export class MarketUpdateService {
       return null
     }
     // console.log(body, `http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/macro/create?globalDashRealMacroIndicatorEnum=${params}`);
+  }
 
+  importLaporanNonMacroIndicator = async (params: string, file: File) => {
+    const headers = { 'content-type': 'multipart/form-data'}
+    const form = new FormData();
+    form.append('file', file, file.name)
+
+    console.log(
+      file,
+      file.name
+      );
+    try {
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload?globalDashboardRealisasiEnum=${JSON.parse(params)}`, form, {'headers': headers})
+      )
+    } catch (error) {
+      return null
+    }
+    // console.log(body, `http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/macro/create?globalDashRealMacroIndicatorEnum=${params}`);
   }
 
   async fetchDataRealisasiCadev(){

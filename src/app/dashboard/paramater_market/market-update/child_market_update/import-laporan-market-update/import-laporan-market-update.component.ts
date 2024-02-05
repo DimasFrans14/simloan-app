@@ -218,12 +218,12 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
     this.parameterCurrency.push(...event.addedFiles);
     this.readExcel(event)
 
-    if(this.excelDataJSON.length < 0){
-      this.isDisabled = true;
-    }
-    else{
-      this.isDisabled = false;
-    }
+    // if(this.excelDataJSON.length < 0){
+    //   this.isDisabled = true;
+    // }
+    // else{
+    //   this.isDisabled = false;
+    // }
   }
 
   onRemove(event: File) {

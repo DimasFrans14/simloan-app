@@ -67,6 +67,7 @@ export class PreviewLaporanComponent implements OnInit{
     const firstParams = ['CURRENCY_RATE', 'INTEREST_RATE', 'BOND_YIELD', 'COMMODITIES', 'MACRO_INDICATOR']
 
     // console.log(this.dashRealMacroIndicators);
+    const fileExcel = this.tablePreview.fileExcel
 
     if(categoryParams){
       if(firstParams.includes(categoryParams)){
@@ -75,7 +76,33 @@ export class PreviewLaporanComponent implements OnInit{
               console.log('Ini adalah bagian untuk CURRENCY_RATE');
               break;
           case 'INTEREST_RATE':
-              console.log('Ini adalah bagian untuk INTEREST_RATE');
+            if(indikatorParams === 'Realisasi'){
+              try {
+                const response = await this.marketUpdateService.importLaporanNonMacroIndicator(JSON.stringify(subCategory_params), fileExcel)
+                // console.log(response);
+
+                localStorage.removeItem('category_params');
+                localStorage.removeItem('subCategory_params');
+                localStorage.removeItem('indikator_params');
+                // alert('up realisasi done');
+
+                // this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+              } catch (error) {
+                console.log(error);
+              }
+              // this.tablePreview.previewData(
+
+              // )
+            }
+            else if(indikatorParams === 'RKAP'){
+              alert('up params RKAP')
+            }
+            else if(indikatorParams === 'Outlook'){
+              alert('up params Outlook')
+            }
+            else{
+              alert('No parameter!');
+            }
               break;
           case 'BOND_YIELD':
               console.log('Ini adalah bagian untuk INTEREST_RATE');
