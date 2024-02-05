@@ -409,12 +409,12 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       this.listEditMacroIndicator = this.dataMacroIndicator;
       console.log(this.dataMacroIndicator);
 
-      const responseData = await this.marketUpdateService.fetchDataInterestRateRKAP();
-      console.log(responseData);
+      // const responseData = await this.marketUpdateService.fetchDataInterestRateRKAP();
+      // console.log(responseData);
 
-      this.dataRKAP = responseData;
-      const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
-      this.dataInterestRate = filteredDataInterestRate
+      // this.dataRKAP = responseData;
+      // const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
+      // this.dataInterestRate = filteredDataInterestRate
       console.log(this.dataInterestRate);
 
       const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview();

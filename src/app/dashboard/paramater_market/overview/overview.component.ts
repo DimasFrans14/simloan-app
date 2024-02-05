@@ -223,8 +223,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.dataKurs = responseKurs;
       localStorage.setItem('compareData', JSON.stringify(this.dataKurs.d.arrayData))
 
-      const responseRKAP = await this.dataService.fetchDataInterestRateRKAP()
-      this.dataRKAP = responseRKAP;
+      // const responseRKAP = await this.dataService.fetchDataInterestRateRKAP()
+      // this.dataRKAP = responseRKAP;
 
       const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll()
 
@@ -285,7 +285,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
       // dataUSD = this.dataKurs.d.list.filter((item: any) => item.mata_uang === 'USD');
 
-      dataInterest = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
+      // dataInterest = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
 
       this.lineChartKursSeries = [];
       this.barChartKursSeries = [];
@@ -641,39 +641,38 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       // console.log(this.lineChartKursSeries);
       this.lineChartInterestRateSeries = [];
 
-      if(this.trendInterestData.d){
-        for(let i=0; i< this.trendInterestData.d.arrayData.length; i++){
+      // if(this.trendInterestData.d){
+      //   for(let i=0; i< this.trendInterestData.d.arrayData.length; i++){
 
-          const nameInterest = this.trendInterestData.d.arrayData[i].kode;
-          const dataInterest = this.trendInterestData.d.arrayData[i].data;
+      //     const nameInterest = this.trendInterestData.d.arrayData[i].kode;
+      //     const dataInterest = this.trendInterestData.d.arrayData[i].data;
 
-          // for(let j=0; j < )
 
-          this.lineChartInterestRateSeries.push({
-            name: nameInterest,
-            data: dataInterest
-          })
-        }
+      //     this.lineChartInterestRateSeries.push({
+      //       name: nameInterest,
+      //       data: dataInterest
+      //     })
+      //   }
 
-        this.interestRateXaxis = {
-          categories: [
+      //   this.interestRateXaxis = {
+      //     categories: [
 
-          ],
-          type:'datetime',
-        }
+      //     ],
+      //     type:'datetime',
+      //   }
 
-        for(let i=0; i<this.trendInterestRateCategories.d.arrayTanggal.length; i++){
-          const currentDate = this.trendInterestRateCategories.d.arrayTanggal[i];
-          this.interestRateXaxis.categories.push(currentDate)
-        }
+      //   for(let i=0; i<this.trendInterestRateCategories.d.arrayTanggal.length; i++){
+      //     const currentDate = this.trendInterestRateCategories.d.arrayTanggal[i];
+      //     this.interestRateXaxis.categories.push(currentDate)
+      //   }
 
-        // console.log(this.lineChartInterestRateSeries);
-        // console.log(this.interestRateXaxis);
-      }
-      else{
-        console.log('masuk else');
+      //    console.log(this.lineChartInterestRateSeries);
+      //    console.log(this.interestRateXaxis);
+      // }
+      // else{
+      //   console.log('masuk else');
 
-      }
+      // }
 
     this.dataChartWtibrent = [];
 
