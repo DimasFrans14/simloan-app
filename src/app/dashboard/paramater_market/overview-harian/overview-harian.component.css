@@ -14,6 +14,17 @@
   margin-top: 28px;
 }
 
+.circle-card{
+  position: absolute;
+  top: 5%;
+  left: 90%;
+  transform: translateX(-50%) !important;
+  background: green;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+}
+
 .green-circle-card{
   position: absolute;
   top: 5%;

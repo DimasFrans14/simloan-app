@@ -40,6 +40,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   selectedItems!: number;
   selectedKurs!: string;
+  selectedItemsMacro!: string;
 
   PPTFile = new PptxGenJS()
   img = '';
@@ -238,13 +239,43 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   dataCommodities: any;
   listEditCommodities: any;
 
+  dataMacroIndicator: any;
+  listEditMacroIndicator: any;
+
   dataCurrency: any;
   listEditCurrency: any;
 
   formatTanggal: any;
   changeIcon: boolean = false;
 
-  getValueRow(event: any){
+  getValueMacroIndicator(event: any){
+    console.log(event);
+    console.log(this.listEditMacroIndicator);
+
+    // const listedDataCommodities = this.dataCommodities.includes(event)
+
+    const updatedData = this.dataMacroIndicator.filter((item: any) => item.kode !== event)
+
+    const getRow = this.listEditMacroIndicator.filter((item: any) => item.kode == event)
+
+    const checkData = this.dataMacroIndicator.includes(getRow[0])
+
+    this.dataMacroIndicator = updatedData;
+
+    console.log(checkData);
+
+    if(checkData){
+      console.log('clear data');
+      this.changeIcon = true;
+    }
+    else{
+      this.dataMacroIndicator.push(getRow[0]);
+    }
+
+    console.log(this.dataMacroIndicator, updatedData, getRow);
+  }
+
+  getValueRowCommodities(event: any){
     console.log(event);
 
     // const listedDataCommodities = this.dataCommodities.includes(event)
@@ -371,6 +402,13 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   async ngOnInit(): Promise<void> {
     try {
+      const responseMacroIndicator = await this.marketUpdateService.fetchDataMacroIndicatorOverview();
+
+      this.dataMacroIndicator = responseMacroIndicator;
+      this.dataMacroIndicator = this.dataMacroIndicator.d;
+      this.listEditMacroIndicator = this.dataMacroIndicator;
+      console.log(this.dataMacroIndicator);
+
       const responseData = await this.marketUpdateService.fetchDataInterestRateRKAP();
       console.log(responseData);
 
@@ -385,11 +423,11 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       console.log(commoditiesOverview, currenciesOverview);
       this.dataCommodities = commoditiesOverview;
       this.listEditCommodities = commoditiesOverview;
-      this.listEditCommodities = this.listEditCommodities.data.filter((item: any) => item.tanggal == '01/11/2022');
+      this.listEditCommodities = this.listEditCommodities.d.filter((item: any) => item.periode == '01/11/2022');
       console.log(this.listEditCommodities);
 
 
-      this.dataCommodities = this.dataCommodities.data.filter((item: any) => item.tanggal == '01/11/2022').slice(0, 3);
+      this.dataCommodities = this.dataCommodities.d.filter((item: any) => item.periode == '01/11/2022').slice(0, 3);
 
       console.log(this.dataCommodities);
 

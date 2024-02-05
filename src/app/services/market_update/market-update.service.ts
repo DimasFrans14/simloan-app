@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 
@@ -14,10 +14,21 @@ export class MarketUpdateService {
   localDev: string = 'http://10.1.18.47:9051'
   serverDev: string = 'http://10.1.18.47:8080'
 
+  async fetchDataMacroIndicatorOverview(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/overview/getMakroIndikator?date=11/07/2023`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
   async fetchDataKurs(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/currency/getList`)
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/currency/getList`, { observe: 'response' })
       );
     } catch (error) {
       console.log(error);
@@ -103,10 +114,11 @@ export class MarketUpdateService {
   }
 
   async fetchDataCommoditiesOverview(){
+
     try {
       return await lastValueFrom(
         this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/trx-overview/view_overcommodities
-        `)
+        `, { observe: 'response'})
       )
     } catch (error) {
       console.log(error);
@@ -216,6 +228,17 @@ export class MarketUpdateService {
     try {
       return await lastValueFrom(
         this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_inflasi`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async getDataInflasiByParams(params: string){
+    try {
+      return await lastValueFrom(
+        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_inflasi?bulan=${params}`)
       );
     } catch (error) {
       console.log(error);

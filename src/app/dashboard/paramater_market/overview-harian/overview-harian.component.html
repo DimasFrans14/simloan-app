@@ -138,29 +138,34 @@
                 <button type="submit" title="Search"><i class="bi bi-search"></i></button>
               </form>
             </div> -->
-            <ng-select [items]="macroIndicatorSelect"
-           bindLabel="name"
-           bindValue="id"
-           [(ngModel)]="selectedItems">
+            <ng-select [items]="dataMacroIndicator"
+           bindLabel="kode"
+           bindValue="kode"
+           [(ngModel)]="selectedItemsMacro">
             </ng-select>
-            <div *ngFor="let items of defaultMacroIndicatorItems">
-              <div class="d-flex align-items-center justify-content-between">
-                <div style="max-width: 58px;">
-                  <span style="font-size: 12px;">{{items.currency}}</span>
-                </div>
-                <div>
-                  <span style="font-size: 12px;" class="text-danger">{{items.rate1}}</span>
-                </div>
-                <div>
-                  <span style="font-size: 12px;" class="text-primary">{{items.rate2}}</span>
-                </div>
-                <div>
-                  <span style="font-size: 12px;" class="text-secondary">{{items.rate3}}</span>
-                </div>
-                <div class="d-flex justify-content-center">
-                  <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
-                </div>
-              </div>
+            <div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" style="font-size: 14px">Macro Indicator</th>
+                    <th scope="col" style="font-size: 14px">Realiasi</th>
+                    <th scope="col" style="font-size: 14px">RKAP</th>
+                    <th scope="col" style="font-size: 14px">Outlook</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of listEditMacroIndicator">
+                    <td>
+                      {{ item.kode }}
+                    </td>
+                    <td>{{ item.nilai_real }}</td>
+                    <td>{{ item.nilai_rkap }}</td>
+                    <td>{{ item.outlook }}</td>
+                    <td><i class="bi bi-plus-slash-minus"
+           style="cursor: pointer;" (click)="getValueMacroIndicator(item.kode)"></i></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
           <div class="modal-footer">
@@ -174,24 +179,24 @@
     <!-- Card Macro Indicator -->
     <div class="d-flex flex-sm-wrap flex-md-wrap flex-lg-nowrap align-items-center justify-content-center">
       <!-- <div *ngIf="defaultMacroIndicatorItems"> -->
-        <div *ngFor="let items of defaultMacroIndicatorItems">
+        <div *ngFor="let items of dataMacroIndicator">
           <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3 position-relative mt-2">
-            <span class="fw-semibold text-center mb-3">{{items.currency}}</span>
+            <span class="fw-semibold text-center mb-3">{{items.kode}}</span>
             <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
               <div class="d-flex flex-column align-items-center me-2 text-danger">
                 <span>RKAP</span>
-                <span>{{items.rate1}}</span>
+                <span>{{items.nilai_rkap}}</span>
               </div>
               <div class="d-flex flex-column align-items-center me-2 text-primary ">
-                <span>TW II 2023</span>
-                <span>{{items.rate2}}</span>
+                <span>{{items.periode}}</span>
+                <span>{{items.nilai_real}}</span>
               </div>
               <div class="d-flex flex-column align-items-center text-secondary">
                 <span>4Q23F4</span>
-                <span>{{items.rate3}}</span>
+                <span>{{items.nilai_real}}</span>
               </div>
             </div>
-            <div class="yellow-circle-card"></div>
+            <div class="circle-card" [style.background]="items.indikator"></div>
           </div>
         </div>
       <!-- </div> -->
@@ -248,7 +253,7 @@
                           <td>{{ item.nilai_rkap }}</td>
                           <td>{{ item.nilai_realisasi }}</td>
                           <td><i class="bi bi-plus-slash-minus"
-                 style="cursor: pointer;" (click)="getValueRow(item.index_rows)"></i></td>
+                 style="cursor: pointer;" (click)="getValueRowCommodities(item.index_rows)"></i></td>
                         </tr>
                       </tbody>
                     </table>
@@ -496,9 +501,9 @@
   </div>
 
     <!-- Card Macro Indicator -->
-      <div class="d-flex flex-sm-wrap flex-md-wrap flex-lg-nowrap align-items-center justify-content-center">
+      <div class="d-flex flex-wrap align-items-center justify-content-center">
         <div *ngFor="let items of dataInterestRate">
-          <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3 mt-2">
+          <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3 my-2">
             <span class="fw-semibold text-center mb-3">{{items.mtu}}</span>
             <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
               <div class="d-flex flex-column align-items-center me-2 text-danger">
