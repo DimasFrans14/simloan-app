@@ -311,6 +311,8 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       const responseBondYield = await this.marketUpdateService.fetchDataBondYield();
 
       this.dataKurs = responseKurs;
+      console.log(this.dataKurs);
+
       this.dataKurs = this.dataKurs.d.list.filter((item: any) => !item.kode.includes('Label'));
 
       this.getLabelDate = responseKurs

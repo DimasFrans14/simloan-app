@@ -38,7 +38,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   openModal: boolean = false;
   openModalFootnote1: boolean = false;
 
-  selectedItems!: number;
+  selectedItems!: string;
   selectedKurs!: string;
   selectedItemsMacro!: string;
 
@@ -280,9 +280,9 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
     // const listedDataCommodities = this.dataCommodities.includes(event)
 
-    const updatedData = this.dataCommodities.filter((item: any) => item.index_rows !== event)
+    const updatedData = this.dataCommodities.filter((item: any) => item.kode_item !== event)
 
-    const getRow = this.listEditCommodities.filter((item: any) => item.index_rows == event)
+    const getRow = this.listEditCommodities.filter((item: any) => item.kode_item == event)
     const checkData = this.dataCommodities.includes(getRow[0])
 
     this.dataCommodities = updatedData;
@@ -418,25 +418,27 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       console.log(this.dataInterestRate);
 
       const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview();
-      const currenciesOverview = await this.marketUpdateService.fetchDataKurs()
+      const currenciesOverview = await this.marketUpdateService.fetchDataKursOverview()
 
       console.log(commoditiesOverview, currenciesOverview);
       this.dataCommodities = commoditiesOverview;
-      this.listEditCommodities = commoditiesOverview;
-      this.listEditCommodities = this.listEditCommodities.d.filter((item: any) => item.periode == '01/11/2022');
+      this.dataCommodities = this.dataCommodities.d;
+      this.listEditCommodities = this.dataCommodities;
+      this.listEditCommodities = this.listEditCommodities.filter((item: any) => item.periode == '04/12/2023');
       console.log(this.listEditCommodities);
 
 
-      this.dataCommodities = this.dataCommodities.d.filter((item: any) => item.periode == '01/11/2022').slice(0, 3);
+      this.dataCommodities = this.dataCommodities.slice(0, 3);
 
       console.log(this.dataCommodities);
 
       // const filteredDataCurrency = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
       this.dataCurrency = currenciesOverview;
       // this.dataCurrency = this.dataCurrency.data.slice(0,3);
-      this.dataCurrency = this.dataCurrency.d.list.slice(0,3);
+      this.dataCurrency = this.dataCurrency.d.slice(0,3);
       this.listEditCurrency = currenciesOverview;
-      this.listEditCurrency = this.listEditCurrency.d.list.filter((item: any) => !['Label'].includes(item.kode));
+      this.listEditCurrency = this.listEditCurrency.d;
+      // this.listEditCurrency = this.listEditCurrency.d.list.filter((item: any) => !['Label'].includes(item.kode));
       // console.log(this.dataCurrency, this.listEditCurrency) ;
     }
     catch(err){

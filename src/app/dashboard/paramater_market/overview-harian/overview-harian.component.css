@@ -19,7 +19,7 @@
   top: 5%;
   left: 90%;
   transform: translateX(-50%) !important;
-  background: green;
+  /* background: green; */
   border-radius: 50%;
   width: 10px;
   height: 10px;

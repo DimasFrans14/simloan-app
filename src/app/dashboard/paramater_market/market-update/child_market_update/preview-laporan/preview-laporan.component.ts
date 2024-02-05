@@ -52,9 +52,11 @@ export class PreviewLaporanComponent implements OnInit{
     }
   }
 
-  fileExcelMacroIndicators = {
+  dashRealMacroIndicators = {
     "dashRealMacroIndicators": this.tablePreview.dataTabelPreview
   };
+
+
 
   sendDataExcel = async () => {
 
@@ -63,6 +65,8 @@ export class PreviewLaporanComponent implements OnInit{
     let indikatorParams = localStorage.getItem('indikator_params');
 
     const firstParams = ['CURRENCY_RATE', 'INTEREST_RATE', 'BOND_YIELD', 'COMMODITIES', 'MACRO_INDICATOR']
+
+    // console.log(this.dashRealMacroIndicators);
 
     if(categoryParams){
       if(firstParams.includes(categoryParams)){
@@ -108,7 +112,33 @@ export class PreviewLaporanComponent implements OnInit{
               }
               break;
           case 'MACRO_INDICATOR':
-              console.log('Ini adalah bagian untuk COMMODITIES');
+            if(indikatorParams === 'Realisasi'){
+              try {
+                const response = await this.marketUpdateService.importLaporanMacroIndicator(JSON.stringify(subCategory_params), this.dashRealMacroIndicators)
+                // console.log(response);
+
+                localStorage.removeItem('category_params');
+                localStorage.removeItem('subCategory_params');
+                localStorage.removeItem('indikator_params');
+                alert('up realisasi done');
+
+                this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+              } catch (error) {
+                console.log(error);
+              }
+              // this.tablePreview.previewData(
+
+              // )
+            }
+            else if(indikatorParams === 'RKAP'){
+              alert('up params RKAP')
+            }
+            else if(indikatorParams === 'Outlook'){
+              alert('up params Outlook')
+            }
+            else{
+              alert('No parameter!');
+            }
               break;
           default:
               console.log('Kategori tidak dikenali');

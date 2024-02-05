@@ -28,7 +28,18 @@ export class MarketUpdateService {
   async fetchDataKurs(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/currency/getList`, { observe: 'response' })
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/currency/getList`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async fetchDataKursOverview(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/overview/getCurrencies?date=04/12/2023`)
       );
     } catch (error) {
       console.log(error);
@@ -117,8 +128,8 @@ export class MarketUpdateService {
 
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/trx-overview/view_overcommodities
-        `, { observe: 'response'})
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/overview/getCommodities?date=04/12/2023
+        `)
       )
     } catch (error) {
       console.log(error);
@@ -360,6 +371,20 @@ export class MarketUpdateService {
       return null
     }
     // console.log(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload/commodities?globalRealisasiCommoditiesEnum=${params}`);
+  }
+
+  importLaporanMacroIndicator = async (params: string, data: any) => {
+    const headers = { 'content-type': 'application/json'}
+    const body = JSON.stringify(data)
+    try {
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/macro/create?globalDashRealMacroIndicatorEnum=${JSON.parse(params)}`, body, {'headers': headers})
+      )
+    } catch (error) {
+      return null
+    }
+    // console.log(body, `http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/macro/create?globalDashRealMacroIndicatorEnum=${params}`);
+
   }
 
   async fetchDataRealisasiCadev(){
