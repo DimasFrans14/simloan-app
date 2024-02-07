@@ -492,6 +492,15 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     this.quillContentFootnote = value;
     console.log(value);
     this.transformYourHtmlFootnote(this.quillContentFootnote)
+    // this.quillContentFootnote.root.innerHTML = '';
+    this.quillFootnote.deleteText(0,this.quillFootnote.getLength())
+
+    // if(this.quillFootnote.getLength() < 0){
+    //   this.quillFootnote.insertText(this.quillFootnote.getLength() + 1, value)
+    // }
+    // else{
+
+    // }
   }
 
   onChangeKeyTakeaways(){

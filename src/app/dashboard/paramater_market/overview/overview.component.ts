@@ -231,7 +231,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       const trendKurs = await this.marketUpdateService.fetchDataKursTrend();
       // console.log(trendKurs);
 
-      const trendInterestRate = await this.marketUpdateService.fetchDataInterestRateTrending();
 
       const trendWTIBRENTCommodities = await this.marketUpdateService.fetchDataCommoditiesWTIBRENTTrend();
       const trendICPCommodities = await this.marketUpdateService.fetchDataCommoditiesICPTrend();
@@ -239,6 +238,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       const trendCOALCommodities = await this.marketUpdateService.fetchDataCommoditiesCOALTrend();
 
       const trendBarChartKurs = await this.marketUpdateService.fetchDataKursTrendBarChart()
+
+      const trendInterestRate = await this.marketUpdateService.fetchDataInterestRateTrending();
 
       console.log(trendBarChartKurs);
 
@@ -639,40 +640,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       }
 
       // console.log(this.lineChartKursSeries);
-      this.lineChartInterestRateSeries = [];
 
-      if(this.trendInterestData.d){
-        for(let i=0; i< this.trendInterestData.d.arrayData.length; i++){
-
-          const nameInterest = this.trendInterestData.d.arrayData[i].kode;
-          const dataInterest = this.trendInterestData.d.arrayData[i].data;
-
-
-          this.lineChartInterestRateSeries.push({
-            name: nameInterest,
-            data: dataInterest
-          })
-        }
-
-        this.interestRateXaxis = {
-          categories: [
-
-          ],
-          type:'datetime',
-        }
-
-        for(let i=0; i<this.trendInterestRateCategories.d.arrayTanggal.length; i++){
-          const currentDate = this.trendInterestRateCategories.d.arrayTanggal[i];
-          this.interestRateXaxis.categories.push(currentDate)
-        }
-
-        // console.log(this.lineChartInterestRateSeries);
-        // console.log(this.interestRateXaxis);
-      }
-      else{
-        console.log('masuk else');
-
-      }
 
     this.dataChartWtibrent = [];
 
@@ -752,6 +720,42 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         const date = this.allTrendCOAL.d.arrayTanggal[i]
         this.xAxisChartCoal.categories.push(date)
       }
+
+      this.lineChartInterestRateSeries = [];
+
+      if(this.trendInterestData.d){
+        for(let i=0; i< this.trendInterestData.d.arrayData.length; i++){
+
+          const nameInterest = this.trendInterestData.d.arrayData[i].kode;
+          const dataInterest = this.trendInterestData.d.arrayData[i].data;
+
+
+          this.lineChartInterestRateSeries.push({
+            name: nameInterest,
+            data: dataInterest
+          })
+        }
+
+        this.interestRateXaxis = {
+          categories: [
+
+          ],
+          type:'datetime',
+        }
+
+        for(let i=0; i<this.trendInterestRateCategories.d.arrayTanggal.length; i++){
+          const currentDate = this.trendInterestRateCategories.d.arrayTanggal[i];
+          this.interestRateXaxis.categories.push(currentDate)
+        }
+
+        // console.log(this.lineChartInterestRateSeries);
+        // console.log(this.interestRateXaxis);
+      }
+      else{
+        console.log('masuk else');
+
+      }
+
     }
 
       this.tesLocalStorageKurs = localStorage.getItem('compareData');

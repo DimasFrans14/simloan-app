@@ -44,6 +44,7 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
   masterCategoryParams: any;
   masterSubCategoryParams: any;
   selectedSubCategoryParams: any;
+  filteredATD: any;
 
   parameterSelect = [
     { id: 1, name: 'Currency Rate' },
@@ -246,6 +247,12 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
 
     this.masterCategoryParams = this.masterCategoryParams.data.content;
     this.masterSubCategoryParams = this.masterSubCategoryParams.data.content;
-  }
 
+    const filterATD = this.masterSubCategoryParams.filter((item: any) => {
+      return item.kode.includes('ATD');
+    })
+
+    this.filteredATD = filterATD;
+    localStorage.setItem('ATD', JSON.stringify(filterATD))
+  }
 }

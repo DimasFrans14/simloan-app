@@ -337,11 +337,11 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       // console.log(Object.keys(this.keysBondYield.data.content[0]));
 
 
-      // const responseInflasi = await this.marketUpdateService.fetchDataInflasi();
+      const responseInflasi = await this.marketUpdateService.fetchDataInflasi();
       // this.dataInflasi = responseInflasi;
 
       const responsePMI = await this.marketUpdateService.fetchDataPMI();
-      // const responseRetail = await this.marketUpdateService.fetchDataRetail();
+      const responseRetail = await this.marketUpdateService.fetchDataRetail();
       // console.log(responseRetail);
 
       const responseMoneySupply = await this.marketUpdateService.fetchDataMoneySupply();
@@ -362,9 +362,9 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       this.tableConfig.getDataBondYield(this.dataBondYieldSBN, this.dataBondYieldUST);
       this.tableConfig.getDataCommodities(responseCommodities);
       this.tableConfig.getDataPDB(responsePDB);
-      // this.tableConfig.getDataInflasi(responseInflasi);
+      this.tableConfig.getDataInflasi(responseInflasi);
       this.tableConfig.getDataPMI(responsePMI);
-      // this.tableConfig.getDataRetail(responseRetail);
+      this.tableConfig.getDataRetail(responseRetail);
       this.tableConfig.getDataMoneySupply(responseMoneySupply);
       this.tableConfig.getDataDevisa(responseDevisa);
 

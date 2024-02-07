@@ -357,20 +357,96 @@ export class MarketUpdateService {
     }
   }
 
-  importLaporanMarketUpdateCommodities = async (file: any, params: string) => {
+  importLaporanRKAP = async (params: string, file: File) => {
+    const form = new FormData();
+    form.append('name', file, file.name);
+
     try {
-      const headers = { 'content-type': 'application/json'}
-      // const body = JSON.stringify(file);
-      console.log(params);
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload/commodities?globalRealisasiCommoditiesEnum=${params}
-        `, file, {'headers':headers})
+        this.http.post(
+          'http://10.1.18.47:9051/simloan/ws-v01/dashboard/rkap/upload_dash_rkap', form
+        )
       )
     } catch (error) {
       console.log(error);
       return null
     }
-    // console.log(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload/commodities?globalRealisasiCommoditiesEnum=${params}`);
+  }
+
+  importLaporanMarketUpdateCurrencyRateuUSD = async (params: string, file: File) => {
+    // const headers = { 'content-type': 'multipart/form-data'}
+    const form = new FormData();
+    form.append('name', file, file.name)
+
+    try {
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/master-jisdors/upload/currency_rate?globalCurrencyRateEnum=${JSON.parse(params)}`, form)
+      )
+    } catch (error) {
+      return null
+    }
+  }
+
+  importLaporanMarketUpdateCurrencyRateNONUSD = async (params: string, file: File) => {
+    // const headers = { 'content-type': 'multipart/form-data'}
+    const form = new FormData();
+    form.append('name', file, file.name)
+
+    try {
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/master-jisdors/upload/currency_rate?globalCurrencyRateEnum=${JSON.parse(params)}`, form)
+      )
+    } catch (error) {
+      return null
+    }
+  }
+
+  importLaporanMarketUpdateInterestRate = async (params: string, file: File) => {
+    // const headers = { 'content-type': 'multipart/form-data'}
+    const form = new FormData();
+    form.append('name', file, file.name)
+
+    try {
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload?globalDashboardRealisasiEnum=${JSON.parse(params)}`, form)
+      )
+    } catch (error) {
+      return null
+    }
+  }
+
+  importLaporanMarketUpdateCommodities = async (file: File, params: string) => {
+    const form = new FormData()
+    form.append('name', file, file.name);
+    try {
+      // const headers = { 'content-type': 'application/json'}
+      // const body = JSON.stringify(file);
+      console.log(params);
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload/commodities?globalRealisasiCommoditiesEnum=${params}
+        `, form)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
+  importLaporanMarketUpdateBondYield = async (file: File, params: string) => {
+    const form = new FormData()
+    form.append('name', file, file.name);
+    try {
+      // const headers = { 'content-type': 'application/json'}
+      // const body = JSON.stringify(file);
+      console.log(params);
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload/rby?globalRealisasiBondYieldEnum=${params}
+        `, form)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
   }
 
   importLaporanMacroIndicator = async (params: string, data: any) => {
@@ -379,25 +455,6 @@ export class MarketUpdateService {
     try {
       return await lastValueFrom(
         this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/macro/create?globalDashRealMacroIndicatorEnum=${JSON.parse(params)}`, body, {'headers': headers})
-      )
-    } catch (error) {
-      return null
-    }
-    // console.log(body, `http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/macro/create?globalDashRealMacroIndicatorEnum=${params}`);
-  }
-
-  importLaporanNonMacroIndicator = async (params: string, file: File) => {
-    const headers = { 'content-type': 'multipart/form-data'}
-    const form = new FormData();
-    form.append('file', file, file.name)
-
-    console.log(
-      file,
-      file.name
-      );
-    try {
-      return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload?globalDashboardRealisasiEnum=${JSON.parse(params)}`, form, {'headers': headers})
       )
     } catch (error) {
       return null
