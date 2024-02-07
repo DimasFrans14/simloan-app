@@ -587,7 +587,12 @@
     </div>
     <!-- end modal -->
     <div class="row bg-white p-3 rounded">
-      <div class="col-12" style="font-size: 12px;" [innerHTML]="quillInnerHTMLFootnote">
+      <div class="col-12" style="font-size: 12px;">
+        <ol>
+          <ng-container *ngFor="let item of quillInnerHTMLFootnote">
+            <li [innerHTML]="sanitize.bypassSecurityTrustHtml(item.val.changingThisBreaksApplicationSecurity)"></li>
+          </ng-container>
+        </ol>
       </div>
     </div>
   </main>

@@ -141,7 +141,15 @@ export class PreviewLaporanComponent implements OnInit{
                 }
               }
               else if(indikatorParams === 'Outlook'){
-                alert('up params Outlook')
+                try {
+                  const response = await this.marketUpdateService.importLaporanMarketUpdateInterestOutlook(fileExcel, JSON.stringify(subCategory_params))
+                  console.log(response);
+                  // alert('up realisasi done');
+
+                  // this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+                } catch (error) {
+                  console.log(error);
+                }
               }
               else{
                 alert('No parameter!');
@@ -160,7 +168,14 @@ export class PreviewLaporanComponent implements OnInit{
                 }
               }
               else if(indikatorParams === 'Outlook'){
-                alert('up params Outlook')
+                try {
+                  const response = await this.marketUpdateService.importLaporanMarketUpdateBondYieldOutlook(fileExcel, JSON.parse(JSON.stringify(subCategory_params)))
+                  // console.log(response);
+
+                  // this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+                } catch (error) {
+                  console.log(error);
+                }
               }
               else{
                 alert('No parameter!');
@@ -182,7 +197,15 @@ export class PreviewLaporanComponent implements OnInit{
                   }
                 }
                 else if(indikatorParams === 'Outlook'){
-                  alert('up params Outlook')
+                  try {
+                    const response = await this.marketUpdateService.importLaporanMarketUpdateCommoditiesOutlook(dataExcel, JSON.parse(JSON.stringify(subCategory_params)))
+
+                    // console.log(response, JSON.parse(JSON.stringify(subCategory_params)));
+
+                    // this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+                  } catch (error) {
+                    console.log(error);
+                  }
                 }
                 else{
                   alert('No parameter!');
@@ -201,7 +224,15 @@ export class PreviewLaporanComponent implements OnInit{
                 }
               }
               else if(indikatorParams === 'Outlook'){
-                alert('up params Outlook')
+                try {
+                  const response = await this.marketUpdateService.importLaporanMarketUpdateMacroOutlook(fileExcel, JSON.parse(JSON.stringify(subCategory_params)))
+                  // console.log(response);
+
+
+                  // this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+                } catch (error) {
+                  console.log(error);
+                }
               }
               else{
                 alert('No parameter!');

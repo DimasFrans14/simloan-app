@@ -462,6 +462,74 @@ export class MarketUpdateService {
     // console.log(body, `http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/macro/create?globalDashRealMacroIndicatorEnum=${params}`);
   }
 
+  importLaporanMarketUpdateInterestOutlook = async (file: File, params: string) => {
+    const form = new FormData()
+    form.append('name', file, file.name);
+    try {
+      // const headers = { 'content-type': 'application/json'}
+      // const body = JSON.stringify(file);
+      console.log(params);
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/non-macro/upload?globalDashboardRealisasiEnum=${JSON.parse(params)}
+        `, form)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
+  importLaporanMarketUpdateCommoditiesOutlook = async (file: File, params: string) => {
+    const form = new FormData()
+    form.append('name', file, file.name);
+    try {
+      // const headers = { 'content-type': 'application/json'}
+      // const body = JSON.stringify(file);
+      console.log(params);
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/non-macro/upload_cmdities?globalRealisasiCommoditiesEnum=${params}
+        `, form)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
+  importLaporanMarketUpdateBondYieldOutlook = async (file: File, params: string) => {
+    const form = new FormData()
+    form.append('name', file, file.name);
+    try {
+      // const headers = { 'content-type': 'application/json'}
+      // const body = JSON.stringify(file);
+      console.log(params);
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/non-macro/upload_oby?globalRealisasiBondYieldEnum=${params}
+        `, form)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
+  importLaporanMarketUpdateMacroOutlook = async (file: File, params: string) => {
+    const form = new FormData()
+    form.append('file', file, file.name);
+    try {
+      // const headers = { 'content-type': 'application/json'}
+      // const body = JSON.stringify(file);
+      console.log(params);
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/macro/all_macro?globalDashOutlookMacroIndicatorEnum=${params}
+        `, form)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
   async fetchDataRealisasiCadev(){
     try {
       return await lastValueFrom(

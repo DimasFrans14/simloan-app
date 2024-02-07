@@ -42,6 +42,8 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   selectedKurs!: string;
   selectedItemsMacro!: string;
 
+  sanitize = this.sanitizer;
+
   PPTFile = new PptxGenJS()
   img = '';
 
@@ -481,10 +483,15 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   }
 
   quillContentFootnote!: any;
-  quillInnerHTMLFootnote: any;
+  quillInnerHTMLFootnote: any[] = [];
   transformYourHtmlFootnote(htmlTextWithStyle: any) {
     const innerHTML = this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
-    this.quillInnerHTMLFootnote = innerHTML
+    console.log(innerHTML);
+
+    this.quillInnerHTMLFootnote.push({
+      val : this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle)
+    })
+    console.log(this.quillInnerHTMLFootnote);
   }
 
   getValueFootnote(){
@@ -492,8 +499,10 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     this.quillContentFootnote = value;
     console.log(value);
     this.transformYourHtmlFootnote(this.quillContentFootnote)
+
     // this.quillContentFootnote.root.innerHTML = '';
     this.quillFootnote.deleteText(0,this.quillFootnote.getLength())
+    console.log(this.quillFootnote.getLength());
 
     // if(this.quillFootnote.getLength() < 0){
     //   this.quillFootnote.insertText(this.quillFootnote.getLength() + 1, value)
