@@ -95,7 +95,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 py-3 px-4 bg-white rounded">
+      <div class="col-12 py-2 px-2 bg-white rounded">
         <div class="bg-white">
           <div class="d-flex justify-content-between align-items-center pb-3">
             <div>
@@ -224,7 +224,7 @@
     </div>
 
     <div class="row" [style.display]="isCompare ? 'block' : 'none'">
-      <div class="col-12 py-3 px-4 bg-white rounded">
+      <div class="col-12 py-3 px-2 bg-white rounded">
         <div class="row">
           <div class="col-7">
             <table class="table">
@@ -420,190 +420,190 @@
         </div>
         <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
           <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
-          <apx-chart
-            [style.display]="isVisibleLine ? 'block' : 'none'"
-            [series]="dataChartWtibrent"
-            [chart]="wtiBrentLineChart"
-            [stroke]="wtiBrentStroke"
-            [colors]="wtiBrentChartColors"
-            [xaxis]="xAxisWtiChartBrent"
-            [yaxis]="yAxisWtiBrentChart">
-          </apx-chart>
-          <apx-chart
-            [style.display]="isVisibleLine ? 'none' : 'block'"
-            [series]="dataChartWtibrent"
-            [chart]="wtiBrentBarChart"
-            [stroke]="wtiBrentStroke"
-            [colors]="wtiBrentChartColors"
-            [xaxis]="xAxisWtiChartBrent"
-            [yaxis]="yAxisWtiBrentChart">
-          </apx-chart>
+        <apx-chart
+          [style.display]="isVisibleLine ? 'block' : 'none'"
+          [series]="dataChartWtibrent"
+          [chart]="wtiBrentLineChart"
+          [stroke]="wtiBrentStroke"
+          [colors]="wtiBrentChartColors"
+          [xaxis]="xAxisWtiChartBrent"
+          [yaxis]="yAxisWtiBrentChart">
+        </apx-chart>
+        <apx-chart
+          [style.display]="isVisibleLine ? 'none' : 'block'"
+          [series]="dataChartWtibrent"
+          [chart]="wtiBrentBarChart"
+          [stroke]="wtiBrentStroke"
+          [colors]="wtiBrentChartColors"
+          [xaxis]="xAxisWtiChartBrent"
+          [yaxis]="yAxisWtiBrentChart">
+        </apx-chart>
+      </div>
+      <!-- end WTI Brent -->
+      <!-- ICP -->
+      <div class="card rounded p-2 mt-3">
+        <div class="d-flex align-items-center justify-content-between p-1">
+          <div class="flex-fill fw-semibold">ICP (USD/Barel)</div>
+          <div>
+            <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="d-flex justify-content-between">
+                <div class="p-1">Year</div>
+                <div class="p-1"><i class="bi bi-chevron-down"></i></div>
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item">Month</a></li>
+              <li><a class="dropdown-item">Week</a></li>
+              <li><a class="dropdown-item">Day</a></li>
+            </ul>
+          </div>
         </div>
-        <!-- end WTI Brent -->
+        <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+        <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
         <!-- ICP -->
-        <div class="card rounded p-2 mt-3">
-          <div class="d-flex align-items-center justify-content-between p-1">
-            <div class="flex-fill fw-semibold">ICP (USD/Barel)</div>
-            <div>
-              <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="d-flex justify-content-between">
-                  <div class="p-1">Year</div>
-                  <div class="p-1"><i class="bi bi-chevron-down"></i></div>
-                </div>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item">Month</a></li>
-                <li><a class="dropdown-item">Week</a></li>
-                <li><a class="dropdown-item">Day</a></li>
-              </ul>
-            </div>
+        <apx-chart
+          [style.display]="isVisibleLine ? 'block' : 'none'"
+          [series]="dataIcpChart"
+          [chart]="icplineChart"
+          [stroke]="icpStroke"
+          [colors]="icpChartColors"
+          [xaxis]="xAxisIcpChart"
+          [yaxis]="yAxisIcp">
+        </apx-chart>
+        <apx-chart
+          [style.display]="isVisibleBar ? 'none' : 'block'"
+          [series]="dataIcpChart"
+          [chart]="icpBarChart"
+          [stroke]="icpStroke"
+          [colors]="icpChartColors"
+          [xaxis]="xAxisIcpChart"
+          [yaxis]="yAxisIcp">
+        </apx-chart>
+      </div>
+      <!-- end ICP -->
+      <!-- COAL NEWCASTLE -->
+      <div class="card rounded p-2 mt-4">
+        <div class="d-flex align-items-center justify-content-between p-1">
+          <div class="flex-fill fw-semibold">COAL (Newcastle)</div>
+          <div>
+            <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="d-flex justify-content-between">
+                <div class="p-1">Year</div>
+                <div class="p-1"><i class="bi bi-chevron-down"></i></div>
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item">Month</a></li>
+              <li><a class="dropdown-item">Week</a></li>
+              <li><a class="dropdown-item">Day</a></li>
+            </ul>
           </div>
-          <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
-          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
-          <!-- ICP -->
-          <apx-chart
-            [style.display]="isVisibleLine ? 'block' : 'none'"
-            [series]="dataIcpChart"
-            [chart]="icplineChart"
-            [stroke]="icpStroke"
-            [colors]="icpChartColors"
-            [xaxis]="xAxisIcpChart"
-            [yaxis]="yAxisIcp">
-          </apx-chart>
-          <apx-chart
-            [style.display]="isVisibleBar ? 'none' : 'block'"
-            [series]="dataIcpChart"
-            [chart]="icpBarChart"
-            [stroke]="icpStroke"
-            [colors]="icpChartColors"
-            [xaxis]="xAxisIcpChart"
-            [yaxis]="yAxisIcp">
-          </apx-chart>
         </div>
-        <!-- end ICP -->
-        <!-- COAL NEWCASTLE -->
-        <div class="card rounded p-2 mt-3">
-          <div class="d-flex align-items-center justify-content-between p-1">
-            <div class="flex-fill fw-semibold">COAL (Newcastle)</div>
-            <div>
-              <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="d-flex justify-content-between">
-                  <div class="p-1">Year</div>
-                  <div class="p-1"><i class="bi bi-chevron-down"></i></div>
-                </div>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item">Month</a></li>
-                <li><a class="dropdown-item">Week</a></li>
-                <li><a class="dropdown-item">Day</a></li>
-              </ul>
-            </div>
+        <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+        <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
+        <!-- ICP -->
+        <apx-chart
+          [style.display]="isVisibleLine ? 'block' : 'none'"
+          [series]="dataChartCoal"
+          [chart]="coalLineChart"
+          [stroke]="coalStroke"
+          [colors]="coalChartColors"
+          [xaxis]="xAxisChartCoal"
+          [yaxis]="yAxisCoalChart">
+        </apx-chart>
+        <apx-chart
+          [style.display]="isVisibleLine ? 'none' : 'block'"
+          [series]="dataChartCoal"
+          [chart]="coalBarChart"
+          [stroke]="coalStroke"
+          [colors]="coalChartColors"
+          [xaxis]="xAxisChartCoal"
+          [yaxis]="yAxisCoalChart">
+        </apx-chart>
+      </div>
+      <!-- end COAL NEWCASTLE -->
+      <!-- LNG -->
+      <div class="card rounded p-2 mt-3">
+        <div class="d-flex align-items-center justify-content-between p-1">
+          <div class="flex-fill fw-semibold">LNG (JKM) (USD/MMBtu)</div>
+          <div>
+            <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="d-flex justify-content-between">
+                <div class="p-1">Year</div>
+                <div class="p-1"><i class="bi bi-chevron-down"></i></div>
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item">Month</a></li>
+              <li><a class="dropdown-item">Week</a></li>
+              <li><a class="dropdown-item">Day</a></li>
+            </ul>
           </div>
-          <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
-          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
-          <!-- ICP -->
-          <apx-chart
-            [style.display]="isVisibleLine ? 'block' : 'none'"
-            [series]="dataChartCoal"
-            [chart]="coalLineChart"
-            [stroke]="coalStroke"
-            [colors]="coalChartColors"
-            [xaxis]="xAxisChartCoal"
-            [yaxis]="yAxisCoalChart">
-          </apx-chart>
-          <apx-chart
-            [style.display]="isVisibleLine ? 'none' : 'block'"
-            [series]="dataChartCoal"
-            [chart]="coalBarChart"
-            [stroke]="coalStroke"
-            [colors]="coalChartColors"
-            [xaxis]="xAxisChartCoal"
-            [yaxis]="yAxisCoalChart">
-          </apx-chart>
         </div>
-        <!-- end COAL NEWCASTLE -->
-        <!-- LNG -->
-        <div class="card rounded p-2 mt-3">
-          <div class="d-flex align-items-center justify-content-between p-1">
-            <div class="flex-fill fw-semibold">LNG (JKM) (USD/MMBtu)</div>
-            <div>
-              <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="d-flex justify-content-between">
-                  <div class="p-1">Year</div>
-                  <div class="p-1"><i class="bi bi-chevron-down"></i></div>
-                </div>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item">Month</a></li>
-                <li><a class="dropdown-item">Week</a></li>
-                <li><a class="dropdown-item">Day</a></li>
-              </ul>
-            </div>
+        <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+        <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
+        <!-- ICP -->
+        <apx-chart
+          [style.display]="isVisibleLine ? 'block' : 'none'"
+          [series]="dataChartLngLine"
+          [chart]="lngLineChart"
+          [stroke]="lngStroke"
+          [colors]="lngChartColors"
+          [xaxis]="xAxisChartLineLng"
+          [yaxis]="yAxisLng">
+        </apx-chart>
+        <apx-chart
+          [style.display]="isVisibleLine ? 'none' : 'block'"
+          [series]="dataChartLngBar"
+          [chart]="lngBarChart"
+          [stroke]="lngStroke"
+          [colors]="lngChartColors"
+          [xaxis]="xAxisChartBarLng"
+          [yaxis]="yAxisLng">
+        </apx-chart>
+      </div>
+      <!-- end LNG -->
+      <!-- Batu Bara -->
+      <div class="card rounded p-2 mt-3">
+        <div class="d-flex align-items-center justify-content-between p-1">
+          <div class="flex-fill fw-semibold">Batu Bara (USD/Ton)</div>
+          <div>
+            <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="d-flex justify-content-between">
+                <div class="p-1">Year</div>
+                <div class="p-1"><i class="bi bi-chevron-down"></i></div>
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item">Month</a></li>
+              <li><a class="dropdown-item">Week</a></li>
+              <li><a class="dropdown-item">Day</a></li>
+            </ul>
           </div>
-          <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
-          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
-          <!-- ICP -->
-          <apx-chart
-            [style.display]="isVisibleLine ? 'block' : 'none'"
-            [series]="dataLngChart"
-            [chart]="lngLineChart"
-            [stroke]="lngStroke"
-            [colors]="lngChartColors"
-            [xaxis]="xAxisLngChart"
-            [yaxis]="yAxisLng">
-          </apx-chart>
-          <apx-chart
-            [style.display]="isVisibleLine ? 'none' : 'block'"
-            [series]="dataLngChart"
-            [chart]="lngBarChart"
-            [stroke]="lngStroke"
-            [colors]="lngChartColors"
-            [xaxis]="xAxisLngChart"
-            [yaxis]="yAxisLng">
-          </apx-chart>
         </div>
-        <!-- end LNG -->
-        <!-- Batu Bara -->
-        <div class="card rounded p-2 mt-3">
-          <div class="d-flex align-items-center justify-content-between p-1">
-            <div class="flex-fill fw-semibold">Batu Bara (USD/Ton)</div>
-            <div>
-              <button type="button"class="btn btn-sm btn-transparant border" style="color: black" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="d-flex justify-content-between">
-                  <div class="p-1">Year</div>
-                  <div class="p-1"><i class="bi bi-chevron-down"></i></div>
-                </div>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item">Month</a></li>
-                <li><a class="dropdown-item">Week</a></li>
-                <li><a class="dropdown-item">Day</a></li>
-              </ul>
-            </div>
-          </div>
-          <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
-          <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
-          <!-- ICP -->
-          <apx-chart
-            [style.display]="isVisibleLine ? 'block' : 'none'"
-            [series]="dataBatuBaraChart"
-            [chart]="batuBaraLineChart"
-            [stroke]="batuBaraStroke"
-            [colors]="batuBaraChartColors"
-            [xaxis]="xAxisBatuBaraChart"
-            [yaxis]="yAxisBatuBara">
-          </apx-chart>
-          <apx-chart
-            [style.display]="isVisibleLine ? 'none' : 'block'"
-            [series]="dataBatuBaraChart"
-            [chart]="batuBaraBarChart"
-            [stroke]="batuBaraStroke"
-            [colors]="batuBaraChartColors"
-            [xaxis]="xAxisBatuBaraChart"
-            [yaxis]="yAxisBatuBara">
-          </apx-chart>
-        </div>
-        <!-- end Batu BAra -->
+        <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
+        <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
+        <!-- ICP -->
+        <apx-chart
+          [style.display]="isVisibleLine ? 'block' : 'none'"
+          [series]="dataBatuBaraChart"
+          [chart]="batuBaraLineChart"
+          [stroke]="batuBaraStroke"
+          [colors]="batuBaraChartColors"
+          [xaxis]="xAxisBatuBaraChart"
+          [yaxis]="yAxisBatuBara">
+        </apx-chart>
+        <apx-chart
+          [style.display]="isVisibleLine ? 'none' : 'block'"
+          [series]="dataBatuBaraChart"
+          [chart]="batuBaraBarChart"
+          [stroke]="batuBaraStroke"
+          [colors]="batuBaraChartColors"
+          [xaxis]="xAxisBatuBaraChart"
+          [yaxis]="yAxisBatuBara">
+        </apx-chart>
+      </div>
+      <!-- end Batu BAra -->
       <!-- </ng-container> -->
     </div>
 
@@ -672,9 +672,9 @@
                     <input
                       type="checkbox"
                       name="selectedInterestRate"
-                      [id]="item.kode"
+                      [id]="item.name"
                     />
-                    <label class="ms-2" for="item.kode">{{ item.kode }}</label>
+                    <label class="ms-2" for="item.name">{{ item.name }}</label>
                     <br />
                   </ng-container>
                 </div>
@@ -690,7 +690,7 @@
           [series]="lineChartInterestRateSeries"
           [chart]="currencyChartDetails"
           [xaxis]="interestRateXaxis"
-          [stroke]="stroke"
+          [stroke]="intersetRateLineStroke"
           [legend]="interestRateLegend"
         ></apx-chart>
 
