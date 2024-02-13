@@ -138,29 +138,34 @@
                 <button type="submit" title="Search"><i class="bi bi-search"></i></button>
               </form>
             </div> -->
-            <ng-select [items]="macroIndicatorSelect"
-           bindLabel="name"
-           bindValue="id"
-           [(ngModel)]="selectedItems">
-            </ng-select>
-            <div *ngFor="let items of defaultMacroIndicatorItems">
-              <div class="d-flex align-items-center justify-content-between">
-                <div style="max-width: 58px;">
-                  <span style="font-size: 12px;">{{items.currency}}</span>
-                </div>
-                <div>
-                  <span style="font-size: 12px;" class="text-danger">{{items.rate1}}</span>
-                </div>
-                <div>
-                  <span style="font-size: 12px;" class="text-primary">{{items.rate2}}</span>
-                </div>
-                <div>
-                  <span style="font-size: 12px;" class="text-secondary">{{items.rate3}}</span>
-                </div>
-                <div class="d-flex justify-content-center">
-                  <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
-                </div>
-              </div>
+            <!-- <ng-select [items]="dataMacroIndicator"
+           bindLabel="kode"
+           bindValue="kode"
+           [(ngModel)]="selectedItemsMacro">
+            </ng-select> -->
+            <div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" style="font-size: 14px">Macro Indicator</th>
+                    <th scope="col" style="font-size: 14px">Realiasi</th>
+                    <th scope="col" style="font-size: 14px">RKAP</th>
+                    <th scope="col" style="font-size: 14px">Outlook</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of listEditMacroIndicator">
+                    <td>
+                      {{ item.kode }}
+                    </td>
+                    <td>{{ item.nilai_real }}</td>
+                    <td>{{ item.nilai_rkap }}</td>
+                    <td>{{ item.outlook }}</td>
+                    <td><i class="bi bi-plus-slash-minus"
+           style="cursor: pointer;" (click)="getValueMacroIndicator(item.kode)"></i></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
           <div class="modal-footer">
@@ -174,24 +179,24 @@
     <!-- Card Macro Indicator -->
     <div class="d-flex flex-sm-wrap flex-md-wrap flex-lg-nowrap align-items-center justify-content-center">
       <!-- <div *ngIf="defaultMacroIndicatorItems"> -->
-        <div *ngFor="let items of defaultMacroIndicatorItems">
+        <div *ngFor="let items of dataMacroIndicator">
           <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3 position-relative mt-2">
-            <span class="fw-semibold text-center mb-3">{{items.currency}}</span>
+            <span class="fw-semibold text-center mb-3">{{items.kode}}</span>
             <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
               <div class="d-flex flex-column align-items-center me-2 text-danger">
                 <span>RKAP</span>
-                <span>{{items.rate1}}</span>
+                <span>{{items.nilai_rkap}}</span>
               </div>
               <div class="d-flex flex-column align-items-center me-2 text-primary ">
-                <span>TW II 2023</span>
-                <span>{{items.rate2}}</span>
+                <span>{{items.periode}}</span>
+                <span>{{items.nilai_real}}</span>
               </div>
               <div class="d-flex flex-column align-items-center text-secondary">
-                <span>4Q23F4</span>
-                <span>{{items.rate3}}</span>
+                <span>4Q23F<sup>{{items.indikator_tagging}}</sup></span>
+                <span>{{items.nilai_real}}</span>
               </div>
             </div>
-            <div class="yellow-circle-card"></div>
+            <div class="circle-card" [style.background]="items.indikator"></div>
           </div>
         </div>
       <!-- </div> -->
@@ -223,11 +228,11 @@
                     <button type="submit" title="Search"><i class="bi bi-search"></i></button>
                   </form>
                 </div> -->
-                <ng-select [items]="listEditCommodities"
-               bindLabel="keterangan"
-               bindValue="index_rows"
+                <!-- <ng-select [items]="listEditCommodities"
+               bindLabel="kode_item"
+               bindValue="kode_item"
                [(ngModel)]="selectedItems">
-                </ng-select>
+                </ng-select> -->
                 <!-- <div *ngFor="let items of defaultMacroIndicatorItems"> -->
                   <div class="d-flex align-items-center justify-content-between">
                     <table class="table">
@@ -242,13 +247,13 @@
                       <tbody>
                         <tr *ngFor="let item of listEditCommodities">
                           <th scope="row" style="font-size: 14px; border-style: none" >
-                            {{ item.keterangan }}
+                            {{ item.kode_item }}
                           </th>
                           <td>{{ item.nilai_realisasi }}</td>
                           <td>{{ item.nilai_rkap }}</td>
                           <td>{{ item.nilai_realisasi }}</td>
                           <td><i class="bi bi-plus-slash-minus"
-                 style="cursor: pointer;" (click)="getValueRow(item.index_rows)"></i></td>
+                 style="cursor: pointer;" (click)="getValueRowCommodities(item.kode_item)"></i></td>
                         </tr>
                       </tbody>
                     </table>
@@ -266,25 +271,26 @@
         <!-- Card Commodity -->
         <div *ngFor="let item of dataCommodities">
             <!-- <div *ngIf="i < 3"> -->
-            <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 mb-3 mt-2">
-          <span class="fw-semibold mb-3">{{item.keterangan}}</span>
-          <div class="d-flex align-items-center justify-content-between" style="font-size: 12px;">
+            <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 mb-3 mt-2 position-relative">
+          <span class="fw-semibold mb-3">{{item.kode_item}}</span>
+          <div class="d-flex align-items-center justify-content-between " style="font-size: 12px;">
             <div class="d-flex flex-column align-items-center me-2 text-danger">
               <span>RKAP</span>
-              <span>{{item.nilai_realisasi}}</span>
+              <span>{{item.nilai_rkap}}</span>
             </div>
             <div class="d-flex flex-column align-items-center me-2 text-primary ">
-              <span>{{item.tahun}}</span>
+              <span>{{item.periode}}</span>
               <span>{{item.nilai_realisasi}}</span>
             </div>
             <div class="d-flex flex-column align-items-center text-secondary">
-              <span>4Q23F4</span>
-              <span>{{item.nilai_realisasi}}</span>
+              <span>4Q23F<sup>{{item.indikator_tagging}}</sup></span>
+              <span>{{item.rkap}}</span>
             </div>
           </div>
-            </div>
-          <!-- </div> -->
-          </div>
+          <div class="circle-card" [style.background]="item.indikator"></div>
+        </div>
+        <!-- </div> -->
+      </div>
 
       </div>
       <div class="col-4">
@@ -311,11 +317,11 @@
                     <button type="submit" title="Search"><i class="bi bi-search"></i></button>
                   </form>
                 </div> -->
-                <ng-select [items]="dataCurrency"
+                <!-- <ng-select [items]="dataCurrency"
                bindLabel="kode"
                bindValue="kode"
                [(ngModel)]="selectedKurs">
-                </ng-select>
+                </ng-select> -->
                 <!-- <div *ngFor="let items of defaultMacroIndicatorItems"> -->
                   <div class="d-flex align-items-center justify-content-between">
                     <table class="table">
@@ -332,9 +338,9 @@
                           <th scope="row" style="font-size: 14px; border-style: none" >
                             {{ item.kode }}
                           </th>
-                          <td>{{ item.change_wow }}</td>
-                          <td>{{ item.change_mom }}</td>
-                          <td>{{ item.change_1day }}</td>
+                          <td>{{ item.nilai_real }}</td>
+                          <td>{{ item.nilia_rkap }}</td>
+                          <td>{{ item.nilai_outlook }}</td>
                           <td><i class="bi bi-plus-slash-minus"
                  style="cursor: pointer;" (click)="getValueRowKurs(item.kode)"></i></td>
                         </tr>
@@ -354,7 +360,7 @@
         <!-- Card Commodity -->
         <div *ngIf="dataCurrency">
           <div *ngFor="let item of dataCurrency">
-            <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 mb-3 mt-2">
+            <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 mb-3 mt-2 position-relative">
           <span class="fw-semibold mb-3">{{item.kode}}</span>
           <div class="d-flex align-items-center justify-content-between" style="font-size: 12px;">
             <div class="d-flex flex-column align-items-center me-2 text-danger">
@@ -363,13 +369,14 @@
             </div>
             <div class="d-flex flex-column align-items-center me-2 text-primary ">
               <span>Januari</span>
-              <span>{{item.change_1day}}</span>
+              <span>{{item.nilai_real}}</span>
             </div>
             <div class="d-flex flex-column align-items-center text-secondary">
-              <span>4Q23F4</span>
-              <span>{{item.change_wow}}</span>
+              <span>4Q23F<sup>{{item.indikator_tagging}}</sup></span>
+              <span>{{item.nilai_outlook}}</span>
             </div>
           </div>
+          <div class="circle-card" [style.background]="item.indikator"></div>
             </div>
           </div>
         </div>
@@ -462,11 +469,11 @@
                 <button type="submit" title="Search"><i class="bi bi-search"></i></button>
               </form>
             </div> -->
-            <ng-select [items]="macroIndicatorSelect"
+            <!-- <ng-select [items]="macroIndicatorSelect"
            bindLabel="name"
            bindValue="id"
            [(ngModel)]="selectedItems">
-            </ng-select>
+            </ng-select> -->
             <div *ngFor="let items of defaultMacroIndicatorItems">
               <div class="d-flex align-items-center justify-content-between">
                 <div style="max-width: 58px;">
@@ -496,9 +503,9 @@
   </div>
 
     <!-- Card Macro Indicator -->
-      <div class="d-flex flex-sm-wrap flex-md-wrap flex-lg-nowrap align-items-center justify-content-center">
+      <div class="d-flex flex-wrap align-items-center justify-content-center">
         <div *ngFor="let items of dataInterestRate">
-          <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3 mt-2">
+          <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3 my-2">
             <span class="fw-semibold text-center mb-3">{{items.mtu}}</span>
             <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
               <div class="d-flex flex-column align-items-center me-2 text-danger">
@@ -548,7 +555,7 @@
   </div>
 
   <div class="row bg-white p-3 rounded">
-    <div class="col-12" style="font-size: 12px;" [innerHTML]="quillInnerHTML">
+    <div class="col-12" style="font-size: 12px;" [innerHTML]="sanitize.bypassSecurityTrustHtml(getKeyTakeways.d.label)">
     </div>
   </div>
 
@@ -580,9 +587,45 @@
     </div>
     <!-- end modal -->
     <div class="row bg-white p-3 rounded">
-      <div class="col-12" style="font-size: 12px;" [innerHTML]="quillInnerHTMLFootnote">
+      <div class="col-12" style="font-size: 12px;">
+        <ol>
+          <ng-container *ngFor="let item of quillInnerHTMLFootnote">
+            <li [innerHTML]="sanitize.bypassSecurityTrustHtml(item.val.changingThisBreaksApplicationSecurity)"></li>
+          </ng-container>
+        </ol>
       </div>
     </div>
+
+    <div class="d-flex align-items-center justify-content-between mt-4 mb-2">
+      <div class="fw-semibold">
+        <h4>Tes Mention</h4>
+      </div>
+      <div>
+        <button class="btn btn-light bg-white"  style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#MentionModal">Edit</button>
+      </div>
+    </div>
+    <div class="modal fade" id="MentionModal" tabindex="-1" aria-labelledby="MentionModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="MentionModalLabel">Mention</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body overflow-y-auto">
+            <div #Mention style="height: 250px;"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="getValueMention()">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row bg-white p-3 rounded">
+      <div class="col-12" style="font-size: 12px;" [innerHTML]="sanitize.bypassSecurityTrustHtml(mentionInnerHTML)">
+      </div>
+    </div>
+
   </main>
   <app-footer></app-footer>
 </div>

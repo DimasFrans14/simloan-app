@@ -35,6 +35,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   dataKurs: any;
   dataRKAP: any;
   lineChartKursSeries: ApexAxisChartSeries = [];
+  currencyChartDetails!: ApexChart;
   chartSeries2: ApexAxisChartSeries = [];
   lineYAxisKurs!: ApexYAxis | ApexYAxis[];
   tesXaxis!: ApexXAxis;
@@ -52,6 +53,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   lineChartInterestRateSeries: ApexAxisChartSeries = [];
   interestRateXaxis!: ApexXAxis;
   interestRateLegend!: ApexLegend;
+  interestRateYAxis!: ApexYAxis;
 
   dataChartWtibrent!:ApexAxisChartSeries;
   xAxisWtiChartBrent!:ApexXAxis;
@@ -62,10 +64,16 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   dataChartCoal!:ApexAxisChartSeries;
   xAxisChartCoal!:ApexXAxis;
 
+  dataChartLngLine!: ApexAxisChartSeries;
+  dataChartLngBar!: ApexAxisChartSeries;
+  xAxisChartLineLng!: ApexXAxis;
+  xAxisChartBarLng!: ApexXAxis;
+
   selectedItems!: number;
 
   tesLocalStorageKurs: any;
   tesFilterKurs : any;
+
 
   chartCommodities = [
     {
@@ -207,11 +215,13 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   allTrendDataInterestRate: any;
   trendInterestRateCategories: any;
   trendInterestData: any;
+  filteredMinMaxInterestRateData: any;
 
   //Line Chart Commodities
   allTrendWTIBRENT: any;
   allTrendICP: any;
   allTrendCOAL: any;
+  allTrendLNG : any;
 
   USDDataChart: any;
 
@@ -219,74 +229,46 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   async ngOnInit(): Promise<void> {
     try {
-      const responseKurs = await this.marketUpdateService.fetchDataKursTrend()
-      this.dataKurs = responseKurs;
-      localStorage.setItem('compareData', JSON.stringify(this.dataKurs.d.arrayData))
+      this.currencyChartDetails = {
+        type: 'line',
+        height: 400,
+        // width:,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true,
+          }
+        },
+        events:{
+          legendClick(chart, seriesIndex, options) {
+              console.log(options.config);
+              // console.log(options.series.length);
+              // console.log(firstData);
 
-      const responseRKAP = await this.dataService.fetchDataInterestRateRKAP()
-      this.dataRKAP = responseRKAP;
+              // for(let i=0; i<options.config.series.length; i++){
+              //   if(seriesIndex === i){
+              //     const change = options.config.yaxis[i].showAlways === true
+              //     console.log('same', change, options.config.series[i].name, seriesIndex);
+              //   }
+              //   else{
+              //     options.config.yaxis[i].showAlways === false
+              //     console.log('not same', options.config.yaxis[i].showAlways, options.config.series[i].name, seriesIndex);
+              //   }
+              // }
 
-      const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll()
-
-      const trendKurs = await this.marketUpdateService.fetchDataKursTrend();
-      // console.log(trendKurs);
-
-      const trendInterestRate = await this.marketUpdateService.fetchDataInterestRateTrending();
-
-      const trendWTIBRENTCommodities = await this.marketUpdateService.fetchDataCommoditiesWTIBRENTTrend();
-      const trendICPCommodities = await this.marketUpdateService.fetchDataCommoditiesICPTrend();
-
-      const trendCOALCommodities = await this.marketUpdateService.fetchDataCommoditiesCOALTrend();
-
-      const trendBarChartKurs = await this.marketUpdateService.fetchDataKursTrendBarChart()
-
-      // console.log(trendBarChartKurs);
-
-      this.trendKursDataBarChart = trendBarChartKurs;
-      this.allTrendDataBarChart = trendBarChartKurs;
-      this.allTrendDataBarChart = this.allTrendDataBarChart.d.arrayData;
-      // this.trendKursDataBarChart = this.trendKursDataBarChart
-
-      this.allTrendWTIBRENT = trendWTIBRENTCommodities;
-      this.allTrendICP = trendICPCommodities;
-      this.allTrendCOAL= trendCOALCommodities;
-
-      // console.log(trendWTIBRENTCommodities, trendICPCommodities, trendCOALCommodities, trendInterestRate);
-
-      this.allTrendDataInterestRate = trendInterestRate;
-      this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
-      this.trendInterestRateCategories = trendInterestRate;
-      this.trendInterestData = trendInterestRate;
-
-      this.allTrendDataKurs = trendKurs;
-      this.allTrendDataKurs = this.allTrendDataKurs.d.arrayData
-      this.valueJPY = trendKurs;
-      this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
-
-      const updateValueJPY = this.valueJPY.map((item: any) => {
-        return item.data.map((value: any) => {
-          const val = value / 100;
-          const slice = val.toString().slice(0,6)
-          const toNumber = parseFloat(slice)
-          return toNumber
-        });
-      });
-
-      // console.log(updateValueJPY);
-      this.valueJPY = updateValueJPY;
-
-      this.trendKursCategories = trendKurs
-      this.trendKursData = trendKurs;
-      // console.log(responseCommodities);
-      // console.log(this.dataKurs);
-
-      let dataUSD;
-      let dataInterest;
-
-      // dataUSD = this.dataKurs.d.list.filter((item: any) => item.mata_uang === 'USD');
-
-      dataInterest = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
-
+          },
+          dataPointSelection(e, chart, config){
+            console.log(config.w.config.series[config.seriesIndex].data[config.dataPointIndex], config.w.config.series[config.seriesIndex].name);
+            console.log(chart);
+          }
+        }
+      }
       this.lineChartKursSeries = [];
       this.barChartKursSeries = [];
       this.chartSeries2 = [];
@@ -313,12 +295,37 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         position: 'right'
       }
 
+      this.stroke = {
+        curve: 'smooth',
+        width: 0.95,
+        lineCap : 'round'
+      }
+
+      const responseKurs = await this.marketUpdateService.fetchDataKursTrend()
+      this.dataKurs = responseKurs;
+      localStorage.setItem('compareData', JSON.stringify(this.dataKurs.d.arrayData))
+
+      const trendKurs = await this.marketUpdateService.fetchDataKursTrend();
+      this.allTrendDataKurs = trendKurs;
+      this.allTrendDataKurs = this.allTrendDataKurs.d.arrayData
+      this.valueJPY = trendKurs;
+      this.trendKursCategories = trendKurs
+      this.trendKursData = trendKurs;
+
       this.defaultKurs = this.trendKursData.d.arrayData.filter((item: any) => ['USD', 'EUR', 'GBP' ,'JPY'].includes(item.kurs));
 
+      this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
 
-      // const getJPY = this.dataKurs.data.filter((item: any) => ['JPY'].includes(item.mata_uang));
+      const updateValueJPY = this.valueJPY.map((item: any) => {
+        return item.data.map((value: any) => {
+          const val = value / 100;
+          const slice = val.toString().slice(0,6)
+          const toNumber = parseFloat(slice)
+          return toNumber
+        });
+      });
 
-      // console.log(this.defaultKurs);
+      this.valueJPY = updateValueJPY;
 
       for(let i=0; i < this.defaultKurs.length ; i++){
         const kurs = this.defaultKurs[i].kurs;
@@ -326,10 +333,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         if(kurs == 'JPY'){
           const jpyValue = this.defaultKurs[i].data
           const kursJPY = this.defaultKurs[i].kurs
-          // this.valueJPY = this.defaultKurs[i].kurs
-          // console.log(this.valueJPY);
-
-          // console.log('JPY', jpyValue, kursJPY);
 
           this.lineChartKursSeries.push({
             name: kursJPY,
@@ -345,10 +348,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           )
         }
       }
-
-      // console.log(this.lineChartKursSeries);
-
-
 
       for(let i=0; i< this.defaultKurs.length; i++){
         const kurs = this.defaultKurs[i].kurs
@@ -418,10 +417,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           labels: {
             style: {
               colors: ["#000"]
-            }
+            },
+            formatter : (value) => {return new Intl.NumberFormat().format(value)}
           },
           title: {
-            text: "Thousand",
             style: {
               color: "#000"
             }
@@ -430,8 +429,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             enabled: true
           }
             },)
-      }
-      else if(kurs === 'JPY'){
+      }else if(kurs === 'JPY'){
         // console.log(kurs);
 
         this.lineYAxisKurs.push({
@@ -454,10 +452,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             labels: {
               style: {
                 colors: ["##000"]
-              }
+              },
+              formatter : (value) => {return new Intl.NumberFormat().format(value)}
             },
             title: {
-              text: "Hundred",
               style: {
                 color: "##000"
               }
@@ -467,8 +465,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             }
           },
         )
-      }
-      else{
+      } else {
         // console.log(kurs);
         // console.log(minVal, maxVal);
 
@@ -496,104 +493,136 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           }
         })
       }
-    }
-
-    // console.log(this.lineYAxisKurs);
-
-
-    for(let i=0; i < this.trendKursDataBarChart.d.arrayData.length; i++){
-      const nameKurs = this.trendKursDataBarChart.d.arrayData[i].kode;
-      const value = this.trendKursDataBarChart.d.arrayData[i].data;
-
-      this.barChartKursSeries.push({
-        name: nameKurs,
-        data: value
-      })
-    }
-
-    for(let i=0; i < this.trendKursDataBarChart.d.arrayData.length; i++){
-
-      const kurs = this.trendKursDataBarChart.d.arrayData[i].kode
-
-      if(i < 1){
-
-        this.barYAxisKurs.push({
-          showAlways: true,
-          seriesName: kurs,
-          // min:-1,
-          // max:1,
-          axisTicks: {
-            show: true
-          },
-          axisBorder: {
-            show: true,
-            color: "#000"
-          },
-          labels: {
-            style: {
-              colors: ["#000"]
-            }
-          },
-          title: {
-            text: "Bar Chart",
-            style: {
-              color: "#000"
-            }
-          },
-          tooltip: {
-            enabled: true
-          }
-            },)
       }
-      else{
 
-        this.barYAxisKurs.push({
-          seriesName: "USD",
-          axisTicks: {
-            show: false,
-          },
-          axisBorder: {
-            show: false,
-          },
-          labels: {
-            show:false,
-          },
-          title: {
-            text: "",
-          },
-          tooltip: {
-            enabled: false
-          }
+      const trendWTIBRENTCommodities = await this.marketUpdateService.fetchDataCommoditiesWTIBRENTTrend();
+
+      const trendICPCommodities = await this.marketUpdateService.fetchDataCommoditiesICPTrend();
+
+      const trendCOALCommodities = await this.marketUpdateService.fetchDataCommoditiesCOALTrend();
+
+      const trendLNGCommodities = await this.marketUpdateService.fetchDataCommoditiesLNGTrend();
+
+      const trendBarChartKurs = await this.marketUpdateService.fetchDataKursTrendBarChart()
+
+      const trendInterestRate = await this.marketUpdateService.fetchDataInterestRateTrending();
+
+      // console.log("Data Trend Interest Rate : ", trendInterestRate);
+
+      this.trendKursDataBarChart = trendBarChartKurs;
+      this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
+      this.allTrendDataBarChart = trendBarChartKurs;
+      this.allTrendDataBarChart = this.allTrendDataBarChart.d.arrayData;
+      // this.trendKursDataBarChart = this.trendKursDataBarChart
+
+      this.allTrendWTIBRENT = trendWTIBRENTCommodities;
+      this.allTrendICP = trendICPCommodities;
+      this.allTrendCOAL= trendCOALCommodities;
+      this.allTrendLNG = trendLNGCommodities;
+
+      // console.log(this.trendKursDataBarChart);
+
+      this.allTrendDataInterestRate = trendInterestRate;
+      // console.log("All Interest Rate : ", this.allTrendDataInterestRate)
+      this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
+      // console.log("All Interest Rate2 : ", this.allTrendDataInterestRate)
+      this.trendInterestRateCategories = trendInterestRate;
+      this.trendInterestData = trendInterestRate;
+      this.filteredMinMaxInterestRateData = trendInterestRate;
+
+      for(let i=0; i < this.trendKursDataBarChart.length; i++){
+        const nameKurs = this.trendKursDataBarChart[i].kode;
+        const value = this.trendKursDataBarChart[i].data;
+
+        this.barChartKursSeries.push({
+          name: nameKurs,
+          data: value
         })
       }
-      // else{
 
-      //   this.barYAxisKurs.push({
-      //     seriesName: "USD",
-      //     axisTicks: {
-      //       show: false,
-      //     },
-      //     axisBorder: {
-      //       show: false,
-      //     },
-      //     labels: {
-      //       show:false,
-      //     },
-      //     title: {
-      //       text: "",
-      //     },
-      //     tooltip: {
-      //       enabled: false
-      //     }
-      //   })
-      // }
-    }
+      for(let i=0; i < this.trendKursDataBarChart.length; i++){
 
-    // console.log(this.barChartKursSeries);
+        const kurs = this.trendKursDataBarChart[i].kode
 
-    this.barChartDataLabel = {
-      enabled: true,
-    }
+        if(i < 1){
+
+          this.barYAxisKurs.push({
+            showAlways: true,
+            seriesName: kurs,
+            // min:-1,
+            // max:1,
+            axisTicks: {
+              show: true
+            },
+            axisBorder: {
+              show: true,
+              color: "#000"
+            },
+            labels: {
+              style: {
+                colors: ["#000"]
+              },
+            },
+            title: {
+              text: "Bar Chart",
+              style: {
+                color: "#000"
+              }
+            },
+            tooltip: {
+              enabled: true
+            }
+              },)
+        }
+        else{
+
+          this.barYAxisKurs.push({
+            seriesName: "USD",
+            axisTicks: {
+              show: false,
+            },
+            axisBorder: {
+              show: false,
+            },
+            labels: {
+              show:false,
+            },
+            title: {
+              text: "",
+            },
+            tooltip: {
+              enabled: false
+            }
+          })
+        }
+        // else{
+
+        //   this.barYAxisKurs.push({
+        //     seriesName: "USD",
+        //     axisTicks: {
+        //       show: false,
+        //     },
+        //     axisBorder: {
+        //       show: false,
+        //     },
+        //     labels: {
+        //       show:false,
+        //     },
+        //     title: {
+        //       text: "",
+        //     },
+        //     tooltip: {
+        //       enabled: false
+        //     }
+        //   })
+        // }
+      }
+
+      // console.log(this.barChartKursSeries);
+
+      this.barChartDataLabel = {
+        enabled: true,
+      }
 
       // console.log(this.lineChartKursSeries);
 
@@ -617,143 +646,174 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         // console.log(this.trendKursCategories.d.arrayTanggal);
         // console.log(this.trendKursCategories.d.arrayData);
 
-      this.stroke = {
-        curve: 'smooth',
-        width: 1.5
-      }
-
-      this.lineChartKursTooltip = {
-        // enabled: true,
-        // intersect: true,
-        // shared: false,
-      }
 
       this.lineChartKursMarkers = {
         // size: 2
       }
 
-      for(let i=0; i < this.trendKursDataBarChart.d.arrayTanggal.length; i++){
-        const date = this.trendKursDataBarChart.d.arrayTanggal[i]
+      for(let i=0; i < this.trendKursDataBarChart.length; i++){
+        const date = this.trendKursDataBarChart[i]
 
         this.barXAxisKurs.categories.push(date)
       }
 
       // console.log(this.lineChartKursSeries);
-      this.lineChartInterestRateSeries = [];
 
-      if(this.trendInterestData.d){
-        for(let i=0; i< this.trendInterestData.d.arrayData.length; i++){
 
-          const nameInterest = this.trendInterestData.d.arrayData[i].kode;
-          const dataInterest = this.trendInterestData.d.arrayData[i].data;
+      this.dataChartWtibrent = [];
+      this.xAxisWtiChartBrent = {
+        // categories: [],
+        type:'datetime',
+      }
 
-          // for(let j=0; j < )
+      if(this.allTrendWTIBRENT.d){
+        // for(let i=0; i < this.allTrendWTIBRENT.d.arrayData.length; i++){
+        //   const commoditiesName = this.allTrendWTIBRENT.d.arrayData[i].kode
+        //   const dataWTIBRENT = this.allTrendWTIBRENT.d.arrayData[i].data
 
-          this.lineChartInterestRateSeries.push({
-            name: nameInterest,
-            data: dataInterest
-          })
-        }
+        //   // console.log(dataWTIBRENT);
 
-        this.interestRateXaxis = {
-          categories: [
 
-          ],
-          type:'datetime',
-        }
+        //   this.dataChartWtibrent.push({
+        //     name: commoditiesName,
+        //     data: dataWTIBRENT
+        //   })
+        // }
 
-        for(let i=0; i<this.trendInterestRateCategories.d.arrayTanggal.length; i++){
-          const currentDate = this.trendInterestRateCategories.d.arrayTanggal[i];
-          this.interestRateXaxis.categories.push(currentDate)
-        }
+        this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData
 
-        // console.log(this.lineChartInterestRateSeries);
-        // console.log(this.interestRateXaxis);
+        // }
       }
       else{
         console.log('masuk else');
 
       }
 
-    this.dataChartWtibrent = [];
+      this.dataIcpChart = [];
+      if(this.allTrendICP.d){
+        // for(let i =0; i < this.allTrendICP.d.arrayData.length; i++){
+        //   const commoditiesName = this.allTrendICP.d.arrayData[i].kode
+        //   const dataICP = this.allTrendICP.d.arrayData[i].data
 
-    if(this.allTrendWTIBRENT.d){
-      for(let i=0; i < this.allTrendWTIBRENT.d.arrayData.length; i++){
-        const commoditiesName = this.allTrendWTIBRENT.d.arrayData[i].kode
-        const dataWTIBRENT = this.allTrendWTIBRENT.d.arrayData[i].data
+        //   // console.log(commoditiesName, dataICP);
 
-        // console.log(dataWTIBRENT);
+        //   this.dataIcpChart.push({
+        //     name: commoditiesName,
+        //     data: dataICP
+        //   })
+        // }
 
+        this.dataIcpChart = this.allTrendICP.d.arrayData
 
-        this.dataChartWtibrent.push({
-          name: commoditiesName,
-          data: dataWTIBRENT
-        })
+        this.xAxisIcpChart = {
+          // categories: [],
+          type: 'datetime',
+          // labels : {
+          //   format : 'MMM \'yy'
+          // }
+        }
+
+        // for(let i=0; i < this.allTrendICP.d.arrayTanggal.length; i++){
+        //   const date = this.allTrendICP.d.arrayTanggal[i]
+        //   this.xAxisIcpChart.categories.push(date)
+        // }
       }
 
-      this.xAxisWtiChartBrent = {
-        categories: [],
-        type:'datetime',
-      }
-      for(let i=0; i < this.allTrendWTIBRENT.d.arrayTanggal.length; i++){
-        const date = this.allTrendWTIBRENT.d.arrayTanggal[i]
-        this.xAxisWtiChartBrent.categories.push(date);
-      }
-    }
-    else{
-      console.log('masuk else');
+      this.dataChartCoal = [];
+      if(this.allTrendCOAL.d){
+        // for(let i=0; i < this.allTrendCOAL.d.arrayData.length; i++){
+        //   const commoditiesName = this.allTrendCOAL.d.arrayData[i].kode
+        //   const dataCOAL = this.allTrendCOAL.d.arrayData[i].data
 
-    }
+        //   // console.log(commoditiesName, dataCOAL);
 
-    this.dataIcpChart = [];
-    if(this.allTrendICP.d){
-      for(let i =0; i < this.allTrendICP.d.arrayData.length; i++){
-        const commoditiesName = this.allTrendICP.d.arrayData[i].kode
-        const dataICP = this.allTrendICP.d.arrayData[i].data
+        //   this.dataChartCoal.push({
+        //     name: commoditiesName,
+        //     data: dataCOAL
+        //   })
+        // }
 
-        // console.log(commoditiesName, dataICP);
+        this.dataChartCoal = this.allTrendCOAL.d.arrayData
 
-        this.dataIcpChart.push({
-          name: commoditiesName,
-          data: dataICP
-        })
-      }
 
-      this.xAxisIcpChart = {
-        categories: [],
-        type: 'datetime'
+        this.xAxisChartCoal = {
+          // categories: [],
+          type: 'datetime'
+        }
+
+        // for(let i=0; i< this.allTrendCOAL.d.arrayTanggal.length; i++){
+        //   const date = this.allTrendCOAL.d.arrayTanggal[i]
+        //   this.xAxisChartCoal.categories.push(date)
+        // }
       }
 
-      for(let i=0; i < this.allTrendICP.d.arrayTanggal.length; i++){
-        const date = this.allTrendICP.d.arrayTanggal[i]
-        this.xAxisIcpChart.categories.push(date)
-      }
-    }
-
-    this.dataChartCoal = [];
-    if(this.allTrendCOAL.d){
-      for(let i=0; i < this.allTrendCOAL.d.arrayData.length; i++){
-        const commoditiesName = this.allTrendCOAL.d.arrayData[i].kode
-        const dataCOAL = this.allTrendCOAL.d.arrayData[i].data
-
-        // console.log(commoditiesName, dataCOAL);
-
-        this.dataChartCoal.push({
-          name: commoditiesName,
-          data: dataCOAL
-        })
+      if(this.allTrendLNG){
+        this.dataChartLngLine = this.allTrendLNG.d.arrayData;
+        this.xAxisChartLineLng = {
+          type: 'datetime'
+        }
       }
 
-      this.xAxisChartCoal = {
-        categories: [],
-        type: 'datetime'
+      let tempArrInterestRate: any[] = []
+      this.lineChartInterestRateSeries = [];
+
+      // console.log(this.filteredMinMaxInterestRateData.d.arrayData.length)
+      for(let i=0; i<this.filteredMinMaxInterestRateData.d.arrayData.length; i++){
+        for(let j=0; j<this.filteredMinMaxInterestRateData.d.arrayData[i].data.length; j++){
+          tempArrInterestRate.push(this.filteredMinMaxInterestRateData.d.arrayData[i].data[j].y)
+        }
       }
 
-      for(let i=0; i< this.allTrendCOAL.d.arrayTanggal.length; i++){
-        const date = this.allTrendCOAL.d.arrayTanggal[i]
-        this.xAxisChartCoal.categories.push(date)
+      const formattedTempArr = tempArrInterestRate.map((item: any) => {
+        let toNumber = parseFloat(item)
+        return toNumber
+      })
+
+      tempArrInterestRate = formattedTempArr;
+      // console.log(tempArrInterestRate);
+
+      let interestMinVal = tempArrInterestRate[0]
+      let interestMaxVal = tempArrInterestRate[0]
+      for(let i=0; i<tempArrInterestRate.length; i++){
+        if(tempArrInterestRate[i] < interestMinVal){
+          interestMinVal = tempArrInterestRate[i]
+        }
+        else if(tempArrInterestRate[i] > interestMaxVal){
+          interestMaxVal = tempArrInterestRate[i]
+        }
       }
-    }
+
+
+      if(this.trendInterestData.d){
+        for(let i=0; i<this.trendInterestData.d.arrayData.length; i++){
+          const nameInterest = this.trendInterestData.d.arrayData[i].kode;
+          for(let j=0; j< this.trendInterestData.d.arrayData[i].data.length; j++){
+            this.trendInterestData.d.arrayData[i].data[j].y = parseFloat(this.trendInterestData.d.arrayData[i].data[j].y.slice(0,5))
+          }
+        }
+
+        // console.log(this.trendInterestData);
+        this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData;
+        this.interestRateXaxis = {
+          type:'datetime',
+        }
+
+      // console.log([interestMinVal, interestMaxVal]);
+
+        this.interestRateYAxis = {
+          min: parseFloat(interestMinVal) - 0.05,
+          max: parseFloat(interestMaxVal) + 0.05,
+          labels: {
+            formatter: function(val, index) {
+              return val.toLocaleString('id').slice(0,4)
+            }
+          }
+        }
+      }
+      else{
+        console.log('masuk else');
+
+      }
 
       this.tesLocalStorageKurs = localStorage.getItem('compareData');
       this.tesFilterKurs = localStorage.getItem('compareData');
@@ -764,10 +824,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       console.log(error);
     }
 
-    // console.log(this.lineYAxisKurs);
-    // console.log(this.currencyChartDetails);
-
   }
+
 
   ngAfterViewInit(): void {
 
@@ -912,10 +970,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           labels: {
             style: {
               colors: ["##000"]
-            }
+            },
+            formatter : (value) => {return new Intl.NumberFormat().format(value)}
           },
           title: {
-            text: "Hundred",
             style: {
               color: "##000"
             }
@@ -946,10 +1004,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             labels: {
               style: {
                 colors: ["#000"]
-              }
+              },
+              formatter : (value) => {return new Intl.NumberFormat().format(value)}
             },
             title: {
-              text: "Thousand",
               style: {
                 color: "#000"
               }
@@ -1006,10 +1064,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               labels: {
                 style: {
                   colors: ["#000"]
-                }
+                },
+                formatter : (value) => {return new Intl.NumberFormat().format(value)}
               },
               title: {
-                text: "Thousand",
                 style: {
                   color: "#000"
                 }
@@ -1137,7 +1195,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   filterInterestRateLineChart(event: any) {
 
-    console.log(this.allTrendDataInterestRate);
+    // console.log(this.allTrendDataInterestRate);
     let targetColumn: any[] = [];
     for(let i=0; i<event.target.length - 1; i++){
       if(event.target[i].checked){
@@ -1145,84 +1203,72 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       }
     }
 
-    console.log(targetColumn);
+    // console.log(targetColumn);
 
     const filteredData = this.allTrendDataInterestRate.filter(
-      (item: any) => targetColumn.includes(item.kode)
+      (item: any) => targetColumn.includes(item.name)
     )
 
-    console.log(filteredData);
+    // console.log(filteredData);
 
-    this.lineChartInterestRateSeries = []
-
+    let combinedArray: any[] = [];
     for(let i=0; i < filteredData.length; i++){
+      for(let j=0; j<filteredData[i].data.length; j++){
+        combinedArray.push(parseFloat(filteredData[i].data[j].y.slice(0,4)))
+      }
+    }
 
-      const interestRateName = filteredData[i].kode
-      const dataInterestRate = filteredData[i].data
+    // console.log(combinedArray);
 
-      this.lineChartInterestRateSeries.push({
-        name: interestRateName,
-        data: dataInterestRate
-      })
+    let minValInterest = combinedArray[0];
+    let maxValInterest = combinedArray[0];
+
+    for(let i=0; i<combinedArray.length; i++){
+      if(combinedArray[i] < minValInterest){
+        minValInterest = combinedArray[i]
+      }
+      else if(combinedArray[i] > maxValInterest){
+        maxValInterest = combinedArray[i]
+      }
+      // console.log([minValInterest, maxValInterest]);
+    }
+    // console.log([minValInterest, maxValInterest]);
+
+    this.lineChartInterestRateSeries = filteredData
+    this.interestRateYAxis = {
+      min: minValInterest - 0.05,
+      max: maxValInterest + 0.05
     }
   }
 
+  // currencyChartDetails: ApexChart = {
+  //   type: 'line',
+  //   height: 400,
 
-  // chartSeries2: ApexAxisChartSeries = [
-  //   {
-  //     name: "Net Profit",
-  //     data: [111, -55, -57]
+  //   toolbar: {
+  //     show: true,
+  //     tools: {
+  //       download: true,
+  //       selection: true,
+  //       zoom: true,
+  //       zoomin: true,
+  //       zoomout: true,
+  //       pan: true,
+  //       reset: true,
+  //     }
   //   },
-  //   {
-  //     name: "Revenue",
-  //     data: [76, -85, -101]
-  //   },
-  //   {
-  //     name: "Free Cash Flow",
-  //     data: [35, -41, -36]
+  //   events:{
+  //     legendClick(chart, seriesIndex, options) {
+  //         console.log(options.config);
+
+
+  //     },
+  //     dataPointSelection(e, chart, config){
+  //       console.log(config.w.config.series[config.seriesIndex].data[config.dataPointIndex], config.w.config.series[config.seriesIndex].name);
+  //       console.log(chart);
+  //     }
   //   }
-  // ];
-
-  currencyChartDetails: ApexChart = {
-    type: 'line',
-    height: 400,
-    // width:,
-    toolbar: {
-      show: true,
-      tools: {
-        download: true,
-        selection: true,
-        zoom: true,
-        zoomin: true,
-        zoomout: true,
-        pan: true,
-        reset: true,
-      }
-    },
-    events:{
-      legendClick(chart, seriesIndex, options) {
-          console.log(options.config);
-          // console.log(options.series.length);
-          // console.log(firstData);
-
-          // for(let i=0; i<options.config.series.length; i++){
-          //   if(seriesIndex === i){
-          //     const change = options.config.yaxis[i].showAlways === true
-          //     console.log('same', change, options.config.series[i].name, seriesIndex);
-          //   }
-          //   else{
-          //     options.config.yaxis[i].showAlways === false
-          //     console.log('not same', options.config.yaxis[i].showAlways, options.config.series[i].name, seriesIndex);
-          //   }
-          // }
-
-      },
-      dataPointSelection(e, chart, config){
-        console.log(config.w.config.series[config.seriesIndex].data[config.dataPointIndex], config.w.config.series[config.seriesIndex].name);
-        console.log(chart);
-      }
-    }
-  }
+  // }
 
   //Wti Brent
   wtiBrentLineChart:ApexChart={
@@ -1258,8 +1304,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     }
   }
   wtiBrentChartColors:any=[
-    '#2EB0C2',
-    '#256979'
+    '#2E75F0',
+    '#5304FC'
   ]
 
   yAxisWtiBrentChart:ApexYAxis={
@@ -1276,7 +1322,13 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   // ICP //
   icpStroke:ApexStroke ={
     curve:'smooth',
-    width:1
+    width:0.95
+  }
+
+  intersetRateLineStroke : ApexStroke ={
+    curve:'smooth',
+    width : 0.95,
+    lineCap : 'round'
   }
   yAxisIcp:ApexYAxis={
     show: true,
@@ -1379,23 +1431,8 @@ coalStroke:ApexStroke ={
   }
   yAxisLng:ApexYAxis={
     show: true,
-      tickAmount: 6,
-      min: 20,
-      max: 140.00,
+      tickAmount: 6
   }
-  xAxisLngChart:ApexXAxis ={
-    categories: [
-      ["2021"],
-      ["2022"],
-      ["2023"],
-      ["2024"],
-    ]
-  }
-  dataLngChart:ApexAxisChartSeries =[
-    {
-      data: [56, 30, 130, 120]
-    }
-  ]
   lngChartColors:any=[
     '#2EB0C2',
     '#256979'

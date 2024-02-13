@@ -311,6 +311,8 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       const responseBondYield = await this.marketUpdateService.fetchDataBondYield();
 
       this.dataKurs = responseKurs;
+      console.log(this.dataKurs);
+
       this.dataKurs = this.dataKurs.d.list.filter((item: any) => !item.kode.includes('Label'));
 
       this.getLabelDate = responseKurs
@@ -340,6 +342,8 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
       const responsePMI = await this.marketUpdateService.fetchDataPMI();
       const responseRetail = await this.marketUpdateService.fetchDataRetail();
+      // console.log(responseRetail);
+
       const responseMoneySupply = await this.marketUpdateService.fetchDataMoneySupply();
       const responseDevisa = await this.marketUpdateService.fetchDataDevisa();
 

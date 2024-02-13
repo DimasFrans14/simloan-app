@@ -21,6 +21,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   @ViewChild('keyTakeways') keyTakeways!: ElementRef;
   @ViewChild('footnote') footnote!: ElementRef;
+  @ViewChild('Mention') Mention!: ElementRef;
   @ViewChild('screen', { static: true }) screen!: ElementRef;
 
   constructor(private quillConfig: QuillServicesService,
@@ -34,12 +35,16 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   public quillTakeways!: Quill;
   public quillFootnote!: Quill;
+  public mentionQuill!: Quill;
 
   openModal: boolean = false;
   openModalFootnote1: boolean = false;
 
-  selectedItems!: number;
+  selectedItems!: string;
   selectedKurs!: string;
+  selectedItemsMacro!: string;
+
+  sanitize = this.sanitizer;
 
   PPTFile = new PptxGenJS()
   img = '';
@@ -238,20 +243,52 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   dataCommodities: any;
   listEditCommodities: any;
 
+  dataMacroIndicator: any;
+  listEditMacroIndicator: any;
+
   dataCurrency: any;
   listEditCurrency: any;
 
   formatTanggal: any;
   changeIcon: boolean = false;
 
-  getValueRow(event: any){
+  getKeyTakeways!: any;
+
+  getValueMacroIndicator(event: any){
+    console.log(event);
+    console.log(this.listEditMacroIndicator);
+
+    // const listedDataCommodities = this.dataCommodities.includes(event)
+
+    const updatedData = this.dataMacroIndicator.filter((item: any) => item.kode !== event)
+
+    const getRow = this.listEditMacroIndicator.filter((item: any) => item.kode == event)
+
+    const checkData = this.dataMacroIndicator.includes(getRow[0])
+
+    this.dataMacroIndicator = updatedData;
+
+    console.log(checkData);
+
+    if(checkData){
+      console.log('clear data');
+      this.changeIcon = true;
+    }
+    else{
+      this.dataMacroIndicator.push(getRow[0]);
+    }
+
+    console.log(this.dataMacroIndicator, updatedData, getRow);
+  }
+
+  getValueRowCommodities(event: any){
     console.log(event);
 
     // const listedDataCommodities = this.dataCommodities.includes(event)
 
-    const updatedData = this.dataCommodities.filter((item: any) => item.index_rows !== event)
+    const updatedData = this.dataCommodities.filter((item: any) => item.kode_item !== event)
 
-    const getRow = this.listEditCommodities.filter((item: any) => item.index_rows == event)
+    const getRow = this.listEditCommodities.filter((item: any) => item.kode_item == event)
     const checkData = this.dataCommodities.includes(getRow[0])
 
     this.dataCommodities = updatedData;
@@ -371,35 +408,48 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   async ngOnInit(): Promise<void> {
     try {
-      const responseData = await this.marketUpdateService.fetchDataInterestRateRKAP();
-      console.log(responseData);
+      const responseMacroIndicator = await this.marketUpdateService.fetchDataMacroIndicatorOverview();
 
-      this.dataRKAP = responseData;
-      const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
-      this.dataInterestRate = filteredDataInterestRate
+      this.dataMacroIndicator = responseMacroIndicator;
+      this.dataMacroIndicator = this.dataMacroIndicator.d;
+      this.listEditMacroIndicator = this.dataMacroIndicator;
+      console.log(this.dataMacroIndicator);
+
+      // const responseData = await this.marketUpdateService.fetchDataInterestRateRKAP();
+      // console.log(responseData);
+
+      // this.dataRKAP = responseData;
+      // const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
+      // this.dataInterestRate = filteredDataInterestRate
       console.log(this.dataInterestRate);
 
       const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview();
-      const currenciesOverview = await this.marketUpdateService.fetchDataKurs()
+      const currenciesOverview = await this.marketUpdateService.fetchDataKursOverview()
 
       console.log(commoditiesOverview, currenciesOverview);
       this.dataCommodities = commoditiesOverview;
-      this.listEditCommodities = commoditiesOverview;
-      this.listEditCommodities = this.listEditCommodities.data.filter((item: any) => item.tanggal == '01/11/2022');
+      this.dataCommodities = this.dataCommodities.d;
+      this.listEditCommodities = this.dataCommodities;
+      this.listEditCommodities = this.listEditCommodities.filter((item: any) => item.periode == '04/12/2023');
       console.log(this.listEditCommodities);
 
 
-      this.dataCommodities = this.dataCommodities.data.filter((item: any) => item.tanggal == '01/11/2022').slice(0, 3);
+      this.dataCommodities = this.dataCommodities.slice(0, 3);
 
       console.log(this.dataCommodities);
 
       // const filteredDataCurrency = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
       this.dataCurrency = currenciesOverview;
       // this.dataCurrency = this.dataCurrency.data.slice(0,3);
-      this.dataCurrency = this.dataCurrency.d.list.slice(0,3);
+      this.dataCurrency = this.dataCurrency.d.slice(0,3);
       this.listEditCurrency = currenciesOverview;
-      this.listEditCurrency = this.listEditCurrency.d.list.filter((item: any) => !['Label'].includes(item.kode));
+      this.listEditCurrency = this.listEditCurrency.d;
+      // this.listEditCurrency = this.listEditCurrency.d.list.filter((item: any) => !['Label'].includes(item.kode));
       // console.log(this.dataCurrency, this.listEditCurrency) ;
+
+      const getKeyTakeways = await this.quillConfig.getKeyTakeways()
+      console.log(getKeyTakeways);
+      this.getKeyTakeways = getKeyTakeways
     }
     catch(err){
       console.log(err);
@@ -409,20 +459,22 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   ngAfterViewInit() {
       const elementKeyTakeways = this.keyTakeways.nativeElement;
       const elementFootnote = this.footnote.nativeElement;
+      const elementMention = this.Mention.nativeElement;
 
       this.quillTakeways = this.quillConfig.initializeQuillKeyTakeways(elementKeyTakeways);
       this.quillFootnote = this.quillConfig.initializeQuillFootnote(elementFootnote);
+      this.mentionQuill = this.quillConfig.initializeQuillMention(elementMention)
 
-      if(this.excelMacroIndicator != undefined){
-        for(let i=0;i<this.excelMacroIndicator.length; i++){
-          for(let j=0; j<this.excelMacroIndicator[i].length; j++){
-            console.log(this.excelMacroIndicator[i][j]);
-          }
-        }
-      }
-      else{
-        console.log('no excel data');
-      }
+      // if(this.excelMacroIndicator != undefined){
+      //   for(let i=0;i<this.excelMacroIndicator.length; i++){
+      //     for(let j=0; j<this.excelMacroIndicator[i].length; j++){
+      //       console.log(this.excelMacroIndicator[i][j]);
+      //     }
+      //   }
+      // }
+      // else{
+      //   console.log('no excel data');
+      // }
 
   }
 
@@ -430,7 +482,13 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   quillInnerHTML: any;
   transformYourHtml(htmlTextWithStyle: any) {
     const innerHTML = this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
-    this.quillInnerHTML = innerHTML
+    this.quillInnerHTML = innerHTML;
+    const data = {
+      label: this.quillInnerHTML.changingThisBreaksApplicationSecurity,
+      user_created: 'user',
+      dashboard_date: '12/02/2024'
+    }
+    this.quillConfig.sendKeyTakeways(data)
   }
 
   getValueKeyTakeaways() {
@@ -441,10 +499,15 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   }
 
   quillContentFootnote!: any;
-  quillInnerHTMLFootnote: any;
+  quillInnerHTMLFootnote: any[] = [];
   transformYourHtmlFootnote(htmlTextWithStyle: any) {
     const innerHTML = this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
-    this.quillInnerHTMLFootnote = innerHTML
+    console.log(innerHTML);
+
+    this.quillInnerHTMLFootnote.push({
+      val : this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle)
+    })
+    console.log(this.quillInnerHTMLFootnote);
   }
 
   getValueFootnote(){
@@ -452,6 +515,30 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     this.quillContentFootnote = value;
     console.log(value);
     this.transformYourHtmlFootnote(this.quillContentFootnote)
+
+    // this.quillContentFootnote.root.innerHTML = '';
+    this.quillFootnote.deleteText(0,this.quillFootnote.getLength())
+    console.log(this.quillFootnote.getLength());
+
+    // if(this.quillFootnote.getLength() < 0){
+    //   this.quillFootnote.insertText(this.quillFootnote.getLength() + 1, value)
+    // }
+    // else{
+
+    // }
+  }
+
+  mentionInnerHTML: any = '';
+
+  getValueMention(){
+    const arrData = this.mentionQuill.getContents();
+    const value2 = this.mentionQuill.getText();
+    const innerHTML = this.mentionQuill.root.innerHTML;
+    this.mentionInnerHTML = innerHTML
+    console.log(innerHTML);
+
+    this.quillConfig.sendFootnote(arrData, innerHTML)
+
   }
 
   onChangeKeyTakeaways(){

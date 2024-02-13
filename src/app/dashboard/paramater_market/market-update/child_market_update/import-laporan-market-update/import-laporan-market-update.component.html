@@ -23,17 +23,6 @@
           </div>
           <div>
             <div class="mb-3">
-              <label for="uploadFile" class="fw-bold mb-1">Pilih Parameter Market Update</label>
-              <ng-select
-                [items]="masterCategoryParams"
-                bindLabel="deskripsi"
-                bindValue="id_ctg_rs_psr"
-                [(ngModel)]="parameterItems"
-                placeholder="Pilih Parameter Market Update"
-                (change)="paramsSelect($event)">
-              </ng-select>
-            </div>
-            <div class="mb-3">
               <label for="uploadFile" class="fw-bold mb-1">Pilih Indikator Market Update</label>
               <ng-select
                 [items]="subParameterSelect"
@@ -42,38 +31,35 @@
                 [(ngModel)]="subParameterItems"
                 placeholder="Pilih Indikator Market Update"
                 (change)="indikatorSelect($event)"
-                [disabled]="disableIndikator">
                 >
               </ng-select>
             </div>
-            <div class="mb-3">
-              <label for="uploadFile" class="fw-bold mb-1">Pilih Indikator Market Update</label>
+            <div class="mb-3" [style.display]="indikatorName !== 'RKAP' ? 'block' : 'none'">
+              <label for="uploadFile" class="fw-bold mb-1">Pilih Parameter Market Update</label>
+              <ng-select
+                [items]="masterCategoryParams"
+                bindLabel="deskripsi"
+                bindValue="id_ctg_rs_psr"
+                [(ngModel)]="parameterItems"
+                placeholder="Pilih Parameter Market Update"
+                (change)="paramsSelect($event)"
+                >
+              </ng-select>
+            </div>
+            <div class="mb-3" [style.display]="indikatorName !== 'RKAP' ? 'block' : 'none'">
+              <label for="uploadFile" class="fw-bold mb-1">Pilih Sub Indikator Market Update</label>
               <ng-select
                 [items]="selectedSubCategoryParams"
                 bindLabel="deskripsi"
                 bindValue="id_sub_ctgrspsr"
                 [(ngModel)]="dataParameterItems"
                 placeholder="Pilih Indikator Market Update"
-                [disabled]="disableIndikator"
                 (change)="getValueParams($event)"
                 >
                 >
               </ng-select>
             </div>
-
-            <!-- <div class="mb-3" [style.display]="marketUpdateID === 5 ? 'block' : 'none'">
-              <label for="uploadFile" class="fw-bold mb-1">Pilih Indikator Market Update</label>
-              <ng-select
-                [items]="macroIndicatorParams"
-                bindLabel="name"
-                bindValue="id"
-                [(ngModel)]="macroIndicatorItems"
-                placeholder="Pilih Indikator Market Update"
-                (change)="getValueParams($event)"
-                >
-              </ng-select>
-            </div> -->
-            <div class="mb-3" [style.display]="marketUpdateID !== undefined ? 'block' : 'none'">
+            <div class="mb-3">
               <ngx-dropzone (change)="onSelect($event)">
                 <ngx-dropzone-label>
                     <img src="./assets/icon/upload-cloud-02.svg" alt="">
@@ -93,7 +79,6 @@
           </div>
         </div>
       </div>
-    <!-- </div> -->
   </main>
 
   <!-- <app-footer></app-footer> -->

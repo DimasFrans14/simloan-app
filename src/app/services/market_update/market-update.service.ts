@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 
@@ -17,6 +17,17 @@ export class MarketUpdateService {
   localDev: string = 'http://10.1.18.47:9051'
   serverDev: string = 'http://10.1.18.47:8080'
 
+  async fetchDataMacroIndicatorOverview(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/overview/getMakroIndikator?date=11/07/2023`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
   async fetchDataKurs(){
     try {
       return await lastValueFrom(
@@ -28,10 +39,21 @@ export class MarketUpdateService {
     }
   }
 
+  async fetchDataKursOverview(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/overview/getCurrencies?date=04/12/2023`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
   async fetchDataKursTrend(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/kurs/getLineChart?start_date=01/01/2024&end_date=02/02/2024`)
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/kurs/getLineChart?start_date=02/02/2023&end_date=02/02/2024`)
       );
     } catch (error) {
       console.log(error);
@@ -64,7 +86,8 @@ export class MarketUpdateService {
   async fetchDataInterestRateTrending(){
     try {
       return await lastValueFrom(
-        this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/interest/getLineChart?start_date=01/01/2023&end_date=31/01/2023')
+        // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/interest/getLineChart?start_date=01/01/2022&end_date=31/03/2024')
+        this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/interest/getLineChart?start_date=11/11/2023&end_date=11/02/2024')
       )
     } catch (error) {
       console.log(error);
@@ -106,9 +129,10 @@ export class MarketUpdateService {
   }
 
   async fetchDataCommoditiesOverview(){
+
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/trx-overview/view_overcommodities
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/overview/getCommodities?date=04/12/2023
         `)
       )
     } catch (error) {
@@ -121,12 +145,13 @@ export class MarketUpdateService {
     const option = {
       params: {
         "kategori": "['WTI', 'BRENT']",
-        "start_date": "01/01/2023",
-        "end_date": "31/01/2023"
+        "start_date": "11/11/2023",
+        "end_date": "11/02/2024"
       }
     }
     try {
       return await lastValueFrom(
+        // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
         this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
       )
     } catch (error) {
@@ -139,13 +164,14 @@ export class MarketUpdateService {
     const option = {
       params: {
         "kategori": "['ICP']",
-        "start_date": "01/01/2023",
-        "end_date": "31/01/2023"
+        "start_date": "11/01/2020",
+        "end_date": "11/02/2024"
       }
     }
     try {
       return await lastValueFrom(
         this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
+        // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
       )
     } catch (error) {
       console.log(error);
@@ -157,12 +183,32 @@ export class MarketUpdateService {
     const option = {
       params: {
         "kategori": "['COAL']",
-        "start_date": "01/01/2023",
-        "end_date": "31/01/2023"
+        "start_date": "11/11/2023",
+        "end_date": "11/02/2024"
       }
     }
     try {
       return await lastValueFrom(
+        // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
+        this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
+  async fetchDataCommoditiesLNGTrend(){
+    const option = {
+      params: {
+        "kategori": "['LNG']",
+        "start_date": "11/11/2023",
+        "end_date": "11/02/2024"
+      }
+    }
+    try {
+      return await lastValueFrom(
+        // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
         this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
       )
     } catch (error) {
@@ -219,6 +265,17 @@ export class MarketUpdateService {
     try {
       return await lastValueFrom(
         this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_inflasi`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async getDataInflasiByParams(params: string){
+    try {
+      return await lastValueFrom(
+        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_inflasi?bulan=${params}`)
       );
     } catch (error) {
       console.log(error);
@@ -326,20 +383,177 @@ export class MarketUpdateService {
     }
   }
 
-  importLaporanMarketUpdateCommodities = async (file: any, params: string) => {
+  importLaporanRKAP = async (params: string, file: File) => {
+    const form = new FormData();
+    form.append('name', file, file.name);
+
     try {
-      const headers = { 'content-type': 'application/json'}
-      // const body = JSON.stringify(file);
-      console.log(params);
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload/commodities?globalRealisasiCommoditiesEnum=${params}
-        `, file, {'headers':headers})
+        this.http.post(
+          'http://10.1.18.47:9051/simloan/ws-v01/dashboard/rkap/upload_dash_rkap', form
+        )
       )
     } catch (error) {
       console.log(error);
       return null
     }
-    // console.log(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload/commodities?globalRealisasiCommoditiesEnum=${params}`);
+  }
+
+  importLaporanMarketUpdateCurrencyRateuUSD = async (params: string, file: File) => {
+    // const headers = { 'content-type': 'multipart/form-data'}
+    const form = new FormData();
+    form.append('name', file, file.name)
+
+    try {
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/master-jisdors/upload/currency_rate?globalCurrencyRateEnum=${JSON.parse(params)}`, form)
+      )
+    } catch (error) {
+      return null
+    }
+  }
+
+  importLaporanMarketUpdateCurrencyRateNONUSD = async (params: string, file: File) => {
+    // const headers = { 'content-type': 'multipart/form-data'}
+    const form = new FormData();
+    form.append('name', file, file.name)
+
+    try {
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/master-jisdors/upload/currency_rate?globalCurrencyRateEnum=${JSON.parse(params)}`, form)
+      )
+    } catch (error) {
+      return null
+    }
+  }
+
+  importLaporanMarketUpdateInterestRate = async (params: string, file: File) => {
+    // const headers = { 'content-type': 'multipart/form-data'}
+    const form = new FormData();
+    form.append('name', file, file.name)
+
+    try {
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload?globalDashboardRealisasiEnum=${JSON.parse(params)}`, form)
+      )
+    } catch (error) {
+      return null
+    }
+  }
+
+  importLaporanMarketUpdateCommodities = async (file: File, params: string) => {
+    const form = new FormData()
+    form.append('name', file, file.name);
+    try {
+      // const headers = { 'content-type': 'application/json'}
+      // const body = JSON.stringify(file);
+      console.log(params);
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload/commodities?globalRealisasiCommoditiesEnum=${params}
+        `, form)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
+  importLaporanMarketUpdateBondYield = async (file: File, params: string) => {
+    const form = new FormData()
+    form.append('name', file, file.name);
+    try {
+      // const headers = { 'content-type': 'application/json'}
+      // const body = JSON.stringify(file);
+      console.log(params);
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload/rby?globalRealisasiBondYieldEnum=${params}
+        `, form)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
+  importLaporanMacroIndicator = async (params: string, data: any) => {
+    const headers = { 'content-type': 'application/json'}
+    const body = JSON.stringify(data)
+    try {
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/macro/create?globalDashRealMacroIndicatorEnum=${JSON.parse(params)}`, body, {'headers': headers})
+      )
+    } catch (error) {
+      return null
+    }
+    // console.log(body, `http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/macro/create?globalDashRealMacroIndicatorEnum=${params}`);
+  }
+
+  importLaporanMarketUpdateInterestOutlook = async (file: File, params: string) => {
+    const form = new FormData()
+    form.append('name', file, file.name);
+    try {
+      // const headers = { 'content-type': 'application/json'}
+      // const body = JSON.stringify(file);
+      console.log(params);
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/non-macro/upload?globalDashboardRealisasiEnum=${JSON.parse(params)}
+        `, form)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
+  importLaporanMarketUpdateCommoditiesOutlook = async (file: File, params: string) => {
+    const form = new FormData()
+    form.append('name', file, file.name);
+    try {
+      // const headers = { 'content-type': 'application/json'}
+      // const body = JSON.stringify(file);
+      console.log(params);
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/non-macro/upload_cmdities?globalRealisasiCommoditiesEnum=${params}
+        `, form)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
+  importLaporanMarketUpdateBondYieldOutlook = async (file: File, params: string) => {
+    const form = new FormData()
+    form.append('name', file, file.name);
+    try {
+      // const headers = { 'content-type': 'application/json'}
+      // const body = JSON.stringify(file);
+      console.log(params);
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/non-macro/upload_oby?globalRealisasiBondYieldEnum=${params}
+        `, form)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
+  importLaporanMarketUpdateMacroOutlook = async (file: File, params: string) => {
+    const form = new FormData()
+    form.append('file', file, file.name);
+    try {
+      // const headers = { 'content-type': 'application/json'}
+      // const body = JSON.stringify(file);
+      console.log(params);
+      return await lastValueFrom(
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/macro/all_macro?globalDashOutlookMacroIndicatorEnum=${params}
+        `, form)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
   }
 
   async fetchDataRealisasiCadev(){
