@@ -1,5 +1,5 @@
 import { Injectable, AfterViewInit } from '@angular/core';
-import { TabulatorFull as Tabulator } from 'tabulator-tables';
+import { CellComponent, TabulatorFull as Tabulator } from 'tabulator-tables';
 import { MarketUpdateService } from '../market_update/market-update.service';
 
 @Injectable({
@@ -116,14 +116,14 @@ export class TableServicesService {
   dataDetailRKAP: any;
   dataDetailOutlook: any;
 
-  getDetailData(dataDetail: any[], dataRealisasiDetail: any[], dataRKAPDetail : any[], dataOutlookDetail: any[]){
+  getDetailData(dataDetail: any[], dataRealisasiDetail: any[], _dataRKAPDetail : any[], _dataOutlookDetail: any[]){
     // console.log(dataDetail, dataRealisasiDetail);
 
     this.dataDetail = dataDetail;
     this.dataDetailRealisasi = dataRealisasiDetail
   }
 
-  customBottomCalc(values: any, data: any, calcParams: any) {
+  customBottomCalc(_values: any, _data: any, _calcParams: any) {
     return "Total";
 }
 
@@ -423,7 +423,7 @@ export class TableServicesService {
       height: "555px",
       data:this.dataPDB,
       layout:"fitDataTable",
-      columnMoved:function(column, columns){
+      columnMoved:function(column, _columns){
         alert("The user has moved column: " + column.getField()); //display the columns field name
     },
       columns:[
@@ -533,8 +533,14 @@ export class TableServicesService {
   }
 
   initializeTableDataUsTreasury(){
-    const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-warning'>Edit</span>";
+    }
+    const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Save</span>";
+    }
+    const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-secondary'>Cancel</span>";
     }
 
     this.tableBondYieldUST = new Tabulator(".table-bondYieldUST", {
@@ -556,7 +562,7 @@ export class TableServicesService {
       {title:"Yield Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       {title:"Yield Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       {title:"Yield Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        ],
+    ],
     });
     this.tableDataRealisasi = [
       {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
@@ -576,19 +582,14 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input"},
+        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input"},
+        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input"},
+        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton", formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
     });
 
     this.tableDataRKAP = [
@@ -608,118 +609,107 @@ export class TableServicesService {
         layout:"fitColumns",
         columns:[
           {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-          {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-          {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-          {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-          {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-          {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-            const rowData = cell.getRow().getData();
-            const rowId = rowData.id;
-            console.log('RKAP_ID: ', rowId);
-            // Update the row data
-            rowData.name = 'New Name';
-            cell.getRow().update(rowData);
-          }
-        }],
+          {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input",},
+          {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input",},
+          {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input",},
+          {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input",},
+          {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+          {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
       });
 
-      this.tableDataOutlook = [
-        {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-        {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-        {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-        {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-        {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-        {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-        {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-        {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-        {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-        ];
-        this.tableOutlook = new Tabulator(".table-Outlook", {
-          // height:205,
-          data:this.tableDataOutlook,
-          layout:"fitColumns",
-          columns:[
-            {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-            {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-            {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-            {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-            {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-            {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-              const rowData = cell.getRow().getData();
-              const rowId = rowData.id;
-              console.log('RKAP_ID: ', rowId);
-              // Update the row data
-              rowData.name = 'New Name';
-              cell.getRow().update(rowData);
-            }
-          }],
-        })
+    this.tableDataOutlook = [
+      {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
+      ];
+    this.tableOutlook = new Tabulator(".table-Outlook", {
+      // height:205,
+      data:this.tableDataOutlook,
+      layout:"fitColumns",
+      columns:[
+        {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input",},
+        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input",},
+        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input",},
+        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input",},
+        {title:"", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
+    })
   }
 
   initializeTableDataPDB(){
-    const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-warning'>Edit</span>";
+    }
+    const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Save</span>";
+    }
+    const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-secondary'>Cancel</span>";
+    }
+    const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-danger'>Delete</span>";
     }
     // detail
     this.tablePDB = new Tabulator(".table-DetailPdb", {
       height: "350px",
       data:this.dataPDB,
-      layout:"fitDataTable",
-      columnMoved:function(column, columns){
+      layout:"fitColumns",
+      columnMoved:function(column, _columns){
         alert("The user has moved column: " + column.getField()); //display the columns field name
     },
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true,  minWidth: 200, bottomCalc: this.customBottomCalc},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false,  minWidth: 100},
-        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false,  minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}}
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, bottomCalc: this.customBottomCalc},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, bottomCalc:"sum", bottomCalcParams:{precision:1}}
       ],
     });
     //realisasi
     this.tableRealisasiPdb = new Tabulator(".table-realisasiPdb", {
       height:"350px",
       data:this.dataPDB,
-      layout:"fitDataTable",
-      columnMoved:function(column, columns){
+      layout:"fitColumns",
+      columnMoved:function(column, _columns){
         alert("The user has moved column: " + column.getField()); //display the columns field name
     },
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 200, bottomCalc: this.customBottomCalc},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 100, bottomCalc: this.customBottomCalc},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
-        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input", minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
     });
     //Rkap
     this.tableDataRkapPdb = [
-      {periode:"Q1", tahun:"2022", pdb:"5.06"},
-      {periode:"Q2", tahun:"2022", pdb:"5.06"},
-      {periode:"Q3", tahun:"2022", pdb:"5.06"},
-      {periode:"Q4", tahun:"2022", pdb:"5.06"},
+      {id:"1", quartal:"Q1", tahun:"2022", nilai:"5.06"},
+      {id:"2", quartal:"Q2", tahun:"2022", nilai:"5.06"},
+      {id:"3", quartal:"Q3", tahun:"2022", nilai:"5.06"},
+      {id:"4", quartal:"Q4", tahun:"2022", nilai:"5.06"},
     ]
     this.tableRkapPdb = new Tabulator(".table-rkapPdb", {
       // height:205,
       data:this.tableDataRkapPdb,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"periode", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-        {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left',editor: "input",headerSort:false,},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center',editor: "input", headerSort:false},
+        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
     });
     this.tableDataOutlookPdb = [
       {periode:"Q1", tahun:"2022", pdb:"4.06"},
@@ -733,24 +723,36 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"periode", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-        {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center',editable:isRowSelected, editor:"input", headerSort:false},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false}, 
+      //   {title:"Edit",field:"edit",formatter:editBtn, cellClick: (_e, cell) => {
+      //     const rowData = cell.getRow().getData();
+      //     const rowId = rowData.id;
+      //     console.log('Outlook_ID: ', rowId);
+      //     // Update the row data
+      //     rowData.name = 'New Name';
+      //     cell.getRow().update(rowData);
+      //   }
+      // }
+    ],
     });
   }
 
   initializeTableDataInflasi(){
-    const editBtn = function(cell: any){
-      return `<button class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>
-      `;
+    const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-warning'>Edit</span>";
+    }
+    const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Save</span>";
+    }
+    const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-secondary'>Cancel</span>";
+    }
+    const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-danger'>Delete</span>";
     }
     this.tableInflasi = new Tabulator(".table-detailInflasi", {
       // height:205,
@@ -778,23 +780,14 @@ export class TableServicesService {
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false,  bottomCalc:"sum", bottomCalcParams:{precision:1},maxWidth:100},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.bulan;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          const getData = this.marketUpdateService.getDataInflasiByParams(rowId);
-
-          console.log(getData);
-
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", editable:isRowSelected,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", editable:isRowSelected,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", editable:isRowSelected,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", editable:isRowSelected,  bottomCalc:"sum", bottomCalcParams:{precision:1},maxWidth:100},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+      ],
     });
     this.tableDataRkapInflasi = [
       {bulan:"Januari", nilai:"1.59"},
@@ -811,19 +804,14 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
     });
     this.tableDataOutlookInflasi = [
       {bulan:"Januari", nilai:"2.59"},
@@ -840,25 +828,26 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center',editable:isRowSelected, editor:"input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center',editable:isRowSelected, editor:"input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center',editable:isRowSelected, editor:"input"},
+        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center',editable:isRowSelected, editor:"input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+      ],
     });
   }
 
   initializeTableDataPMI(){
-    const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-warning'>Edit</span>";
+    }
+    const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Save</span>";
+    }
+    const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-secondary'>Cancel</span>";
     }
     this.tableDetailPmi = new Tabulator(".table-detailPmi", {
       // height:205,
@@ -889,15 +878,10 @@ export class TableServicesService {
         {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
     });
     this.tableDataRkapPmi = [
       {bulan:"Januari", nilai:"1.59"},
@@ -914,18 +898,13 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
     });
     this.tableDataOutlookPmi = [
       {bulan:"Januari", nilai:"2.59"},
@@ -942,24 +921,25 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false,editable:isRowSelected, editor:"input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false,editable:isRowSelected, editor:"input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false,editable:isRowSelected, editor:"input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
     });
   }
 
   initializeTableDataRetail(){
-    const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-warning'>Edit</span>";
+    }
+    const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Save</span>";
+    }
+    const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-secondary'>Cancel</span>";
     }
     this.tableDetailRetail = new Tabulator(".table-detailRetail", {
       // height:205,
@@ -990,15 +970,9 @@ export class TableServicesService {
         {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},],
     });
     this.tableDataRkapRetail = [
       {bulan:"Januari", nilai:"1.59"},
@@ -1015,18 +989,13 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
     });
     this.tableDataOutlookRetail = [
       {bulan:"Januari", nilai:"2.59"},
@@ -1043,25 +1012,27 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
     });
   }
 
   initializeTableDataMoneySupply(){
-    const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-warning'>Edit</span>";
     }
+    const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Save</span>";
+    }
+    const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-secondary'>Cancel</span>";
+    }
+
     this.tableDetailMoneySupply = new Tabulator(".table-detailMoneySupply", {
       // height:205,
       height:"555px",
@@ -1090,15 +1061,9 @@ export class TableServicesService {
         {title:"2020", field:"triliun_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2021", field:"triliun_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2022", field:"triliun_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},],
     });
     this.tableDataRkapMoneySupply = [
       {bulan:"Januari", nilai:"1.59"},
@@ -1115,18 +1080,13 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
     });
     this.tableDataOutlookMoneySupply = [
       {bulan:"Januari", nilai:"2.59"},
@@ -1143,25 +1103,27 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
     });
   }
 
   initializeTableDataForeignExchange(){
-    const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-warning'>Edit</span>";
     }
+    const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Save</span>";
+    }
+    const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-secondary'>Cancel</span>";
+    }
+
     this.tableDetailForeignExchange = new Tabulator(".table-detailForeignExchange", {
       // height:205,
       height:"555px",
@@ -1191,15 +1153,10 @@ export class TableServicesService {
         {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+      ],
     });
     this.tableDataRkapForeignExchange = [
       {bulan:"Januari", nilai:"1.59"},
@@ -1216,18 +1173,13 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+      ],
     });
     this.tableDataOutlookForeignExchange = [
       {bulan:"Januari", nilai:"1.59"},
@@ -1244,25 +1196,20 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+      ],
     });
   }
 
   initializeTableDataCurrency(){
     //
     const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+      return `<button class="btn btn-uotline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
     }
 
     this.tableDataCurrencyDetail = [
@@ -1320,7 +1267,7 @@ export class TableServicesService {
       {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
         const rowData = cell.getRow().getData();
         const rowId = rowData.id;
         console.log('RealisasiID: ', rowId);
@@ -1354,7 +1301,7 @@ export class TableServicesService {
       {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
         const rowData = cell.getRow().getData();
         const rowId = rowData.id;
         console.log('RKAPID: ', rowId);
@@ -1388,7 +1335,7 @@ export class TableServicesService {
       {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
         const rowData = cell.getRow().getData();
         const rowId = rowData.id;
         console.log('ID: ', rowId);
@@ -1430,7 +1377,7 @@ export class TableServicesService {
 
   initializeTableDataInterestRate(){
     const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+      return `<button class="btn btn-uotline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
     }
 
     this.tableDataInterestRate = [
@@ -1483,7 +1430,7 @@ export class TableServicesService {
         {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
           const rowData = cell.getRow().getData();
           const rowId = rowData.id;
           console.log('realisasi_ID: ', rowId);
@@ -1515,7 +1462,7 @@ export class TableServicesService {
           {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
           {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
           {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-          {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
             const rowData = cell.getRow().getData();
             const rowId = rowData.id;
             console.log('RKAP_ID: ', rowId);
@@ -1548,7 +1495,7 @@ export class TableServicesService {
         {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
           const rowData = cell.getRow().getData();
           const rowId = rowData.id;
           console.log('Outlook_ID: ', rowId);
@@ -1563,7 +1510,7 @@ export class TableServicesService {
   initializeTableDataCommodities(){
 
     const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+      return `<button class="btn btn-uotline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
     }
 
     this.tableCommodities = new Tabulator(".table-commoditiesDetail", {
@@ -1612,7 +1559,7 @@ export class TableServicesService {
         {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
           const rowData = cell.getRow().getData();
           const rowId = rowData.id;
           console.log('Realisasi_ID: ', rowId);
@@ -1645,7 +1592,7 @@ export class TableServicesService {
         {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
           const rowData = cell.getRow().getData();
           const rowId = rowData.id;
           console.log('RKAP_ID: ', rowId);
@@ -1678,7 +1625,7 @@ export class TableServicesService {
         {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
           const rowData = cell.getRow().getData();
           const rowId = rowData.id;
           console.log('Outlook_ID: ', rowId);
@@ -1692,7 +1639,7 @@ export class TableServicesService {
 
   initializeTableDataBondYield(){
     const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+      return `<button class="btn btn-uotline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
     }
     this.tableBondYieldUST = new Tabulator(".table-bondYieldDetail", {
       // height:205,
@@ -1738,7 +1685,7 @@ export class TableServicesService {
       {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
       {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
         const rowData = cell.getRow().getData();
         const rowId = rowData.id;
         console.log('realisasi_ID: ', rowId);
@@ -1770,7 +1717,7 @@ export class TableServicesService {
         {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
           const rowData = cell.getRow().getData();
           const rowId = rowData.id;
           console.log('RKAP_ID: ', rowId);
@@ -1802,7 +1749,7 @@ export class TableServicesService {
           {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
           {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
           {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-          {title:"Edit",field:"edit",formatter:editBtn,cellClick: (e, cell) => {
+          {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
             const rowData = cell.getRow().getData();
             const rowId = rowData.id;
             console.log('RKAP_ID: ', rowId);
@@ -1825,11 +1772,11 @@ export class TableServicesService {
       {id:6, name:"20230911-SIMLOAN STREAM 3 FINDEBTCOV-RENKEU.xls", tgl_upload:"22 September 2022", periode:"2023", dibuatOleh:"Staf SHL", Approval:"Manager", status:"Approved"},
     ];
 
-    const actionBtn = function(cell: any, formatterParams: any){
+    const actionBtn = function(_cell: any, _formatterParams: any){
       return "<button type='button' class='btn'><i class='bi bi-eye'></i></button> <button type='button' class='btn'><i class='bi bi-pencil-square'></i></button";
     }
 
-    const checkBox = function(cell:any, formatterParams: any){
+    const checkBox = function(_cell:any, _formatterParams: any){
       return "<input type='checkbox'></input>"
     }
 
@@ -1918,11 +1865,11 @@ export class TableServicesService {
       {id:4, name:"DER", 2018:"1.23", 2019:"48.91", 2020:"48.91", 2021:"48.91", 2022:"48.91", 2023:"1.24"},
     ];
 
-    const infoBtn = function(cell: any, formatterParams: any){
+    const infoBtn = function(_cell: any, _formatterParams: any){
       return "<button type='button' class='btn'><i class='bi bi-info-circle'></i></i></button>";
     }
 
-    const checkBox = function(cell:any, formatterParams: any){
+    const checkBox = function(_cell:any, _formatterParams: any){
       return "<input type='checkbox'></input>"
     }
 
@@ -1994,7 +1941,7 @@ export class TableServicesService {
       {id:7, create_date:"17/04/2023", create_by:"John smith", status:"Approved", approver:"VP-Elena", mod_date:"-", notes:"-", action:""},
     ];
 
-    const actionBtn = function(cell: any, formatterParams: any){
+    const actionBtn = function(_cell: any, _formatterParams: any){
       return "<button type='button' class='btn'><i class='bi bi-eye'></i></button> <button type='button' class='btn'><i class='bi bi-pencil-square'></i></button> <button type='button' class='btn'><i class='bi bi-three-dots'></i></button>";
     }
 
@@ -2019,6 +1966,9 @@ export class TableServicesService {
     });
   }
 
+  isRowSelected(cell: { getRow: () => { (): any; new(): any; isSelected: { (): any; new(): any; }; }; }){
+    return cell.getRow().isSelected()
+  }
 
   editTitle(){
     const tabel = this.tableCommodities;
@@ -2119,12 +2069,79 @@ export class TableServicesService {
     this.tableCurrency.showColumn('mata_uang');
   }
 
-  editRow(index: number) {
-    const row = this.tableRealisasi.getRow(index);
-    if (row) {
-      const rowData = row.getData();
-      const rowId = rowData.id;
-      console.log('rowID:', rowId);
-    }
+  getOutlookData(_rowData:any){
+    return this.tableDataOutlookInflasi('nilai');
   }
 }
+
+function isRowSelected(cell:any){
+  return cell.getRow().isSelected()
+}
+
+function cellClick_EditButton(_e: any, cell: any): void {
+  const currentRow = cell.getRow()
+  const currentTable = cell.getTable()
+  const selectedRows = currentTable.getSelectedRows()
+    if (selectedRows.length == 0) {
+      for (let i = 0; i < selectedRows.length; i++) {
+        selectedRows[i].deselect()
+        selectedRows[i].reformat()
+      }
+      currentTable.deselectRow()
+      currentRow.select()
+      currentRow.reformat()
+
+      const cells = currentRow.getCells()
+      for (let i = 0; i < cells.length; i++) {
+        cells[i].setValue(cells[i].getValue())
+      }
+      currentTable.hideColumn("EditButton")
+      currentTable.showColumn("CancelButton")
+      currentTable.showColumn("SaveButton")
+    }
+}
+
+function cellClick_CancelButton(_e: any, cell:any):void{
+  if (!cell.getRow().isSelected()){
+    return
+  }
+  const currentRow = cell.getRow()
+  const currentTable = cell.getTable()
+  if (cell.getRow().isSelected()){
+    //Cancel
+    cell = currentRow.getCells()
+    for (let i = 0; i < cell.length; i++) {
+      cell[i].restoreOldValue();
+    }
+  currentTable.deselectRow()
+  currentTable.showColumn("EditButton")
+  currentTable.hideColumn("CancelButton")
+  currentTable.hideColumn("SaveButton")
+  }
+}
+
+function cellClick_SaveButton(e: any, cell:any){
+  const rowData = cell.getRow().getData();
+  console.log("Row data:", rowData);
+  if (!cell.getRow().isSelected()){
+    return
+  }
+  stopEditing(cell)
+}
+
+function cellClick_FlipIfSelected(e: any, cell: { getRow: () => { (): any; new(): any; isSelected: { (): any; new(): any; }; }; setValue: (arg0: boolean) => void; getValue: () => any; }){
+  if (cell.getRow().isSelected()){
+    cell.setValue(!cell.getValue())
+  }
+}
+
+function stopEditing(cell: any) {
+  const currentRow = cell.getRow()
+  const currentTable = cell.getTable()
+  currentTable.deselectRow()
+  currentTable.showColumn("EditButton")
+  currentTable.hideColumn("CancelButton")
+  currentTable.hideColumn("SaveButton")
+  currentRow.reformat()
+}
+

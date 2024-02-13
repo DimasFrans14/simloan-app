@@ -177,6 +177,14 @@ export class MoneySuplyComponent {
 
   ngAfterViewInit(): void {
     console.log('finish load data');
-
+  }
+  addRow() {
+    this.tableConfig.tableRealisasiMoneySupply.addRow({});
+  }
+  addRowRKAP() {
+    this.tableConfig.tableRkapMoneySupply.addRow({});
+  }
+  addRowOutlook() {
+    this.tableConfig.tableOutlookMoneySupply.addRow({});
   }
 }

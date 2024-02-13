@@ -177,6 +177,14 @@ export class CadanganDevisaComponent {
 
   ngAfterViewInit(): void {
     console.log('finish load data');
-
+  }
+  addRow() {
+    this.tableConfig.tableRealisasiForeignExchange.addRow({});
+  }
+  addRowRKAP() {
+    this.tableConfig.tableRkapForeignExchange.addRow({});
+  }
+  addRowOutlook() {
+    this.tableConfig.tableOutlookForeignExchange.addRow({});
   }
 }

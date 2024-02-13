@@ -177,6 +177,14 @@ export class RetailSalesComponent {
 
   ngAfterViewInit(): void {
     console.log('finish load data');
-
+  }
+  addRow() {
+    this.tableConfig.tableRealisasiRetail.addRow({});
+  }
+  addRowRKAP() {
+    this.tableConfig.tableRkapRetail.addRow({});
+  }
+  addRowOutlook() {
+    this.tableConfig.tableOutlookRetail.addRow({});
   }
 }

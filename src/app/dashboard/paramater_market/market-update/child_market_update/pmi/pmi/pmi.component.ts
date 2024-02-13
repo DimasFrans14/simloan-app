@@ -178,4 +178,13 @@ export class PmiComponent {
     console.log('finish load data');
 
   }
+  addRow() {
+    this.tableConfig.tableRealisasiPmi.addRow({});
+  }
+  addRowRKAP() {
+    this.tableConfig.tableRkapPmi.addRow({});
+  }
+  addRowOutlook() {
+    this.tableConfig.tableOutlookPmi.addRow({});
+  }
 }
