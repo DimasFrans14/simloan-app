@@ -21,6 +21,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   @ViewChild('keyTakeways') keyTakeways!: ElementRef;
   @ViewChild('footnote') footnote!: ElementRef;
+  @ViewChild('Mention') Mention!: ElementRef;
   @ViewChild('screen', { static: true }) screen!: ElementRef;
 
   constructor(private quillConfig: QuillServicesService,
@@ -34,6 +35,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   public quillTakeways!: Quill;
   public quillFootnote!: Quill;
+  public mentionQuill!: Quill;
 
   openModal: boolean = false;
   openModalFootnote1: boolean = false;
@@ -250,6 +252,8 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   formatTanggal: any;
   changeIcon: boolean = false;
 
+  getKeyTakeways!: any;
+
   getValueMacroIndicator(event: any){
     console.log(event);
     console.log(this.listEditMacroIndicator);
@@ -442,6 +446,10 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       this.listEditCurrency = this.listEditCurrency.d;
       // this.listEditCurrency = this.listEditCurrency.d.list.filter((item: any) => !['Label'].includes(item.kode));
       // console.log(this.dataCurrency, this.listEditCurrency) ;
+
+      const getKeyTakeways = await this.quillConfig.getKeyTakeways()
+      console.log(getKeyTakeways);
+      this.getKeyTakeways = getKeyTakeways
     }
     catch(err){
       console.log(err);
@@ -451,20 +459,22 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   ngAfterViewInit() {
       const elementKeyTakeways = this.keyTakeways.nativeElement;
       const elementFootnote = this.footnote.nativeElement;
+      const elementMention = this.Mention.nativeElement;
 
       this.quillTakeways = this.quillConfig.initializeQuillKeyTakeways(elementKeyTakeways);
       this.quillFootnote = this.quillConfig.initializeQuillFootnote(elementFootnote);
+      this.mentionQuill = this.quillConfig.initializeQuillMention(elementMention)
 
-      if(this.excelMacroIndicator != undefined){
-        for(let i=0;i<this.excelMacroIndicator.length; i++){
-          for(let j=0; j<this.excelMacroIndicator[i].length; j++){
-            console.log(this.excelMacroIndicator[i][j]);
-          }
-        }
-      }
-      else{
-        console.log('no excel data');
-      }
+      // if(this.excelMacroIndicator != undefined){
+      //   for(let i=0;i<this.excelMacroIndicator.length; i++){
+      //     for(let j=0; j<this.excelMacroIndicator[i].length; j++){
+      //       console.log(this.excelMacroIndicator[i][j]);
+      //     }
+      //   }
+      // }
+      // else{
+      //   console.log('no excel data');
+      // }
 
   }
 
@@ -472,7 +482,13 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   quillInnerHTML: any;
   transformYourHtml(htmlTextWithStyle: any) {
     const innerHTML = this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
-    this.quillInnerHTML = innerHTML
+    this.quillInnerHTML = innerHTML;
+    const data = {
+      label: this.quillInnerHTML.changingThisBreaksApplicationSecurity,
+      user_created: 'user',
+      dashboard_date: '12/02/2024'
+    }
+    this.quillConfig.sendKeyTakeways(data)
   }
 
   getValueKeyTakeaways() {
@@ -510,6 +526,19 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     // else{
 
     // }
+  }
+
+  mentionInnerHTML: any = '';
+
+  getValueMention(){
+    const arrData = this.mentionQuill.getContents();
+    const value2 = this.mentionQuill.getText();
+    const innerHTML = this.mentionQuill.root.innerHTML;
+    this.mentionInnerHTML = innerHTML
+    console.log(innerHTML);
+
+    this.quillConfig.sendFootnote(arrData, innerHTML)
+
   }
 
   onChangeKeyTakeaways(){
