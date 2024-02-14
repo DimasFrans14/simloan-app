@@ -338,18 +338,21 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       else{
         alert('data lebih dari 3')
       }
-      console.log('add data');
+      // console.log('add data');
     }
 
     console.log(this.dataCurrency, updatedData, getRow);
 
   }
 
+  filteredDate:String = "";
+
   async onDate(event: MatDatepickerInputEvent<Date>) {
     const selectedDate = event.value;
     console.log(selectedDate);
 
     const formattedDate = moment(event.value).format("DD/MM/YYYY");
+    this.filteredDate = formattedDate;
     console.log(formattedDate);
 
     let month;
@@ -392,51 +395,23 @@ export class OverviewHarian implements OnInit, AfterViewInit{
         break;
     }
 
-    console.log(month);
+    // console.log(month);
 
     try {
       //TES FETCH BASED ON PARAMS
-      const response = await this.marketUpdateService.fetchDataViewInflasiByDate(formattedDate, month);
-      this.formatTanggal = response
-      console.log(this.formatTanggal.data[0].tanggal);
+      const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview(formattedDate);
+      const currenciesOverview = await this.marketUpdateService.fetchDataKursOverview(formattedDate)
 
-      console.log();
-    } catch (error) {
-      console.log(error);
-    }
-}
-
-  async ngOnInit(): Promise<void> {
-    try {
-      const responseMacroIndicator = await this.marketUpdateService.fetchDataMacroIndicatorOverview();
-
-      this.dataMacroIndicator = responseMacroIndicator;
-      this.dataMacroIndicator = this.dataMacroIndicator.d;
-      this.listEditMacroIndicator = this.dataMacroIndicator;
-      console.log(this.dataMacroIndicator);
-
-      // const responseData = await this.marketUpdateService.fetchDataInterestRateRKAP();
-      // console.log(responseData);
-
-      // this.dataRKAP = responseData;
-      // const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
-      // this.dataInterestRate = filteredDataInterestRate
-      console.log(this.dataInterestRate);
-
-      const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview();
-      const currenciesOverview = await this.marketUpdateService.fetchDataKursOverview()
-
-      console.log(commoditiesOverview, currenciesOverview);
+      // console.log(commoditiesOverview, currenciesOverview);
       this.dataCommodities = commoditiesOverview;
       this.dataCommodities = this.dataCommodities.d;
       this.listEditCommodities = this.dataCommodities;
-      this.listEditCommodities = this.listEditCommodities.filter((item: any) => item.periode == '04/12/2023');
-      console.log(this.listEditCommodities);
-
+      // this.listEditCommodities = this.listEditCommodities.filter((item: any) => item.periode == '04/12/2023');
+      // console.log(this.listEditCommodities);
 
       this.dataCommodities = this.dataCommodities.slice(0, 3);
 
-      console.log(this.dataCommodities);
+      // console.log(this.dataCommodities);
 
       // const filteredDataCurrency = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
       this.dataCurrency = currenciesOverview;
@@ -446,9 +421,54 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       this.listEditCurrency = this.listEditCurrency.d;
       // this.listEditCurrency = this.listEditCurrency.d.list.filter((item: any) => !['Label'].includes(item.kode));
       // console.log(this.dataCurrency, this.listEditCurrency) ;
+      const interestRateOverview = await this.marketUpdateService.fetchDataInterestOverview(formattedDate);
+      this.dataInterestRate = interestRateOverview;
+      this.dataInterestRate = this.dataInterestRate.d;
 
-      const getKeyTakeways = await this.quillConfig.getKeyTakeways()
-      console.log(getKeyTakeways);
+      console.log("Data Interest : ",this.dataInterestRate)
+
+      const getKeyTakeways = await this.quillConfig.getKeyTakeways(formattedDate)
+      // console.log(getKeyTakeways);
+      this.getKeyTakeways = getKeyTakeways
+      // console.log(this.formatTanggal.data[0].tanggal);
+
+      
+
+      // console.log();
+    } catch (error) {
+      console.log(error);
+    }
+}
+
+  async ngOnInit(): Promise<void> {
+    try {
+      const responseMacroIndicator = await this.marketUpdateService.fetchDataMacroIndicatorOverview(moment().format('DD/MM/YYYY'));
+
+      this.dataMacroIndicator = responseMacroIndicator;
+      this.dataMacroIndicator = this.dataMacroIndicator.d;
+      this.listEditMacroIndicator = this.dataMacroIndicator;
+
+      const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview(moment().format('DD/MM/YYYY'));
+      const currenciesOverview = await this.marketUpdateService.fetchDataKursOverview(moment().format('DD/MM/YYYY'))
+
+      this.dataCommodities = commoditiesOverview;
+      this.dataCommodities = this.dataCommodities.d;
+      this.listEditCommodities = this.dataCommodities;
+
+
+      this.dataCommodities = this.dataCommodities.slice(0, 3);
+      this.dataCurrency = currenciesOverview;
+
+      this.dataCurrency = this.dataCurrency.d.slice(0,3);
+      this.listEditCurrency = currenciesOverview;
+      this.listEditCurrency = this.listEditCurrency.d;
+
+      const interestRateOverview = await this.marketUpdateService.fetchDataInterestOverview(moment().format('DD/MM/YYYY'));
+      this.dataInterestRate = interestRateOverview;
+      this.dataInterestRate = this.dataInterestRate.d;
+
+      const getKeyTakeways = await this.quillConfig.getKeyTakeways(moment().format('DD/MM/YYYY'))
+      // console.log(getKeyTakeways);
       this.getKeyTakeways = getKeyTakeways
     }
     catch(err){
@@ -486,7 +506,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     const data = {
       label: this.quillInnerHTML.changingThisBreaksApplicationSecurity,
       user_created: 'user',
-      dashboard_date: '12/02/2024'
+      dashboard_date: this.filteredDate
     }
     this.quillConfig.sendKeyTakeways(data)
   }
