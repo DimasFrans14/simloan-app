@@ -238,9 +238,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of tesLocalStorageKurs">
+                <tr *ngFor="let item of trendKursDataBarChart">
                   <th scope="row" style="font-size: 14px; border-style: none">
-                    {{ item.mata_uang }}
+                    {{ item.kode }}
                   </th>
                   <td>{{ item.change_rkap }}</td>
                   <td>{{ item.change_now }}</td>
@@ -300,14 +300,14 @@
                 <button type="submit" title="Search"><i class="bi bi-search"></i></button>
               </form>
             </div> -->
-                  <ng-select
+                  <!-- <ng-select
                     [items]="tesLocalStorageKurs"
                     bindLabel="mata_uang"
                     bindValue="change1_day"
                     [(ngModel)]="selectedItems"
                     (change)="getValueCompare($event)"
                   >
-                  </ng-select>
+                  </ng-select> -->
                   <!-- <div *ngFor="let items of tesLocalStorageKurs"> -->
                   <div
                     class="d-flex align-items-center justify-content-between"
@@ -331,12 +331,12 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let item of tesFilterKurs">
+                        <tr *ngFor="let item of allTrendDataBarChart">
                           <th
                             scope="row"
                             style="font-size: 14px; border-style: none"
                           >
-                            {{ item.mata_uang }}
+                            {{ item.kode }}
                           </th>
                           <td>{{ item.change_rkap }}</td>
                           <td>{{ item.change_now }}</td>
@@ -689,6 +689,7 @@
           [style.display]="isVisibleLine ? 'block' : 'none'"
           [series]="lineChartInterestRateSeries"
           [chart]="currencyChartDetails"
+          [yaxis]="interestRateYAxis"
           [xaxis]="interestRateXaxis"
           [stroke]="intersetRateLineStroke"
           [legend]="interestRateLegend"

@@ -24,6 +24,7 @@ export class InflasiComponent {
   tanggalEditKurs: any;
   namaEditKurs: any;
   nilaiEditKurs: any;
+  rowData:any
 
   maxDate = new Date();
 
@@ -190,5 +191,14 @@ export class InflasiComponent {
   ngAfterViewInit(): void {
     console.log('finish load data');
 
+  }
+  addRow() {
+    this.tableConfig.tableRealisasiInflasi.addRow({});
+  }
+  addRowRKAP() {
+    this.tableConfig.tableRkapInflasi.addRow({});
+  }
+  addRowOutlook() {
+    this.tableConfig.tableOutlookInflasi.addRow({});
   }
 }

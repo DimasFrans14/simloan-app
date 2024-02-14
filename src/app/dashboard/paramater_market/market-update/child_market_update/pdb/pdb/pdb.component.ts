@@ -11,6 +11,7 @@ import { TableServicesService } from 'src/app/services/table_services/table-serv
   styleUrls: ['./pdb.component.css']
 })
 export class PdbComponent {
+  newRow: any= {};
   constructor(
     private tableConfig: TableServicesService,
     private marketUpdateService: MarketUpdateService
@@ -177,6 +178,14 @@ export class PdbComponent {
 
   ngAfterViewInit(): void {
     console.log('finish load data');
-
+  }
+  addRow() {
+    this.tableConfig.tableRealisasiPdb.addRow({});
+  }
+  addRowRKAP() {
+    this.tableConfig.tableRkapPdb.addRow({});
+  }
+  addRowOutlook() {
+    this.tableConfig.tableOutlookPdb.addRow({});
   }
 }
