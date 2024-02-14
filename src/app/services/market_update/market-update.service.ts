@@ -15,12 +15,13 @@ export class MarketUpdateService {
   result: any;
 
   localDev: string = 'http://10.1.18.47:9051'
-  serverDev: string = 'http://10.1.18.47:8080'
+  // serverDev: string = 'http://10.1.18.47:8080/simloan-ws' //dev server
+  serverDev: string = 'http://localhost:9051' //dev server
 
-  async fetchDataMacroIndicatorOverview(){
+  async fetchDataMacroIndicatorOverview(date:String){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/overview/getMakroIndikator?date=11/07/2023`)
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/overview/getMakroIndikator?date=${date}`)
       );
     } catch (error) {
       console.log(error);
@@ -39,10 +40,21 @@ export class MarketUpdateService {
     }
   }
 
-  async fetchDataKursOverview(){
+  async fetchDataKursOverview(date:String){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/overview/getCurrencies?date=04/12/2023`)
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/overview/getCurrencies?date=${date}`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async fetchDataInterestOverview(date:String){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${this.serverDev}/dashboard/market/overview/getInterestRate?date=${date}`)
       );
     } catch (error) {
       console.log(error);
@@ -128,11 +140,11 @@ export class MarketUpdateService {
     }
   }
 
-  async fetchDataCommoditiesOverview(){
+  async fetchDataCommoditiesOverview(date:String){
 
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/overview/getCommodities?date=04/12/2023
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/overview/getCommodities?date=${date}
         `)
       )
     } catch (error) {
@@ -434,7 +446,9 @@ export class MarketUpdateService {
 
     try {
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload?globalDashboardRealisasiEnum=${JSON.parse(params)}`, form)
+        // this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload?globalDashboardRealisasiEnum=${JSON.parse(params)}`, form)
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload?globalInterestRateEnum=${JSON.parse(params)}`, form)
+        
       )
     } catch (error) {
       return null
