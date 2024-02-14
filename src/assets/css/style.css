@@ -52,8 +52,13 @@ h6 {
 
 #main {
   margin-top: 60px;
-  padding: 20px 30px;
+  padding: 32px 12px;
   transition: all 0.3s;
+}
+
+.vertical-card{
+  padding-right: 10px;
+  padding-left: 5px;
 }
 
 @media (max-width: 1199px) {
@@ -640,7 +645,7 @@ h6 {
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #aab7cf transparent;
-  box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
+  box-shadow: 0px 0px 20px rgb(72 72 72 / 4%);
   background-color: #fff;
 }
 
