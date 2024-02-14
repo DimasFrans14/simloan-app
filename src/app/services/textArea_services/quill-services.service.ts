@@ -130,10 +130,10 @@ export class QuillServicesService {
 
   //SERVICES OVERVIEW HARIAN
 
-  async getKeyTakeways(){
+  async getKeyTakeways(date: String){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/keytakeways/get?dashboard_date=12/02/2024`)
+        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/keytakeways/get?dashboard_date=${date}`)
       )
     } catch (error) {
       console.log(error);
