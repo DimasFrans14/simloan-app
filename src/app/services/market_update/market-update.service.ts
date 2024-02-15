@@ -15,8 +15,8 @@ export class MarketUpdateService {
   result: any;
 
   localDev: string = 'http://10.1.18.47:9051'
-  // serverDev: string = 'http://10.1.18.47:8080/simloan-ws' //dev server
-  serverDev: string = 'http://localhost:9051' //dev server
+  serverDev: string = 'http://10.1.18.47:8080/simloan-ws' //dev server
+  // serverDev: string = 'http://localhost:9051' //dev server
 
   async fetchDataMacroIndicatorOverview(date:String){
     try {
@@ -448,7 +448,7 @@ export class MarketUpdateService {
       return await lastValueFrom(
         // this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload?globalDashboardRealisasiEnum=${JSON.parse(params)}`, form)
         this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload?globalInterestRateEnum=${JSON.parse(params)}`, form)
-        
+
       )
     } catch (error) {
       return null
@@ -510,7 +510,7 @@ export class MarketUpdateService {
       // const body = JSON.stringify(file);
       console.log(params);
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/non-macro/upload?globalDashboardRealisasiEnum=${JSON.parse(params)}
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/non-macro/upload_all_interest_rates?globalInterestRateEnum=${JSON.parse(params)}
         `, form)
       )
     } catch (error) {
@@ -527,7 +527,7 @@ export class MarketUpdateService {
       // const body = JSON.stringify(file);
       console.log(params);
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/non-macro/upload_cmdities?globalRealisasiCommoditiesEnum=${params}
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/non-macro/upload_all_commodities?globalCommoditiesEnum=${params}
         `, form)
       )
     } catch (error) {
@@ -544,7 +544,7 @@ export class MarketUpdateService {
       // const body = JSON.stringify(file);
       console.log(params);
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/non-macro/upload_oby?globalRealisasiBondYieldEnum=${params}
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/non-macro/upload_all_bondyield?globalBondYieldEnum=${params}
         `, form)
       )
     } catch (error) {
