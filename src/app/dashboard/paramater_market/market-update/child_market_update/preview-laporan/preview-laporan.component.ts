@@ -88,32 +88,9 @@ export class PreviewLaporanComponent implements OnInit{
           switch (categoryParams) {
             case 'CURRENCY_RATE':
               if(indikatorParams === 'Realisasi'){
-                if(subCategory_params === 'USD'){
-                  try {
-                    const response = await this.marketUpdateService.importLaporanMarketUpdateCurrencyRateuUSD(JSON.stringify(subCategory_params), fileExcel)
-                    console.log(response);
 
-                    // alert('up realisasi done');
-
-                    // this.router.navigate(["market_update/importLaporan_marketUpdate"]);
-                  } catch (error) {
-                    console.log(error);
-                  }
-                }
-                else if(subCategory_params === 'NON_USD'){
-                  console.log(JSON.stringify(subCategory_params));
-
-                  try {
-                    const response = await this.marketUpdateService.importLaporanMarketUpdateCurrencyRateNONUSD(JSON.stringify(subCategory_params), fileExcel)
-                    console.log(response);
-
-                    // alert('up realisasi done');
-
-                    // this.router.navigate(["market_update/importLaporan_marketUpdate"]);
-                  } catch (error) {
-                    console.log(error);
-                  }
-                }
+                const response = await this.marketUpdateService.importLaporanMarketUpdateCurrencyRateuUSD(JSON.stringify(subCategory_params), fileExcel)
+                console.log(response);
 
               }
               else if(indikatorParams === 'Outlook'){

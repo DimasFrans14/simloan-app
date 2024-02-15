@@ -418,7 +418,7 @@ export class MarketUpdateService {
 
     try {
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/master-jisdors/upload/currency_rate?globalCurrencyRateEnum=${JSON.parse(params)}`, form)
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/master-usd-nonusd/upload/kurs-usd-non-usd?globalKursUsdAndNonUsdEnum=${JSON.parse(params)}`, form)
       )
     } catch (error) {
       return null
