@@ -93,9 +93,8 @@
       <!-- Table Realisasi -->
       <div class="col-6">
         <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <span class="fw-semibold">Realisasi</span>
-          </div>
+          <div><span class="fw-semibold">Realisasi</span></div>
+          <div class="btn btn-transparant btn-sm border-secondary bg-white" id="add-row-button" (click)="addRow()"><i class="bi bi-plus"></i> Tambah</div>
         </div>
         <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
           <div class="d-flex align-items-center justify-content-center">
@@ -106,12 +105,12 @@
         </div>
         <div class="table-realisasi mt-2"></div>
       </div>
-      <!-- EndTAble Realisasi -->
+      <!-- End Table Realisasi -->
+      <!-- tale RKAP -->
       <div class="col-6">
         <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <span class="fw-semibold">RKAP</span>
-          </div>
+          <div><span class="fw-semibold">RKAP</span></div>
+          <div class="btn btn-transparant btn-sm border-secondary bg-white" id="add-row-button" (click)="addRowRKAP()"><i class="bi bi-plus"></i> Tambah</div>
         </div>
         <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
           <div class="d-flex align-items-center justify-content-center">
@@ -123,14 +122,13 @@
         <div class="table-RKAP mt-2"></div>
       </div>
     </div>
+    <!-- End table RKAP -->
     <!-- Table Outlook -->
     <div class="row mt-4">
       <div class="col-6">
         <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <span class="fw-semibold">Outlook</span>
-          </div>
-
+          <div><span class="fw-semibold">Outlook</span></div>
+          <div class="btn btn-transparant btn-sm border-secondary bg-white" id="add-row-button" (click)="addRowOutlook()"><i class="bi bi-plus"></i> Tambah</div>
         </div>
         <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
           <div class="d-flex align-items-center justify-content-center">

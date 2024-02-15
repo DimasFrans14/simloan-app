@@ -27,7 +27,10 @@ export class TableServicesService {
   public dataBondYieldUST: any;
   public dataKurs: any;
 
+  public dataOutlookPdb:any;
+
   objectKeys: any;
+  
 
   setData(data: any) {
     this.sharedData = data;
@@ -38,6 +41,7 @@ export class TableServicesService {
   setDataPdb(data:any){
     this.sharedDataPdb = data;
   }
+
 
   getDataCommodities(data: any){
     this.dataCommodities = data.data;
@@ -151,9 +155,20 @@ export class TableServicesService {
   tableBondYieldUST: any;
   tableDataBondYield: any;
 
+  tableRealisasiBondYield:any;
+  tableOutlookBondYield:any;
+  tableRKAPBondYield:any;
+
+  tableRealisasiUSTreasury:any;
+  tableRKAPUSTreasury:any;
+  tableOutlookUSTreasury:any;
+
   //Data Commodities
   tableCommodities: any;
   tableDataCommodities: any;
+  tableRealisasiComodities: any;
+  tableRKAPComodities:any;
+  tableOutlookComodities:any;
 
   //Table PDB
   tablePDB: any;
@@ -576,7 +591,7 @@ export class TableServicesService {
       {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       ];
 
-    this.tableRealisasi = new Tabulator(".table-realisasi", {
+    this.tableRealisasiUSTreasury = new Tabulator(".table-realisasi", {
       // height:205,
       data:this.tableDataRealisasi,
       layout:"fitColumns",
@@ -603,7 +618,7 @@ export class TableServicesService {
       {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       ];
-      this.tableRKAP = new Tabulator(".table-rkap", {
+      this.tableRKAPUSTreasury = new Tabulator(".table-rkap", {
         // height:205,
         data:this.tableDataRKAP,
         layout:"fitColumns",
@@ -630,7 +645,7 @@ export class TableServicesService {
       {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       ];
-    this.tableOutlook = new Tabulator(".table-Outlook", {
+    this.tableOutlookUSTreasury = new Tabulator(".table-Outlook", {
       // height:205,
       data:this.tableDataOutlook,
       layout:"fitColumns",
@@ -1208,8 +1223,14 @@ export class TableServicesService {
 
   initializeTableDataCurrency(){
     //
-    const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-warning'>Edit</span>";
+    }
+    const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Save</span>";
+    }
+    const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-secondary'>Cancel</span>";
     }
 
     this.tableDataCurrencyDetail = [
@@ -1263,20 +1284,14 @@ export class TableServicesService {
     layout:"fitColumns",
     columns:[
       {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
-      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
-        const rowData = cell.getRow().getData();
-        const rowId = rowData.id;
-        console.log('RealisasiID: ', rowId);
-
-        // Update the row data
-        rowData.name = 'New Name';
-        cell.getRow().update(rowData);
-      }
-    }],
+      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false, },
+      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false, },
+      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false, },
+      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false, },
+      {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+      {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+    ],
   });
 
     this.tableDataRealisasi = [
@@ -1297,20 +1312,13 @@ export class TableServicesService {
     layout:"fitColumns",
     columns:[
       {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
-      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
-        const rowData = cell.getRow().getData();
-        const rowId = rowData.id;
-        console.log('RKAPID: ', rowId);
-
-        // Update the row data
-        rowData.name = 'New Name';
-        cell.getRow().update(rowData);
-      }
-    }],
+      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false, },
+      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false, },
+      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false, },
+      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false, },
+      {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+      {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},],
   });
 
     this.tableDataOutlook = [
@@ -1331,20 +1339,14 @@ export class TableServicesService {
     layout:"fitColumns",
     columns:[
       {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
-      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
-        const rowData = cell.getRow().getData();
-        const rowId = rowData.id;
-        console.log('ID: ', rowId);
-
-        // Update the row data
-        rowData.name = 'New Name';
-        cell.getRow().update(rowData);
-      }
-    }],
+      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false, },
+      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false, },
+      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false, },
+      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false, },
+      {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+      {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
   });
 
 
@@ -1376,8 +1378,14 @@ export class TableServicesService {
   }
 
   initializeTableDataInterestRate(){
-    const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-warning'>Edit</span>";
+    }
+    const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Save</span>";
+    }
+    const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-secondary'>Cancel</span>";
     }
 
     this.tableDataInterestRate = [
@@ -1420,26 +1428,21 @@ export class TableServicesService {
     {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
     {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
     ];
-    this.tableRealisasi = new Tabulator(".table-realisasiInterestRate", {
+    this.tableRealisasiInterestRate = new Tabulator(".table-realisasiInterestRate", {
       // height:205,
       data:this.tableDataRealisasi,
       layout:"fitColumns",
       columns:[
         {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
-    });
+        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false},
+        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false},
+        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false},
+        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, editor:"input", headerSort:false},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
+      });
 
     this.tableDataRkapInterestRate = [
       {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
@@ -1458,19 +1461,14 @@ export class TableServicesService {
         layout:"fitColumns",
         columns:[
           {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-          {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-          {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-          {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-          {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-          {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
-            const rowData = cell.getRow().getData();
-            const rowId = rowData.id;
-            console.log('RKAP_ID: ', rowId);
-            // Update the row data
-            rowData.name = 'New Name';
-            cell.getRow().update(rowData);
-          }
-        }],
+          {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
+          {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
+          {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
+          {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
+          {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+          {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+        ],
     });
 
     this.tableDataOutlookInterestRate = [
@@ -1491,26 +1489,27 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('Outlook_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
+        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
+        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
+        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+      ],
     });
   }
 
   initializeTableDataCommodities(){
 
-    const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-warning'>Edit</span>";
+    }
+    const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Save</span>";
+    }
+    const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-secondary'>Cancel</span>";
     }
 
     this.tableCommodities = new Tabulator(".table-commoditiesDetail", {
@@ -1549,25 +1548,20 @@ export class TableServicesService {
     {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
   ];
 
-  this.tableRealisasi = new Tabulator(".table-realisasi", {
+  this.tableRealisasiComodities = new Tabulator(".table-realisasi", {
     // height:205,
     data:this.tableDataRealisasi,
     layout:"fitColumns",
       columns:[
         {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('Realisasi_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+      ],
     });
 
     this.tableDataRKAP = [
@@ -1582,25 +1576,20 @@ export class TableServicesService {
       {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
     ];
 
-    this.tableRKAP = new Tabulator(".table-RKAP", {
+    this.tableRKAPComodities = new Tabulator(".table-RKAP", {
       // height:205,
       data:this.tableDataRKAP,
       layout:"fitColumns",
         columns:[
         {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('RKAP_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
+        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
+        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
+        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
     });
 
     this.tableDataOutlook = [
@@ -1615,31 +1604,32 @@ export class TableServicesService {
       {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
     ];
 
-    this.tableOutlook = new Tabulator(".table-Outlook", {
+    this.tableOutlookComodities = new Tabulator(".table-Outlook", {
       // height:205,
       data:this.tableDataOutlook,
       layout:"fitColumns",
         columns:[
         {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('Outlook_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
+        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
+        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
+        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+      ],
     });
   }
 
   initializeTableDataBondYield(){
-    const editBtn = function(cell: any){
-      return `<button class="btn btn-uotline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" (Click)="editRow(${cell.getRow().getIndex()})"><i class='bi bi-pencil-square'></i></button>`;
+    const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-warning'>Edit</span>";
+    }
+    const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Save</span>";
+    }
+    const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-secondary'>Cancel</span>";
     }
     this.tableBondYieldUST = new Tabulator(".table-bondYieldDetail", {
       // height:205,
@@ -1675,25 +1665,20 @@ export class TableServicesService {
     {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
     ];
 
-  this.tableRealisasi = new Tabulator(".table-realisasi", {
+  this.tableRealisasiBondYield = new Tabulator(".table-realisasi", {
     // height:205,
     data:this.tableDataRealisasi,
     layout:"fitColumns",
     columns:[
       {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
-        const rowData = cell.getRow().getData();
-        const rowId = rowData.id;
-        console.log('realisasi_ID: ', rowId);
-        // Update the row data
-        rowData.name = 'New Name';
-        cell.getRow().update(rowData);
-      }
-    }],
+      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
+      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input" },
+      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
+      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
+      {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+      {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
+    ],
   });
 
   this.tableDataRKAP = [
@@ -1707,25 +1692,20 @@ export class TableServicesService {
     {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
     {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
     ];
-    this.tableRKAP = new Tabulator(".table-rkap", {
+    this.tableRKAPBondYield = new Tabulator(".table-rkap", {
       // height:205,
       data:this.tableDataRKAP,
       layout:"fitColumns",
       columns:[
         {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
-          const rowData = cell.getRow().getData();
-          const rowId = rowData.id;
-          console.log('RKAP_ID: ', rowId);
-          // Update the row data
-          rowData.name = 'New Name';
-          cell.getRow().update(rowData);
-        }
-      }],
+        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
+        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
+        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
+        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
+        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false}, 
+      ],
     });
 
     this.tableDataOutlook = [
@@ -1739,27 +1719,22 @@ export class TableServicesService {
       {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
       ];
-      this.tableOutlook = new Tabulator(".table-Outlook", {
+      this.tableOutlookBondYield = new Tabulator(".table-Outlook", {
         // height:205,
         data:this.tableDataOutlook,
         layout:"fitColumns",
         columns:[
           {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-          {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-          {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-          {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-          {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-          {title:"Edit",field:"edit",formatter:editBtn,cellClick: (_e, cell) => {
-            const rowData = cell.getRow().getData();
-            const rowId = rowData.id;
-            console.log('RKAP_ID: ', rowId);
-            // Update the row data
-            rowData.name = 'New Name';
-            cell.getRow().update(rowData);
-          }
-        }],
+          {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input" },
+          {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
+          {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
+          {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
+          {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
+          {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+        ],
       })
-  }
+    }
 
   initializeTableDataFindebt(){
 
@@ -2000,6 +1975,12 @@ export class TableServicesService {
     tabel.replaceData(data);
   }
 
+  public updateTableOutlookPDB (data:any){
+    const table = this.tableOutlookPdb;
+    table.replaceData(data);
+  }
+
+
   getBackData(){
     const dataInflasi = this.dataInflasi != undefined ? this.dataInflasi : ``;
     const tabelInflasi = this.tableInflasi;
@@ -2016,11 +1997,15 @@ export class TableServicesService {
     const dataDevisa = this.dataDevisa != undefined ? this.dataDevisa : ``;
     const tabelForeignExchange = this.tableForeignExchange;
 
+    const dataOutlookPdb = this.dataOutlookPdb != undefined ? this.dataOutlookPdb : ``;
+    const tableOutlookPdb = this.tableOutlookPdb;
+
     tabelInflasi.replaceData(dataInflasi);
     tabelPMI.replaceData(dataPMI);
     tabelRetail.replaceData(dataRetail);
     tabelMoneySupply.replaceData(dataMoneySupply);
     tabelForeignExchange.replaceData(dataDevisa);
+    tableOutlookPdb.replaceData(dataOutlookPdb);
     // console.log(data);
   }
 

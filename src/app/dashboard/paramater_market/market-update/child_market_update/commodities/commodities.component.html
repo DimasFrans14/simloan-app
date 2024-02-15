@@ -77,7 +77,10 @@
   <div class="row">
     <!-- Table Realisasi -->
     <div class="col-6">
-      <h5 class="fw-semibold">Realisasi</h5>
+      <div class="d-flex justify-content-between align-items-center">
+        <div><span class="fw-semibold">Realisasi</span></div>
+        <div class="btn btn-transparant btn-sm border-secondary bg-white" id="add-row-button" (click)="addRow()"><i class="bi bi-plus"></i> Tambah</div>
+      </div>
       <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
         <div class="d-flex align-items-center justify-content-center">
           <div class="spinner-border" role="status">
@@ -90,7 +93,10 @@
     <!-- End Table Realisasi -->
     <!-- Table RKAP -->
     <div class="col-6">
-      <h5 class="fw-semibold">Realisasi</h5>
+      <div class="d-flex justify-content-between align-items-center">
+        <div><span class="fw-semibold">RKAP</span></div>
+        <div class="btn btn-transparant btn-sm border-secondary bg-white" id="add-row-button" (click)="addRowRKAP()"><i class="bi bi-plus"></i> Tambah</div>
+      </div>
       <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
         <div class="d-flex align-items-center justify-content-center">
           <div class="spinner-border" role="status">
@@ -102,9 +108,12 @@
     </div>
     <!-- End Table RKAP -->
   </div>
-  <div class="row">
+  <div class="row mt-3">
     <div class="col-6">
-      <h5 class="fw-semibold">Realisasi</h5>
+      <div class="d-flex justify-content-between align-items-center">
+        <div><span class="fw-semibold">Outlook</span></div>
+        <div class="btn btn-transparant btn-sm border-secondary bg-white" id="add-row-button" (click)="addRowOutlook()"><i class="bi bi-plus"></i> Tambah</div>
+      </div>
       <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
         <div class="d-flex align-items-center justify-content-center">
           <div class="spinner-border" role="status">

@@ -175,6 +175,14 @@ export class UsTreasuryComponent {
 
   ngAfterViewInit(): void {
     console.log('finish load data');
-
+  }
+  addRow() {
+    this.tableConfig.tableRealisasiUSTreasury.addRow({});
+  }
+  addRowRKAP() {
+    this.tableConfig.tableRKAPUSTreasury.addRow({});
+  }
+  addRowOutlook() {
+    this.tableConfig.tableOutlookUSTreasury.addRow({});
   }
 }
