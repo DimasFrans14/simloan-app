@@ -178,7 +178,15 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     console.log('finish load data');
-
   }
 
+  addRow() {
+    this.tableConfig.tableRealisasiInterestRate.addRow({});
+  }
+  addRowRKAP() {
+    this.tableConfig.tableRkapInterestRate.addRow({});
+  }
+  addRowOutlook() {
+    this.tableConfig.tableOutlookInterestRate.addRow({});
+  }
 }

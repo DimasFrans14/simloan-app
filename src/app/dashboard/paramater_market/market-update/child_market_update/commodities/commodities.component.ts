@@ -177,7 +177,16 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     console.log('finish load data');
+  }
 
+  addRow() {
+    this.tableConfig.tableRealisasiComodities.addRow({});
+  }
+  addRowRKAP() {
+    this.tableConfig.tableRKAPComodities.addRow({});
+  }
+  addRowOutlook() {
+    this.tableConfig.tableOutlookComodities.addRow({});
   }
 
 }

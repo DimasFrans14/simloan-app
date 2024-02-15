@@ -119,4 +119,14 @@ export class BondYieldComponent {
     console.log('finish load data');
   }
 
+  addRow() {
+    this.tableConfig.tableRealisasiBondYield.addRow({});
+  }
+  addRowRKAP() {
+    this.tableConfig.tableRKAPBondYield.addRow({});
+  }
+  addRowOutlook() {
+    this.tableConfig.tableOutlookBondYield.addRow({});
+  }
+
 }

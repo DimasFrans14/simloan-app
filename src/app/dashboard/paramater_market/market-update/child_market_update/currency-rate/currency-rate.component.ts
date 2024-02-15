@@ -179,6 +179,13 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     console.log('finish load data');
 
   }
-
-
+  addRow() {
+    this.tableConfig.tableRealisasi.addRow({});
+  }
+  addRowRKAP() {
+    this.tableConfig.tableRKAP.addRow({});
+  }
+  addRowOutlook() {
+    this.tableConfig.tableOutlook.addRow({});
+  }
 }
