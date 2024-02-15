@@ -20,7 +20,7 @@ export class TablePreviewServices {
 
     console.log('preview data: ', data);
     this.fileExcel = file;
-    // this.objectKeys = Object.keys(data[0])
+    this.objectKeys = Object.keys(data[0])
     // console.log(previewName);
 
     // this.tableName = previewName
@@ -55,7 +55,7 @@ export class TablePreviewServices {
       columns:[
         {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', minWidth: 200},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', minWidth: 100},
-        {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center', minWidth: 100},
+        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', minWidth: 100},
       ],
     });
   }
