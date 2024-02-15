@@ -432,7 +432,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       this.getKeyTakeways = getKeyTakeways
       // console.log(this.formatTanggal.data[0].tanggal);
 
-      
+
 
       // console.log();
     } catch (error) {
@@ -500,22 +500,35 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   quillContent!: any;
   quillInnerHTML: any;
-  transformYourHtml(htmlTextWithStyle: any) {
+
+  statusKeytakeways: any;
+  async transformYourHtmlKeyTakeways(htmlTextWithStyle: any) {
     const innerHTML = this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
     this.quillInnerHTML = innerHTML;
     const data = {
       label: this.quillInnerHTML.changingThisBreaksApplicationSecurity,
       user_created: 'user',
-      dashboard_date: this.filteredDate
+      dashboard_date: moment(new Date()).format('DD/MM/YYYY'),
     }
-    this.quillConfig.sendKeyTakeways(data)
+
+    try {
+      const response = await this.quillConfig.sendKeyTakeways(data)
+      this.statusKeytakeways = response
+
+      if(this.statusKeytakeways.s === 200){
+        const getKeyTakeways = await this.quillConfig.getKeyTakeways(moment(new Date()).format('DD/MM/YYYY'));
+        this.getKeyTakeways = getKeyTakeways
+    }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   getValueKeyTakeaways() {
     let value = this.quillTakeways.root.innerHTML;
     this.quillContent = value;
     console.log(value);
-    this.transformYourHtml(this.quillContent)
+    this.transformYourHtmlKeyTakeways(this.quillContent)
   }
 
   quillContentFootnote!: any;
