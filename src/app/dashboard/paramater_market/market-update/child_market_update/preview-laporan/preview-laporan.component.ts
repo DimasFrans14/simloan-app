@@ -42,14 +42,9 @@ export class PreviewLaporanComponent implements OnInit{
 
     console.log(object);
 
-    let params = localStorage.getItem('params_upload')?.replace(/"/g, '')
+    // let params = localStorage.getItem('subCategory_params')?.replace(/"/g, '')
 
-    if(params == 'PDB'){
-      this.tablePreview.tablePreviewMacroIndicatorPDB(object)
-    }
-    else{
-      this.tablePreview.tablePreviewMacroIndicator(object)
-    }
+    this.tablePreview.tablePreview()
   }
 
   dashRealMacroIndicators = {
@@ -89,12 +84,15 @@ export class PreviewLaporanComponent implements OnInit{
             case 'CURRENCY_RATE':
               if(indikatorParams === 'Realisasi'){
 
-                const response = await this.marketUpdateService.importLaporanMarketUpdateCurrencyRateuUSD(JSON.stringify(subCategory_params), fileExcel)
+                const response = await this.marketUpdateService.importLaporanMarketUpdateCurrencyRateRealisasi(JSON.stringify(subCategory_params), fileExcel)
                 console.log(response);
 
               }
               else if(indikatorParams === 'Outlook'){
-                alert('up params Outlook')
+
+                const response = await this.marketUpdateService.importLaporanMarketUpdateCurrencyRateOutlook(JSON.stringify(subCategory_params), fileExcel)
+                console.log(response);
+
               }
               else{
                 alert('No parameter!');

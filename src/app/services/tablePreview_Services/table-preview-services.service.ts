@@ -1,5 +1,5 @@
 import { Injectable, AfterViewInit } from '@angular/core';
-import { TabulatorFull as Tabulator } from 'tabulator-tables';
+import { ColumnDefinition, ColumnDefinitionAlign, TabulatorFull as Tabulator } from 'tabulator-tables';
 
 @Injectable({
   providedIn: 'root'
@@ -32,32 +32,41 @@ export class TablePreviewServices {
     console.log('data', this.dataTabelPreview);
   }
 
-  tablePreviewMacroIndicator(object: any){
-    let lastIndex = object.length - 1;
+tablePreview(){
+    let columns: ColumnDefinition[] = [];
+
+    for(let i=0; i<this.objectKeys.length; i++){
+      columns.push(
+        {
+          title: this.objectKeys[i],
+          field: this.objectKeys[i],
+          headerHozAlign: "center",
+          hozAlign: "center" as ColumnDefinitionAlign,
+        }
+      )
+    }
+
     this.tabelPreview = new Tabulator(".table-preview", {
       height:"555px",
       data:this.dataTabelPreview,
       layout:"fitColumns",
-      columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left'},
-        {title:object[lastIndex - 1], field:object[lastIndex - 1], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
-        {title:object[lastIndex], field:object[lastIndex], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
-      ],
+      columns: columns,
     });
-  }
+}
 
-  tablePreviewMacroIndicatorPDB(object: any){
-    let lastIndex = object.length - 1;
-    this.tabelPreview = new Tabulator(".table-previewPDB", {
-      // height:205,
-      data:this.dataTabelPreview,
-      layout:"fitDataTable",
-      columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', minWidth: 200},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', minWidth: 100},
-        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', minWidth: 100},
-      ],
-    });
-  }
+
+
+  // tablePreviewMacroIndicatorPDB(){
+  //   this.tabelPreview = new Tabulator(".table-previewPDB", {
+  //     // height:205,
+  //     data:this.dataTabelPreview,
+  //     layout:"fitDataTable",
+  //     columns:[
+  //       {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', minWidth: 200},
+  //       {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', minWidth: 100},
+  //       {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', minWidth: 100},
+  //     ],
+  //   });
+  // }
 
 }
