@@ -141,6 +141,7 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
     this.indikatorName = name;
     localStorage.setItem('indikator_params', this.indikatorName)
     // console.log(this.indikatorID);
+    this.indikatorName == 'RKAP' ? this.isDisabled = false : this.isDisabled = true;
   }
 
   getValueParams = (event: any) => {
@@ -150,6 +151,8 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
     this.dataParameterID = id_sub_ctgrspsr;
     // console.log(this.dataParameterName);
     localStorage.setItem('subCategory_params', JSON.parse(JSON.stringify(this.dataParameterName)))
+
+    this.dataParameterID != null || undefined ? this.isDisabled = false : this.isDisabled = true;
   }
 
   readExcel(event: any){

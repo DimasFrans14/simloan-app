@@ -1214,7 +1214,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     let combinedArray: any[] = [];
     for(let i=0; i < filteredData.length; i++){
       for(let j=0; j<filteredData[i].data.length; j++){
-        combinedArray.push(parseFloat(filteredData[i].data[j].y.slice(0,4)))
+        combinedArray.push(parseFloat(filteredData[i].data[j].y))
       }
     }
 
