@@ -411,10 +411,10 @@ export class MarketUpdateService {
     }
   }
 
-  importLaporanMarketUpdateCurrencyRateuUSD = async (params: string, file: File) => {
+  importLaporanMarketUpdateCurrencyRateRealisasi = async (params: string, file: File) => {
     // const headers = { 'content-type': 'multipart/form-data'}
     const form = new FormData();
-    form.append('name', file, file.name)
+    form.append('file', file, file.name)
 
     try {
       return await lastValueFrom(
@@ -425,14 +425,14 @@ export class MarketUpdateService {
     }
   }
 
-  importLaporanMarketUpdateCurrencyRateNONUSD = async (params: string, file: File) => {
+  importLaporanMarketUpdateCurrencyRateOutlook = async (params: string, file: File) => {
     // const headers = { 'content-type': 'multipart/form-data'}
     const form = new FormData();
-    form.append('name', file, file.name)
+    form.append('file', file, file.name)
 
     try {
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/master-jisdors/upload/currency_rate?globalCurrencyRateEnum=${JSON.parse(params)}`, form)
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/out-kurs/master-usd-nonusd/upload?globalKursUsdAndNonUsdEnum=${JSON.parse(params)}`, form)
       )
     } catch (error) {
       return null
@@ -494,7 +494,7 @@ export class MarketUpdateService {
     const body = JSON.stringify(data)
     try {
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/macro/create?globalDashRealMacroIndicatorEnum=${JSON.parse(params)}`, body, {'headers': headers})
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/macro/create?globalMacroIndicatorEnum=${JSON.parse(params)}`, body, {'headers': headers})
       )
     } catch (error) {
       return null
