@@ -347,6 +347,52 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   filteredDate:String = "";
 
+  reFetchAllOverviewHarian = async (date: string) => {
+
+      const responseMacroIndicator = await this.marketUpdateService.fetchDataMacroIndicatorOverview(date);
+
+      this.dataMacroIndicator = responseMacroIndicator;
+      this.dataMacroIndicator = this.dataMacroIndicator.d;
+      this.listEditMacroIndicator = this.dataMacroIndicator;
+
+      const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview(date);
+
+      this.dataCommodities = commoditiesOverview;
+      this.dataCommodities = this.dataCommodities.d;
+      this.listEditCommodities = this.dataCommodities;
+
+      for(let i=0; i<this.dataCommodities.length; i++){
+        this.dataCommodities[i].nilai_rkap = parseFloat(this.dataCommodities[i].nilai_rkap).toLocaleString('en');
+        this.dataCommodities[i].nilai_real = parseFloat(this.dataCommodities[i].nilai_real).toLocaleString('en');
+        // console.log(parseFloat(this.dataCommodities[i].nilai_rkap).toLocaleString('en'));
+
+      }
+      this.dataCommodities = this.dataCommodities.slice(0, 3);
+
+      const currenciesOverview = await this.marketUpdateService.fetchDataKursOverview(date);
+
+      this.dataCurrency = currenciesOverview;
+      this.dataCurrency = this.dataCurrency.d;
+      for(let i=0; i<this.dataCurrency.length; i++){
+        this.dataCurrency[i].nilai_rkap = parseFloat(this.dataCurrency[i].nilai_rkap).toLocaleString('en');
+        this.dataCurrency[i].nilai_real = parseFloat(this.dataCurrency[i].nilai_real).toLocaleString('en');
+        // console.log(parseFloat(this.dataCommodities[i].nilai_rkap).toLocaleString('en'));
+
+      }
+      this.dataCurrency = this.dataCurrency.slice(0,3);
+      this.listEditCurrency = currenciesOverview;
+      this.listEditCurrency = this.listEditCurrency.d;
+
+      const interestRateOverview = await this.marketUpdateService.fetchDataInterestOverview(date);
+      this.dataInterestRate = interestRateOverview;
+      this.dataInterestRate = this.dataInterestRate.d;
+
+      const getKeyTakeways = await this.quillConfig.getKeyTakeways(date)
+      // console.log(getKeyTakeways);
+      this.getKeyTakeways = getKeyTakeways
+
+  }
+
   async onDate(event: MatDatepickerInputEvent<Date>) {
     const selectedDate = event.value;
     console.log(selectedDate);
@@ -398,78 +444,63 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     // console.log(month);
 
     try {
-      //TES FETCH BASED ON PARAMS
-      const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview(formattedDate);
-      const currenciesOverview = await this.marketUpdateService.fetchDataKursOverview(formattedDate)
 
-      // console.log(commoditiesOverview, currenciesOverview);
-      this.dataCommodities = commoditiesOverview;
-      this.dataCommodities = this.dataCommodities.d;
-      this.listEditCommodities = this.dataCommodities;
-      // this.listEditCommodities = this.listEditCommodities.filter((item: any) => item.periode == '04/12/2023');
-      // console.log(this.listEditCommodities);
+      this.reFetchAllOverviewHarian(formattedDate)
 
-      this.dataCommodities = this.dataCommodities.slice(0, 3);
-
-      // console.log(this.dataCommodities);
-
-      // const filteredDataCurrency = this.dataRKAP.data.content.filter((item: any) => item.grup === 'KURS');
-      this.dataCurrency = currenciesOverview;
-      // this.dataCurrency = this.dataCurrency.data.slice(0,3);
-      this.dataCurrency = this.dataCurrency.d.slice(0,3);
-      this.listEditCurrency = currenciesOverview;
-      this.listEditCurrency = this.listEditCurrency.d;
-      // this.listEditCurrency = this.listEditCurrency.d.list.filter((item: any) => !['Label'].includes(item.kode));
-      // console.log(this.dataCurrency, this.listEditCurrency) ;
-      const interestRateOverview = await this.marketUpdateService.fetchDataInterestOverview(formattedDate);
-      this.dataInterestRate = interestRateOverview;
-      this.dataInterestRate = this.dataInterestRate.d;
-
-      console.log("Data Interest : ",this.dataInterestRate)
-
-      const getKeyTakeways = await this.quillConfig.getKeyTakeways(formattedDate)
-      // console.log(getKeyTakeways);
-      this.getKeyTakeways = getKeyTakeways
-      // console.log(this.formatTanggal.data[0].tanggal);
-
-
-
-      // console.log();
     } catch (error) {
       console.log(error);
     }
 }
 
+  fetchMacroIndicator = async () => {
+    const responseMacroIndicator = await this.marketUpdateService.fetchDataMacroIndicatorOverview(moment().format('DD/MM/YYYY'));
+
+    this.dataMacroIndicator = responseMacroIndicator;
+    this.dataMacroIndicator = this.dataMacroIndicator.d;
+    this.listEditMacroIndicator = this.dataMacroIndicator;
+  }
+
+  fetchCommodities = async () => {
+    const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview(moment().format('DD/MM/YYYY'));
+
+    this.dataCommodities = commoditiesOverview;
+    this.dataCommodities = this.dataCommodities.d;
+    this.listEditCommodities = this.dataCommodities;
+    this.dataCommodities = this.dataCommodities.slice(0, 3);
+
+  }
+
+  fetchCurrency = async () => {
+    const currenciesOverview = await this.marketUpdateService.fetchDataKursOverview(moment().format('DD/MM/YYYY'))
+
+    this.dataCurrency = currenciesOverview;
+    this.dataCurrency = this.dataCurrency.d.slice(0,3);
+    this.listEditCurrency = currenciesOverview;
+    this.listEditCurrency = this.listEditCurrency.d;
+  }
+
+  fetchInterestRate = async () => {
+    const interestRateOverview = await this.marketUpdateService.fetchDataInterestOverview(moment().format('DD/MM/YYYY'));
+
+    this.dataInterestRate = interestRateOverview;
+    this.dataInterestRate = this.dataInterestRate.d;
+  }
+
+  fetchKeyTakeWays = async () => {
+    const getKeyTakeways = await this.quillConfig.getKeyTakeways(moment().format('DD/MM/YYYY'))
+    // console.log(getKeyTakeways);
+    this.getKeyTakeways = getKeyTakeways
+  }
+
   async ngOnInit(): Promise<void> {
     try {
-      const responseMacroIndicator = await this.marketUpdateService.fetchDataMacroIndicatorOverview(moment().format('DD/MM/YYYY'));
 
-      this.dataMacroIndicator = responseMacroIndicator;
-      this.dataMacroIndicator = this.dataMacroIndicator.d;
-      this.listEditMacroIndicator = this.dataMacroIndicator;
+      this.fetchMacroIndicator();
+      this.fetchCommodities();
+      this.fetchCurrency();
+      this.fetchInterestRate();
+      this.fetchKeyTakeWays();
 
-      const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview(moment().format('DD/MM/YYYY'));
-      const currenciesOverview = await this.marketUpdateService.fetchDataKursOverview(moment().format('DD/MM/YYYY'))
-
-      this.dataCommodities = commoditiesOverview;
-      this.dataCommodities = this.dataCommodities.d;
-      this.listEditCommodities = this.dataCommodities;
-
-
-      this.dataCommodities = this.dataCommodities.slice(0, 3);
-      this.dataCurrency = currenciesOverview;
-
-      this.dataCurrency = this.dataCurrency.d.slice(0,3);
-      this.listEditCurrency = currenciesOverview;
-      this.listEditCurrency = this.listEditCurrency.d;
-
-      const interestRateOverview = await this.marketUpdateService.fetchDataInterestOverview(moment().format('DD/MM/YYYY'));
-      this.dataInterestRate = interestRateOverview;
-      this.dataInterestRate = this.dataInterestRate.d;
-
-      const getKeyTakeways = await this.quillConfig.getKeyTakeways(moment().format('DD/MM/YYYY'))
-      // console.log(getKeyTakeways);
-      this.getKeyTakeways = getKeyTakeways
     }
     catch(err){
       console.log(err);
