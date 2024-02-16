@@ -60,7 +60,7 @@
               </ng-select>
             </div>
             <div class="mb-3">
-              <ngx-dropzone (change)="onSelect($event)">
+              <ngx-dropzone (change)="onSelect($event)" [disabled]="isDisabled">
                 <ngx-dropzone-label>
                     <img src="./assets/icon/upload-cloud-02.svg" alt="">
                     <div class="text-center"><span class="text-primary">Click to Upload</span> or drag and drop<br>
@@ -74,7 +74,7 @@
             </ngx-dropzone-preview>
             </div>
             <div class="text-center">
-              <button type="button" class="btn btn-primary" routerLink="/market_update/preview_laporan" [disabled]="false">Lihat Hasil Upload</button>
+              <button type="button" class="btn btn-primary" routerLink="/market_update/preview_laporan" [disabled]="isDisabled">Lihat Hasil Upload</button>
             </div>
           </div>
         </div>
