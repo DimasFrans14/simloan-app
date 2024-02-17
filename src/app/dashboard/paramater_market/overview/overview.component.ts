@@ -58,6 +58,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   dataChartWtibrent!:ApexAxisChartSeries;
   xAxisWtiChartBrent!:ApexXAxis;
 
+  dataBarChartWtiBrent!: ApexAxisChartSeries;
+  xAxisBarWtiBrent!: ApexXAxis;
+
   dataIcpChart!:ApexAxisChartSeries;
   xAxisIcpChart!:ApexXAxis;
 
@@ -275,10 +278,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.lineYAxisKurs = [];
       this.barYAxisKurs = [];
       this.barXAxisKurs = {
-        categories: [
-
-        ],
-        type: 'datetime'
+        type: 'datetime',
+        tickAmount: 100  
       }
 
       this.barDataLabels = {
@@ -503,7 +504,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
       const trendLNGCommodities = await this.marketUpdateService.fetchDataCommoditiesLNGTrend();
 
-      const trendBarChartKurs = await this.marketUpdateService.fetchDataKursTrendBarChart()
+      const trendBarChartKurs = await this.marketUpdateService.fetchDataKursTrendBarChart();
+
+      const trendBarChartWtiBrent:any = await this.marketUpdateService.fetchDataBarCommodities("['WTI', 'BRENT']");
 
       const trendInterestRate = await this.marketUpdateService.fetchDataInterestRateTrending();
 
@@ -534,89 +537,88 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         const nameKurs = this.trendKursDataBarChart[i].kode;
         const value = this.trendKursDataBarChart[i].data;
 
-        this.barChartKursSeries.push({
-          name: nameKurs,
-          data: value
-        })
+        
       }
 
-      for(let i=0; i < this.trendKursDataBarChart.length; i++){
+      this.barChartKursSeries = this.trendKursDataBarChart;
 
-        const kurs = this.trendKursDataBarChart[i].kode
+      // for(let i=0; i < this.trendKursDataBarChart.length; i++){
 
-        if(i < 1){
+      //   const kurs = this.trendKursDataBarChart[i].kode
 
-          this.barYAxisKurs.push({
-            showAlways: true,
-            seriesName: kurs,
-            // min:-1,
-            // max:1,
-            axisTicks: {
-              show: true
-            },
-            axisBorder: {
-              show: true,
-              color: "#000"
-            },
-            labels: {
-              style: {
-                colors: ["#000"]
-              },
-            },
-            title: {
-              text: "Bar Chart",
-              style: {
-                color: "#000"
-              }
-            },
-            tooltip: {
-              enabled: true
-            }
-              },)
+      //   if(i < 1){
+
+      this.barYAxisKurs = {
+        showAlways: true,
+        forceNiceScale: true,
+        axisTicks: {
+          show: true
+        },
+        axisBorder: {
+          show: false,
+          color: "#000"
+        },
+        labels: {
+          style: {
+            colors: ["#000"]
+          },
+          align: 'center'
+        },
+        title: {
+          style: {
+            color: "#000",
+            fontFamily:"satoshi-regular"
+          },
+          text: "% Change RKAP"
+        },
+        tooltip: {
+          enabled: true
         }
-        else{
-
-          this.barYAxisKurs.push({
-            seriesName: "USD",
-            axisTicks: {
-              show: false,
-            },
-            axisBorder: {
-              show: false,
-            },
-            labels: {
-              show:false,
-            },
-            title: {
-              text: "",
-            },
-            tooltip: {
-              enabled: false
-            }
-          })
-        }
-        // else{
-
-        //   this.barYAxisKurs.push({
-        //     seriesName: "USD",
-        //     axisTicks: {
-        //       show: false,
-        //     },
-        //     axisBorder: {
-        //       show: false,
-        //     },
-        //     labels: {
-        //       show:false,
-        //     },
-        //     title: {
-        //       text: "",
-        //     },
-        //     tooltip: {
-        //       enabled: false
-        //     }
-        //   })
-        // }
       }
+      //   }
+      //   else{
+
+      //     this.barYAxisKurs.push({
+      //       seriesName: "USD",
+      //       axisTicks: {
+      //         show: false,
+      //       },
+      //       axisBorder: {
+      //         show: false,
+      //       },
+      //       labels: {
+      //         show:false,
+      //       },
+      //       title: {
+      //         text: "",
+      //       },
+      //       tooltip: {
+      //         enabled: false
+      //       }
+      //     })
+      //   }
+      //   // else{
+
+      //   //   this.barYAxisKurs.push({
+      //   //     seriesName: "USD",
+      //   //     axisTicks: {
+      //   //       show: false,
+      //   //     },
+      //   //     axisBorder: {
+      //   //       show: false,
+      //   //     },
+      //   //     labels: {
+      //   //       show:false,
+      //   //     },
+      //   //     title: {
+      //   //       text: "",
+      //   //     },
+      //   //     tooltip: {
+      //   //       enabled: false
+      //   //     }
+      //   //   })
+      //   // }
+      // }
 
       // console.log(this.barChartKursSeries);
 
@@ -641,23 +643,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         }
       }
 
-      // console.log('Updated Categories:', this.tesXaxis.categories);
-        // console.log(defaultKurs);
-        // console.log(this.trendKursCategories.d.arrayTanggal);
-        // console.log(this.trendKursCategories.d.arrayData);
-
-
       this.lineChartKursMarkers = {
         // size: 2
       }
-
-      for(let i=0; i < this.trendKursDataBarChart.length; i++){
-        const date = this.trendKursDataBarChart[i]
-
-        this.barXAxisKurs.categories.push(date)
-      }
-
-      // console.log(this.lineChartKursSeries);
 
 
       this.dataChartWtibrent = [];
@@ -667,27 +655,18 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       }
 
       if(this.allTrendWTIBRENT.d){
-        // for(let i=0; i < this.allTrendWTIBRENT.d.arrayData.length; i++){
-        //   const commoditiesName = this.allTrendWTIBRENT.d.arrayData[i].kode
-        //   const dataWTIBRENT = this.allTrendWTIBRENT.d.arrayData[i].data
-
-        //   // console.log(dataWTIBRENT);
-
-
-        //   this.dataChartWtibrent.push({
-        //     name: commoditiesName,
-        //     data: dataWTIBRENT
-        //   })
-        // }
-
         this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData
-
-        // }
       }
       else{
         console.log('masuk else');
 
       }
+
+      this.dataBarChartWtiBrent = trendBarChartWtiBrent.d.arrayData;
+      this.xAxisBarWtiBrent = {
+        type: 'datetime'
+      }
+
 
       this.dataIcpChart = [];
       if(this.allTrendICP.d){
@@ -1310,7 +1289,14 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   yAxisWtiBrentChart:ApexYAxis={
     show: true,
-      tickAmount: 4,
+      tickAmount: 7,
+      // min: 45.00,
+      // max: 125.00,
+  }
+
+  yAxisWtiBrentBarChart:ApexYAxis={
+    show: true,
+      tickAmount: 7,
       // min: 45.00,
       // max: 125.00,
   }
@@ -1535,7 +1521,7 @@ coalStroke:ApexStroke ={
   // end LNG
   currencyBarChartDetails: ApexChart = {
     type: 'bar',
-    height: 400,
+    height: 360,
     // width:,
     toolbar: {
       show: true,
