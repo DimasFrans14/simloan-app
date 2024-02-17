@@ -106,7 +106,8 @@
                 <button
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
-                  [disabled]="true"
+                  id="default"
+                  (click)="oneWeekBarChart('default')"
                 >
                   <span style="font-size: 13px">1W</span>
                 </button>
@@ -115,6 +116,8 @@
                 <button
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                  id="default"
+                  (click)="oneMonthData('default')"
                 >
                   <span style="font-size: 13px">1M</span>
                 </button>
@@ -123,6 +126,8 @@
                 <button
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                  id="1year"
+                  (click)="moreThanOneYear('1year')"
                 >
                   <span style="font-size: 13px">1Y</span>
                 </button>
@@ -131,6 +136,8 @@
                 <button
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                  id="years"
+                  (click)="oneWeekBarChart('years')"
                 >
                   <span style="font-size: 13px">3Y</span>
                 </button>

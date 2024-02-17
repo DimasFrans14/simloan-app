@@ -77,6 +77,33 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   tesLocalStorageKurs: any;
   tesFilterKurs : any;
 
+  defaultKurs: any;
+
+  //Line Chart Kurs
+  allTrendDataKurs: any;
+  trendKursCategories: any;
+  trendKursData: any;
+  trendKursDataBarChart: any;
+  allTrendDataBarChart: any;
+  valueJPY: any;
+  kursJPY: any;
+
+  //Line Chart Interest Rate
+  allTrendDataInterestRate: any;
+  trendInterestRateCategories: any;
+  trendInterestData: any;
+  filteredMinMaxInterestRateData: any;
+
+  //Line Chart Commodities
+  allTrendWTIBRENT: any;
+  allTrendICP: any;
+  allTrendCOAL: any;
+  allTrendLNG : any;
+
+  USDDataChart: any;
+
+  dataWTIBRENT: any;
+
 
   chartCommodities = [
     {
@@ -203,32 +230,29 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.tesLocalStorageKurs = JSON.parse(getCompareDate)
   }
 
-  defaultKurs: any;
+  oneWeekBarChart = (params: any) => {
+    let today = moment(new Date())
+    let oneWeekAgo = today.subtract(7, 'days').format('DD/MM/YYYY');
+    console.log(params, oneWeekAgo);
+  }
 
-  //Line Chart Kurs
-  allTrendDataKurs: any;
-  trendKursCategories: any;
-  trendKursData: any;
-  trendKursDataBarChart: any;
-  allTrendDataBarChart: any;
-  valueJPY: any;
-  kursJPY: any;
+  oneMonthData = (params: any) => {
+    let today = moment(new Date())
+    let oneMonthAgo = today.subtract(1, 'months').format('DD/MM/YYYY');
+    console.log(params, oneMonthAgo);
+  }
 
-  //Line Chart Interest Rate
-  allTrendDataInterestRate: any;
-  trendInterestRateCategories: any;
-  trendInterestData: any;
-  filteredMinMaxInterestRateData: any;
+  oneYearData = (params: string) => {
+    let today = moment(new Date())
+    let oneYearAgo = today.subtract(1, 'years').format('DD/MM/YYYY');
+    console.log(params, oneYearAgo);
+  }
 
-  //Line Chart Commodities
-  allTrendWTIBRENT: any;
-  allTrendICP: any;
-  allTrendCOAL: any;
-  allTrendLNG : any;
-
-  USDDataChart: any;
-
-  dataWTIBRENT: any;
+  moreThanOneYear = (params: string) => {
+    let today = moment(new Date())
+    let threeYear = today.subtract(3, 'years').format('DD/MM/YYYY');
+    console.log(params, threeYear);
+  }
 
   async ngOnInit(): Promise<void> {
     try {
@@ -279,7 +303,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.barYAxisKurs = [];
       this.barXAxisKurs = {
         type: 'datetime',
-        tickAmount: 100  
+        tickAmount: 100
       }
 
       this.barDataLabels = {
@@ -537,7 +561,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         const nameKurs = this.trendKursDataBarChart[i].kode;
         const value = this.trendKursDataBarChart[i].data;
 
-        
+
       }
 
       this.barChartKursSeries = this.trendKursDataBarChart;
