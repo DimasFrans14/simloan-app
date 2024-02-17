@@ -15,8 +15,8 @@ export class MarketUpdateService {
   result: any;
 
   localDev: string = 'http://10.1.18.47:9051'
-  // serverDev: string = 'http://10.1.18.47:8080/simloan-ws' //dev server
-  serverDev: string = 'http://localhost:9051' //dev server
+  serverDev: string = 'http://10.1.18.47:8080/simloan-ws' //dev server
+  // serverDev: string = 'http://localhost:9051' //dev server
 
   async fetchDataMacroIndicatorOverview(date:String){
     try {
@@ -189,7 +189,7 @@ export class MarketUpdateService {
     try {
       return await lastValueFrom(
         // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
-        this.http.get('${this.serverDev}/dashboard/market/trending/commodities/getLineChart', option)
+        this.http.get(`${this.serverDev}/dashboard/market/trending/commodities/getLineChart`, option)
       )
     } catch (error) {
       console.log(error);

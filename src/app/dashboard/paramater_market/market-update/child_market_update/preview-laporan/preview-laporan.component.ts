@@ -137,7 +137,7 @@ export class PreviewLaporanComponent implements OnInit{
                   // console.log(response);
 
 
-                  this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+                  // this.router.navigate(["market_update/importLaporan_marketUpdate"]);
                 } catch (error) {
                   console.log(error);
                 }
