@@ -214,6 +214,7 @@
           [style.display]="isVisibleBar ? 'none' : 'block'"
           [series]="barChartKursSeries"
           [chart]="currencyBarChartDetails"
+          [yaxis]="barYAxisKurs"
           [xaxis]="barXAxisKurs"
           [dataLabels]="barDataLabels"
           [stroke]="stroke"
@@ -431,12 +432,11 @@
         </apx-chart>
         <apx-chart
           [style.display]="isVisibleLine ? 'none' : 'block'"
-          [series]="dataChartWtibrent"
+          [series]="dataBarChartWtiBrent"
           [chart]="wtiBrentBarChart"
-          [stroke]="wtiBrentStroke"
           [colors]="wtiBrentChartColors"
           [xaxis]="xAxisWtiChartBrent"
-          [yaxis]="yAxisWtiBrentChart">
+          [yaxis]="yAxisWtiBrentBarChart">
         </apx-chart>
       </div>
       <!-- end WTI Brent -->
