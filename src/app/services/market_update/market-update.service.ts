@@ -15,13 +15,13 @@ export class MarketUpdateService {
   result: any;
 
   localDev: string = 'http://10.1.18.47:9051'
-  serverDev: string = 'http://10.1.18.47:8080/simloan-ws' //dev server
-  // serverDev: string = 'http://localhost:9051' //dev server
+  // serverDev: string = 'http://10.1.18.47:8080/simloan-ws' //dev server
+  serverDev: string = 'http://localhost:9051' //dev server
 
   async fetchDataMacroIndicatorOverview(date:String){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/overview/getMakroIndikator?date=${date}`)
+        this.http.get(`${this.serverDev}/dashboard/market/overview/getMakroIndikator?date=${date}`)
       );
     } catch (error) {
       console.log(error);
@@ -32,7 +32,7 @@ export class MarketUpdateService {
   async fetchDataKurs(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/currency/getList`)
+        this.http.get(`${this.serverDev}/market/currency/getList`)
       );
     } catch (error) {
       console.log(error);
@@ -43,7 +43,7 @@ export class MarketUpdateService {
   async fetchDataKursOverview(date:String){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/overview/getCurrencies?date=${date}`)
+        this.http.get(`${this.serverDev}/dashboard/market/overview/getCurrencies?date=${date}`)
       );
     } catch (error) {
       console.log(error);
@@ -65,7 +65,7 @@ export class MarketUpdateService {
   async fetchDataKursTrend(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/kurs/getLineChart?start_date=02/02/2023&end_date=02/02/2024`)
+        this.http.get(`${this.serverDev}/dashboard/market/trending/kurs/getLineChart?start_date=02/02/2023&end_date=02/02/2024`)
       );
     } catch (error) {
       console.log(error);
@@ -74,9 +74,16 @@ export class MarketUpdateService {
   }
 
   async fetchDataKursTrendBarChart(){
+    const option = {
+      params: {
+        "start_date" : "01/01/2023",
+        "end_date" : "31/01/2024",
+        "group" : "years"
+      }
+    }
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/kurs/getColumnChart?start_date=01/01/2024&end_date=02/02/2024`)
+        this.http.get(`${this.serverDev}/dashboard/market/trending/kurs/getColumnChart`,option)
       );
     } catch (error) {
       console.log(error);
@@ -99,11 +106,29 @@ export class MarketUpdateService {
     try {
       return await lastValueFrom(
         // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/interest/getLineChart?start_date=01/01/2022&end_date=31/03/2024')
-        this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/interest/getLineChart?start_date=11/11/2023&end_date=11/02/2024')
+        this.http.get(`${this.serverDev}/dashboard/market/trending/interest/getLineChart?start_date=11/11/2023&end_date=11/02/2024`)
       )
     } catch (error) {
       console.log(error);
       return null
+    }
+  }
+
+  async fetchInterestRateBarChart(){
+    const option = {
+      params: {
+        "start_date" : "01/01/2023",
+        "end_date" : "31/01/2024",
+        "group" : "years"
+      }
+    }
+    try {
+      return await lastValueFrom(
+        this.http.get(`${this.serverDev}/dashboard/market/trending/interest/getBarChart`,option)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
     }
   }
 
@@ -132,7 +157,7 @@ export class MarketUpdateService {
   async fetchDataCommoditiesByDate(currentDate: any){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/commodities/getRateList?date=${currentDate}`)
+        this.http.get(`${this.serverDev}/market/commodities/getRateList?date=${currentDate}`)
       );
     } catch (error) {
       console.log(error);
@@ -144,7 +169,7 @@ export class MarketUpdateService {
 
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/dashboard/market/overview/getCommodities?date=${date}
+        this.http.get(`${this.serverDev}/dashboard/market/overview/getCommodities?date=${date}
         `)
       )
     } catch (error) {
@@ -164,7 +189,27 @@ export class MarketUpdateService {
     try {
       return await lastValueFrom(
         // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
-        this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
+        this.http.get('${this.serverDev}/dashboard/market/trending/commodities/getLineChart', option)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
+  async fetchDataBarCommodities(kategori:string){
+    const option = {
+      params: {
+        "kategori": kategori,
+        "start_date": "01/11/2023",
+        "end_date": "30/11/2023",
+        "group":"default"
+      }
+    }
+    try {
+      return await lastValueFrom(
+        // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
+        this.http.get(`${this.serverDev}/dashboard/market/trending/commodities/getBarChart`, option)
       )
     } catch (error) {
       console.log(error);
@@ -182,7 +227,7 @@ export class MarketUpdateService {
     }
     try {
       return await lastValueFrom(
-        this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
+        this.http.get(`${this.serverDev}/dashboard/market/trending/commodities/getLineChart`, option)
         // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
       )
     } catch (error) {
@@ -202,7 +247,7 @@ export class MarketUpdateService {
     try {
       return await lastValueFrom(
         // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
-        this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
+        this.http.get(`${this.serverDev}/dashboard/market/trending/commodities/getLineChart`, option)
       )
     } catch (error) {
       console.log(error);
@@ -221,7 +266,7 @@ export class MarketUpdateService {
     try {
       return await lastValueFrom(
         // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
-        this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
+        this.http.get(`${this.serverDev}/dashboard/market/trending/commodities/getLineChart`, option)
       )
     } catch (error) {
       console.log(error);
@@ -263,7 +308,7 @@ export class MarketUpdateService {
   async fetchDataInterestRate(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/interest/getList
+        this.http.get(`${this.serverDev}/market/interest/getList
         `)
       );
     } catch (error) {
