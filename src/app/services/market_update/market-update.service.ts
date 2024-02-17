@@ -463,7 +463,7 @@ export class MarketUpdateService {
       // const body = JSON.stringify(file);
       console.log(params);
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload/commodities?globalRealisasiCommoditiesEnum=${params}
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload/commodities?globalCommoditiesEnum=${params}
         `, form)
       )
     } catch (error) {
@@ -474,13 +474,13 @@ export class MarketUpdateService {
 
   importLaporanMarketUpdateBondYield = async (file: File, params: string) => {
     const form = new FormData()
-    form.append('name', file, file.name);
+    form.append('file', file, file.name);
     try {
       // const headers = { 'content-type': 'application/json'}
       // const body = JSON.stringify(file);
       console.log(params);
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload/rby?globalRealisasiBondYieldEnum=${params}
+        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload/rby?globalBondYieldEnum=${params}
         `, form)
       )
     } catch (error) {
