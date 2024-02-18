@@ -101,13 +101,14 @@
             <div>
               <h5>Kurs Rupiah</h5>
             </div>
-            <div class="d-flex align-items-center">
+
+            <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center">
               <div>
                 <button
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="default"
-                  (click)="oneWeekBarChart('default')"
+                  (click)="oneWeekKursBarChart('default')"
                 >
                   <span style="font-size: 13px">1W</span>
                 </button>
@@ -117,7 +118,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="default"
-                  (click)="oneMonthData('default')"
+                  (click)="oneMonthKursBarChart('default')"
                 >
                   <span style="font-size: 13px">1M</span>
                 </button>
@@ -127,7 +128,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="1year"
-                  (click)="moreThanOneYear('1year')"
+                  (click)="oneYearKursBarChart('1year')"
                 >
                   <span style="font-size: 13px">1Y</span>
                 </button>
@@ -137,12 +138,12 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="years"
-                  (click)="oneWeekBarChart('years')"
+                  (click)="threeYearsAgoKursBarChart('years')"
                 >
                   <span style="font-size: 13px">3Y</span>
                 </button>
               </div>
-              <div [style.display]="isVisibleLine ? 'block' : 'none'">
+              <div>
                 <button
                   class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
                   style="font-size: 14px"
@@ -173,7 +174,50 @@
                   </form>
                 </div>
               </div>
-              <div [style.display]="isVisibleLine ? 'none' : 'block'">
+            </div>
+
+            <div [style.display]="isVisibleLine ? 'none' : 'flex'" class=" align-items-center">
+              <div>
+                <button
+                  type="button"
+                  class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                  id="default"
+                  (click)="oneWeekKursBarChart('default')"
+                >
+                  <span style="font-size: 13px">1W</span>
+                </button>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                  id="default"
+                  (click)="oneMonthKursBarChart('default')"
+                >
+                  <span style="font-size: 13px">1M</span>
+                </button>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                  id="1year"
+                  (click)="oneYearKursBarChart('1year')"
+                >
+                  <span style="font-size: 13px">1Y</span>
+                </button>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                  id="years"
+                  (click)="threeYearsAgoKursBarChart('years')"
+                >
+                  <span style="font-size: 13px">3Y</span>
+                </button>
+              </div>
+              <div >
                 <button
                   class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
                   style="font-size: 14px"
@@ -186,7 +230,7 @@
                 <div class="dropdown-menu ps-2">
                   <form (ngSubmit)="filterCurrencyBarChart($event)">
                     <div style="font-size: 15px">
-                      <ng-container *ngFor="let item of allTrendDataBarChart">
+                      <ng-container *ngFor="let item of allTrendDataKursBarChart">
                         <input
                           type="checkbox"
                           name="selectedKursBarChart"
@@ -339,7 +383,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let item of allTrendDataBarChart">
+                        <tr *ngFor="let item of allTrendDataKursBarChart">
                           <th
                             scope="row"
                             style="font-size: 14px; border-style: none"
@@ -479,7 +523,7 @@
         </apx-chart>
         <apx-chart
           [style.display]="isVisibleBar ? 'none' : 'block'"
-          [series]="dataIcpChart"
+          [series]="dataIcpBarChart"
           [chart]="icpBarChart"
           [stroke]="icpStroke"
           [colors]="icpChartColors"
@@ -520,7 +564,7 @@
         </apx-chart>
         <apx-chart
           [style.display]="isVisibleLine ? 'none' : 'block'"
-          [series]="dataChartCoal"
+          [series]="dataChartCoalBar"
           [chart]="coalBarChart"
           [stroke]="coalStroke"
           [colors]="coalChartColors"
@@ -556,7 +600,7 @@
           [chart]="lngLineChart"
           [stroke]="lngStroke"
           [colors]="lngChartColors"
-          [xaxis]="xAxisChartLineLng"
+          [xaxis]="xAxisChartLng"
           [yaxis]="yAxisLng">
         </apx-chart>
         <apx-chart
@@ -565,7 +609,7 @@
           [chart]="lngBarChart"
           [stroke]="lngStroke"
           [colors]="lngChartColors"
-          [xaxis]="xAxisChartBarLng"
+          [xaxis]="xAxisChartLng"
           [yaxis]="yAxisLng">
         </apx-chart>
       </div>
@@ -633,7 +677,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              [disabled]="true"
+              (click)="oneWeekInterestBarChart('default')"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -642,6 +686,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="oneMonthInterestBarChart('default')"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -650,6 +695,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="oneYearInterestBarChart('1year')"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -658,6 +704,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="threeYearsAgoInterestBarChart('years')"
             >
               <span style="font-size: 13px">3Y</span>
             </button>
@@ -704,7 +751,7 @@
 
         <apx-chart
           [style.display]="isVisibleBar ? 'none' : 'block'"
-          [series]="lineChartInterestRateSeries"
+          [series]="barChartInterestRateSeries"
           [chart]="currencyBarChartDetails"
         ></apx-chart>
       </div>
