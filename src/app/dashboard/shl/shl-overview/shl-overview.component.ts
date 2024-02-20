@@ -51,11 +51,18 @@ export class ShlOverviewComponent implements OnInit {
   valueYear: any;
   valueYear2: any;
 
+  summaryTotalSHLChart!: ApexChart;
+
   totalSHLChart!: ApexChart;
   totalSHLChartSeries!: ApexAxisChartSeries;
   xAxisTotalSHLChart!: ApexXAxis;
   totalSHLChartColor!: any[];
   totalSHLDataLabel!: ApexDataLabels;
+
+  isActiveButtonBulanan: boolean = false;
+  isActiveButtonTahunan: boolean = false;
+  buttonBulananTahunanActive: string = 'btn btn-primary rounded btn-sm me-2'
+  buttonBulananTahunanInactive: string = 'btn btn-outline-primary rounded btn-sm me-2'
 
 
   constructor(){
@@ -75,6 +82,11 @@ export class ShlOverviewComponent implements OnInit {
     {id: 10, month: 'Oktober'},
     {id: 11, month: 'November'},
     {id: 12, month: 'Desember'},
+  ];
+
+  listPerusahaan = [
+    {id: 1, name: 'PT. PLN ICON PLUS'},
+    {id: 2, name: 'PT. PLN EPI'},
   ]
 
   data = [
@@ -89,20 +101,20 @@ export class ShlOverviewComponent implements OnInit {
     }
   ]
 
-  getYear(event: any) {
+  getYear = (event: any) => {
     let { _d } = event;
     console.log(_d);
     this.valueYear = moment(_d).format('YYYY');
     this.picker.close();
   }
-  getYear2(event: any) {
+  getYear2 = (event: any) => {
     let { _d } = event;
     console.log(_d);
     this.valueYear2 = moment(_d).format('YYYY');
     this.picker2.close();
   }
 
-  getValue(monthParams: string){
+  getValueMonth = (monthParams: string) => {
    console.log(monthParams);
    const buttonElement = document.getElementById('buttonMonth');
     if (buttonElement) {
@@ -110,8 +122,48 @@ export class ShlOverviewComponent implements OnInit {
     }
   }
 
+  getValuePerusahaan = (name: string) => {
+    console.log(name);
+    const buttonContent = document.getElementById('namePerusahaan');
+    if (buttonContent) {
+    buttonContent.textContent = name;
+    }
+  }
+
+  analisaTotalSHLBulanan = () => {
+    if(this.isActiveButtonTahunan){
+      this.isActiveButtonTahunan = !this.isActiveButtonTahunan
+    }
+    this.isActiveButtonBulanan = !this.isActiveButtonBulanan
+    console.log(this.isActiveButtonBulanan, this.isActiveButtonTahunan);
+  }
+
+  analisaTotalSHLTahunan = () => {
+    if(this.isActiveButtonBulanan){
+      this.isActiveButtonBulanan = !this.isActiveButtonBulanan
+    }
+    this.isActiveButtonTahunan = !this.isActiveButtonTahunan
+    console.log(this.isActiveButtonTahunan);
+  }
+
   async ngOnInit(): Promise<void> {
     try {
+      this.summaryTotalSHLChart = {
+        type: 'bar',
+        height: 400,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true,
+          }
+        },
+      }
       this.totalSHLChart = {
         type: 'bar',
         width: 550,

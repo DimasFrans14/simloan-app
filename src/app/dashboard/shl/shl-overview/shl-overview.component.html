@@ -64,7 +64,7 @@
                   <a
                     class="dropdown-item"
                     style="cursor: pointer"
-                    (click)="getValue(item.month)"
+                    (click)="getValueMonth(item.month)"
                     id="item.id"
                     >{{ item.month }}</a
                   >
@@ -104,6 +104,97 @@
   </div>
 
   <main id="main" class="main">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <!-- Currency -->
+      <div>
+        <h4 class="mt-4">Summary</h4>
+      </div>
+      <div>
+        <!-- <button
+          class="btn btn-transparant btn-sm border border-1 px-3 bg-white"
+          (click)="compare()"
+          [innerHTML]="isCompare ? 'Close' : 'Compare'"
+        ></button> -->
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-12 p-2 bg-white rouded">
+        <div class="bg-white">
+          <div class="d-flex justify-content-between align-items-center p-3">
+            <div>
+              <h5>Analisa Total Shareholder Loan</h5>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center">
+              <div>
+                <button
+                [class]="isActiveButtonBulanan ? buttonBulananTahunanActive : buttonBulananTahunanInactive"
+                (click)="analisaTotalSHLBulanan()"
+                >
+                Bulanan
+              </button>
+              </div>
+              <div>
+                <button
+                [class]="isActiveButtonTahunan ? buttonBulananTahunanActive : buttonBulananTahunanInactive"
+                (click)="analisaTotalSHLTahunan()"
+                >
+                Tahunan
+              </button>
+              </div>
+            </div>
+          </div>
+          <apx-chart
+          [series]="totalSHLChartSeries"
+          [chart]="summaryTotalSHLChart"
+          [xaxis]="xAxisTotalSHLChart"
+          [colors]="totalSHLChartColor"
+          [dataLabels]="totalSHLDataLabel"
+        ></apx-chart>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-12 p-2 bg-white rouded">
+        <div class="bg-white">
+          <div class="d-flex justify-content-between align-items-center p-3">
+            <div>
+              <h5>Analisa Availability Period Shareholder Loan</h5>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center">
+              <div>
+                <button
+                [class]="isActiveButtonBulanan ? buttonBulananTahunanActive : buttonBulananTahunanInactive"
+                (click)="analisaTotalSHLBulanan()"
+                >
+                Bulanan
+              </button>
+              </div>
+              <div>
+                <button
+                [class]="isActiveButtonTahunan ? buttonBulananTahunanActive : buttonBulananTahunanInactive"
+                (click)="analisaTotalSHLTahunan()"
+                >
+                Tahunan
+              </button>
+              </div>
+            </div>
+          </div>
+          <apx-chart
+          [series]="totalSHLChartSeries"
+          [chart]="summaryTotalSHLChart"
+          [xaxis]="xAxisTotalSHLChart"
+          [colors]="totalSHLChartColor"
+          [dataLabels]="totalSHLDataLabel"
+        ></apx-chart>
+        </div>
+      </div>
+    </div>
+
     <div
       class="d-flex justify-content-between align-items-center flex-wrap mb-4"
     >
@@ -133,11 +224,34 @@
       class="d-flex justify-content-between align-items-center bg-white p-3 rounded mb-4"
     >
       <div class="d-flex justify-content-center align-items-center">
-        <div class="rounded-circle p-3" style="background-color: #f2f7ff">
+        <div class="rounded-circle p-3 bg-transparant">
           <i class="bi bi-buildings"></i>
         </div>
-        <div class="d-flex flex-column ms-2">
-          <span class="fw-bold">PT. PLN ICON PLUS</span>
+        <div class="d-flex flex-column">
+          <div class="dropdown">
+            <button
+              class="btn btn-transparant bg-transparant border border-0 dropdown-toggle"
+              type="button"
+
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span class="fw-bold" id="namePerusahaan">PT. PLN ICON PLUS</span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <ng-container *ngFor="let item of listPerusahaan">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    style="cursor: pointer"
+                    (click)="getValuePerusahaan(item.name)"
+                    id="item.id"
+                    >{{ item.name }}</a
+                  >
+                </li>
+              </ng-container>
+            </ul>
+          </div>
           <span>3 Perjanjian</span>
         </div>
       </div>
@@ -158,7 +272,7 @@
               <a
                 class="dropdown-item"
                 style="cursor: pointer"
-                (click)="getValue(item.month)"
+                (click)="getValueMonth(item.month)"
                 id="item.id"
                 >{{ item.month }}</a
               >
@@ -171,15 +285,15 @@
     <div
       class="d-flex justify-content-between align-items-center flex-wrap mb-4"
     >
-      <div class="me-2 bg-white rounded p-2">
+      <div class="me-2 mb-3 bg-white rounded p-3">
         <div class="container">
           <h5>Total Analisa SHL</h5>
           <div class="">
             <!-- card kiri -->
             <!-- <div class="col-4 mt-3"> -->
               <div class="card" id="card">
-                <div class="card-body" style="width: 35vw;">
-                  <div class="d-flex mt-3">
+                <div class="mb-2" style="width: 35vw; height:auto;">
+                  <!-- <div class="d-flex mt-3">
                     <div class="avatar justify-content-start align-self-center">
                       <img src="assets/icon/building-06.svg" alt="" />
                     </div>
@@ -206,7 +320,7 @@
                     >
                       <i class="bi bi-arrow-up-right"></i>
                     </div>
-                  </div>
+                  </div> -->
                   <!-- progress-bar pagu -->
                   <div class="d-flex align-items-center">
                     <div><label for="">Total Pagu</label></div>
