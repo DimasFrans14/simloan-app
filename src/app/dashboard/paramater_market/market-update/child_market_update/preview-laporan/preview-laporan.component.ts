@@ -60,6 +60,8 @@ export class PreviewLaporanComponent implements OnInit{
     let categoryParams = localStorage.getItem('category_params')?.replace(/"/g, '')
     let subCategory_params = localStorage.getItem('subCategory_params')?.replace(/"/g, '')
     let indikatorParams = localStorage.getItem('indikator_params');
+    let deskripsi_param = localStorage.getItem('deskripsi_param');
+    let subCategory_deskripsi = localStorage.getItem('subCategory_deskripsi');
 
     const firstParams = ['CURRENCY_RATE', 'INTEREST_RATE', 'BOND_YIELD', 'COMMODITIES', 'MACRO_INDICATOR']
 
@@ -81,7 +83,7 @@ export class PreviewLaporanComponent implements OnInit{
           if(this.sendDataResponse.s === 200){
             Swal.fire({
               title: "Berhasil!",
-              text: `Data ${indikatorParams} ${categoryParams} berhasil di upload!`,
+              text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil diunggah!`,
               icon: "success"
               })
             }
@@ -89,7 +91,7 @@ export class PreviewLaporanComponent implements OnInit{
             Swal.fire({
               icon: "error",
               title: "Failed!",
-              text:  `Data ${indikatorParams} ${categoryParams} gagal di upload!`,
+              text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                 });
               }
         } catch (error) {
@@ -109,7 +111,7 @@ export class PreviewLaporanComponent implements OnInit{
                 if(this.sendDataResponse.s === 200){
                   Swal.fire({
                     title: "Berhasil!",
-                    text: `Data ${indikatorParams} ${categoryParams} berhasil di upload!`,
+                    text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                     icon: "success"
                   })
                 }
@@ -117,7 +119,7 @@ export class PreviewLaporanComponent implements OnInit{
                   Swal.fire({
                     icon: "error",
                     title: "Failed!",
-                    text:  `Data ${indikatorParams} ${categoryParams} gagal di upload!`,
+                    text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                   });
                 }
               }
@@ -130,7 +132,7 @@ export class PreviewLaporanComponent implements OnInit{
                 if(this.sendDataResponse.s === 200){
                   Swal.fire({
                     title: "Berhasil!",
-                    text: `Data ${indikatorParams} ${categoryParams} berhasil di upload!`,
+                    text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                     icon: "success"
                     })
                   }
@@ -138,7 +140,7 @@ export class PreviewLaporanComponent implements OnInit{
                   Swal.fire({
                     icon: "error",
                     title: "Failed!",
-                    text:  `Data ${indikatorParams} ${categoryParams} gagal di upload!`,
+                    text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                       });
                     }
               }
@@ -158,10 +160,10 @@ export class PreviewLaporanComponent implements OnInit{
                     // alert('up realisasi done');
 
                     this.sendDataResponse = response
-                    if(this.sendDataResponse.s === 200){
+                    if(this.sendDataResponse.status === 200){
                       Swal.fire({
                         title: "Berhasil!",
-                        text: `Data ${indikatorParams} ${categoryParams} berhasil di upload!`,
+                        text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                         icon: "success"
                         })
                       }
@@ -169,7 +171,7 @@ export class PreviewLaporanComponent implements OnInit{
                       Swal.fire({
                         icon: "error",
                         title: "Failed!",
-                        text:  `Data ${indikatorParams} ${categoryParams} gagal di upload!`,
+                        text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                           });
                         }
                   } catch (error) {
@@ -187,7 +189,7 @@ export class PreviewLaporanComponent implements OnInit{
                   if(this.sendDataResponse.s === 200){
                     Swal.fire({
                       title: "Berhasil!",
-                      text: `Data ${indikatorParams} ${categoryParams} berhasil di upload!`,
+                      text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                       icon: "success"
                       })
                     }
@@ -195,7 +197,7 @@ export class PreviewLaporanComponent implements OnInit{
                     Swal.fire({
                       icon: "error",
                       title: "Failed!",
-                      text:  `Data ${indikatorParams} ${categoryParams} gagal di upload!`,
+                      text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                         });
               }
                 } catch (error) {
@@ -217,7 +219,7 @@ export class PreviewLaporanComponent implements OnInit{
                   if(this.sendDataResponse.s === 200){
                     Swal.fire({
                       title: "Berhasil!",
-                      text: `Data ${indikatorParams} ${categoryParams} berhasil di upload!`,
+                      text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                       icon: "success"
                       })
                     }
@@ -225,7 +227,7 @@ export class PreviewLaporanComponent implements OnInit{
                     Swal.fire({
                       icon: "error",
                       title: "Failed!",
-                      text:  `Data ${indikatorParams} ${categoryParams} gagal di upload!`,
+                      text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                         });
               }
                 } catch (error) {
@@ -241,7 +243,7 @@ export class PreviewLaporanComponent implements OnInit{
                   if(this.sendDataResponse.s === 200){
                     Swal.fire({
                       title: "Berhasil!",
-                      text: `Data ${indikatorParams} ${categoryParams} berhasil di upload!`,
+                      text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                       icon: "success"
                       })
                     }
@@ -249,7 +251,7 @@ export class PreviewLaporanComponent implements OnInit{
                     Swal.fire({
                       icon: "error",
                       title: "Failed!",
-                      text:  `Data ${indikatorParams} ${categoryParams} gagal di upload!`,
+                      text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                         });
               }
                 } catch (error) {
@@ -274,7 +276,7 @@ export class PreviewLaporanComponent implements OnInit{
                     if(this.sendDataResponse.s === 200){
                       Swal.fire({
                         title: "Berhasil!",
-                        text: `Data ${indikatorParams} ${categoryParams} berhasil di upload!`,
+                        text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                         icon: "success"
                         })
                       }
@@ -282,7 +284,7 @@ export class PreviewLaporanComponent implements OnInit{
                       Swal.fire({
                         icon: "error",
                         title: "Failed!",
-                        text:  `Data ${indikatorParams} ${categoryParams} gagal di upload!`,
+                        text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                           });
                         }
                   } catch (error) {
@@ -297,7 +299,7 @@ export class PreviewLaporanComponent implements OnInit{
                     if(this.sendDataResponse.s === 200){
                       Swal.fire({
                         title: "Berhasil!",
-                        text: `Data ${indikatorParams} ${categoryParams} berhasil di upload!`,
+                        text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                         icon: "success"
                         })
                       }
@@ -305,7 +307,7 @@ export class PreviewLaporanComponent implements OnInit{
                       Swal.fire({
                         icon: "error",
                         title: "Failed!",
-                        text:  `Data ${indikatorParams} ${categoryParams} gagal di upload!`,
+                        text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                           });
               }
                   } catch (error) {
@@ -327,7 +329,7 @@ export class PreviewLaporanComponent implements OnInit{
                   if(this.sendDataResponse.s === 200){
                     Swal.fire({
                       title: "Berhasil!",
-                      text: `Data ${indikatorParams} ${categoryParams} berhasil di upload!`,
+                      text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                       icon: "success"
                       })
                     }
@@ -335,7 +337,7 @@ export class PreviewLaporanComponent implements OnInit{
                     Swal.fire({
                       icon: "error",
                       title: "Failed!",
-                      text:  `Data ${indikatorParams} ${categoryParams} gagal di upload!`,
+                      text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                         });
                       }
                 } catch (error) {
@@ -352,7 +354,7 @@ export class PreviewLaporanComponent implements OnInit{
                   if(this.sendDataResponse.s === 200){
                     Swal.fire({
                       title: "Berhasil!",
-                      text: `Data ${indikatorParams} ${categoryParams} berhasil di upload!`,
+                      text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                       icon: "success"
                       })
                     }
@@ -360,7 +362,7 @@ export class PreviewLaporanComponent implements OnInit{
                     Swal.fire({
                       icon: "error",
                       title: "Failed!",
-                      text:  `Data ${indikatorParams} ${categoryParams} gagal di upload!`,
+                      text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                         });
                       }
                 } catch (error) {

@@ -132,6 +132,7 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
     console.log(filter);
 
     localStorage.setItem('category_params', event.kode)
+    localStorage.setItem('deskripsi_param', event.deskripsi)
   }
 
   indikatorSelect(event: any){
@@ -147,10 +148,12 @@ export class ImportLaporanMarketUpdateComponent implements OnInit {
   getValueParams = (event: any) => {
     // console.log(event);
     const { id_sub_ctgrspsr, kode } = event;
+
     this.dataParameterName = kode;
     this.dataParameterID = id_sub_ctgrspsr;
     // console.log(this.dataParameterName);
     localStorage.setItem('subCategory_params', JSON.parse(JSON.stringify(this.dataParameterName)))
+    localStorage.setItem('subCategory_deskripsi',event.deskripsi)
 
     this.dataParameterID != null || undefined ? this.isDisabled = false : this.isDisabled = true;
   }
