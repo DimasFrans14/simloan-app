@@ -386,6 +386,9 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       const interestRateOverview = await this.marketUpdateService.fetchDataInterestOverview(date);
       this.dataInterestRate = interestRateOverview;
       this.dataInterestRate = this.dataInterestRate.d;
+      for(let i=0; i<this.dataInterestRate.length; i++){
+        this.dataInterestRate[i].nilai_realisasi = this.dataInterestRate[i].nilai_realisasi.slice(0,4);
+      }
 
       const getKeyTakeways = await this.quillConfig.getKeyTakeways(date)
       // console.log(getKeyTakeways);

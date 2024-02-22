@@ -51,6 +51,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   barDataLabels!: ApexDataLabels;
 
   lineChartInterestRateSeries: ApexAxisChartSeries = [];
+  barChartInterestRateSeries: ApexAxisChartSeries = [];
   interestRateXaxis!: ApexXAxis;
   interestRateLegend!: ApexLegend;
   interestRateYAxis!: ApexYAxis;
@@ -58,21 +59,59 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   dataChartWtibrent!:ApexAxisChartSeries;
   xAxisWtiChartBrent!:ApexXAxis;
 
+  dataBarChartWtiBrent!: ApexAxisChartSeries;
+  xAxisBarWtiBrent!: ApexXAxis;
+
   dataIcpChart!:ApexAxisChartSeries;
+  dataIcpBarChart!:ApexAxisChartSeries;
   xAxisIcpChart!:ApexXAxis;
 
   dataChartCoal!:ApexAxisChartSeries;
+  dataChartCoalBar!: ApexAxisChartSeries;
   xAxisChartCoal!:ApexXAxis;
 
   dataChartLngLine!: ApexAxisChartSeries;
   dataChartLngBar!: ApexAxisChartSeries;
-  xAxisChartLineLng!: ApexXAxis;
+  xAxisChartLng!: ApexXAxis;
   xAxisChartBarLng!: ApexXAxis;
 
   selectedItems!: number;
 
   tesLocalStorageKurs: any;
   tesFilterKurs : any;
+
+  defaultKurs: any;
+
+  //Line Chart Kurs
+  allTrendDataKurs: any;
+  trendKursCategories: any;
+  trendKursData: any;
+  trendKursDataBarChart: any;
+  allTrendDataKursBarChart: any;
+  valueJPY: any;
+  kursJPY: any;
+
+  //Line Chart Interest Rate
+  allTrendDataInterestRate: any;
+  trendInterestRateCategories: any;
+  trendInterestData: any;
+  trendInterestDataBarChart: any;
+  filteredMinMaxInterestRateData: any;
+
+  //Line Chart Commodities
+  allTrendWTIBRENT: any;
+  allTrendICP: any;
+  allTrendCOAL: any;
+  allTrendLNG : any;
+
+  dataWTIBRENTBarChart: any;
+  trenddataICPBarChart: any;
+  dataCOALBarChart: any;
+  dataLNGBarChart: any;
+
+  USDDataChart: any;
+
+  dataWTIBRENT: any;
 
 
   chartCommodities = [
@@ -200,108 +239,137 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.tesLocalStorageKurs = JSON.parse(getCompareDate)
   }
 
-  defaultKurs: any;
+  //Filter Range Kurs Data Bar Chart
+  oneWeekKursBarChart = async (params: any) => {
+    let getToday = moment(new Date());
 
-  //Line Chart Kurs
-  allTrendDataKurs: any;
-  trendKursCategories: any;
-  trendKursData: any;
-  trendKursDataBarChart: any;
-  allTrendDataBarChart: any;
-  valueJPY: any;
-  kursJPY: any;
+    let today = moment(new Date());
+    let oneWeekAgo = getToday.subtract(7, 'days').format('DD/MM/YYYY');
+    const response  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, oneWeekAgo, today.format('DD/MM/YYYY'))
+    console.log(params, oneWeekAgo, today.format('DD/MM/YYYY'));
 
-  //Line Chart Interest Rate
-  allTrendDataInterestRate: any;
-  trendInterestRateCategories: any;
-  trendInterestData: any;
-  filteredMinMaxInterestRateData: any;
+    console.log(response);
 
-  //Line Chart Commodities
-  allTrendWTIBRENT: any;
-  allTrendICP: any;
-  allTrendCOAL: any;
-  allTrendLNG : any;
+    this.trendKursDataBarChart = response;
+    this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
+    this.barChartKursSeries = this.trendKursDataBarChart
+  }
 
-  USDDataChart: any;
+  oneMonthKursBarChart = async (params: any) => {
+    let getToday = moment(new Date());
 
-  dataWTIBRENT: any;
+    let today = moment(new Date());
+    let oneMonthAgo = getToday.subtract(1, 'months').format('DD/MM/YYYY');
+    const response  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, oneMonthAgo, today.format('DD/MM/YYYY'))
+    console.log(params, oneMonthAgo, today.format('DD/MM/YYYY'));
 
-  async ngOnInit(): Promise<void> {
-    try {
-      this.currencyChartDetails = {
-        type: 'line',
-        height: 400,
-        // width:,
-        toolbar: {
-          show: true,
-          tools: {
-            download: true,
-            selection: true,
-            zoom: true,
-            zoomin: true,
-            zoomout: true,
-            pan: true,
-            reset: true,
-          }
-        },
-        events:{
-          legendClick(chart, seriesIndex, options) {
-              console.log(options.config);
-              // console.log(options.series.length);
-              // console.log(firstData);
+    console.log(response);
 
-              // for(let i=0; i<options.config.series.length; i++){
-              //   if(seriesIndex === i){
-              //     const change = options.config.yaxis[i].showAlways === true
-              //     console.log('same', change, options.config.series[i].name, seriesIndex);
-              //   }
-              //   else{
-              //     options.config.yaxis[i].showAlways === false
-              //     console.log('not same', options.config.yaxis[i].showAlways, options.config.series[i].name, seriesIndex);
-              //   }
-              // }
+    this.trendKursDataBarChart = response;
+    this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
+    this.barChartKursSeries = this.trendKursDataBarChart
+  }
 
-          },
-          dataPointSelection(e, chart, config){
-            console.log(config.w.config.series[config.seriesIndex].data[config.dataPointIndex], config.w.config.series[config.seriesIndex].name);
-            console.log(chart);
-          }
-        }
-      }
-      this.lineChartKursSeries = [];
-      this.barChartKursSeries = [];
-      this.chartSeries2 = [];
-      this.lineYAxisKurs = [];
-      this.barYAxisKurs = [];
-      this.barXAxisKurs = {
-        categories: [
+  oneYearKursBarChart = async (params: string) => {
+    let getToday = moment(new Date());
 
-        ],
-        type: 'datetime'
-      }
+    let today = moment(new Date());
+    let oneYearsAgo = getToday.subtract(1, 'years').format('DD/MM/YYYY');
+    const response  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, oneYearsAgo, today.format('DD/MM/YYYY'))
+    console.log(params, oneYearsAgo, today.format('DD/MM/YYYY'));
 
-      this.barDataLabels = {
-        enabled: false
-      }
+    console.log(response);
 
-      this.tesXaxis = {
-        categories: [
-        ],
-        type:'datetime',
-      }
+    this.trendKursDataBarChart = response;
+    this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
+    this.barChartKursSeries = this.trendKursDataBarChart
+  }
 
-      this.interestRateLegend = {
-        position: 'right'
-      }
+  threeYearsAgoKursBarChart = async (params: string) => {
+    let getToday = moment(new Date());
 
-      this.stroke = {
-        curve: 'smooth',
-        width: 0.95,
-        lineCap : 'round'
-      }
+    let today = moment(new Date());
+    let threeYearsAgo = getToday.subtract(3, 'years').format('DD/MM/YYYY');
+    const response  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, threeYearsAgo, today.format('DD/MM/YYYY'))
+    console.log(params, threeYearsAgo, today.format('DD/MM/YYYY'));
 
-      const responseKurs = await this.marketUpdateService.fetchDataKursTrend()
+    console.log(response);
+
+    this.trendKursDataBarChart = response;
+    this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
+    this.barChartKursSeries = this.trendKursDataBarChart
+  }
+
+  //Filter Range Interest Data Bar Chart
+  oneWeekInterestBarChart = async (params: any) => {
+    let getToday = moment(new Date());
+
+    let today = moment(new Date());
+    let oneWeekAgo = getToday.subtract(7, 'days').format('DD/MM/YYYY');
+    const response  = await this.marketUpdateService.fetchInterestRateBarChart(params, oneWeekAgo, today.format('DD/MM/YYYY'))
+    console.log(params, oneWeekAgo, today.format('DD/MM/YYYY'));
+
+    console.log(response);
+
+    this.allTrendDataInterestRate = response;
+    this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
+    this.barChartInterestRateSeries = this.allTrendDataInterestRate
+  }
+
+  oneMonthInterestBarChart = async (params: any) => {
+    let getToday = moment(new Date());
+
+    let today = moment(new Date());
+    let oneMonthAgo = getToday.subtract(1, 'months').format('DD/MM/YYYY');
+    const response  = await this.marketUpdateService.fetchInterestRateBarChart(params, oneMonthAgo, today.format('DD/MM/YYYY'))
+    console.log(params, oneMonthAgo, today.format('DD/MM/YYYY'));
+
+    console.log(response);
+
+    this.allTrendDataInterestRate = response;
+    this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
+    this.barChartInterestRateSeries = this.allTrendDataInterestRate
+  }
+
+  oneYearInterestBarChart = async (params: string) => {
+    let getToday = moment(new Date());
+
+    let today = moment(new Date());
+    let oneYearAgo = getToday.subtract(1, 'years').format('DD/MM/YYYY');
+    const response  = await this.marketUpdateService.fetchInterestRateBarChart(params, oneYearAgo, today.format('DD/MM/YYYY'))
+    console.log(params, oneYearAgo, today.format('DD/MM/YYYY'));
+
+    console.log(response);
+
+    this.allTrendDataInterestRate = response;
+    this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
+    this.barChartInterestRateSeries = this.allTrendDataInterestRate
+  }
+
+  threeYearsAgoInterestBarChart = async (params: string) => {
+    let getToday = moment(new Date());
+
+    let today = moment(new Date());
+    let threeYearsAgo = getToday.subtract(3, 'years').format('DD/MM/YYYY');
+    const response  = await this.marketUpdateService.fetchInterestRateBarChart(params, threeYearsAgo, today.format('DD/MM/YYYY'))
+    console.log(params, threeYearsAgo, today.format('DD/MM/YYYY'));
+
+    console.log(response);
+
+    this.allTrendDataInterestRate = response;
+    this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
+    this.barChartInterestRateSeries = this.allTrendDataInterestRate
+  }
+
+  //Fetch Default Data
+  fetchDataLineKurs = async () => {
+    this.lineYAxisKurs = [];
+
+    //Set Default Date
+    let today = moment(new Date());
+    let oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
+
+    const responseKurs = await this.marketUpdateService.fetchDataKursTrend()
       this.dataKurs = responseKurs;
       localStorage.setItem('compareData', JSON.stringify(this.dataKurs.d.arrayData))
 
@@ -326,6 +394,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       });
 
       this.valueJPY = updateValueJPY;
+      console.log(this.defaultKurs);
+
 
       for(let i=0; i < this.defaultKurs.length ; i++){
         const kurs = this.defaultKurs[i].kurs;
@@ -494,137 +564,207 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         })
       }
       }
+  }
 
-      const trendWTIBRENTCommodities = await this.marketUpdateService.fetchDataCommoditiesWTIBRENTTrend();
+  fetchDataLineCommodities = async () => {
 
-      const trendICPCommodities = await this.marketUpdateService.fetchDataCommoditiesICPTrend();
+    //Set Default Date
+    let today = moment(new Date());
+    let oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
 
-      const trendCOALCommodities = await this.marketUpdateService.fetchDataCommoditiesCOALTrend();
+    const trendWTIBRENTCommodities = await this.marketUpdateService.fetchDataLineCommodities("['WTI', 'BRENT']", oneYearsAgo, today.format('DD/MM/YYYY'));
 
-      const trendLNGCommodities = await this.marketUpdateService.fetchDataCommoditiesLNGTrend();
+    const trendICPCommodities = await this.marketUpdateService.fetchDataLineCommodities("['ICP']", oneYearsAgo, today.format('DD/MM/YYYY'));
 
-      const trendBarChartKurs = await this.marketUpdateService.fetchDataKursTrendBarChart()
+    const trendCOALCommodities = await this.marketUpdateService.fetchDataLineCommodities("['COAL']", oneYearsAgo, today.format('DD/MM/YYYY'));
 
-      const trendInterestRate = await this.marketUpdateService.fetchDataInterestRateTrending();
+    const trendLNGCommodities = await this.marketUpdateService.fetchDataLineCommodities("['LNG']", oneYearsAgo, today.format('DD/MM/YYYY'));
 
-      // console.log("Data Trend Interest Rate : ", trendInterestRate);
+    this.allTrendWTIBRENT = trendWTIBRENTCommodities;
+    this.allTrendICP = trendICPCommodities;
+    this.allTrendCOAL= trendCOALCommodities;
+    this.allTrendLNG = trendLNGCommodities;
+  }
 
-      this.trendKursDataBarChart = trendBarChartKurs;
-      this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
-      this.allTrendDataBarChart = trendBarChartKurs;
-      this.allTrendDataBarChart = this.allTrendDataBarChart.d.arrayData;
-      // this.trendKursDataBarChart = this.trendKursDataBarChart
+  fetchDataLineInterest = async () => {
 
-      this.allTrendWTIBRENT = trendWTIBRENTCommodities;
-      this.allTrendICP = trendICPCommodities;
-      this.allTrendCOAL= trendCOALCommodities;
-      this.allTrendLNG = trendLNGCommodities;
+     //Set Default Date
+     let today = moment(new Date());
+     let oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
 
-      // console.log(this.trendKursDataBarChart);
+    const trendInterestRate = await this.marketUpdateService.fetchDataInterestRateTrending(oneYearsAgo, today.format('DD/MM/YYYY'));
 
-      this.allTrendDataInterestRate = trendInterestRate;
-      // console.log("All Interest Rate : ", this.allTrendDataInterestRate)
-      this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
-      // console.log("All Interest Rate2 : ", this.allTrendDataInterestRate)
-      this.trendInterestRateCategories = trendInterestRate;
-      this.trendInterestData = trendInterestRate;
-      this.filteredMinMaxInterestRateData = trendInterestRate;
+    this.allTrendDataInterestRate = trendInterestRate;
+    console.log("All Interest Rate : ", this.allTrendDataInterestRate)
+    this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
+    // console.log("All Interest Rate2 : ", this.allTrendDataInterestRate)
+    this.trendInterestRateCategories = trendInterestRate;
+    this.trendInterestData = trendInterestRate;
+    this.filteredMinMaxInterestRateData = trendInterestRate;
+  }
 
-      for(let i=0; i < this.trendKursDataBarChart.length; i++){
-        const nameKurs = this.trendKursDataBarChart[i].kode;
-        const value = this.trendKursDataBarChart[i].data;
+  fetchDataBarChartKurs = async () => {
 
-        this.barChartKursSeries.push({
-          name: nameKurs,
-          data: value
-        })
+    //Set Default Date
+    let today = moment(new Date());
+    let oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
+
+    const trendBarChartKurs = await this.marketUpdateService.fetchDataKursTrendBarChart('1year', oneYearsAgo, today.format('DD/MM/YYYY'));
+
+    this.trendKursDataBarChart = trendBarChartKurs;
+    this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
+    this.allTrendDataKursBarChart = trendBarChartKurs;
+    this.allTrendDataKursBarChart = this.allTrendDataKursBarChart.d.arrayData;
+
+  }
+
+  fetchAllDataBarChartCommodities = async () => {
+
+    //Set Default Date
+    let today = moment(new Date());
+    let oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
+
+    const trendBarChartWtiBrent:any = await this.marketUpdateService.fetchDataBarCommodities("['WTI', 'BRENT']", oneYearsAgo, today.format('DD/MM/YYYY'), '1year');
+
+    const trendBarChartICP:any = await this.marketUpdateService.fetchDataBarCommodities("['ICP']", oneYearsAgo, today.format('DD/MM/YYYY'), '1year');
+
+    const trendBarChartCOAL:any = await this.marketUpdateService.fetchDataBarCommodities("['COAL']", oneYearsAgo, today.format('DD/MM/YYYY'), '1year');
+
+    const trendBarChartLNG:any = await this.marketUpdateService.fetchDataBarCommodities("['LNG']", oneYearsAgo, today.format('DD/MM/YYYY'), '1year');
+
+    const trendBarChartBATUBARA:any = await this.marketUpdateService.fetchDataBarCommodities("['BATUBARA']", oneYearsAgo, today.format('DD/MM/YYYY'), '1year');
+
+    this.dataWTIBRENTBarChart = trendBarChartWtiBrent;
+    this.trenddataICPBarChart = trendBarChartICP;
+    this.dataCOALBarChart = trendBarChartCOAL;
+    this.dataLNGBarChart = trendBarChartLNG;
+
+  }
+
+  fetchAllDataBarChartInterest = async () => {
+
+    //Set Default Date
+    let today = moment(new Date());
+    let oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
+
+    const trendInterestBarChart = await this.marketUpdateService.fetchInterestRateBarChart('1year',oneYearsAgo, today.format('DD/MM/YYYY'));
+
+    this.trendInterestDataBarChart = trendInterestBarChart
+    this.barChartInterestRateSeries = this.trendInterestDataBarChart.d.arrayData
+  }
+
+  async ngOnInit(): Promise<void> {
+    try {
+      this.currencyChartDetails = {
+        type: 'line',
+        height: 400,
+        // width:,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true,
+          }
+        },
+        events:{
+          legendClick(chart, seriesIndex, options) {
+              console.log(options.config);
+              // console.log(options.series.length);
+              // console.log(firstData);
+
+              // for(let i=0; i<options.config.series.length; i++){
+              //   if(seriesIndex === i){
+              //     const change = options.config.yaxis[i].showAlways === true
+              //     console.log('same', change, options.config.series[i].name, seriesIndex);
+              //   }
+              //   else{
+              //     options.config.yaxis[i].showAlways === false
+              //     console.log('not same', options.config.yaxis[i].showAlways, options.config.series[i].name, seriesIndex);
+              //   }
+              // }
+
+          },
+          dataPointSelection(e, chart, config){
+            console.log(config.w.config.series[config.seriesIndex].data[config.dataPointIndex], config.w.config.series[config.seriesIndex].name);
+            console.log(chart);
+          }
+        }
+      }
+      this.lineChartKursSeries = [];
+      this.barChartKursSeries = [];
+      this.chartSeries2 = [];
+      this.barYAxisKurs = [];
+      this.barXAxisKurs = {
+        type: 'datetime',
+        tickAmount: 100
       }
 
-      for(let i=0; i < this.trendKursDataBarChart.length; i++){
-
-        const kurs = this.trendKursDataBarChart[i].kode
-
-        if(i < 1){
-
-          this.barYAxisKurs.push({
-            showAlways: true,
-            seriesName: kurs,
-            // min:-1,
-            // max:1,
-            axisTicks: {
-              show: true
-            },
-            axisBorder: {
-              show: true,
-              color: "#000"
-            },
-            labels: {
-              style: {
-                colors: ["#000"]
-              },
-            },
-            title: {
-              text: "Bar Chart",
-              style: {
-                color: "#000"
-              }
-            },
-            tooltip: {
-              enabled: true
-            }
-              },)
-        }
-        else{
-
-          this.barYAxisKurs.push({
-            seriesName: "USD",
-            axisTicks: {
-              show: false,
-            },
-            axisBorder: {
-              show: false,
-            },
-            labels: {
-              show:false,
-            },
-            title: {
-              text: "",
-            },
-            tooltip: {
-              enabled: false
-            }
-          })
-        }
-        // else{
-
-        //   this.barYAxisKurs.push({
-        //     seriesName: "USD",
-        //     axisTicks: {
-        //       show: false,
-        //     },
-        //     axisBorder: {
-        //       show: false,
-        //     },
-        //     labels: {
-        //       show:false,
-        //     },
-        //     title: {
-        //       text: "",
-        //     },
-        //     tooltip: {
-        //       enabled: false
-        //     }
-        //   })
-        // }
+      this.barDataLabels = {
+        enabled: false
       }
 
-      // console.log(this.barChartKursSeries);
+      this.tesXaxis = {
+        categories: [
+        ],
+        type:'datetime',
+      }
+
+      this.interestRateLegend = {
+        position: 'right'
+      }
+
+      this.stroke = {
+        curve: 'smooth',
+        width: 0.95,
+        lineCap : 'round'
+      }
+
+      await this.fetchDataLineKurs();
+      await this.fetchDataLineCommodities();
+      await this.fetchDataLineInterest()
+
+      await this.fetchDataBarChartKurs();
+      await this.fetchAllDataBarChartCommodities();
+      await this.fetchAllDataBarChartInterest();
+
+      this.barChartKursSeries = this.trendKursDataBarChart;
+
+      this.barYAxisKurs = {
+        showAlways: true,
+        forceNiceScale: true,
+        axisTicks: {
+          show: true
+        },
+        axisBorder: {
+          show: false,
+          color: "#000"
+        },
+        labels: {
+          style: {
+            colors: ["#000"]
+          },
+          align: 'center'
+        },
+        title: {
+          style: {
+            color: "#000",
+            fontFamily:"satoshi-regular"
+          },
+          text: "% Change RKAP"
+        },
+        tooltip: {
+          enabled: true
+        }
+      }
 
       this.barChartDataLabel = {
         enabled: true,
       }
-
-      // console.log(this.lineChartKursSeries);
 
       for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
         const currentDate = this.trendKursCategories.d.arrayTanggal[i];
@@ -641,23 +781,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         }
       }
 
-      // console.log('Updated Categories:', this.tesXaxis.categories);
-        // console.log(defaultKurs);
-        // console.log(this.trendKursCategories.d.arrayTanggal);
-        // console.log(this.trendKursCategories.d.arrayData);
-
-
       this.lineChartKursMarkers = {
         // size: 2
       }
-
-      for(let i=0; i < this.trendKursDataBarChart.length; i++){
-        const date = this.trendKursDataBarChart[i]
-
-        this.barXAxisKurs.categories.push(date)
-      }
-
-      // console.log(this.lineChartKursSeries);
 
 
       this.dataChartWtibrent = [];
@@ -666,44 +792,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         type:'datetime',
       }
 
-      if(this.allTrendWTIBRENT.d){
-        // for(let i=0; i < this.allTrendWTIBRENT.d.arrayData.length; i++){
-        //   const commoditiesName = this.allTrendWTIBRENT.d.arrayData[i].kode
-        //   const dataWTIBRENT = this.allTrendWTIBRENT.d.arrayData[i].data
 
-        //   // console.log(dataWTIBRENT);
-
-
-        //   this.dataChartWtibrent.push({
-        //     name: commoditiesName,
-        //     data: dataWTIBRENT
-        //   })
-        // }
-
-        this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData
-
-        // }
+      this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
+      this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+      this.xAxisBarWtiBrent = {
+        type: 'datetime'
       }
-      else{
-        console.log('masuk else');
 
-      }
 
       this.dataIcpChart = [];
-      if(this.allTrendICP.d){
-        // for(let i =0; i < this.allTrendICP.d.arrayData.length; i++){
-        //   const commoditiesName = this.allTrendICP.d.arrayData[i].kode
-        //   const dataICP = this.allTrendICP.d.arrayData[i].data
 
-        //   // console.log(commoditiesName, dataICP);
+      console.log(this.trenddataICPBarChart);
 
-        //   this.dataIcpChart.push({
-        //     name: commoditiesName,
-        //     data: dataICP
-        //   })
-        // }
-
-        this.dataIcpChart = this.allTrendICP.d.arrayData
+        this.dataIcpChart = this.allTrendICP.d.arrayData;
+        this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData;
 
         this.xAxisIcpChart = {
           // categories: [],
@@ -713,27 +815,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           // }
         }
 
-        // for(let i=0; i < this.allTrendICP.d.arrayTanggal.length; i++){
-        //   const date = this.allTrendICP.d.arrayTanggal[i]
-        //   this.xAxisIcpChart.categories.push(date)
-        // }
-      }
 
-      this.dataChartCoal = [];
-      if(this.allTrendCOAL.d){
-        // for(let i=0; i < this.allTrendCOAL.d.arrayData.length; i++){
-        //   const commoditiesName = this.allTrendCOAL.d.arrayData[i].kode
-        //   const dataCOAL = this.allTrendCOAL.d.arrayData[i].data
 
-        //   // console.log(commoditiesName, dataCOAL);
+        this.dataChartCoal = [];
 
-        //   this.dataChartCoal.push({
-        //     name: commoditiesName,
-        //     data: dataCOAL
-        //   })
-        // }
-
-        this.dataChartCoal = this.allTrendCOAL.d.arrayData
+        this.dataChartCoal = this.allTrendCOAL.d.arrayData;
+        this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
 
 
         this.xAxisChartCoal = {
@@ -741,18 +828,13 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           type: 'datetime'
         }
 
-        // for(let i=0; i< this.allTrendCOAL.d.arrayTanggal.length; i++){
-        //   const date = this.allTrendCOAL.d.arrayTanggal[i]
-        //   this.xAxisChartCoal.categories.push(date)
-        // }
-      }
-
-      if(this.allTrendLNG){
         this.dataChartLngLine = this.allTrendLNG.d.arrayData;
-        this.xAxisChartLineLng = {
+        this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
+
+        this.xAxisChartLng = {
           type: 'datetime'
         }
-      }
+
 
       let tempArrInterestRate: any[] = []
       this.lineChartInterestRateSeries = [];
@@ -1122,7 +1204,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
     console.log(targetColumn);
 
-    const filteredData = this.allTrendDataBarChart.filter(
+    const filteredData = this.allTrendDataKursBarChart.filter(
       (item: any) => targetColumn.includes(item.kode)
     )
 
@@ -1310,7 +1392,14 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   yAxisWtiBrentChart:ApexYAxis={
     show: true,
-      tickAmount: 4,
+      tickAmount: 7,
+      // min: 45.00,
+      // max: 125.00,
+  }
+
+  yAxisWtiBrentBarChart:ApexYAxis={
+    show: true,
+      tickAmount: 7,
       // min: 45.00,
       // max: 125.00,
   }
@@ -1535,7 +1624,7 @@ coalStroke:ApexStroke ={
   // end LNG
   currencyBarChartDetails: ApexChart = {
     type: 'bar',
-    height: 400,
+    height: 360,
     // width:,
     toolbar: {
       show: true,

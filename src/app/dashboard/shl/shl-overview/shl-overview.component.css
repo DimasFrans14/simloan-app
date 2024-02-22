@@ -1,0 +1,151 @@
+.submenu-market {
+  color: #000000;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s, color 0.3s;
+}
+
+.submenu-market:hover,
+.submenu-market:focus {
+  border-bottom: 2px solid #2E75F0;
+  color: #2E75F0;
+}
+
+.sub-nav{
+  margin-top: 60px;
+  padding-left: 250px;
+  /* padding-bottom: 20px; */
+  padding-top: 15px;
+}
+
+#main{
+  margin-top: 20px;
+}
+
+#input_date{
+  border: 1px solid #e4e4e4;
+  padding: 5.5px;
+}
+
+.date-field{
+  /* background-color: blue; */
+}
+
+::ng-deep .mat-mdc-form-field{
+  width: 30%;
+  height: 60px;
+  margin-top: 25px;
+}
+
+::ng-deep .mdc-text-field--filled.mdc-text-field--disabled {
+  /* background-color: none; */
+  border: 1px solid rgba(1, 41, 112, 0.2);
+  border-radius: 10px;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix{
+  padding-top: 20px;
+}
+
+::ng-deep .mdc-text-field {
+  align-items: center !important;
+}
+
+::ng-deep .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control{
+  font-size: 14px !important;
+}
+
+.label-datepicker{
+  font-size: 14px;
+  color: black;
+}
+
+.avatar {
+  height: 50px;
+  width: 50px;
+  border-radius: 24px;
+  background: var(--color-blue-crayola-50, #F2F7FF);
+}
+.container-card {
+  margin: 24px 24px;
+}
+img{
+  margin: 12px;
+}
+
+.card{
+  border: none;
+}
+
+.header-btn{
+  display: inline-flex;
+  padding: var(--padding-padding-small, 4px) var(--padding-padding-medium, 8px);
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: 6px;
+  border: 1px solid var(--color-silver-200, #E4E4E4);
+  background: var(--color-silver-0, #FFF);
+}
+.hide {
+  display: none;
+  z-index: 99;
+  position: absolute;
+  top: 100;
+  left: 50;
+}
+
+.myDIV:hover + .hide {
+  display: block;
+}
+.progress-bar {
+  font-size: 10px;
+}
+.nominal{
+  font-size: 14px;
+  font-weight: 700;
+}
+
+#tooltip{
+  position: relative;
+  cursor: pointer;
+}
+
+#tooltipText {
+  z-index: 99;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  visibility: hidden;
+}
+#tooltipText::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+}
+#tooltip:hover #tooltipText {
+  visibility: visible;
+}
+#bottom {
+  top: 25px;
+  left: -50%;
+}
+.title {
+  margin-left: 5px;
+}
+.-title{
+  padding: 0px 0px 0px 0px;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+.label-bar{
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.progress-bar{
+  flex-direction: none;
+  justify-content: none;
+  padding: auto;
+}

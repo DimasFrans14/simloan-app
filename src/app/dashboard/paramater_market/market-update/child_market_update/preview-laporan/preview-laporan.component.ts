@@ -5,6 +5,7 @@ import { DataService } from 'src/app/data.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 import { TablePreviewServices } from 'src/app/services/tablePreview_Services/table-preview-services.service';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-preview-laporan',
@@ -51,6 +52,7 @@ export class PreviewLaporanComponent implements OnInit{
     "dashRealMacroIndicators": this.tablePreview.dataTabelPreview
   };
 
+  sendDataResponse: any;
 
 
   sendDataExcel = async () => {
@@ -58,6 +60,8 @@ export class PreviewLaporanComponent implements OnInit{
     let categoryParams = localStorage.getItem('category_params')?.replace(/"/g, '')
     let subCategory_params = localStorage.getItem('subCategory_params')?.replace(/"/g, '')
     let indikatorParams = localStorage.getItem('indikator_params');
+    let deskripsi_param = localStorage.getItem('deskripsi_param');
+    let subCategory_deskripsi = localStorage.getItem('subCategory_deskripsi');
 
     const firstParams = ['CURRENCY_RATE', 'INTEREST_RATE', 'BOND_YIELD', 'COMMODITIES', 'MACRO_INDICATOR']
 
@@ -69,16 +73,32 @@ export class PreviewLaporanComponent implements OnInit{
 
     console.log(categoryParams, subCategory_params, indikatorParams);
 
-    if(categoryParams){
+
       if(indikatorParams === 'RKAP'){
         try {
-          const respone = this.marketUpdateService.importLaporanRKAP(JSON.stringify(subCategory_params), fileExcel)
-          console.log(respone);
+          const response = this.marketUpdateService.importLaporanRKAP(JSON.stringify(subCategory_params), fileExcel)
+          console.log(response);
+
+          this.sendDataResponse = response
+          if(this.sendDataResponse.s === 200){
+            Swal.fire({
+              title: "Berhasil!",
+              text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil diunggah!`,
+              icon: "success"
+              })
+            }
+          else{
+            Swal.fire({
+              icon: "error",
+              title: "Failed!",
+              text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
+                });
+              }
         } catch (error) {
           console.log(error);
         }
       }
-      else{
+      else if(categoryParams){
         if(firstParams.includes(categoryParams)){
           switch (categoryParams) {
             case 'CURRENCY_RATE':
@@ -87,12 +107,42 @@ export class PreviewLaporanComponent implements OnInit{
                 const response = await this.marketUpdateService.importLaporanMarketUpdateCurrencyRateRealisasi(JSON.stringify(subCategory_params), fileExcel)
                 console.log(response);
 
+                this.sendDataResponse = response
+                if(this.sendDataResponse.s === 200){
+                  Swal.fire({
+                    title: "Berhasil!",
+                    text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
+                    icon: "success"
+                  })
+                }
+                else{
+                  Swal.fire({
+                    icon: "error",
+                    title: "Failed!",
+                    text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
+                  });
+                }
               }
               else if(indikatorParams === 'Outlook'){
 
                 const response = await this.marketUpdateService.importLaporanMarketUpdateCurrencyRateOutlook(JSON.stringify(subCategory_params), fileExcel)
                 console.log(response);
 
+                this.sendDataResponse = response
+                if(this.sendDataResponse.s === 200){
+                  Swal.fire({
+                    title: "Berhasil!",
+                    text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
+                    icon: "success"
+                    })
+                  }
+                else{
+                  Swal.fire({
+                    icon: "error",
+                    title: "Failed!",
+                    text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
+                      });
+                    }
               }
               else{
                 alert('No parameter!');
@@ -109,7 +159,21 @@ export class PreviewLaporanComponent implements OnInit{
                     console.log(response);
                     // alert('up realisasi done');
 
-                    // this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+                    this.sendDataResponse = response
+                    if(this.sendDataResponse.status === 200){
+                      Swal.fire({
+                        title: "Berhasil!",
+                        text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
+                        icon: "success"
+                        })
+                      }
+                    else{
+                      Swal.fire({
+                        icon: "error",
+                        title: "Failed!",
+                        text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
+                          });
+                        }
                   } catch (error) {
                     console.log(error);
                   }
@@ -121,7 +185,21 @@ export class PreviewLaporanComponent implements OnInit{
                   console.log(response);
                   // alert('up realisasi done');
 
-                  // this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+                  this.sendDataResponse = response
+                  if(this.sendDataResponse.s === 200){
+                    Swal.fire({
+                      title: "Berhasil!",
+                      text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
+                      icon: "success"
+                      })
+                    }
+                  else{
+                    Swal.fire({
+                      icon: "error",
+                      title: "Failed!",
+                      text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
+                        });
+              }
                 } catch (error) {
                   console.log(error);
                 }
@@ -137,7 +215,21 @@ export class PreviewLaporanComponent implements OnInit{
                   // console.log(response);
 
 
-                  this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+                  this.sendDataResponse = response
+                  if(this.sendDataResponse.s === 200){
+                    Swal.fire({
+                      title: "Berhasil!",
+                      text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
+                      icon: "success"
+                      })
+                    }
+                  else{
+                    Swal.fire({
+                      icon: "error",
+                      title: "Failed!",
+                      text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
+                        });
+              }
                 } catch (error) {
                   console.log(error);
                 }
@@ -147,7 +239,21 @@ export class PreviewLaporanComponent implements OnInit{
                   const response = await this.marketUpdateService.importLaporanMarketUpdateBondYieldOutlook(fileExcel, JSON.parse(JSON.stringify(subCategory_params)))
                   // console.log(response);
 
-                  // this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+                  this.sendDataResponse = response
+                  if(this.sendDataResponse.s === 200){
+                    Swal.fire({
+                      title: "Berhasil!",
+                      text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
+                      icon: "success"
+                      })
+                    }
+                  else{
+                    Swal.fire({
+                      icon: "error",
+                      title: "Failed!",
+                      text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
+                        });
+              }
                 } catch (error) {
                   console.log(error);
                 }
@@ -166,7 +272,21 @@ export class PreviewLaporanComponent implements OnInit{
                     console.log(response, JSON.parse(JSON.stringify(subCategory_params)));
 
 
-                    // this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+                    this.sendDataResponse = response
+                    if(this.sendDataResponse.s === 200){
+                      Swal.fire({
+                        title: "Berhasil!",
+                        text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
+                        icon: "success"
+                        })
+                      }
+                    else{
+                      Swal.fire({
+                        icon: "error",
+                        title: "Failed!",
+                        text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
+                          });
+                        }
                   } catch (error) {
                     console.log(error);
                   }
@@ -175,9 +295,21 @@ export class PreviewLaporanComponent implements OnInit{
                   try {
                     const response = await this.marketUpdateService.importLaporanMarketUpdateCommoditiesOutlook(dataExcel, JSON.parse(JSON.stringify(subCategory_params)))
 
-                    // console.log(response, JSON.parse(JSON.stringify(subCategory_params)));
-
-                    // this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+                    this.sendDataResponse = response
+                    if(this.sendDataResponse.s === 200){
+                      Swal.fire({
+                        title: "Berhasil!",
+                        text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
+                        icon: "success"
+                        })
+                      }
+                    else{
+                      Swal.fire({
+                        icon: "error",
+                        title: "Failed!",
+                        text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
+                          });
+              }
                   } catch (error) {
                     console.log(error);
                   }
@@ -193,7 +325,21 @@ export class PreviewLaporanComponent implements OnInit{
                   // console.log(response);
 
 
-                  // this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+                  this.sendDataResponse = response
+                  if(this.sendDataResponse.s === 200){
+                    Swal.fire({
+                      title: "Berhasil!",
+                      text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
+                      icon: "success"
+                      })
+                    }
+                  else{
+                    Swal.fire({
+                      icon: "error",
+                      title: "Failed!",
+                      text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
+                        });
+                      }
                 } catch (error) {
                   console.log(error);
                 }
@@ -204,7 +350,21 @@ export class PreviewLaporanComponent implements OnInit{
                   // console.log(response);
 
 
-                  // this.router.navigate(["market_update/importLaporan_marketUpdate"]);
+                  this.sendDataResponse = response
+                  if(this.sendDataResponse.s === 200){
+                    Swal.fire({
+                      title: "Berhasil!",
+                      text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
+                      icon: "success"
+                      })
+                    }
+                  else{
+                    Swal.fire({
+                      icon: "error",
+                      title: "Failed!",
+                      text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
+                        });
+                      }
                 } catch (error) {
                   console.log(error);
                 }
@@ -221,7 +381,7 @@ export class PreviewLaporanComponent implements OnInit{
           alert('Error No Params!')
         }
       }
-    }
+
   }
 
 }
