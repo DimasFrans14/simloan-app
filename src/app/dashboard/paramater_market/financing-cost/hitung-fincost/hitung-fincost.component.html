@@ -28,7 +28,11 @@
                         <div class="col-7">
                             <select id="inputState" class="form-select" required>
                                 <option selected="">Select Bank Type</option>
-                                <option>...</option>
+                                <option value="#">Standar Chartered</option>
+                                <option value="#">Mizuho</option>
+                                <option value="#">BofA MERRILL LYNCH</option>
+                                <option value="#">HSBC</option>
+                                <option value="#">MUFG</option>
                             </select>
                         </div>
                         <div class="mt-4"></div>
@@ -39,17 +43,73 @@
                             <input type="date" class="form-control" required>
                         </div>
                     </div>
-                    <div class="footer mt-5"></div>
-                    <div class="row">
+                    <mat-divider class="mt-3"></mat-divider>
+                    <!-- Tenor -->
+                    <div class="card bg-light mt-3">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="d-flex justify-content-between p-3">
+                                    <div class="p-2 align-self-center">Tenor 1</div>
+                                    <div class="flex-fill p-2">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">1 Tahun</option>
+                                            <option value="2">5 Tahun</option>
+                                            <option value="3">7 Tahun</option>
+                                            <option value="3">10 Tahun</option>
+                                            <option value="3">15 Tahun</option>
+                                            <option value="3">20 Tahun</option>
+                                            <option value="3">25 Tahun</option>
+                                            <option value="3">30 Tahun</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="d-flex justify-content-between p-3">
+                                    <div class="p-2 align-self-center">Tenor 2</div>
+                                    <div class="flex-fill p-2">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">1 Tahun</option>
+                                            <option value="2">5 Tahun</option>
+                                            <option value="3">7 Tahun</option>
+                                            <option value="3">10 Tahun</option>
+                                            <option value="3">15 Tahun</option>
+                                            <option value="3">20 Tahun</option>
+                                            <option value="3">25 Tahun</option>
+                                            <option value="3">30 Tahun</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="d-flex p-3">
+                                    <div class="align-self-center p-2">
+                                        <button class="btn bg-white p-1">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end Tenor -->
+                    <div class="row mt-3">
                         <div class="col-6">
                             <div class="d-flex justify-content-between">
-                                <div>
+                                <div class="flex-fill">
                                     <label for="#">Pilih Nama Obligasi</label>
                                 </div>
-                                <div>
+                                <div class="flex-fill">
                                     <select id="inputState" class="form-select" required>
                                         <option selected="">Obligasi Internasional</option>
-                                        <option>...</option>
+                                        <option value="#">BGMTN 2nd DD 2012</option>
+                                        <option value="#">GMTN 2017 Tranche A</option>
+                                        <option value="#">GMTN 2017 Tranche B</option>
+                                        <option value="#">GMTN 2018 Seri 1</option>
+                                        <option value="#">GMTN 2019 – Seri 6</option>
+                                        <option value="#">Japanese Yen Bond 2019 Seri 2 – 5Y</option>
+                                        <option value="#">GMTN 2019 Seri 9</option>
+                                        <option value="#">GMTN 2020 Seri 11</option>
                                     </select>
                                 </div>
                             </div>
@@ -169,11 +229,20 @@
                         </div>
                         <div class="col-6">
                             <div class="d-flex justify-content-between">
-                                <div><label for="#">Pilih Nama Obligasi</label></div>
-                                <div>
+                                <div class="flex-fill">
+                                    <label for="#">Pilih Nama Obligasi</label>
+                                </div>
+                                <div class="flex-fill">
                                     <select id="inputState" class="form-select" required>
                                         <option selected="">Obligasi Internasional</option>
-                                        <option>...</option>
+                                        <option value="#">BGMTN 2nd DD 2012</option>
+                                        <option value="#">GMTN 2017 Tranche A</option>
+                                        <option value="#">GMTN 2017 Tranche B</option>
+                                        <option value="#">GMTN 2018 Seri 1</option>
+                                        <option value="#">GMTN 2019 – Seri 6</option>
+                                        <option value="#">Japanese Yen Bond 2019 Seri 2 – 5Y</option>
+                                        <option value="#">GMTN 2019 Seri 9</option>
+                                        <option value="#">GMTN 2020 Seri 11</option>
                                     </select>
                                 </div>
                             </div>
@@ -293,51 +362,10 @@
                         </div>
                     </div>
                     <div class="d-flex flex-row-reverse mt-3">
-                        <div class="btn btn-primary btn-sm">Hitung</div>
+                        <div class="btn btn-primary btn-sm" (click)="toggleHitungKalkulasi()">Hitung Kalkulasi</div>
                     </div>
                 </div>
-                <div class="footer mt-3"></div>
-                <div class="card text-bg-light p-3">
-                    <div class="card-body">
-                        <div class="d-flex mb-3 justify-content-between">
-                            <div class="me-auto p-2">
-                                <label for="">Data Range 1</label>
-                            </div>
-                            <div class="p-2 flex-fill">
-                                <div class="d-flex">
-                                    <div>
-                                        <select id="inputState" class="form-select">
-                                            <option selected="">Manual</option>
-                                            <option>...</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <input type="date" class="form-control">
-                                    </div>
-                                    <div>
-                                        <input type="date" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ms-auto p-2">
-                                <button  class="btn update-btn btn-sm">
-                                    <div class="">Update</div>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-3">
-                            <div class="p-2">
-                                <label for="">Data Range 2</label>
-                            </div>
-                            <div class="p-2 flex-fill">
-                                <select id="inputState" class="form-select">
-                                    <option selected="">30 Tahun</option>
-                                    <option>...</option>
-                                  </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <mat-divider class="mt-3"></mat-divider>
                 <div class="container">
                     <div class="d-flex  justify-content-between mt-3">
                         <div>

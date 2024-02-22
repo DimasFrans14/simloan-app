@@ -17,216 +17,327 @@
                         <div class="btn btn-light btn-sm"><img src="/assets/icon/download-02.svg" alt=""></div>
                     </div>
                 </div>
+                <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#dashboard"
+                            type="button" role="tab" aria-controls="home" aria-selected="false">Dashboard
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#data-table"
+                            type="button" role="tab" aria-controls="profile" aria-selected="false" tabindex="-1">Data
+                            Table
+                        </button>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
     <main class="main" id="main">
-        <div class="card">
-            <img src="assets/image/Fincost_Background.svg" class="card-img" alt="...">
-            <div class="card-img-overlay">
-                <div class="d-flex justify-content-between">
-                    <div class="title-card1">Financial Cost</div>
-                    <div class="">
-                        <div class="btn edit-btn btn-sm" (click)="openModalfincost()" data-bs-toggle="modal"
-                        data-bs-target="#fincost">Edit</div>
-                        <!-- modal edit card  fincost -->
-                        <div class="modal fade" id="fincost" tabindex="-1" aria-labelledby="fincost" aria-hidden="true">
-                            <div class="modal-dialog modal-lg modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="fincost">Financial Cost Card</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body overflow-y-auto">
+        <div class="tab-content pt-2" id="borderedTabContent">
+            <!-- dashboard -->
+            <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="home-tab">
+                <div class="card">
+                    <img src="assets/image/Fincost_Background.svg" class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <div class="d-flex justify-content-between">
+                            <div class="title-card1">Financial Cost</div>
+                            <div class="">
+                                <div class="btn edit-btn btn-sm" (click)="openModalfincost()" data-bs-toggle="modal"
+                                    data-bs-target="#fincost">Edit</div>
+                                <!-- modal edit card  fincost -->
+                                <div class="modal fade" id="fincost" tabindex="-1" aria-labelledby="fincost"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="fincost">Financial Cost Card</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body overflow-y-auto">
 
-                                        <quill-editor [styles]="{height: '250px'}">
-                                        </quill-editor>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end modal edit card  fincost -->
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="card-text" style="font-size: 14px;">
-                      Tahun 2023 merupakan periode yang masih cukup berat untuk mendapatkan pinjaman dengan pricing
-                    rendah. Sebagai gambaran, yield obligasi saat ini mencapai 1.7 kali lipat dibandingkan tahun 2020
-                    dari semula di kisaran 4.00% menjadi 6.75%. Kondisi ini menyebabkan PLN akan menanggung tambahan
-                    Financing Cost sebesar Rp457 miliar per tahun atas jumlah pinjaman yang sama akibat kenaikan kurs
-                    USD dan tingkat bunga. Oleh karena itu, PLN perlu melakukan prioritasasi investasi dan proactive
-                    debt management.
-                </div>
-            </div>
-        </div>
-        <div class="d-flex mt-5">
-            <div class="" style="padding: 0px 0.5rem 0.5rem;">
-                <div class="card card2 d-flex justify-content-start" style="width: 18rem;">
-                    <div class="card-header text-center bg-light">
-                        Penambahan Utang
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><img src="/assets/icon/debt.svg" alt="">
-                            <p>
-                                Ilustrasi apabila PLN menambah utang sebesar USD 1 miliar pada tahun 2023 denganskema
-                                GMNT
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="row mt-3">
-                        <div class="col-sm-6">
-                            <div class="card">
-                              <h5 class="card-title text-center bg-light">GMNT 2020</h5>
-                                <div class="card-body">
-                                    <div class="d-flex flex-column  card-text">
-                                        <div class="d-flex justify-content-between">
-                                            <div>Coupon</div>
-                                            <div>4%</div>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <div>Kurs USD</div>
-                                            <div>Rp.14.302/USD</div>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <div>Tenor</div>
-                                            <div>30 Tahun</div>
+                                                <quill-editor [styles]="{height: '250px'}">
+                                                </quill-editor>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- end modal edit card  fincost -->
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="card">
-                              <h5 class="card-title text-center bg-light">Estimasi GMNT 2023</h5>
-                                <div class="card-body">
-                                    <div class="d-flex flex-column card-text">
-                                        <div class="d-flex justify-content-between">
-                                            <div>Indicative Rate</div>
-                                            <div>6.75%</div>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <div>Kurs USD</div>
-                                            <div>Rp.15.240/USD</div>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <div>Tenor</div>
-                                            <div>30 Tahun</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="mt-3">Hasil</p>
-                    <div class="row mt-3">
-                        <div class="col-sm-6">
-                            <div class="card">
-                              <h5 class="card-title text-center bg-light">interest Pain(%) 2020</h5>
-                                <div class="card-body">
-                                    <div class="d-flex flex-column card-text">
-                                        <div class="d-flex justify-content-between">
-                                            <div>Triliun</div>
-                                            <div>Rp</div>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <div>Annual</div>
-                                            <div>0.57</div>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <div>Total</div>
-                                            <div>17.16</div>
-                                        </div>
-                                        <div>Bunga yang akan dibayarkan sebesar Rp0.57 T/tahun atau setara dengan
-                                            Rp17.16 T selama 30 tahun</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="card">
-                              <h5 class="bg-light card-title text-center">interest Pain(%) 2023</h5>
-                                <div class="card-body">
-                                    <div class="d-flex flex-column card-text">
-                                        <div class="d-flex justify-content-between">
-                                            <div>Triliun</div>
-                                            <div>Rp</div>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <div>Annual</div>
-                                            <div>30.86</div>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <div>Total</div>
-                                            <div>17.16</div>
-                                        </div>
-                                        <div>Bunga yang akan dibayarkan sebesar Rp1.03 T/tahun atau setara dengan
-                                            Rp30.86 T selama 30 tahun</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <p>Kesimpulan</p>
-                    <div class="card text-center ">
-                        <div class="p-3 bg-secondary-subtle rounded-3 card-header card-text">
-                            PLN akan menanggung tambahan bunga Rp457 miliar/tahuun atau setara dengan Rp 13.70
-                            triliun selama 30 tahun
+                        <div class="card-body">
+                            <p class="card-text" style="font-size: 14px;">
+                                Tahun 2023 merupakan periode yang masih cukup berat untuk mendapatkan pinjaman dengan
+                                pricing
+                                rendah. Sebagai gambaran, yield obligasi saat ini mencapai 1.7 kali lipat dibandingkan
+                                tahun 2020
+                                dari semula di kisaran 4.00% menjadi 6.75%. Kondisi ini menyebabkan PLN akan menanggung
+                                tambahan
+                                Financing Cost sebesar Rp457 miliar per tahun atas jumlah pinjaman yang sama akibat
+                                kenaikan kurs
+                                USD dan tingkat bunga. Oleh karena itu, PLN perlu melakukan prioritasasi investasi dan
+                                proactive
+                                debt management.
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="d-flex justify-content-between mt-3">
-            <div>Footnote</div>
-            <div class="btn edit-btn btn-sm" (click)="openModalfootnote()" data-bs-toggle="modal"
-            data-bs-target="#footnote">Edit</div>
-            <!-- modal edit footnote -->
-            <div class="modal fade" id="footnote" tabindex="-1" aria-labelledby="footnote" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="footnote">Footnote</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                <div class="d-flex mt-5">
+                    <div class="" style="padding: 0px 0.5rem 0.5rem;">
+                        <div class="card card2 d-flex justify-content-start" style="width: 18rem;">
+                            <div class="card-header text-center bg-light">
+                                Penambahan Utang
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><img src="/assets/icon/debt.svg" alt="">
+                                    <p>
+                                        Ilustrasi apabila PLN menambah utang sebesar USD 1 miliar pada tahun 2023
+                                        denganskema
+                                        GMNT
+                                    </p>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="modal-body overflow-y-auto">
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mt-3">
+                                <div class="col-sm-6">
+                                    <div class="card">
+                                        <h5 class="card-title text-center bg-light">GMNT 2020</h5>
+                                        <div class="card-body">
+                                            <div class="d-flex flex-column  card-text">
+                                                <div class="d-flex justify-content-between">
+                                                    <div>Coupon</div>
+                                                    <div>4%</div>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <div>Kurs USD</div>
+                                                    <div>Rp.14.302/USD</div>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <div>Tenor</div>
+                                                    <div>30 Tahun</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="card">
+                                        <h5 class="card-title text-center bg-light">Estimasi GMNT 2023</h5>
+                                        <div class="card-body">
+                                            <div class="d-flex flex-column card-text">
+                                                <div class="d-flex justify-content-between">
+                                                    <div>Indicative Rate</div>
+                                                    <div>6.75%</div>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <div>Kurs USD</div>
+                                                    <div>Rp.15.240/USD</div>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <div>Tenor</div>
+                                                    <div>30 Tahun</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3">Hasil</p>
+                            <div class="row mt-3">
+                                <div class="col-sm-6">
+                                    <div class="card">
+                                        <h5 class="card-title text-center bg-light">interest Pain(%) 2020</h5>
+                                        <div class="card-body">
+                                            <div class="d-flex flex-column card-text">
+                                                <div class="d-flex justify-content-between">
+                                                    <div>Triliun</div>
+                                                    <div>Rp</div>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <div>Annual</div>
+                                                    <div>0.57</div>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <div>Total</div>
+                                                    <div>17.16</div>
+                                                </div>
+                                                <div>Bunga yang akan dibayarkan sebesar Rp0.57 T/tahun atau setara
+                                                    dengan
+                                                    Rp17.16 T selama 30 tahun</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="card">
+                                        <h5 class="bg-light card-title text-center">interest Pain(%) 2023</h5>
+                                        <div class="card-body">
+                                            <div class="d-flex flex-column card-text">
+                                                <div class="d-flex justify-content-between">
+                                                    <div>Triliun</div>
+                                                    <div>Rp</div>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <div>Annual</div>
+                                                    <div>30.86</div>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <div>Total</div>
+                                                    <div>17.16</div>
+                                                </div>
+                                                <div>Bunga yang akan dibayarkan sebesar Rp1.03 T/tahun atau setara
+                                                    dengan
+                                                    Rp30.86 T selama 30 tahun</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <p>Kesimpulan</p>
+                            <div class="card text-center ">
+                                <div class="p-3 bg-secondary-subtle rounded-3 card-header card-text">
+                                    PLN akan menanggung tambahan bunga Rp457 miliar/tahuun atau setara dengan Rp 13.70
+                                    triliun selama 30 tahun
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mt-3">
+                    <div>Footnote</div>
+                    <div class="btn edit-btn btn-sm" (click)="openModalfootnote()" data-bs-toggle="modal"
+                        data-bs-target="#footnote">Edit</div>
+                    <!-- modal edit footnote -->
+                    <div class="modal fade" id="footnote" tabindex="-1" aria-labelledby="footnote" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="footnote">Footnote</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body overflow-y-auto">
 
-                            <quill-editor [styles]="{height: '250px'}">
-                            </quill-editor>
+                                    <quill-editor [styles]="{height: '250px'}">
+                                    </quill-editor>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                    <!-- end modal edit footnote -->
+                </div>
+                <div class="card mt-2">
+                    <div class="container">
+                        <div class="row" style="padding: 12px 16px; font-size:14px;">
+                            <div class="col-6">
+                                1. Realisasi penerbitan GMTN PLN tanggal 30 Juni 2020 tenor 30 tahun dan kurs per 30
+                                Juni 2020
+                            </div>
+                            <div class="col-6">
+                                2. Indicative rate dari Standard Chartered per 28 Februari 2023 untuk tenor 30 tahun dan
+                                kurs acuan
+                                per 28 Februari 2023 Rp15.240
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- end modal edit footnote -->
-        </div>
-        <div class="card mt-2">
-            <div class="container">
-                <div class="row" style="padding: 12px 16px; font-size:14px;">
-                    <div class="col-6">
-                        1. Realisasi penerbitan GMTN PLN tanggal 30 Juni 2020 tenor 30 tahun dan kurs per 30 Juni 2020
-                    </div>
-                    <div class="col-6">
-                        2. Indicative rate dari Standard Chartered per 28 Februari 2023 untuk tenor 30 tahun dan kurs acuan
-                        per 28 Februari 2023 Rp15.240
+            <!-- end dashboard -->
+            <!-- data table -->
+            <div class="tab-pane fade" id="data-table" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <!-- Filter -->
+                            <div class="dropdown">
+                                <button class="btn btn-outline-primary dropdown-toggle mt-3" type="button"
+                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-filter"></i> Filter
+                                </button>
+                                <!-- CheckBox -->
+                                <ul class="dropdown-menu p-3" aria-labelledby="dropdownMenuButton1">
+                                    <h5>Costumize Table</h5>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="id" id="id" checked>
+                                                <label class="form-check-label" for="flexCheckDefault">ID</label>
+                                            </div>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="createDate" id="createDate" checked>
+                                                <label class="form-check-label" for="flexCheckDefault">Creation Date </label>
+                                            </div>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="createBy" id="createBy" checked>
+                                                <label class="form-check-label" for="flexCheckDefault">Create By</label>
+                                            </div>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="status" id="status" checked>
+                                                <label class="form-check-label" for="flexCheckDefault">Status</label>
+                                            </div>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="Type" id="Type" checked>
+                                                <label class="form-check-label" for="flexCheckDefault">Type</label>
+                                            </div>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="bank" id="bank" checked>
+                                                <label class="form-check-label" for="flexCheckDefault">Bank</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="tglIndicative" id="tglIndicative" checked>
+                                                <label class="form-check-label" for="flexCheckDefault">Tanggal Indicative</label>
+                                            </div>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="approver" id="approver" checked>
+                                                <label class="form-check-label" for="flexCheckDefault">Approver</label>
+                                            </div>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="modifDate" id="modifDate" checked>
+                                                <label class="form-check-label" for="flexCheckDefault">Modification Date</label>
+                                            </div>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="note" id="note" checked>
+                                                <label class="form-check-label" for="flexCheckDefault">Notes</label>
+                                            </div>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="revDAte" id="revDate" checked>
+                                                <label class="form-check-label" for="flexCheckDefault">Revision Deadline</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row-reverse p-2">
+                                        <div class="btn btn-outline-primary btn-sm p-2">Reset to Default</div>
+                                        <div class="btn btn-outline-primary btn-sm p-2">Apply Change</div>
+                                    </div>
+                                </ul>
+                                <!-- End CheckBox -->
+                            </div>
+                            <!-- End filter -->
+                            <div class="btn mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                                    class="bi bi-three-dots"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!-- <div class="table-createLiabilities"></div> -->
             </div>
+            <!-- end data table -->
         </div>
     </main>
     <app-footer></app-footer>

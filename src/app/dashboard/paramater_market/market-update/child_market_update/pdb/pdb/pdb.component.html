@@ -18,10 +18,14 @@
           Table</button>
         <button type="button" class="btn btn-transparant border-light me-2" style="font-size: 14px;">Reset</button>
       </div>
-      <div>
-        <button class="bg-light rounded p-3 me-5" style="border: none;" type="button">
+      <div class="dropdown">
+        <button class="bg-light rounded p-3 me-5" data-bs-toggle="dropdown" style="border: none;" type="button">
           <i class="bi bi-download"></i>
         </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="download()">.Pdf</a></li>
+          <!-- <li><a class="dropdown-item" (click)="downloadXlsx()">.Xlsx</a></li> -->
+        </ul>
       </div>
     </div>
   </div>

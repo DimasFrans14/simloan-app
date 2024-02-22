@@ -46,14 +46,12 @@ a {
 .sub-nav{
   margin-top: 60px;
   padding-left: 282px;
-  padding-bottom: 20px;
   padding-top: 15px;
 }
 
 @media (max-width: 1199px) {
   .sub-nav {
     /* padding-left: 20px; */
-    padding: 15px;
     margin: 0px;
     position: absolute;
     top: 60px;
@@ -64,4 +62,8 @@ a {
   #main{
     padding-top: 75px;
   }
+  
+}
+.dropdown-menu{
+    min-width: 400px;
 }

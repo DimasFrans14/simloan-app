@@ -1,9 +1,9 @@
 import { Component, AfterViewInit, OnInit ,Input } from '@angular/core';
 import * as moment from 'moment';
-import { DataService } from 'src/app/data.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 // import { Router } from '@angular/router';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-pdb',
@@ -20,6 +20,7 @@ export class PdbComponent {
   }
 
   dataDetail: any;
+  dataDetailOutlook:any;
   filteredData: String[] = [];
   isLoading: Boolean = true;
   realisasiPdbItem!: number;
@@ -139,6 +140,11 @@ export class PdbComponent {
 
   }
 
+  async downloadPdf(){
+    const dataDownload= this.marketUpdateService.fetchDataPDB();
+      
+  }
+
   onDate(event: any){
     console.log(event);
 
@@ -188,4 +194,21 @@ export class PdbComponent {
   addRowOutlook() {
     this.tableConfig.tableOutlookPdb.addRow({});
   }
+
+  download(){
+    this.tableConfig.downloadPdf();
+  }
+
+  downloadexcel(){
+    const data = this.marketUpdateService.fetchDataPDB();
+  }
+  
+  // dataSent(){
+  //   this.tableConfig.dataPDB()
+  //   const data = this.tableConfig.tableRealisasiPdb.getRow()
+  //   console.log(
+  //     data.getRow.id, data.getRow.periode, data.getRow.nilai
+  //   );
+  // }
+
 }
