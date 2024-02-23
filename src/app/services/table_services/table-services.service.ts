@@ -1,11 +1,7 @@
 import { Injectable, AfterViewInit } from '@angular/core';
 import { CellComponent, TabulatorFull as Tabulator } from 'tabulator-tables';
-<<<<<<< HEAD
 import { MarketUpdateService } from '../market_update/market-update.service';
 import { Router } from '@angular/router';
-=======
-import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
 
 @Injectable({
   providedIn: 'root'
@@ -307,15 +303,9 @@ export class TableServicesService {
 
 
   constructor(
-<<<<<<< HEAD
     private marketUpdateService: MarketUpdateService,
     private router: Router
   ) {
-=======
-    private marketUpdateService: MarketUpdateService
-  ) 
-  {
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
     // Initialize properties in a method like ngOnInit() or a custom method
     // this.initializeTableData();
     // this.initializeTableDataCurrency()
@@ -763,17 +753,10 @@ export class TableServicesService {
       columns:[
         {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-<<<<<<< HEAD
-        {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center',editable:isRowSelected, editor:"input", headerSort:false},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
-=======
         {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center',editable:this.isRowSelected, editor:"input", headerSort:false},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, resizable:false,visible:false}, 
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, resizable:false,visible:false},
       //   {title:"Edit",field:"edit",formatter:editBtn, cellClick: (_e, cell) => {
       //     const rowData = cell.getRow().getData();
       //     const rowId = rowData.id;
@@ -826,23 +809,13 @@ export class TableServicesService {
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true,  bottomCalc: this.customBottomCalc},
-<<<<<<< HEAD
-        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", editable:isRowSelected,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", editable:isRowSelected,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", editable:isRowSelected,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", editable:isRowSelected,  bottomCalc:"sum", bottomCalcParams:{precision:1},maxWidth:100},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
-=======
         {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", editable:this.isRowSelected,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", editable:this.isRowSelected,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", editable:this.isRowSelected,  bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", editable:this.isRowSelected,  bottomCalc:"sum", bottomCalcParams:{precision:1},maxWidth:100},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonInflasi, headerSort:false, resizable:false,visible:false},  
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonInflasi, headerSort:false, resizable:false,visible:false},
       ],
     });
     this.tableDataRkapInflasi = [
@@ -884,23 +857,13 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
-<<<<<<< HEAD
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center',editable:isRowSelected, editor:"input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center',editable:isRowSelected, editor:"input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center',editable:isRowSelected, editor:"input"},
-        {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center',editable:isRowSelected, editor:"input"},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
-=======
         {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center',editable:this.isRowSelected, editor:"input"},
         {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center',editable:this.isRowSelected, editor:"input"},
         {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center',editable:this.isRowSelected, editor:"input"},
         {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center',editable:this.isRowSelected, editor:"input"},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonInflasi, headerSort:false, resizable:false,visible:false},  
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonInflasi, headerSort:false, resizable:false,visible:false},
       ],
     });
   }
@@ -1219,15 +1182,9 @@ export class TableServicesService {
         {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-<<<<<<< HEAD
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
-=======
         {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonCadev, headerSort:false, resizable:false,visible:false},  
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonCadev, headerSort:false, resizable:false,visible:false},
       ],
     });
     this.tableDataRkapForeignExchange = [
@@ -1245,21 +1202,12 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-<<<<<<< HEAD
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
-=======
         {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonCadev, headerSort:false, resizable:false,visible:false},  
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonCadev, headerSort:false, resizable:false,visible:false},
       ],
     });
     this.tableDataOutlookForeignExchange = [
@@ -1277,21 +1225,12 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-<<<<<<< HEAD
-        {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
-        {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
-        {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
-=======
         {title:"2020", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"2021", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonCadev, headerSort:false, resizable:false,visible:false},  
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonCadev, headerSort:false, resizable:false,visible:false},
       ],
     });
   }
@@ -1536,23 +1475,13 @@ export class TableServicesService {
         layout:"fitColumns",
         columns:[
           {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-<<<<<<< HEAD
-          {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
-          {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
-          {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
-          {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
-          {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
-          {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
-=======
           {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
           {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
           {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
           {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
           {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
           {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonInterestRate, headerSort:false, resizable:false,visible:false},  
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
+          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonInterestRate, headerSort:false, resizable:false,visible:false},
         ],
     });
 
@@ -1574,23 +1503,13 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-<<<<<<< HEAD
-        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
-        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
-        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
-        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
-=======
         {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
         {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
         {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonInterestRate, headerSort:false, resizable:false,visible:false},  
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonInterestRate, headerSort:false, resizable:false,visible:false},
       ],
     });
   }
@@ -1649,23 +1568,13 @@ export class TableServicesService {
     layout:"fitColumns",
       columns:[
         {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-<<<<<<< HEAD
-        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
-        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
-        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
-        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
-=======
         {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonCommodities, headerSort:false, resizable:false,visible:false},  
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonCommodities, headerSort:false, resizable:false,visible:false},
       ],
     });
 
@@ -1803,23 +1712,13 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-<<<<<<< HEAD
-        {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
-        {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
-        {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
-        {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
-=======
         {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "input"},
         {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "input"},
         {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "input"},
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "input"},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonBondYield, headerSort:false, resizable:false,visible:false}, 
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonBondYield, headerSort:false, resizable:false,visible:false},
       ],
     });
 
@@ -1840,23 +1739,13 @@ export class TableServicesService {
         layout:"fitColumns",
         columns:[
           {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-<<<<<<< HEAD
-          {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input" },
-          {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
-          {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
-          {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
-          {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
-          {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
-=======
           {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input" },
           {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
           {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
           {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
           {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
           {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonBondYield, headerSort:false, resizable:false,visible:false},  
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
+          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonBondYield, headerSort:false, resizable:false,visible:false},
         ],
       })
   }
@@ -2066,7 +1955,6 @@ export class TableServicesService {
     });
   }
 
-<<<<<<< HEAD
   initializeTableSHLAgreement(){
 
     this.tableDataSHLAgreement = [
@@ -2202,13 +2090,6 @@ export class TableServicesService {
     });
   }
 
-
-  isRowSelected(cell: { getRow: () => { (): any; new(): any; isSelected: { (): any; new(): any; }; }; }){
-    return cell.getRow().isSelected()
-  }
-
-=======
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
   editTitle(){
     const tabel = this.tableCommodities;
     tabel.updateColumnDefinition("mata_uang", {title:`${this.dataCommodities[0].mata_uang}`});
@@ -2321,13 +2202,12 @@ export class TableServicesService {
   getOutlookData(_rowData:any){
     return this.tableDataOutlookInflasi('nilai');
   }
-<<<<<<< HEAD
 
   findDataSHLAgreement = (params: string) => {
     const tableSHLAgreement = this.tableSHLAgreement;
     const dataTabelSHL = this.tableDataSHLAgreement;
 
-    tableSHLAgreement.setFilter(customFilter, { filterValue: params });
+    tableSHLAgreement.setFilter(this.customFilter, { filterValue: params });
     // tableSHLAgreement.setFilter('anak_perusahaan', 'like', params);
   }
 
@@ -2338,14 +2218,7 @@ export class TableServicesService {
     this.router.navigate(['shl_agreement/details', cell.getRow().getData().id]);
   }
 
-}
-=======
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
 
-  isRowSelected(cell:any){
-    return cell.getRow().isSelected()
-  }
-  
   cellClick_EditButton(_e: any, cell: any): void {
     const currentRow = cell.getRow()
     const currentTable = cell.getTable()
@@ -2358,7 +2231,7 @@ export class TableServicesService {
         currentTable.deselectRow()
         currentRow.select()
         currentRow.reformat()
-  
+
         const cells = currentRow.getCells()
         for (let i = 0; i < cells.length; i++) {
           cells[i].setValue(cells[i].getValue())
@@ -2368,7 +2241,6 @@ export class TableServicesService {
         currentTable.showColumn("SaveButton")
       }
   }
-  
   cellClick_CancelButton(_e: any, cell:any):void{
     if (!cell.getRow().isSelected()){
       return
@@ -2405,9 +2277,9 @@ export class TableServicesService {
       nilai: rowData.nilai
     }
     console.log(data);
-     await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data) 
+     await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data)
   }
-  
+
   async cellClick_SaveButtonInflasi(e: any, cell:any){
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
@@ -2486,7 +2358,7 @@ export class TableServicesService {
     console.log(data);
      await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data);
   }
-  
+
   async cellClick_SaveButtonCadev(e: any, cell:any){
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
@@ -2584,6 +2456,7 @@ export class TableServicesService {
     console.log(data);
      await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data)
   }
+
   async cellClick_SaveButtonUsTreasury(e: any, cell:any){
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
@@ -2614,25 +2487,25 @@ export class TableServicesService {
   currentRow.reformat()
   }
 
-<<<<<<< HEAD
-function customFilter(data: any, filterParams: any) {
-  const filterValue = filterParams.filterValue.toLowerCase();
+  customFilter(data: any, filterParams: any) {
+    const filterValue = filterParams.filterValue.toLowerCase();
 
-  const anakPerusahaan = data.anak_perusahaan.toLowerCase().includes(filterValue)
-  const dataAgreementNumber = data.agreement_number.toLowerCase().includes(filterValue)
-  const agreementNumberAnakPerusahaan = data.agreement_number_anakperusahaan.toLowerCase().includes(filterValue)
+    const anakPerusahaan = data.anak_perusahaan.toLowerCase().includes(filterValue)
+    const dataAgreementNumber = data.agreement_number.toLowerCase().includes(filterValue)
+    const agreementNumberAnakPerusahaan = data.agreement_number_anakperusahaan.toLowerCase().includes(filterValue)
 
-  console.log(data.agreement_number, filterValue);
+    console.log(data.agreement_number, filterValue);
 
-  return anakPerusahaan || dataAgreementNumber || agreementNumberAnakPerusahaan
-}
-
-=======
-  downloadPdf() {
-    this.tableOutlookPdb.download('pdf', 'data.pdf', {
-      orientation: 'portrait',
-      title: 'Example Report',
-    });
+    return anakPerusahaan || dataAgreementNumber || agreementNumberAnakPerusahaan
   }
+
+  isRowSelected(cell:any){
+    return cell.getRow().isSelected()
+  }
+
 }
->>>>>>> bc4fa5619dbbd4a99d1974b52b65cfcd4349ebf6
+
+
+
+
+
