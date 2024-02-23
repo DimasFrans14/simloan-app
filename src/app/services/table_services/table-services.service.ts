@@ -291,7 +291,8 @@ export class TableServicesService {
 
   constructor(
     private marketUpdateService: MarketUpdateService
-  ) {
+  ) 
+  {
     // Initialize properties in a method like ngOnInit() or a custom method
     // this.initializeTableData();
     // this.initializeTableDataCurrency()
@@ -2099,7 +2100,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     }
   }
-  //save edit Realisasi all Macro
+  // save edit Realisasi all Macro
   async cellClick_SaveButtonPdb(e: any, cell:any){
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
@@ -2117,8 +2118,7 @@ export class TableServicesService {
       nilai: rowData.nilai
     }
     console.log(data);
-     await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data)
-    
+     await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data) 
   }
   
   async cellClick_SaveButtonInflasi(e: any, cell:any){

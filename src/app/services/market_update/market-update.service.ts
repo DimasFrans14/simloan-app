@@ -248,6 +248,42 @@ export class MarketUpdateService {
     }
   }
 
+  async fetchDataUpdateRkapPDB(data:any){
+    const dataSent = {
+      data: {
+        "quartal": data.quartal,
+        "tahun":data.tahun,
+        "nilai": data.nilai
+      }
+    }
+    try {
+      return await lastValueFrom(
+        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
+  async fetchDataUpdateOutlookPDB(data:any){
+    const dataSent = {
+      data: {
+        "quartal": data.quartal,
+        "tahun":data.tahun,
+        "nilai": data.nilai
+      }
+    }
+    try {
+      return await lastValueFrom(
+        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
   // putData(data: any, url: string) {
   //   const httpOptions = {
   //     headers: new HttpHeaders({

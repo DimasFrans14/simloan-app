@@ -137,7 +137,6 @@ export class PdbComponent {
     // console.log('updated data', this.filteredData);
     this.tableConfig.setDataPdb(this.dataDetail);
     console.log('finish get data in func');
-
   }
 
   async downloadPdf(){
@@ -198,17 +197,4 @@ export class PdbComponent {
   download(){
     this.tableConfig.downloadPdf();
   }
-
-  downloadexcel(){
-    const data = this.marketUpdateService.fetchDataPDB();
-  }
-  
-  // dataSent(){
-  //   this.tableConfig.dataPDB()
-  //   const data = this.tableConfig.tableRealisasiPdb.getRow()
-  //   console.log(
-  //     data.getRow.id, data.getRow.periode, data.getRow.nilai
-  //   );
-  // }
-
 }
