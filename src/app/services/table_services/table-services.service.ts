@@ -1,6 +1,7 @@
 import { Injectable, AfterViewInit } from '@angular/core';
 import { CellComponent, TabulatorFull as Tabulator } from 'tabulator-tables';
 import { MarketUpdateService } from '../market_update/market-update.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class TableServicesService {
   public dataOutlookPdb:any;
 
   objectKeys: any;
-  
+
 
   setData(data: any) {
     this.sharedData = data;
@@ -210,6 +211,18 @@ export class TableServicesService {
   tableDataOutlook: any;
   tableOutlook: any;
 
+  tableSHLAgreement: any;
+  tableDataSHLAgreement: any;
+
+  tableDetailProyekSHLAgreement: any;
+  tableDataDetailProyekSHLAgreement: any;
+
+  tableDetailDokumenSHLAgreement: any;
+  tableDataDetailDokumenSHLAgreement: any;
+
+  tableDokumenAPSHLAgreement: any;
+  tableDataDokumenAPSHLAgreement: any;
+
   //table import findebt
   tableDataImport:any;
   tableImport:any;
@@ -290,7 +303,8 @@ export class TableServicesService {
 
 
   constructor(
-    private marketUpdateService: MarketUpdateService
+    private marketUpdateService: MarketUpdateService,
+    private router: Router
   ) {
     // Initialize properties in a method like ngOnInit() or a custom method
     // this.initializeTableData();
@@ -742,7 +756,7 @@ export class TableServicesService {
         {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center',editable:isRowSelected, editor:"input", headerSort:false},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false}, 
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
       //   {title:"Edit",field:"edit",formatter:editBtn, cellClick: (_e, cell) => {
       //     const rowData = cell.getRow().getData();
       //     const rowId = rowData.id;
@@ -801,7 +815,7 @@ export class TableServicesService {
         {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", editable:isRowSelected,  bottomCalc:"sum", bottomCalcParams:{precision:1},maxWidth:100},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
       ],
     });
     this.tableDataRkapInflasi = [
@@ -849,7 +863,7 @@ export class TableServicesService {
         {title:"2023", field:"nilai", headerHozAlign:"center", hozAlign:'center',editable:isRowSelected, editor:"input"},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
       ],
     });
   }
@@ -1170,7 +1184,7 @@ export class TableServicesService {
         {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
       ],
     });
     this.tableDataRkapForeignExchange = [
@@ -1193,7 +1207,7 @@ export class TableServicesService {
         {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
       ],
     });
     this.tableDataOutlookForeignExchange = [
@@ -1216,7 +1230,7 @@ export class TableServicesService {
         {title:"2022", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
       ],
     });
   }
@@ -1467,7 +1481,7 @@ export class TableServicesService {
           {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
           {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
           {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
         ],
     });
 
@@ -1495,7 +1509,7 @@ export class TableServicesService {
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
       ],
     });
   }
@@ -1560,7 +1574,7 @@ export class TableServicesService {
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor:"input"},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
       ],
     });
 
@@ -1704,7 +1718,7 @@ export class TableServicesService {
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:isRowSelected, editor: "input"},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false}, 
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
       ],
     });
 
@@ -1731,7 +1745,7 @@ export class TableServicesService {
           {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:isRowSelected, headerSort:false, editor: "input"},
           {title:"", field:"EditButton", formatter:editBtn, cellClick: cellClick_EditButton, headerSort:false, resizable:false},
           {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},  
+          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:cellClick_SaveButton, headerSort:false, resizable:false,visible:false},
         ],
       })
     }
@@ -1941,6 +1955,142 @@ export class TableServicesService {
     });
   }
 
+  initializeTableSHLAgreement(){
+
+    this.tableDataSHLAgreement = [
+      {
+        id:1, anak_perusahaan:"PT. Indonesia Comnet Plus", agreement_number:"1620.Pj/KEU.01.09/F01070100/2022", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2022", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jumlah_amandement:"1", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+      {
+        id:2, anak_perusahaan:"PT. Indonesia Comnet Plus", agreement_number:"1620.Pj/KEU.01.09/F01070100/2022", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2022", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jumlah_amandement:"Belum Ada", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+      {
+        id:3, anak_perusahaan:"PT. Pelayaran Bahtera Adhiguna", agreement_number:"1620.Pj/KEU.01.09/F01070100/2022", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2022", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jumlah_amandement:"Belum Ada", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+      {
+        id:4, anak_perusahaan:"PT. Pelayaran Bahtera Adhiguna", agreement_number:"1620.Pj/KEU.01.09/F01070100/2023", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2023", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jumlah_amandement:"Belum Ada", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+      {
+        id:5, anak_perusahaan:"PT. Indonesia Comnet Plus", agreement_number:"1620.Pj/KEU.01.09/F01070100/2023", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2023", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jumlah_amandement:"Belum Ada", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+      {
+        id:6, anak_perusahaan:"PT. Indonesia Comnet Plus", agreement_number:"1620.Pj/KEU.01.09/F01070100/2023", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2023", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jumlah_amandement:"Belum Ada", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+    ];
+
+    const actionBtn = function(_cell: any, _formatterParams: any){
+      return "<button type='button' class='btn'><i class='bi bi-eye'></i></button> <button type='button' class='btn' (click)='alert('clicked')'><i class='bi bi-pencil-square'></i></button";
+    }
+
+    const checkBox = function(_cell:any, _formatterParams: any){
+      return "<input type='checkbox'></input>"
+    }
+
+    this.tableSHLAgreement = new Tabulator(".table-shlAgreement", {
+      // height:205,
+      data:this.tableDataSHLAgreement,
+      layout:"fitColumns",
+      columns:[
+        // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
+        {title:"Anak Perusahaan", field:"anak_perusahaan", headerHozAlign:"left", hozAlign:'left', headerSort:true, width:300, frozen: true},
+        {title:"SHL Agreement Number", field:"agreement_number", hozAlign:"left", headerHozAlign:"left", width:300},
+        {title:"Agreement Number Anak Perusahaan", field:"agreement_number_anakperusahaan", hozAlign:"left", headerHozAlign:"left", width:300},
+        {title:"Tanggal SHL Agreement", field:"tanggal_dibuat", hozAlign:"left", headerHozAlign:"left", width:200},
+        {title:"Deskripsi Proyek", field:"deskripsi", hozAlign:"left", headerHozAlign:"left", width:300},
+        {title:"SHL Amandement ke-", field:"jumlah_amandement", hozAlign:"left", headerHozAlign:"left", width:150},
+        {title:"SHL Amendment Agreement Number", field:"amandement_agreement_number", hozAlign:"left", headerHozAlign:"left", width:300},
+        {title:"Created By", field:"created_by", hozAlign:"left", headerHozAlign:"left", width:120},
+        {title:"Status", field:"status", hozAlign:"left", headerHozAlign:"left", width:120},
+        {title:"Approver", field:"approver", hozAlign:"left", headerHozAlign:"left", width:120},
+        {title: "Action", formatter:actionBtn, cellClick:this.getRowData, width:120,hozAlign:"center", headerHozAlign:"center"},
+      ],
+    });
+  }
+
+  initializeTableDetailProyekSHLAgreement(){
+    this.tableDataDetailProyekSHLAgreement = [
+      {
+        id:1, nama_proyek:"Nama Proyek", total_pagu:"0.00", berakhir_perjanjian:"22/02/2024", availability_periode:"22/02/2024", grace_periode: "22/02/2024", tenor:"0", repayment_periode: '22/04/2024', pembayaran_pokok_pinjaman:'0.00', interest_type: 'Floating / Fixed', description: 'Description'
+      },
+      {
+        id:2, nama_proyek:"Nama Proyek", total_pagu:"0.00", berakhir_perjanjian:"22/02/2024", availability_periode:"22/02/2024", grace_periode: "22/02/2024", tenor:"0", repayment_periode: '22/04/2024', pembayaran_pokok_pinjaman:'0.00', interest_type: 'Floating / Fixed', description: 'Description'
+      },
+    ];
+
+    this.tableDetailProyekSHLAgreement = new Tabulator(".table-namaProyek", {
+      // height:205,
+      data:this.tableDataDetailProyekSHLAgreement,
+      layout:"fitData",
+      columns:[
+        // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
+        {title:"Nama Proyek", field:"nama_proyek", headerHozAlign:"left", hozAlign:'left', headerSort:true, width:220, frozen: true},
+        {title:"Total Pagu", field:"total_pagu", hozAlign:"left", headerHozAlign:"left"},
+        {title:"Availability Period", field:"availability_periode", hozAlign:"left", headerHozAlign:"left"},
+        {title:"Grace Period", field:"grace_periode", hozAlign:"left", headerHozAlign:"left"},
+        {title:"Tenor", field:"tenor", hozAlign:"left", headerHozAlign:"left"},
+        {title:"Repayment Periode", field:"repayment_periode", hozAlign:"left", headerHozAlign:"left"},
+        {title:"Pembayaran Pokok Pinjaman", field:"pembayaran_pokok_pinjaman", hozAlign:"left", headerHozAlign:"left"},
+        {title:"Interest Type", field:"interest_type", hozAlign:"left", headerHozAlign:"left"},
+        {title:"Description", field:"description", hozAlign:"left", headerHozAlign:"left"},
+      ],
+    });
+  }
+
+  initializeTableDetailDokumenSHLAgreement(){
+    this.tableDataDetailDokumenSHLAgreement = [
+      {
+        id:1, nama_dokumen:"Nama Dokumen", size_dokumen: "0.00 Kb/Mb/Gb", created_by: "User"
+      },
+      {
+        id:2, nama_dokumen:"Nama Dokumen", size_dokumen: "0.00 Kb/Mb/Gb", created_by: "User"
+      },
+    ];
+
+    this.tableDetailDokumenSHLAgreement = new Tabulator(".table-namaDokumenPLN", {
+      // height:205,
+      data:this.tableDataDetailDokumenSHLAgreement,
+      layout:"fitColumns",
+      columns:[
+        // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
+        {title:"Nama Dokumen", field:"nama_dokumen", headerHozAlign:"left", hozAlign:'left', headerSort:true, width:220, frozen: true},
+        {title:"Size Dokumen", field:"size_dokumen", hozAlign:"left", headerHozAlign:"left"},
+        {title:"Created By", field:"created_by", hozAlign:"left", headerHozAlign:"left"},
+        // {title:"Grace Period", field:"grace_periode", hozAlign:"left", headerHozAlign:"left"},
+      ],
+    });
+  }
+
+  tableDetailDokumenAnakPerusahaanSHL(){
+    this.tableDataDokumenAPSHLAgreement = [
+      {
+        id:1, nama_dokumen:"RKAP", size_dokumen: "0.00 Kb/Mb/Gb", created_by: "User"
+      },
+      {
+        id:2, nama_dokumen:"KEPDIR (Keputusan Direksi)", size_dokumen: "0.00 Kb/Mb/Gb", created_by: "User"
+      },
+      {
+        id:3, nama_dokumen:"Pakta Integritas", size_dokumen: "0.00 Kb/Mb/Gb", created_by: "User"
+      },
+      {
+        id:4, nama_dokumen:"Surat Rekomendasi Dekom", size_dokumen: "0.00 Kb/Mb/Gb", created_by: "User"
+      },
+    ];
+
+    this.tableDokumenAPSHLAgreement = new Tabulator(".table-namaDokumenAP", {
+      // height:205,
+      data:this.tableDataDokumenAPSHLAgreement,
+      layout:"fitColumns",
+      columns:[
+        // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
+        {title:"Nama Dokumen", field:"nama_dokumen", headerHozAlign:"left", hozAlign:'left', headerSort:true, width:220, frozen: true},
+        {title:"Size Dokumen", field:"size_dokumen", hozAlign:"left", headerHozAlign:"left"},
+        {title:"Created By", field:"created_by", hozAlign:"left", headerHozAlign:"left"},
+        // {title:"Grace Period", field:"grace_periode", hozAlign:"left", headerHozAlign:"left"},
+      ],
+    });
+  }
+
+
   isRowSelected(cell: { getRow: () => { (): any; new(): any; isSelected: { (): any; new(): any; }; }; }){
     return cell.getRow().isSelected()
   }
@@ -2057,6 +2207,22 @@ export class TableServicesService {
   getOutlookData(_rowData:any){
     return this.tableDataOutlookInflasi('nilai');
   }
+
+  findDataSHLAgreement = (params: string) => {
+    const tableSHLAgreement = this.tableSHLAgreement;
+    const dataTabelSHL = this.tableDataSHLAgreement;
+
+    tableSHLAgreement.setFilter(customFilter, { filterValue: params });
+    // tableSHLAgreement.setFilter('anak_perusahaan', 'like', params);
+  }
+
+  getRowData = (e:any, cell: any) => {
+    console.log(cell.getRow().getData());
+    localStorage.setItem('detailSHLAgreement', JSON.stringify(cell.getRow().getData()))
+
+    this.router.navigate(['shl_agreement/details', cell.getRow().getData().id]);
+  }
+
 }
 
 function isRowSelected(cell:any){
@@ -2128,5 +2294,17 @@ function stopEditing(cell: any) {
   currentTable.hideColumn("CancelButton")
   currentTable.hideColumn("SaveButton")
   currentRow.reformat()
+}
+
+function customFilter(data: any, filterParams: any) {
+  const filterValue = filterParams.filterValue.toLowerCase();
+
+  const anakPerusahaan = data.anak_perusahaan.toLowerCase().includes(filterValue)
+  const dataAgreementNumber = data.agreement_number.toLowerCase().includes(filterValue)
+  const agreementNumberAnakPerusahaan = data.agreement_number_anakperusahaan.toLowerCase().includes(filterValue)
+
+  console.log(data.agreement_number, filterValue);
+
+  return anakPerusahaan || dataAgreementNumber || agreementNumberAnakPerusahaan
 }
 
