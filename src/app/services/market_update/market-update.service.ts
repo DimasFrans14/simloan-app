@@ -6,6 +6,7 @@ import { lastValueFrom } from 'rxjs';
   providedIn: 'root'
 })
 export class MarketUpdateService {
+  static fetchDataUpdateRealisasiPDB: any;
   // getDataInflasiByParams(rowId: any) {
   //   throw new Error('Method not implemented.');
   // }
@@ -229,6 +230,81 @@ export class MarketUpdateService {
       return null;
     }
   }
+  async fetchDataUpdateRealisasiPDB(data:any){
+    const dataSent = {
+      data: {
+        "quartal": data.quartal,
+        "tahun":data.tahun,
+        "nilai": data.nilai
+      }
+    }
+    try {
+      return await lastValueFrom(
+        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
+  async fetchDataUpdateRkapPDB(data:any){
+    const dataSent = {
+      data: {
+        "quartal": data.quartal,
+        "tahun":data.tahun,
+        "nilai": data.nilai
+      }
+    }
+    try {
+      return await lastValueFrom(
+        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
+  async fetchDataUpdateOutlookPDB(data:any){
+    const dataSent = {
+      data: {
+        "quartal": data.quartal,
+        "tahun":data.tahun,
+        "nilai": data.nilai
+      }
+    }
+    try {
+      return await lastValueFrom(
+        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
+  // putData(data: any, url: string) {
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       'Content-Type': 'application/json',
+  //     }),
+  //   };
+  //   return this.http.put(url, data, httpOptions);
+  // }
+
+
+  async fetchDataRealisasiPDB(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
   async fetchDataRkapPdb(){
     try {
       return await lastValueFrom(
@@ -285,6 +361,24 @@ export class MarketUpdateService {
     }
   }
 
+  async fetchDataUpdateRealisasiInflasi(data:any){
+    const dataSent = {
+      data: {
+        "bulan": data.bulan,
+        "nilai": data.nilai,
+        "tahun": data.tahun,
+      }
+    }
+    try {
+      return await lastValueFrom(
+        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
   async fetchDataPMI(){
     try {
       return await lastValueFrom(
@@ -294,6 +388,24 @@ export class MarketUpdateService {
     } catch (error) {
       console.log(error);
       return null;
+    }
+  }
+
+  async fetchDataUpdateRealisasiPMI(data:any){
+    const dataSent = {
+      data: {
+        "bulan": data.bulan,
+        "rate": data.rate,
+        "tahun": data.tahun,
+      }
+    }
+    try {
+      return await lastValueFrom(
+        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
     }
   }
 
@@ -308,6 +420,24 @@ export class MarketUpdateService {
     }
   }
 
+  async fetchDataUpdateRealisasiRetail(data:any){
+    const dataSent = {
+      data: {
+        "bulan": data.bulan,
+        "nilai": data.nilai,
+        "tahun": data.tahun,
+      }
+    }
+    try {
+      return await lastValueFrom(
+        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
   async fetchDataMoneySupply(){
     try {
       return await lastValueFrom(
@@ -319,6 +449,24 @@ export class MarketUpdateService {
     }
   }
 
+  async fetchDataUpdateRealisasMoneySupply(data:any){
+    const dataSent = {
+      data: {
+        "bulan": data.bulan,
+        "tahun": data.tahun,
+        "TriliunBeredar": data.TriliunBeredar,
+      }
+    }
+    try {
+      return await lastValueFrom(
+        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
   async fetchDataDevisa(){
     try {
       return await lastValueFrom(
@@ -327,6 +475,24 @@ export class MarketUpdateService {
     } catch (error) {
       console.log(error);
       return null;
+    }
+  }
+
+  async fetchDataUpdateRealisasCadev(data:any){
+    const dataSent = {
+      data: {
+        "bulan": data.bulan,
+        "tahun": data.tahun,
+        "MilliarUsd": data.MilliarUsd,
+      }
+    }
+    try {
+      return await lastValueFrom(
+        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
     }
   }
 
