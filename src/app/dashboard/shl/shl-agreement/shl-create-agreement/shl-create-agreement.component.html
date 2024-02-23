@@ -1,0 +1,1057 @@
+<div>
+  <app-header></app-header>
+  <app-sidebar></app-sidebar>
+
+  <div></div>
+
+  <main id="main" class="main">
+    <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+      {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+    </button> -->
+
+    <mat-stepper [linear]="false" #stepper>
+      <!-- STEP 1 -->
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Create Agreement</ng-template>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4"
+                >Nama Anak Perusahaan</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <ng-select
+              [items]="cars"
+              bindLabel="name"
+              bindValue="id"
+              [(ngModel)]="selectedCar"
+              [ngModelOptions]="{ standalone: true }"
+              required
+            >
+            </ng-select>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >Nomor SHL Agreement PLN
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <input
+              matInput
+              type="text"
+              class="form-control input-number-agreement"
+              id="noSHL"
+              placeholder="Masukan Nomor SHL Agreement Number"
+              formControlName="nomorSHL"
+              required
+            />
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4"
+                >Nomor SHL Agreement Anak Perusahaan</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <input
+              type="text"
+              class="form-control input-number-agreement"
+              id="noAPSHL"
+              placeholder="Masukan Nomor SHL Agreement Number"
+              formControlName="nomorAPSHL"
+              required
+            />
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4"
+                >Tanggal SHL Agreement</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <mat-form-field class="ms-2 input-date">
+              <mat-label class="label-datepicker">Select Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker1"
+                autocomplete="off"
+                disabled
+                style="color: black"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                #picker1
+                color="primary"
+                disabled="false"
+              ></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Masa Pengembalian</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="form-check input-pengembalian me-2">
+                <input
+                  class="form-check-input me-1"
+                  type="radio"
+                  name="masaPengembalian"
+                  id="flexRadioDefault1"
+                  [value]="'freeText'"
+                  formControlName="masaPengembalian"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Free Text
+                </label>
+              </div>
+              <div class="form-check input-pengembalian">
+                <input
+                  class="form-check-input me-1"
+                  type="radio"
+                  name="masaPengembalian"
+                  id="flexRadioDefault2"
+                  [value]="'date'"
+                  formControlName="masaPengembalian"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Date
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Deskripsi Proyek</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="mb-3">
+              <textarea
+                class="form-control text-area-deskripsi-proyek"
+                id="deskripsiProyek"
+                rows="3"
+                placeholder="Deskripsi keterangan proyek perusahaan"
+                formControlName="textAreaDeskripsiProyek"
+                required
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Sources of funding</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="form-check input-pengembalian me-2">
+                <input
+                  class="form-check-input me-1"
+                  type="radio"
+                  name="SourceOfFunding"
+                  id="SourceOfFunding"
+                  checked
+                  formControlName="SourceOfFunding"
+                  [value]="'nonPenerusan'"
+                  required
+                />
+                <label class="form-check-label" for="SourceOfFunding1">
+                  Non Penerusan Pinjaman
+                </label>
+              </div>
+              <div class="form-check input-pengembalian">
+                <input
+                  class="form-check-input me-1"
+                  type="radio"
+                  name="SourceOfFunding"
+                  id="SourceOfFunding2"
+                  formControlName="SourceOfFunding"
+                  [value]="'penerusan'"
+                  required
+                />
+                <label class="form-check-label" for="SourceOfFunding2">
+                  Penerusan Pinjaman
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <button mat-button (click)="onNextClickFirst()">Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- STEP 2 -->
+      <mat-step [stepControl]="secondFormGroup">
+        <div class="row">
+          <div class="col-3" style="border-right: 1px solid #d9d9d9">
+            <span class="title-nonPenerusan">Non Penerusan Pinjaman</span>
+            <br />
+            <span>Total Proyek : 2</span>
+
+            <div
+              class="d-flex flex-column justify-content-center align-items-start mt-4 list-project"
+              style="gap: 24px"
+            >
+              <button
+                class="btn btn-outline-primary p-2 text-start"
+                style="min-width: 260px"
+              >
+                <i class="bi bi-file-earmark-lock px-1"></i>Project 1
+              </button>
+              <button
+                class="btn btn-outline-primary p-2 text-start"
+                style="min-width: 260px"
+              >
+                <i class="bi bi-file-earmark-lock px-1"></i>Project 2
+              </button>
+              <button
+                class="btn btn-outline-primary p-2 text-start"
+                style="min-width: 260px"
+              >
+                <i class="bi bi-plus-lg px-1"></i>Tambah Project Baru
+              </button>
+            </div>
+          </div>
+          <div class="col-9">
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Create Agreement</ng-template>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4">Nama Proyek</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="color: #ed151c"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control input-number-agreement"
+                  id="noSHL"
+                  placeholder="Masukan Nomor SHL Agreement Number"
+                  required
+                />
+              </div>
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4 me-1">Total Pagu</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="color: #ed151c"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control input-number-agreement"
+                  id="noSHL"
+                  placeholder="Masukan Nomor SHL Agreement Number"
+                  required
+                />
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4"
+                    >Masa Pengembalian</span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="color: #ed151c"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-baseline">
+                  <div class="form-check input-pengembalian me-2">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="masaPengembalian"
+                      id="flexRadioDefault1"
+                      [value]="'freeText'"
+                      required
+                    />
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Free Text
+                    </label>
+                  </div>
+                  <div class="form-check input-pengembalian">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="masaPengembalian"
+                      id="flexRadioDefault2"
+                      [value]="'date'"
+                      required
+                    />
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Date
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4"
+                    >Masa Pengembalian</span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="color: #ed151c"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-baseline">
+                  <div class="form-check input-pengembalian me-2">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="masaPengembalian"
+                      id="flexRadioDefault1"
+                      [value]="'freeText'"
+                      required
+                    />
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Free Text
+                    </label>
+                  </div>
+                  <div class="form-check input-pengembalian">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="masaPengembalian"
+                      id="flexRadioDefault2"
+                      [value]="'date'"
+                      required
+                    />
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Date
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4"
+                    >Masa Pengembalian</span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="color: #ed151c"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-baseline">
+                  <div class="form-check input-pengembalian me-2">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="masaPengembalian"
+                      id="flexRadioDefault1"
+                      [value]="'freeText'"
+                      required
+                    />
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Free Text
+                    </label>
+                  </div>
+                  <div class="form-check input-pengembalian">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="masaPengembalian"
+                      id="flexRadioDefault2"
+                      [value]="'date'"
+                      required
+                    />
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Date
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4 me-1">Tenor</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="color: #ed151c"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control input-number-agreement"
+                  id="noSHL"
+                  placeholder="Masukan Nomor SHL Agreement Number"
+                  required
+                />
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4"
+                    >Repayment Period</span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="color: #ed151c"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+                <ng-select
+                  [items]="cars"
+                  bindLabel="name"
+                  bindValue="id"
+                  [(ngModel)]="selectedCar"
+                  [ngModelOptions]="{ standalone: true }"
+                  required
+                >
+                </ng-select>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4">Date Repayment</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="color: #ed151c"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+                <mat-form-field class="ms-2 input-date">
+                  <mat-label class="label-datepicker">Select Date</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="picker1"
+                    autocomplete="off"
+                    disabled
+                    style="color: black"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker1"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker
+                    #picker1
+                    color="primary"
+                    disabled="false"
+                  ></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4">Deskripsi Denda</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="color: #ed151c"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="mb-3">
+                  <textarea
+                    class="form-control text-area-deskripsi-proyek"
+                    id="deskripsiProyek"
+                    rows="3"
+                    placeholder="Deskripsi keterangan proyek perusahaan"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4"
+                    >Pembayaran Pokok Pinjaman</span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="color: #ed151c"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-baseline">
+                  <div class="form-check input-pengembalian me-2">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="masaPengembalian"
+                      id="flexRadioDefault1"
+                      [value]="'freeText'"
+                      required
+                    />
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      PRORATE
+                    </label>
+                  </div>
+                  <div class="form-check input-pengembalian">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="masaPengembalian"
+                      id="flexRadioDefault2"
+                      [value]="'date'"
+                      required
+                    />
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      BALLONING
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4">Interest Type</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="color: #ed151c"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-baseline">
+                  <div class="form-check input-pengembalian me-2">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="masaPengembalian"
+                      id="flexRadioDefault1"
+                      [value]="'freeText'"
+                      required
+                    />
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      FIXED
+                    </label>
+                  </div>
+                  <div class="form-check input-pengembalian">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="masaPengembalian"
+                      id="flexRadioDefault2"
+                      [value]="'date'"
+                      required
+                    />
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      FLOATING
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4 me-1">Bunga</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="color: #ed151c"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control input-number-agreement"
+                  id="noSHL"
+                  placeholder="Bunga"
+                  required
+                />
+              </div>
+              <div>
+                <button mat-button (click)="onNextClickFirst()">Next</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </mat-step>
+
+      <!-- STEP 3 -->
+      <mat-step [stepControl]="thirdFormGroup">
+        <ng-template matStepLabel>Agreement Document</ng-template>
+        <!-- <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div> -->
+        <form [formGroup]="thirdFormGroup">
+          <ng-template matStepLabel>Create Agreement</ng-template>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >Nomor SHL Agreement PLN
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <input
+              matInput
+              type="text"
+              class="form-control input-number-agreement"
+              id="noSHL"
+              placeholder="Masukan Nomor SHL Agreement Number"
+              [disabled]="true"
+            />
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4"
+                >Nomor SHL Agreement Anak Perusahaan</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <input
+              type="text"
+              class="form-control input-number-agreement"
+              id="noAPSHL"
+              placeholder="Masukan Nomor SHL Agreement Number"
+              [disabled]="true"
+            />
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <div>
+                <span class="label-inputAgreement mb-4 me-1">Dokumen PLN</span>
+                <br />
+                <span class="subtitle-dokumen">Maimum file size 2MB</span>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1">KEPDIR Sirkuler</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1">Pakta Integritas</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1">Dokumen Lainnya</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center" style="border-top: 1px solid #E4E4E4;">
+            <div class="d-flex justify-content-baseline">
+              <div>
+                <span class="label-inputAgreement mb-4 me-1">Dokumen Anak Perusahaan</span>
+                <br />
+                <span class="subtitle-dokumen">Maximum up to 5 files. File types must be : .PDF</span>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <div>
+                <span class="label-inputAgreement mb-4 me-1">RKAP</span>
+                <br />
+                <span class="subtitle-dokumen">*Catatan: Pastikan yang sudah disetujui</span>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1">KEPDIR (Keputusan Direksi)</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1">Pakta Integritas</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1">Surat Rekomendasi Dekom</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1">Dokumen Lainnya</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="color: #ed151c"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-stepper>
+  </main>
+</div>

@@ -1,0 +1,89 @@
+::ng-deep .ng-select.ng-select-single .ng-select-container {
+  width: 495px;
+}
+
+
+.label-inputAgreement{
+  color: var(--Color-Silver-950, #0C0C0F);
+
+/* Text xs/Bold */
+font-family: Satoshi;
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: 24px; /* 150% */
+}
+
+::ng-deep .mat-mdc-form-field{
+  width: 495px;
+  height: 60px;
+  margin-top: 25px;
+}
+
+::ng-deep .mdc-text-field--filled.mdc-text-field--disabled {
+  /* background-color: none; */
+  border: 1px solid rgba(1, 41, 112, 0.2);
+  border-radius: 10px;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix{
+  padding-top: 20px;
+}
+
+::ng-deep .mdc-text-field {
+  align-items: center !important;
+}
+
+::ng-deep .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control{
+  font-size: 14px !important;
+}
+
+.input-pengembalian{
+  width: 244.5px;
+  padding: 8px 12px;
+  border-radius: 8px;
+border: 1px solid var(--Color-Silver-200, #E4E4E4);
+background: var(--Color-Silver-0, #FFF);
+
+/* Shadow/xs */
+box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+
+.form-check .form-check-input {
+  float: left;
+  margin-left: 0px;
+}
+
+.text-area-deskripsi-proyek,
+.form-control{
+  width: 495px;
+}
+
+::placeholder {
+  color: var(--c, black);
+}
+
+.title-nonPenerusan{
+  color: #000;
+font-family: Satoshi;
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: 24px; /* 150% */
+}
+
+.list-project{
+  font-family: Satoshi;
+}
+
+.subtitle-dokumen{
+  color: var(--Color-Silver-900, #4E4E4E);
+
+/* Text xxs/Regular */
+font-family: Satoshi;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 22px; /* 157.143% */
+letter-spacing: 0.07px;
+}
