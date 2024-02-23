@@ -194,7 +194,7 @@ export class PdbComponent {
     this.tableConfig.tableOutlookPdb.addRow({});
   }
 
-  download(){
-    this.tableConfig.downloadPdf();
-  }
+  // download(){
+  //   this.tableConfig.downloadPdf();
+  // }
 }
