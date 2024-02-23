@@ -260,21 +260,21 @@
         <button
           class="btn btn-light bg-transparant border border-dark-subtle dropdown-toggle me-2"
           type="button"
-          id="buttonMonth"
+          id="buttonAgreement"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
           All Agreement
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <ng-container *ngFor="let item of listMonth">
+          <ng-container *ngFor="let item of listAgreement">
             <li>
               <a
                 class="dropdown-item"
                 style="cursor: pointer"
-                (click)="getValueMonth(item.month)"
+                (click)="getValueAgreement(item.agreement)"
                 id="item.id"
-                >{{ item.month }}</a
+                >{{ item.agreement }}</a
               >
             </li>
           </ng-container>
