@@ -8,6 +8,16 @@ import { Router } from '@angular/router';
 })
 export class TableServicesService {
 
+  constructor(
+    private marketUpdateService: MarketUpdateService,
+    private router: Router
+  ) {
+    // Initialize properties in a method like ngOnInit() or a custom method
+    // this.initializeTableData();
+    // this.initializeTableDataCurrency()
+  }
+  // [x: string]: any;
+
   public sharedData: any;
   public sharedDataPdb:any;
   public testData: any;
@@ -300,16 +310,6 @@ export class TableServicesService {
   tableRkapForeignExchange:any;
   tableDataOutlookForeignExchange:any;
   tableOutlookForeignExchange:any;
-
-
-  constructor(
-    private marketUpdateService: MarketUpdateService,
-    private router: Router
-  ) {
-    // Initialize properties in a method like ngOnInit() or a custom method
-    // this.initializeTableData();
-    // this.initializeTableDataCurrency()
-  }
 
   editCheck = function(cell:any){
     //cell - the cell component for the editable cell
@@ -2218,6 +2218,30 @@ export class TableServicesService {
     this.router.navigate(['shl_agreement/details', cell.getRow().getData().id]);
   }
 
+  cellClick_SaveButtonPdb = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.hideColumn("CancelButton")
+    currentTable.hideColumn("SaveButton")
+    const data = {
+      id: rowData.id,
+      quartal: rowData.quartal,
+      tahun: rowData.tahun,
+      nilai: rowData.nilai
+    }
+    console.log(data);
+    // this.router.navigate(['/shloverview'])
+    const response = await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data);
+
+    // this.router.navigate(['shl_agreement/details', 1]);
+    // this.marketUpdateService.fetchDataUpdateRealisasiPDB(data)/
+  }
+
 
   cellClick_EditButton(_e: any, cell: any): void {
     const currentRow = cell.getRow()
@@ -2260,25 +2284,7 @@ export class TableServicesService {
     }
   }
   // save edit Realisasi all Macro
-  async cellClick_SaveButtonPdb(e: any, cell:any){
-    const rowData = cell.getRow().getData();
-    if (!cell.getRow().isSelected()){
-      return
-    }
-    const currentTable = cell.getTable()
-    currentTable.deselectRow()
-    currentTable.showColumn("EditButton")
-    currentTable.hideColumn("CancelButton")
-    currentTable.hideColumn("SaveButton")
-    const data = {
-      id: rowData.id,
-      quartal: rowData.quartal,
-      tahun: rowData.tahun,
-      nilai: rowData.nilai
-    }
-    console.log(data);
-     await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data)
-  }
+
 
   async cellClick_SaveButtonInflasi(e: any, cell:any){
     const rowData = cell.getRow().getData();
