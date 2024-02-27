@@ -453,7 +453,16 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     } catch (error) {
       console.log(error);
     }
-}
+  }
+
+  
+  quillInnerHTMLFootnote: any[] = [];
+  resObject:any;
+  fetchFootnotes = async () => {
+    const res = await this.quillConfig.getFootnotes(moment().format("DD/MM/YYYY"));
+    this.resObject = res;
+    this.quillInnerHTMLFootnote = this.resObject.d;
+  }
 
   fetchMacroIndicator = async () => {
     const responseMacroIndicator = await this.marketUpdateService.fetchDataMacroIndicatorOverview(moment().format('DD/MM/YYYY'));
@@ -503,6 +512,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       this.fetchCurrency();
       this.fetchInterestRate();
       this.fetchKeyTakeWays();
+      this.fetchFootnotes();
 
     }
     catch(err){
@@ -566,7 +576,6 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   }
 
   quillContentFootnote!: any;
-  quillInnerHTMLFootnote: any[] = [];
   transformYourHtmlFootnote(htmlTextWithStyle: any) {
     const innerHTML = this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
     console.log(innerHTML);
@@ -582,10 +591,13 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     this.quillContentFootnote = value;
     console.log(value);
     this.transformYourHtmlFootnote(this.quillContentFootnote)
+    console.log("Array Footnote : ",this.quillFootnote.getText().split(";"));
 
     // this.quillContentFootnote.root.innerHTML = '';
     this.quillFootnote.deleteText(0,this.quillFootnote.getLength())
     console.log(this.quillFootnote.getLength());
+
+    this.quillConfig.sendFootnote(value)
 
     // if(this.quillFootnote.getLength() < 0){
     //   this.quillFootnote.insertText(this.quillFootnote.getLength() + 1, value)
@@ -604,7 +616,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     this.mentionInnerHTML = innerHTML
     console.log(innerHTML);
 
-    this.quillConfig.sendFootnote(arrData, innerHTML)
+    
 
   }
 
