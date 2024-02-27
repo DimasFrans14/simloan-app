@@ -1,0 +1,66 @@
+.submenu-market {
+  color: #000000;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s, color 0.3s;
+  margin-right: 24px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.submenu-market:hover,
+.submenu-market:focus {
+  border-bottom: 2px solid #2E75F0;
+  color: #2E75F0;
+}
+
+.submenu-dokumen {
+  color: #000000;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s, color 0.3s;
+  margin-right: 24px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.submenu-dokumen:hover,
+.submenu-dokumen:focus {
+  border-bottom: 2px solid #2E75F0;
+  color: #2E75F0;
+}
+
+.sub-nav{
+  margin-top: 60px;
+  padding: 20px 0px 0px 280px;
+}
+
+#main{
+  margin-top: 20px;
+}
+
+::ng-deep .ng-select.ng-select-single .ng-select-container {
+  width: 25vw;
+}
+
+.detail-data{
+  background: #F4F5F6;
+}
+
+.title-proyek{
+  color: var(--Color-Silver-950, #0C0C0F);
+
+/* Text xs/Bold */
+font-family: Satoshi;
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: 24px; /* 150% */
+}
+
+.subtitle-dokumen{
+  color: var(--Color-Silver-950, #0C0C0F);
+font-family: Satoshi;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: 24px; /* 171.429% */
+}

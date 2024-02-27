@@ -1,0 +1,1584 @@
+<div>
+  <app-header></app-header>
+  <app-sidebar></app-sidebar>
+
+  <div></div>
+
+  <main id="main" class="main">
+    <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+      {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+    </button> -->
+
+    <mat-stepper [linear]="false" #stepper>
+      <!-- STEP 1 -->
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Create Agreement</ng-template>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4"
+                >Nama Anak Perusahaan</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <ng-select
+              [items]="cars"
+              class="form-control"
+              bindLabel="name"
+              id="anakPerusahaan"
+              placeholder="Pilih Nama Anak Perusahaan"
+              bindValue="name"
+              formControlName="selectedCar"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && firstFormGroup.controls.selectedCar.errors
+              }"
+              required
+            >
+            </ng-select>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >Nomor SHL Agreement PLN
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <input
+              matInput
+              type="text"
+              class="form-control input-number-agreement"
+              id="noSHL"
+              placeholder="Masukan Nomor SHL Agreement Number"
+              formControlName="nomorSHL"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && firstFormGroup.controls.nomorSHL.errors
+              }"
+              required
+            />
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4"
+                >Nomor SHL Agreement Anak Perusahaan</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <input
+              type="text"
+              class="form-control input-number-agreement"
+              id="noAPSHL"
+              placeholder="Masukan Nomor SHL Agreement Number"
+              formControlName="nomorAPSHL"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && firstFormGroup.controls.nomorAPSHL.errors
+              }"
+              required
+            />
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4"
+                >Tanggal SHL Agreement</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <mat-form-field class="ms-2 input-date">
+              <mat-label class="label-datepicker">Select Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker1"
+                autocomplete="off"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted &&
+                    firstFormGroup.controls.tanggalSHLAgreement.errors
+                }"
+                formControlName="tanggalSHLAgreement"
+                style="color: black"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                #picker1
+                color="primary"
+                disabled="false"
+              ></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Masa Pengembalian</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="form-check input-pengembalian me-2">
+                <input
+                  class="form-check-input me-1"
+                  type="radio"
+                  name="masaPengembalian"
+                  id="flexRadioDefault1"
+                  [value]="'freeText'"
+                  formControlName="masaPengembalian"
+                  (change)="onChange()"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Free Text
+                </label>
+              </div>
+              <div class="form-check input-pengembalian">
+                <input
+                  class="form-check-input me-1"
+                  type="radio"
+                  name="masaPengembalian"
+                  id="flexRadioDefault2"
+                  [value]="'date'"
+                  formControlName="masaPengembalian"
+                  (change)="onChange()"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Date
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end align-items-center my-4">
+            <ng-container *ngIf="selectionOptionCreateAgreement !== 'date'">
+              <textarea
+                class="form-control text-area-deskripsi-proyek"
+                rows="3"
+                placeholder="Deskripsi Tanggal"
+                id="deskripsiTanggal"
+                formControlName="deskripsiTanggal"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted && firstFormGroup.controls.deskripsiTanggal.errors
+                }"
+                required
+              ></textarea>
+            </ng-container>
+
+            <ng-container *ngIf="selectionOptionCreateAgreement === 'date'">
+              <mat-form-field class="ms-2 input-date">
+                <mat-label class="label-datepicker">Select Date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker1"
+                  autocomplete="off"
+                  formControlName="deskripsiTanggal"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted &&
+                      firstFormGroup.controls.deskripsiTanggal.errors
+                  }"
+                  style="color: black"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker
+                  #picker1
+                  color="primary"
+                  disabled="false"
+                ></mat-datepicker>
+              </mat-form-field>
+            </ng-container>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Deskripsi Proyek</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="mb-3">
+              <textarea
+                class="form-control text-area-deskripsi-proyek"
+                id="deskripsiProyek"
+                rows="3"
+                placeholder="Deskripsi keterangan proyek perusahaan"
+                formControlName="textAreaDeskripsiProyek"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted &&
+                    firstFormGroup.controls.textAreaDeskripsiProyek.errors
+                }"
+                required
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Sources of funding</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="form-check input-pengembalian me-2">
+                <input
+                  class="form-check-input me-1"
+                  type="radio"
+                  name="SourceOfFunding"
+                  id="SourceOfFunding"
+                  checked
+                  formControlName="SourceOfFunding"
+                  [value]="'nonPenerusan'"
+                  required
+                />
+                <label class="form-check-label" for="SourceOfFunding1">
+                  Non Penerusan Pinjaman
+                </label>
+              </div>
+              <div class="form-check input-pengembalian">
+                <input
+                  class="form-check-input me-1"
+                  type="radio"
+                  name="SourceOfFunding"
+                  id="SourceOfFunding2"
+                  formControlName="SourceOfFunding"
+                  [value]="'penerusan'"
+                  required
+                />
+                <label class="form-check-label" for="SourceOfFunding2">
+                  Penerusan Pinjaman
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <button mat-button (click)="onNextClickFirst()">Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- STEP 2 -->
+      <mat-step [stepControl]="secondFormGroup">
+        <div class="row">
+          <div class="col-3" style="border-right: 1px solid #d9d9d9">
+            <span class="title-nonPenerusan">Non Penerusan Pinjaman</span>
+            <br />
+            <span>Total Proyek : 2</span>
+
+            <div
+              class="d-flex flex-column justify-content-center align-items-start mt-4 list-project"
+              style="gap: 24px"
+            >
+              <button
+                class="btn btn-outline-primary p-2 text-start"
+                style="min-width: 260px"
+              >
+                <i class="bi bi-file-earmark-lock px-1"></i>Project 1
+              </button>
+              <button
+                class="btn btn-outline-primary p-2 text-start"
+                style="min-width: 260px"
+              >
+                <i class="bi bi-file-earmark-lock px-1"></i>Project 2
+              </button>
+              <button
+                class="btn btn-outline-primary p-2 text-start"
+                style="min-width: 260px"
+              >
+                <i class="bi bi-plus-lg px-1"></i>Tambah Project Baru
+              </button>
+            </div>
+          </div>
+
+          <div class="col-9">
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Create Agreement</ng-template>
+
+              <div
+                class="d-flex justify-content-between align-items-baseline pt-1"
+              >
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4">Nama Proyek</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control input-number-agreement"
+                  id="noSHL"
+                  placeholder="Masukan Nomor SHL Agreement Number"
+                  formControlName="namaProyek"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted && secondFormGroup.controls.namaProyek.errors
+                  }"
+                  required
+                />
+              </div>
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4 me-1">Total Pagu</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control input-number-agreement"
+                  id="noSHL"
+                  placeholder="Masukan Nomor SHL Agreement Number"
+                  formControlName="totalPagu"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted && secondFormGroup.controls.totalPagu.errors
+                  }"
+                  required
+                />
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4"
+                    >Berakhir Perjanjian</span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-baseline">
+                  <div class="form-check input-pengembalian me-2">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="berakhirPerjanjian"
+                      id="berakhirPerjanjian"
+                      [value]="'freeText'"
+                      formControlName="berakhirPerjanjian"
+                      (change)="berakhirPerjanjianClick()"
+                      required
+                    />
+                    <label class="form-check-label" for="berakhirPerjanjian">
+                      Free Text
+                    </label>
+                  </div>
+                  <div class="form-check input-pengembalian">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="berakhirPerjanjian"
+                      id="berakhirPerjanjian2"
+                      [value]="'date'"
+                      formControlName="berakhirPerjanjian"
+                      (change)="berakhirPerjanjianClick()"
+                      required
+                    />
+                    <label class="form-check-label" for="berakhirPerjanjian2">
+                      Date
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end align-items-center my-4">
+                <ng-container *ngIf="berakhirPerjanjian !== 'date'">
+                  <textarea
+                    class="form-control text-area-deskripsi-proyek"
+                    rows="3"
+                    placeholder="Deskripsi Tanggal"
+                    formControlName="deskripsiBerakhirPerjanjian"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted &&
+                        secondFormGroup.controls.deskripsiBerakhirPerjanjian
+                          .errors
+                    }"
+                    required
+                  ></textarea>
+                </ng-container>
+
+                <ng-container *ngIf="berakhirPerjanjian === 'date'">
+                  <mat-form-field class="ms-2 input-date">
+                    <mat-label class="label-datepicker">Select Date</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="perjanjianPicker"
+                      autocomplete="off"
+                      formControlName="deskripsiBerakhirPerjanjian"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          secondFormGroup.controls.deskripsiBerakhirPerjanjian
+                            .errors
+                      }"
+                      style="color: black"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="perjanjianPicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker
+                      #perjanjianPicker
+                      color="primary"
+                      disabled="false"
+                    ></mat-datepicker>
+                  </mat-form-field>
+                </ng-container>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4"
+                    >Availability Period</span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-baseline">
+                  <div class="form-check input-pengembalian me-2">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="availabilityPeriode"
+                      formControlName="availabilityPeriode"
+                      (change)="availabilityPeriodeClick()"
+                      id="availabilityPeriode"
+                      [value]="'freeText'"
+                      required
+                    />
+                    <label class="form-check-label" for="availabilityPeriode">
+                      Free Text
+                    </label>
+                  </div>
+                  <div class="form-check input-pengembalian">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="availabilityPeriode"
+                      formControlName="availabilityPeriode"
+                      (change)="availabilityPeriodeClick()"
+                      id="availabilityPeriode2"
+                      [value]="'date'"
+                      required
+                    />
+                    <label class="form-check-label" for="availabilityPeriode2">
+                      Date
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end align-items-center my-4">
+                <ng-container *ngIf="availabilityPeriode !== 'date'">
+                  <textarea
+                    class="form-control text-area-deskripsi-proyek"
+                    rows="3"
+                    placeholder="Deskripsi Tanggal"
+                    formControlName="deskripsiAvailabilityPeriode"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted &&
+                        secondFormGroup.controls.deskripsiAvailabilityPeriode
+                          .errors
+                    }"
+                    required
+                  ></textarea>
+                </ng-container>
+
+                <ng-container *ngIf="availabilityPeriode === 'date'">
+                  <mat-form-field class="ms-2 input-date">
+                    <mat-label class="label-datepicker">Select Date</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="availabilityPicker"
+                      autocomplete="off"
+                      formControlName="deskripsiAvailabilityPeriode"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          secondFormGroup.controls.deskripsiAvailabilityPeriode
+                            .errors
+                      }"
+                      style="color: black"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="availabilityPicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker
+                      #availabilityPicker
+                      color="primary"
+                      disabled="false"
+                    ></mat-datepicker>
+                  </mat-form-field>
+                </ng-container>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4">Grace Period</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-baseline">
+                  <div class="form-check input-pengembalian me-2">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="gracePeriod"
+                      formControlName="gracePeriod"
+                      (change)="gracePeriodeClick()"
+                      id="gracePeriod"
+                      [value]="'freeText'"
+                      required
+                    />
+                    <label class="form-check-label" for="gracePeriod">
+                      Free Text
+                    </label>
+                  </div>
+                  <div class="form-check input-pengembalian">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="gracePeriod"
+                      formControlName="gracePeriod"
+                      (change)="gracePeriodeClick()"
+                      id="gracePeriod2"
+                      [value]="'date'"
+                      required
+                    />
+                    <label class="form-check-label" for="gracePeriod2">
+                      Date
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end align-items-center my-4">
+                <ng-container *ngIf="gracePeriod !== 'date'">
+                  <textarea
+                    class="form-control text-area-deskripsi-proyek"
+                    rows="3"
+                    placeholder="Deskripsi Tanggal"
+                    formControlName="deskripsiGracePeriod"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted &&
+                        secondFormGroup.controls.deskripsiGracePeriod.errors
+                    }"
+                    required
+                  ></textarea>
+                </ng-container>
+
+                <ng-container *ngIf="gracePeriod === 'date'">
+                  <mat-form-field class="ms-2 input-date">
+                    <mat-label class="label-datepicker">Select Date</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="gracePeriodPicker"
+                      autocomplete="off"
+                      formControlName="deskripsiGracePeriod"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          secondFormGroup.controls.deskripsiGracePeriod.errors
+                      }"
+                      style="color: black"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="gracePeriodPicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker
+                      #gracePeriodPicker
+                      color="primary"
+                      disabled="false"
+                    ></mat-datepicker>
+                  </mat-form-field>
+                </ng-container>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4 me-1">Tenor</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="input-group mb-3 d-flex justify-content-end align-items-center input-grup">
+                  <div class="d-flex justify-content-end align-items-center">
+                  <input
+                    type="text"
+                    class="form-control input-tenor"
+                    id="noSHL"
+                    placeholder="Masukan Nomor SHL Agreement Number"
+                    formControlName="tenor"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted && secondFormGroup.controls.tenor.errors
+                    }"
+                    required
+                  />
+                  <button
+                    class="btn btn-outline-secondary dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    id="buttonTenor"
+                  >
+                    USD
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <ng-container *ngFor="let item of listItemTenor">
+                      <li>
+                        <a class="dropdown-item" id="item.id" (click)="getDropdownVal(item.name)">{{item.name}}</a>
+                      </li>
+                    </ng-container>
+                  </ul>
+                </div>
+
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4"
+                    >Repayment Period</span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+                <ng-select
+                  [items]="cars"
+                  bindLabel="name"
+                  bindValue="name"
+                  [(ngModel)]="selectedCar"
+                  class="form-control"
+                  formControlName="repaymentMethod"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted &&
+                      secondFormGroup.controls.repaymentMethod.errors
+                  }"
+                  required
+                >
+                </ng-select>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4">Date Repayment</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+                <mat-form-field class="ms-2 input-date">
+                  <mat-label class="label-datepicker">Select Date</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="picker2"
+                    autocomplete="off"
+                    formControlName="dateRepayment"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted &&
+                        secondFormGroup.controls.dateRepayment.errors
+                    }"
+                    style="color: black"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker2"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker
+                    #picker2
+                    color="primary"
+                    disabled="false"
+                  ></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4">Deskripsi Denda</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="mb-3">
+                  <textarea
+                    class="form-control text-area-deskripsi-proyek"
+                    id="deskripsiProyek"
+                    rows="3"
+                    placeholder="Deskripsi keterangan proyek perusahaan"
+                    formControlName="deskripsiDenda"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted &&
+                        secondFormGroup.controls.deskripsiDenda.errors
+                    }"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4"
+                    >Pembayaran Pokok Pinjaman</span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-baseline">
+                  <div class="form-check input-pengembalian me-2">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="pembayaranPokokPinjaman"
+                      id="prorate"
+                      [value]="'PRORATE'"
+                      formControlName="pembayaranPokokPinjaman"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          secondFormGroup.controls.pembayaranPokokPinjaman
+                            .errors
+                      }"
+                      required
+                    />
+                    <label class="form-check-label" for="prorate">
+                      PRORATE
+                    </label>
+                  </div>
+                  <div class="form-check input-pengembalian">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="pembayaranPokokPinjaman"
+                      id="balloning"
+                      [value]="'BALLONING'"
+                      formControlName="pembayaranPokokPinjaman"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          secondFormGroup.controls.pembayaranPokokPinjaman
+                            .errors
+                      }"
+                      required
+                    />
+                    <label class="form-check-label" for="balloning">
+                      BALLONING
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4">Interest Type</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-baseline">
+                  <div class="form-check input-pengembalian me-2">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="interestType"
+                      id="fixed"
+                      [value]="'FIXED'"
+                      formControlName="interestType"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          secondFormGroup.controls.interestType
+                            .errors
+                      }"
+                      required
+                    />
+                    <label class="form-check-label" for="fixed"> FIXED </label>
+                  </div>
+                  <div class="form-check input-pengembalian">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="interestType"
+                      id="floating"
+                      [value]="'FLOATING'"
+                      formControlName="interestType"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          secondFormGroup.controls.interestType
+                            .errors
+                      }"
+                      required
+                    />
+                    <label class="form-check-label" for="floating">
+                      FLOATING
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4 me-1">Bunga</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+                <div class="input-group mb-3 d-flex justify-content-end align-items-center flex-nowrap input-grup">
+                  <input
+                    type="text"
+                    class="form-control input-bunga"
+                    placeholder="bunga"
+                    aria-label="bunga"
+                    aria-describedby="basic-addon2"
+                    formControlName="bunga"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted && secondFormGroup.controls.bunga.errors
+                    }"
+                  />
+                  <span class="input-group-text" id="basic-addon2"
+                    >% percent</span
+                  >
+                </div>
+              </div>
+              <div>
+                <button mat-button (click)="onNextClickSecond()">Next</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </mat-step>
+
+      <!-- STEP 3 -->
+      <mat-step>
+        <ng-template matStepLabel>Agreement Document</ng-template>
+        <!-- <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div> -->
+        <form>
+          <ng-template matStepLabel>Create Agreement</ng-template>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >Nomor SHL Agreement PLN
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <input
+              matInput
+              type="text"
+              class="form-control input-number-agreement"
+              id="noSHL"
+              placeholder="Masukan Nomor SHL Agreement Number"
+              [disabled]="true"
+              [value]="dataSHL?.nomorSHLPLN ? dataSHL.nomorSHLPLN : ''"
+            />
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4"
+                >Nomor SHL Agreement Anak Perusahaan</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <input
+              type="text"
+              class="form-control input-number-agreement"
+              id="noAPSHL"
+              placeholder="Masukan Nomor SHL Agreement Number"
+              [disabled]="true"
+              [value]="dataSHL?.nomorSHLAnakPerusahaanPLN ? dataSHL.nomorSHLAnakPperusahaanPLN : ''"
+            />
+          </div>
+
+          <div class="d-flex justify-content-between align-items-start my-4">
+            <div class="d-flex justify-content-baseline">
+              <div>
+                <span class="label-inputAgreement mb-4 me-1">Dokumen PLN</span>
+                <br />
+                <span class="subtitle-dokumen">Maimum file size 2MB</span>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+              <ngx-dropzone (change)="onSelectDokumen($event, 'PLN')" >
+                <ngx-dropzone-label>
+                  <img src="./assets/icon/upload-cloud-02.svg" alt="" />
+                  <div class="text-center">
+                    Drag and Drop here or
+                    <span class="text-primary">Browser here</span>
+                    <!-- <div *ngIf="submitted && thirdFormGroup.controls.dokumenPLN.errors" class="text-danger">
+                      Please upload a file.
+                    </div> -->
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview *ngFor="let f of parameterCurrency" [removable]="true" (removed)="onRemove(f)">
+                  <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+            </div>
+
+          <div class="d-flex justify-content-between align-items-start my-4">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >KEPDIR Sirkuler</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <ngx-dropzone (change)="onSelectDokumen($event, 'KEPDIR')" required>
+                <ngx-dropzone-label>
+                  <img src="./assets/icon/upload-cloud-02.svg" alt="" />
+                  <div class="text-center">
+                    Drag and Drop here or
+                    <span class="text-primary">Browser here</span>
+                    <!-- <div *ngIf="submitted && thirdFormGroup.controls.kepdirSirkuler.errors" class="text-danger">
+                      Please upload a file.
+                    </div> -->
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview
+                  *ngFor="let f of previewKEPDIR"
+                  [removable]="true"
+                  (removed)="onRemove(f)"
+                >
+                  <ngx-dropzone-label
+                    >{{ f.name }}</ngx-dropzone-label
+                  >
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-start my-4">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >Pakta Integritas</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <ngx-dropzone (change)="onSelectDokumen($event, 'PAKTA_INTEGRITAS')" required>
+                <ngx-dropzone-label>
+                  <img src="./assets/icon/upload-cloud-02.svg" alt="" />
+                  <div class="text-center">
+                    Drag and Drop here or
+                    <span class="text-primary">Browser here</span>
+                    <!-- <div *ngIf="submitted && thirdFormGroup.controls.paktaIntegritas.errors" class="text-danger">
+                      Please upload a file.
+                    </div> -->
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview
+                  *ngFor="let f of previewPaktaIntegritas"
+                  [removable]="true"
+                  (removed)="onRemove(f)"
+                >
+                  <ngx-dropzone-label
+                    >{{ f.name }}</ngx-dropzone-label
+                  >
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-start my-4">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >Dokumen Lainnya</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <ngx-dropzone (change)="onSelectDokumen($event, 'DOKUMEN_LAINNYA')" required>
+                <ngx-dropzone-label>
+                  <img src="./assets/icon/upload-cloud-02.svg" alt="" />
+                  <div class="text-center">
+                    Drag and Drop here or
+                    <span class="text-primary">Browser here</span>
+                    <!-- <div *ngIf="submitted && thirdFormGroup.controls.dokumenLainnya.errors" class="text-danger">
+                      Please upload a file.
+                    </div> -->
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview
+                  *ngFor="let f of previewDocumentLainnya"
+                  [removable]="true"
+                  (removed)="onRemove(f)"
+                >
+                  <ngx-dropzone-label
+                    >{{ f.name }}</ngx-dropzone-label
+                  >
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+
+          <hr />
+          <div class="d-flex justify-content-between align-items-start my-4">
+            <div class="d-flex justify-content-baseline">
+              <div>
+                <span class="label-inputAgreement mb-4 me-1"
+                  >Dokumen Anak Perusahaan</span
+                >
+                <br />
+                <span class="subtitle-dokumen"
+                  >Maximum up to 5 files. File types must be : .PDF</span
+                >
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <ngx-dropzone (change)="onSelectDokumen($event, 'DOKUMEN_AP')" required>
+                <ngx-dropzone-label>
+                  <img src="./assets/icon/upload-cloud-02.svg" alt="" />
+                  <div class="text-center">
+                    Drag and Drop here or
+                    <span class="text-primary">Browser here</span>
+                    <!-- <div *ngIf="submitted && thirdFormGroup.controls.dokumenAnakPerusahaan.errors" class="text-danger">
+                      Please upload a file.
+                    </div> -->
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview
+                  *ngFor="let f of previewDocumentAnakPerusahaan"
+                  [removable]="true"
+                  (removed)="onRemove(f)"
+                >
+                  <ngx-dropzone-label
+                    >{{ f.name }}</ngx-dropzone-label
+                  >
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-start my-4">
+            <div class="d-flex justify-content-baseline">
+              <div>
+                <span class="label-inputAgreement mb-4 me-1">RKAP</span>
+                <br />
+                <span class="subtitle-dokumen"
+                  >*Catatan: Pastikan yang sudah disetujui</span
+                >
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <ngx-dropzone (change)="onSelectDokumen($event, 'RKAP')" required>
+                <ngx-dropzone-label>
+                  <img src="./assets/icon/upload-cloud-02.svg" alt="" />
+                  <div class="text-center">
+                    Drag and Drop here or
+                    <span class="text-primary">Browser here</span>
+                    <!-- <div *ngIf="submitted && thirdFormGroup.controls.RKAP.errors" class="text-danger">
+                      Please upload a file.
+                    </div> -->
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview
+                  *ngFor="let f of previewDocumentRKAP"
+                  [removable]="true"
+                  (removed)="onRemove(f)"
+                >
+                  <ngx-dropzone-label
+                    >{{ f.name }}</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-start my-4">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >KEPDIR (Keputusan Direksi)</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <ngx-dropzone (change)="onSelectDokumen($event, 'KEPDIR_AP')" required>
+                <ngx-dropzone-label>
+                  <img src="./assets/icon/upload-cloud-02.svg" alt="" />
+                  <div class="text-center">
+                    Drag and Drop here or
+                    <span class="text-primary">Browser here</span>
+                    <!-- <div *ngIf="submitted && thirdFormGroup.controls.kepdirAnakPerusahaan.errors" class="text-danger">
+                      Please upload a file.
+                    </div> -->
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview
+                  *ngFor="let f of previewDocumentKEPDIR_AP"
+                  [removable]="true"
+                  (removed)="onRemove(f)"
+                >
+                  <ngx-dropzone-label
+                    >{{ f.name }}</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-start my-4">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >Pakta Integritas</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <ngx-dropzone (change)="onSelectDokumen($event, 'PAKTA_INTEGRITAS_AP')" required>
+                <ngx-dropzone-label>
+                  <img src="./assets/icon/upload-cloud-02.svg" alt="" />
+                  <div class="text-center">
+                    Drag and Drop here or
+                    <span class="text-primary">Browser here</span>
+                    <!-- <div *ngIf="submitted && thirdFormGroup.controls.paktaIntegritasAnakPerusahaan.errors" class="text-danger">
+                      Please upload a file.
+                    </div> -->
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview
+                  *ngFor="let f of previewPaktaIntegritasAP"
+                  [removable]="true"
+                  (removed)="onRemove(f)"
+                >
+                  <ngx-dropzone-label
+                    >{{ f.name }}</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-start my-4">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >Surat Rekomendasi Dekom</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <ngx-dropzone (change)="onSelectDokumen($event, 'REKOMENDASI_DEKOM')" required>
+                <ngx-dropzone-label>
+                  <img src="./assets/icon/upload-cloud-02.svg" alt="" />
+                  <div class="text-center">
+                    Drag and Drop here or
+                    <span class="text-primary">Browser here</span>
+                    <!-- <div *ngIf="submitted && thirdFormGroup.controls.suratRekomendasiRekom.errors" class="text-danger">
+                      Please upload a file.
+                    </div> -->
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview
+                  *ngFor="let f of previewRekomendasiDekom"
+                  [removable]="true"
+                  (removed)="onRemove(f)"
+                >
+                  <ngx-dropzone-label
+                    >{{ f.name }}</ngx-dropzone-label
+                  >
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-start my-4">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >Dokumen Lainnya</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <ngx-dropzone (change)="onSelectDokumen($event, 'DOKUMEN_LAINNYA_AP')" required>
+                <ngx-dropzone-label>
+                  <img src="./assets/icon/upload-cloud-02.svg" alt="" />
+                  <div class="text-center">
+                    Drag and Drop here or
+                    <span class="text-primary">Browser here</span>
+                    <!-- <div *ngIf="submitted && thirdFormGroup.controls.dokumenAnakPerusahaanLainnya.errors" class="text-danger">
+                      Please upload a file.
+                    </div> -->
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview
+                  *ngFor="let f of previewDocumentLainnyaAP"
+                  [removable]="true"
+                  (removed)="onRemove(f)"
+                >
+                  <ngx-dropzone-label
+                    >{{ f.name }}</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button type="button" class="btn btn-primary p-2 rounded" (click)="submit()" [disabled]="isDisable">Submit</button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-stepper>
+  </main>
+</div>
