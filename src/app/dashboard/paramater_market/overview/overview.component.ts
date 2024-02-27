@@ -373,7 +373,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.dataKurs = responseKurs;
       localStorage.setItem('compareData', JSON.stringify(this.dataKurs.d.arrayData))
 
-      const trendKurs = await this.marketUpdateService.fetchDataKursTrend();
+      const trendKurs = responseKurs;
       this.allTrendDataKurs = trendKurs;
       this.allTrendDataKurs = this.allTrendDataKurs.d.arrayData
       this.valueJPY = trendKurs;
