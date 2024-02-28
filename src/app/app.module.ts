@@ -68,6 +68,7 @@ import { CadanganDevisaComponent } from './dashboard/paramater_market/market-upd
 import { UsTreasuryComponent } from './dashboard/paramater_market/market-update/child_market_update/us-treasury/us-treasury.component';
 import { ShlAgreementDetailComponent } from './dashboard/shl/shl-agreement/shl-agreement-detail/shl-agreement-detail.component';
 import { ShlCreateAgreementComponent } from './dashboard/shl/shl-agreement/shl-create-agreement/shl-create-agreement.component';
+import { ShlPreviewCreateAgreementComponent } from './dashboard/shl/shl-agreement/shl-create-agreement/shl-preview-create-agreement/shl-preview-create-agreement.component';
 
 @NgModule({
   declarations: [
@@ -114,6 +115,7 @@ import { ShlCreateAgreementComponent } from './dashboard/shl/shl-agreement/shl-c
     UsTreasuryComponent,
     ShlAgreementDetailComponent,
     ShlCreateAgreementComponent,
+    ShlPreviewCreateAgreementComponent,
   ],
   imports: [
     BrowserModule,
