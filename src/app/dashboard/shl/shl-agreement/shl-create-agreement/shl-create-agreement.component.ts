@@ -1,6 +1,7 @@
 import { Component, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { first } from 'rxjs';
 import * as XLSX from 'xlsx';
@@ -8,11 +9,16 @@ import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-shl-create-agreement',
   templateUrl: './shl-create-agreement.component.html',
-  styleUrls: ['./shl-create-agreement.component.css']
+  styleUrls: ['./shl-create-agreement.component.css'],
 })
 export class ShlCreateAgreementComponent {
-
   @ViewChild('stepper') stepper!: MatStepper;
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private renderer: Renderer2,
+    private route: Router
+  ) {}
 
   excelDataJSON: any[] = [];
 
@@ -61,38 +67,37 @@ export class ShlCreateAgreementComponent {
   availabilityPeriode!: any;
   gracePeriod!: any;
 
-  constructor(
-    private _formBuilder: FormBuilder,
-    private renderer: Renderer2) {}
-
-  selectedCar!: number;
+  selectedAP!: number;
+  repayment_method!: number;
 
   createAgreementForm!: FormGroup;
-  submitted: boolean = false
+  submitted: boolean = false;
   isDisable: boolean = true;
 
-    cars = [
-        { id: 1, name: 'Volvo' },
-        { id: 2, name: 'Saab' },
-        { id: 3, name: 'Opel' },
-        { id: 4, name: 'Audi' },
-    ];
+  anakPerusahaan = [
+    { id: 1, name: 'PT Indonesia Comnets Plus' },
+    { id: 2, name: 'PT Energi Primer Indonesia' },
+  ];
 
   listItemTenor = [
-    { id: 1, name: 'USD' },
-    { id: 2, name: 'EUR' },
-    { id: 3, name: 'JPY' },
-  ]
+    { id: 1, name: 'Bulan' },
+    { id: 2, name: 'Tahun' },
+  ];
+
+  repaymentMethod = [
+    { id: 1, name: '1 Bulan' },
+    { id: 2, name: '3 Bulan' },
+  ];
 
   firstFormGroup = this._formBuilder.group({
-    selectedCar: [null, Validators.required],
+    selectedAP: [null, Validators.required],
     nomorSHL: ['', Validators.required],
     nomorAPSHL: ['', Validators.required],
     tanggalSHLAgreement: ['', Validators.required],
     textAreaDeskripsiProyek: ['', Validators.required],
     masaPengembalian: ['freeText', Validators.required],
     deskripsiTanggal: ['', Validators.required],
-    SourceOfFunding: ['nonPenerusan', Validators.required],
+    SourceOfFunding: ['non_penerusan', Validators.required],
   });
 
   secondFormGroup = this._formBuilder.group({
@@ -128,54 +133,60 @@ export class ShlCreateAgreementComponent {
 
   isLinear = false;
 
-  readExcel(event: any){
+  readExcel(event: any) {
     let file = event.addedFiles[0];
     let fileReader = new FileReader();
     fileReader.readAsBinaryString(file);
     // console.log(event);
 
     fileReader.onload = (e) => {
-
       let data;
 
-      var workbook = XLSX.read(fileReader.result, {type:'binary', cellDates: true});
+      var workbook = XLSX.read(fileReader.result, {
+        type: 'binary',
+        cellDates: true,
+      });
       var sheetNames = workbook.SheetNames;
 
-      for(let i=0; i<sheetNames.length; i++){
+      for (let i = 0; i < sheetNames.length; i++) {
         data = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[i]]);
       }
 
       console.log(data);
+    };
   }
-}
 
   onChange() {
-    this.selectionOptionCreateAgreement = this.firstFormGroup.get('masaPengembalian')?.value;
+    this.selectionOptionCreateAgreement =
+      this.firstFormGroup.get('masaPengembalian')?.value;
     console.log('Selected option:', this.selectionOptionCreateAgreement);
   }
 
-  berakhirPerjanjianClick(){
-    this.berakhirPerjanjian = this.secondFormGroup.get('berakhirPerjanjian')?.value;
+  berakhirPerjanjianClick() {
+    this.berakhirPerjanjian =
+      this.secondFormGroup.get('berakhirPerjanjian')?.value;
     console.log(this.berakhirPerjanjian);
   }
 
-  availabilityPeriodeClick(){
-    this.availabilityPeriode = this.secondFormGroup.get('availabilityPeriode')?.value;
+  availabilityPeriodeClick() {
+    this.availabilityPeriode = this.secondFormGroup.get(
+      'availabilityPeriode'
+    )?.value;
     console.log(this.availabilityPeriode);
   }
 
-  gracePeriodeClick(){
+  gracePeriodeClick() {
     this.gracePeriod = this.secondFormGroup.get('gracePeriod')?.value;
     console.log(this.gracePeriod);
   }
 
-  onSelectDokumenPLN(event: { addedFiles: any; }) {
+  onSelectDokumenPLN(event: { addedFiles: any }) {
     this.parameterCurrency.push(...event.addedFiles);
     console.log(event.addedFiles);
 
     // this.readExcel(event);
     this.agreementDocumentPLN.push(event.addedFiles);
-    if(this.agreementDocumentPLN.length > 0){
+    if (this.agreementDocumentPLN.length > 0) {
       this.isDisable = false;
     }
   }
@@ -190,17 +201,18 @@ export class ShlCreateAgreementComponent {
     this.documentKEPDIR_AP,
     this.documentPaktaIntegritasAP,
     this.documentRekomendasiDekom,
-    this.documentLainnyaAP
-  ]
+    this.documentLainnyaAP,
+  ];
 
-  onSelectDokumen(event: { addedFiles: any; }, section: string) {
-
+  onSelectDokumen(event: { addedFiles: any }, section: string) {
     let allDocumentsUploaded;
     switch (section) {
       case 'PLN':
         this.parameterCurrency.push(...event.addedFiles);
         this.agreementDocumentPLN.push(...event.addedFiles);
-        allDocumentsUploaded = this.allDocumentsUploaded.every(docArray => docArray.length > 0);
+        allDocumentsUploaded = this.allDocumentsUploaded.every(
+          (docArray) => docArray.length > 0
+        );
 
         if (allDocumentsUploaded) {
           this.isDisable = false;
@@ -211,7 +223,9 @@ export class ShlCreateAgreementComponent {
         this.previewKEPDIR.push(...event.addedFiles);
         this.documentKEPDIR.push(...event.addedFiles);
 
-      allDocumentsUploaded = this.allDocumentsUploaded.every(docArray => docArray.length > 0);
+        allDocumentsUploaded = this.allDocumentsUploaded.every(
+          (docArray) => docArray.length > 0
+        );
 
         if (allDocumentsUploaded) {
           this.isDisable = false;
@@ -223,7 +237,9 @@ export class ShlCreateAgreementComponent {
         this.previewPaktaIntegritas.push(...event.addedFiles);
         this.documentPaktaIntegritas.push(...event.addedFiles);
 
-        allDocumentsUploaded = this.allDocumentsUploaded.every(docArray => docArray.length > 0);
+        allDocumentsUploaded = this.allDocumentsUploaded.every(
+          (docArray) => docArray.length > 0
+        );
 
         if (allDocumentsUploaded) {
           this.isDisable = false;
@@ -234,103 +250,116 @@ export class ShlCreateAgreementComponent {
         this.previewDocumentLainnya.push(...event.addedFiles);
         this.documentLainnya.push(...event.addedFiles);
 
-        allDocumentsUploaded = this.allDocumentsUploaded.every(docArray => docArray.length > 0);
+        allDocumentsUploaded = this.allDocumentsUploaded.every(
+          (docArray) => docArray.length > 0
+        );
 
         if (allDocumentsUploaded) {
           this.isDisable = false;
         }
-        break
+        break;
 
       case 'DOKUMEN_AP':
         this.previewDocumentAnakPerusahaan.push(...event.addedFiles);
         this.documentAnakPreusahaan.push(...event.addedFiles);
 
-        allDocumentsUploaded = this.allDocumentsUploaded.every(docArray => docArray.length > 0);
+        allDocumentsUploaded = this.allDocumentsUploaded.every(
+          (docArray) => docArray.length > 0
+        );
 
         if (allDocumentsUploaded) {
           this.isDisable = false;
         }
-        break
+        break;
 
       case 'RKAP':
         this.previewDocumentRKAP.push(...event.addedFiles);
         this.documentRKAP.push(...event.addedFiles);
 
-        allDocumentsUploaded = this.allDocumentsUploaded.every(docArray => docArray.length > 0);
+        allDocumentsUploaded = this.allDocumentsUploaded.every(
+          (docArray) => docArray.length > 0
+        );
 
         if (allDocumentsUploaded) {
           this.isDisable = false;
         }
-        break
+        break;
 
       case 'KEPDIR_AP':
         this.previewDocumentKEPDIR_AP.push(...event.addedFiles);
         this.documentKEPDIR_AP.push(...event.addedFiles);
 
-        allDocumentsUploaded = this.allDocumentsUploaded.every(docArray => docArray.length > 0);
+        allDocumentsUploaded = this.allDocumentsUploaded.every(
+          (docArray) => docArray.length > 0
+        );
 
         if (allDocumentsUploaded) {
           this.isDisable = false;
         }
-        break
+        break;
 
       case 'PAKTA_INTEGRITAS_AP':
         this.previewPaktaIntegritasAP.push(...event.addedFiles);
         this.documentPaktaIntegritasAP.push(...event.addedFiles);
 
-        allDocumentsUploaded = this.allDocumentsUploaded.every(docArray => docArray.length > 0);
+        allDocumentsUploaded = this.allDocumentsUploaded.every(
+          (docArray) => docArray.length > 0
+        );
 
         if (allDocumentsUploaded) {
           this.isDisable = false;
         }
-        break
+        break;
 
       case 'REKOMENDASI_DEKOM':
         this.previewRekomendasiDekom.push(...event.addedFiles);
         this.documentRekomendasiDekom.push(...event.addedFiles);
 
-        allDocumentsUploaded = this.allDocumentsUploaded.every(docArray => docArray.length > 0);
+        allDocumentsUploaded = this.allDocumentsUploaded.every(
+          (docArray) => docArray.length > 0
+        );
 
         if (allDocumentsUploaded) {
           this.isDisable = false;
         }
-        break
+        break;
 
       case 'DOKUMEN_LAINNYA_AP':
         this.previewDocumentLainnyaAP.push(...event.addedFiles);
         this.documentLainnyaAP.push(...event.addedFiles);
 
-        allDocumentsUploaded = this.allDocumentsUploaded.every(docArray => docArray.length > 0);
+        allDocumentsUploaded = this.allDocumentsUploaded.every(
+          (docArray) => docArray.length > 0
+        );
 
         if (allDocumentsUploaded) {
           this.isDisable = false;
         }
-        break
+        break;
 
       default:
         console.error('Unknown Section:', section);
     }
   }
 
-
-  onSelect(event: { addedFiles: any; }) {
+  onSelect(event: { addedFiles: any }) {
     this.parameterCurrency.push(...event.addedFiles);
     console.log(event.addedFiles);
 
-    this.readExcel(event)
+    this.readExcel(event);
   }
 
   onRemove(event: File) {
     console.log(event);
     this.parameterCurrency.splice(this.parameterCurrency.indexOf(event), 1);
-    this.excelDataJSON = []
+    this.excelDataJSON = [];
     console.log(this.excelDataJSON);
   }
 
   getDropdownVal = (name: string) => {
-    const buttonTenor = document.getElementById('buttonTenor')
-    buttonTenor ? buttonTenor.textContent = name : ''
-  }
+    const buttonTenor = document.getElementById('buttonTenor');
+    buttonTenor ? (buttonTenor.textContent = name) : '';
+  };
 
   onNextClickFirst() {
     this.submitted = true;
@@ -338,20 +367,23 @@ export class ShlCreateAgreementComponent {
     if (this.firstFormGroup.invalid) {
       console.log('Form submission failed. Please check for errors.');
       // return;
-    }
-    else{
+    } else {
       console.log('Form submitted successfully!', this.firstFormGroup.value);
-      console.log(moment(this.firstFormGroup.get('tanggalSHLAgreement')?.value).format('DD/MM/YYYY'));
+      console.log(
+        moment(this.firstFormGroup.get('tanggalSHLAgreement')?.value).format(
+          'DD/MM/YYYY'
+        )
+      );
 
       // const nomorSHLPLN = this.firstFormGroup.get('nomorSHL')?.value;
       // const nomorSHLAnakPerusahaanPLN = this.firstFormGroup.get('nomorAPSHL')?.value;
 
-      const dataSHL = {
-        nomorSHLPLN: this.firstFormGroup.get('nomorSHL')?.value,
-        nomorSHLAnakPerusahaanPLN: this.firstFormGroup.get('nomorAPSHL')?.value
-      }
+      // const dataSHL = {
+      //   nomorSHLPLN: this.firstFormGroup.get('nomorSHL')?.value,
+      //   nomorSHLAnakPerusahaanPLN: this.firstFormGroup.get('nomorAPSHL')?.value,
+      // };
 
-      localStorage.setItem('nomorSHL', JSON.stringify(dataSHL))
+      localStorage.setItem('dataForm1', JSON.stringify(this.firstFormGroup.value));
       this.submitted = false;
       this.stepper.next();
     }
@@ -359,26 +391,23 @@ export class ShlCreateAgreementComponent {
 
   dataSHL: any;
 
-  onNextClickSecond(){
+  onNextClickSecond() {
     this.submitted = true;
 
     if (this.secondFormGroup.invalid) {
       console.log('Form submission failed. Please check for errors.');
       // return;
-    }
-    else{
+    } else {
       console.log('Form submitted successfully!', this.secondFormGroup.value);
       this.submitted = false;
-      this.dataSHL = localStorage.getItem('nomorSHL')
+      this.dataSHL = localStorage.getItem('dataForm1');
       this.stepper.next();
       this.dataSHL = JSON.parse(this.dataSHL);
-
+      localStorage.setItem('dataForm2', JSON.stringify(this.secondFormGroup.value))
     }
   }
 
   submit() {
-    console.log('Form submitted successfully!');
+    this.route.navigate(['/shl_agreement/preview_create']);
   }
-
-
 }
