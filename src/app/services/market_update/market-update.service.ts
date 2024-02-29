@@ -371,7 +371,7 @@ export class MarketUpdateService {
     }
     try {
       return await lastValueFrom(
-        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_inflasi?id='+data.id, dataSent)
       )
     } catch (error) {
       console.log(error);

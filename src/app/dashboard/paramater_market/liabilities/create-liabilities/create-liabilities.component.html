@@ -45,7 +45,8 @@
                     <!-- end modal back -->
                     <div style="font-size: 22px;" class="flex-fill">Create Liabilities</div>
                     <div style="font-size: 12px; color: #606060;" class="align-self-center"> Created by {{today |
-                        date:"MMM dd, yyyy 'at' hh:mm a"}}</div>
+                        date:"MMM dd, yyyy 'at' hh:mm a"}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,7 +72,7 @@
                                 <!-- Realisasi -->
                                 <div class=" flex-fill p-1">
                                     <div><label for="RKAP-label" class="form-label fw-bold">Realisasi</label></div>
-                                    <div><input type="text" class="form-control" id="realisasi"placeholder="0.00" formControlName="realisasi"></div>
+                                    <div><input type="date" class="form-control" id="realisasi" placeholder="0.00" formControlName="realisasi"></div>
                                     <p>{{interestBearingDebt.value.realisasi}}</p>
                                 </div>
                                 <!-- end Realisasi -->
@@ -88,8 +89,7 @@
                             <div>
                                 <label for="RKAP-label" class="form-label fw-bold">Project Description</label>
                             </div>
-                            <div><quill-editor #description [styles]="{width: '1075px', height: '200px'}" formControlName="description"></quill-editor></div>
-                            {{interestBearingDebt.value.description}}
+                            <div><quill-editor></quill-editor></div>
                         </div>
                     <div class="d-flex flex-row-reverse">
                         <button class="btn" matStepperNext>Next</button>
@@ -167,53 +167,6 @@
                             </div>
                             <!-- end modal Tambah parameter -->
                         </div>
-                        <!-- SOFR -->
-                        <div id="SOFRCastalia" class="mb-3 flex-fill" *ngIf="hideSOFR">
-                            <div class="d-flex justify-content-between">
-                                <label for="sofr-label" class="form-label fw-bold">SOFR</label>
-                                <div class="btn" data-bs-toggle="modal" data-bs-target="#sofrDelete">delete</div>
-                            </div>
-                            <!-- modal -->
-                            <div class="modal fade" id="sofrDelete" tabindex="-1" aria-labelledby="sofrDeleteLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <div class="d-flex flex-column">
-                                                <div class="align-self-center">
-                                                    <img src="assets/image/cross.png" alt="">
-                                                </div>
-                                                <div class="align-self-center">
-                                                    <h5 class="text-center mt-2">Anda yakin ingin <br>
-                                                        menghapus "SOFR"?</h5>
-                                                </div>
-                                                <div class="align-self-center p-2">
-                                                    <button type="button" class="btn btn-outline-dark mr-2"
-                                                        data-bs-dismiss="modal">cancel</button>
-                                                    <button type="button" (click)="toggleSOFR()" id="bt"
-                                                        class="btn btn-danger" data-bs-dismiss="modal">Ya,
-                                                        Hapus</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end modal -->
-                            <div class="d-flex justify-content-between">
-                                <div class="input-group mb-3 p-1">
-                                    <input type="text" class="form-control" id="sofr1" formControlName="sofrReference" placeholder="Reference Rate (0.0)">
-                                    <span class="input-group-text" id="basic-addon2">% percent</span>
-                                    <p>{{asumsiCastalia.value.sofrReference}}</p>
-                                </div>
-                                <div class="input-group mb-3 p-1">
-                                    <input type="text" class="form-control" id="sofr2" formControlName="sofrMargin" placeholder="Margin (0.0)">
-                                    <span class="input-group-text" id="basic-addon2">% percent</span>
-                                </div>
-                                <p>{{asumsiCastalia.value.sofrMargin}}</p>
-                            </div>
-                        </div>
-                        <!-- end SOFR -->
                         <!-- Interest Rate -->
                         <div id="interestRateCastalia" class="mb-2 flex-fill" *ngIf="hideInterestRate">
                             <div class="d-flex justify-content-between">
@@ -405,6 +358,54 @@
                             </div>
                         </div>
                         <!-- end ATD 3-MO -->
+                        
+                        <!-- SOFR -->
+                        <div id="SOFRCastalia" class="mb-3 flex-fill" *ngIf="hideSOFR">
+                            <div class="d-flex justify-content-between">
+                                <label for="sofr-label" class="form-label fw-bold">SOFR</label>
+                                <div class="btn" data-bs-toggle="modal" data-bs-target="#sofrDelete">delete</div>
+                            </div>
+                            <!-- modal -->
+                            <div class="modal fade" id="sofrDelete" tabindex="-1" aria-labelledby="sofrDeleteLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="d-flex flex-column">
+                                                <div class="align-self-center">
+                                                    <img src="assets/image/cross.png" alt="">
+                                                </div>
+                                                <div class="align-self-center">
+                                                    <h5 class="text-center mt-2">Anda yakin ingin <br>
+                                                        menghapus "SOFR"?</h5>
+                                                </div>
+                                                <div class="align-self-center p-2">
+                                                    <button type="button" class="btn btn-outline-dark mr-2"
+                                                        data-bs-dismiss="modal">cancel</button>
+                                                    <button type="button" (click)="toggleSOFR()" id="bt"
+                                                        class="btn btn-danger" data-bs-dismiss="modal">Ya,
+                                                        Hapus</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end modal -->
+                            <div class="d-flex justify-content-between">
+                                <div class="input-group mb-3 p-1">
+                                    <input type="text" class="form-control" id="sofr1" formControlName="sofrReference" placeholder="Reference Rate (0.0)">
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                    <p>{{asumsiCastalia.value.sofrReference}}</p>
+                                </div>
+                                <div class="input-group mb-3 p-1">
+                                    <input type="text" class="form-control" id="sofr2" formControlName="sofrMargin" placeholder="Margin (0.0)">
+                                    <span class="input-group-text" id="basic-addon2">% percent</span>
+                                </div>
+                                <p>{{asumsiCastalia.value.sofrMargin}}</p>
+                            </div>
+                        </div>
+                        <!-- end SOFR -->
                         <!-- USD/IDR -->
                         <div id="UsdIdrCastalia" class="mb-2 flex-fill" *ngIf="hideUsdIdr">
                             <div class="d-flex justify-content-between">
@@ -835,7 +836,7 @@
                                     </quill-editor>
                                 </div>
                                 <div class="d-flex flex-row-reverse">
-                                    <button class="btn" matStepperNext (click)="onSubmit()">Next</button>
+                                    <button class="btn" matStepperNext (click)="onSubmit()" routerLink="/preview_liabilities" routerLinkActive="active">Next</button>
                                     <button class="btn" matStepperPrevious>Back</button>
                                 </div>
                             </div>

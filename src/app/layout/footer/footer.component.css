@@ -6,6 +6,12 @@ footer  {
     color: var(--color-silver-500, #9A9A9A);
     font-family: Satoshi;
     font-size: 12px;
+    position: relative;
+    bottom: 0;
+    width: 79%;
+    height: 70px;
+    line-height: 15px;
+    padding-left: 10px;
 }
 .bg {
     background: var(--color-silver-100, #F4F5F6);
