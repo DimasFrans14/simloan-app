@@ -32,3 +32,8 @@
 .card{
   border: none;
 }
+
+.info-unit {
+  color: var(--Color-Silver-600, #818181);
+/* Text sm/Medium */
+}
