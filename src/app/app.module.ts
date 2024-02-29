@@ -66,8 +66,10 @@ import { RetailSalesComponent } from './dashboard/paramater_market/market-update
 import { MoneySuplyComponent } from './dashboard/paramater_market/market-update/child_market_update/money_suply/money-suply/money-suply.component';
 import { CadanganDevisaComponent } from './dashboard/paramater_market/market-update/child_market_update/cadangan_devisa/cadangan-devisa/cadangan-devisa.component';
 import { UsTreasuryComponent } from './dashboard/paramater_market/market-update/child_market_update/us-treasury/us-treasury.component';
+import { GMTNComponent } from './dashboard/paramater_market/financing-cost/gmtn/gmtn.component';
 import { ShlAgreementDetailComponent } from './dashboard/shl/shl-agreement/shl-agreement-detail/shl-agreement-detail.component';
 import { ShlCreateAgreementComponent } from './dashboard/shl/shl-agreement/shl-create-agreement/shl-create-agreement.component';
+import { ShlPreviewCreateAgreementComponent } from './dashboard/shl/shl-agreement/shl-create-agreement/shl-preview-create-agreement/shl-preview-create-agreement.component';
 
 @NgModule({
   declarations: [
@@ -112,8 +114,10 @@ import { ShlCreateAgreementComponent } from './dashboard/shl/shl-agreement/shl-c
     MoneySuplyComponent,
     CadanganDevisaComponent,
     UsTreasuryComponent,
+    GMTNComponent,
     ShlAgreementDetailComponent,
     ShlCreateAgreementComponent,
+    ShlPreviewCreateAgreementComponent,
   ],
   imports: [
     BrowserModule,

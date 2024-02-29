@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { ApexAnnotations, ApexAxisChartSeries, ApexChart,  ApexDataLabels,  ApexLegend,  ApexMarkers,  ApexPlotOptions,  ApexStroke,  ApexTitleSubtitle, ApexTooltip, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
-import { filter } from 'rxjs';
+import { filter, range } from 'rxjs';
 import { DataService } from 'src/app/data.service';
 import { OverviewChartService } from 'src/app/services/chart_serivces/overviewChart/overview-chart.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
@@ -359,6 +359,288 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.allTrendDataInterestRate = response;
     this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
     this.barChartInterestRateSeries = this.allTrendDataInterestRate
+  }
+
+  fetchRangeDataCommoditiesBarChart = async (kategori: string, group: string, range_date: string) => {
+
+    const today = moment(new Date());
+    const oneWeekAgo = moment(new Date()).subtract(7, 'days').format('DD/MM/YYYY');
+    const oneMonthAgo = moment(new Date()).subtract(1, 'months').format('DD/MM/YYYY');
+    const oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
+    const threeYearsAgo = moment(new Date()).subtract(3, 'years').format('DD/MM/YYYY');
+
+    switch(kategori) {
+      case "['WTI','BRENT']":
+
+        if(range_date === '1week'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneWeekAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseWTIBRENT;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+
+          this.xAxisWtiChartBrent = {
+            categories: []
+          }
+
+          for(let i=0; i<this.dataWTIBRENTBarChart.d.arrayData.data.length; i++){
+              this.xAxisWtiChartBrent.categories.push(this.dataWTIBRENTBarChart.d.arrayData[0].data[i].x)
+
+          }
+        }
+        else if(range_date === '1month'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneMonthAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseWTIBRENT;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+
+          this.xAxisWtiChartBrent = {
+            categories: []
+          }
+
+          for(let i=0; i<this.dataWTIBRENTBarChart.d.arrayData.data.length; i++){
+              this.xAxisWtiChartBrent.categories.push(this.dataWTIBRENTBarChart.d.arrayData[0].data[i].x)
+
+          }
+        }
+        else if(range_date === '1year'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseWTIBRENT;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+
+          this.xAxisWtiChartBrent = {
+            categories: []
+          }
+
+          for(let i=0; i<this.dataWTIBRENTBarChart.d.arrayData.data.length; i++){
+              this.xAxisWtiChartBrent.categories.push(this.dataWTIBRENTBarChart.d.arrayData[0].data[i].x)
+
+          }
+        }
+        else if(range_date === '3years'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataBarCommodities(kategori, threeYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseWTIBRENT;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+
+          this.xAxisWtiChartBrent = {
+            categories: []
+          }
+
+          for(let i=0; i<this.dataWTIBRENTBarChart.d.arrayData.data.length; i++){
+              this.xAxisWtiChartBrent.categories.push(this.dataWTIBRENTBarChart.d.arrayData[0].data[i].x)
+
+          }
+        }
+          break;
+      case "['ICP']":
+        if(range_date === '1week'){
+          const responseICP = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneWeekAgo, today.format('DD/MM/YYYY'), group);
+
+          this.trenddataICPBarChart = responseICP;
+          this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData;
+
+          // this.xAxisIcpChart = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.trenddataICPBarChart.d.arrayData.data.length; i++){
+          //     this.xAxisIcpChart.categories.push(this.trenddataICPBarChart.d.arrayData[0].data[i].x)
+
+          // }
+        }
+        else if(range_date === '1month'){
+          const responseICP = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneMonthAgo, today.format('DD/MM/YYYY'), group);
+
+          this.trenddataICPBarChart = responseICP;
+          this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData;
+
+          // this.xAxisIcpChart = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.trenddataICPBarChart.d.arrayData.data.length; i++){
+          //     this.xAxisIcpChart.categories.push(this.trenddataICPBarChart.d.arrayData[0].data[i].x)
+
+          // }
+        }
+        else if(range_date === '1year'){
+          const responseICP = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.trenddataICPBarChart = responseICP;
+          this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData;
+
+          // this.xAxisIcpChart = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.trenddataICPBarChart.d.arrayData.data.length; i++){
+          //     this.xAxisIcpChart.categories.push(this.trenddataICPBarChart.d.arrayData[0].data[i].x)
+
+          // }
+        }
+        else if(range_date === '3years'){
+          const responseICP = await this.marketUpdateService.fetchDataBarCommodities(kategori, threeYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.trenddataICPBarChart = responseICP;
+          this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData;
+
+          // this.xAxisIcpChart = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.trenddataICPBarChart.d.arrayData.data.length; i++){
+          //     this.xAxisIcpChart.categories.push(this.trenddataICPBarChart.d.arrayData[0].data[i].x)
+
+          // }
+        }
+          break;
+      case "['COAL']":
+        if(range_date === '1week'){
+          const responseCOAL = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneWeekAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataCOALBarChart = responseCOAL;
+          this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
+
+          // this.xAxisChartCoal = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.dataCOALBarChart.d.arrayData.data.length; i++){
+          //     this.xAxisChartCoal.categories.push(this.dataCOALBarChart.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '1month'){
+          const responseCOAL = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneMonthAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataCOALBarChart = responseCOAL;
+          this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
+
+          // this.xAxisChartCoal = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.dataCOALBarChart.d.arrayData.data.length; i++){
+          //     this.xAxisChartCoal.categories.push(this.dataCOALBarChart.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '1year'){
+          const responseCOAL = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataCOALBarChart = responseCOAL;
+          this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
+
+          this.xAxisChartCoal = {
+            categories: []
+          }
+
+          for(let i=0; i<this.dataCOALBarChart.d.arrayData.data.length; i++){
+              this.xAxisChartCoal.categories.push(this.dataCOALBarChart.d.arrayData[0].data[i].x)
+              }
+        }
+        else if(range_date === '3years'){
+          const responseCOAL = await this.marketUpdateService.fetchDataBarCommodities(kategori, threeYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataCOALBarChart = responseCOAL;
+          this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
+
+          // this.xAxisChartCoal = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.dataCOALBarChart.d.arrayData.data.length; i++){
+          //     this.xAxisChartCoal.categories.push(this.dataCOALBarChart.d.arrayData[0].data[i].x)
+          // }
+        }
+          break;
+      case "['LNG']":
+        if(range_date === '1week'){
+          const responseLNG = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneWeekAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataLNGBarChart = responseLNG;
+          this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
+
+          // this.xAxisChartLng = {
+          //   categories:[]
+          // }
+
+          // for(let i=0; i<this.dataLNGBarChart.d.arrayData.data.length; i++){
+          //     this.xAxisChartLng.categories.push(this.dataLNGBarChart.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '1month'){
+          const responseLNG = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneMonthAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataLNGBarChart = responseLNG;
+          this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
+
+          // this.xAxisChartLng = {
+          //   categories:[]
+          // }
+
+          // for(let i=0; i<this.dataLNGBarChart.d.arrayData.data.length; i++){
+          //     this.xAxisChartLng.categories.push(this.dataLNGBarChart.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '1year'){
+          const responseLNG = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataLNGBarChart = responseLNG;
+          this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
+
+          // this.xAxisChartLng = {
+          //   categories:[]
+          // }
+
+          // for(let i=0; i<this.dataLNGBarChart.d.arrayData.data.length; i++){
+          //     this.xAxisChartLng.categories.push(this.dataLNGBarChart.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '3years'){
+          const responseLNG = await this.marketUpdateService.fetchDataBarCommodities(kategori, threeYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataLNGBarChart = responseLNG;
+          this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
+
+          // this.xAxisChartLng = {
+          //   categories:[]
+          // }
+
+          // for(let i=0; i<this.dataLNGBarChart.d.arrayData.data.length; i++){
+          //     this.xAxisChartLng.categories.push(this.dataLNGBarChart.d.arrayData[0].data[i].x)
+          // }
+        }
+          break;
+      case "['BATUBARA']":
+        if(range_date === '1week'){
+          const responseBATUBARA = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneWeekAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseBATUBARA;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+        }
+        else if(range_date === '1month'){
+          const responseBATUBARA = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneMonthAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseBATUBARA;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+        }
+        else if(range_date === '1year'){
+          const responseBATUBARA = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseBATUBARA;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+        }
+        else if(range_date === '3years'){
+          const responseBATUBARA = await this.marketUpdateService.fetchDataBarCommodities(kategori, threeYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseBATUBARA;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+        }
+          break;
+      default:
+          console.log("kategori doesn't match");
+          break;
+    }
   }
 
   //Fetch Default Data
@@ -1385,9 +1667,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       }
     }
   }
+
   wtiBrentChartColors:any=[
-    '#2E75F0',
-    '#5304FC'
+    '#035B71',
+    '#00A2B9'
   ]
 
   yAxisWtiBrentChart:ApexYAxis={
@@ -1426,8 +1709,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       // max: 140.00,
   }
   icpChartColors:any=[
-    '#2EB0C2',
-    '#256979'
+    '#035B71',
+    '#00A2B9'
   ]
   icplineChart:ApexChart ={
     type: 'line',
@@ -1498,8 +1781,8 @@ coalBarChart:ApexChart={
   }
 }
 coalChartColors:any=[
-  '#2EB0C2',
-  '#256979'
+  '#035B71',
+  '#00A2B9'
 ]
 
 yAxisCoalChart:ApexYAxis={
@@ -1523,8 +1806,8 @@ coalStroke:ApexStroke ={
       tickAmount: 6
   }
   lngChartColors:any=[
-    '#2EB0C2',
-    '#256979'
+    '#035B71',
+    '#00A2B9'
   ]
   lngLineChart:ApexChart ={
     type: 'line',
@@ -1585,8 +1868,8 @@ coalStroke:ApexStroke ={
     }
   ]
   batuBaraChartColors:any=[
-    '#2EB0C2',
-    '#256979'
+    '#035B71',
+    '#00A2B9'
   ]
   batuBaraLineChart:ApexChart ={
     type: 'line',
@@ -1681,6 +1964,15 @@ coalStroke:ApexStroke ={
       color:  '#000000'
     },
   }
+
+  interestRateChartColors: any = [
+    '#00A2B9',
+    '#3E97AA',
+    '#65ACBB',
+    '#8BC1CC',
+    '#B2D5DD',
+    '#D8EAEE'
+  ]
 
   changeChart(){
     alert('Change chart');

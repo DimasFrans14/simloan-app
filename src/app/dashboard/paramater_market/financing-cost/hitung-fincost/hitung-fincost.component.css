@@ -36,3 +36,6 @@ select, input {
 .card{
     border: none;
 }
+.costume-size {
+    width: -10px;
+}

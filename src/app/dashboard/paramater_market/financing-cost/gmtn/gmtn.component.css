@@ -1,0 +1,14 @@
+.card{
+    border: none;
+}
+#main{
+  margin-top: 15px;
+}
+
+#footer {
+  margin-left: 0px;
+}
+.sub-footer{
+  margin-top: 85px;
+  padding-left: 290px;
+}

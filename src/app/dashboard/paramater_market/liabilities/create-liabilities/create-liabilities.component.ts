@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
-import {AbstractControl, FormBuilder, Validators, FormsModule, ReactiveFormsModule, FormControl, FormGroup} from '@angular/forms';
-
+import { FormBuilder, Validators, FormControl, FormGroup} from '@angular/forms';
+import Quill from 'quill';
+import { QuillServicesService } from 'src/app/services/textArea_services/quill-services.service';
 
 @Component({
   selector: 'app-create-liabilities',
@@ -8,7 +9,6 @@ import {AbstractControl, FormBuilder, Validators, FormsModule, ReactiveFormsModu
   styleUrls: ['./create-liabilities.component.css']
 })
 export class CreateLiabilitiesComponent {
-  
 
   today: number = Date.now();
   // Hide Form Asumsi Castalia //
@@ -85,9 +85,13 @@ export class CreateLiabilitiesComponent {
     })
 
     onSubmit(){
-      console.log(this.interestBearingDebt.value);
-      console.log(this.asumsiCastalia.value);
-      console.log(this.proyeksi.value);
+      const data = {
+        InterestBearingDebt: this.interestBearingDebt.value,
+        AsumsiCastalia: this.asumsiCastalia.value,
+        Proyeksi: this.proyeksi.value
+      }
+      console.log('Data:', data);
+      console.log(this.today)
     }
 
   interestBearingDebtStep = this._formBuilder.group({
