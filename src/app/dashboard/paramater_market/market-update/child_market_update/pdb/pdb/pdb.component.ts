@@ -141,7 +141,6 @@ export class PdbComponent {
 
   async downloadPdf(){
     const dataDownload= this.marketUpdateService.fetchDataPDB();
-      
   }
 
   onDate(event: any){
@@ -194,7 +193,8 @@ export class PdbComponent {
     this.tableConfig.tableOutlookPdb.addRow({});
   }
 
-  download(){
-    this.tableConfig.downloadPdf();
-  }
+  
+  // download(){
+  //   this.tableConfig.downloadPdf();
+  // }
 }

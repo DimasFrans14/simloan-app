@@ -314,6 +314,42 @@ export class TableServicesService {
   tableDataOutlookForeignExchange:any;
   tableOutlookForeignExchange:any;
 
+  tableDataFincost:any;
+  tableFincost:any;
+
+  initializeTableDataFincost(){
+    this.tableDataFincost = [
+      {id:"01", createDate:"26/02/2024", createBy:"Ceptary Tyas", status:"Approved", type:"Fincost", bank:"STANDAR CHARTERED", tgl_indicative:"26/02/2024", approver:"Cecep Gorbachev", modifDate:"26/02/2024", notes:"abcdefhgij", revisionDate:"26/02/2024"},
+      {id:"02", createDate:"26/02/2024", createBy:"Ceptary Tyas", status:"Approved", type:"Fincost", bank:"STANDAR CHARTERED", tgl_indicative:"26/02/2024", approver:"Cecep Gorbachev", modifDate:"26/02/2024", notes:"abcdefhgij", revisionDate:"26/02/2024"},
+      {id:"03", createDate:"26/02/2024", createBy:"Ceptary Tyas", status:"Approved", type:"GMNT", bank:"STANDAR CHARTERED", tgl_indicative:"26/02/2024", approver:"Cecep Gorbachev", modifDate:"26/02/2024", notes:"abcdefhgij", revisionDate:"26/02/2024"},
+      {id:"04", createDate:"26/02/2024", createBy:"Ceptary Tyas", status:"Approved", type:"GMNT", bank:"STANDAR CHARTERED", tgl_indicative:"26/02/2024", approver:"Cecep Gorbachev", modifDate:"26/02/2024", notes:"abcdefhgij", revisionDate:"26/02/2024"},
+      {id:"05", createDate:"26/02/2024", createBy:"Ceptary Tyas", status:"Approved", type:"Fincost", bank:"STANDAR CHARTERED", tgl_indicative:"26/02/2024", approver:"Cecep Gorbachev", modifDate:"26/02/2024", notes:"abcdefhgij", revisionDate:"26/02/2024"},
+      {id:"06", createDate:"26/02/2024", createBy:"Ceptary Tyas", status:"Approved", type:"GMNT", bank:"STANDAR CHARTERED", tgl_indicative:"26/02/2024", approver:"Cecep Gorbachev", modifDate:"26/02/2024", notes:"abcdefhgij", revisionDate:"26/02/2024"},
+      {id:"07", createDate:"26/02/2024", createBy:"Ceptary Tyas", status:"Approved", type:"Fincost", bank:"STANDAR CHARTERED", tgl_indicative:"26/02/2024", approver:"Cecep Gorbachev", modifDate:"26/02/2024", notes:"abcdefhgij", revisionDate:"26/02/2024"},
+      {id:"08", createDate:"26/02/2024", createBy:"Ceptary Tyas", status:"Approved", type:"GMNT", bank:"STANDAR CHARTERED", tgl_indicative:"26/02/2024", approver:"Cecep Gorbachev", modifDate:"26/02/2024", notes:"abcdefhgij", revisionDate:"26/02/2024"},
+      {id:"09", createDate:"26/02/2024", createBy:"Ceptary Tyas", status:"Approved", type:"GMNT", bank:"STANDAR CHARTERED", tgl_indicative:"26/02/2024", approver:"Cecep Gorbachev", modifDate:"26/02/2024", notes:"abcdefhgij", revisionDate:"26/02/2024"},
+    ]
+
+    this.tableFincost = new Tabulator ('.tableDataFincost',{
+      data:this.tableDataFincost,
+      layout:"fitData",
+      // rowContextMenu: rowMenu, //add context menu to rows
+      columns:[
+        {title:"ID", field:"id", hozAlign:"center", headerHozAlign:"center"},
+        {title:"Creation Date", field:"createDate", hozAlign:"right", sorter:"number", headerHozAlign:"center"},
+        {title:"Create By", field:"createBy", hozAlign:"center", headerHozAlign:"center"},
+        {title:"Status", field:"status", hozAlign:"center", headerHozAlign:"center"},
+        {title:"Type", field:"type", hozAlign:"center", headerHozAlign:"center"},
+        {title:"Bank", field:"bank", hozAlign:"center", headerHozAlign:"center"},
+        {title:"Tanggal Indicative", field:"tgl_indicative", hozAlign:"center", headerHozAlign:"center"},
+        {title:"Approver", field:"approver", hozAlign:"center", headerHozAlign:"center"},
+        {title:"Modification Date", field:"modifDate", hozAlign:"center", headerHozAlign:"center"},
+        {title:"Notes", field:"notes", hozAlign:"center", headerHozAlign:"center"},
+        {title:"RevisionDate", field:"revisionDate", hozAlign:"center", headerHozAlign:"center"},
+    ],
+    })
+  }
+
   editCheck = function(cell:any){
     //cell - the cell component for the editable cell
 
@@ -758,8 +794,8 @@ export class TableServicesService {
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center',editable:this.isRowSelected, editor:"input", headerSort:false},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick: this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick: this.cellClick_SaveButtonPdb, headerSort:false, resizable:false,visible:false},
       //   {title:"Edit",field:"edit",formatter:editBtn, cellClick: (_e, cell) => {
       //     const rowData = cell.getRow().getData();
       //     const rowId = rowData.id;
@@ -2306,7 +2342,7 @@ export class TableServicesService {
     // this.router.navigate(['/shloverview'])
     const response = await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data);
 
-    // this.router.navigate(['shl_agreement/details', 1]);
+    // this.router.navigate(['shl_agreement/details'b, 1]);
     // this.marketUpdateService.fetchDataUpdateRealisasiPDB(data)/
   }
 
@@ -2365,12 +2401,13 @@ export class TableServicesService {
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
+      id: rowData.id,
       bulan: rowData.periode,
       nilai: rowData.nilai,
       tahun: rowData.tahun
     }
     console.log(data);
-     await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data)
+    const response = await this.marketUpdateService.fetchDataUpdateRealisasiInflasi(data);
   }
 
   async cellClick_SaveButtonPMI(e: any, cell:any){

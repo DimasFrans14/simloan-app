@@ -120,16 +120,13 @@
                                 <div>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-light">$</button>
-                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" required>
-                                        <button type="button" class="btn btn-light btn-sm">USD</button>
-                                        <button type="button" class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <span class="visually-hidden">Toggle Dropdown</span>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a class="dropdown-item">USD</a></li>
-                                            <li><a class="dropdown-item">IDR</a></li>
-                                            <li><a class="dropdown-item">EUR</a></li>
-                                        </ul>
+                                        <input type="number" class="form-control" aria-label="Text input with segmented dropdown button" required>
+                                        <!-- <button type="button" class="btn btn-light btn-sm">USD</button> -->
+                                        <select id="inputState" class="form-select bg-light costume-size" required>
+                                            <option selected="">USD</option>
+                                            <option value="#">IDR</option>
+                                            <option value="#">EUR</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -139,8 +136,7 @@
                                 </div>
                                 <div>
                                     <div class="input-group">
-                                        <input class="border border-light-subtle" type="text" name="#" id="#"
-                                            placeholder="665" require>
+                                        <input class="border border-light-subtle" type="number" name="#" id="#" required>
                                         <span class="input-group-text" id="basic-addon2">% percentage</span>
                                     </div>
                                 </div>
