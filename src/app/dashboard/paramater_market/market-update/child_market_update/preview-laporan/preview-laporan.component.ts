@@ -80,7 +80,7 @@ export class PreviewLaporanComponent implements OnInit{
           console.log(response);
 
           this.sendDataResponse = response
-          if(this.sendDataResponse.s === 200){
+          if(this.sendDataResponse.status == 200){
             Swal.fire({
               title: "Berhasil!",
               text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil diunggah!`,
@@ -108,7 +108,7 @@ export class PreviewLaporanComponent implements OnInit{
                 console.log(response);
 
                 this.sendDataResponse = response
-                if(this.sendDataResponse.s === 200){
+                if(this.sendDataResponse.status === 200){
                   Swal.fire({
                     title: "Berhasil!",
                     text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
@@ -129,7 +129,7 @@ export class PreviewLaporanComponent implements OnInit{
                 console.log(response);
 
                 this.sendDataResponse = response
-                if(this.sendDataResponse.s === 200){
+                if(this.sendDataResponse.status === 200){
                   Swal.fire({
                     title: "Berhasil!",
                     text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
@@ -186,7 +186,7 @@ export class PreviewLaporanComponent implements OnInit{
                   // alert('up realisasi done');
 
                   this.sendDataResponse = response
-                  if(this.sendDataResponse.s === 200){
+                  if(this.sendDataResponse.status === 200){
                     Swal.fire({
                       title: "Berhasil!",
                       text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
@@ -216,7 +216,7 @@ export class PreviewLaporanComponent implements OnInit{
 
 
                   this.sendDataResponse = response
-                  if(this.sendDataResponse.s === 200){
+                  if(this.sendDataResponse.status === 200){
                     Swal.fire({
                       title: "Berhasil!",
                       text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
@@ -240,7 +240,7 @@ export class PreviewLaporanComponent implements OnInit{
                   // console.log(response);
 
                   this.sendDataResponse = response
-                  if(this.sendDataResponse.s === 200){
+                  if(this.sendDataResponse.status === 200){
                     Swal.fire({
                       title: "Berhasil!",
                       text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
@@ -273,7 +273,7 @@ export class PreviewLaporanComponent implements OnInit{
 
 
                     this.sendDataResponse = response
-                    if(this.sendDataResponse.s === 200){
+                    if(this.sendDataResponse.status === 200){
                       Swal.fire({
                         title: "Berhasil!",
                         text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
@@ -296,7 +296,7 @@ export class PreviewLaporanComponent implements OnInit{
                     const response = await this.marketUpdateService.importLaporanMarketUpdateCommoditiesOutlook(dataExcel, JSON.parse(JSON.stringify(subCategory_params)))
 
                     this.sendDataResponse = response
-                    if(this.sendDataResponse.s === 200){
+                    if(this.sendDataResponse.status === 200){
                       Swal.fire({
                         title: "Berhasil!",
                         text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
@@ -326,7 +326,7 @@ export class PreviewLaporanComponent implements OnInit{
 
 
                   this.sendDataResponse = response
-                  if(this.sendDataResponse.s === 200){
+                  if(this.sendDataResponse.status === 200){
                     Swal.fire({
                       title: "Berhasil!",
                       text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
@@ -351,7 +351,7 @@ export class PreviewLaporanComponent implements OnInit{
 
 
                   this.sendDataResponse = response
-                  if(this.sendDataResponse.s === 200){
+                  if(this.sendDataResponse.status === 200){
                     Swal.fire({
                       title: "Berhasil!",
                       text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,

@@ -1,0 +1,33 @@
+.sub-link {
+  color: #000000;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s, color 0.3s;
+}
+
+.sub-link{
+  font-family: Satoshi;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0em;
+  cursor: pointer;
+}
+
+.sub-link:hover,
+.sub-link:focus {
+  border-bottom: 2px solid #2E75F0;
+  color: #2E75F0;
+}
+
+.sub-nav{
+  margin-top: 60px;
+  /* padding-left: 278px;
+  padding-bottom: 20px;
+  padding-top: 15px; */
+  padding: 20px 0px 20px 278px;
+}
+
+#main{
+  margin-top: 20px;
+}
+

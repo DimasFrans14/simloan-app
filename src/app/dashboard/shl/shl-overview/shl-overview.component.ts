@@ -89,6 +89,12 @@ export class ShlOverviewComponent implements OnInit {
     {id: 2, name: 'PT. PLN EPI'},
   ]
 
+  listAgreement = [
+    {id: 1, agreement: '0132-1.PJ/KEU.01.09/B01060100/2020'},
+    {id: 2, agreement: '0132-1.PJ/KEU.01.09/B01060100/2021'},
+    {id: 3, agreement: '0132-1.PJ/KEU.01.09/B01060100/2022'},
+  ]
+
   data = [
     {
       id:1,
@@ -127,6 +133,14 @@ export class ShlOverviewComponent implements OnInit {
     const buttonContent = document.getElementById('namePerusahaan');
     if (buttonContent) {
     buttonContent.textContent = name;
+    }
+  }
+
+  getValueAgreement = (agreement: string) => {
+    console.log(agreement);
+    const buttonContent = document.getElementById('buttonAgreement');
+    if (buttonContent) {
+    buttonContent.textContent = agreement;
     }
   }
 

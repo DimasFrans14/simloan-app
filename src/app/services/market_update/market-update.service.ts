@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +16,10 @@ export class MarketUpdateService {
 
   result: any;
 
-  localDev: string = 'http://10.1.18.47:9051'
-  serverDev: string = 'http://10.1.18.47:8080/simloan-ws' //dev server
-  // serverDev: string = 'http://localhost:9051' //dev server
-
   async fetchDataMacroIndicatorOverview(date:String){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.serverDev}/dashboard/market/overview/getMakroIndikator?date=${date}`)
+        this.http.get(`${environment.apiUrl2}/dashboard/market/overview/getMakroIndikator?date=${date}`)
       );
     } catch (error) {
       console.log(error);
@@ -33,7 +30,7 @@ export class MarketUpdateService {
   async fetchDataKurs(){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.serverDev}/market/currency/getList`)
+        this.http.get(`${environment.apiUrl2}/market/currency/getList`)
       );
     } catch (error) {
       console.log(error);
@@ -44,7 +41,7 @@ export class MarketUpdateService {
   async fetchDataKursOverview(date:String){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.serverDev}/dashboard/market/overview/getCurrencies?date=${date}`)
+        this.http.get(`${environment.apiUrl2}/dashboard/market/overview/getCurrencies?date=${date}`)
       );
     } catch (error) {
       console.log(error);
@@ -55,7 +52,7 @@ export class MarketUpdateService {
   async fetchDataInterestOverview(date:String){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.serverDev}/dashboard/market/overview/getInterestRate?date=${date}`)
+        this.http.get(`${environment.apiUrl2}/dashboard/market/overview/getInterestRate?date=${date}`)
       );
     } catch (error) {
       console.log(error);
@@ -66,7 +63,7 @@ export class MarketUpdateService {
   async fetchDataKursTrend(){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.serverDev}/dashboard/market/trending/kurs/getLineChart?start_date=18/02/2023&end_date=12/02/2024`)
+        this.http.get(`${environment.apiUrl2}/dashboard/market/trending/kurs/getLineChart?start_date=18/02/2023&end_date=12/02/2024`)
       );
     } catch (error) {
       console.log(error);
@@ -84,7 +81,7 @@ export class MarketUpdateService {
     }
     try {
       return await lastValueFrom(
-        this.http.get(`${this.serverDev}/dashboard/market/trending/kurs/getColumnChart`,option)
+        this.http.get(`${environment.apiUrl2}/dashboard/market/trending/kurs/getColumnChart`,option)
       );
     } catch (error) {
       console.log(error);
@@ -95,7 +92,7 @@ export class MarketUpdateService {
   async fetchDataInterestRateRKAP(){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.localDev}/simloan/ws-v01/dashboard/rkap`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap`)
       );
     } catch (error) {
       console.log(error);
@@ -107,7 +104,7 @@ export class MarketUpdateService {
     try {
       return await lastValueFrom(
         // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/interest/getLineChart?start_date=01/01/2022&end_date=31/03/2024')
-        this.http.get(`${this.serverDev}/dashboard/market/trending/interest/getLineChart?start_date=${staratDate}&end_date=${endDate}`)
+        this.http.get(`${environment.apiUrl2}/dashboard/market/trending/interest/getLineChart?start_date=${staratDate}&end_date=${endDate}`)
       )
     } catch (error) {
       console.log(error);
@@ -125,7 +122,7 @@ export class MarketUpdateService {
     }
     try {
       return await lastValueFrom(
-        this.http.get(`${this.serverDev}/dashboard/market/trending/interest/getBarChart`,option)
+        this.http.get(`${environment.apiUrl2}/dashboard/market/trending/interest/getBarChart`,option)
       );
     } catch (error) {
       console.log(error);
@@ -136,7 +133,7 @@ export class MarketUpdateService {
   async fetchDataBondYield(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:8080/simloan-ws/market/bondyield/getList
+        this.http.get(`${environment.apiUrl1}/simloan-ws/market/bondyield/getList
 `)
       );
     } catch (error) {
@@ -148,7 +145,7 @@ export class MarketUpdateService {
   async fetchDataCommoditiesAll(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_real_rkap_commodities`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_real_rkap_commodities`)
       );
     } catch (error) {
       console.log(error);
@@ -158,7 +155,7 @@ export class MarketUpdateService {
   async fetchDataCommoditiesByDate(currentDate: any){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.serverDev}/market/commodities/getRateList?date=${currentDate}`)
+        this.http.get(`${environment.apiUrl2}/market/commodities/getRateList?date=${currentDate}`)
       );
     } catch (error) {
       console.log(error);
@@ -170,7 +167,7 @@ export class MarketUpdateService {
 
     try {
       return await lastValueFrom(
-        this.http.get(`${this.serverDev}/dashboard/market/overview/getCommodities?date=${date}
+        this.http.get(`${environment.apiUrl2}/dashboard/market/overview/getCommodities?date=${date}
         `)
       )
     } catch (error) {
@@ -190,7 +187,7 @@ export class MarketUpdateService {
     try {
       return await lastValueFrom(
         // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
-        this.http.get(`${this.serverDev}/dashboard/market/trending/commodities/getLineChart`, option)
+        this.http.get(`${environment.apiUrl2}/dashboard/market/trending/commodities/getLineChart`, option)
       )
     } catch (error) {
       console.log(error);
@@ -210,7 +207,7 @@ export class MarketUpdateService {
     try {
       return await lastValueFrom(
         // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
-        this.http.get(`${this.serverDev}/dashboard/market/trending/commodities/getBarChart`, option)
+        this.http.get(`${environment.apiUrl2}/dashboard/market/trending/commodities/getBarChart`, option)
       )
     } catch (error) {
       console.log(error);
@@ -223,7 +220,7 @@ export class MarketUpdateService {
   async fetchDataPDB(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`)
       );
     } catch (error) {
       console.log(error);
@@ -308,7 +305,7 @@ export class MarketUpdateService {
   async fetchDataRkapPdb(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`)
       );
     } catch (error) {
       console.log(error);
@@ -318,7 +315,7 @@ export class MarketUpdateService {
   async fetchDataOutlookPdb(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`)
       );
     } catch (error) {
       console.log(error);
@@ -329,7 +326,7 @@ export class MarketUpdateService {
   async fetchDataInterestRate(){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.serverDev}/market/interest/getList
+        this.http.get(`${environment.apiUrl2}/market/interest/getList
         `)
       );
     } catch (error) {
@@ -342,7 +339,7 @@ export class MarketUpdateService {
   async fetchDataInflasi(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_inflasi`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_inflasi`)
       );
     } catch (error) {
       console.log(error);
@@ -353,7 +350,7 @@ export class MarketUpdateService {
   async getDataInflasiByParams(params: string){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_inflasi?bulan=${params}`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_inflasi?bulan=${params}`)
       );
     } catch (error) {
       console.log(error);
@@ -382,7 +379,7 @@ export class MarketUpdateService {
   async fetchDataPMI(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_real_pmi
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_real_pmi
         `)
       );
     } catch (error) {
@@ -412,7 +409,7 @@ export class MarketUpdateService {
   async fetchDataRetail(){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_retail_sales`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_retail_sales`)
       );
     } catch (error) {
       console.log(error);
@@ -441,7 +438,7 @@ export class MarketUpdateService {
   async fetchDataMoneySupply(){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_money_supply`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_money_supply`)
       );
     } catch (error) {
       console.log(error);
@@ -470,7 +467,7 @@ export class MarketUpdateService {
   async fetchDataDevisa(){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_mrealcadev`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_mrealcadev`)
       );
     } catch (error) {
       console.log(error);
@@ -499,7 +496,7 @@ export class MarketUpdateService {
   async fetchDataViewInflasiByDate(date: any, month: String | undefined){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_inflasi?bulan=${month}`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_inflasi?bulan=${month}`)
       )
     } catch (error) {
       console.log(error);
@@ -510,7 +507,7 @@ export class MarketUpdateService {
   async fetchDataViewnMoneySupplyByDate(date: any, month: String | undefined){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_money_supply?bulan=${month}`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_money_supply?bulan=${month}`)
       )
     } catch (error) {
       console.log(error);
@@ -521,7 +518,7 @@ export class MarketUpdateService {
   async fetchDataViewDevisaByDate(date: any, month: String | undefined){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_mrealcadev?bulan=${month}`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_mrealcadev?bulan=${month}`)
       )
     } catch (error) {
       console.log(error);
@@ -532,7 +529,7 @@ export class MarketUpdateService {
   async fetchDataViewPMIByDate(date: any, month: String | undefined){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_real_pmi?bulan=${month}`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_real_pmi?bulan=${month}`)
       )
     } catch (error) {
       console.log(error);
@@ -543,7 +540,7 @@ export class MarketUpdateService {
   async fetchDataViewRetailByDate(date: any, month: String | undefined){
     try {
       return await lastValueFrom(
-        this.http.get(`${this.localDev}/simloan/ws-v01/cm25-loan-views/view_retail_sales?bulan=${month}`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_retail_sales?bulan=${month}`)
       )
     } catch (error) {
       console.log(error);
@@ -553,12 +550,12 @@ export class MarketUpdateService {
 
   importLaporanRKAP = async (params: string, file: File) => {
     const form = new FormData();
-    form.append('name', file, file.name);
+    form.append('file', file, file.name);
 
     try {
       return await lastValueFrom(
         this.http.post(
-          'http://10.1.18.47:9051/simloan/ws-v01/dashboard/rkap/upload_dash_rkap', form
+          `${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap/upload_dash_rkap`, form
         )
       )
     } catch (error) {
@@ -574,7 +571,7 @@ export class MarketUpdateService {
 
     try {
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/master-usd-nonusd/upload/kurs-usd-non-usd?globalKursUsdAndNonUsdEnum=${JSON.parse(params)}`, form)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/upload?globalKursUsdAndNonUsdEnum=${JSON.parse(params)}`, form)
       )
     } catch (error) {
       return null
@@ -588,7 +585,7 @@ export class MarketUpdateService {
 
     try {
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/out-kurs/master-usd-nonusd/upload?globalKursUsdAndNonUsdEnum=${JSON.parse(params)}`, form)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/upload?globalKursUsdAndNonUsdEnum=${JSON.parse(params)}`, form)
       )
     } catch (error) {
       return null
@@ -598,12 +595,12 @@ export class MarketUpdateService {
   importLaporanMarketUpdateInterestRate = async (params: string, file: File) => {
     // const headers = { 'content-type': 'multipart/form-data'}
     const form = new FormData();
-    form.append('name', file, file.name)
+    form.append('file', file, file.name)
 
     try {
       return await lastValueFrom(
         // this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload?globalDashboardRealisasiEnum=${JSON.parse(params)}`, form)
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload?globalInterestRateEnum=${JSON.parse(params)}`, form)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/upload?globalInterestRateEnum=${JSON.parse(params)}`, form)
 
       )
     } catch (error) {
@@ -613,13 +610,13 @@ export class MarketUpdateService {
 
   importLaporanMarketUpdateCommodities = async (file: File, params: string) => {
     const form = new FormData()
-    form.append('name', file, file.name);
+    form.append('file', file, file.name);
     try {
       // const headers = { 'content-type': 'application/json'}
       // const body = JSON.stringify(file);
       console.log(params);
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload/commodities?globalCommoditiesEnum=${params}
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/upload/commodities?globalCommoditiesEnum=${params}
         `, form)
       )
     } catch (error) {
@@ -636,7 +633,7 @@ export class MarketUpdateService {
       // const body = JSON.stringify(file);
       console.log(params);
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload/rby?globalBondYieldEnum=${params}
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/upload/rby?globalBondYieldEnum=${params}
         `, form)
       )
     } catch (error) {
@@ -650,7 +647,7 @@ export class MarketUpdateService {
     const body = JSON.stringify(data)
     try {
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/macro/create?globalMacroIndicatorEnum=${JSON.parse(params)}`, body, {'headers': headers})
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/macro/create?globalMacroIndicatorEnum=${JSON.parse(params)}`, body, {'headers': headers})
       )
     } catch (error) {
       return null
@@ -666,7 +663,7 @@ export class MarketUpdateService {
       // const body = JSON.stringify(file);
       console.log(params);
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/non-macro/upload_all_interest_rates?globalInterestRateEnum=${JSON.parse(params)}
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/outlook/non-macro/upload_all_interest_rates?globalInterestRateEnum=${JSON.parse(params)}
         `, form)
       )
     } catch (error) {
@@ -683,7 +680,7 @@ export class MarketUpdateService {
       // const body = JSON.stringify(file);
       console.log(params);
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/non-macro/upload_all_commodities?globalCommoditiesEnum=${params}
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/outlook/non-macro/upload_all_commodities?globalCommoditiesEnum=${params}
         `, form)
       )
     } catch (error) {
@@ -700,7 +697,7 @@ export class MarketUpdateService {
       // const body = JSON.stringify(file);
       console.log(params);
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/non-macro/upload_all_bondyield?globalBondYieldEnum=${params}
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/outlook/non-macro/upload_all_bondyield?globalBondYieldEnum=${params}
         `, form)
       )
     } catch (error) {
@@ -717,7 +714,7 @@ export class MarketUpdateService {
       // const body = JSON.stringify(file);
       console.log(params);
       return await lastValueFrom(
-        this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/outlook/macro/all_macro?globalDashOutlookMacroIndicatorEnum=${params}
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/outlook/macro/all_macro?globalDashOutlookMacroIndicatorEnum=${params}
         `, form)
       )
     } catch (error) {
@@ -729,7 +726,7 @@ export class MarketUpdateService {
   async fetchDataRealisasiCadev(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-cad-devisa`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-cad-devisa`)
       )
     } catch (error) {
       console.log(error);

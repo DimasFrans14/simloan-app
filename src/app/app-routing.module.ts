@@ -39,6 +39,9 @@ import { RetailSalesComponent } from './dashboard/paramater_market/market-update
 import { MoneySuplyComponent } from './dashboard/paramater_market/market-update/child_market_update/money_suply/money-suply/money-suply.component';
 import { CadanganDevisaComponent } from './dashboard/paramater_market/market-update/child_market_update/cadangan_devisa/cadangan-devisa/cadangan-devisa.component';
 import { UsTreasuryComponent } from './dashboard/paramater_market/market-update/child_market_update/us-treasury/us-treasury.component';
+import { ShlAgreementDetailComponent } from './dashboard/shl/shl-agreement/shl-agreement-detail/shl-agreement-detail.component';
+import { ShlCreateAgreementComponent } from './dashboard/shl/shl-agreement/shl-create-agreement/shl-create-agreement.component';
+import { ShlPreviewCreateAgreementComponent } from './dashboard/shl/shl-agreement/shl-create-agreement/shl-preview-create-agreement/shl-preview-create-agreement.component';
 import { GMTNComponent } from './dashboard/paramater_market/financing-cost/gmtn/gmtn.component';
 
 const routes: Routes = [
@@ -93,8 +96,12 @@ const routes: Routes = [
   {path: 'import_laporan', component: ImportLaporanComponent},
   //child path liabilities
   { path: 'create_liabilities', component: CreateLiabilitiesComponent},
-  { path: 'preview_liabilities', component: PreviewLiabilitiesComponent}
+  { path: 'preview_liabilities', component: PreviewLiabilitiesComponent},
 
+  //Child Path SHL Agreement
+  { path: 'shl_agreement/details/:id', component: ShlAgreementDetailComponent},
+  { path: 'shl_agreement/create', component: ShlCreateAgreementComponent},
+  { path: 'shl_agreement/preview_create', component: ShlPreviewCreateAgreementComponent}
 ];
 
 @NgModule({

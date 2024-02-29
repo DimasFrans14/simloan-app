@@ -231,8 +231,7 @@ h6 {
 }
 
 /* Card */
-  margin-bottom: 28px;
-  .card {
+.card {
   margin-bottom: 30px;
   border: none;
   border-radius: 5px;

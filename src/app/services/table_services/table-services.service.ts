@@ -397,7 +397,7 @@ export class TableServicesService {
       data:this.dataInterestRate,
       layout:"fitColumns",
       columns:[
-        {title:"Rates", field:"kode", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+        {title:"Rates", field:"keterangan", headerHozAlign:"center", hozAlign:'left', headerSort:false},
 
         {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input"},
         {title:lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center", editor: "input"},

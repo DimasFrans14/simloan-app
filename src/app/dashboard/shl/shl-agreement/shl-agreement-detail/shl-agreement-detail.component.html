@@ -1,0 +1,150 @@
+<!-- <p>shl-agreement-detail works!</p>
+<pre>{{detailDataSHLAgreement}}</pre> -->
+
+<div>
+  <app-header></app-header>
+  <app-sidebar></app-sidebar>
+
+  <div id="header" class="header">
+    <div class="col-12 bg-white sub-nav border-top">
+      <div class="d-flex justify-content-start align-items-center">
+        <div>
+          <a (click)="backToSHLAgreement()" style="cursor: pointer;">
+            <i class="bi bi-arrow-left me-1"></i>
+          </a>
+          </div>
+        <div class="me-2">
+          <h4>Detail Agreement</h4>
+        </div>
+      </div>
+
+
+      <div class="d-flex justify-content-start align-items-center text-dark mt-3">
+        <a class="submenu-market" tabindex="0" [style.border-bottom]="detailAgreementDisplay ? '2px solid #2E75F0' : ''" [style.color]="detailAgreementDisplay ? '#2E75F0': '' " (click)="detailAgreement()">Detail Agreement</a>
+        <a class="submenu-market" tabindex="0" (click)="daftarProyek()">Daftar Proyek</a>
+        <a class="submenu-market" tabindex="0" (click)="dokumen()" id="dokumen-tag">Dokumen</a>
+      </div>
+    </div>
+  </div>
+
+
+
+  <main id="main" class="main">
+
+    <ng-container *ngIf="detailAgreementDisplay">
+
+      <div class="d-flex justify-content-end align-items-center mb-3 mt-4">
+      <ng-select
+        [items]="amandementList"
+        bindLabel="name"
+        bindValue="id"
+        [(ngModel)]="amandementItems"
+        placeholder="Pilih Amandement"
+        (change)="amandementSelect($event)"
+      >
+      </ng-select>
+
+      </div>
+
+      <div class="bg-white rounded">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <img src="assets/image/detail_agreement_left_header.svg" alt="">
+        </div>
+        <div class="me-3">
+          <img src="assets/image/detail_agreement_right_header.svg" alt="">
+        </div>
+      </div>
+
+      <div class="row p-3">
+        <div class="col-6">
+          <!-- <ng-container *ngFor="let item of detailDataSHLAgreement"> -->
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>Nama Anak Perusahaan</span>
+            <span class="p-2 rounded detail-data" id="detailDataSHLAgreement.id">{{detailDataSHLAgreement.anak_perusahaan}}</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>Nomor Agreement</span>
+            <span class="p-2 rounded detail-data">{{detailDataSHLAgreement.agreement_number}}</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>Nomor SHL Agreement Anak Perushaan</span>
+            <span class="p-2 rounded detail-data">{{detailDataSHLAgreement.agreement_number_anakperusahaan}}</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>SHL Agreement Date</span>
+            <span class="p-2 rounded detail-data">DD / MM / YYYY</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>Masa Penarikan / Available Period</span>
+            <span class="p-2 rounded detail-data">DD / MM / YYYY</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>Masa Tenggang / End-Date - Grace Period</span>
+            <span class="p-2 rounded detail-data">Grace Period</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>Masa Pengembalian / Repayment Period</span>
+            <span class="p-2 rounded detail-data">Repayment Period</span>
+          </div>
+        <!-- </ng-container> -->
+        </div>
+
+        <div class="col-6">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>Source of Funding</span>
+            <span class="p-2 rounded detail-data">Non Penerusan Pinjaman</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>Nama Proyek</span>
+            <span class="p-2 rounded detail-data">(Nama Proyek)</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>Mata Uang</span>
+            <span class="p-2 rounded detail-data">USD</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>Total Pagu</span>
+            <span class="p-2 rounded detail-data">750.000.000.000</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>Sisa Pagu</span>
+            <span class="p-2 rounded detail-data">750.000.000.000</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>Bunga</span>
+            <span class="p-2 rounded detail-data">0.00%</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span>Terakhir Penarikan</span>
+            <span class="p-2 rounded detail-data">Belum ada Penarikan</span>
+          </div>
+        </div>
+      </div>
+      </div>
+
+    </ng-container>
+
+    <ng-container *ngIf="daftarProyekDisplay">
+      <div class="bg-white p-3 rounded">
+        <span class="title-proyek">Daftar Proyek {{detailDataSHLAgreement.anak_perusahaan}}</span>
+      </div>
+    </ng-container>
+    <div class="table-namaProyek" id="table-namaProyek"></div>
+
+    <ng-container *ngIf="dokumenDisplay">
+      <div class="bg-white px-3 pt-3 rounded">
+        <span class="title-proyek">Daftar Dokumen</span>
+        <div class="d-flex justify-content-start align-items-center">
+          <a class="submenu-dokumen subtitle-dokumen" [style.border-bottom]="dokumenPLNDisplay ? '2px solid #2E75F0' : ''" [style.color]="dokumenPLNDisplay ? '#2E75F0': '' " tabindex="0" (click)="dokumenPLN()" id="dokumen-pln">Dokumen PLN</a>
+
+          <a class="submenu-dokumen subtitle-dokumen" [style.border-bottom]="dokumenAnakPerusahaanDisplay ? '2px solid #2E75F0' : ''" [style.color]="dokumenAnakPerusahaanDisplay ? '#2E75F0': '' " tabindex="0" (click)="dokumenAnakPerusahaan()" id="dokumen-AP">Dokumen Anak Perusahaan</a>
+        </div>
+      </div>
+    </ng-container>
+    <div class="table-namaDokumenPLN" id="table-namaDokumenPLN"></div>
+    <div class="table-namaDokumenAP" id="table-namaDokumenAP"></div>
+
+    <app-footer></app-footer>
+  </main>
+</div>

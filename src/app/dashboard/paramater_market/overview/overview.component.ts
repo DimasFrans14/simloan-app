@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { ApexAnnotations, ApexAxisChartSeries, ApexChart,  ApexDataLabels,  ApexLegend,  ApexMarkers,  ApexPlotOptions,  ApexStroke,  ApexTitleSubtitle, ApexTooltip, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
-import { filter } from 'rxjs';
+import { filter, range } from 'rxjs';
 import { DataService } from 'src/app/data.service';
 import { OverviewChartService } from 'src/app/services/chart_serivces/overviewChart/overview-chart.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
@@ -361,6 +361,152 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.barChartInterestRateSeries = this.allTrendDataInterestRate
   }
 
+  fetchRangeDataCommoditiesBarChart = async (kategori: string, group: string, range_date: string) => {
+
+    const today = moment(new Date());
+    const oneWeekAgo = moment(new Date()).subtract(7, 'days').format('DD/MM/YYYY');
+    const oneMonthAgo = moment(new Date()).subtract(1, 'months').format('DD/MM/YYYY');
+    const oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
+    const threeYearsAgo = moment(new Date()).subtract(3, 'years').format('DD/MM/YYYY');
+
+    switch(kategori) {
+      case "['WTI','BRENT']":
+
+        if(range_date === '1week'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneWeekAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseWTIBRENT;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+        }
+        else if(range_date === '1month'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneMonthAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseWTIBRENT;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+        }
+        else if(range_date === '1year'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseWTIBRENT;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+        }
+        else if(range_date === '3years'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataBarCommodities(kategori, threeYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseWTIBRENT;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+        }
+          break;
+      case "['ICP']":
+        if(range_date === '1week'){
+          const responseICP = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneWeekAgo, today.format('DD/MM/YYYY'), group);
+
+          this.trenddataICPBarChart = responseICP;
+          this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData;
+        }
+        else if(range_date === '1month'){
+          const responseICP = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneMonthAgo, today.format('DD/MM/YYYY'), group);
+
+          this.trenddataICPBarChart = responseICP;
+          this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData;
+        }
+        else if(range_date === '1year'){
+          const responseICP = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.trenddataICPBarChart = responseICP;
+          this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData;
+        }
+        else if(range_date === '3years'){
+          const responseICP = await this.marketUpdateService.fetchDataBarCommodities(kategori, threeYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.trenddataICPBarChart = responseICP;
+          this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData;
+        }
+          break;
+      case "['COAL']":
+        if(range_date === '1week'){
+          const responseCOAL = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneWeekAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataCOALBarChart = responseCOAL;
+          this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
+        }
+        else if(range_date === '1month'){
+          const responseCOAL = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneMonthAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataCOALBarChart = responseCOAL;
+          this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
+        }
+        else if(range_date === '1year'){
+          const responseCOAL = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataCOALBarChart = responseCOAL;
+          this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
+        }
+        else if(range_date === '3years'){
+          const responseCOAL = await this.marketUpdateService.fetchDataBarCommodities(kategori, threeYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataCOALBarChart = responseCOAL;
+          this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
+        }
+          break;
+      case "['LNG']":
+        if(range_date === '1week'){
+          const responseLNG = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneWeekAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataLNGBarChart = responseLNG;
+          this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
+        }
+        else if(range_date === '1month'){
+          const responseLNG = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneMonthAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataLNGBarChart = responseLNG;
+          this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
+        }
+        else if(range_date === '1year'){
+          const responseLNG = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataLNGBarChart = responseLNG;
+          this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
+        }
+        else if(range_date === '3years'){
+          const responseLNG = await this.marketUpdateService.fetchDataBarCommodities(kategori, threeYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataLNGBarChart = responseLNG;
+          this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
+        }
+          break;
+      case "['BATUBARA']":
+        if(range_date === '1week'){
+          const responseBATUBARA = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneWeekAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseBATUBARA;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+        }
+        else if(range_date === '1month'){
+          const responseBATUBARA = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneMonthAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseBATUBARA;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+        }
+        else if(range_date === '1year'){
+          const responseBATUBARA = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseBATUBARA;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+        }
+        else if(range_date === '3years'){
+          const responseBATUBARA = await this.marketUpdateService.fetchDataBarCommodities(kategori, threeYearsAgo, today.format('DD/MM/YYYY'), group);
+
+          this.dataWTIBRENTBarChart = responseBATUBARA;
+          this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+        }
+          break;
+      default:
+          console.log("kategori doesn't match");
+          break;
+    }
+  }
+
   //Fetch Default Data
   fetchDataLineKurs = async () => {
     this.lineYAxisKurs = [];
@@ -373,7 +519,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.dataKurs = responseKurs;
       localStorage.setItem('compareData', JSON.stringify(this.dataKurs.d.arrayData))
 
-      const trendKurs = await this.marketUpdateService.fetchDataKursTrend();
+      const trendKurs = responseKurs;
       this.allTrendDataKurs = trendKurs;
       this.allTrendDataKurs = this.allTrendDataKurs.d.arrayData
       this.valueJPY = trendKurs;
