@@ -442,7 +442,7 @@
       </div>
     </div>
 
-    <div class="d-flex flex-row flex-wrap justify-content-sm-around">
+    <div class="d-flex flex-row flex-wrap justify-content-evenly">
       <!-- <ng-container *ngFor="let item of chartCommodities"> -->
       <!-- <div class="bg-white p-1 m-2 rounded"> -->
 
@@ -503,35 +503,6 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Line Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
         </div>
         <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
           <div>
@@ -570,35 +541,7 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Bar Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
         <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
           <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
@@ -661,35 +604,7 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Line Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
 
         <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
@@ -729,35 +644,7 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Bar Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
 
         <apx-chart
@@ -782,7 +669,7 @@
       </div>
       <!-- end ICP -->
       <!-- COAL NEWCASTLE -->
-      <div class="card rounded p-2 mt-4">
+      <div class="card rounded p-2 mt-3">
         <div class="d-flex align-items-center justify-content-between p-1">
           <div class="flex-fill fw-semibold">COAL (Newcastle)</div>
 
@@ -824,35 +711,7 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Line Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
         <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
           <div>
@@ -891,35 +750,7 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Line Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
         <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
         <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
@@ -984,35 +815,7 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Line Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
         <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
           <div>
@@ -1051,35 +854,7 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Bar Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
         <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
         <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
@@ -1144,35 +919,7 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Line Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
         <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
           <div>
@@ -1207,35 +954,7 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Bar Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
         <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
         <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
@@ -1420,6 +1139,7 @@
           [xaxis]="interestRateXaxis"
           [stroke]="intersetRateLineStroke"
           [legend]="interestRateLegend"
+          [colors]="interestRateChartColors"
         ></apx-chart>
 
         <apx-chart
@@ -1427,6 +1147,7 @@
           [series]="barChartInterestRateSeries"
           [chart]="currencyBarChartDetails"
           [dataLabels]="barDataLabels"
+          [colors]="interestRateChartColors"
         ></apx-chart>
       </div>
     </div>
