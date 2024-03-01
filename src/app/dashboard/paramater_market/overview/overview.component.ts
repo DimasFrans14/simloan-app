@@ -251,7 +251,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     let updateValueOFJPY;
     switch(range){
       case '1week':
-        responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today)
+        responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today);
+
+        localStorage.setItem('compareData', JSON.stringify(responseData))
 
         this.dataKurs = responseData;
         this.trendKursCategories = responseData;
@@ -459,6 +461,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
       case '1month':
         responseData  = await this.marketUpdateService.fetchDataKursTrend(oneMonthAgo, today)
+
+        localStorage.setItem('compareData', JSON.stringify(responseData))
 
         this.dataKurs = responseData;
         this.trendKursCategories = responseData;
@@ -2071,10 +2075,19 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     }
 
     console.log(targetColumn);
+    let getCompareData = localStorage.getItem('compareData');
+    let parsedData;
 
-    const filteredData = this.allTrendDataKurs.filter(
-      (item: any) => targetColumn.includes(item.kurs)
-    )
+    if (getCompareData !== null) {
+        parsedData = JSON.parse(getCompareData);
+        console.log(parsedData);
+    } else {
+        console.log("No compare data found in localStorage.");
+    }
+
+    const filteredData = parsedData.d.arrayData.filter(
+        (item: any) => targetColumn.includes(item.kurs)
+    );
 
     // console.log(filteredData);
 
@@ -2446,35 +2459,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       max: maxValInterest + 0.05
     }
   }
-
-  // currencyChartDetails: ApexChart = {
-  //   type: 'line',
-  //   height: 400,
-
-  //   toolbar: {
-  //     show: true,
-  //     tools: {
-  //       download: true,
-  //       selection: true,
-  //       zoom: true,
-  //       zoomin: true,
-  //       zoomout: true,
-  //       pan: true,
-  //       reset: true,
-  //     }
-  //   },
-  //   events:{
-  //     legendClick(chart, seriesIndex, options) {
-  //         console.log(options.config);
-
-
-  //     },
-  //     dataPointSelection(e, chart, config){
-  //       console.log(config.w.config.series[config.seriesIndex].data[config.dataPointIndex], config.w.config.series[config.seriesIndex].name);
-  //       console.log(chart);
-  //     }
-  //   }
-  // }
 
   //Wti Brent
   wtiBrentLineChart:ApexChart={
