@@ -607,6 +607,10 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     // }
   }
 
+  editFootnote = (id:String) => {
+    
+  }
+
   mentionInnerHTML: any = '';
 
   getValueMention(){

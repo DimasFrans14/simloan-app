@@ -125,8 +125,8 @@
   width: 30px; 
   height: 30px; 
   padding: 6px 0px; 
-  border-radius: 15px; 
-  font-size: 8px; 
+  border-radius: 15px !important; 
+  font-size: 12px; 
   text-align: center;
   background: var(--Color-Silver-100, #F4F5F6);
 }
@@ -136,4 +136,9 @@ ul{
 
 .info-unit {
   color: #818181;
+}
+
+.jancok > p {
+  margin-bottom: 0 !important;
+  color: red;
 }
