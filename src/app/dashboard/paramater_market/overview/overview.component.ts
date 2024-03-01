@@ -240,125 +240,115 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   }
 
   //Filter Range Kurs Data Bar Chart
-  oneWeekKursBarChart = async (params: any) => {
-    let getToday = moment(new Date());
+  filterRangeDateKursBarChart = async (params: string, range:string) => {
 
-    let today = moment(new Date());
-    let oneWeekAgo = getToday.subtract(7, 'days').format('DD/MM/YYYY');
-    const response  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, oneWeekAgo, today.format('DD/MM/YYYY'))
-    console.log(params, oneWeekAgo, today.format('DD/MM/YYYY'));
+    const today = moment(new Date()).format('DD/MM/YYYY');
+    const oneWeekAgo = moment(new Date()).subtract(7, 'days').format('DD/MM/YYYY');
+    const oneMonthAgo = moment(new Date()).subtract(1, 'months').format('DD/MM/YYYY');
+    const oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
+    const threeYearsAgo = moment(new Date()).subtract(3, 'years').format('DD/MM/YYYY');
 
-    console.log(response);
+    let responseData;
+    switch(range){
+      case '1week':
+        responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, oneWeekAgo, today)
 
-    this.trendKursDataBarChart = response;
-    this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
-    this.barChartKursSeries = this.trendKursDataBarChart
-  }
+        console.log(responseData);
 
-  oneMonthKursBarChart = async (params: any) => {
-    let getToday = moment(new Date());
+        this.trendKursDataBarChart = responseData;
+        this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
+        this.barChartKursSeries = this.trendKursDataBarChart;
+      break;
 
-    let today = moment(new Date());
-    let oneMonthAgo = getToday.subtract(1, 'months').format('DD/MM/YYYY');
-    const response  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, oneMonthAgo, today.format('DD/MM/YYYY'))
-    console.log(params, oneMonthAgo, today.format('DD/MM/YYYY'));
+      case '1month':
+        responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, oneMonthAgo, today)
 
-    console.log(response);
+        console.log(responseData);
 
-    this.trendKursDataBarChart = response;
-    this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
-    this.barChartKursSeries = this.trendKursDataBarChart
-  }
+        this.trendKursDataBarChart = responseData;
+        this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
+        this.barChartKursSeries = this.trendKursDataBarChart;
+      break;
 
-  oneYearKursBarChart = async (params: string) => {
-    let getToday = moment(new Date());
+      case '1year':
+        responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, oneYearsAgo, today)
 
-    let today = moment(new Date());
-    let oneYearsAgo = getToday.subtract(1, 'years').format('DD/MM/YYYY');
-    const response  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, oneYearsAgo, today.format('DD/MM/YYYY'))
-    console.log(params, oneYearsAgo, today.format('DD/MM/YYYY'));
+        console.log(responseData);
 
-    console.log(response);
+        this.trendKursDataBarChart = responseData;
+        this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
+        this.barChartKursSeries = this.trendKursDataBarChart;
+      break;
 
-    this.trendKursDataBarChart = response;
-    this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
-    this.barChartKursSeries = this.trendKursDataBarChart
-  }
+      case '3years':
+        responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, threeYearsAgo, today)
 
-  threeYearsAgoKursBarChart = async (params: string) => {
-    let getToday = moment(new Date());
+        console.log(responseData);
 
-    let today = moment(new Date());
-    let threeYearsAgo = getToday.subtract(3, 'years').format('DD/MM/YYYY');
-    const response  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, threeYearsAgo, today.format('DD/MM/YYYY'))
-    console.log(params, threeYearsAgo, today.format('DD/MM/YYYY'));
+        this.trendKursDataBarChart = responseData;
+        this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
+        this.barChartKursSeries = this.trendKursDataBarChart;
+      break;
+    }
 
-    console.log(response);
-
-    this.trendKursDataBarChart = response;
-    this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
-    this.barChartKursSeries = this.trendKursDataBarChart
   }
 
   //Filter Range Interest Data Bar Chart
-  oneWeekInterestBarChart = async (params: any) => {
-    let getToday = moment(new Date());
+  filterRangeDateInterestBarChart = async (params: string, range:string) => {
 
-    let today = moment(new Date());
-    let oneWeekAgo = getToday.subtract(7, 'days').format('DD/MM/YYYY');
-    const response  = await this.marketUpdateService.fetchInterestRateBarChart(params, oneWeekAgo, today.format('DD/MM/YYYY'))
-    console.log(params, oneWeekAgo, today.format('DD/MM/YYYY'));
+    const today = moment(new Date()).format('DD/MM/YYYY');
+    const oneWeekAgo = moment(new Date()).subtract(7, 'days').format('DD/MM/YYYY');
+    const oneMonthAgo = moment(new Date()).subtract(1, 'months').format('DD/MM/YYYY');
+    const oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
+    const threeYearsAgo = moment(new Date()).subtract(3, 'years').format('DD/MM/YYYY');
 
-    console.log(response);
+    let responseData;
+    switch(range){
+      case '1week':
+        responseData  = await this.marketUpdateService.fetchInterestRateBarChart(params, oneWeekAgo, today)
+        console.log(params, oneWeekAgo, today);
 
-    this.allTrendDataInterestRate = response;
-    this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
-    this.barChartInterestRateSeries = this.allTrendDataInterestRate
-  }
+        console.log(responseData);
 
-  oneMonthInterestBarChart = async (params: any) => {
-    let getToday = moment(new Date());
+        this.allTrendDataInterestRate = responseData;
+        this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
+        this.barChartInterestRateSeries = this.allTrendDataInterestRate
+      break;
 
-    let today = moment(new Date());
-    let oneMonthAgo = getToday.subtract(1, 'months').format('DD/MM/YYYY');
-    const response  = await this.marketUpdateService.fetchInterestRateBarChart(params, oneMonthAgo, today.format('DD/MM/YYYY'))
-    console.log(params, oneMonthAgo, today.format('DD/MM/YYYY'));
+      case '1month':
+        responseData  = await this.marketUpdateService.fetchInterestRateBarChart(params, oneMonthAgo, today)
+        console.log(params, oneMonthAgo, today);
 
-    console.log(response);
+        console.log(responseData);
 
-    this.allTrendDataInterestRate = response;
-    this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
-    this.barChartInterestRateSeries = this.allTrendDataInterestRate
-  }
+        this.allTrendDataInterestRate = responseData;
+        this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
+        this.barChartInterestRateSeries = this.allTrendDataInterestRate
+      break;
 
-  oneYearInterestBarChart = async (params: string) => {
-    let getToday = moment(new Date());
+      case '1year':
+        responseData  = await this.marketUpdateService.fetchInterestRateBarChart(params, oneYearsAgo, today)
+        console.log(params, oneYearsAgo, today);
 
-    let today = moment(new Date());
-    let oneYearAgo = getToday.subtract(1, 'years').format('DD/MM/YYYY');
-    const response  = await this.marketUpdateService.fetchInterestRateBarChart(params, oneYearAgo, today.format('DD/MM/YYYY'))
-    console.log(params, oneYearAgo, today.format('DD/MM/YYYY'));
+        console.log(responseData);
 
-    console.log(response);
+        this.allTrendDataInterestRate = responseData;
+        this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
+        this.barChartInterestRateSeries = this.allTrendDataInterestRate
+      break;
 
-    this.allTrendDataInterestRate = response;
-    this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
-    this.barChartInterestRateSeries = this.allTrendDataInterestRate
-  }
+      case '3years':
+        responseData  = await this.marketUpdateService.fetchInterestRateBarChart(params, threeYearsAgo, today)
+        console.log(params, threeYearsAgo, today);
 
-  threeYearsAgoInterestBarChart = async (params: string) => {
-    let getToday = moment(new Date());
+        console.log(responseData);
 
-    let today = moment(new Date());
-    let threeYearsAgo = getToday.subtract(3, 'years').format('DD/MM/YYYY');
-    const response  = await this.marketUpdateService.fetchInterestRateBarChart(params, threeYearsAgo, today.format('DD/MM/YYYY'))
-    console.log(params, threeYearsAgo, today.format('DD/MM/YYYY'));
+        this.allTrendDataInterestRate = responseData;
+        this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
+        this.barChartInterestRateSeries = this.allTrendDataInterestRate
+      break;
+    }
 
-    console.log(response);
-
-    this.allTrendDataInterestRate = response;
-    this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
-    this.barChartInterestRateSeries = this.allTrendDataInterestRate
   }
 
   fetchRangeDataCommoditiesBarChart = async (kategori: string, group: string, range_date: string) => {
@@ -651,7 +641,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     let today = moment(new Date());
     let oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
 
-    const responseKurs = await this.marketUpdateService.fetchDataKursTrend()
+    const responseKurs = await this.marketUpdateService.fetchDataKursTrend(oneYearsAgo, today.format('DD/MM/YYYY'))
       this.dataKurs = responseKurs;
       localStorage.setItem('compareData', JSON.stringify(this.dataKurs.d.arrayData))
 
