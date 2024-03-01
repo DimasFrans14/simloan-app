@@ -108,7 +108,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="default"
-                  (click)="filterRangeDateKursBarChart('default', '1week')"
+                  (click)="filterRangeDateKursLineChart('1week')"
                 >
                   <span style="font-size: 13px">1W</span>
                 </button>
@@ -118,7 +118,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="default"
-                  (click)="filterRangeDateKursBarChart('1year', '1month')"
+                  (click)="filterRangeDateKursLineChart('1month')"
                 >
                   <span style="font-size: 13px">1M</span>
                 </button>
@@ -128,7 +128,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="1year"
-                  (click)="filterRangeDateKursBarChart('years', '1year')"
+                  (click)="filterRangeDateKursLineChart('1year')"
                 >
                   <span style="font-size: 13px">1Y</span>
                 </button>
@@ -138,7 +138,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="years"
-                  (click)="filterRangeDateKursBarChart('default', '3years')"
+                  (click)="filterRangeDateKursLineChart('3years')"
                 >
                   <span style="font-size: 13px">3Y</span>
                 </button>
