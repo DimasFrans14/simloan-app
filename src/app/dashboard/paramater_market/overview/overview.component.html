@@ -108,7 +108,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="default"
-                  (click)="oneWeekKursBarChart('default')"
+                  (click)="filterRangeDateKursLineChart('1week')"
                 >
                   <span style="font-size: 13px">1W</span>
                 </button>
@@ -118,7 +118,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="default"
-                  (click)="oneMonthKursBarChart('default')"
+                  (click)="filterRangeDateKursLineChart('1month')"
                 >
                   <span style="font-size: 13px">1M</span>
                 </button>
@@ -128,7 +128,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="1year"
-                  (click)="oneYearKursBarChart('1year')"
+                  (click)="filterRangeDateKursLineChart('1year')"
                 >
                   <span style="font-size: 13px">1Y</span>
                 </button>
@@ -138,7 +138,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="years"
-                  (click)="threeYearsAgoKursBarChart('years')"
+                  (click)="filterRangeDateKursLineChart('3years')"
                 >
                   <span style="font-size: 13px">3Y</span>
                 </button>
@@ -176,13 +176,13 @@
               </div>
             </div>
 
-            <div [style.display]="isVisibleLine ? 'none' : 'flex'" class=" align-items-center">
+            <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center">
               <div>
                 <button
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="default"
-                  (click)="oneWeekKursBarChart('default')"
+                  (click)="filterRangeDateKursBarChart('default', '1week')"
                 >
                   <span style="font-size: 13px">1W</span>
                 </button>
@@ -192,7 +192,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="default"
-                  (click)="oneMonthKursBarChart('default')"
+                  (click)="filterRangeDateKursBarChart('default', '1month')"
                 >
                   <span style="font-size: 13px">1M</span>
                 </button>
@@ -202,7 +202,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="1year"
-                  (click)="oneYearKursBarChart('1year')"
+                  (click)="filterRangeDateKursBarChart('1year', '1year')"
                 >
                   <span style="font-size: 13px">1Y</span>
                 </button>
@@ -212,12 +212,12 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="years"
-                  (click)="threeYearsAgoKursBarChart('years')"
+                  (click)="filterRangeDateKursBarChart('years', '3years')"
                 >
                   <span style="font-size: 13px">3Y</span>
                 </button>
               </div>
-              <div >
+              <div>
                 <button
                   class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
                   style="font-size: 14px"
@@ -225,19 +225,19 @@
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Customize Bar Chart
+                  Customize Line Chart
                 </button>
                 <div class="dropdown-menu ps-2">
-                  <form (ngSubmit)="filterCurrencyBarChart($event)">
+                  <form (ngSubmit)="filterCurrencyLineChart($event)">
                     <div style="font-size: 15px">
-                      <ng-container *ngFor="let item of allTrendDataKursBarChart">
+                      <ng-container *ngFor="let item of allTrendDataKurs">
                         <input
                           type="checkbox"
-                          name="selectedKursBarChart"
-                          [id]="item.kode"
+                          name="selectedKurs"
+                          [id]="item.kurs"
                         />
-                        <label class="ms-2" for="item.kode">{{
-                          item.kode
+                        <label class="ms-2" for="item.kurs">{{
+                          item.kurs
                         }}</label>
                         <br />
                       </ng-container>
@@ -1002,7 +1002,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="oneWeekInterestBarChart('default')"
+              (click)="filterRangeDateInterestBarChart('default', '1week')"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -1011,7 +1011,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="oneMonthInterestBarChart('default')"
+              (click)="filterRangeDateInterestBarChart('default', '1month')"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -1020,7 +1020,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="oneYearInterestBarChart('1year')"
+              (click)="filterRangeDateInterestBarChart('1year', '1year')"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -1029,7 +1029,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="threeYearsAgoInterestBarChart('years')"
+              (click)="filterRangeDateInterestBarChart('years', '3years')"
             >
               <span style="font-size: 13px">3Y</span>
             </button>
@@ -1069,7 +1069,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="oneWeekInterestBarChart('default')"
+              (click)="filterRangeDateInterestBarChart('default', '1week')"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -1078,7 +1078,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="oneMonthInterestBarChart('default')"
+              (click)="filterRangeDateInterestBarChart('default', '1month')"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -1087,7 +1087,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="oneYearInterestBarChart('1year')"
+              (click)="filterRangeDateInterestBarChart('1year', '1year')"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -1096,7 +1096,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="threeYearsAgoInterestBarChart('years')"
+              (click)="filterRangeDateInterestBarChart('years', '3years')"
             >
               <span style="font-size: 13px">3Y</span>
             </button>

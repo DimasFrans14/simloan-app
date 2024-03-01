@@ -60,10 +60,10 @@ export class MarketUpdateService {
     }
   }
 
-  async fetchDataKursTrend(){
+  async fetchDataKursTrend(startDate: string, endDate: string){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl2}/dashboard/market/trending/kurs/getLineChart?start_date=18/02/2023&end_date=12/02/2024`)
+        this.http.get(`${environment.apiUrl2}/dashboard/market/trending/kurs/getLineChart?start_date=${startDate}&end_date=${endDate}`)
       );
     } catch (error) {
       console.log(error);
