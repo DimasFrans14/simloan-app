@@ -475,6 +475,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '1week')"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -483,6 +484,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '1month')"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -491,6 +493,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '1year')"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -499,6 +502,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '3years')"
             >
               <span style="font-size: 13px">3Y</span>
             </button>
@@ -576,6 +580,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '1week')"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -584,6 +589,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '1month')"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -592,6 +598,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '1year')"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -600,6 +607,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '3years')"
             >
               <span style="font-size: 13px">3Y</span>
             </button>
@@ -679,7 +687,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', 'default', '1week')"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '1week')"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -688,7 +696,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', 'default', '1month')"
+               (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '1month')"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -697,7 +705,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', '1year', '1year')"
+               (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '1year')"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -706,7 +714,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', 'years', '3years')"
+               (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '3years')"
             >
               <span style="font-size: 13px">3Y</span>
             </button>
@@ -787,6 +795,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '1week')"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -795,6 +804,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '1month')"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -803,6 +813,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '1year')"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -811,6 +822,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '3years')"
             >
               <span style="font-size: 13px">3Y</span>
             </button>
@@ -1002,7 +1014,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="filterRangeDateInterestBarChart('default', '1week')"
+              (click)="filterRangeDateInterestLineChart('1week')"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -1011,7 +1023,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="filterRangeDateInterestBarChart('default', '1month')"
+              (click)="filterRangeDateInterestLineChart('1month')"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -1020,7 +1032,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="filterRangeDateInterestBarChart('1year', '1year')"
+              (click)="filterRangeDateInterestLineChart('1year')"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -1029,7 +1041,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="filterRangeDateInterestBarChart('years', '3years')"
+              (click)="filterRangeDateInterestLineChart('3years')"
             >
               <span style="font-size: 13px">3Y</span>
             </button>

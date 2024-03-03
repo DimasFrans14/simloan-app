@@ -1096,6 +1096,355 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     }
   }
 
+  //Filter Range Interest Rate Line Chart
+  filterRangeDateInterestLineChart = async (range: string) => {
+
+    const today = moment(new Date()).format('DD/MM/YYYY');
+    const oneWeekAgo = moment(new Date()).subtract(7, 'days').format('DD/MM/YYYY');
+    const oneMonthAgo = moment(new Date()).subtract(1, 'months').format('DD/MM/YYYY');
+    const oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
+    const threeYearsAgo = moment(new Date()).subtract(3, 'years').format('DD/MM/YYYY');
+
+    let responseData;
+    switch(range){
+      case '1week':
+        responseData  = await this.marketUpdateService.fetchDataInterestRateTrending(oneWeekAgo, today)
+
+        this.trendInterestData = responseData;
+        this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData
+      break;
+
+      case '1month':
+        responseData  = await this.marketUpdateService.fetchDataInterestRateTrending(oneMonthAgo, today)
+
+        this.trendInterestData = responseData;
+        this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData
+      break;
+
+      case '1year':
+        responseData  = await this.marketUpdateService.fetchDataInterestRateTrending(oneYearsAgo, today)
+
+        this.trendInterestData = responseData;
+        this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData
+      break;
+
+      case '3years':
+        responseData  = await this.marketUpdateService.fetchDataInterestRateTrending(threeYearsAgo, today)
+
+        this.trendInterestData = responseData;
+        this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData
+      break;
+    }
+
+  }
+
+  //Filter Range Commodities Line Chart
+  fetchRangeDataCommoditiesLineChart = async (kategori: string, range_date: string) => {
+
+    const today = moment(new Date()).format('DD/MM/YYYY');;
+    const oneWeekAgo = moment(new Date()).subtract(7, 'days').format('DD/MM/YYYY');
+    const oneMonthAgo = moment(new Date()).subtract(1, 'months').format('DD/MM/YYYY');
+    const oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
+    const threeYearsAgo = moment(new Date()).subtract(3, 'years').format('DD/MM/YYYY');
+
+    switch(kategori) {
+      case "['WTI','BRENT']":
+
+        if(range_date === '1week'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneWeekAgo, today)
+
+          this.allTrendWTIBRENT = responseWTIBRENT;
+          this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
+
+          this.xAxisWtiChartBrent = {
+            categories: []
+          }
+
+          for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
+              this.xAxisWtiChartBrent.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
+          }
+        }
+        else if(range_date === '1month'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneMonthAgo, today)
+
+          this.allTrendWTIBRENT = responseWTIBRENT;
+          this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
+
+          this.xAxisWtiChartBrent = {
+            categories: []
+          }
+
+          for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
+              this.xAxisWtiChartBrent.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
+          }
+        }
+        else if(range_date === '1year'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneYearsAgo, today)
+
+          this.allTrendWTIBRENT = responseWTIBRENT;
+          this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
+
+          this.xAxisWtiChartBrent = {
+            categories: []
+          }
+
+          for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
+              this.xAxisWtiChartBrent.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
+          }
+        }
+        else if(range_date === '3years'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, threeYearsAgo, today)
+
+          this.allTrendWTIBRENT = responseWTIBRENT;
+          this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
+
+          this.xAxisWtiChartBrent = {
+            categories: []
+          }
+
+          for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
+              this.xAxisWtiChartBrent.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
+          }
+        }
+          break;
+      case "['ICP']":
+        if(range_date === '1week'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneWeekAgo, today)
+
+          this.allTrendICP = responseWTIBRENT;
+          this.dataIcpChart = this.allTrendICP.d.arrayData;
+
+          // this.xAxisIcpChart = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendICP.d.arrayData.data.length; i++){
+          //     this.xAxisIcpChart.categories.push(this.allTrendICP.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '1month'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneMonthAgo, today)
+
+          this.allTrendICP = responseWTIBRENT;
+          this.dataIcpChart = this.allTrendICP.d.arrayData;
+
+          // this.xAxisIcpChart = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendICP.d.arrayData.data.length; i++){
+          //     this.xAxisIcpChart.categories.push(this.allTrendICP.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '1year'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneYearsAgo, today)
+
+          this.allTrendICP = responseWTIBRENT;
+          this.dataIcpChart = this.allTrendICP.d.arrayData;
+
+          // this.xAxisIcpChart = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendICP.d.arrayData.data.length; i++){
+          //     this.xAxisIcpChart.categories.push(this.allTrendICP.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '3years'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, threeYearsAgo, today)
+
+          this.allTrendICP = responseWTIBRENT;
+          this.dataIcpChart = this.allTrendICP.d.arrayData;
+
+          // this.xAxisIcpChart = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendICP.d.arrayData.data.length; i++){
+          //     this.xAxisIcpChart.categories.push(this.allTrendICP.d.arrayData[0].data[i].x)
+          // }
+        }
+          break;
+      case "['COAL']":
+        if(range_date === '1week'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneWeekAgo, today)
+
+          this.allTrendCOAL = responseWTIBRENT;
+          this.dataChartCoal = this.allTrendCOAL.d.arrayData;
+
+          // this.xAxisChartCoal = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendCOAL.d.arrayData.data.length; i++){
+          //     this.xAxisChartCoal.categories.push(this.allTrendCOAL.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '1month'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneMonthAgo, today)
+
+          this.allTrendCOAL = responseWTIBRENT;
+          this.dataChartCoal = this.allTrendCOAL.d.arrayData;
+
+          // this.xAxisChartCoal = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendCOAL.d.arrayData.data.length; i++){
+          //     this.xAxisChartCoal.categories.push(this.allTrendCOAL.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '1year'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneYearsAgo, today)
+
+          this.allTrendCOAL = responseWTIBRENT;
+          this.dataChartCoal = this.allTrendCOAL.d.arrayData;
+
+          // this.xAxisChartCoal = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendCOAL.d.arrayData.data.length; i++){
+          //     this.xAxisChartCoal.categories.push(this.allTrendCOAL.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '3years'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, threeYearsAgo, today)
+
+          this.allTrendCOAL = responseWTIBRENT;
+          this.dataChartCoal = this.allTrendCOAL.d.arrayData;
+
+          // this.xAxisChartCoal = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendCOAL.d.arrayData.data.length; i++){
+          //     this.xAxisChartCoal.categories.push(this.allTrendCOAL.d.arrayData[0].data[i].x)
+          // }
+        }
+          break;
+      case "['LNG']":
+        if(range_date === '1week'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneWeekAgo, today)
+
+          this.allTrendLNG = responseWTIBRENT;
+          this.dataChartLngLine = this.allTrendLNG.d.arrayData;
+
+          // this.xAxisChartLng = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendLNG.d.arrayData.data.length; i++){
+          //     this.xAxisChartLng.categories.push(this.allTrendLNG.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '1month'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneMonthAgo, today)
+
+          this.allTrendLNG = responseWTIBRENT;
+          this.dataChartLngLine = this.allTrendLNG.d.arrayData;
+
+          // this.xAxisChartLng = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendLNG.d.arrayData.data.length; i++){
+          //     this.xAxisChartLng.categories.push(this.allTrendLNG.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '1year'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneYearsAgo, today)
+
+          this.allTrendLNG = responseWTIBRENT;
+          this.dataChartLngLine = this.allTrendLNG.d.arrayData;
+
+          // this.xAxisChartLng = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendLNG.d.arrayData.data.length; i++){
+          //     this.xAxisChartLng.categories.push(this.allTrendLNG.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '3years'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, threeYearsAgo, today)
+
+          this.allTrendLNG = responseWTIBRENT;
+          this.dataChartLngLine = this.allTrendLNG.d.arrayData;
+
+          // this.xAxisChartLng = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendLNG.d.arrayData.data.length; i++){
+          //     this.xAxisChartLng.categories.push(this.allTrendLNG.d.arrayData[0].data[i].x)
+          // }
+        }
+          break;
+      case "['BATUBARA']":
+        if(range_date === '1week'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneWeekAgo, today)
+
+          this.allTrendWTIBRENT = responseWTIBRENT;
+          this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
+
+          // this.xAxisBatuBaraChart = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
+          //     this.xAxisBatuBaraChart.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '1month'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneMonthAgo, today)
+
+          this.allTrendWTIBRENT = responseWTIBRENT;
+          this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
+
+          // this.xAxisBatuBaraChart = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
+          //     this.xAxisBatuBaraChart.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '1year'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneYearsAgo, today)
+
+          this.allTrendWTIBRENT = responseWTIBRENT;
+          this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
+
+          // this.xAxisBatuBaraChart = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
+          //     this.xAxisBatuBaraChart.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
+          // }
+        }
+        else if(range_date === '3years'){
+          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, threeYearsAgo, today)
+
+          this.allTrendWTIBRENT = responseWTIBRENT;
+          this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
+
+          // this.xAxisBatuBaraChart = {
+          //   categories: []
+          // }
+
+          // for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
+          //     this.xAxisBatuBaraChart.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
+          // }
+        }
+          break;
+      default:
+          console.log("kategori doesn't match");
+          break;
+    }
+  }
+
   //Filter Range Kurs Data Bar Chart
   filterRangeDateKursBarChart = async (params: string, range:string) => {
 
@@ -1712,6 +2061,33 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.allTrendICP = trendICPCommodities;
     this.allTrendCOAL= trendCOALCommodities;
     this.allTrendLNG = trendLNGCommodities;
+
+    // const group = ["['WTI', 'BRENT']", "['ICP']", "['COAL']", "['LNG']"];
+
+    // for(let i=0; i<group.length; i++){
+    //   const trendCommodities = await this.marketUpdateService.fetchDataLineCommodities("['WTI', 'BRENT']", oneYearsAgo, today.format('DD/MM/YYYY'));
+
+    //   switch(i){
+    //     case 0:
+    //       this.allTrendWTIBRENT = trendWTIBRENTCommodities;
+    //     break;
+
+    //     case 1:
+    //       this.allTrendICP = trendICPCommodities;
+    //     break;
+
+    //     case 2:
+    //       this.allTrendCOAL= trendCOALCommodities;
+    //     break;
+
+    //     case 3:
+    //       this.allTrendLNG = trendLNGCommodities;
+    //     break;
+
+    //     default: console.log('params error');
+    //   }
+    // }
+
   }
 
   fetchDataLineInterest = async () => {
