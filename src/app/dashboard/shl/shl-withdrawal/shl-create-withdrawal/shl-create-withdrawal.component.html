@@ -1,0 +1,266 @@
+<div>
+  <app-header></app-header>
+  <app-sidebar></app-sidebar>
+
+  <div id="header" class="header">
+    <div class="col-12 bg-white sub-nav border-top">
+      <div class="d-flex justify-content-start align-items-center">
+        <div class="me-2">
+          <a routerLink="/shl_witdrawal" routerLinkActive="active">
+            <i class="bi bi-arrow-left text-dark"></i>
+          </a>
+        </div>
+        <div>
+          <h4>Create New Withdrawal</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="main" id="main">
+
+    <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+      {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+    </button> -->
+    <mat-stepper [linear]="true" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Choose Agreement</ng-template>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputWithdrawal mb-4"
+                >Nama Anak Perusahaan</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <ng-select
+              [items]="anakPerusahaan"
+              class="form-control"
+              bindLabel="name"
+              id="anakPerusahaan"
+              placeholder="Pilih Nama Anak Perusahaan"
+              bindValue="name"
+              formControlName="selectedAP"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && firstFormGroup.controls.selectedAP.errors
+              }"
+              required
+            >
+            </ng-select>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputWithdrawal mb-4"
+                >Pilih Nomor SHL Agreement</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <ng-select
+              [items]="shlAgreementList"
+              class="form-control"
+              bindLabel="no_shl_agreement"
+              placeholder="Pilih Nomor SHL Agreement"
+              bindValue="no_shl_agreement"
+              formControlName="noSHLAgreementList"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && firstFormGroup.controls.noSHLAgreementList.errors
+              }"
+              required
+              (change)="onChange($event)"
+            >
+            </ng-select>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputWithdrawal mb-4"
+                >Nomor SHL Agreement Anak Perusahaan</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <input type="text" class="form-control" [disabled]="true" [value]="selectedNoSHLAnakPerusahaan ? selectedNoSHLAnakPerusahaan : null">
+            <!-- <ng-select
+              [items]="noSHLAnakPerusahaan"
+              class="form-control"
+              bindLabel="name"
+              id="noSHLAnakPerusahaan"
+              placeholder="Pilih Nama Anak Perusahaan"
+              bindValue="name"
+              formControlName="noSHLAnakPerusahaan"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && firstFormGroup.controls.noSHLAnakPerusahaan.errors
+              }"
+              required
+            >
+            </ng-select> -->
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputWithdrawal mb-4"
+                >Nama Proyek</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <ng-select
+              [items]="proyekList"
+              class="form-control"
+              bindLabel="name"
+              id="proyekList"
+              placeholder="Pilih Nama Proyek"
+              bindValue="name"
+              formControlName="selectedProyek"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && firstFormGroup.controls.selectedProyek.errors
+              }"
+              (change)="namaProyekChange($event)"
+              required
+            >
+            </ng-select>
+          </div>
+
+          <ng-container *ngIf="namaProyekDisplay">
+
+            <div class="d-flex justify-content-end align-items-center mb-3 mt-4">
+            </div>
+
+            <div class="bg-white rounded">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <img src="assets/image/detail_agreement_left_header.svg" alt="">
+              </div>
+              <div class="me-3">
+                <img src="assets/image/detail_agreement_right_header.svg" alt="">
+              </div>
+            </div>
+
+            <div class="row p-3">
+              <div class="col-6" style="border-right: 1px solid #E4E4E4;">
+                <!-- <ng-container *ngFor="let item of detailDataSHLAgreement"> -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span>Nama Anak Perusahaan</span>
+                  <span class="p-2 rounded detail-data" id="detailDataSHLAgreement.id">{{this.firstFormGroup.value.selectedAP}}</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span>Nomor Agreement</span>
+                  <span class="p-2 rounded detail-data">{{this.firstFormGroup.value.noSHLAgreementList}}</span>
+                </div>
+                <div class="d-flex flex-nowrap justify-content-between align-items-center mb-3">
+                  <span>Nomor SHL Agreement Anak Perushaan</span>
+                  <span class="p-2 rounded detail-data">{{this.firstFormGroup.value.selectedProyek}}</span>
+                </div>
+
+              <!-- </ng-container> -->
+              </div>
+
+              <div class="col-6">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span>Mata Uang</span>
+                  <span class="p-2 rounded detail-data">USD</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span>Sisa Pagu</span>
+                  <span class="p-2 rounded detail-data">750.000.000.000</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span>Terakhir Penarikan</span>
+                  <span class="p-2 rounded detail-data">Belum ada Penarikan</span>
+                </div>
+              </div>
+            </div>
+            <hr />
+            </div>
+            <div class="py-3">
+              <span class="fw-bold">Detail Withdrawal</span>
+            </div>
+          </ng-container>
+        <div class="table-withdrawalDetail pb-2" id="tes"></div>
+
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary px-3 py-1 rounded" (click)="firstWithdrawalForm()">Next</button>
+          </div>
+
+        </form>
+
+
+      </mat-step>
+
+      <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+        <form [formGroup]="secondFormGroup">
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                   required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+
+
+  </main>
+</div>
