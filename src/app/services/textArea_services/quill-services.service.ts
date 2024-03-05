@@ -158,20 +158,27 @@ export class QuillServicesService {
     }
   }
 
-  async sendFootnote(elementHTML: string){
-    const data = {
-      'note': elementHTML,
-      'dashboard_date' : moment().format("DD/MM/YYYY")
+  async sendFootnote(objectData:any, state:string){
+    if(state == 'add'){
+      try {
+        return await lastValueFrom(
+          this.http.post(`${this.serverDev}/dashboard/market/footnote/insert`, objectData)
+        )
+      } catch (error) {
+        console.log(error);
+        return null
+      }
+    } else {
+      try {
+        return await lastValueFrom(
+          this.http.post(`${this.serverDev}/dashboard/market/footnote/update`, objectData)
+        )
+      } catch (error) {
+        console.log(error);
+        return null
+      }
     }
-    try {
-      return await lastValueFrom(
-        this.http.post(`${this.serverDev}/dashboard/market/footnote/insert`, data)
-      )
-    } catch (error) {
-      console.log(error);
-      return null
-    }
-    console.log(data);
+    
   }
 
   async getFootnotes(dash_date: string){

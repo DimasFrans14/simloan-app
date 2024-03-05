@@ -221,8 +221,11 @@ export class TableServicesService {
   tableDataOutlook: any;
   tableOutlook: any;
 
-  tableSHLAgreement: any;
-  tableDataSHLAgreement: any;
+  tableSHLAgreementNonPenerusanPinjaman: any;
+  tableDataSHLAgreementNonPenerusanPinjaman: any;
+
+  tableSHLAgreementPenerusanPinjaman: any;
+  tableDataSHLAgreementPenerusanPinjaman: any;
 
   tableDetailProyekSHLAgreement: any;
   tableDataDetailProyekSHLAgreement: any;
@@ -1991,9 +1994,11 @@ export class TableServicesService {
     });
   }
 
-  initializeTableSHLAgreement(){
+  initializeTableSHLAgreementNonPenerusanPinjaman(){
 
-    this.tableDataSHLAgreement = [
+    this.tableDataSHLAgreementNonPenerusanPinjaman = [
+
+
       {
         id:1, anak_perusahaan:"PT. Indonesia Comnet Plus", agreement_number:"1620.Pj/KEU.01.09/F01070100/2022", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2022", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jumlah_amandement:"1", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
       },
@@ -2022,9 +2027,64 @@ export class TableServicesService {
       return "<input type='checkbox'></input>"
     }
 
-    this.tableSHLAgreement = new Tabulator(".table-shlAgreement", {
+    this.tableSHLAgreementNonPenerusanPinjaman = new Tabulator(".table-shlAgreement", {
       // height:205,
-      data:this.tableDataSHLAgreement,
+      data:this.tableDataSHLAgreementNonPenerusanPinjaman,
+
+
+      layout:"fitColumns",
+      columns:[
+        // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
+        {title:"Anak Perusahaan", field:"anak_perusahaan", headerHozAlign:"left", hozAlign:'left', headerSort:true, width:300, frozen: true},
+        {title:"SHL Agreement Number", field:"agreement_number", hozAlign:"left", headerHozAlign:"left", width:300},
+        {title:"Agreement Number Anak Perusahaan", field:"agreement_number_anakperusahaan", hozAlign:"left", headerHozAlign:"left", width:300},
+        {title:"Tanggal SHL Agreement", field:"tanggal_dibuat", hozAlign:"left", headerHozAlign:"left", width:200},
+        {title:"Deskripsi Proyek", field:"deskripsi", hozAlign:"left", headerHozAlign:"left", width:300},
+        {title:"SHL Amandement ke-", field:"jumlah_amandement", hozAlign:"left", headerHozAlign:"left", width:150},
+        {title:"SHL Amendment Agreement Number", field:"amandement_agreement_number", hozAlign:"left", headerHozAlign:"left", width:300},
+        {title:"Created By", field:"created_by", hozAlign:"left", headerHozAlign:"left", width:120},
+        {title:"Status", field:"status", hozAlign:"left", headerHozAlign:"left", width:120},
+        {title:"Approver", field:"approver", hozAlign:"left", headerHozAlign:"left", width:120},
+        {title: "Action", formatter:actionBtn, cellClick:this.getRowData, width:120,hozAlign:"center", headerHozAlign:"center"},
+      ],
+    });
+  }
+
+  initializeTableSHLAgreementPenerusanPinjaman(){
+
+    this.tableDataSHLAgreementPenerusanPinjaman = [
+      {
+        id:1, anak_perusahaan:"PT. Indonesia Comnet Plus", agreement_number:"1620.Pj/KEU.01.09/F01070100/2022", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2022", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jumlah_amandement:"1", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+      {
+        id:2, anak_perusahaan:"PT. PLN Batam", agreement_number:"1620.Pj/KEU.01.09/F01070100/2022", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2022", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jumlah_amandement:"Belum Ada", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+      {
+        id:3, anak_perusahaan:"PT. Pelayaran Bahtera Adhiguna", agreement_number:"1620.Pj/KEU.01.09/F01070100/2022", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2022", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jumlah_amandement:"Belum Ada", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+      {
+        id:4, anak_perusahaan:"PT. Pelayaran Bahtera Adhiguna", agreement_number:"1620.Pj/KEU.01.09/F01070100/2023", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2023", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jumlah_amandement:"Belum Ada", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+      {
+        id:5, anak_perusahaan:"PT. Pembangkitan Jawa-Bali", agreement_number:"1620.Pj/KEU.01.09/F01070100/2023", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2023", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jumlah_amandement:"Belum Ada", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+      {
+        id:6, anak_perusahaan:"PT. Indonesia Comnet Plus", agreement_number:"1620.Pj/KEU.01.09/F01070100/2023", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2023", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jumlah_amandement:"Belum Ada", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+    ];
+
+    const actionBtn = function(_cell: any, _formatterParams: any){
+      return "<button type='button' class='btn'><i class='bi bi-eye'></i></button> <button type='button' class='btn' (click)='alert('clicked')'><i class='bi bi-pencil-square'></i></button";
+    }
+
+    const checkBox = function(_cell:any, _formatterParams: any){
+      return "<input type='checkbox'></input>"
+    }
+
+    this.tableSHLAgreementPenerusanPinjaman = new Tabulator(".table-shlAgreementPenerusanPinjaman", {
+      // height:205,
+      data:this.tableDataSHLAgreementPenerusanPinjaman,
+
       layout:"fitColumns",
       columns:[
         // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
@@ -2239,12 +2299,20 @@ export class TableServicesService {
     return this.tableDataOutlookInflasi('nilai');
   }
 
-  findDataSHLAgreement = (params: string) => {
-    const tableSHLAgreement = this.tableSHLAgreement;
-    const dataTabelSHL = this.tableDataSHLAgreement;
+  findDataSHLAgreement = (value: string, params: string) => {
+    const tableSHLAgreementNonPenerusanPinjaman = this.tableSHLAgreementNonPenerusanPinjaman;
+    // const dataTabelSHL = this.tableDataSHLAgreementNonPenerusanPinjaman;
 
-    tableSHLAgreement.setFilter(this.customFilter, { filterValue: params });
-    // tableSHLAgreement.setFilter('anak_perusahaan', 'like', params);
+    const tableSHLAgreementPenerusanPinjaman = this.tableSHLAgreementPenerusanPinjaman;
+
+    if(params === 'nonPenerusan'){
+      tableSHLAgreementNonPenerusanPinjaman.setFilter(this.customFilterNonPP, { filterValue: value });
+    }
+    else if(params === 'penerusan'){
+      tableSHLAgreementPenerusanPinjaman.setFilter(this.customFilterPP, { filterValue: value });
+    }
+
+    // tableSHLAgreementNonPenerusanPinjaman.setFilter('anak_perusahaan', 'like', value);
   }
 
   getRowData = (e:any, cell: any) => {
@@ -2530,7 +2598,19 @@ export class TableServicesService {
   currentRow.reformat()
   }
 
-  customFilter(data: any, filterParams: any) {
+  customFilterNonPP(data: any, filterParams: any) {
+    const filterValue = filterParams.filterValue.toLowerCase();
+
+    const anakPerusahaan = data.anak_perusahaan.toLowerCase().includes(filterValue)
+    const dataAgreementNumber = data.agreement_number.toLowerCase().includes(filterValue)
+    const agreementNumberAnakPerusahaan = data.agreement_number_anakperusahaan.toLowerCase().includes(filterValue)
+
+    console.log(data.agreement_number, filterValue);
+
+    return anakPerusahaan || dataAgreementNumber || agreementNumberAnakPerusahaan
+
+  }
+  customFilterPP(data: any, filterParams: any) {
     const filterValue = filterParams.filterValue.toLowerCase();
 
     const anakPerusahaan = data.anak_perusahaan.toLowerCase().includes(filterValue)

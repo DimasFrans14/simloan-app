@@ -108,7 +108,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="default"
-                  (click)="oneWeekKursBarChart('default')"
+                  (click)="filterRangeDateKursLineChart('1week')"
                 >
                   <span style="font-size: 13px">1W</span>
                 </button>
@@ -118,7 +118,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="default"
-                  (click)="oneMonthKursBarChart('default')"
+                  (click)="filterRangeDateKursLineChart('1month')"
                 >
                   <span style="font-size: 13px">1M</span>
                 </button>
@@ -128,7 +128,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="1year"
-                  (click)="oneYearKursBarChart('1year')"
+                  (click)="filterRangeDateKursLineChart('1year')"
                 >
                   <span style="font-size: 13px">1Y</span>
                 </button>
@@ -138,7 +138,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="years"
-                  (click)="threeYearsAgoKursBarChart('years')"
+                  (click)="filterRangeDateKursLineChart('3years')"
                 >
                   <span style="font-size: 13px">3Y</span>
                 </button>
@@ -176,13 +176,13 @@
               </div>
             </div>
 
-            <div [style.display]="isVisibleLine ? 'none' : 'flex'" class=" align-items-center">
+            <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center">
               <div>
                 <button
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="default"
-                  (click)="oneWeekKursBarChart('default')"
+                  (click)="filterRangeDateKursBarChart('default', '1week')"
                 >
                   <span style="font-size: 13px">1W</span>
                 </button>
@@ -192,7 +192,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="default"
-                  (click)="oneMonthKursBarChart('default')"
+                  (click)="filterRangeDateKursBarChart('default', '1month')"
                 >
                   <span style="font-size: 13px">1M</span>
                 </button>
@@ -202,7 +202,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="1year"
-                  (click)="oneYearKursBarChart('1year')"
+                  (click)="filterRangeDateKursBarChart('1year', '1year')"
                 >
                   <span style="font-size: 13px">1Y</span>
                 </button>
@@ -212,12 +212,12 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="years"
-                  (click)="threeYearsAgoKursBarChart('years')"
+                  (click)="filterRangeDateKursBarChart('years', '3years')"
                 >
                   <span style="font-size: 13px">3Y</span>
                 </button>
               </div>
-              <div >
+              <div>
                 <button
                   class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
                   style="font-size: 14px"
@@ -225,19 +225,19 @@
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Customize Bar Chart
+                  Customize Line Chart
                 </button>
                 <div class="dropdown-menu ps-2">
-                  <form (ngSubmit)="filterCurrencyBarChart($event)">
+                  <form (ngSubmit)="filterCurrencyLineChart($event)">
                     <div style="font-size: 15px">
-                      <ng-container *ngFor="let item of allTrendDataKursBarChart">
+                      <ng-container *ngFor="let item of allTrendDataKurs">
                         <input
                           type="checkbox"
-                          name="selectedKursBarChart"
-                          [id]="item.kode"
+                          name="selectedKurs"
+                          [id]="item.kurs"
                         />
-                        <label class="ms-2" for="item.kode">{{
-                          item.kode
+                        <label class="ms-2" for="item.kurs">{{
+                          item.kurs
                         }}</label>
                         <br />
                       </ng-container>
@@ -442,7 +442,7 @@
       </div>
     </div>
 
-    <div class="d-flex flex-row flex-wrap justify-content-sm-around">
+    <div class="d-flex flex-row flex-wrap justify-content-evenly">
       <!-- <ng-container *ngFor="let item of chartCommodities"> -->
       <!-- <div class="bg-white p-1 m-2 rounded"> -->
 
@@ -475,6 +475,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '1week')"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -483,6 +484,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '1month')"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -491,6 +493,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '1year')"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -499,38 +502,10 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '3years')"
             >
               <span style="font-size: 13px">3Y</span>
             </button>
-          </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Line Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
           </div>
         </div>
         <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
@@ -570,35 +545,7 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Bar Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
         <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
           <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
@@ -625,7 +572,7 @@
       <!-- ICP -->
       <div class="card rounded p-2 mt-3">
         <div class="d-flex align-items-center justify-content-between p-1">
-          <div class="flex-fill fw-semibold">ICP (USD/Barel)</div>
+          <div class="flex-fill fw-semibold">ICP <span class="info-unit">(USD/Barel)</span></div>
 
         </div>
         <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-end py-2">
@@ -633,6 +580,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '1week')"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -641,6 +589,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '1month')"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -649,6 +598,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '1year')"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -657,39 +607,12 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '3years')"
             >
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Line Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
 
         <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
@@ -729,35 +652,7 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Bar Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
 
         <apx-chart
@@ -782,7 +677,7 @@
       </div>
       <!-- end ICP -->
       <!-- COAL NEWCASTLE -->
-      <div class="card rounded p-2 mt-4">
+      <div class="card rounded p-2 mt-3">
         <div class="d-flex align-items-center justify-content-between p-1">
           <div class="flex-fill fw-semibold">COAL (Newcastle)</div>
 
@@ -792,7 +687,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', 'default', '1week')"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '1week')"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -801,7 +696,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', 'default', '1month')"
+               (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '1month')"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -810,7 +705,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', '1year', '1year')"
+               (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '1year')"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -819,40 +714,12 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', 'years', '3years')"
+               (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '3years')"
             >
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Line Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
         <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
           <div>
@@ -891,35 +758,7 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Line Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
         <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
         <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
@@ -956,6 +795,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '1week')"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -964,6 +804,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '1month')"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -972,6 +813,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '1year')"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -980,39 +822,12 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
+              (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '3years')"
             >
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Line Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
         <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
           <div>
@@ -1051,35 +866,7 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Bar Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
         <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
         <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
@@ -1144,35 +931,7 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Line Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
         <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
           <div>
@@ -1207,35 +966,7 @@
               <span style="font-size: 13px">3Y</span>
             </button>
           </div>
-          <div>
-            <button
-              class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
-              style="font-size: 14px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Customize Bar Chart
-            </button>
-            <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
-                <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
-                    <input
-                      type="checkbox"
-                      name="selectedInterestRate"
-                      [id]="item.name"
-                    />
-                    <label class="ms-2" for="item.name">{{ item.name }}</label>
-                    <br />
-                  </ng-container>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                  Save Change
-                </button>
-              </form>
-            </div>
-          </div>
+
         </div>
         <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
         <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
@@ -1283,7 +1014,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="oneWeekInterestBarChart('default')"
+              (click)="filterRangeDateInterestLineChart('1week')"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -1292,7 +1023,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="oneMonthInterestBarChart('default')"
+              (click)="filterRangeDateInterestLineChart('1month')"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -1301,7 +1032,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="oneYearInterestBarChart('1year')"
+              (click)="filterRangeDateInterestLineChart('1year')"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -1310,7 +1041,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="threeYearsAgoInterestBarChart('years')"
+              (click)="filterRangeDateInterestLineChart('3years')"
             >
               <span style="font-size: 13px">3Y</span>
             </button>
@@ -1350,7 +1081,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="oneWeekInterestBarChart('default')"
+              (click)="filterRangeDateInterestBarChart('default', '1week')"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -1359,7 +1090,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="oneMonthInterestBarChart('default')"
+              (click)="filterRangeDateInterestBarChart('default', '1month')"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -1368,7 +1099,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="oneYearInterestBarChart('1year')"
+              (click)="filterRangeDateInterestBarChart('1year', '1year')"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -1377,7 +1108,7 @@
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="threeYearsAgoInterestBarChart('years')"
+              (click)="filterRangeDateInterestBarChart('years', '3years')"
             >
               <span style="font-size: 13px">3Y</span>
             </button>
@@ -1420,6 +1151,7 @@
           [xaxis]="interestRateXaxis"
           [stroke]="intersetRateLineStroke"
           [legend]="interestRateLegend"
+          [colors]="interestRateChartColors"
         ></apx-chart>
 
         <apx-chart
@@ -1427,6 +1159,7 @@
           [series]="barChartInterestRateSeries"
           [chart]="currencyBarChartDetails"
           [dataLabels]="barDataLabels"
+          [colors]="interestRateChartColors"
         ></apx-chart>
       </div>
     </div>

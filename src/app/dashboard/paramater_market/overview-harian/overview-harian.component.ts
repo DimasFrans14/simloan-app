@@ -345,7 +345,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   }
 
-  filteredDate:String = "";
+  filteredDate:string = "";
 
   reFetchAllOverviewHarian = async (date: string) => {
 
@@ -393,6 +393,8 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       const getKeyTakeways = await this.quillConfig.getKeyTakeways(date)
       // console.log(getKeyTakeways);
       this.getKeyTakeways = getKeyTakeways
+
+      this.fetchFootnotes(date)
 
   }
 
@@ -458,8 +460,8 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   
   quillInnerHTMLFootnote: any[] = [];
   resObject:any;
-  fetchFootnotes = async () => {
-    const res = await this.quillConfig.getFootnotes(moment().format("DD/MM/YYYY"));
+  fetchFootnotes = async (date:string) => {
+    const res = await this.quillConfig.getFootnotes(date);
     this.resObject = res;
     this.quillInnerHTMLFootnote = this.resObject.d;
   }
@@ -504,6 +506,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     this.getKeyTakeways = getKeyTakeways
   }
 
+  date:string = moment().format('DD/MM/YYYY');
   async ngOnInit(): Promise<void> {
     try {
 
@@ -512,7 +515,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       this.fetchCurrency();
       this.fetchInterestRate();
       this.fetchKeyTakeWays();
-      this.fetchFootnotes();
+      this.fetchFootnotes(this.date);
 
     }
     catch(err){
@@ -586,18 +589,27 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     console.log(this.quillInnerHTMLFootnote);
   }
 
+  footNoteState = 'add';
+  footNoteData = {
+    note: '',
+    id:'',
+    dashboard_date:'',
+    ori_content: ""
+  }
   getValueFootnote(){
     let value = this.quillFootnote.root.innerHTML;
     this.quillContentFootnote = value;
-    console.log(value);
     this.transformYourHtmlFootnote(this.quillContentFootnote)
-    console.log("Array Footnote : ",this.quillFootnote.getText().split(";"));
+    // this.quillFootnote.deleteText(0,this.quillFootnote.getLength())
 
-    // this.quillContentFootnote.root.innerHTML = '';
-    this.quillFootnote.deleteText(0,this.quillFootnote.getLength())
-    console.log(this.quillFootnote.getLength());
+    let content = this.quillFootnote.getContents();
+    console.log("Konten : ",content);
+    this.footNoteData.ori_content = JSON.stringify(content);
+    this.footNoteData.note = value;
+    this.footNoteData.dashboard_date = (this.filteredDate == '') ? moment().format('DD/MM/YYYY'): this.filteredDate;
 
-    this.quillConfig.sendFootnote(value)
+    
+    this.quillConfig.sendFootnote(this.footNoteData,this.footNoteState);
 
     // if(this.quillFootnote.getLength() < 0){
     //   this.quillFootnote.insertText(this.quillFootnote.getLength() + 1, value)
@@ -605,6 +617,15 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     // else{
 
     // }
+  }
+
+  editFootnote(item:any){
+    this.footNoteState = 'edit';
+    this.footNoteData = item;
+    console.log("Footnote : ", item);
+    this.openModalFootnote()
+    this.quillFootnote.setContents(JSON.parse(this.footNoteData.ori_content));
+    
   }
 
   mentionInnerHTML: any = '';

@@ -594,16 +594,16 @@
             <li class="list-group-item d-flex justify-content-between align-items-start">
               <div class="ms-2 me-auto">
                 <div class="btn-group dropup">
-                  <button type="button" class="footnote-li btn btn-sm btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <button type="button" class="footnote-li btn btn-sm btn-light" data-bs-toggle="dropdown" aria-expanded="false">
                     {{item.nomor}}
                   </button>
                   <ul class="dropdown-menu">
                     <!-- Dropdown menu links -->
-                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                    <li><a class="dropdown-item" data-bs-toggle="modal" (click)="editFootnote(item)" data-bs-target="#footnoteModal">Edit</a></li>
                     <li><a class="dropdown-item" href="#">Delete</a></li>
                   </ul>
                 </div> 
-                <div class="d-inline-block" [innerHTML]="sanitize.bypassSecurityTrustHtml(item.note)"></div>
+                <div class="d-inline-block jancok" [innerHTML]="sanitize.bypassSecurityTrustHtml(item.note)"></div>
               </div>
               
             </li>
