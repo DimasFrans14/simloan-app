@@ -7,7 +7,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./gmtn.component.css']
 })
 export class GMTNComponent {
-  constructor (  private formBuilder:FormBuilder)
+  constructor (  private formBuil1der:FormBuilder)
   {}
 
   today: number = Date.now();
@@ -17,10 +17,15 @@ export class GMTNComponent {
   public save:boolean = false;
   public show:any = 'showSave';
 
-  tanggal = new FormControl('')   
+  tanggal = new FormControl('');   
+
+  doubleTanggal(){
+    const tanggal1 =  this.tanggal;
+    const tanggal2 =  this.tanggal;
+  }
   
   baselineGMTN = new FormGroup({
-    tanggal : this.tanggal = new FormControl,
+    tanggal : this.tanggal = new FormControl(''),  
     tahun : new FormControl,
     tenor : new FormControl,
     rateCoupon : new FormControl,
@@ -28,7 +33,7 @@ export class GMTNComponent {
   });
 
   estimasiBaselineGMTN = new FormGroup({
-    tanggal : this.tanggal = new FormControl,
+    tanggal : this.tanggal = new FormControl(''),
     tahun : new FormControl(''),
     tenor : new FormControl(''),
     indicativeRate : new FormControl(''),
@@ -54,7 +59,8 @@ export class GMTNComponent {
   onSubmit(){
     const dataBaselineGMTN = this.baselineGMTN.value;
     const dataEstimasiBaselineGMTN = this.estimasiBaselineGMTN.value;
-    
+    // const waktu = this.today = Date.now();
+    // console.log(waktu);
     console.log('Data Baseline:', dataBaselineGMTN);
     console.log('Data Estimasi:', dataEstimasiBaselineGMTN);
     this.showSave();
