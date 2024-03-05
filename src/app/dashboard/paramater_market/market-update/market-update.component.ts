@@ -327,7 +327,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       this.dataBondYieldSBN = this.dataBondYieldSBN.d.list.filter((item: any) => item.tipe.includes('SBN') && item.tenor != 'Label')
 
       this.dataBondYieldUST = responseBondYield;
-      this.dataBondYieldUST = this.dataBondYieldUST.d.list.filter((item: any) => item.tipe.includes('US TREASURY'))
+      this.dataBondYieldUST = this.dataBondYieldUST.d.list.filter((item: any) => item.tipe.includes('US_TREASURY'))
 
       console.log(this.dataBondYieldSBN, this.dataBondYieldUST);
       // console.log(limitedDIR);
