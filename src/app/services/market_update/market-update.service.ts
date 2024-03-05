@@ -133,7 +133,7 @@ export class MarketUpdateService {
   async fetchDataBondYield(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan-ws/market/bondyield/getList
+        this.http.get(`${environment.apiUrl2}/market/bondyield/getList
 `)
       );
     } catch (error) {
@@ -237,7 +237,7 @@ export class MarketUpdateService {
     }
     try {
       return await lastValueFrom(
-        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, dataSent)
       )
     } catch (error) {
       console.log(error);
@@ -255,7 +255,7 @@ export class MarketUpdateService {
     }
     try {
       return await lastValueFrom(
-        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, dataSent)
       )
     } catch (error) {
       console.log(error);
@@ -273,7 +273,7 @@ export class MarketUpdateService {
     }
     try {
       return await lastValueFrom(
-        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, dataSent)
       )
     } catch (error) {
       console.log(error);
@@ -294,7 +294,7 @@ export class MarketUpdateService {
   async fetchDataRealisasiPDB(){
     try {
       return await lastValueFrom(
-        this.http.get(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`)
       );
     } catch (error) {
       console.log(error);
@@ -368,7 +368,7 @@ export class MarketUpdateService {
     }
     try {
       return await lastValueFrom(
-        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/cm25-loan-views/view_inflasi?id='+data.id, dataSent)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_inflasi?id=${data.id}`, dataSent)
       )
     } catch (error) {
       console.log(error);
@@ -398,7 +398,7 @@ export class MarketUpdateService {
     }
     try {
       return await lastValueFrom(
-        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, dataSent)
       )
     } catch (error) {
       console.log(error);
@@ -427,7 +427,7 @@ export class MarketUpdateService {
     }
     try {
       return await lastValueFrom(
-        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, dataSent)
       )
     } catch (error) {
       console.log(error);
@@ -456,7 +456,7 @@ export class MarketUpdateService {
     }
     try {
       return await lastValueFrom(
-        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, dataSent)
       )
     } catch (error) {
       console.log(error);
@@ -485,7 +485,7 @@ export class MarketUpdateService {
     }
     try {
       return await lastValueFrom(
-        this.http.put('http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-real-pdb?id='+data.id, dataSent)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, dataSent)
       )
     } catch (error) {
       console.log(error);
