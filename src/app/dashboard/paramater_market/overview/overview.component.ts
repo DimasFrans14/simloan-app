@@ -719,7 +719,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.lineYAxisKurs = [];
           this.tesXaxis = {
             categories: [],
-            labels: {}
+            labels: {},
+            type: 'datetime'
           }
 
           for(let i=0; i< this.dataKurs.length; i++){
@@ -929,7 +930,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             this.lineYAxisKurs = [];
             this.tesXaxis = {
               categories: [],
-              labels: {}
+              labels: {},
+              type: 'datetime'
             }
 
             for(let i=0; i< this.dataKurs.length; i++){
@@ -2085,7 +2087,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         console.log("No compare data found in localStorage.");
     }
 
-    const filteredData = parsedData.d.arrayData.filter(
+    const filteredData = parsedData.filter(
         (item: any) => targetColumn.includes(item.kurs)
     );
 
