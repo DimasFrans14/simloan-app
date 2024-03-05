@@ -93,7 +93,7 @@ export class HitungFincostComponent {
     //bunga perbulan
     this.hasilBungaPerBulan1 = (asumsipinjaman * (indicativeyield/12));
     //bunga per tahun
-  this.hasilBungaPerTahun1 = (indicativeyield * asumsipinjaman * kurs)/100000000000; // kurs
+  this.hasilBungaPerTahun1 = (indicativeyield * asumsipinjaman * kurs)/1000000000000; // kurs
     //total bunga
     this.hasilTotalBunga1 = this.hasilBungaPerTahun1*tenor2;
     //selisih delta pertahun
