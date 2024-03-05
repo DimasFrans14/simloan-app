@@ -70,6 +70,8 @@ import { GMTNComponent } from './dashboard/paramater_market/financing-cost/gmtn/
 import { ShlAgreementDetailComponent } from './dashboard/shl/shl-agreement/shl-agreement-detail/shl-agreement-detail.component';
 import { ShlCreateAgreementComponent } from './dashboard/shl/shl-agreement/shl-create-agreement/shl-create-agreement.component';
 import { ShlPreviewCreateAgreementComponent } from './dashboard/shl/shl-agreement/shl-create-agreement/shl-preview-create-agreement/shl-preview-create-agreement.component';
+import { ShlWithdrawalComponent } from './dashboard/shl/shl-withdrawal/shl-withdrawal.component';
+import { ShlCreateWithdrawalComponent } from './dashboard/shl/shl-withdrawal/shl-create-withdrawal/shl-create-withdrawal.component';
 
 @NgModule({
   declarations: [
@@ -118,6 +120,8 @@ import { ShlPreviewCreateAgreementComponent } from './dashboard/shl/shl-agreemen
     ShlAgreementDetailComponent,
     ShlCreateAgreementComponent,
     ShlPreviewCreateAgreementComponent,
+    ShlWithdrawalComponent,
+    ShlCreateWithdrawalComponent,
   ],
   imports: [
     BrowserModule,

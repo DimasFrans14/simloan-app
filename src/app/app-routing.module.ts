@@ -43,6 +43,8 @@ import { ShlAgreementDetailComponent } from './dashboard/shl/shl-agreement/shl-a
 import { ShlCreateAgreementComponent } from './dashboard/shl/shl-agreement/shl-create-agreement/shl-create-agreement.component';
 import { ShlPreviewCreateAgreementComponent } from './dashboard/shl/shl-agreement/shl-create-agreement/shl-preview-create-agreement/shl-preview-create-agreement.component';
 import { GMTNComponent } from './dashboard/paramater_market/financing-cost/gmtn/gmtn.component';
+import { ShlWithdrawalComponent } from './dashboard/shl/shl-withdrawal/shl-withdrawal.component';
+import { ShlCreateWithdrawalComponent } from './dashboard/shl/shl-withdrawal/shl-create-withdrawal/shl-create-withdrawal.component';
 
 const routes: Routes = [
   //error msg
@@ -68,6 +70,7 @@ const routes: Routes = [
   { path: 'hitung_fincost', component: HitungFincostComponent},
   { path: 'gmtn', component: GMTNComponent},
   { path: 'shl_agreement', component: ShlAgreementComponent},
+  { path: 'shl_withdrawal', component: ShlWithdrawalComponent},
   { path: 'create_agreement', component: CreateAgreementComponent},
   { path: 'amandement_agreement', component: AmandementAgreementComponent},
   { path: 'analisa_shl', component: AnalisaShlComponent},
@@ -101,7 +104,10 @@ const routes: Routes = [
   //Child Path SHL Agreement
   { path: 'shl_agreement/details/:id', component: ShlAgreementDetailComponent},
   { path: 'shl_agreement/create', component: ShlCreateAgreementComponent},
-  { path: 'shl_agreement/preview_create', component: ShlPreviewCreateAgreementComponent}
+  { path: 'shl_agreement/preview_create', component: ShlPreviewCreateAgreementComponent},
+
+  //Child Path SHL Withdawal
+  { path: 'shl_withdrawal/create', component: ShlCreateWithdrawalComponent},
 ];
 
 @NgModule({
