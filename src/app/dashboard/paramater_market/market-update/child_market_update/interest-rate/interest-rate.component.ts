@@ -118,9 +118,10 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
   async getData(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
+    let getYear = moment().format('YYYY');
 
     try {
-      const data = await this.marketUpdateService.fetchDataInterestRate();
+      const data = await this.marketUpdateService.fetchDataInterestRate(getYear);
       this.dataDetail = data;
       this.dataDetail = this.dataDetail.data;
       this.isLoading = false;
