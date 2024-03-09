@@ -5,6 +5,7 @@ import 'quill-mention';
 import { lastValueFrom } from 'rxjs';
 import { Moment } from 'moment';
 import * as moment from 'moment';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -162,23 +163,41 @@ export class QuillServicesService {
     if(state == 'add'){
       try {
         return await lastValueFrom(
-          this.http.post(`${this.serverDev}/dashboard/market/footnote/insert`, objectData)
+          this.http.post(`${environment.apiUrl2}/dashboard/market/footnote/insert`, objectData)
         )
       } catch (error) {
         console.log(error);
         return null
       }
-    } else {
+
+    } else if(state == 'edit') {
       try {
         return await lastValueFrom(
-          this.http.post(`${this.serverDev}/dashboard/market/footnote/update`, objectData)
+          this.http.post(`${environment.apiUrl2}/dashboard/market/footnote/update`, objectData)
         )
       } catch (error) {
         console.log(error);
         return null
       }
     }
-    
+    else{
+
+      const deleteData = {
+        id: objectData.id
+      }
+
+      try {
+        return await lastValueFrom(
+
+          //Menggunakan POST karena menggunakan payload
+          this.http.post(`${environment.apiUrl2}/dashboard/market/footnote/delete`, deleteData)
+        )
+      } catch (error) {
+        console.log(error);
+        return null
+      }
+    }
+
   }
 
   async getFootnotes(dash_date: string){
@@ -187,7 +206,7 @@ export class QuillServicesService {
     }
     try {
       return await lastValueFrom(
-        this.http.post(`${this.serverDev}/dashboard/market/footnote/getList`, data)
+        this.http.post(`${environment.apiUrl2}/dashboard/market/footnote/getList`, data)
       )
     } catch (error) {
       console.log(error);

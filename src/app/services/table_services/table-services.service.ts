@@ -236,6 +236,12 @@ export class TableServicesService {
   tableDokumenAPSHLAgreement: any;
   tableDataDokumenAPSHLAgreement: any;
 
+  tableSHLWithdrawal: any;
+  tableDataSHLWithdrawal: any;
+
+  tableDetailWithdrawal: any;
+  tableDataDetailWithdrawal: any;
+
   //table import findebt
   tableDataImport:any;
   tableImport:any;
@@ -2182,6 +2188,86 @@ export class TableServicesService {
         {title:"Size Dokumen", field:"size_dokumen", hozAlign:"left", headerHozAlign:"left"},
         {title:"Created By", field:"created_by", hozAlign:"left", headerHozAlign:"left"},
         // {title:"Grace Period", field:"grace_periode", hozAlign:"left", headerHozAlign:"left"},
+      ],
+    });
+  }
+
+  initializeTableSHLWithdrawal(){
+
+    this.tableDataSHLWithdrawal = [
+      {
+        id:1, anak_perusahaan:"PT. Indonesia Comnet Plus", agreement_number:"1620.Pj/KEU.01.09/F01070100/2022", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2022", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jenis_shl: "Non Penerusan Pinjaman", jumlah_amandement:"1", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+      {
+        id:2, anak_perusahaan:"PT. PLN Batam", agreement_number:"1620.Pj/KEU.01.09/F01070100/2022", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2022", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jenis_shl: "Non Penerusan Pinjaman", jumlah_amandement:"Belum Ada", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+      {
+        id:3, anak_perusahaan:"PT. Pelayaran Bahtera Adhiguna", agreement_number:"1620.Pj/KEU.01.09/F01070100/2022", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2022", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jenis_shl: "Non Penerusan Pinjaman", jumlah_amandement:"Belum Ada", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+      {
+        id:4, anak_perusahaan:"PT. Pelayaran Bahtera Adhiguna", agreement_number:"1620.Pj/KEU.01.09/F01070100/2023", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2023", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jenis_shl: "Non Penerusan Pinjaman", jumlah_amandement:"Belum Ada", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+      {
+        id:5, anak_perusahaan:"PT. Pembangkitan Jawa-Bali", agreement_number:"1620.Pj/KEU.01.09/F01070100/2023", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2023", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jenis_shl: "Non Penerusan Pinjaman", jumlah_amandement:"Belum Ada", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+      {
+        id:6, anak_perusahaan:"PT. Indonesia Comnet Plus", agreement_number:"1620.Pj/KEU.01.09/F01070100/2023", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2023", tanggal_dibuat:"12/02/2024", deskripsi:"deskripsi", jumlah_amandement:"Belum Ada", amandement_agreement_number: '0268.PJ/530/DIR/2014', created_by:'User', status: 'Approved', approver: 'Manager'
+      },
+    ];
+
+    const actionBtn = function(_cell: any, _formatterParams: any){
+      return "<button type='button' class='btn'><i class='bi bi-eye'></i></button> <button type='button' class='btn' (click)='alert('clicked')'><i class='bi bi-pencil-square'></i></button";
+    }
+
+    const checkBox = function(_cell:any, _formatterParams: any){
+      return "<input type='checkbox'></input>"
+    }
+
+    this.tableSHLWithdrawal = new Tabulator(".table-shlWithdrawal", {
+      // height:205,
+      data:this.tableDataSHLWithdrawal,
+
+      layout:"fitColumns",
+      columns:[
+        // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
+        {title:"Anak Perusahaan", field:"anak_perusahaan", headerHozAlign:"left", hozAlign:'left', headerSort:true, width:300, frozen: true},
+        {title:"SHL Agreement Number", field:"agreement_number", hozAlign:"left", headerHozAlign:"left", width:300},
+        {title:"SHL Agreement Number Anak Perusahaan", field:"agreement_number_anakperusahaan", hozAlign:"left", headerHozAlign:"left", width:300},
+        {title:"Tanggal SHL Agreement", field:"tanggal_dibuat", hozAlign:"left", headerHozAlign:"left", width:200},
+        {title:"Deskripsi Proyek", field:"deskripsi", hozAlign:"left", headerHozAlign:"left", width:300},
+        {title:"Jenis Shareholder Loan", field:"jenis_shl", hozAlign:"left", headerHozAlign:"left", width:250},
+        {title:"SHL Amandement ke-", field:"jumlah_amandement", hozAlign:"left", headerHozAlign:"left", width:150},
+        {title:"SHL Amendment Agreement Number", field:"amandement_agreement_number", hozAlign:"left", headerHozAlign:"left", width:300},
+        {title:"Created By", field:"created_by", hozAlign:"left", headerHozAlign:"left", width:120},
+        {title:"Status", field:"status", hozAlign:"left", headerHozAlign:"left", width:120},
+        {title:"Approver", field:"approver", hozAlign:"left", headerHozAlign:"left", width:120},
+        {title: "Action", formatter:actionBtn,
+        //  cellClick:this.getRowData,
+         width:120,hozAlign:"center", headerHozAlign:"center"},
+      ],
+    });
+  }
+
+  initializeTableDetailWithdrawal(){
+    this.tableDataDetailWithdrawal = [
+      {
+        id:1, withdrawal:1, nominal_withdrawal: 25, tanggal_withdrawal: "DD/MM/YYY", berakhir_availability: "DD/MM/YYY"
+      },
+      {
+        id:2, withdrawal:2, nominal_withdrawal: 25, tanggal_withdrawal: "DD/MM/YYY", berakhir_availability: "DD/MM/YYY"
+      },
+    ];
+
+    this.tableDetailWithdrawal = new Tabulator(".table-withdrawalDetail", {
+      // height:205,
+      data:this.tableDataDetailWithdrawal,
+      layout:"fitColumns",
+      columns:[
+        // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
+        {title:"Withdrawal", field:"withdrawal", headerHozAlign:"left", hozAlign:'left', headerSort:true, bottomCalc: this.customBottomCalc},
+        {title:"Nominal Withdrawal", field:"nominal_withdrawal", hozAlign:"left", headerHozAlign:"left", bottomCalc: "sum" ,bottomCalcParams:{precision:1}},
+        {title:"Tanggal Withdrawal", field:"tanggal_withdrawal", hozAlign:"left", headerHozAlign:"left"},
+        {title:"Berakhirnya Availablitily Period", field:"berakhir_availability", hozAlign:"left", headerHozAlign:"left"},
       ],
     });
   }

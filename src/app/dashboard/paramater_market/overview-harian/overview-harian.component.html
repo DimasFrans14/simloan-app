@@ -556,7 +556,7 @@
   </div>
 
   <div class="row bg-white p-3 rounded">
-    <div class="col-12" style="font-size: 12px;" [innerHTML]="sanitize.bypassSecurityTrustHtml(getKeyTakeways.d.label)">
+    <div class="col-12" style="font-size: 12px;" [innerHTML]="sanitize.bypassSecurityTrustHtml(getKeyTakeways)">
     </div>
   </div>
 
@@ -594,18 +594,18 @@
             <li class="list-group-item d-flex justify-content-between align-items-start">
               <div class="ms-2 me-auto">
                 <div class="btn-group dropup">
-                  <button type="button" class="footnote-li btn btn-sm btn-light" data-bs-toggle="dropdown" aria-expanded="false">
+                  <button type="button" class="footnote-li btn btn-sm btn-light me-1" data-bs-toggle="dropdown" aria-expanded="false">
                     {{item.nomor}}
                   </button>
                   <ul class="dropdown-menu">
                     <!-- Dropdown menu links -->
                     <li><a class="dropdown-item" data-bs-toggle="modal" (click)="editFootnote(item)" data-bs-target="#footnoteModal">Edit</a></li>
-                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                    <li><a class="dropdown-item" (click)="deleteFootnote(item)">Delete</a></li>
                   </ul>
-                </div> 
+                </div>
                 <div class="d-inline-block jancok" [innerHTML]="sanitize.bypassSecurityTrustHtml(item.note)"></div>
               </div>
-              
+
             </li>
           </ng-container>
         </ul>

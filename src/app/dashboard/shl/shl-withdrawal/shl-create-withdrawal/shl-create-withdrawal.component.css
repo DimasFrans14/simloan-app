@@ -1,0 +1,30 @@
+.sub-nav{
+  margin-top: 60px;
+  /* padding-left: 278px;
+  padding-bottom: 20px;
+  padding-top: 15px; */
+  padding: 20px 0px 20px 278px;
+}
+
+#main{
+  margin-top: 20px;
+}
+
+.form-control{
+  width: 495px;
+}
+
+.label-inputWithdrawal{
+  color: var(--Color-Silver-950, #0C0C0F);
+
+/* Text xs/Bold */
+font-family: Satoshi;
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: 24px; /* 150% */
+}
+
+::ng-deep .mat-horizontal-content-container{
+  overflow: visible !important;
+}

@@ -1306,3 +1306,11 @@ h6 {
 .tabulator-cell{
   font-size: 14px;
 }
+
+.mandatorySign{
+  color: #ed151c;
+}
+
+.detail-data{
+  background: #F4F5F6;
+}

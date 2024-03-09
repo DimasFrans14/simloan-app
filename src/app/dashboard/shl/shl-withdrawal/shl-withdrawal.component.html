@@ -1,0 +1,90 @@
+<div>
+  <app-header></app-header>
+  <app-sidebar></app-sidebar>
+
+  <div id="header" class="header">
+    <div class="col-12 bg-white sub-nav border-top">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="me-2">
+          <h4>SHL Withdrawal</h4>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-primary me-4"
+          style="font-size: 14px"
+          (click)="createSHL()"
+        >
+          <i class="bi bi-plus-lg me-1"></i>Create
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main id="main" class="main">
+    <div class="bg-white p-3 rounded">
+      <div class="d-flex justify-content-start align-items-center mb-3">
+        <div>
+          <button
+            class="btn btn-transparant border-secondary bg-white dropdown-toggle me-2 rounded-pill"
+            style="font-size: 14px"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="bi bi-filter me-1"></i>Filter
+          </button>
+          <div class="dropdown-menu ps-2">
+            <form>
+              <div style="font-size: 15px">
+                <input type="checkbox" name="IDR" id="mata_uang" />
+                <label class="ms-2" value="mata_uang" for="IDR">IDR</label>
+                <br />
+                <input type="checkbox" name="Exchange Rate" id="nilai_rkap" />
+                <label class="ms-2" value="" for="Exchange Rate"
+                  >Exchange Rate</label
+                >
+                <br />
+                <input type="checkbox" name="Change RKAP" id="change_rkap" />
+                <label class="ms-2" value="" for="Change RKAP"
+                  >Change RKAP</label
+                >
+                <br />
+                <input type="checkbox" name="Change MoM" id="change_mom" />
+                <label class="ms-2" value="" for="Change MoM">Change MoM</label>
+                <br />
+                <input type="checkbox" name="Change WoW" id="change_wow" />
+                <label class="ms-2" value="" for="Change WoW">Change WoW</label>
+                <br />
+                <input type="checkbox" name="Change 1 Day" id="change_1day" />
+                <label class="ms-2" value="" for="Change 1 Day"
+                  >Change 1 Day</label
+                >
+              </div>
+              <button type="submit" class="btn btn-primary btn-sm mt-2">
+                Save Change
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="search search-bar">
+          <form class="search-form" method="POST" action="#">
+            <input
+              type="text"
+              name="query"
+              id="searchNonPenerusan"
+              placeholder="Search"
+              title="Enter search keyword"
+              (input)="getValueInput($event)"
+            />
+            <button type="submit" title="Search">
+              <i class="bi bi-search"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="table-shlWithdrawal"></div>
+    </div>
+  </main>
+</div>

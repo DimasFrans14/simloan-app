@@ -393,6 +393,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       const getKeyTakeways = await this.quillConfig.getKeyTakeways(date)
       // console.log(getKeyTakeways);
       this.getKeyTakeways = getKeyTakeways
+      this.getKeyTakeways = this.getKeyTakeways.d.label
 
       this.fetchFootnotes(date)
 
@@ -457,7 +458,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     }
   }
 
-  
+
   quillInnerHTMLFootnote: any[] = [];
   resObject:any;
   fetchFootnotes = async (date:string) => {
@@ -503,7 +504,8 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   fetchKeyTakeWays = async () => {
     const getKeyTakeways = await this.quillConfig.getKeyTakeways(moment().format('DD/MM/YYYY'))
     // console.log(getKeyTakeways);
-    this.getKeyTakeways = getKeyTakeways
+    this.getKeyTakeways = getKeyTakeways;
+    this.getKeyTakeways = this.getKeyTakeways.d.label
   }
 
   date:string = moment().format('DD/MM/YYYY');
@@ -564,7 +566,8 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
       if(this.statusKeytakeways.s === 200){
         const getKeyTakeways = await this.quillConfig.getKeyTakeways(moment(new Date()).format('DD/MM/YYYY'));
-        this.getKeyTakeways = getKeyTakeways
+        this.getKeyTakeways = getKeyTakeways;
+        this.getKeyTakeways = this.getKeyTakeways.d.label
     }
     } catch (error) {
       console.log(error);
@@ -596,7 +599,8 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     dashboard_date:'',
     ori_content: ""
   }
-  getValueFootnote(){
+
+  getValueFootnote = async () => {
     let value = this.quillFootnote.root.innerHTML;
     this.quillContentFootnote = value;
     this.transformYourHtmlFootnote(this.quillContentFootnote)
@@ -608,24 +612,48 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     this.footNoteData.note = value;
     this.footNoteData.dashboard_date = (this.filteredDate == '') ? moment().format('DD/MM/YYYY'): this.filteredDate;
 
-    
-    this.quillConfig.sendFootnote(this.footNoteData,this.footNoteState);
+    console.log(this.footNoteData, this.footNoteState, moment().format('DD/MM/YYYY'));
 
-    // if(this.quillFootnote.getLength() < 0){
-    //   this.quillFootnote.insertText(this.quillFootnote.getLength() + 1, value)
-    // }
-    // else{
+    let dateParams = this.filteredDate === '' ? moment().format('DD/MM/YYYY') : this.filteredDate;
 
-    // }
+    const sendFootnote = await this.quillConfig.sendFootnote(this.footNoteData,this.footNoteState);
+    const getFootNoteData = await this.quillConfig.getFootnotes(dateParams);
+    this.resObject = getFootNoteData;
+    this.quillInnerHTMLFootnote = this.resObject.d
+
+
   }
 
   editFootnote(item:any){
     this.footNoteState = 'edit';
-    this.footNoteData = item;
+    this.footNoteData.id = item.id
+    this.footNoteData.ori_content = JSON.stringify(item.ori_content);
+    this.footNoteData.note = item.note;
+    this.footNoteData.dashboard_date = (this.filteredDate == '') ? moment().format('DD/MM/YYYY'): this.filteredDate;
     console.log("Footnote : ", item);
+
     this.openModalFootnote()
-    this.quillFootnote.setContents(JSON.parse(this.footNoteData.ori_content));
-    
+    this.quillFootnote.setContents(JSON.parse(item.ori_content));
+  }
+
+  deleteFootnote = async (item: any) => {
+    this.footNoteState= 'delete';
+
+    this.footNoteData.id = item.id
+    this.footNoteData.ori_content = JSON.stringify(item.ori_content);
+    this.footNoteData.note = item.note;
+    this.footNoteData.dashboard_date = (this.filteredDate == '') ? moment().format('DD/MM/YYYY'): this.filteredDate;
+    console.log("Footnote : ", item);
+
+    let dateParams = this.filteredDate === '' ? moment().format('DD/MM/YYYY') : this.filteredDate;
+
+    const sendFootnote = await this.quillConfig.sendFootnote(this.footNoteData,this.footNoteState);
+
+    const getFootNoteData = await this.quillConfig.getFootnotes(dateParams);
+    this.resObject = getFootNoteData;
+    this.quillInnerHTMLFootnote = this.resObject.d
+    // this.openModalFootnote()
+    // this.quillFootnote.setContents(JSON.parse(item.ori_content));
   }
 
   mentionInnerHTML: any = '';
@@ -637,7 +665,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     this.mentionInnerHTML = innerHTML
     console.log(innerHTML);
 
-    
+
 
   }
 
