@@ -17,7 +17,8 @@ export class GMTNComponent {
   public save:boolean = false;
   public show:any = 'showSave';
 
-  tanggal = new FormControl('');   
+  tanggal = new FormControl(''); 
+  nama_obligasi = new FormControl();  
 
   doubleTanggal(){
     const tanggal1 =  this.tanggal;
