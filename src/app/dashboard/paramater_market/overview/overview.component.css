@@ -37,3 +37,9 @@
   color: var(--Color-Silver-600, #818181);
 /* Text sm/Medium */
 }
+
+.active{
+  background-color: #0d6efd !important;
+  color: white !important;
+  border: none;
+}
