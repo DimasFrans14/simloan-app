@@ -215,8 +215,6 @@ export class MarketUpdateService {
     }
   }
 
-
-
   async fetchDataPDB(){
     try {
       return await lastValueFrom(
@@ -227,69 +225,77 @@ export class MarketUpdateService {
       return null;
     }
   }
+
   async fetchDataUpdateRealisasiPDB(data:any){
-    const dataSent = {
-      data: {
+      const data1 = {
         "quartal": data.quartal,
         "tahun":data.tahun,
         "nilai": data.nilai
       }
-    }
+    
     try {
       return await lastValueFrom(
-        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, dataSent)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, data1)
       )
     } catch (error) {
       console.log(error);
       return error
+    }
+  }
+
+  async fetchDataRkapPDB(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-pdb`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
     }
   }
 
   async fetchDataUpdateRkapPDB(data:any){
-    const dataSent = {
-      data: {
-        "quartal": data.quartal,
-        "tahun":data.tahun,
-        "nilai": data.nilai
-      }
+    const data1= {
+      "quartal": data.quartal,
+      "tahun":data.tahun,
+      "nilai": data.nilai
     }
     try {
       return await lastValueFrom(
-        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, dataSent)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, data1)
       )
     } catch (error) {
       console.log(error);
       return error
+    }
+  }
+
+  async fetchDataOutlookPDB(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-pdb`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
     }
   }
 
   async fetchDataUpdateOutlookPDB(data:any){
-    const dataSent = {
-      data: {
-        "quartal": data.quartal,
-        "tahun":data.tahun,
-        "nilai": data.nilai
-      }
+    const data1= {
+      "quartal": data.quartal,
+      "tahun":data.tahun,
+      "nilai": data.nilai
     }
     try {
       return await lastValueFrom(
-        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, dataSent)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, data1)
       )
     } catch (error) {
       console.log(error);
       return error
     }
   }
-
-  // putData(data: any, url: string) {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json',
-  //     }),
-  //   };
-  //   return this.http.put(url, data, httpOptions);
-  // }
-
 
   async fetchDataRealisasiPDB(){
     try {
@@ -359,16 +365,16 @@ export class MarketUpdateService {
   }
 
   async fetchDataUpdateRealisasiInflasi(data:any){
-    const dataSent = {
-      data: {
-        "bulan": data.bulan,
-        "nilai": data.nilai,
-        "tahun": data.tahun,
-      }
+    data = {
+      "bulan": data.bulan,
+      "nilai_year_min3": data.nilai_year_min3,
+      "nilai_year_min2": data.nilai_year_min2,
+      "nilai_year_min1": data.nilai_year_min1,
+      "nilai_year_min0": data.nilai_year_min0
     }
     try {
       return await lastValueFrom(
-        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_inflasi?id=${data.id}`, dataSent)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_inflasi?id=${data.id}`, data)
       )
     } catch (error) {
       console.log(error);

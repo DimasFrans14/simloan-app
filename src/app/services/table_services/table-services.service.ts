@@ -2402,9 +2402,11 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.periode,
-      nilai: rowData.nilai,
-      tahun: rowData.tahun
+      bulan: rowData.bulan,
+      nilai_year_min3: rowData.nilai_year_min3,
+      nilai_year_min2: rowData.nilai_year_min2,
+      nilai_year_min1: rowData.nilai_year_min1,
+      nilai_year_min0: rowData.nilai_year_min0
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateRealisasiInflasi(data);

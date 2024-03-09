@@ -14,12 +14,15 @@ export class HitungFincostComponent {
   public buttonHitung:any = 'hideHitungKalkulasi';
   hasilBungaPerBulan: any | null=null;
   hasilBungaPerTahun: any | null=null;
-  hasilTotalBunga: number | null=null;
+  hasilTotalBunga: any | null=null;
   hasilBungaPerBulan1: number | null=null;
   hasilBungaPerTahun1: any | null=null;
   hasilTotalBunga1: any | null=null;
   selisihDeltaMiliar: number|null=null;
   selisihDeltaTriliun: number|null=null;
+  selisihDelta30TahunTriliun: any | null=null;
+  selisihDelta30TahunMiliar: any | null=null;
+
   constructor (private formBuilder : FormBuilder){
 
   }
@@ -31,39 +34,31 @@ export class HitungFincostComponent {
 
   hitungSimulasi1 = new FormGroup({
     obligasi : new FormControl(''),
-    asumsiPinjaman : new FormControl(''),
-    indicativeYield : new FormControl(''),
+    asumsi_pinjaman : new FormControl(''),
+    indicative_yield : new FormControl(''),
     kurs : new FormControl(''),
     //kurs ambil dari nilai kurs overview harian
-    bungaPerBulan : new FormControl(this.hasilBungaPerBulan),
-    bungaPertahun : new FormControl(this.hasilBungaPerTahun),
-    totalBunga : new FormControl(this.hasilTotalBunga)  
+    bunga_perbulan : new FormControl(this.hasilBungaPerBulan),
+    bunga_pertahun : new FormControl(this.hasilBungaPerTahun),
+    total_bunga : new FormControl(this.hasilTotalBunga)  
   });
 
   
   hitungSimulasi2 = new FormGroup({
     obligasi : new FormControl(''),
-    asumsiPinjaman : new FormControl(''),
-    indicativeYield : new FormControl(''),
+    asumsi_pinjaman : new FormControl(''),
+    indicative_yield : new FormControl(''),
     kurs : new FormControl(''), 
     //kurs ambil dari nilai kurs overview harian
-    bungaPerBulan : new FormControl(this.hasilBungaPerBulan1),
-    bungaPertahun : new FormControl(this.hasilBungaPerTahun1),
-    totalBunga : new FormControl(this.hasilTotalBunga1),
+    bunga_perBulan : new FormControl(this.hasilBungaPerBulan1),
+    bunga_pertahun : new FormControl(this.hasilBungaPerTahun1),
+    total_bunga : new FormControl(this.hasilTotalBunga1),
   })
-
-  selisihDelta = new FormGroup ({
-    selisihDeltaPertahunTriliun  : new  FormControl(this.selisihDeltaTriliun),
-    selisihDeltaPertahunMiliar  : new  FormControl(this.selisihDeltaMiliar),
-    selisihDeltaPer30ThnTriliun  : new  FormControl(this.selisihDeltaMiliar),
-    selisihDeltaPer30ThnMiliar  : new  FormControl(this.selisihDeltaTriliun),
-  })
-
 
   hitungbunga(){
     const tenor1 = this.tenor1.value as unknown as number; 
-    const asumsipinjaman = this.hitungSimulasi1.get('asumsiPinjaman')?.value as unknown as number;
-    const indicativeyield = this.hitungSimulasi1.get('indicativeYield')?.value as unknown as number;
+    const asumsipinjaman = this.hitungSimulasi1.get('asumsi_pinjaman')?.value as unknown as number;
+    const indicativeyield = this.hitungSimulasi1.get('indicative_yield')?.value as unknown as number;
     const kurs = this.hitungSimulasi1.get('kurs')?.value as unknown as number;
     //bunga perbulan
     this.hasilBungaPerBulan = asumsipinjaman * (indicativeyield/12);
@@ -71,24 +66,24 @@ export class HitungFincostComponent {
     this.hasilBungaPerTahun = (indicativeyield * asumsipinjaman * kurs)/1000000000000; // kurs
     //total bunga
     this.hasilTotalBunga = this.hasilBungaPerTahun*tenor1;
-    // const hasil = [
-    //   this.tanggal.value,
-    //   this.bank.value,
-    //   this.tenor1.value,
-    //   this.hitungSimulasi1.value.obligasi,
-    //   this.hasilBungaPerBulan,
-    //   this.hasilBungaPerTahun,
-    //   this.hasilTotalBunga
-    // ]
-    // const data = JSON.stringify(hasil.values);
-    // console.log('simulasi 1:',hasil);
-    console.log('Simulasi 1:',this.hitungSimulasi2.value);
+
+    const hasil = {
+      tanggal: this.tanggal.value,
+      bank: this.bank.value,
+      tenor_1: this.tenor1.value,
+      obligasi: this.hitungSimulasi2.value.obligasi,
+      bunga_perbulan: this.hasilBungaPerBulan,
+      bunga_pertahun: this.hasilBungaPerTahun,
+      total_bunga: this.hasilTotalBunga,
+    }
+    console.log('simulasi_1:',hasil);
+    // console.log('Simulasi 1:',this.hitungSimulasi2.value);
   }
 
   hitungbunga1(){
     const tenor2 = this.tenor2.value as unknown as number; 
-    const asumsipinjaman = this.hitungSimulasi2.get('asumsiPinjaman')?.value as unknown as number;
-    const indicativeyield = this.hitungSimulasi2.get('indicativeYield')?.value as unknown as number;
+    const asumsipinjaman = this.hitungSimulasi2.get('asumsi_pinjaman')?.value as unknown as number;
+    const indicativeyield = this.hitungSimulasi2.get('indicative_yield')?.value as unknown as number;
     const kurs = this.hitungSimulasi2.get('kurs')?.value as unknown as number;
     //bunga perbulan
     this.hasilBungaPerBulan1 = (asumsipinjaman * (indicativeyield/12));
@@ -98,30 +93,38 @@ export class HitungFincostComponent {
     this.hasilTotalBunga1 = this.hasilBungaPerTahun1*tenor2;
     //selisih delta pertahun
     const bungatahun  =  this.hasilBungaPerTahun;
-    const bungatahun1 =  this.hasilBungaPerTahun1
-    this.selisihDeltaMiliar = (bungatahun - bungatahun1)/1000;; //milliar
+    const bungatahun1 =  this.hasilBungaPerTahun1;
+    this.selisihDeltaMiliar = (bungatahun - bungatahun1)*1000;; //milliar
     this.selisihDeltaTriliun = this.selisihDeltaMiliar*1000;
+    //selisih delta 3 tahun
+    const totalbunga1 = this.hasilTotalBunga;
+    const totalbunga2 = this.hasilTotalBunga1;
+    this.selisihDelta30TahunTriliun = totalbunga1 - totalbunga2;
+    this.selisihDelta30TahunMiliar = this.selisihDelta30TahunTriliun*1000;
 
-    // const hasil = [
-    //   this.tanggal.value,
-    //   this.bank.value,
-    //   this.tenor1.value,
-    //   this.hitungSimulasi2.value.obligasi,
-    //   this.hasilBungaPerBulan1,
-    //   this.hasilBungaPerTahun1,
-    //   this.hasilTotalBunga1,
-    //   this.selisihDeltaMiliar,
-    // ]
-    // console.log('simulasi 2:',hasil)
-    console.log('Simulasi 2:',this.hitungSimulasi1.value);
+    const selisihDelta = {
+      selisih_delta_pertahun_miliar : this.selisihDeltaMiliar,
+      selisih_delta_pertahun_triliun : this.selisihDeltaTriliun,
+      selisih_delta_30_tahun_miliar : this.selisihDelta30TahunMiliar,
+      selisih_delta_30_tahun_triliun : this.selisihDelta30TahunTriliun,
+    }
+    const hasil = {
+      tanggal: this.tanggal.value,
+      bank: this.bank.value,
+      tenor_2: this.tenor1.value,
+      obligasi: this.hitungSimulasi2.value.obligasi,
+      bunga_perbulan: this.hasilBungaPerBulan1,
+      bunga_pertahun: this.hasilBungaPerTahun1,
+      total_bunga: this.hasilTotalBunga1,
+    }
+    console.log('simulasi_2:',hasil)
+    console.log('selisih_Delta:', selisihDelta )
+    // console.log('Simulasi 2:',this.hitungSimulasi1.value);
   }
-
-
 
   hitung(){
     this.hitungbunga()
     this.hitungbunga1()
-    console.log('Selisih Delta:',this.selisihDelta.value)
   }
 
   // bungapertahun(){

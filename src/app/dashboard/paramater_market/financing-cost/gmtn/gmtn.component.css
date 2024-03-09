@@ -1,5 +1,6 @@
 .card{
     border: none;
+    box-shadow: none;
 }
 #main{
   margin-top: 15px;
