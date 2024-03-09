@@ -46,16 +46,16 @@
               </svg>
             </div>
             <ng-select
-              [items]="anakPerusahaan"
+              [items]="dataMasterAnakPerusahaan"
               class="form-control"
-              bindLabel="name"
+              bindLabel="anak_perusahan"
               id="anakPerusahaan"
               placeholder="Pilih Nama Anak Perusahaan"
-              bindValue="name"
-              formControlName="selectedAP"
+              bindValue="id_anak_prhsan"
+              formControlName="idAnakPerusahaan"
               [ngClass]="{
                 'is-invalid':
-                  submitted && firstFormGroup.controls.selectedAP.errors
+                  submitted && firstFormGroup.controls.idAnakPerusahaan.errors
               }"
               required
             >
@@ -195,7 +195,7 @@
                   type="radio"
                   name="masaPengembalian"
                   id="flexRadioDefault1"
-                  [value]="'freeText'"
+                  [value]="'FREE_TEXT'"
                   formControlName="masaPengembalian"
                   (change)="onChange()"
                   required
@@ -482,7 +482,7 @@
                       type="radio"
                       name="berakhirPerjanjian"
                       id="berakhirPerjanjian"
-                      [value]="'freeText'"
+                      [value]="'FREE_TEXT'"
                       formControlName="berakhirPerjanjian"
                       (change)="berakhirPerjanjianClick()"
                       required
@@ -583,7 +583,7 @@
                       formControlName="availabilityPeriode"
                       (change)="availabilityPeriodeClick()"
                       id="availabilityPeriode"
-                      [value]="'freeText'"
+                      [value]="'FREE_TEXT'"
                       required
                     />
                     <label class="form-check-label" for="availabilityPeriode">
@@ -680,7 +680,7 @@
                       formControlName="gracePeriod"
                       (change)="gracePeriodeClick()"
                       id="gracePeriod"
-                      [value]="'freeText'"
+                      [value]="'FREE_TEXT'"
                       required
                     />
                     <label class="form-check-label" for="gracePeriod">
@@ -1176,15 +1176,13 @@
               </svg>
             </div>
 
-            <ngx-dropzone (change)="onSelectDokumen($event, 'PLN')">
+            <!-- <ngx-dropzone (change)="onSelectDokumen($event, 'PLN')">
               <ngx-dropzone-label>
                 <img src="./assets/icon/upload-cloud-02.svg" alt="" />
                 <div class="text-center">
                   Drag and Drop here or
                   <span class="text-primary">Browser here</span>
-                  <!-- <div *ngIf="submitted && thirdFormGroup.controls.dokumenPLN.errors" class="text-danger">
-                      Please upload a file.
-                    </div> -->
+
                 </div>
               </ngx-dropzone-label>
               <ngx-dropzone-preview
@@ -1194,7 +1192,7 @@
               >
                 <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
               </ngx-dropzone-preview>
-            </ngx-dropzone>
+            </ngx-dropzone> -->
           </div>
 
           <div class="d-flex justify-content-between align-items-start my-4">
@@ -1218,6 +1216,9 @@
 
             <div>
               <ngx-dropzone
+                [disableClick]="disableKepdir"
+                [disabled]="false"
+                [accept]="'.pdf'"
                 (change)="onSelectDokumen($event, 'KEPDIR')"
                 required
               >
@@ -1234,7 +1235,7 @@
                 <ngx-dropzone-preview
                   *ngFor="let f of previewKEPDIR"
                   [removable]="true"
-                  (removed)="onRemove(f)"
+                  (removed)="onRemoveKepdirPLN(f)"
                 >
                   <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
@@ -1359,7 +1360,7 @@
             </div>
 
             <div>
-              <ngx-dropzone
+              <!-- <ngx-dropzone
                 (change)="onSelectDokumen($event, 'DOKUMEN_AP')"
                 required
               >
@@ -1368,9 +1369,7 @@
                   <div class="text-center">
                     Drag and Drop here or
                     <span class="text-primary">Browser here</span>
-                    <!-- <div *ngIf="submitted && thirdFormGroup.controls.dokumenAnakPerusahaan.errors" class="text-danger">
-                      Please upload a file.
-                    </div> -->
+
                   </div>
                 </ngx-dropzone-label>
                 <ngx-dropzone-preview
@@ -1380,7 +1379,7 @@
                 >
                   <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
-              </ngx-dropzone>
+              </ngx-dropzone> -->
             </div>
           </div>
 
