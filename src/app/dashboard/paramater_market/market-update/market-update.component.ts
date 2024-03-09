@@ -303,12 +303,15 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       // const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll();
       this.isLoading = true;
       // this.lineChartCommodity.initializeCommoditiesLineChart();
+
+      let getYear = moment().format('YYYY')
+
       console.log('load before fetch: ' + this.isLoading);
       const responsePDB = await this.marketUpdateService.fetchDataPDB();
-      const responseKurs = await this.marketUpdateService.fetchDataKurs();
-      const responseInterestRate = await this.marketUpdateService.fetchDataInterestRate();
-      const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll();
-      const responseBondYield = await this.marketUpdateService.fetchDataBondYield();
+      const responseKurs = await this.marketUpdateService.fetchDataKurs(getYear);
+      const responseInterestRate = await this.marketUpdateService.fetchDataInterestRate(getYear);
+      const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll(getYear);
+      const responseBondYield = await this.marketUpdateService.fetchDataBondYield(getYear);
 
       this.dataKurs = responseKurs;
       console.log(this.dataKurs);
@@ -393,7 +396,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     let threeDaysBefore = getThreeDaysBefore.setDate(getThreeDaysBefore.getDate() - 3);
     let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
 
-    console.log(this.getLabelDate[0].h_min_30, this.getLabelDate[0].h_min_7, this.getLabelDate[0].h_min_1, this.getLabelDate[0].h_min_0);
+    console.log(this.getLabelDate);
 
 
     this.tableConfig.initializeTableData(this.getLabelDate[0].h_min_30, this.getLabelDate[0].h_min_7, this.getLabelDate[0].h_min_1, this.getLabelDate[0].h_min_0);

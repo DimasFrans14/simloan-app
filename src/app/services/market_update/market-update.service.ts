@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -27,10 +27,11 @@ export class MarketUpdateService {
     }
   }
 
-  async fetchDataKurs(){
+  async fetchDataKurs(year: string){
     try {
+      const params = new HttpParams().set('tahun', year)
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl2}/market/currency/getList`)
+        this.http.get(`${environment.apiUrl2}/market/currency/getList`, {params})
       );
     } catch (error) {
       console.log(error);
@@ -130,11 +131,12 @@ export class MarketUpdateService {
     }
   }
 
-  async fetchDataBondYield(){
+  async fetchDataBondYield(year: string){
     try {
+      const params = new HttpParams().set('tahun', year)
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/market/bondyield/getList
-`)
+`, {params})
       );
     } catch (error) {
       console.log(error);
@@ -142,10 +144,11 @@ export class MarketUpdateService {
     }
   }
 
-  async fetchDataCommoditiesAll(){
+  async fetchDataCommoditiesAll(year: string){
     try {
+      const params = new HttpParams().set('tahun', year)
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_real_rkap_commodities`)
+        this.http.get(`${environment.apiUrl2}/market/commodities/getRateList`, {params})
       );
     } catch (error) {
       console.log(error);
@@ -323,17 +326,16 @@ export class MarketUpdateService {
     }
   }
 
-  async fetchDataInterestRate(){
+  async fetchDataInterestRate(year: string) {
     try {
+      const params = new HttpParams().set('tahun', year);
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl2}/market/interest/getList
-        `)
+        this.http.get(`${environment.apiUrl2}/market/interest/getList`, { params })
       );
     } catch (error) {
       console.log(error);
       return null;
     }
-
   }
 
   async fetchDataInflasi(){
@@ -551,7 +553,7 @@ export class MarketUpdateService {
   importLaporanRKAP = async (params: string, file: File) => {
     const form = new FormData();
     form.append('file', file, file.name);
-
+    console.log(file);
     try {
       return await lastValueFrom(
         this.http.post(
@@ -608,6 +610,22 @@ export class MarketUpdateService {
     }
   }
 
+  importLaporanMarketUpdateInterestRateATDBANK = async (params: string, file: File) => {
+    // const headers = { 'content-type': 'multipart/form-data'}
+    const form = new FormData();
+    form.append('file', file, file.name)
+
+    try {
+      return await lastValueFrom(
+        // this.http.post(`http://10.1.18.47:9051/simloan/ws-v01/dashboard/realisasi/non-macro/upload?globalDashboardRealisasiEnum=${JSON.parse(params)}`, form)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/master-atd-banks/upload_bank_atd_all?globalMasterBankAtdEnum=${JSON.parse(params)}`, form)
+
+      )
+    } catch (error) {
+      return null
+    }
+  }
+
   importLaporanMarketUpdateCommodities = async (file: File, params: string) => {
     const form = new FormData()
     form.append('file', file, file.name);
@@ -657,7 +675,7 @@ export class MarketUpdateService {
 
   importLaporanMarketUpdateInterestOutlook = async (file: File, params: string) => {
     const form = new FormData()
-    form.append('name', file, file.name);
+    form.append('file', file, file.name);
     try {
       // const headers = { 'content-type': 'application/json'}
       // const body = JSON.stringify(file);
@@ -674,7 +692,7 @@ export class MarketUpdateService {
 
   importLaporanMarketUpdateCommoditiesOutlook = async (file: File, params: string) => {
     const form = new FormData()
-    form.append('name', file, file.name);
+    form.append('file', file, file.name);
     try {
       // const headers = { 'content-type': 'application/json'}
       // const body = JSON.stringify(file);
@@ -691,7 +709,7 @@ export class MarketUpdateService {
 
   importLaporanMarketUpdateBondYieldOutlook = async (file: File, params: string) => {
     const form = new FormData()
-    form.append('name', file, file.name);
+    form.append('file', file, file.name);
     try {
       // const headers = { 'content-type': 'application/json'}
       // const body = JSON.stringify(file);
@@ -714,7 +732,7 @@ export class MarketUpdateService {
       // const body = JSON.stringify(file);
       console.log(params);
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/outlook/macro/all_macro?globalDashOutlookMacroIndicatorEnum=${params}
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/outlook/macro/all_macro?globalMacroIndicatorEnum=${params}
         `, form)
       )
     } catch (error) {

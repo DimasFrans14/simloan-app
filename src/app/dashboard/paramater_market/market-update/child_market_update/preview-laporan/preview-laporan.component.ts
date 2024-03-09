@@ -23,6 +23,8 @@ export class PreviewLaporanComponent implements OnInit{
 
   }
 
+  dataATDBank: any;
+
   ngOnInit(): void {
     let today = new Date();
     let formatToday = moment(today).format("DD/MM/YYYY").toString();
@@ -45,11 +47,20 @@ export class PreviewLaporanComponent implements OnInit{
 
     // let params = localStorage.getItem('subCategory_params')?.replace(/"/g, '')
 
-    this.tablePreview.tablePreview()
+    this.tablePreview.tablePreview();
+
+    let dataATD = localStorage.getItem('ATD');
+    if(dataATD){
+      this.dataATDBank = JSON.parse(dataATD)
+    }
+    this.dataATDBank = this.dataATDBank.map((item: any) => {
+      return item.kode
+    })
+    console.log(this.dataATDBank);
   }
 
   dashRealMacroIndicators = {
-    "dashRealMacroIndicators": this.tablePreview.dataTabelPreview
+    "dash_real_macro_indicators": this.tablePreview.dataTabelPreview
   };
 
   sendDataResponse: any;
@@ -64,9 +75,6 @@ export class PreviewLaporanComponent implements OnInit{
     let subCategory_deskripsi = localStorage.getItem('subCategory_deskripsi');
 
     const firstParams = ['CURRENCY_RATE', 'INTEREST_RATE', 'BOND_YIELD', 'COMMODITIES', 'MACRO_INDICATOR']
-
-    let dataATD = localStorage.getItem('ATD');
-    console.log(dataATD);
 
     // console.log(this.dashRealMacroIndicators);
     const fileExcel = this.tablePreview.fileExcel
@@ -150,8 +158,30 @@ export class PreviewLaporanComponent implements OnInit{
                 break;
             case 'INTEREST_RATE':
               if(indikatorParams === 'Realisasi'){
-                if(dataATD?.includes(JSON.stringify(subCategory_params))){
+                if(this.dataATDBank.includes(subCategory_params)){
+                  try {
+                    const response = await this.marketUpdateService.importLaporanMarketUpdateInterestRateATDBANK(JSON.stringify(subCategory_params), fileExcel);
 
+                    console.log(response);
+
+                    this.sendDataResponse = response
+                    if(this.sendDataResponse.status === 200){
+                      Swal.fire({
+                        title: "Berhasil!",
+                        text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
+                        icon: "success"
+                        })
+                      }
+                    else{
+                      Swal.fire({
+                        icon: "error",
+                        title: "Failed!",
+                        text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
+                          });
+                        }
+                  } catch (error) {
+                    console.log(error);
+                  }
                 }
                 else{
                   try {

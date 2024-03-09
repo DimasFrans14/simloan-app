@@ -55,7 +55,7 @@ export class TableServicesService {
 
 
   getDataCommodities(data: any){
-    this.dataCommodities = data.data;
+    this.dataCommodities = data.d.list;
     // console.log('data commodities', this.dataCommodities);
 
   }
@@ -472,22 +472,22 @@ export class TableServicesService {
     data:this.dataCommodities,
     layout:"fitColumns",
     columns:[
-      {title:"Commodities", field:"kode_item", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+      {title:"Commodities", field:"keterangan", headerHozAlign:"center", hozAlign:'left', headerSort:false},
   {//create column group
       title:"Price",
       columns:[
-      {title:"RKAP <br/>23", field:"nilai_min0", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:lastMonth, field:"nilai_min3", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:lastWeek, field:"nilai_min2", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:yesterday, field:"nilai_min1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-      {title:today, field:"nilai_min0", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+      {title:today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center", editor: "input"},
       ],
       headerHozAlign:"center"
   },
-  {title:"Change <br/>MoM", field:"persen_change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>WoW", field:"persen_change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>1 Day", field:"persen_change1_day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change Dari RKAP", field:"persen_change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change Dari RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     ],
 
   });
