@@ -227,7 +227,7 @@
               <span class="fw-bold">Detail Withdrawal</span>
             </div>
           </ng-container>
-        <div class="table-withdrawalDetail pb-2" id="tes"></div>
+          <div class="table-withdrawalDetail pb-2" id="previewTabelProyek"></div>
 
           <div class="d-flex justify-content-end">
             <button class="btn btn-primary px-3 py-1 rounded" (click)="firstWithdrawalForm()">Next</button>
@@ -235,22 +235,76 @@
 
         </form>
 
-
       </mat-step>
 
-      <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
-        <form [formGroup]="secondFormGroup">
-          <mat-form-field>
-            <mat-label>Address</mat-label>
-            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                   required>
-          </mat-form-field>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+      <mat-step [stepControl]="secondFormGroup" label="Withdrawal">
+
+        <ng-container *ngIf="namaProyekDisplay">
+
+          <div class="d-flex justify-content-end align-items-center mb-3 mt-4">
           </div>
+
+          <div class="bg-white rounded">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <img src="assets/image/detail_agreement_left_header.svg" alt="">
+            </div>
+            <div class="me-3">
+              <img src="assets/image/detail_agreement_right_header.svg" alt="">
+            </div>
+          </div>
+
+          <div class="row p-3">
+            <div class="col-6" style="border-right: 1px solid #E4E4E4;">
+              <!-- <ng-container *ngFor="let item of detailDataSHLAgreement"> -->
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span>Nama Anak Perusahaan</span>
+                <span class="p-2 rounded detail-data" id="detailDataSHLAgreement.id">{{this.firstFormGroup.value.selectedAP}}</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span>Nomor Agreement</span>
+                <span class="p-2 rounded detail-data">{{this.firstFormGroup.value.noSHLAgreementList}}</span>
+              </div>
+              <div class="d-flex flex-nowrap justify-content-between align-items-center mb-3">
+                <span>Nomor SHL Agreement Anak Perushaan</span>
+                <span class="p-2 rounded detail-data">{{this.firstFormGroup.value.selectedProyek}}</span>
+              </div>
+
+            <!-- </ng-container> -->
+            </div>
+
+            <div class="col-6">
+
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span>Mata Uang</span>
+                <span class="p-2 rounded detail-data">USD</span>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span>Sisa Pagu</span>
+                <span class="p-2 rounded detail-data">750.000.000.000</span>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span>Terakhir Penarikan</span>
+                <span class="p-2 rounded detail-data">Belum ada Penarikan</span>
+              </div>
+            </div>
+          </div>
+          <hr />
+          </div>
+          <div class="py-3">
+            <span class="fw-bold">Detail Withdrawal</span>
+          </div>
+        </ng-container>
+
+        <div class="table-withdrawalDetail pb-2" id="previewTabelProyek"></div>
+        <form [formGroup]="secondFormGroup">
+
         </form>
       </mat-step>
+
+
       <mat-step>
         <ng-template matStepLabel>Done</ng-template>
         <p>You are now done.</p>
