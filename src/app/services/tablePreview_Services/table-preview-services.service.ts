@@ -26,6 +26,48 @@ export class TablePreviewServices {
     // this.tableName = previewName
 
     this.dataTabelPreview = data;
+
+    const hasKurs = this.dataTabelPreview[0].hasOwnProperty('KURS');
+    const hasNilai = this.dataTabelPreview[0].hasOwnProperty('NILAI');
+    const hasMiliarUSD = this.dataTabelPreview[0].hasOwnProperty('miliar_usd');
+    const hasTriliunUSD = this.dataTabelPreview[0].hasOwnProperty('triliun_beredar');
+    console.log(hasKurs, hasNilai, hasMiliarUSD, hasTriliunUSD);
+
+    if(hasKurs){
+      this.dataTabelPreview = this.dataTabelPreview.map((item: any) => {
+        item.KURS = item.KURS.toLocaleString('en-US');
+        console.log('masuk kurs');
+
+        return item
+      })
+    }
+    else if(hasNilai){
+      this.dataTabelPreview = this.dataTabelPreview.map((item: any) => {
+        item.NILAI = item.NILAI.toLocaleString('en-US');
+        console.log('masuk nilai');
+
+        return item
+      })
+    }
+    else if(hasMiliarUSD){
+      this.dataTabelPreview = this.dataTabelPreview.map((item: any) => {
+        item.miliar_usd = parseFloat(item.miliar_usd);
+        item.miliar_usd = item.miliar_usd.toLocaleString('en-US');
+        console.log('masuk miliar');
+
+        return item
+      })
+    }
+    else if(hasTriliunUSD){
+      this.dataTabelPreview = this.dataTabelPreview.map((item: any) => {
+        item.triliun_beredar = parseFloat(item.triliun_beredar);;
+        item.triliun_beredar = item.triliun_beredar.toLocaleString('en-US');;
+        console.log('masuk triliun');
+
+        return item
+      })
+    }
+
     console.log(this.objectKeys);
     // this.tabelPreview(this.objectKeys)
     console.log('file', this.fileExcel);
