@@ -113,7 +113,7 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   (click)="filterRangeDateKursLineChart ('1week')"
-                  [disabled]="isLoadingKursLine"ateKursLineChart
+                  [disabled]="isLoadingKursLine"
                   [ngClass]="{'active': activeButtonLineKurs === '1week'}"
                 >
                   <span style="font-size: 13px">1W</span>
@@ -310,30 +310,39 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col" style="font-size: 14px">Kurs</th>
-                  <th scope="col" style="font-size: 14px">Change RKAP</th>
-                  <th scope="col" style="font-size: 14px">Change WoW</th>
-                  <th scope="col" style="font-size: 14px">Change MoM</th>
-                  <th scope="col" style="font-size: 14px">Change 1 Day</th>
+                  <th scope="col" class="text-center" style="font-size: 14px">Kurs</th>
+                  <th scope="col" class="text-center" style="font-size: 14px">Change RKAP</th>
+                  <th scope="col" class="text-center" style="font-size: 14px">Change WoW</th>
+                  <th scope="col" class="text-center" style="font-size: 14px">Change MoM</th>
+                  <th scope="col" class="text-center" style="font-size: 14px">Change 1 Day</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of trendKursDataBarChart">
-                  <th scope="row" style="font-size: 14px; border-style: none">
-                    {{ item.name }}
-                  </th>
-                  <td>{{ item.data[0].y }}</td>
-                  <td>{{ item.change_now }}</td>
-                  <td>{{ item.change_now }}</td>
-                  <td>{{ item.change1_day }}</td>
+                <tr *ngFor="let item of dataCompareChangeRKAP">
+                  <td style="font-size: 14px; border-style: none" class="text-center">
+                    {{ item.mata_uang }}
+                  </td>
+                  <td [style.color]="item.font_color_rkap" class="text-center">{{ item.persen_change_rkap }}</td>
                   <td>
-                    <i
-                      class="bi bi-x-lg"
-                      (click)="hideCompare(item.mata_uang)"
-                      style="cursor: pointer"
-                    ></i>
+                    <p class="rounded py-1 text-center" [style.background-color]="item.bg_wow" [style.color]="item.font_color_bg_wow">
+                      <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_wow)"></span>{{ item.persen_change_wow }}
+                    </p>
+                  </td>
+                  <td>
+                    <p class="rounded py-1 text-center" [style.background-color]="item.bg_mom" [style.color]="item.font_color_bg_mom">
+                      <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_mom)"></span>{{ item.persen_change_mom }}
+                    </p>
+                  </td>
+                  <td>
+                    <p class="rounded py-1 text-center" [style.background-color]="item.bg_1day" [style.color]="item.font_color_bg_1day">
+                      <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_1day)"></span>{{ item.persen_change_1day }}
+                    </p>
+                  </td>
+                  <td>
+                    <i class="bi bi-x-lg" (click)="hideCompare(item.mata_uang)" style="cursor: pointer"></i>
                   </td>
                 </tr>
+
               </tbody>
             </table>
           </div>
@@ -392,46 +401,44 @@
                   <div
                     class="d-flex align-items-center justify-content-between"
                   >
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col" style="font-size: 14px">Kurs</th>
-                          <th scope="col" style="font-size: 14px">
-                            Change RKAP
-                          </th>
-                          <th scope="col" style="font-size: 14px">
-                            Change WoW
-                          </th>
-                          <th scope="col" style="font-size: 14px">
-                            Change MoM
-                          </th>
-                          <th scope="col" style="font-size: 14px">
-                            Change 1 Day
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let item of allTrendDataKursBarChart">
-                          <th
-                            scope="row"
-                            style="font-size: 14px; border-style: none"
-                          >
-                            {{ item.kode }}
-                          </th>
-                          <td>{{ item.change_rkap }}</td>
-                          <td>{{ item.change_now }}</td>
-                          <td>{{ item.change_now }}</td>
-                          <td>{{ item.change1_day }}</td>
-                          <td>
-                            <i
-                              class="bi bi-plus-lg"
-                              (click)="addSample(item.mata_uang)"
-                              style="cursor: pointer"
-                            ></i>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="text-center" style="font-size: 14px">Kurs</th>
+                        <th scope="col" class="text-center" style="font-size: 14px">Change RKAP</th>
+                        <th scope="col" class="text-center" style="font-size: 14px">Change WoW</th>
+                        <th scope="col" class="text-center" style="font-size: 14px">Change MoM</th>
+                        <th scope="col" class="text-center" style="font-size: 14px">Change 1 Day</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of dataCompareChangeRKAP">
+                        <td style="font-size: 14px; border-style: none" class="text-center">
+                          {{ item.mata_uang }}
+                        </td>
+                        <td [style.color]="item.font_color_rkap" class="text-center">{{ item.persen_change_rkap }}</td>
+                        <td>
+                          <p class="rounded py-1 text-center" [style.background-color]="item.bg_wow" [style.color]="item.font_color_bg_wow">
+                            <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_wow)"></span>{{ item.persen_change_wow }}
+                          </p>
+                        </td>
+                        <td>
+                          <p class="rounded py-1 text-center" [style.background-color]="item.bg_mom" [style.color]="item.font_color_bg_mom">
+                            <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_mom)"></span>{{ item.persen_change_mom }}
+                          </p>
+                        </td>
+                        <td>
+                          <p class="rounded py-1 text-center" [style.background-color]="item.bg_1day" [style.color]="item.font_color_bg_1day">
+                            <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_1day)"></span>{{ item.persen_change_1day }}
+                          </p>
+                        </td>
+                        <td>
+                          <i class="bi bi-x-lg" (click)="hideCompare(item.mata_uang)" style="cursor: pointer"></i>
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
                   </div>
                   <!-- </div> -->
                 </div>
@@ -470,7 +477,7 @@
       </div>
     </div>
 
-    <div class="d-flex flex-row flex-wrap justify-content-evenly">
+    <div class="d-flex flex-row flex-wrap justify-content-evenly gap-3">
 
       <!-- WTI & Brent -->
       <div class="card rounded p-2 mt-3">
@@ -608,8 +615,8 @@
 
       </div>
       <!-- end WTI Brent -->
-      <!-- ICP -->
 
+      <!-- ICP -->
       <div class="card rounded p-2 mt-3">
 
         <div class="d-flex align-items-center justify-content-between p-1">
@@ -745,10 +752,11 @@
 
       </div>
       <!-- end ICP -->
+
       <!-- COAL NEWCASTLE -->
       <div class="card rounded p-2 mt-3">
         <div class="d-flex align-items-center justify-content-between p-1">
-          <div class="flex-fill fw-semibold">COAL (Newcastle)</div>
+          <div class="flex-fill fw-semibold">COAL Newcastle (USD/Ton)</div>
 
           <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-end py-2">
             <div>
@@ -882,6 +890,7 @@
         </div>
       </div>
       <!-- end COAL NEWCASTLE -->
+
       <!-- LNG -->
       <div class="card rounded p-2 mt-3">
         <div class="d-flex align-items-center justify-content-between p-1">

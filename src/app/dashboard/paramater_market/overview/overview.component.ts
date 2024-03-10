@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import * as moment from 'moment';
 import { ApexAnnotations, ApexAxisChartSeries, ApexChart,  ApexDataLabels,  ApexLegend,  ApexMarkers,  ApexPlotOptions,  ApexStroke,  ApexTitleSubtitle, ApexTooltip, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
 import { filter, range } from 'rxjs';
@@ -17,8 +18,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   constructor(
     private dataService: DataService,
     private marketUpdateService: MarketUpdateService,
-    private overviewChart: OverviewChartService,
-    private cdr: ChangeDetectorRef
+    private sanitizer: DomSanitizer
     ){
     // console.log(dataService);
   }
@@ -113,6 +113,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   USDDataChart: any;
 
   dataWTIBRENT: any;
+
+  dataCompareChangeRKAP: any;
+  listDataCompareChangeRKAP: any;
 
   isLoadingAllData: boolean = false;
 
@@ -227,58 +230,91 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   hideValueCompare: boolean = false;
   hideCompare(event: any){
-    const check = this.tesLocalStorageKurs.filter(
+    console.log(event);
+
+    const check = this.listDataCompareChangeRKAP.filter(
       (item: any) => item.mata_uang.includes(event)
     )
     if(event != undefined){
       this.hideValueCompare = !this.hideValueCompare
       console.log(check);
       for(let i=0; i<check.length; i++){
-        if(this.tesLocalStorageKurs.length > 2){
-          const tes = this.tesLocalStorageKurs.filter(
+        if(this.dataCompareChangeRKAP.length > 2){
+          const tes = this.listDataCompareChangeRKAP.filter(
             (item: any) => item.mata_uang != check[i].mata_uang
           )
           console.log(tes);
-          this.tesLocalStorageKurs = tes
-          return this.tesLocalStorageKurs
+          this.dataCompareChangeRKAP = tes
+          return this.dataCompareChangeRKAP
         }
         else{
           alert('data tidak boleh kurang dari 2');
-          return this.tesLocalStorageKurs
+          return this.dataCompareChangeRKAP
         }
       }
     }
     else{
       console.log('else');
     }
-    // console.log(this.tesLocalStorageKurs, this.dataKurs.data);
+
+  }
+
+  addCompare(event: any){
+    console.log(event);
+
+    const getData = this.listDataCompareChangeRKAP.filter(
+      (item: any) => item.mata_uang.includes(event)
+    )
+
+    const dataFound = this.dataCompareChangeRKAP.some((item: any) => {
+      return item.mata_uang === event;
+    });
+
+    console.log(getData, dataFound);
+
+    if(event != undefined){
+      console.log(getData);
+      for(let i=0; i<getData.length; i++){
+        if(!dataFound){
+          this.dataCompareChangeRKAP.push(getData[0]);
+          console.log(this.dataCompareChangeRKAP);
+          return this.dataCompareChangeRKAP
+        }
+        else{
+          alert('data sudah ada')
+        }
+      }
+    }
+    else{
+      console.log('else');
+    }
   }
 
   cancelCompare(){
-    const getCompareDate: any = localStorage.getItem('compareData')
-    this.tesLocalStorageKurs = JSON.parse(getCompareDate)
+    this.dataCompareChangeRKAP = this.listDataCompareChangeRKAP;
+    return this.dataCompareChangeRKAP;
   }
 
   activeAllLineChart: boolean = true;
   activeAllBarChart: boolean = false;
 
-  activeButtonLineKurs: string = '';
-  activeButtonBarKurs: string = '';
+  activeButtonLineKurs: string = '1year';
+  activeButtonBarKurs: string = '1year';
 
-  activeButtonLineWTIBRENT: string = '';
-  activeButtonBarWTIBRENT: string = '';
+  activeButtonLineWTIBRENT: string = '1year';
+  activeButtonBarWTIBRENT: string = '1year';
 
-  activeButtonLineICP: string = '';
-  activeButtonBarICP: string = '';
+  activeButtonLineICP: string = '1year';
+  activeButtonBarICP: string = '1year';
 
-  activeButtonLineCOAL: string = '';
-  activeButtonBarCOAL: string = '';
+  activeButtonLineCOAL: string = '1year';
+  activeButtonBarCOAL: string = '1year';
 
-  activeButtonLineLNG: string = '';
-  activeButtonBarLNG: string = '';
+  activeButtonLineLNG: string = '1year';
+  activeButtonBarLNG: string = '1year';
 
-  activeButtonLineInterest: string = '';
-  activeButtonBarInterest: string = '';
+  activeButtonLineInterest: string = '1year';
+  activeButtonBarInterest: string = '1year';
 
   //Filer Range Kurs Line Chart
   filterRangeDateKursLineChart = async (range: string) => {
@@ -1296,12 +1332,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
 
           this.xAxisWtiChartBrent = {
-            categories: []
+            type:'datetime'
           }
 
-          for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
-              this.xAxisWtiChartBrent.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
-          }
         }
         else if(range_date === '1month'){
           this.activeButtonLineWTIBRENT = range_date
@@ -1321,12 +1354,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
 
           this.xAxisWtiChartBrent = {
-            categories: []
+            type:'datetime'
           }
 
-          for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
-              this.xAxisWtiChartBrent.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
-          }
         }
         else if(range_date === '1year'){
           this.activeButtonLineWTIBRENT = range_date
@@ -1346,12 +1376,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
 
           this.xAxisWtiChartBrent = {
-            categories: []
+            type:'datetime'
           }
 
-          for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
-              this.xAxisWtiChartBrent.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
-          }
         }
         else if(range_date === '3years'){
           this.activeButtonLineWTIBRENT = range_date
@@ -1371,12 +1398,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
 
           this.xAxisWtiChartBrent = {
-            categories: []
+            type:'datetime'
           }
 
-          for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
-              this.xAxisWtiChartBrent.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
-          }
         }
           break;
 
@@ -1398,13 +1422,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.dataIcpChart = this.allTrendICP.d.arrayData;
 
-          // this.xAxisIcpChart = {
-          //   categories: []
-          // }
+          this.xAxisIcpChart = {
+            type: 'datetime'
+          }
 
-          // for(let i=0; i<this.allTrendICP.d.arrayData.data.length; i++){
-          //     this.xAxisIcpChart.categories.push(this.allTrendICP.d.arrayData[0].data[i].x)
-          // }
         }
         else if(range_date === '1month'){
           this.activeButtonLineICP = range_date
@@ -1423,13 +1444,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.dataIcpChart = this.allTrendICP.d.arrayData;
 
-          // this.xAxisIcpChart = {
-          //   categories: []
-          // }
+          this.xAxisIcpChart = {
+            type: 'datetime'
+          }
 
-          // for(let i=0; i<this.allTrendICP.d.arrayData.data.length; i++){
-          //     this.xAxisIcpChart.categories.push(this.allTrendICP.d.arrayData[0].data[i].x)
-          // }
         }
         else if(range_date === '1year'){
           this.activeButtonLineICP = range_date
@@ -1448,13 +1466,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.dataIcpChart = this.allTrendICP.d.arrayData;
 
-          // this.xAxisIcpChart = {
-          //   categories: []
-          // }
+          this.xAxisIcpChart = {
+            type: 'datetime'
+          }
 
-          // for(let i=0; i<this.allTrendICP.d.arrayData.data.length; i++){
-          //     this.xAxisIcpChart.categories.push(this.allTrendICP.d.arrayData[0].data[i].x)
-          // }
         }
         else if(range_date === '3years'){
           this.activeButtonLineICP = range_date
@@ -1473,13 +1488,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.dataIcpChart = this.allTrendICP.d.arrayData;
 
-          // this.xAxisIcpChart = {
-          //   categories: []
-          // }
+          this.xAxisIcpChart = {
+            type: 'datetime'
+          }
 
-          // for(let i=0; i<this.allTrendICP.d.arrayData.data.length; i++){
-          //     this.xAxisIcpChart.categories.push(this.allTrendICP.d.arrayData[0].data[i].x)
-          // }
         }
           break;
 
@@ -1501,13 +1513,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.dataChartCoal = this.allTrendCOAL.d.arrayData;
 
-          // this.xAxisChartCoal = {
-          //   categories: []
-          // }
-
-          // for(let i=0; i<this.allTrendCOAL.d.arrayData.data.length; i++){
-          //     this.xAxisChartCoal.categories.push(this.allTrendCOAL.d.arrayData[0].data[i].x)
-          // }
+          this.xAxisChartCoal = {
+            type: 'datetime'
+          }
         }
         else if(range_date === '1month'){
           this.activeButtonLineCOAL = range_date
@@ -1526,13 +1534,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.dataChartCoal = this.allTrendCOAL.d.arrayData;
 
-          // this.xAxisChartCoal = {
-          //   categories: []
-          // }
-
-          // for(let i=0; i<this.allTrendCOAL.d.arrayData.data.length; i++){
-          //     this.xAxisChartCoal.categories.push(this.allTrendCOAL.d.arrayData[0].data[i].x)
-          // }
+          this.xAxisChartCoal = {
+            type: 'datetime'
+          }
         }
         else if(range_date === '1year'){
           this.activeButtonLineCOAL = range_date
@@ -1551,13 +1555,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.dataChartCoal = this.allTrendCOAL.d.arrayData;
 
-          // this.xAxisChartCoal = {
-          //   categories: []
-          // }
-
-          // for(let i=0; i<this.allTrendCOAL.d.arrayData.data.length; i++){
-          //     this.xAxisChartCoal.categories.push(this.allTrendCOAL.d.arrayData[0].data[i].x)
-          // }
+          this.xAxisChartCoal = {
+            type: 'datetime'
+          }
         }
         else if(range_date === '3years'){
           this.activeButtonLineCOAL = range_date
@@ -1576,13 +1576,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.dataChartCoal = this.allTrendCOAL.d.arrayData;
 
-          // this.xAxisChartCoal = {
-          //   categories: []
-          // }
-
-          // for(let i=0; i<this.allTrendCOAL.d.arrayData.data.length; i++){
-          //     this.xAxisChartCoal.categories.push(this.allTrendCOAL.d.arrayData[0].data[i].x)
-          // }
+          this.xAxisChartCoal = {
+            type: 'datetime'
+          }
         }
           break;
 
@@ -1604,13 +1600,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.dataChartLngLine = this.allTrendLNG.d.arrayData;
 
-          // this.xAxisChartLng = {
-          //   categories: []
-          // }
+          this.xAxisChartLng = {
+            type: 'datetime',
+          }
 
-          // for(let i=0; i<this.allTrendLNG.d.arrayData.data.length; i++){
-          //     this.xAxisChartLng.categories.push(this.allTrendLNG.d.arrayData[0].data[i].x)
-          // }
         }
         else if(range_date === '1month'){
           this.activeButtonLineLNG = range_date
@@ -1629,13 +1622,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.dataChartLngLine = this.allTrendLNG.d.arrayData;
 
-          // this.xAxisChartLng = {
-          //   categories: []
-          // }
+          this.xAxisChartLng = {
+            type: 'datetime',
+          }
 
-          // for(let i=0; i<this.allTrendLNG.d.arrayData.data.length; i++){
-          //     this.xAxisChartLng.categories.push(this.allTrendLNG.d.arrayData[0].data[i].x)
-          // }
         }
         else if(range_date === '1year'){
           this.activeButtonLineLNG = range_date
@@ -1653,14 +1643,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           }
 
           this.dataChartLngLine = this.allTrendLNG.d.arrayData;
+          console.log(this.allTrendLNG);
 
-          // this.xAxisChartLng = {
-          //   categories: []
-          // }
+          this.xAxisChartLng = {
+            type: 'datetime',
+          }
 
-          // for(let i=0; i<this.allTrendLNG.d.arrayData.data.length; i++){
-          //     this.xAxisChartLng.categories.push(this.allTrendLNG.d.arrayData[0].data[i].x)
-          // }
         }
         else if(range_date === '3years'){
           this.activeButtonLineLNG = range_date
@@ -1678,14 +1666,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           }
 
           this.dataChartLngLine = this.allTrendLNG.d.arrayData;
+          console.log(this.allTrendLNG);
 
-          // this.xAxisChartLng = {
-          //   categories: []
-          // }
+          this.xAxisChartLng = {
+            type: 'datetime',
+          }
 
-          // for(let i=0; i<this.allTrendLNG.d.arrayData.data.length; i++){
-          //     this.xAxisChartLng.categories.push(this.allTrendLNG.d.arrayData[0].data[i].x)
-          // }
         }
           break;
 
@@ -2761,6 +2747,26 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     }
   }
 
+  fetchDataCompare = async () => {
+    const response = await this.marketUpdateService.fetchDataCompareChangeRKAP();
+
+    this.dataCompareChangeRKAP = response;
+    this.dataCompareChangeRKAP = this.dataCompareChangeRKAP.d;
+
+    // this.dataCompareChangeRKAP = this.dataCompareChangeRKAP.map((item: any) => {
+    //   item.persen_change_rkap = parseFloat(item.persen_change_rkap)
+    //   return item
+    // })
+
+    // console.log(this.dataCompareChangeRKAP);
+
+    this.listDataCompareChangeRKAP = this.dataCompareChangeRKAP;
+  }
+
+  sanitizeInnerHTML(html: string){
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+
   async ngOnInit(): Promise<void> {
 
     try {
@@ -2855,6 +2861,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       await this.fetchDataBarChartKurs();
       await this.fetchAllDataBarChartCommodities();
       await this.fetchAllDataBarChartInterest();
+      await this.fetchDataCompare();
       // console.log(this.isLoadingAllData);
 
       this.barChartKursSeries = this.trendKursDataBarChart;
