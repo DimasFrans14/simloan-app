@@ -64,6 +64,7 @@ export class PreviewLaporanComponent implements OnInit{
   };
 
   sendDataResponse: any;
+  deleteInsertResponse: any;
 
 
   sendDataExcel = async () => {
@@ -112,16 +113,33 @@ export class PreviewLaporanComponent implements OnInit{
             case 'CURRENCY_RATE':
               if(indikatorParams === 'Realisasi'){
 
-                const response = await this.marketUpdateService.importLaporanMarketUpdateCurrencyRateRealisasi(JSON.stringify(subCategory_params), fileExcel)
-                console.log(response);
+                const deleteInsertFirst = await this.marketUpdateService.deleteInsertKurs(JSON.stringify(subCategory_params));
 
-                this.sendDataResponse = response
-                if(this.sendDataResponse.status === 200){
-                  Swal.fire({
-                    title: "Berhasil!",
-                    text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
-                    icon: "success"
-                  })
+
+
+                // console.log(deleteInsertFirst, response);
+
+                this.deleteInsertResponse = deleteInsertFirst
+
+                if(this.deleteInsertResponse.s === 200){
+                  const response = await this.marketUpdateService.importLaporanMarketUpdateCurrencyRateRealisasi(JSON.stringify(subCategory_params), fileExcel)
+
+                  this.sendDataResponse = response
+
+                  if(this.sendDataResponse.status === 200){
+                    Swal.fire({
+                      title: "Berhasil!",
+                      text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
+                      icon: "success"
+                    })
+                  }
+                  else{
+                    Swal.fire({
+                      icon: "error",
+                      title: "Failed!",
+                      text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
+                    });
+                  }
                 }
                 else{
                   Swal.fire({

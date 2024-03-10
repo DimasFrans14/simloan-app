@@ -218,6 +218,18 @@ export class MarketUpdateService {
     }
   }
 
+  fetchDataCompareChangeRKAP = async () => {
+    try {
+      const params = new HttpParams().set('tanggal', "21/02/2024")
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl2}/dashboard/market/trending/kurs/compare`, {params})
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
   async fetchDataPDB(){
     try {
       return await lastValueFrom(
@@ -235,7 +247,7 @@ export class MarketUpdateService {
         "tahun":data.tahun,
         "nilai": data.nilai
       }
-    
+
     try {
       return await lastValueFrom(
         this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, data1)
@@ -740,6 +752,18 @@ export class MarketUpdateService {
       return await lastValueFrom(
         this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/outlook/macro/all_macro?globalMacroIndicatorEnum=${params}
         `, form)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+
+  deleteInsertKurs = async (params: string) => {
+    try {
+      return await lastValueFrom(
+        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/delete_all_jisdor_nonusd?jisdor_non_usd=${JSON.parse(params)}
+        `)
       )
     } catch (error) {
       console.log(error);
