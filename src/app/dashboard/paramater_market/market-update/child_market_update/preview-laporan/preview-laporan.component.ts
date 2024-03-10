@@ -121,7 +121,7 @@ export class PreviewLaporanComponent implements OnInit{
 
                 this.deleteInsertResponse = deleteInsertFirst
 
-                if(this.deleteInsertResponse.s === 200){
+                if(this.deleteInsertResponse.status === 200){
                   const response = await this.marketUpdateService.importLaporanMarketUpdateCurrencyRateRealisasi(JSON.stringify(subCategory_params), fileExcel)
 
                   this.sendDataResponse = response
