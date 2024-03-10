@@ -188,11 +188,11 @@
                 <span>{{items.nilai_rkap}}</span>
               </div>
               <div class="d-flex flex-column align-items-center me-2 text-primary ">
-                <span>{{items.periode}}</span>
+                <span>{{items.alias_periode}}</span>
                 <span>{{items.nilai_real}}</span>
               </div>
               <div class="d-flex flex-column align-items-center text-secondary">
-                <span>4Q23F<sup>{{items.indikator_tagging}}</sup></span>
+                <span>{{getQuartal}}{{getYear}}F<sup>{{items.indikator_tagging}}</sup></span>
                 <span>{{items.nilai_real}}</span>
               </div>
             </div>
@@ -279,11 +279,11 @@
               <span>{{item.nilai_rkap}}</span>
             </div>
             <div class="d-flex flex-column align-items-center me-2 text-primary ">
-              <span>{{item.periode}}</span>
+              <span>{{item.alias_periode}}</span>
               <span>{{item.nilai_realisasi}}</span>
             </div>
             <div class="d-flex flex-column align-items-center text-secondary">
-              <span>4Q23F<sup>{{item.indikator_tagging}}</sup></span>
+              <span>{{getQuartal}}{{getYear}}F<sup>{{item.indikator_tagging}}</sup></span>
               <span>{{item.nilai_outlook}}</span>
             </div>
           </div>
@@ -368,11 +368,11 @@
                   <span>{{item.nilai_rkap}}</span>
                 </div>
                 <div class="d-flex flex-column align-items-center me-2 text-primary ">
-                  <span>{{item.periode}}</span>
+                  <span>{{item.alias_periode}}</span>
                   <span>{{item.nilai_real}}</span>
                 </div>
                 <div class="d-flex flex-column align-items-center text-secondary">
-                  <span>4Q23F<sup>{{item.indikator_tagging}}</sup></span>
+                  <span>{{getQuartal}}{{getYear}}F<sup>{{item.indikator_tagging}}</sup></span>
                   <span>{{item.nilai_outlook}}</span>
                 </div>
               </div>
@@ -392,7 +392,7 @@
         </div>
         <!-- Card Commodity -->
         <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 mb-3 mt-2">
-          <span class="fw-semibold mb-3">PDB <span class="text-secondary">(%yoy)</span></span>
+          <span class="fw-semibold mb-3">Total Dampak Debt Service</span>
           <div class="d-flex align-items-center justify-content-between" style="font-size: 12px;">
             <div class="d-flex flex-column align-items-center me-2 text-danger">
               <span>RKAP</span>
@@ -409,7 +409,7 @@
           </div>
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 mb-3">
-          <span class="fw-semibold mb-3">PDB <span class="text-secondary">(%yoy)</span></span>
+          <span class="fw-semibold mb-3">Angsuran Pokok</span>
           <div class="d-flex align-items-center justify-content-between" style="font-size: 12px;">
             <div class="d-flex flex-column align-items-center me-2 text-danger">
               <span>RKAP</span>
@@ -426,7 +426,7 @@
           </div>
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 mb-3">
-          <span class="fw-semibold mb-3">PDB <span class="text-secondary">(%yoy)</span></span>
+          <span class="fw-semibold mb-3">Bunga Operasi</span>
           <div class="d-flex align-items-center justify-content-between" style="font-size: 12px;">
             <div class="d-flex flex-column align-items-center me-2 text-danger">
               <span>RKAP</span>
@@ -513,11 +513,11 @@
                 <span>{{items.nilai_rkap}}</span>
               </div>
               <div class="d-flex flex-column align-items-center me-2 text-primary ">
-                <span>{{items.periode}}</span>
+                <span>{{items.alias_periode}}</span>
                 <span>{{items.nilai_realisasi}}</span>
               </div>
               <div class="d-flex flex-column align-items-center text-secondary">
-                <span>4Q23F <sup>{{items.indikator_tagging}}</sup></span>
+                <span>{{getQuartal}}{{getYear}}F <sup>{{items.indikator_tagging}}</sup></span>
                 <span>{{items.nilai_outlook}}</span>
               </div>
             </div>

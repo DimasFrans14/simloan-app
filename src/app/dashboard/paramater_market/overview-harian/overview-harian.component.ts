@@ -399,53 +399,34 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   }
 
+  getQuartal: any;
+  getYear: any;
+
   async onDate(event: MatDatepickerInputEvent<Date>) {
     const selectedDate = event.value;
     console.log(selectedDate);
 
     const formattedDate = moment(event.value).format("DD/MM/YYYY");
     this.filteredDate = formattedDate;
-    console.log(formattedDate);
-
-    let month;
-    switch (formattedDate.slice(3, 5)) {
-      case '01':
-        month = "Januari";
+    this.getYear = formattedDate.slice(8,10)
+    const quarter = Math.ceil(parseInt(formattedDate.slice(3, 5)) / 3);
+    switch (quarter) {
+      case 1:
+        this.getQuartal = "1Q";
         break;
-      case '02':
-        month = "Februari";
+      case 2:
+        this.getQuartal = "2Q";
         break;
-      case '03':
-        month = "Maret";
+      case 3:
+        this.getQuartal = "3Q";
         break;
-      case '04':
-        month = "April";
-        break;
-      case '05':
-        month = "Mei";
-        break;
-      case '06':
-        month = "Juni";
-        break;
-      case '07':
-        month = "Juli";
-        break;
-      case '08':
-        month = "Agustus";
-        break;
-      case '09':
-        month = "September";
-        break;
-      case '10':
-        month = "Oktober";
-        break;
-      case '11':
-        month = "November";
-        break;
-      case '12':
-        month = "Desember";
+      case 4:
+        this.getQuartal = "4Q";
         break;
     }
+
+    console.log(formattedDate.slice(3, 5), this.getQuartal);
+
 
     // console.log(month);
 
