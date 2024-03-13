@@ -19,6 +19,9 @@ export class MoneySuplyComponent {
   }
 
   dataDetail: any;
+  dataDetailRealisasi: any;
+  dataDetailRkap: any;
+  dataDetailOutlook: any;
   filteredData: String[] = [];
   isLoading: Boolean = true;
   realisasiPdbItem!: number;
@@ -137,6 +140,48 @@ export class MoneySuplyComponent {
     console.log('finish get data in func');
 
   }
+  async getDataRealisasi(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    try {
+      const data = await this.marketUpdateService.fetchDataRealisasiMoneySupply();
+      this.dataDetailRealisasi = data;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log('finish get data in func');
+  }
+  async getDataRkap(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    try {
+      const data = await this.marketUpdateService.fetchDataRkapMoneySupply();
+      this.dataDetailRkap = data;
+      this.dataDetailRkap = this.dataDetailRkap.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailRkap);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log('finish get data in func');
+  }
+  async getDataOutlook(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    try {
+      const data = await this.marketUpdateService.fetchDataOutlookMoneySupply();
+      this.dataDetailOutlook = data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log('finish get data in func');
+  }
 
   onDate(event: any){
     console.log(event);
@@ -172,7 +217,14 @@ export class MoneySuplyComponent {
     console.log('load data');
 
     await this.getData();
+    await this.getDataRealisasi();
+    await this.getDataRkap();
+    await this.getDataOutlook();
+
     this.tableConfig.initializeTableDataMoneySupply();
+    this.tableConfig.setDataRealisasiMoneySupply(this.dataDetailRealisasi);
+    this.tableConfig.setDataRkapMoneySupply(this.dataDetailRkap);
+    this.tableConfig.setDataOutlookMoneySupply(this.dataDetailOutlook);
   }
 
   ngAfterViewInit(): void {

@@ -27,10 +27,10 @@ export class GMTNComponent {
   
   baselineGMTN = new FormGroup({
     tanggal : this.tanggal = new FormControl(''),  
-    tahun : new FormControl,
-    tenor : new FormControl,
-    rateCoupon : new FormControl,
-    kurs : new FormControl,
+    tahun : new FormControl(''),
+    tenor : new FormControl(''),
+    indicativeRate : new FormControl(''),
+    kurs : new FormControl(''),
   });
 
   estimasiBaselineGMTN = new FormGroup({
