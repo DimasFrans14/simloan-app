@@ -304,7 +304,7 @@ export class MarketUpdateService {
 
   fetchDataCompareChangeRKAP = async () => {
     try {
-      const params = new HttpParams().set('tanggal', "05/02/2024")
+      const params = new HttpParams().set('tanggal', "21/02/2024")
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/dashboard/market/trending/kurs/compare`, {params})
       )
@@ -496,7 +496,7 @@ export class MarketUpdateService {
     }
   }
 
-  async fetchDataPMI(){
+  async fetchDataPMI(year:string){
     try {
       const params = new HttpParams().set('tahun', year);
       return await lastValueFrom(
@@ -853,8 +853,9 @@ export class MarketUpdateService {
   }
   
 
-  async fetchDataInterestRate(){
+  async fetchDataInterestRate(year: string){
     try {
+      const params = new HttpParams().set('tahun', year)
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/market/interest/getList`)
       );
@@ -1131,8 +1132,6 @@ export class MarketUpdateService {
       console.log(error);
       return null
     }
-  }
-
   }
 
 }
