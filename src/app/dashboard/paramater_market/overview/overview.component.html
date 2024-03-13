@@ -20,14 +20,16 @@
           <!-- <button class="btn btn-light bg-white ms-2" style="font-size: 14px;"><i class="bi bi-calendar me-2"></i>Pilih Tanggal</button> -->
           <!-- <input type="date" name="date" id="input_date" class="bg-white rounded border-none ms-2" placeholder="Pilih Tanggal"> -->
           <button
-            class="btn btn-light bg-white ms-2"
+            class="btn btn-light bg-white ms-2 border"
             (click)="toggleVisibilityLine()"
+             [ngClass]="{'active': activeAllLineChart === true}"
           >
             <i class="bi bi-graph-up"></i>
           </button>
           <button
-            class="btn btn-light bg-white ms-2"
+            class="btn btn-light bg-white ms-2 border"
             (click)="toggleVisibilityBar()"
+             [ngClass]="{'active': activeAllBarChart === true}"
           >
             <i class="bi bi-bar-chart-line"></i>
           </button>
@@ -65,7 +67,7 @@
             Underperformance</span
           >
         </div>
-        <div>
+        <!-- <div>
           <button
             class="bg-light rounded p-3"
             style="border: none"
@@ -73,7 +75,7 @@
           >
             <i class="bi bi-download"></i>
           </button>
-        </div>
+        </div> -->
         <div></div>
       </div>
     </div>
@@ -94,21 +96,25 @@
         ></button>
       </div>
     </div>
+
     <div class="row">
+
       <div class="col-12 py-2 px-2 bg-white rounded">
-        <div class="bg-white">
           <div class="d-flex justify-content-between align-items-center pb-3">
             <div>
               <h5>Kurs Rupiah</h5>
             </div>
 
             <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center">
-              <div>
+              <div
+
+              >
                 <button
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
-                  id="default"
-                  (click)="filterRangeDateKursLineChart('1week')"
+                  (click)="filterRangeDateKursLineChart ('1week')"
+                  [disabled]="isLoadingKursLine"
+                  [ngClass]="{'active': activeButtonLineKurs === '1week'}"
                 >
                   <span style="font-size: 13px">1W</span>
                 </button>
@@ -117,7 +123,8 @@
                 <button
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
-                  id="default"
+                  [ngClass]="{'active': activeButtonLineKurs === '1month'}"
+                  [disabled]="isLoadingKursLine"
                   (click)="filterRangeDateKursLineChart('1month')"
                 >
                   <span style="font-size: 13px">1M</span>
@@ -127,7 +134,8 @@
                 <button
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
-                  id="1year"
+                  [ngClass]="{'active': activeButtonLineKurs === '1year'}"
+                   [disabled]="isLoadingKursLine"
                   (click)="filterRangeDateKursLineChart('1year')"
                 >
                   <span style="font-size: 13px">1Y</span>
@@ -137,12 +145,14 @@
                 <button
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
-                  id="years"
+                  [ngClass]="{'active': activeButtonLineKurs === '3years'}"
+                   [disabled]="isLoadingKursLine"
                   (click)="filterRangeDateKursLineChart('3years')"
                 >
                   <span style="font-size: 13px">3Y</span>
                 </button>
               </div>
+
               <div>
                 <button
                   class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
@@ -182,7 +192,9 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="default"
+                  [disabled]="isLoadingKursLine"
                   (click)="filterRangeDateKursBarChart('default', '1week')"
+                  [ngClass]="{'active': activeButtonBarKurs === '1week'}"
                 >
                   <span style="font-size: 13px">1W</span>
                 </button>
@@ -192,7 +204,9 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="default"
+                  [disabled]="isLoadingKursLine"
                   (click)="filterRangeDateKursBarChart('default', '1month')"
+                  [ngClass]="{'active': activeButtonBarKurs === '1month'}"
                 >
                   <span style="font-size: 13px">1M</span>
                 </button>
@@ -202,7 +216,9 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="1year"
+                  [disabled]="isLoadingKursLine"
                   (click)="filterRangeDateKursBarChart('1year', '1year')"
+                  [ngClass]="{'active': activeButtonBarKurs === '1year'}"
                 >
                   <span style="font-size: 13px">1Y</span>
                 </button>
@@ -212,7 +228,9 @@
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
                   id="years"
+                  [disabled]="isLoadingKursLine"
                   (click)="filterRangeDateKursBarChart('years', '3years')"
+                  [ngClass]="{'active': activeButtonBarKurs === '3years'}"
                 >
                   <span style="font-size: 13px">3Y</span>
                 </button>
@@ -225,7 +243,7 @@
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Customize Line Chart
+                  Customize Bar Chart
                 </button>
                 <div class="dropdown-menu ps-2">
                   <form (ngSubmit)="filterCurrencyLineChart($event)">
@@ -250,28 +268,38 @@
               </div>
             </div>
           </div>
-          <apx-chart
-            [style.display]="isVisibleLine ? 'block' : 'none'"
-            [series]="lineChartKursSeries"
-            [chart]="currencyChartDetails"
-            [yaxis]="lineYAxisKurs"
-            [xaxis]="tesXaxis"
-            [stroke]="stroke"
-            [tooltip]="lineChartKursTooltip"
-            [markers]="lineChartKursMarkers"
-          ></apx-chart>
-        </div>
-        <apx-chart
-          [style.display]="isVisibleBar ? 'none' : 'block'"
-          [series]="barChartKursSeries"
-          [chart]="currencyBarChartDetails"
-          [yaxis]="barYAxisKurs"
-          [xaxis]="barXAxisKurs"
-          [dataLabels]="barDataLabels"
-          [stroke]="stroke"
-          [tooltip]="lineChartKursTooltip"
-          [markers]="lineChartKursMarkers"
-        ></apx-chart>
+
+          <div class="text-primary" [style.display]="isLoadingKursLine ? 'block' : 'none'">
+            <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+              <div class="spinner-border" role="status">
+              </div>
+              <span class="text-dark ms-2">Load Data Chart...</span>
+            </div>
+          </div>
+
+          <div [style.display]="isLoadingKursLine ? 'none' : 'block'">
+            <apx-chart
+              [style.display]="isVisibleLine ? 'block' : 'none'"
+              [series]="lineChartKursSeries"
+              [chart]="currencyChartDetails"
+              [yaxis]="lineYAxisKurs"
+              [xaxis]="tesXaxis"
+              [stroke]="stroke"
+              [tooltip]="lineChartKursTooltip"
+              [markers]="lineChartKursMarkers"
+            ></apx-chart>
+            <apx-chart
+              [style.display]="isVisibleBar ? 'none' : 'block'"
+              [series]="barChartKursSeries"
+              [chart]="currencyBarChartDetails"
+              [yaxis]="barYAxisKurs"
+              [xaxis]="barXAxisKurs"
+              [dataLabels]="barDataLabels"
+              [stroke]="stroke"
+              [tooltip]="lineChartKursTooltip"
+              [markers]="lineChartKursMarkers"
+            ></apx-chart>
+          </div>
       </div>
     </div>
 
@@ -282,30 +310,39 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col" style="font-size: 14px">Kurs</th>
-                  <th scope="col" style="font-size: 14px">Change RKAP</th>
-                  <th scope="col" style="font-size: 14px">Change WoW</th>
-                  <th scope="col" style="font-size: 14px">Change MoM</th>
-                  <th scope="col" style="font-size: 14px">Change 1 Day</th>
+                  <th scope="col" class="text-center" style="font-size: 14px">Kurs</th>
+                  <th scope="col" class="text-center" style="font-size: 14px">Change RKAP</th>
+                  <th scope="col" class="text-center" style="font-size: 14px">Change WoW</th>
+                  <th scope="col" class="text-center" style="font-size: 14px">Change MoM</th>
+                  <th scope="col" class="text-center" style="font-size: 14px">Change 1 Day</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of trendKursDataBarChart">
-                  <th scope="row" style="font-size: 14px; border-style: none">
-                    {{ item.kode }}
-                  </th>
-                  <td>{{ item.change_rkap }}</td>
-                  <td>{{ item.change_now }}</td>
-                  <td>{{ item.change_now }}</td>
-                  <td>{{ item.change1_day }}</td>
+                <tr *ngFor="let item of dataCompareChangeRKAP">
+                  <td style="font-size: 14px; border-style: none" class="text-center">
+                    {{ item.mata_uang }}
+                  </td>
+                  <td [style.color]="item.font_color_rkap" class="text-center">{{ item.persen_change_rkap }}</td>
                   <td>
-                    <i
-                      class="bi bi-x-lg"
-                      (click)="hideCompare(item.mata_uang)"
-                      style="cursor: pointer"
-                    ></i>
+                    <p class="rounded py-1 text-center" [style.background-color]="item.bg_wow" [style.color]="item.font_color_bg_wow">
+                      <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_wow)"></span>{{ item.persen_change_wow }}
+                    </p>
+                  </td>
+                  <td>
+                    <p class="rounded py-1 text-center" [style.background-color]="item.bg_mom" [style.color]="item.font_color_bg_mom">
+                      <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_mom)"></span>{{ item.persen_change_mom }}
+                    </p>
+                  </td>
+                  <td>
+                    <p class="rounded py-1 text-center" [style.background-color]="item.bg_1day" [style.color]="item.font_color_bg_1day">
+                      <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_1day)"></span>{{ item.persen_change_1day }}
+                    </p>
+                  </td>
+                  <td>
+                    <i class="bi bi-x-lg" (click)="hideCompare(item.mata_uang)" style="cursor: pointer"></i>
                   </td>
                 </tr>
+
               </tbody>
             </table>
           </div>
@@ -364,46 +401,44 @@
                   <div
                     class="d-flex align-items-center justify-content-between"
                   >
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col" style="font-size: 14px">Kurs</th>
-                          <th scope="col" style="font-size: 14px">
-                            Change RKAP
-                          </th>
-                          <th scope="col" style="font-size: 14px">
-                            Change WoW
-                          </th>
-                          <th scope="col" style="font-size: 14px">
-                            Change MoM
-                          </th>
-                          <th scope="col" style="font-size: 14px">
-                            Change 1 Day
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let item of allTrendDataKursBarChart">
-                          <th
-                            scope="row"
-                            style="font-size: 14px; border-style: none"
-                          >
-                            {{ item.kode }}
-                          </th>
-                          <td>{{ item.change_rkap }}</td>
-                          <td>{{ item.change_now }}</td>
-                          <td>{{ item.change_now }}</td>
-                          <td>{{ item.change1_day }}</td>
-                          <td>
-                            <i
-                              class="bi bi-plus-lg"
-                              (click)="addSample(item.mata_uang)"
-                              style="cursor: pointer"
-                            ></i>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="text-center" style="font-size: 14px">Kurs</th>
+                        <th scope="col" class="text-center" style="font-size: 14px">Change RKAP</th>
+                        <th scope="col" class="text-center" style="font-size: 14px">Change WoW</th>
+                        <th scope="col" class="text-center" style="font-size: 14px">Change MoM</th>
+                        <th scope="col" class="text-center" style="font-size: 14px">Change 1 Day</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of dataCompareChangeRKAP">
+                        <td style="font-size: 14px; border-style: none" class="text-center">
+                          {{ item.mata_uang }}
+                        </td>
+                        <td [style.color]="item.font_color_rkap" class="text-center">{{ item.persen_change_rkap }}</td>
+                        <td>
+                          <p class="rounded py-1 text-center" [style.background-color]="item.bg_wow" [style.color]="item.font_color_bg_wow">
+                            <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_wow)"></span>{{ item.persen_change_wow }}
+                          </p>
+                        </td>
+                        <td>
+                          <p class="rounded py-1 text-center" [style.background-color]="item.bg_mom" [style.color]="item.font_color_bg_mom">
+                            <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_mom)"></span>{{ item.persen_change_mom }}
+                          </p>
+                        </td>
+                        <td>
+                          <p class="rounded py-1 text-center" [style.background-color]="item.bg_1day" [style.color]="item.font_color_bg_1day">
+                            <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_1day)"></span>{{ item.persen_change_1day }}
+                          </p>
+                        </td>
+                        <td>
+                          <i class="bi bi-x-lg" (click)="hideCompare(item.mata_uang)" style="cursor: pointer"></i>
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
                   </div>
                   <!-- </div> -->
                 </div>
@@ -442,556 +477,558 @@
       </div>
     </div>
 
-    <div class="d-flex flex-row flex-wrap justify-content-evenly">
-      <!-- <ng-container *ngFor="let item of chartCommodities"> -->
-      <!-- <div class="bg-white p-1 m-2 rounded"> -->
+    <div class="d-flex flex-row flex-wrap justify-content-evenly gap-3">
 
       <!-- WTI & Brent -->
       <div class="card rounded p-2 mt-3">
+
         <div class="d-flex align-items-center justify-content-between p-1">
           <div class="flex-fill fw-semibold">WTI & Brent (USD/Ton)</div>
-          <!-- <div>
-            <button
-              type="button"
-              class="btn btn-sm btn-transparant border"
-              style="color: black"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <div class="d-flex justify-content-between">
-                <div class="p-1">Year</div>
-                <div class="p-1"><i class="bi bi-chevron-down"></i></div>
-              </div>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item">Month</a></li>
-              <li><a class="dropdown-item">Week</a></li>
-              <li><a class="dropdown-item">Day</a></li>
-            </ul>
-          </div> -->
-        </div>
-        <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-end py-2">
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '1week')"
-            >
-              <span style="font-size: 13px">1W</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '1month')"
-            >
-              <span style="font-size: 13px">1M</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '1year')"
-            >
-              <span style="font-size: 13px">1Y</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '3years')"
-            >
-              <span style="font-size: 13px">3Y</span>
-            </button>
-          </div>
-        </div>
-        <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'WTI\',\'BRENT\']', 'default', '1week')"
-            >
-              <span style="font-size: 13px">1W</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'WTI\',\'BRENT\']', 'default', '1month')"
-            >
-              <span style="font-size: 13px">1M</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'WTI\',\'BRENT\']', '1year', '1year')"
-            >
-              <span style="font-size: 13px">1Y</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'WTI\',\'BRENT\']', 'years', '3years')"
-            >
-              <span style="font-size: 13px">3Y</span>
-            </button>
+
+          <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-end py-2">
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '1week')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineWTIBRENT === '1week'}"
+              >
+                <span style="font-size: 13px">1W</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '1month')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineWTIBRENT === '1month'}"
+              >
+                <span style="font-size: 13px">1M</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '1year')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineWTIBRENT === '1year'}"
+              >
+                <span style="font-size: 13px">1Y</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '3years')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineWTIBRENT === '3years'}"
+              >
+                <span style="font-size: 13px">3Y</span>
+              </button>
+            </div>
           </div>
 
+          <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-start py-2">
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'WTI\',\'BRENT\']', 'default', '1week')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarWTIBRENT === '1week'}"
+              >
+                <span style="font-size: 13px">1W</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'WTI\',\'BRENT\']', 'default', '1month')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarWTIBRENT === '1month'}"
+              >
+                <span style="font-size: 13px">1M</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'WTI\',\'BRENT\']', '1year', '1year')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarWTIBRENT === '1year'}"
+              >
+                <span style="font-size: 13px">1Y</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'WTI\',\'BRENT\']', 'years', '3years')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarWTIBRENT === '3years'}"
+              >
+                <span style="font-size: 13px">3Y</span>
+              </button>
+            </div>
+
+          </div>
         </div>
+
+
+        <div class="text-primary" [style.display]="isLoadingWTILine ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center bg-white rounded" style="padding: 50px 140px;">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-2">Load Data Chart...</span>
+          </div>
+        </div>
+
         <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
           <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
-        <apx-chart
-          [style.display]="isVisibleLine ? 'block' : 'none'"
-          [series]="dataChartWtibrent"
-          [chart]="wtiBrentLineChart"
-          [stroke]="wtiBrentStroke"
-          [colors]="wtiBrentChartColors"
-          [xaxis]="xAxisWtiChartBrent"
-          [yaxis]="yAxisWtiBrentChart">
-        </apx-chart>
-        <apx-chart
-          [style.display]="isVisibleLine ? 'none' : 'block'"
-          [series]="dataBarChartWtiBrent"
-          [chart]="wtiBrentBarChart"
-          [dataLabels]="barDataLabels"
-          [colors]="wtiBrentChartColors"
-          [xaxis]="xAxisWtiChartBrent"
-          [yaxis]="yAxisWtiBrentBarChart">
-        </apx-chart>
+        <div [style.display]="isLoadingWTILine ? 'none' : 'block'">
+          <apx-chart
+            [style.display]="isVisibleLine ? 'block' : 'none'"
+            [series]="dataChartWtibrent"
+            [chart]="wtiBrentLineChart"
+            [stroke]="wtiBrentStroke"
+            [colors]="wtiBrentChartColors"
+            [xaxis]="xAxisWtiChartBrent"
+            [yaxis]="yAxisWtiBrentChart">
+          </apx-chart>
+          <apx-chart
+            [style.display]="isVisibleLine ? 'none' : 'block'"
+            [series]="dataBarChartWtiBrent"
+            [chart]="wtiBrentBarChart"
+            [dataLabels]="barDataLabels"
+            [colors]="wtiBrentChartColors"
+            [xaxis]="xAxisWtiChartBrent"
+            [yaxis]="yAxisWtiBrentBarChart">
+          </apx-chart>
+        </div>
+
       </div>
       <!-- end WTI Brent -->
+
       <!-- ICP -->
       <div class="card rounded p-2 mt-3">
+
         <div class="d-flex align-items-center justify-content-between p-1">
           <div class="flex-fill fw-semibold">ICP <span class="info-unit">(USD/Barel)</span></div>
 
+          <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-end py-2">
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '1week')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineICP === '1week'}"
+              >
+                <span style="font-size: 13px">1W</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '1month')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineICP === '1month'}"
+              >
+                <span style="font-size: 13px">1M</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '1year')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineICP === '1year'}"
+              >
+                <span style="font-size: 13px">1Y</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '3years')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineICP === '3years'}"
+              >
+                <span style="font-size: 13px">3Y</span>
+              </button>
+            </div>
+
+          </div>
+
+          <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'ICP\']', 'default', '1week')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarICP === '1week'}"
+              >
+                <span style="font-size: 13px">1W</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'ICP\']', 'default', '1month')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarICP === '1month'}"
+              >
+                <span style="font-size: 13px">1M</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'ICP\']', '1year', '1year')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarICP === '1year'}"
+              >
+                <span style="font-size: 13px">1Y</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'ICP\']', 'years', '3years')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarICP === '3years'}"
+              >
+                <span style="font-size: 13px">3Y</span>
+              </button>
+            </div>
+
+          </div>
         </div>
-        <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-end py-2">
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '1week')"
-            >
-              <span style="font-size: 13px">1W</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '1month')"
-            >
-              <span style="font-size: 13px">1M</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '1year')"
-            >
-              <span style="font-size: 13px">1Y</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '3years')"
-            >
-              <span style="font-size: 13px">3Y</span>
-            </button>
-          </div>
 
+
+        <div class="text-primary" [style.display]="isLoadingICPLine ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px 140px;">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-2">Load Data Chart...</span>
+          </div>
         </div>
 
-        <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'ICP\']', 'default', '1week')"
-            >
-              <span style="font-size: 13px">1W</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'ICP\']', 'default', '1month')"
-            >
-              <span style="font-size: 13px">1M</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'ICP\']', '1year', '1year')"
-            >
-              <span style="font-size: 13px">1Y</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'ICP\']', 'years', '3years')"
-            >
-              <span style="font-size: 13px">3Y</span>
-            </button>
-          </div>
-
+        <div [style.display]="isLoadingICPLine ? 'none' : 'block'">
+          <apx-chart
+            [style.display]="isVisibleLine ? 'block' : 'none'"
+            [series]="dataIcpChart"
+            [chart]="icplineChart"
+            [stroke]="icpStroke"
+            [colors]="icpChartColors"
+            [xaxis]="xAxisIcpChart"
+            [yaxis]="yAxisIcp">
+          </apx-chart>
+          <apx-chart
+            [style.display]="isVisibleBar ? 'none' : 'block'"
+            [series]="dataIcpBarChart"
+            [chart]="icpBarChart"
+            [stroke]="icpStroke"
+            [dataLabels]="barDataLabels"
+            [colors]="icpChartColors"
+            [xaxis]="xAxisIcpChart"
+            [yaxis]="yAxisIcp">
+          </apx-chart>
         </div>
 
-        <apx-chart
-          [style.display]="isVisibleLine ? 'block' : 'none'"
-          [series]="dataIcpChart"
-          [chart]="icplineChart"
-          [stroke]="icpStroke"
-          [colors]="icpChartColors"
-          [xaxis]="xAxisIcpChart"
-          [yaxis]="yAxisIcp">
-        </apx-chart>
-        <apx-chart
-          [style.display]="isVisibleBar ? 'none' : 'block'"
-          [series]="dataIcpBarChart"
-          [chart]="icpBarChart"
-          [stroke]="icpStroke"
-          [dataLabels]="barDataLabels"
-          [colors]="icpChartColors"
-          [xaxis]="xAxisIcpChart"
-          [yaxis]="yAxisIcp">
-        </apx-chart>
       </div>
       <!-- end ICP -->
+
       <!-- COAL NEWCASTLE -->
       <div class="card rounded p-2 mt-3">
         <div class="d-flex align-items-center justify-content-between p-1">
-          <div class="flex-fill fw-semibold">COAL (Newcastle)</div>
+          <div class="flex-fill fw-semibold">COAL Newcastle (USD/Ton)</div>
 
-        </div>
-        <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-end py-2">
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '1week')"
-            >
-              <span style="font-size: 13px">1W</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-               (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '1month')"
-            >
-              <span style="font-size: 13px">1M</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-               (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '1year')"
-            >
-              <span style="font-size: 13px">1Y</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-               (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '3years')"
-            >
-              <span style="font-size: 13px">3Y</span>
-            </button>
-          </div>
+          <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-end py-2">
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '1week')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineCOAL === '1week'}"
+              >
+                <span style="font-size: 13px">1W</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '1month')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineCOAL === '1month'}"
+              >
+                <span style="font-size: 13px">1M</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '1year')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineCOAL === '1year'}"
+              >
+                <span style="font-size: 13px">1Y</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '3years')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineCOAL === '3years'}"
+              >
+                <span style="font-size: 13px">3Y</span>
+              </button>
+            </div>
 
-        </div>
-        <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', 'default', '1week')"
-            >
-              <span style="font-size: 13px">1W</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', 'default', '1month')"
-            >
-              <span style="font-size: 13px">1M</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', '1year', '1year')"
-            >
-              <span style="font-size: 13px">1Y</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', 'years', '3years')"
-            >
-              <span style="font-size: 13px">3Y</span>
-            </button>
           </div>
 
+          <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', 'default', '1week')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarCOAL === '1week'}"
+              >
+                <span style="font-size: 13px">1W</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', 'default', '1month')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarCOAL === '1month'}"
+              >
+                <span style="font-size: 13px">1M</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', '1year', '1year')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarCOAL === '1year'}"
+              >
+                <span style="font-size: 13px">1Y</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', 'years', '3years')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarCOAL === '3years'}"
+              >
+                <span style="font-size: 13px">3Y</span>
+              </button>
+            </div>
+
+          </div>
         </div>
+
         <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
         <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
         <!-- ICP -->
-        <apx-chart
-          [style.display]="isVisibleLine ? 'block' : 'none'"
-          [series]="dataChartCoal"
-          [chart]="coalLineChart"
-          [stroke]="coalStroke"
-          [colors]="coalChartColors"
-          [xaxis]="xAxisChartCoal"
-          [yaxis]="yAxisCoalChart">
-        </apx-chart>
-        <apx-chart
-          [style.display]="isVisibleLine ? 'none' : 'block'"
-          [series]="dataChartCoalBar"
-          [chart]="coalBarChart"
-          [stroke]="coalStroke"
-          [dataLabels]="barDataLabels"
-          [colors]="coalChartColors"
-          [xaxis]="xAxisChartCoal"
-          [yaxis]="yAxisCoalChart">
-        </apx-chart>
+
+        <div class="text-primary" [style.display]="isLoadingCOALLine ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center bg-white rounded" style="padding: 50px 140px;">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-2">Load Data Chart...</span>
+          </div>
+        </div>
+
+        <div [style.display]="isLoadingCOALLine ? 'none' : 'block'">
+          <apx-chart
+            [style.display]="isVisibleLine ? 'block' : 'none'"
+            [series]="dataChartCoal"
+            [chart]="coalLineChart"
+            [stroke]="coalStroke"
+            [colors]="coalChartColors"
+            [xaxis]="xAxisChartCoal"
+            [yaxis]="yAxisCoalChart">
+          </apx-chart>
+          <apx-chart
+            [style.display]="isVisibleLine ? 'none' : 'block'"
+            [series]="dataChartCoalBar"
+            [chart]="coalBarChart"
+            [stroke]="coalStroke"
+            [dataLabels]="barDataLabels"
+            [colors]="coalChartColors"
+            [xaxis]="xAxisChartCoal"
+            [yaxis]="yAxisCoalChart">
+          </apx-chart>
+        </div>
       </div>
       <!-- end COAL NEWCASTLE -->
+
       <!-- LNG -->
       <div class="card rounded p-2 mt-3">
         <div class="d-flex align-items-center justify-content-between p-1">
           <div class="flex-fill fw-semibold">LNG (JKM) (USD/MMBtu)</div>
 
-        </div>
-        <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-end py-2">
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '1week')"
-            >
-              <span style="font-size: 13px">1W</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '1month')"
-            >
-              <span style="font-size: 13px">1M</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '1year')"
-            >
-              <span style="font-size: 13px">1Y</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '3years')"
-            >
-              <span style="font-size: 13px">3Y</span>
-            </button>
+          <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-start py-2">
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '1week')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineLNG === '1week'}"
+              >
+                <span style="font-size: 13px">1W</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '1month')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineLNG === '1month'}"
+              >
+                <span style="font-size: 13px">1M</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '1year')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineLNG === '1year'}"
+              >
+                <span style="font-size: 13px">1Y</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '3years')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonLineLNG === '3years'}"
+              >
+                <span style="font-size: 13px">3Y</span>
+              </button>
+            </div>
+
           </div>
 
-        </div>
-        <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'LNG\']', 'default', '1week')"
-            >
-              <span style="font-size: 13px">1W</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'LNG\']', 'default', '1month')"
-            >
-              <span style="font-size: 13px">1M</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'LNG\']', '1year', '1year')"
-            >
-              <span style="font-size: 13px">1Y</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-              (click)="fetchRangeDataCommoditiesBarChart('[\'LNG\']', 'years', '3years')"
-            >
-              <span style="font-size: 13px">3Y</span>
-            </button>
-          </div>
+          <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-start py-2">
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'LNG\']', 'default', '1week')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarLNG === '1week'}"
+              >
+                <span style="font-size: 13px">1W</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'LNG\']', 'default', '1month')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarLNG === '1month'}"
+              >
+                <span style="font-size: 13px">1M</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'LNG\']', '1year', '1year')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarLNG === '1year'}"
+              >
+                <span style="font-size: 13px">1Y</span>
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-light rounded-pill text-dark bg-white ms-1"
+                (click)="fetchRangeDataCommoditiesBarChart('[\'LNG\']', 'years', '3years')"
+                [disabled]="isLoadingAllData"
+                [ngClass]="{'active': activeButtonBarLNG === '3years'}"
+              >
+                <span style="font-size: 13px">3Y</span>
+              </button>
+            </div>
 
+          </div>
         </div>
+
         <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
         <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
         <!-- ICP -->
-        <apx-chart
-          [style.display]="isVisibleLine ? 'block' : 'none'"
-          [series]="dataChartLngLine"
-          [chart]="lngLineChart"
-          [stroke]="lngStroke"
-          [colors]="lngChartColors"
-          [xaxis]="xAxisChartLng"
-          [yaxis]="yAxisLng">
-        </apx-chart>
-        <apx-chart
-          [style.display]="isVisibleLine ? 'none' : 'block'"
-          [series]="dataChartLngBar"
-          [chart]="lngBarChart"
-          [stroke]="lngStroke"
-          [dataLabels]="barDataLabels"
-          [colors]="lngChartColors"
-          [xaxis]="xAxisChartLng"
-          [yaxis]="yAxisLng">
-        </apx-chart>
+
+        <div class="text-primary" [style.display]="isLoadingLNGLine ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center bg-white rounded" style="padding: 50px 140px;">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-2">Load Data Chart...</span>
+          </div>
+        </div>
+
+        <div [style.display]="isLoadingLNGLine ? 'none' : 'block'">
+          <apx-chart
+            [style.display]="isVisibleLine ? 'block' : 'none'"
+            [series]="dataChartLngLine"
+            [chart]="lngLineChart"
+            [stroke]="lngStroke"
+            [colors]="lngChartColors"
+            [xaxis]="xAxisChartLng"
+            [yaxis]="yAxisLng">
+          </apx-chart>
+          <apx-chart
+            [style.display]="isVisibleLine ? 'none' : 'block'"
+            [series]="dataChartLngBar"
+            [chart]="lngBarChart"
+            [stroke]="lngStroke"
+            [dataLabels]="barDataLabels"
+            [colors]="lngChartColors"
+            [xaxis]="xAxisChartLng"
+            [yaxis]="yAxisLng">
+          </apx-chart>
+        </div>
       </div>
       <!-- end LNG -->
-      <!-- Batu Bara -->
-      <div class="card rounded p-2 mt-3">
-        <div class="d-flex align-items-center justify-content-between p-1">
-          <div class="flex-fill fw-semibold">Batu Bara (USD/Ton)</div>
 
-        </div>
-        <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-end py-2">
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-            >
-              <span style="font-size: 13px">1W</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-            >
-              <span style="font-size: 13px">1M</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-            >
-              <span style="font-size: 13px">1Y</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-            >
-              <span style="font-size: 13px">3Y</span>
-            </button>
-          </div>
-
-        </div>
-        <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-            >
-              <span style="font-size: 13px">1W</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-            >
-              <span style="font-size: 13px">1M</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-            >
-              <span style="font-size: 13px">1Y</span>
-            </button>
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-light rounded-pill text-dark bg-white ms-1"
-            >
-              <span style="font-size: 13px">3Y</span>
-            </button>
-          </div>
-
-        </div>
-        <!-- <apx-chart [series]="lineChartKursSeries" [chart]="commodityChartDetails"></apx-chart>
-        <apx-chart [series]="chartSeries2" [chart]="currencyBarChartDetails" [title]="currencyChartTitle"></apx-chart> -->
-        <!-- ICP -->
-        <apx-chart
-          [style.display]="isVisibleLine ? 'block' : 'none'"
-          [series]="dataBatuBaraChart"
-          [chart]="batuBaraLineChart"
-          [stroke]="batuBaraStroke"
-          [colors]="batuBaraChartColors"
-          [xaxis]="xAxisBatuBaraChart"
-          [yaxis]="yAxisBatuBara">
-        </apx-chart>
-        <apx-chart
-          [style.display]="isVisibleLine ? 'none' : 'block'"
-          [series]="dataBatuBaraChart"
-          [chart]="batuBaraBarChart"
-          [dataLabels]="barDataLabels"
-          [stroke]="batuBaraStroke"
-          [colors]="batuBaraChartColors"
-          [xaxis]="xAxisBatuBaraChart"
-          [yaxis]="yAxisBatuBara">
-        </apx-chart>
-      </div>
-      <!-- end Batu BAra -->
       <!-- </ng-container> -->
     </div>
 
@@ -1009,12 +1046,14 @@
     </div>
     <div>
       <div class="bg-white rounded p-2">
+
         <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-end py-2">
           <div>
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestLineChart('1week')"
+              [ngClass]="{'active': activeButtonLineInterest === '1week'}"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -1024,6 +1063,7 @@
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestLineChart('1month')"
+              [ngClass]="{'active': activeButtonLineInterest === '1month'}"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -1033,6 +1073,7 @@
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestLineChart('1year')"
+              [ngClass]="{'active': activeButtonLineInterest === '1year'}"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -1042,6 +1083,7 @@
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestLineChart('3years')"
+              [ngClass]="{'active': activeButtonLineInterest === '3years'}"
             >
               <span style="font-size: 13px">3Y</span>
             </button>
@@ -1076,12 +1118,14 @@
             </div>
           </div>
         </div>
+
         <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
           <div>
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestBarChart('default', '1week')"
+              [ngClass]="{'active': activeButtonBarInterest === '1week'}"
             >
               <span style="font-size: 13px">1W</span>
             </button>
@@ -1091,6 +1135,7 @@
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestBarChart('default', '1month')"
+              [ngClass]="{'active': activeButtonBarInterest === '1month'}"
             >
               <span style="font-size: 13px">1M</span>
             </button>
@@ -1100,6 +1145,7 @@
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestBarChart('1year', '1year')"
+              [ngClass]="{'active': activeButtonBarInterest === '1year'}"
             >
               <span style="font-size: 13px">1Y</span>
             </button>
@@ -1109,6 +1155,7 @@
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestBarChart('years', '3years')"
+              [ngClass]="{'active': activeButtonBarInterest === '3years'}"
             >
               <span style="font-size: 13px">3Y</span>
             </button>
@@ -1143,25 +1190,37 @@
             </div>
           </div>
         </div>
-        <apx-chart
-          [style.display]="isVisibleLine ? 'block' : 'none'"
-          [series]="lineChartInterestRateSeries"
-          [chart]="currencyChartDetails"
-          [yaxis]="interestRateYAxis"
-          [xaxis]="interestRateXaxis"
-          [stroke]="intersetRateLineStroke"
-          [legend]="interestRateLegend"
-          [colors]="interestRateChartColors"
-        ></apx-chart>
 
-        <apx-chart
-          [style.display]="isVisibleBar ? 'none' : 'block'"
-          [series]="barChartInterestRateSeries"
-          [chart]="currencyBarChartDetails"
-          [dataLabels]="barDataLabels"
-          [colors]="interestRateChartColors"
-        ></apx-chart>
+        <div class="text-primary" [style.display]="isLoadingInterestLine ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center bg-white rounded" style="padding: 50px 140px;">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-2">Load Data Chart...</span>
+          </div>
+        </div>
+
+        <div [style.display]="isLoadingInterestLine ? 'none' : 'block'">
+          <apx-chart
+            [style.display]="isVisibleLine ? 'block' : 'none'"
+            [series]="lineChartInterestRateSeries"
+            [chart]="currencyChartDetails"
+            [yaxis]="interestRateYAxis"
+            [xaxis]="interestRateXaxis"
+            [stroke]="intersetRateLineStroke"
+            [legend]="interestRateLegend"
+            [colors]="interestRateChartColors"
+          ></apx-chart>
+
+          <apx-chart
+            [style.display]="isVisibleBar ? 'none' : 'block'"
+            [series]="barChartInterestRateSeries"
+            [chart]="currencyBarChartDetails"
+            [dataLabels]="barDataLabels"
+            [colors]="interestRateChartColors"
+          ></apx-chart>
+        </div>
       </div>
+
     </div>
   </main>
   <app-footer></app-footer>

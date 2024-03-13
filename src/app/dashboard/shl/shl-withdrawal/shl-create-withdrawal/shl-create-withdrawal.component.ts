@@ -58,6 +58,7 @@ export class ShlCreateWithdrawalComponent implements OnInit{
   isLinear = false;
   submitted: boolean = false;
   namaProyekDisplay: boolean = false;
+  detailProyekDisplay: boolean = false;
 
   onChange(event: any) {
     console.log("Nilai yang dipilih:", event);
@@ -72,7 +73,7 @@ export class ShlCreateWithdrawalComponent implements OnInit{
   }
 
   namaProyekChange = (event: any) => {
-    const tabelDetailWithdrawal = document.getElementById('tes');
+    const tabelDetailWithdrawal = document.getElementById('previewTabelProyek');
 
     this.namaProyekDisplay = event !== undefined && event !== null;
 
@@ -84,9 +85,10 @@ export class ShlCreateWithdrawalComponent implements OnInit{
     setTimeout(() => {
       if (tabelDetailWithdrawal) {
         tabelDetailWithdrawal.style.display = this.namaProyekDisplay ? 'block' : 'none';
+        console.log(this.tableConfig.initializeTableDetailWithdrawal());
       }
     }, 50);
-}
+  }
 
   firstWithdrawalForm = () => {
     this.submitted = true;
@@ -98,16 +100,19 @@ export class ShlCreateWithdrawalComponent implements OnInit{
         text: "Check your Form!",
       });
     } else {
-      Swal.fire({
-        icon: "success",
-        title: "Form submitted successfully!",
-        text: "Form is valid!",
-      });
-      console.log('Form submitted successfully!', this.firstFormGroup.value);
+      // Swal.fire({
+      //   icon: "success",
+      //   title: "Form submitted successfully!",
+      //   text: "Form is valid!",
+      // });
+      // console.log('Form submitted successfully!', this.firstFormGroup.value);
 
-      localStorage.setItem('dataForm1', JSON.stringify(this.firstFormGroup.value));
+      // localStorage.setItem('dataForm1', JSON.stringify(this.firstFormGroup.value));
       this.submitted = false;
       this.stepper.next();
+      setTimeout(() => {
+
+      }, 50);
     }
   }
 

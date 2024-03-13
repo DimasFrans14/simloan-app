@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
+import * as moment from 'moment';
 
 
 @Component({
@@ -20,9 +21,9 @@ export class FinancingCostComponent {
 
   ngAfterViewInit(): void {
     this.tableConfig.initializeTableDataFincost();
-    this.marketUpdateService.fetchDataKurs();
+    this.marketUpdateService.fetchDataKurs(moment().format('YYYY'));
   }
-  //filter table 
+  //filter table
   isCheckedId: boolean = true;
   isCheckedCreateDate: boolean = true;
   isCheckedCreateBy: boolean = true;
@@ -51,7 +52,7 @@ export class FinancingCostComponent {
     if (this.isCheckedId) {
       this.tableConfig.tableFincost.showColumn(this.columnToHideId);
     } else {
-      this.tableConfig.tableFincost.hideColumn(this.columnToHideId); 
+      this.tableConfig.tableFincost.hideColumn(this.columnToHideId);
     }
   }
 
@@ -59,7 +60,7 @@ export class FinancingCostComponent {
     if (this.isCheckedCreateDate) {
       this.tableConfig.tableFincost.showColumn(this.columnToHideCreateDate);
     } else {
-      this.tableConfig.tableFincost.hideColumn(this.columnToHideCreateDate); 
+      this.tableConfig.tableFincost.hideColumn(this.columnToHideCreateDate);
     }
   }
 
@@ -67,7 +68,7 @@ export class FinancingCostComponent {
     if (this.isCheckedCreateBy) {
       this.tableConfig.tableFincost.showColumn(this.columnToHideCreateBy);
     } else {
-      this.tableConfig.tableFincost.hideColumn(this.columnToHideCreateBy); 
+      this.tableConfig.tableFincost.hideColumn(this.columnToHideCreateBy);
     }
   }
 
@@ -75,7 +76,7 @@ export class FinancingCostComponent {
     if (this.isCheckedStatus) {
       this.tableConfig.tableFincost.showColumn(this.columnToHideStatus);
     } else {
-      this.tableConfig.tableFincost.hideColumn(this.columnToHideStatus); 
+      this.tableConfig.tableFincost.hideColumn(this.columnToHideStatus);
     }
   }
 
@@ -83,7 +84,7 @@ export class FinancingCostComponent {
     if (this.isCheckedType) {
       this.tableConfig.tableFincost.showColumn(this.columnToHideType);
     } else {
-      this.tableConfig.tableFincost.hideColumn(this.columnToHideType); 
+      this.tableConfig.tableFincost.hideColumn(this.columnToHideType);
     }
   }
 
@@ -91,7 +92,7 @@ export class FinancingCostComponent {
     if (this.isCheckedBank) {
       this.tableConfig.tableFincost.showColumn(this.columnToHideBank);
     } else {
-      this.tableConfig.tableFincost.hideColumn(this.columnToHideBank); 
+      this.tableConfig.tableFincost.hideColumn(this.columnToHideBank);
     }
   }
 
@@ -99,7 +100,7 @@ export class FinancingCostComponent {
     if (this.isCheckedTglIndicative) {
       this.tableConfig.tableFincost.showColumn(this.columnToHideTglindicative);
     } else {
-      this.tableConfig.tableFincost.hideColumn(this.columnToHideTglindicative); 
+      this.tableConfig.tableFincost.hideColumn(this.columnToHideTglindicative);
     }
   }
 
@@ -107,7 +108,7 @@ export class FinancingCostComponent {
     if (this.isCheckedApprover) {
       this.tableConfig.tableFincost.showColumn(this.columnToHideApprover);
     } else {
-      this.tableConfig.tableFincost.hideColumn(this.columnToHideApprover); 
+      this.tableConfig.tableFincost.hideColumn(this.columnToHideApprover);
     }
   }
 
@@ -115,7 +116,7 @@ export class FinancingCostComponent {
     if (this.isCheckedModifDate) {
       this.tableConfig.tableFincost.showColumn(this.columnToHideModifDate);
     } else {
-      this.tableConfig.tableFincost.hideColumn(this.columnToHideModifDate); 
+      this.tableConfig.tableFincost.hideColumn(this.columnToHideModifDate);
     }
   }
 
@@ -123,7 +124,7 @@ export class FinancingCostComponent {
     if (this.isCheckedNotes) {
       this.tableConfig.tableFincost.showColumn(this.columnToHideNotes);
     } else {
-      this.tableConfig.tableFincost.hideColumn(this.columnToHideNotes); 
+      this.tableConfig.tableFincost.hideColumn(this.columnToHideNotes);
     }
   }
 
@@ -131,7 +132,7 @@ export class FinancingCostComponent {
     if (this.isCheckedRevisionDate) {
       this.tableConfig.tableFincost.showColumn(this.columnToHideRevisionDate);
     } else {
-      this.tableConfig.tableFincost.hideColumn(this.columnToHideRevisionDate); 
+      this.tableConfig.tableFincost.hideColumn(this.columnToHideRevisionDate);
     }
   }
 

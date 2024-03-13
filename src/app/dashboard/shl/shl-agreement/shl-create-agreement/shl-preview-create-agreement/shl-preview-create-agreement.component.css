@@ -20,3 +20,10 @@
 #main{
   margin-top: 20px;
 }
+
+.sub-footer{
+  padding-left: 300px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

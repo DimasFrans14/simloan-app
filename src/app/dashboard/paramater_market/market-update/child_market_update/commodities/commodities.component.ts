@@ -122,7 +122,7 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
     console.log(this.isLoading, 'loading 1');
 
     try {
-      const data = await this.marketUpdateService.fetchDataCommoditiesAll();
+      const data = await this.marketUpdateService.fetchDataCommoditiesAll(moment().format('YYYY'));
       this.dataDetail = data;
       this.dataDetail = this.dataDetail.data;
       this.isLoading = false;

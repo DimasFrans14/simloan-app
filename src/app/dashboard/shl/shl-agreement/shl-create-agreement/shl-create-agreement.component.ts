@@ -1,9 +1,11 @@
-import { Component, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { first } from 'rxjs';
+import { MasterAnakPerusahaanService } from 'src/app/services/master_anakPerusahaan/master-anak-perusahaan.service';
+import { ShlAgreementService } from 'src/app/services/shl_agreement_service/shl-agreement.service';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -11,13 +13,15 @@ import * as XLSX from 'xlsx';
   templateUrl: './shl-create-agreement.component.html',
   styleUrls: ['./shl-create-agreement.component.css'],
 })
-export class ShlCreateAgreementComponent {
+export class ShlCreateAgreementComponent implements OnInit{
   @ViewChild('stepper') stepper!: MatStepper;
 
   constructor(
     private _formBuilder: FormBuilder,
     private renderer: Renderer2,
-    private route: Router
+    private route: Router,
+    private masterAnakPerusahaan: MasterAnakPerusahaanService,
+    private shlAgreementServices: ShlAgreementService
   ) {}
 
   excelDataJSON: any[] = [];
@@ -25,6 +29,13 @@ export class ShlCreateAgreementComponent {
   //Dokumen PLN
   agreementDocumentPLN: any[] = [];
   parameterCurrency: any[] = [];
+  allFileUpload : any[] = [];
+
+  //For Preview SHL Create Agreement Page
+  dokumenPLN: any[] = [];
+  dokumenLainnya: any[] = [];
+  dokumenAnakPerusahaan: any[] = [];
+  dokumenAnakPerusahaanLainnya: any[] = [];
 
   //Kepdir
   documentKEPDIR: any[] = [];
@@ -67,12 +78,14 @@ export class ShlCreateAgreementComponent {
   availabilityPeriode!: any;
   gracePeriod!: any;
 
-  selectedAP!: number;
+  idAnakPerusahaan!: number;
   repayment_method!: number;
 
   createAgreementForm!: FormGroup;
   submitted: boolean = false;
   isDisable: boolean = true;
+
+  dataMasterAnakPerusahaan: any;
 
   anakPerusahaan = [
     { id: 1, name: 'PT Indonesia Comnets Plus' },
@@ -90,12 +103,12 @@ export class ShlCreateAgreementComponent {
   ];
 
   firstFormGroup = this._formBuilder.group({
-    selectedAP: [null, Validators.required],
+    idAnakPerusahaan: [null, Validators.required],
     nomorSHL: ['', Validators.required],
     nomorAPSHL: ['', Validators.required],
     tanggalSHLAgreement: ['', Validators.required],
     textAreaDeskripsiProyek: ['', Validators.required],
-    masaPengembalian: ['freeText', Validators.required],
+    masaPengembalian: ['FREE_TEXT', Validators.required],
     deskripsiTanggal: ['', Validators.required],
     SourceOfFunding: ['non_penerusan', Validators.required],
   });
@@ -103,11 +116,11 @@ export class ShlCreateAgreementComponent {
   secondFormGroup = this._formBuilder.group({
     namaProyek: ['', Validators.required],
     totalPagu: ['', Validators.required],
-    berakhirPerjanjian: ['freeText', Validators.required],
+    berakhirPerjanjian: ['FREE_TEXT', Validators.required],
     deskripsiBerakhirPerjanjian: ['', Validators.required],
-    availabilityPeriode: ['freeText', Validators.required],
+    availabilityPeriode: ['FREE_TEXT', Validators.required],
     deskripsiAvailabilityPeriode: ['', Validators.required],
-    gracePeriod: ['freeText', Validators.required],
+    gracePeriod: ['FREE_TEXT', Validators.required],
     deskripsiGracePeriod: ['', Validators.required],
     tenor: ['', Validators.required],
     repaymentMethod: ['', Validators.required],
@@ -204,12 +217,16 @@ export class ShlCreateAgreementComponent {
     this.documentLainnyaAP,
   ];
 
+  disableKepdir: boolean = false;
+
   onSelectDokumen(event: { addedFiles: any }, section: string) {
     let allDocumentsUploaded;
     switch (section) {
       case 'PLN':
         this.parameterCurrency.push(...event.addedFiles);
+        this.allFileUpload.push(...event.addedFiles);
         this.agreementDocumentPLN.push(...event.addedFiles);
+        this.dokumenPLN.push(...event.addedFiles);
         allDocumentsUploaded = this.allDocumentsUploaded.every(
           (docArray) => docArray.length > 0
         );
@@ -222,10 +239,19 @@ export class ShlCreateAgreementComponent {
       case 'KEPDIR':
         this.previewKEPDIR.push(...event.addedFiles);
         this.documentKEPDIR.push(...event.addedFiles);
+        this.dokumenPLN.push(...event.addedFiles);
 
+        this.allFileUpload.push(...event.addedFiles);
         allDocumentsUploaded = this.allDocumentsUploaded.every(
           (docArray) => docArray.length > 0
         );
+
+        if(this.documentKEPDIR.length > 0){
+          this.disableKepdir = true;
+        }
+        else{
+          this.disableKepdir = false;
+        }
 
         if (allDocumentsUploaded) {
           this.isDisable = false;
@@ -236,7 +262,9 @@ export class ShlCreateAgreementComponent {
       case 'PAKTA_INTEGRITAS':
         this.previewPaktaIntegritas.push(...event.addedFiles);
         this.documentPaktaIntegritas.push(...event.addedFiles);
+        this.dokumenPLN.push(...event.addedFiles);
 
+        this.allFileUpload.push(...event.addedFiles);
         allDocumentsUploaded = this.allDocumentsUploaded.every(
           (docArray) => docArray.length > 0
         );
@@ -250,6 +278,8 @@ export class ShlCreateAgreementComponent {
         this.previewDocumentLainnya.push(...event.addedFiles);
         this.documentLainnya.push(...event.addedFiles);
 
+
+        this.allFileUpload.push(...event.addedFiles);
         allDocumentsUploaded = this.allDocumentsUploaded.every(
           (docArray) => docArray.length > 0
         );
@@ -262,7 +292,9 @@ export class ShlCreateAgreementComponent {
       case 'DOKUMEN_AP':
         this.previewDocumentAnakPerusahaan.push(...event.addedFiles);
         this.documentAnakPreusahaan.push(...event.addedFiles);
+        this.dokumenAnakPerusahaan.push(...event.addedFiles);
 
+        this.allFileUpload.push(...event.addedFiles);
         allDocumentsUploaded = this.allDocumentsUploaded.every(
           (docArray) => docArray.length > 0
         );
@@ -275,7 +307,10 @@ export class ShlCreateAgreementComponent {
       case 'RKAP':
         this.previewDocumentRKAP.push(...event.addedFiles);
         this.documentRKAP.push(...event.addedFiles);
+        this.dokumenAnakPerusahaan.push(...event.addedFiles);
 
+
+        this.allFileUpload.push(...event.addedFiles);
         allDocumentsUploaded = this.allDocumentsUploaded.every(
           (docArray) => docArray.length > 0
         );
@@ -288,7 +323,10 @@ export class ShlCreateAgreementComponent {
       case 'KEPDIR_AP':
         this.previewDocumentKEPDIR_AP.push(...event.addedFiles);
         this.documentKEPDIR_AP.push(...event.addedFiles);
+        this.dokumenAnakPerusahaan.push(...event.addedFiles);
 
+
+        this.allFileUpload.push(...event.addedFiles);
         allDocumentsUploaded = this.allDocumentsUploaded.every(
           (docArray) => docArray.length > 0
         );
@@ -301,7 +339,10 @@ export class ShlCreateAgreementComponent {
       case 'PAKTA_INTEGRITAS_AP':
         this.previewPaktaIntegritasAP.push(...event.addedFiles);
         this.documentPaktaIntegritasAP.push(...event.addedFiles);
+        this.dokumenAnakPerusahaan.push(...event.addedFiles);
 
+
+        this.allFileUpload.push(...event.addedFiles);
         allDocumentsUploaded = this.allDocumentsUploaded.every(
           (docArray) => docArray.length > 0
         );
@@ -314,7 +355,10 @@ export class ShlCreateAgreementComponent {
       case 'REKOMENDASI_DEKOM':
         this.previewRekomendasiDekom.push(...event.addedFiles);
         this.documentRekomendasiDekom.push(...event.addedFiles);
+        this.dokumenAnakPerusahaan.push(...event.addedFiles);
 
+
+        this.allFileUpload.push(...event.addedFiles);
         allDocumentsUploaded = this.allDocumentsUploaded.every(
           (docArray) => docArray.length > 0
         );
@@ -322,12 +366,16 @@ export class ShlCreateAgreementComponent {
         if (allDocumentsUploaded) {
           this.isDisable = false;
         }
+        console.log(this.allFileUpload);
+
         break;
 
       case 'DOKUMEN_LAINNYA_AP':
         this.previewDocumentLainnyaAP.push(...event.addedFiles);
         this.documentLainnyaAP.push(...event.addedFiles);
 
+
+        this.allFileUpload.push(...event.addedFiles);
         allDocumentsUploaded = this.allDocumentsUploaded.every(
           (docArray) => docArray.length > 0
         );
@@ -349,11 +397,24 @@ export class ShlCreateAgreementComponent {
     this.readExcel(event);
   }
 
+  onRemoveKepdirPLN(event: File) {
+    console.log(event);
+    this.previewKEPDIR.splice(this.previewKEPDIR.indexOf(event), 1);
+    console.log(this.previewKEPDIR);
+
+    if(this.documentKEPDIR.length > 0){
+      this.disableKepdir = false;
+    }
+    else{
+      this.disableKepdir = true;
+    }
+  }
+
   onRemove(event: File) {
     console.log(event);
-    this.parameterCurrency.splice(this.parameterCurrency.indexOf(event), 1);
-    this.excelDataJSON = [];
-    console.log(this.excelDataJSON);
+    this.previewKEPDIR.splice(this.previewKEPDIR.indexOf(event), 1);
+    console.log(this.previewKEPDIR);
+
   }
 
   getDropdownVal = (name: string) => {
@@ -407,7 +468,36 @@ export class ShlCreateAgreementComponent {
     }
   }
 
-  submit() {
+  submit = async () => {
+    // const res = await this.shlAgreementServices.uploadDocSHL(this.allFileUpload)
+
+    const filesDataPLN = this.dokumenPLN.map(file => ({
+      name: file.name,
+      lastModified: file.lastModified,
+      size: file.size,
+      type: file.type
+    }));
+
+    const filesDataAnakPerusahaanPLN = this.dokumenAnakPerusahaan.map(file => ({
+      name: file.name,
+      lastModified: file.lastModified,
+      size: file.size,
+      type: file.type
+    }));
+
+    console.log([filesDataPLN, filesDataAnakPerusahaanPLN]);
+
+    localStorage.setItem('dokumenPLN', JSON.stringify(filesDataPLN));
+    localStorage.setItem('dokumenAnakPerusahaanPLN', JSON.stringify(filesDataAnakPerusahaanPLN));
+
     this.route.navigate(['/shl_agreement/preview_create']);
+  }
+
+  async ngOnInit(): Promise<void> {
+    const res = await this.masterAnakPerusahaan.getAnakPerusahaan()
+
+    this.dataMasterAnakPerusahaan = res;
+    this.dataMasterAnakPerusahaan = this.dataMasterAnakPerusahaan.data.content;
+    console.log(this.dataMasterAnakPerusahaan);
   }
 }

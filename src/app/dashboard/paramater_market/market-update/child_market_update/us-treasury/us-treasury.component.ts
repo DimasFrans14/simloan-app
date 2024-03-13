@@ -115,9 +115,9 @@ export class UsTreasuryComponent {
   async getData(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
-
+    let getYear = moment().format('YYYY');
     try {
-      const data = await this.marketUpdateService.fetchDataBondYield();
+      const data = await this.marketUpdateService.fetchDataBondYield(getYear);
       this.dataDetail = data;
       this.dataDetail = this.dataDetail.data;
       this.isLoading = false;

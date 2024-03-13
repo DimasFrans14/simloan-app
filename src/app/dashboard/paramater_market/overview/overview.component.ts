@@ -1,4 +1,5 @@
-import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import * as moment from 'moment';
 import { ApexAnnotations, ApexAxisChartSeries, ApexChart,  ApexDataLabels,  ApexLegend,  ApexMarkers,  ApexPlotOptions,  ApexStroke,  ApexTitleSubtitle, ApexTooltip, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
 import { filter, range } from 'rxjs';
@@ -17,7 +18,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   constructor(
     private dataService: DataService,
     private marketUpdateService: MarketUpdateService,
-    private overviewChart: OverviewChartService
+    private sanitizer: DomSanitizer
     ){
     // console.log(dataService);
   }
@@ -113,6 +114,28 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   dataWTIBRENT: any;
 
+  dataCompareChangeRKAP: any;
+  listDataCompareChangeRKAP: any;
+
+  isLoadingAllData: boolean = false;
+
+  isLoadingKursLine: boolean = false;
+  isLoadingKursBar: boolean = false;
+
+  isLoadingWTILine: boolean = false;
+  isLoadingWTIBar: boolean = false;
+
+  isLoadingICPLine: boolean = false;
+  isLoadingICPBar: boolean = false;
+
+  isLoadingCOALLine: boolean = false;
+  isLoadingCOALBar: boolean = false;
+
+  isLoadingLNGLine: boolean = false;
+  isLoadingLNGBar: boolean = false;
+
+  isLoadingInterestLine: boolean = false;
+  isLoadingInterestBar: boolean = false;
 
   chartCommodities = [
     {
@@ -207,37 +230,91 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   hideValueCompare: boolean = false;
   hideCompare(event: any){
-    const check = this.tesLocalStorageKurs.filter(
+    console.log(event);
+
+    const check = this.listDataCompareChangeRKAP.filter(
       (item: any) => item.mata_uang.includes(event)
     )
     if(event != undefined){
       this.hideValueCompare = !this.hideValueCompare
       console.log(check);
       for(let i=0; i<check.length; i++){
-        if(this.tesLocalStorageKurs.length > 2){
-          const tes = this.tesLocalStorageKurs.filter(
+        if(this.dataCompareChangeRKAP.length > 2){
+          const tes = this.listDataCompareChangeRKAP.filter(
             (item: any) => item.mata_uang != check[i].mata_uang
           )
           console.log(tes);
-          this.tesLocalStorageKurs = tes
-          return this.tesLocalStorageKurs
+          this.dataCompareChangeRKAP = tes
+          return this.dataCompareChangeRKAP
         }
         else{
           alert('data tidak boleh kurang dari 2');
-          return this.tesLocalStorageKurs
+          return this.dataCompareChangeRKAP
         }
       }
     }
     else{
       console.log('else');
     }
-    // console.log(this.tesLocalStorageKurs, this.dataKurs.data);
+
+  }
+
+  addCompare(event: any){
+    console.log(event);
+
+    const getData = this.listDataCompareChangeRKAP.filter(
+      (item: any) => item.mata_uang.includes(event)
+    )
+
+    const dataFound = this.dataCompareChangeRKAP.some((item: any) => {
+      return item.mata_uang === event;
+    });
+
+    console.log(getData, dataFound);
+
+    if(event != undefined){
+      console.log(getData);
+      for(let i=0; i<getData.length; i++){
+        if(!dataFound){
+          this.dataCompareChangeRKAP.push(getData[0]);
+          console.log(this.dataCompareChangeRKAP);
+          return this.dataCompareChangeRKAP
+        }
+        else{
+          alert('data sudah ada')
+        }
+      }
+    }
+    else{
+      console.log('else');
+    }
   }
 
   cancelCompare(){
-    const getCompareDate: any = localStorage.getItem('compareData')
-    this.tesLocalStorageKurs = JSON.parse(getCompareDate)
+    this.dataCompareChangeRKAP = this.listDataCompareChangeRKAP;
+    return this.dataCompareChangeRKAP;
   }
+
+  activeAllLineChart: boolean = true;
+  activeAllBarChart: boolean = false;
+
+  activeButtonLineKurs: string = '1year';
+  activeButtonBarKurs: string = '1year';
+
+  activeButtonLineWTIBRENT: string = '1year';
+  activeButtonBarWTIBRENT: string = '1year';
+
+  activeButtonLineICP: string = '1year';
+  activeButtonBarICP: string = '1year';
+
+  activeButtonLineCOAL: string = '1year';
+  activeButtonBarCOAL: string = '1year';
+
+  activeButtonLineLNG: string = '1year';
+  activeButtonBarLNG: string = '1year';
+
+  activeButtonLineInterest: string = '1year';
+  activeButtonBarInterest: string = '1year';
 
   //Filer Range Kurs Line Chart
   filterRangeDateKursLineChart = async (range: string) => {
@@ -249,15 +326,29 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
     let responseData;
     let updateValueOFJPY;
+
+    let combinedArray: any = [];
     switch(range){
       case '1week':
-        responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today);
+        this.activeButtonLineKurs = range;
+        this.isLoadingKursLine = true;
 
-        localStorage.setItem('compareData', JSON.stringify(responseData))
+        responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today);
 
         this.dataKurs = responseData;
         this.trendKursCategories = responseData;
-        this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD', 'EUR', 'GBP' ,'JPY'].includes(item.kurs));
+
+        localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
+
+        if(this.dataKurs.s === 200){
+          this.isLoadingKursLine = false
+        }
+        else{
+          this.isLoadingKursLine = true;
+        }
+
+        // const kursName = this.dataKurs.d.arra
+        this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.kurs));
 
         this.valueJPY = responseData;
         this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
@@ -274,6 +365,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         this.valueJPY = updateValueOFJPY;
 
         this.lineChartKursSeries = [];
+        console.log(this.dataKurs);
 
         for(let i=0; i < this.dataKurs.length ; i++){
           const kurs = this.dataKurs[i].kurs;
@@ -313,7 +405,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           let maxValJPY;
 
           if(kurs != 'JPY' && i < 1){
-            let combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
+            // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
+            combinedArray = combinedArray.concat(this.dataKurs[i].data)
 
             minVal = combinedArray[0];
             maxVal = combinedArray[0];
@@ -349,15 +442,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
 
         if(kurs === 'USD'){
-          // console.log(kurs);
-          // console.log(this.dataKurs[i].data);
-          // console.log(minVal, maxVal);
 
           this.lineYAxisKurs.push({
             showAlways: true,
             seriesName: kurs,
-            min: minVal - 200,
-            max: maxVal,
+            min: minVal - 50,
+            max: maxVal + 50,
             axisTicks: {
               show: true
             },
@@ -416,8 +506,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             },
           )
         } else {
-          // console.log(kurs);
-          // console.log(minVal, maxVal);
 
           this.lineYAxisKurs.push({
             show: true,
@@ -460,13 +548,24 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       break;
 
       case '1month':
-        responseData  = await this.marketUpdateService.fetchDataKursTrend(oneMonthAgo, today)
+        this.activeButtonLineKurs = range;
+        this.isLoadingKursLine = true;
 
-        localStorage.setItem('compareData', JSON.stringify(responseData))
+        responseData  = await this.marketUpdateService.fetchDataKursTrend(oneMonthAgo, today)
 
         this.dataKurs = responseData;
         this.trendKursCategories = responseData;
-        this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD', 'EUR', 'GBP' ,'JPY'].includes(item.kurs));
+
+        localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
+
+        if(this.dataKurs.s === 200){
+          this.isLoadingKursLine = false;
+        }
+        else{
+          this.isLoadingKursLine = true;
+        }
+
+        this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.kurs));
 
         this.valueJPY = responseData;
         this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
@@ -497,6 +596,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             })
           }
           else{
+
             this.lineChartKursSeries.push(
               {
               name: `${kurs}`,
@@ -522,7 +622,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           let maxValJPY;
 
           if(kurs != 'JPY' && i < 1){
-            let combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
+            // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
+            combinedArray = combinedArray.concat(this.dataKurs[i].data)
 
             minVal = combinedArray[0];
             maxVal = combinedArray[0];
@@ -535,7 +636,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                 maxVal = combinedArray[j]
               }
             }
-            // console.log(minVal, maxVal);
+            console.log(minVal, maxVal);
           }
 
           if(kurs == 'JPY'){
@@ -558,15 +659,13 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
 
         if(kurs === 'USD'){
-          // console.log(kurs);
-          // console.log(this.dataKurs[i].data);
-          // console.log(minVal, maxVal);
+          console.log(kurs);
 
           this.lineYAxisKurs.push({
             showAlways: true,
             seriesName: kurs,
-            min: minVal - 200,
-            max: maxVal,
+            min: minVal - 50,
+            max: maxVal + 50,
             axisTicks: {
               show: true
             },
@@ -625,8 +724,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             },
           )
         } else {
-          // console.log(kurs);
-          // console.log(minVal, maxVal);
 
           this.lineYAxisKurs.push({
             show: true,
@@ -672,11 +769,24 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         break;
 
       case '1year':
-          responseData  = await this.marketUpdateService.fetchDataKursTrend(oneYearsAgo, today)
+        this.activeButtonLineKurs = range;
+        this.isLoadingKursLine = true;
+
+          responseData  = await this.marketUpdateService.fetchDataKursTrend(oneYearsAgo, today);
 
           this.dataKurs = responseData;
           this.trendKursCategories = responseData;
-          this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD', 'EUR', 'GBP' ,'JPY'].includes(item.kurs));
+
+          localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
+
+          if(this.dataKurs.s === 200){
+            this.isLoadingKursLine = false;
+          }
+          else{
+            this.isLoadingKursLine = true;
+          }
+
+          this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.kurs));
 
           this.valueJPY = responseData;
           this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
@@ -733,7 +843,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             let maxValJPY;
 
             if(kurs != 'JPY' && i < 1){
-              let combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
+              // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
+              combinedArray = combinedArray.concat(this.dataKurs[i].data)
 
               minVal = combinedArray[0];
               maxVal = combinedArray[0];
@@ -769,15 +880,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
 
           if(kurs === 'USD'){
-            // console.log(kurs);
-            // console.log(this.dataKurs[i].data);
-            // console.log(minVal, maxVal);
 
             this.lineYAxisKurs.push({
               showAlways: true,
               seriesName: kurs,
-              min: minVal - 200,
-              max: maxVal,
+              min: minVal - 50,
+              max: maxVal + 50,
               axisTicks: {
                 show: true
               },
@@ -836,8 +944,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               },
             )
           } else {
-            // console.log(kurs);
-            // console.log(minVal, maxVal);
 
             this.lineYAxisKurs.push({
               show: true,
@@ -883,11 +989,24 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           break;
 
       case '3years':
-            responseData  = await this.marketUpdateService.fetchDataKursTrend(threeYearsAgo, today)
+        this.activeButtonLineKurs = range;
+        this.isLoadingKursLine = true;
+
+            responseData  = await this.marketUpdateService.fetchDataKursTrend(threeYearsAgo, today);
 
             this.dataKurs = responseData;
             this.trendKursCategories = responseData;
-            this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD', 'EUR', 'GBP' ,'JPY'].includes(item.kurs));
+
+            localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
+
+            if(this.dataKurs.s === 200){
+              this.isLoadingKursLine = false;
+            }
+            else{
+              this.isLoadingKursLine = true;
+            }
+
+            this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.kurs));
 
             this.valueJPY = responseData;
             this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
@@ -934,6 +1053,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               type: 'datetime'
             }
 
+
             for(let i=0; i< this.dataKurs.length; i++){
               const kurs = this.dataKurs[i].kurs
 
@@ -944,7 +1064,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               let maxValJPY;
 
               if(kurs != 'JPY' && i < 1){
-                let combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
+                // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
+                combinedArray = combinedArray.concat(this.dataKurs[i].data)
 
                 minVal = combinedArray[0];
                 maxVal = combinedArray[0];
@@ -980,15 +1101,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
 
             if(kurs === 'USD'){
-              // console.log(kurs);
-              // console.log(this.dataKurs[i].data);
-              // console.log(minVal, maxVal);
 
               this.lineYAxisKurs.push({
                 showAlways: true,
                 seriesName: kurs,
-                min: minVal - 200,
-                max: maxVal,
+                min: minVal - 50,
+                max: maxVal + 50,
                 axisTicks: {
                   show: true
                 },
@@ -1047,8 +1165,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                 },
               )
             } else {
-              // console.log(kurs);
-              // console.log(minVal, maxVal);
 
               this.lineYAxisKurs.push({
                 show: true,
@@ -1090,9 +1206,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             }
           break;
 
-
-            break;
-
       default: console.log("range doesn't match");
 
     }
@@ -1110,31 +1223,80 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     let responseData;
     switch(range){
       case '1week':
+        this.activeButtonLineInterest = range;
+        this.isLoadingInterestLine = true;
+
         responseData  = await this.marketUpdateService.fetchDataInterestRateTrending(oneWeekAgo, today)
 
         this.trendInterestData = responseData;
         this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData
+
+        localStorage.setItem('dataInterestLine', JSON.stringify(this.trendInterestData.d.arrayData))
+
+        if(this.trendInterestData.s === 200){
+          this.isLoadingInterestLine = false;
+        }
+        else{
+          this.isLoadingInterestLine = true;
+        }
       break;
 
       case '1month':
+        this.activeButtonLineInterest = range;
+        this.isLoadingInterestLine = true;
+
         responseData  = await this.marketUpdateService.fetchDataInterestRateTrending(oneMonthAgo, today)
 
         this.trendInterestData = responseData;
         this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData
+
+        localStorage.setItem('dataInterestLine', JSON.stringify(this.trendInterestData.d.arrayData))
+
+        if(this.trendInterestData.s === 200){
+          this.isLoadingInterestLine = false;
+        }
+        else{
+          this.isLoadingInterestLine = true;
+        }
       break;
 
       case '1year':
+        this.activeButtonLineInterest = range;
+        this.isLoadingInterestLine = true;
+
         responseData  = await this.marketUpdateService.fetchDataInterestRateTrending(oneYearsAgo, today)
 
         this.trendInterestData = responseData;
         this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData
+
+        localStorage.setItem('dataInterestLine', JSON.stringify(this.trendInterestData.d.arrayData))
+
+        if(this.trendInterestData.s === 200){
+          this.isLoadingInterestLine = false;
+        }
+        else{
+          this.isLoadingInterestLine = true;
+        }
       break;
 
       case '3years':
-        responseData  = await this.marketUpdateService.fetchDataInterestRateTrending(threeYearsAgo, today)
+      this.activeButtonLineInterest = range;
+      this.isLoadingInterestLine = true;
 
-        this.trendInterestData = responseData;
-        this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData
+      responseData  = await this.marketUpdateService.fetchDataInterestRateTrending(threeYearsAgo, today)
+
+      this.trendInterestData = responseData;
+      this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData;
+
+      localStorage.setItem('dataInterestLine', JSON.stringify(this.trendInterestData.d.arrayData))
+
+      if(this.trendInterestData.s === 200){
+        this.isLoadingInterestLine = false;
+      }
+      else{
+        this.isLoadingInterestLine = true;
+      }
+
       break;
     }
 
@@ -1153,236 +1315,366 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       case "['WTI','BRENT']":
 
         if(range_date === '1week'){
+          this.activeButtonLineWTIBRENT = range_date
+          this.isLoadingWTILine = true;
+
           const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneWeekAgo, today)
 
           this.allTrendWTIBRENT = responseWTIBRENT;
+
+          if(this.allTrendWTIBRENT.s === 200){
+            this.isLoadingWTILine = false;
+          }
+          else{
+            this.isLoadingWTILine = true;
+          }
+
           this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
 
           this.xAxisWtiChartBrent = {
-            categories: []
+            type:'datetime'
           }
 
-          for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
-              this.xAxisWtiChartBrent.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
-          }
         }
         else if(range_date === '1month'){
+          this.activeButtonLineWTIBRENT = range_date
+          this.isLoadingWTILine = true;
+
           const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneMonthAgo, today)
 
           this.allTrendWTIBRENT = responseWTIBRENT;
+
+          if(this.allTrendWTIBRENT.s === 200){
+            this.isLoadingWTILine = false;
+          }
+          else{
+            this.isLoadingWTILine = true;
+          }
+
           this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
 
           this.xAxisWtiChartBrent = {
-            categories: []
+            type:'datetime'
           }
 
-          for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
-              this.xAxisWtiChartBrent.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
-          }
         }
         else if(range_date === '1year'){
+          this.activeButtonLineWTIBRENT = range_date
+          this.isLoadingWTILine = true;
+
           const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneYearsAgo, today)
 
           this.allTrendWTIBRENT = responseWTIBRENT;
+
+          if(this.allTrendWTIBRENT.s === 200){
+            this.isLoadingWTILine = false;
+          }
+          else{
+            this.isLoadingWTILine = true;
+          }
+
           this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
 
           this.xAxisWtiChartBrent = {
-            categories: []
+            type:'datetime'
           }
 
-          for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
-              this.xAxisWtiChartBrent.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
-          }
         }
         else if(range_date === '3years'){
+          this.activeButtonLineWTIBRENT = range_date
+          this.isLoadingWTILine = true;
+
           const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, threeYearsAgo, today)
 
           this.allTrendWTIBRENT = responseWTIBRENT;
+
+          if(this.allTrendWTIBRENT.s === 200){
+            this.isLoadingWTILine = false;
+          }
+          else{
+            this.isLoadingWTILine = true;
+          }
+
           this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
 
           this.xAxisWtiChartBrent = {
-            categories: []
+            type:'datetime'
           }
 
-          for(let i=0; i<this.allTrendWTIBRENT.d.arrayData.data.length; i++){
-              this.xAxisWtiChartBrent.categories.push(this.allTrendWTIBRENT.d.arrayData[0].data[i].x)
-          }
         }
           break;
+
       case "['ICP']":
         if(range_date === '1week'){
-          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneWeekAgo, today)
+          this.activeButtonLineICP = range_date
+          this.isLoadingICPLine = true;
 
-          this.allTrendICP = responseWTIBRENT;
+          const responseICP = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneWeekAgo, today)
+
+          this.allTrendICP = responseICP;
+
+          if(this.allTrendICP.s === 200){
+            this.isLoadingICPLine = false;
+          }
+          else{
+            this.isLoadingICPLine = true;
+          }
+
           this.dataIcpChart = this.allTrendICP.d.arrayData;
 
-          // this.xAxisIcpChart = {
-          //   categories: []
-          // }
+          this.xAxisIcpChart = {
+            type: 'datetime'
+          }
 
-          // for(let i=0; i<this.allTrendICP.d.arrayData.data.length; i++){
-          //     this.xAxisIcpChart.categories.push(this.allTrendICP.d.arrayData[0].data[i].x)
-          // }
         }
         else if(range_date === '1month'){
-          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneMonthAgo, today)
+          this.activeButtonLineICP = range_date
+          this.isLoadingICPLine = true;
 
-          this.allTrendICP = responseWTIBRENT;
+          const responseICP = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneMonthAgo, today)
+
+          this.allTrendICP = responseICP;
+
+          if(this.allTrendICP.s === 200){
+            this.isLoadingICPLine = false;
+          }
+          else{
+            this.isLoadingICPLine = true;
+          }
+
           this.dataIcpChart = this.allTrendICP.d.arrayData;
 
-          // this.xAxisIcpChart = {
-          //   categories: []
-          // }
+          this.xAxisIcpChart = {
+            type: 'datetime'
+          }
 
-          // for(let i=0; i<this.allTrendICP.d.arrayData.data.length; i++){
-          //     this.xAxisIcpChart.categories.push(this.allTrendICP.d.arrayData[0].data[i].x)
-          // }
         }
         else if(range_date === '1year'){
-          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneYearsAgo, today)
+          this.activeButtonLineICP = range_date
+          this.isLoadingICPLine = true;
 
-          this.allTrendICP = responseWTIBRENT;
+          const responseICP = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneYearsAgo, today)
+
+          this.allTrendICP = responseICP;
+
+          if(this.allTrendICP.s === 200){
+            this.isLoadingICPLine = false;
+          }
+          else{
+            this.isLoadingICPLine = true;
+          }
+
           this.dataIcpChart = this.allTrendICP.d.arrayData;
 
-          // this.xAxisIcpChart = {
-          //   categories: []
-          // }
+          this.xAxisIcpChart = {
+            type: 'datetime'
+          }
 
-          // for(let i=0; i<this.allTrendICP.d.arrayData.data.length; i++){
-          //     this.xAxisIcpChart.categories.push(this.allTrendICP.d.arrayData[0].data[i].x)
-          // }
         }
         else if(range_date === '3years'){
-          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, threeYearsAgo, today)
+          this.activeButtonLineICP = range_date
+          this.isLoadingICPLine = true;
 
-          this.allTrendICP = responseWTIBRENT;
+          const responseICP = await this.marketUpdateService.fetchDataLineCommodities(kategori, threeYearsAgo, today)
+
+          this.allTrendICP = responseICP;
+
+          if(this.allTrendICP.s === 200){
+            this.isLoadingICPLine = false;
+          }
+          else{
+            this.isLoadingICPLine = true;
+          }
+
           this.dataIcpChart = this.allTrendICP.d.arrayData;
 
-          // this.xAxisIcpChart = {
-          //   categories: []
-          // }
+          this.xAxisIcpChart = {
+            type: 'datetime'
+          }
 
-          // for(let i=0; i<this.allTrendICP.d.arrayData.data.length; i++){
-          //     this.xAxisIcpChart.categories.push(this.allTrendICP.d.arrayData[0].data[i].x)
-          // }
         }
           break;
+
       case "['COAL']":
         if(range_date === '1week'){
-          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneWeekAgo, today)
+          this.activeButtonLineCOAL = range_date
+          this.isLoadingCOALLine = true;
 
-          this.allTrendCOAL = responseWTIBRENT;
+          const responseCOAL = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneWeekAgo, today)
+
+          this.allTrendCOAL = responseCOAL;
+
+          if(this.allTrendCOAL.s === 200){
+            this.isLoadingCOALLine = false;
+          }
+          else{
+            this.isLoadingCOALLine = true;
+          }
+
           this.dataChartCoal = this.allTrendCOAL.d.arrayData;
 
-          // this.xAxisChartCoal = {
-          //   categories: []
-          // }
-
-          // for(let i=0; i<this.allTrendCOAL.d.arrayData.data.length; i++){
-          //     this.xAxisChartCoal.categories.push(this.allTrendCOAL.d.arrayData[0].data[i].x)
-          // }
+          this.xAxisChartCoal = {
+            type: 'datetime'
+          }
         }
         else if(range_date === '1month'){
-          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneMonthAgo, today)
+          this.activeButtonLineCOAL = range_date
+          this.isLoadingCOALLine = true;
 
-          this.allTrendCOAL = responseWTIBRENT;
+          const responseCOAL = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneMonthAgo, today)
+
+          this.allTrendCOAL = responseCOAL;
+
+          if(this.allTrendCOAL.s === 200){
+            this.isLoadingCOALLine = false;
+          }
+          else{
+            this.isLoadingCOALLine = true;
+          }
+
           this.dataChartCoal = this.allTrendCOAL.d.arrayData;
 
-          // this.xAxisChartCoal = {
-          //   categories: []
-          // }
-
-          // for(let i=0; i<this.allTrendCOAL.d.arrayData.data.length; i++){
-          //     this.xAxisChartCoal.categories.push(this.allTrendCOAL.d.arrayData[0].data[i].x)
-          // }
+          this.xAxisChartCoal = {
+            type: 'datetime'
+          }
         }
         else if(range_date === '1year'){
-          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneYearsAgo, today)
+          this.activeButtonLineCOAL = range_date
+          this.isLoadingCOALLine = true;
 
-          this.allTrendCOAL = responseWTIBRENT;
+          const responseCOAL = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneYearsAgo, today)
+
+          this.allTrendCOAL = responseCOAL;
+
+          if(this.allTrendCOAL.s === 200){
+            this.isLoadingCOALLine = false;
+          }
+          else{
+            this.isLoadingCOALLine = true;
+          }
+
           this.dataChartCoal = this.allTrendCOAL.d.arrayData;
 
-          // this.xAxisChartCoal = {
-          //   categories: []
-          // }
-
-          // for(let i=0; i<this.allTrendCOAL.d.arrayData.data.length; i++){
-          //     this.xAxisChartCoal.categories.push(this.allTrendCOAL.d.arrayData[0].data[i].x)
-          // }
+          this.xAxisChartCoal = {
+            type: 'datetime'
+          }
         }
         else if(range_date === '3years'){
-          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, threeYearsAgo, today)
+          this.activeButtonLineCOAL = range_date
+          this.isLoadingCOALLine = true;
 
-          this.allTrendCOAL = responseWTIBRENT;
+          const responseCOAL = await this.marketUpdateService.fetchDataLineCommodities(kategori, threeYearsAgo, today)
+
+          this.allTrendCOAL = responseCOAL;
+
+          if(this.allTrendCOAL.s === 200){
+            this.isLoadingCOALLine = false;
+          }
+          else{
+            this.isLoadingCOALLine = true;
+          }
+
           this.dataChartCoal = this.allTrendCOAL.d.arrayData;
 
-          // this.xAxisChartCoal = {
-          //   categories: []
-          // }
-
-          // for(let i=0; i<this.allTrendCOAL.d.arrayData.data.length; i++){
-          //     this.xAxisChartCoal.categories.push(this.allTrendCOAL.d.arrayData[0].data[i].x)
-          // }
+          this.xAxisChartCoal = {
+            type: 'datetime'
+          }
         }
           break;
+
       case "['LNG']":
         if(range_date === '1week'){
-          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneWeekAgo, today)
+          this.activeButtonLineLNG = range_date
+          this.isLoadingLNGLine = true;
 
-          this.allTrendLNG = responseWTIBRENT;
+          const responseLNG = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneWeekAgo, today)
+
+          this.allTrendLNG = responseLNG;
+
+          if(this.allTrendLNG.s === 200){
+            this.isLoadingLNGLine = false;
+          }
+          else{
+            this.isLoadingLNGLine = true;
+          }
+
           this.dataChartLngLine = this.allTrendLNG.d.arrayData;
 
-          // this.xAxisChartLng = {
-          //   categories: []
-          // }
+          this.xAxisChartLng = {
+            type: 'datetime',
+          }
 
-          // for(let i=0; i<this.allTrendLNG.d.arrayData.data.length; i++){
-          //     this.xAxisChartLng.categories.push(this.allTrendLNG.d.arrayData[0].data[i].x)
-          // }
         }
         else if(range_date === '1month'){
-          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneMonthAgo, today)
+          this.activeButtonLineLNG = range_date
+          this.isLoadingLNGLine = true;
 
-          this.allTrendLNG = responseWTIBRENT;
+          const responseLNG = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneMonthAgo, today)
+
+          this.allTrendLNG = responseLNG;
+
+          if(this.allTrendLNG.s === 200){
+            this.isLoadingLNGLine = false;
+          }
+          else{
+            this.isLoadingLNGLine = true;
+          }
+
           this.dataChartLngLine = this.allTrendLNG.d.arrayData;
 
-          // this.xAxisChartLng = {
-          //   categories: []
-          // }
+          this.xAxisChartLng = {
+            type: 'datetime',
+          }
 
-          // for(let i=0; i<this.allTrendLNG.d.arrayData.data.length; i++){
-          //     this.xAxisChartLng.categories.push(this.allTrendLNG.d.arrayData[0].data[i].x)
-          // }
         }
         else if(range_date === '1year'){
-          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneYearsAgo, today)
+          this.activeButtonLineLNG = range_date
+          this.isLoadingLNGLine = true;
 
-          this.allTrendLNG = responseWTIBRENT;
+          const responseLNG = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneYearsAgo, today)
+
+          this.allTrendLNG = responseLNG;
+
+          if(this.allTrendLNG.s === 200){
+            this.isLoadingLNGLine = false;
+          }
+          else{
+            this.isLoadingLNGLine = true;
+          }
+
           this.dataChartLngLine = this.allTrendLNG.d.arrayData;
+          console.log(this.allTrendLNG);
 
-          // this.xAxisChartLng = {
-          //   categories: []
-          // }
+          this.xAxisChartLng = {
+            type: 'datetime',
+          }
 
-          // for(let i=0; i<this.allTrendLNG.d.arrayData.data.length; i++){
-          //     this.xAxisChartLng.categories.push(this.allTrendLNG.d.arrayData[0].data[i].x)
-          // }
         }
         else if(range_date === '3years'){
-          const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, threeYearsAgo, today)
+          this.activeButtonLineLNG = range_date
+          this.isLoadingLNGLine = true;
 
-          this.allTrendLNG = responseWTIBRENT;
+          const responseLNG = await this.marketUpdateService.fetchDataLineCommodities(kategori, threeYearsAgo, today)
+
+          this.allTrendLNG = responseLNG;
+
+          if(this.allTrendLNG.s === 200){
+            this.isLoadingLNGLine = false;
+          }
+          else{
+            this.isLoadingLNGLine = true;
+          }
+
           this.dataChartLngLine = this.allTrendLNG.d.arrayData;
+          console.log(this.allTrendLNG);
 
-          // this.xAxisChartLng = {
-          //   categories: []
-          // }
+          this.xAxisChartLng = {
+            type: 'datetime',
+          }
 
-          // for(let i=0; i<this.allTrendLNG.d.arrayData.data.length; i++){
-          //     this.xAxisChartLng.categories.push(this.allTrendLNG.d.arrayData[0].data[i].x)
-          // }
         }
           break;
+
       case "['BATUBARA']":
         if(range_date === '1week'){
           const responseWTIBRENT = await this.marketUpdateService.fetchDataLineCommodities(kategori, oneWeekAgo, today)
@@ -1459,43 +1751,92 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     let responseData;
     switch(range){
       case '1week':
+        this.activeButtonBarKurs = range;
+        this.isLoadingKursLine = true;
+
         responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, oneWeekAgo, today)
 
         console.log(responseData);
 
         this.trendKursDataBarChart = responseData;
+
+        if(this.trendKursDataBarChart.s === 200){
+          this.isLoadingKursLine = false;
+        }
+        else{
+          this.isLoadingKursLine = true;
+        }
+
         this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
         this.barChartKursSeries = this.trendKursDataBarChart;
+
+
       break;
 
       case '1month':
+        this.activeButtonBarKurs = range;
+        this.isLoadingKursLine = true;
+
         responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, oneMonthAgo, today)
 
         console.log(responseData);
 
         this.trendKursDataBarChart = responseData;
+
+        if(this.trendKursDataBarChart.s === 200){
+          this.isLoadingKursLine = false;
+        }
+        else{
+          this.isLoadingKursLine = true;
+        }
+
         this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
         this.barChartKursSeries = this.trendKursDataBarChart;
+
+
       break;
 
       case '1year':
+        this.activeButtonBarKurs = range;
+        this.isLoadingKursLine = true;
+
         responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, oneYearsAgo, today)
 
         console.log(responseData);
 
         this.trendKursDataBarChart = responseData;
+
+        if(this.trendKursDataBarChart.s === 200){
+          this.isLoadingKursLine = false;
+        }
+        else{
+          this.isLoadingKursLine = true;
+        }
+
         this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
         this.barChartKursSeries = this.trendKursDataBarChart;
       break;
 
       case '3years':
+        this.activeButtonBarKurs = range;
+        this.isLoadingKursLine = true;
+
         responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, threeYearsAgo, today)
 
         console.log(responseData);
 
         this.trendKursDataBarChart = responseData;
+
+        if(this.trendKursDataBarChart.s === 200){
+          this.isLoadingKursLine = false;
+        }
+        else{
+          this.isLoadingKursLine = true;
+        }
+
         this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
         this.barChartKursSeries = this.trendKursDataBarChart;
+
       break;
     }
 
@@ -1513,17 +1854,32 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     let responseData;
     switch(range){
       case '1week':
+        this.activeButtonBarInterest = range;
+        this.isLoadingInterestLine = true;
+
         responseData  = await this.marketUpdateService.fetchInterestRateBarChart(params, oneWeekAgo, today)
         console.log(params, oneWeekAgo, today);
 
         console.log(responseData);
 
         this.allTrendDataInterestRate = responseData;
+
+        if(this.allTrendDataInterestRate.s === 200){
+          this.isLoadingInterestLine = false;
+        }
+        else{
+          this.isLoadingInterestLine = true;
+        }
+
         this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
-        this.barChartInterestRateSeries = this.allTrendDataInterestRate
+        this.barChartInterestRateSeries = this.allTrendDataInterestRate;
+
       break;
 
       case '1month':
+        this.activeButtonBarInterest = range;
+        this.isLoadingInterestLine = true;
+
         responseData  = await this.marketUpdateService.fetchInterestRateBarChart(params, oneMonthAgo, today)
         console.log(params, oneMonthAgo, today);
 
@@ -1531,10 +1887,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
         this.allTrendDataInterestRate = responseData;
         this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
-        this.barChartInterestRateSeries = this.allTrendDataInterestRate
+        this.barChartInterestRateSeries = this.allTrendDataInterestRate;
+
+        if(this.allTrendDataInterestRate.s === 200){
+          this.isLoadingInterestLine = false;
+        }
+        else{
+          this.isLoadingInterestLine = true;
+        }
       break;
 
       case '1year':
+        this.activeButtonBarInterest = range;
+        this.isLoadingInterestLine = true;
+
         responseData  = await this.marketUpdateService.fetchInterestRateBarChart(params, oneYearsAgo, today)
         console.log(params, oneYearsAgo, today);
 
@@ -1543,9 +1909,19 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         this.allTrendDataInterestRate = responseData;
         this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
         this.barChartInterestRateSeries = this.allTrendDataInterestRate
+
+        if(this.allTrendDataInterestRate.s === 200){
+          this.isLoadingInterestLine = false;
+        }
+        else{
+          this.isLoadingInterestLine = true;
+        }
       break;
 
       case '3years':
+        this.activeButtonBarInterest = range;
+        this.isLoadingInterestLine = true;
+
         responseData  = await this.marketUpdateService.fetchInterestRateBarChart(params, threeYearsAgo, today)
         console.log(params, threeYearsAgo, today);
 
@@ -1554,6 +1930,14 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         this.allTrendDataInterestRate = responseData;
         this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
         this.barChartInterestRateSeries = this.allTrendDataInterestRate
+
+        if(this.allTrendDataInterestRate.s === 200){
+          this.isLoadingInterestLine = false;
+        }
+        else{
+          this.isLoadingInterestLine = true;
+        }
+
       break;
     }
 
@@ -1571,9 +1955,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       case "['WTI','BRENT']":
 
         if(range_date === '1week'){
+          this.activeButtonBarWTIBRENT = range_date
+          this.isLoadingWTILine = true;
+
           const responseWTIBRENT = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneWeekAgo, today.format('DD/MM/YYYY'), group);
 
           this.dataWTIBRENTBarChart = responseWTIBRENT;
+
+          if(this.dataWTIBRENTBarChart.s === 200){
+            this.isLoadingWTILine = false;
+          }
+          else{
+            this.isLoadingWTILine = true;
+          }
+
           this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
 
           this.xAxisWtiChartBrent = {
@@ -1586,9 +1981,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           }
         }
         else if(range_date === '1month'){
+          this.activeButtonBarWTIBRENT = range_date
+          this.isLoadingWTILine = true;
+
           const responseWTIBRENT = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneMonthAgo, today.format('DD/MM/YYYY'), group);
 
           this.dataWTIBRENTBarChart = responseWTIBRENT;
+
+          if(this.dataWTIBRENTBarChart.s === 200){
+            this.isLoadingWTILine = false;
+          }
+          else{
+            this.isLoadingWTILine = true;
+          }
+
           this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
 
           this.xAxisWtiChartBrent = {
@@ -1601,9 +2007,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           }
         }
         else if(range_date === '1year'){
+          this.activeButtonBarWTIBRENT = range_date
+          this.isLoadingWTILine = true;
+
           const responseWTIBRENT = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneYearsAgo, today.format('DD/MM/YYYY'), group);
 
           this.dataWTIBRENTBarChart = responseWTIBRENT;
+
+          if(this.dataWTIBRENTBarChart.s === 200){
+            this.isLoadingWTILine = false;
+          }
+          else{
+            this.isLoadingWTILine = true;
+          }
+
           this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
 
           this.xAxisWtiChartBrent = {
@@ -1616,9 +2033,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           }
         }
         else if(range_date === '3years'){
+          this.activeButtonBarWTIBRENT = range_date
+          this.isLoadingWTILine = true;
+
           const responseWTIBRENT = await this.marketUpdateService.fetchDataBarCommodities(kategori, threeYearsAgo, today.format('DD/MM/YYYY'), group);
 
           this.dataWTIBRENTBarChart = responseWTIBRENT;
+
+          if(this.dataWTIBRENTBarChart.s === 200){
+            this.isLoadingWTILine = false;
+          }
+          else{
+            this.isLoadingWTILine = true;
+          }
+
           this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
 
           this.xAxisWtiChartBrent = {
@@ -1633,9 +2061,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           break;
       case "['ICP']":
         if(range_date === '1week'){
+          this.activeButtonBarICP = range_date
+          this.isLoadingICPLine = true;
+
           const responseICP = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneWeekAgo, today.format('DD/MM/YYYY'), group);
 
           this.trenddataICPBarChart = responseICP;
+
+          if(this.trenddataICPBarChart.s === 200){
+            this.isLoadingICPLine = false;
+          }
+          else{
+            this.isLoadingICPLine = true;
+          }
+
           this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData;
 
           // this.xAxisIcpChart = {
@@ -1648,9 +2087,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           // }
         }
         else if(range_date === '1month'){
+          this.activeButtonBarICP = range_date
+          this.isLoadingICPLine = true;
+
           const responseICP = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneMonthAgo, today.format('DD/MM/YYYY'), group);
 
           this.trenddataICPBarChart = responseICP;
+
+          if(this.trenddataICPBarChart.s === 200){
+            this.isLoadingICPLine = false;
+          }
+          else{
+            this.isLoadingICPLine = true;
+          }
+
           this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData;
 
           // this.xAxisIcpChart = {
@@ -1663,9 +2113,19 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           // }
         }
         else if(range_date === '1year'){
+          this.activeButtonBarICP = range_date
+
           const responseICP = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneYearsAgo, today.format('DD/MM/YYYY'), group);
 
           this.trenddataICPBarChart = responseICP;
+
+          if(this.trenddataICPBarChart.s === 200){
+            this.isLoadingICPLine = false;
+          }
+          else{
+            this.isLoadingICPLine = true;
+          }
+
           this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData;
 
           // this.xAxisIcpChart = {
@@ -1678,9 +2138,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           // }
         }
         else if(range_date === '3years'){
+          this.activeButtonBarICP = range_date
+          this.isLoadingICPLine = true;
+
           const responseICP = await this.marketUpdateService.fetchDataBarCommodities(kategori, threeYearsAgo, today.format('DD/MM/YYYY'), group);
 
           this.trenddataICPBarChart = responseICP;
+
+          if(this.trenddataICPBarChart.s === 200){
+            this.isLoadingICPLine = false;
+          }
+          else{
+            this.isLoadingICPLine = true;
+          }
+
           this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData;
 
           // this.xAxisIcpChart = {
@@ -1693,11 +2164,23 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           // }
         }
           break;
+
       case "['COAL']":
         if(range_date === '1week'){
+          this.activeButtonBarCOAL = range_date
+          this.isLoadingCOALLine = true;
+
           const responseCOAL = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneWeekAgo, today.format('DD/MM/YYYY'), group);
 
           this.dataCOALBarChart = responseCOAL;
+
+          if(this.dataCOALBarChart.s === 200){
+            this.isLoadingCOALLine = false;
+          }
+          else{
+            this.isLoadingCOALLine = true;
+          }
+
           this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
 
           // this.xAxisChartCoal = {
@@ -1709,9 +2192,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           // }
         }
         else if(range_date === '1month'){
+          this.activeButtonBarCOAL = range_date
+          this.isLoadingCOALLine = true;
+
           const responseCOAL = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneMonthAgo, today.format('DD/MM/YYYY'), group);
 
           this.dataCOALBarChart = responseCOAL;
+
+          if(this.dataCOALBarChart.s === 200){
+            this.isLoadingCOALLine = false;
+          }
+          else{
+            this.isLoadingCOALLine = true;
+          }
+
           this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
 
           // this.xAxisChartCoal = {
@@ -1723,9 +2217,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           // }
         }
         else if(range_date === '1year'){
+          this.activeButtonBarCOAL = range_date
+          this.isLoadingCOALLine = true;
+
           const responseCOAL = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneYearsAgo, today.format('DD/MM/YYYY'), group);
 
           this.dataCOALBarChart = responseCOAL;
+
+          if(this.dataCOALBarChart.s === 200){
+            this.isLoadingCOALLine = false;
+          }
+          else{
+            this.isLoadingCOALLine = true;
+          }
+
           this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
 
           this.xAxisChartCoal = {
@@ -1737,9 +2242,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               }
         }
         else if(range_date === '3years'){
+          this.activeButtonBarCOAL = range_date
+          this.isLoadingCOALLine = true;
+
           const responseCOAL = await this.marketUpdateService.fetchDataBarCommodities(kategori, threeYearsAgo, today.format('DD/MM/YYYY'), group);
 
           this.dataCOALBarChart = responseCOAL;
+
+          if(this.dataCOALBarChart.s === 200){
+            this.isLoadingCOALLine = false;
+          }
+          else{
+            this.isLoadingCOALLine = true;
+          }
+
           this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
 
           // this.xAxisChartCoal = {
@@ -1751,11 +2267,23 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           // }
         }
           break;
+
       case "['LNG']":
         if(range_date === '1week'){
+          this.activeButtonBarLNG = range_date
+          this.isLoadingLNGLine = true;
+
           const responseLNG = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneWeekAgo, today.format('DD/MM/YYYY'), group);
 
           this.dataLNGBarChart = responseLNG;
+
+          if(this.dataLNGBarChart.s === 200){
+            this.isLoadingLNGLine = false;
+          }
+          else{
+            this.isLoadingLNGLine = true;
+          }
+
           this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
 
           // this.xAxisChartLng = {
@@ -1767,9 +2295,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           // }
         }
         else if(range_date === '1month'){
+          this.activeButtonBarLNG = range_date
+          this.isLoadingLNGLine = true;
+
           const responseLNG = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneMonthAgo, today.format('DD/MM/YYYY'), group);
 
           this.dataLNGBarChart = responseLNG;
+
+          if(this.dataLNGBarChart.s === 200){
+            this.isLoadingLNGLine = false;
+          }
+          else{
+            this.isLoadingLNGLine = true;
+          }
+
           this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
 
           // this.xAxisChartLng = {
@@ -1781,9 +2320,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           // }
         }
         else if(range_date === '1year'){
+          this.activeButtonBarLNG = range_date
+          this.isLoadingLNGLine = true;
+
           const responseLNG = await this.marketUpdateService.fetchDataBarCommodities(kategori, oneYearsAgo, today.format('DD/MM/YYYY'), group);
 
           this.dataLNGBarChart = responseLNG;
+
+          if(this.dataLNGBarChart.s === 200){
+            this.isLoadingLNGLine = false;
+          }
+          else{
+            this.isLoadingLNGLine = true;
+          }
+
           this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
 
           // this.xAxisChartLng = {
@@ -1795,9 +2345,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           // }
         }
         else if(range_date === '3years'){
+          this.activeButtonBarLNG = range_date
+          this.isLoadingLNGLine = true;
+
           const responseLNG = await this.marketUpdateService.fetchDataBarCommodities(kategori, threeYearsAgo, today.format('DD/MM/YYYY'), group);
 
           this.dataLNGBarChart = responseLNG;
+
+          if(this.dataLNGBarChart.s === 200){
+            this.isLoadingLNGLine = false;
+          }
+          else{
+            this.isLoadingLNGLine = true;
+          }
+
           this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
 
           // this.xAxisChartLng = {
@@ -1844,14 +2405,13 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   //Fetch Default Data
   fetchDataLineKurs = async () => {
     this.lineYAxisKurs = [];
-
     //Set Default Date
     let today = moment(new Date());
-    let oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
+    let oneYearsAgo = moment(new Date()).subtract(1, 'year').format('DD/MM/YYYY');
 
-    const responseKurs = await this.marketUpdateService.fetchDataKursTrend(oneYearsAgo, today.format('DD/MM/YYYY'))
+      const responseKurs = await this.marketUpdateService.fetchDataKursTrend(oneYearsAgo, today.format('DD/MM/YYYY'))
       this.dataKurs = responseKurs;
-      localStorage.setItem('compareData', JSON.stringify(this.dataKurs.d.arrayData))
+      localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
 
       this.allTrendDataKurs = responseKurs;
       this.allTrendDataKurs = this.allTrendDataKurs.d.arrayData
@@ -1859,7 +2419,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.trendKursCategories = responseKurs
       this.trendKursData = responseKurs;
 
-      this.defaultKurs = this.trendKursData.d.arrayData.filter((item: any) => ['USD', 'EUR', 'GBP' ,'JPY'].includes(item.kurs));
+      this.defaultKurs = this.trendKursData.d.arrayData.filter((item: any) => ['USD'].includes(item.kurs));
 
       this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
 
@@ -1898,18 +2458,19 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         }
       }
 
+      let combinedArray: any[] = [];
       for(let i=0; i< this.defaultKurs.length; i++){
         const kurs = this.defaultKurs[i].kurs
 
-        var minVal;
-        var maxVal;
+        let minVal;
+        let maxVal;
 
         let minValJPY;
         let maxValJPY;
 
         if(kurs != 'JPY' && i < 1){
-          let combinedArray = this.defaultKurs[i].data.concat(this.defaultKurs[2].data, this.defaultKurs[3].data)
-          // console.log(combinedArray);
+          // combinedArray = this.defaultKurs[i].data.concat(this.defaultKurs[2].data, this.defaultKurs[3].data)
+          combinedArray = combinedArray.concat(this.defaultKurs[i].data)
 
           minVal = combinedArray[0];
           maxVal = combinedArray[0];
@@ -1922,13 +2483,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               maxVal = combinedArray[j]
             }
           }
-          // console.log(minVal, maxVal);
+          console.log(minVal, maxVal);
+
         }
 
         if(kurs == 'JPY'){
-          // let combinedArray = this.defaultKurs[i].data
-          // console.log(combinedArray);
-
           minValJPY = this.valueJPY[0][0];
           maxValJPY = this.valueJPY[0][0];
 
@@ -1940,22 +2499,18 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               maxValJPY = this.valueJPY[0][j]
             }
           }
-          // console.log(minValJPY, maxValJPY);
         }
 
 
       if(kurs === 'USD'){
         console.log(kurs);
-        // console.log(this.defaultKurs[i].data);
-        // console.log(minVal, maxVal);
 
         this.lineYAxisKurs.push({
           showAlways: true,
           seriesName: kurs,
           min: minVal - 200,
           max: maxVal,
-          // forceNiceScale: true,
-          // tickAmount: 15,
+
           axisTicks: {
             show: true
           },
@@ -1978,70 +2533,65 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             enabled: true
           }
             },)
-      }else if(kurs === 'JPY'){
-        // console.log(kurs);
-
-        this.lineYAxisKurs.push({
-
-            showAlways: true,
-            seriesName: kurs,
-            min: minValJPY,
-            max: maxValJPY,
-            tickAmount: 15,
-            opposite: true,
-            // min: 0,
-            // max: 1,
-            axisTicks: {
-              show: true
-            },
-            axisBorder: {
-              show: false,
-              color: "#000"
-            },
-            labels: {
-              style: {
-                colors: ["##000"]
-              },
-              formatter : (value) => {return new Intl.NumberFormat().format(value)}
-            },
-            title: {
-              style: {
-                color: "##000"
-              }
-            },
-            tooltip: {
-              enabled: true
-            }
-          },
-        )
-      } else {
-        // console.log(kurs);
-        // console.log(minVal, maxVal);
-
-        this.lineYAxisKurs.push({
-          show: true,
-          showAlways: true,
-          seriesName: "USD",
-          min:minVal - 200,
-          max:maxVal,
-
-          axisTicks: {
-            show: false,
-          },
-          axisBorder: {
-            show: false,
-          },
-          labels: {
-            show:false,
-          },
-          title: {
-            text: "",
-          },
-          tooltip: {
-            enabled: false
-          }
-        })
       }
+      // else if(kurs === 'JPY'){
+      //   this.lineYAxisKurs.push({
+
+      //       showAlways: true,
+      //       seriesName: kurs,
+      //       min: minValJPY,
+      //       max: maxValJPY,
+      //       tickAmount: 15,
+      //       opposite: true,
+      //       axisTicks: {
+      //         show: true
+      //       },
+      //       axisBorder: {
+      //         show: false,
+      //         color: "#000"
+      //       },
+      //       labels: {
+      //         style: {
+      //           colors: ["##000"]
+      //         },
+      //         formatter : (value) => {return new Intl.NumberFormat().format(value)}
+      //       },
+      //       title: {
+      //         style: {
+      //           color: "##000"
+      //         }
+      //       },
+      //       tooltip: {
+      //         enabled: true
+      //       }
+      //     },
+      //   )
+      // } else {
+
+      //   this.lineYAxisKurs.push({
+      //     show: true,
+      //     showAlways: true,
+      //     seriesName: "USD",
+      //     min:minVal - 200,
+      //     max:maxVal,
+
+      //     axisTicks: {
+      //       show: false,
+      //     },
+      //     axisBorder: {
+      //       show: false,
+      //     },
+      //     labels: {
+      //       show:false,
+      //     },
+      //     title: {
+      //       text: "",
+      //     },
+      //     tooltip: {
+      //       enabled: false
+      //     }
+      //   })
+      // }
       }
   }
 
@@ -2101,12 +2651,17 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     const trendInterestRate = await this.marketUpdateService.fetchDataInterestRateTrending(oneYearsAgo, today.format('DD/MM/YYYY'));
 
     this.allTrendDataInterestRate = trendInterestRate;
+
+    localStorage.setItem('dataInterestLine', JSON.stringify(this.allTrendDataInterestRate.d.arrayData))
+
     console.log("All Interest Rate : ", this.allTrendDataInterestRate)
     this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
     // console.log("All Interest Rate2 : ", this.allTrendDataInterestRate)
     this.trendInterestRateCategories = trendInterestRate;
     this.trendInterestData = trendInterestRate;
     this.filteredMinMaxInterestRateData = trendInterestRate;
+
+
   }
 
   fetchDataBarChartKurs = async () => {
@@ -2157,9 +2712,63 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
     this.trendInterestDataBarChart = trendInterestBarChart
     this.barChartInterestRateSeries = this.trendInterestDataBarChart.d.arrayData
+
+    if(this.trendInterestDataBarChart.s === 200){
+      this.isLoadingAllData = false;
+      this.isLoadingKursLine = false;
+      this.isLoadingWTILine = false;
+      this.isLoadingICPLine = false;
+      this.isLoadingCOALLine = false;
+      this.isLoadingLNGLine = false;
+      this.isLoadingInterestLine = false;
+
+      this.isLoadingKursBar = false;
+      this.isLoadingWTIBar = false;
+      this.isLoadingCOALBar = false;
+      this.isLoadingICPBar = false;
+      this.isLoadingLNGBar = false;
+      this.isLoadingInterestBar = false;
+    }
+    else{
+      this.isLoadingAllData = false;
+      this.isLoadingKursLine = true;
+      this.isLoadingWTILine = true;
+      this.isLoadingICPLine = true;
+      this.isLoadingCOALLine = true;
+      this.isLoadingLNGLine = true;
+      this.isLoadingInterestLine = true;
+
+      this.isLoadingKursBar = true;
+      this.isLoadingWTIBar = true;
+      this.isLoadingCOALBar = true;
+      this.isLoadingICPBar = true;
+      this.isLoadingLNGBar = true;
+      this.isLoadingInterestBar = true;
+    }
+  }
+
+  fetchDataCompare = async () => {
+    const response = await this.marketUpdateService.fetchDataCompareChangeRKAP();
+
+    this.dataCompareChangeRKAP = response;
+    this.dataCompareChangeRKAP = this.dataCompareChangeRKAP.d;
+
+    // this.dataCompareChangeRKAP = this.dataCompareChangeRKAP.map((item: any) => {
+    //   item.persen_change_rkap = parseFloat(item.persen_change_rkap)
+    //   return item
+    // })
+
+    // console.log(this.dataCompareChangeRKAP);
+
+    this.listDataCompareChangeRKAP = this.dataCompareChangeRKAP;
+  }
+
+  sanitizeInnerHTML(html: string){
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
   async ngOnInit(): Promise<void> {
+
     try {
       this.currencyChartDetails = {
         type: 'line',
@@ -2230,13 +2839,30 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         lineCap : 'round'
       }
 
+      this.isLoadingAllData = true;
+      this.isLoadingKursLine = true;
+      this.isLoadingWTILine = true;
+      this.isLoadingICPLine = true;
+      this.isLoadingCOALLine = true;
+      this.isLoadingLNGLine = true;
+      this.isLoadingInterestLine = true;
+
+      this.isLoadingKursBar = true;
+      this.isLoadingWTIBar = true;
+      this.isLoadingCOALBar = true;
+      this.isLoadingICPBar = true;
+      this.isLoadingLNGBar = true;
+      this.isLoadingInterestBar = true;
+
       await this.fetchDataLineKurs();
       await this.fetchDataLineCommodities();
-      await this.fetchDataLineInterest()
+      await this.fetchDataLineInterest();
 
       await this.fetchDataBarChartKurs();
       await this.fetchAllDataBarChartCommodities();
       await this.fetchAllDataBarChartInterest();
+      await this.fetchDataCompare();
+      // console.log(this.isLoadingAllData);
 
       this.barChartKursSeries = this.trendKursDataBarChart;
 
@@ -2389,8 +3015,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       // console.log([interestMinVal, interestMaxVal]);
 
         this.interestRateYAxis = {
-          min: parseFloat(interestMinVal) - 0.05,
-          max: parseFloat(interestMaxVal) + 0.05,
+          min: parseFloat(interestMinVal),
+          max: parseFloat(interestMaxVal),
           labels: {
             formatter: function(val, index) {
               return val.toLocaleString('id').slice(0,4)
@@ -2431,15 +3057,19 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   toggleVisibilityLine() {
     if(!this.isVisibleBar){
       this.isVisibleBar = !this.isVisibleBar;
+      this.activeAllBarChart = !this.activeAllBarChart;
     }
     this.isVisibleLine = true;
+    this.activeAllLineChart = true;
   }
 
   toggleVisibilityBar() {
     if(this.isVisibleLine){
       this.isVisibleLine = !this.isVisibleLine;
+      this.activeAllLineChart = !this.activeAllLineChart
     }
     this.isVisibleBar = false;
+    this.activeAllBarChart = true;
   }
 
   filterCurrencyLineChart(event: any) {
@@ -2453,7 +3083,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     }
 
     console.log(targetColumn);
-    let getCompareData = localStorage.getItem('compareData');
+    let getCompareData = localStorage.getItem('dataLineKurs');
     let parsedData;
 
     if (getCompareData !== null) {
@@ -2589,7 +3219,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             showAlways: true,
             seriesName: kursName,
             // tickAmount: 15,
-            min:minValFiltered - 200,
+            min:minValFiltered,
             max:maxValFiltered,
             axisTicks: {
               show: false
@@ -2625,7 +3255,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               // show: true,
               showAlways: true,
               seriesName: filteredData[1].kurs,
-              min: minValFiltered - 200,
+              min: minValFiltered,
               max: maxValFiltered,
               axisTicks: {
                 show: false,
@@ -2649,7 +3279,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               showAlways: true,
               seriesName: filteredData[1].kurs,
               // tickAmount: 20,
-              min:minValFiltered - 200,
+              min:minValFiltered,
               max:maxValFiltered,
               axisTicks: {
                 show: true
@@ -2800,9 +3430,18 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       }
     }
 
+    let getCompareData = localStorage.getItem('dataInterestLine');
+    let parsedData;
+
+    if (getCompareData !== null) {
+        parsedData = JSON.parse(getCompareData);
+        console.log(parsedData);
+    } else {
+        console.log("No data found in localStorage.");
+    }
     // console.log(targetColumn);
 
-    const filteredData = this.allTrendDataInterestRate.filter(
+    const filteredData = parsedData.filter(
       (item: any) => targetColumn.includes(item.name)
     )
 
@@ -2833,8 +3472,13 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
     this.lineChartInterestRateSeries = filteredData
     this.interestRateYAxis = {
-      min: minValInterest - 0.05,
-      max: maxValInterest + 0.05
+      min: minValInterest,
+      max: maxValInterest,
+      labels: {
+        formatter: function(val, index) {
+          return val.toLocaleString('id').slice(0,4)
+        }
+      }
     }
   }
 
