@@ -861,9 +861,9 @@ export class TableServicesService {
         {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 100, bottomCalc: this.customBottomCalc},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
         {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input", minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"Action", hozAlign:"center", columns:[
+        {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+          {title:"Edit", field:"EditButton", formatter:addBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
         ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, resizable:false,visible:false},
