@@ -429,10 +429,12 @@ export class OverviewHarian implements OnInit, AfterViewInit{
         this.dataInterestRate[i].nilai_realisasi = this.dataInterestRate[i].nilai_realisasi.slice(0,4);
       }
 
-      const getKeyTakeways = await this.quillConfig.getKeyTakeways(date)
-      // console.log(getKeyTakeways);
-      this.getKeyTakeways = getKeyTakeways
-      this.getKeyTakeways = this.getKeyTakeways.d.label
+      const getKeyTakewaysRes = await this.quillConfig.getKeyTakeways(date)
+      console.log(getKeyTakewaysRes);
+      this.getKeyTakeways = getKeyTakewaysRes;
+
+      const checkLabel = this.getKeyTakeways.d.hasOwnProperty('label');
+      checkLabel ? this.getKeyTakeways = this.getKeyTakeways.d.label : this.getKeyTakeways = "";
 
       this.fetchFootnotes(date)
 
@@ -543,10 +545,13 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   }
 
   fetchKeyTakeWays = async () => {
-    const getKeyTakeways = await this.quillConfig.getKeyTakeways(moment().format('DD/MM/YYYY'))
-    // console.log(getKeyTakeways);
-    this.getKeyTakeways = getKeyTakeways;
-    this.getKeyTakeways = this.getKeyTakeways.d.label
+    const getKeyTakewaysRes = await this.quillConfig.getKeyTakeways(moment().format('DD/MM/YYYY'))
+    console.log(getKeyTakewaysRes);
+
+    this.getKeyTakeways = getKeyTakewaysRes;
+
+    const checkLabel = this.getKeyTakeways.d.hasOwnProperty('label');
+    checkLabel ? this.getKeyTakeways = this.getKeyTakeways.d.label : this.getKeyTakeways = ""
   }
 
   date:string = moment().format('DD/MM/YYYY');
@@ -607,9 +612,12 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       this.statusKeytakeways = response
 
       if(this.statusKeytakeways.s === 200){
-        const getKeyTakeways = await this.quillConfig.getKeyTakeways(moment(new Date()).format('DD/MM/YYYY'));
-        this.getKeyTakeways = getKeyTakeways;
-        this.getKeyTakeways = this.getKeyTakeways.d.label
+        const getKeyTakewaysRes = await this.quillConfig.getKeyTakeways(moment(new Date()).format('DD/MM/YYYY'));
+        this.getKeyTakeways = getKeyTakewaysRes;
+
+        const checkLabel = this.getKeyTakeways.d.hasOwnProperty('label');
+        checkLabel ? this.getKeyTakeways = this.getKeyTakeways.d.label : this.getKeyTakeways = ""
+
     }
     } catch (error) {
       console.log(error);

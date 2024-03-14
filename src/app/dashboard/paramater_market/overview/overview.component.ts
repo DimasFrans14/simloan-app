@@ -6,6 +6,7 @@ import { filter, range } from 'rxjs';
 import { DataService } from 'src/app/data.service';
 import { OverviewChartService } from 'src/app/services/chart_serivces/overviewChart/overview-chart.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
+import Swal from 'sweetalert2';
 import { __values } from 'tslib';
 
 @Component({
@@ -232,7 +233,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   hideCompare(event: any){
     console.log(event);
 
-    const check = this.listDataCompareChangeRKAP.filter(
+    const check = this.dataCompareChangeRKAP.filter(
       (item: any) => item.mata_uang.includes(event)
     )
     if(event != undefined){
@@ -240,15 +241,24 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       console.log(check);
       for(let i=0; i<check.length; i++){
         if(this.dataCompareChangeRKAP.length > 2){
-          const tes = this.listDataCompareChangeRKAP.filter(
+          const removeData = this.dataCompareChangeRKAP.filter(
             (item: any) => item.mata_uang != check[i].mata_uang
           )
-          console.log(tes);
-          this.dataCompareChangeRKAP = tes
+          console.log(removeData);
+          this.dataCompareChangeRKAP = removeData;
+          Swal.fire({
+            title: "Hapus item berhasil!",
+            icon: "info",
+            showCloseButton: true,
+          });
           return this.dataCompareChangeRKAP
         }
         else{
-          alert('data tidak boleh kurang dari 2');
+          Swal.fire({
+            title: "Data kurang dari 2!",
+            icon: "info",
+            showCloseButton: true,
+          });
           return this.dataCompareChangeRKAP
         }
       }
@@ -277,11 +287,19 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       for(let i=0; i<getData.length; i++){
         if(!dataFound){
           this.dataCompareChangeRKAP.push(getData[0]);
-          console.log(this.dataCompareChangeRKAP);
+          Swal.fire({
+            title: "Data berhasi ditambah!",
+            icon: "info",
+            showCloseButton: true,
+          });
           return this.dataCompareChangeRKAP
         }
         else{
-          alert('data sudah ada')
+          Swal.fire({
+            title: "Data sudah ada!",
+            icon: "info",
+            showCloseButton: true,
+          });
         }
       }
     }
@@ -1886,8 +1904,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         console.log(responseData);
 
         this.allTrendDataInterestRate = responseData;
-        this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
-        this.barChartInterestRateSeries = this.allTrendDataInterestRate;
+
 
         if(this.allTrendDataInterestRate.s === 200){
           this.isLoadingInterestLine = false;
@@ -1895,6 +1912,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         else{
           this.isLoadingInterestLine = true;
         }
+
+        this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
+        this.barChartInterestRateSeries = this.allTrendDataInterestRate;
       break;
 
       case '1year':
@@ -1907,8 +1927,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         console.log(responseData);
 
         this.allTrendDataInterestRate = responseData;
-        this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
-        this.barChartInterestRateSeries = this.allTrendDataInterestRate
+
 
         if(this.allTrendDataInterestRate.s === 200){
           this.isLoadingInterestLine = false;
@@ -1916,6 +1935,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         else{
           this.isLoadingInterestLine = true;
         }
+        this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
+        this.barChartInterestRateSeries = this.allTrendDataInterestRate
       break;
 
       case '3years':
@@ -1928,8 +1949,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         console.log(responseData);
 
         this.allTrendDataInterestRate = responseData;
-        this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
-        this.barChartInterestRateSeries = this.allTrendDataInterestRate
+
 
         if(this.allTrendDataInterestRate.s === 200){
           this.isLoadingInterestLine = false;
@@ -1937,7 +1957,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         else{
           this.isLoadingInterestLine = true;
         }
-
+        this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
+        this.barChartInterestRateSeries = this.allTrendDataInterestRate
       break;
     }
 
@@ -2515,9 +2536,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
         this.lineYAxisKurs.push({
           showAlways: true,
-          seriesName: kurs,
-          min: minVal - 200,
-          max: maxVal,
+          seriesName: "USD",
+          min: minVal - 100,
+          max: maxVal + 100,
 
           axisTicks: {
             show: true
