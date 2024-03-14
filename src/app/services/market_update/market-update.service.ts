@@ -355,12 +355,13 @@ export class MarketUpdateService {
       "master_real_pdb_creates":[{
         "quartal": data.quartal,
         "tahun":data.tahun,
-        "nilai": data.nilai
+        "nilai": data.nilai,
+        "is_active": true
       } ]
     }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`, data)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -496,9 +497,9 @@ export class MarketUpdateService {
     }
   }
 
-  async fetchDataPMI(year:string){
+  async fetchDataPMI(){
     try {
-      const params = new HttpParams().set('tahun', year);
+      // const params = new HttpParams().set('tahun', year);
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_real_pmi`)
       );

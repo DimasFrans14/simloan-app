@@ -155,9 +155,8 @@ export class TableServicesService {
   }
 
   getDataCommodities(data: any){
-    this.dataCommodities = data.d.list;
+    this.dataCommodities = data.data;
     // console.log('data commodities', this.dataCommodities);
-
   }
   getDataPDB(data: any){
     this.dataPDB = data.data.content;
@@ -821,6 +820,9 @@ export class TableServicesService {
   }
 
   initializeTableDataPDB(){
+    const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-succes'>Tambah</span>";
+    }
     const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-warning'>Edit</span>";
     }
@@ -859,7 +861,10 @@ export class TableServicesService {
         {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", minWidth: 100, bottomCalc: this.customBottomCalc},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", minWidth: 100},
         {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input", minWidth: 100, bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Action", hozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, resizable:false,visible:false},
       ],
@@ -872,7 +877,7 @@ export class TableServicesService {
       columns:[
         {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left',editor: "input",headerSort:false,},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center',editor: "input", headerSort:false},
-        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
+        {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
         {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapPdb, headerSort:false, resizable:false,visible:false},
