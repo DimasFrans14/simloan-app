@@ -148,7 +148,7 @@ export class MarketUpdateService {
     try {
       const params = new HttpParams().set('tahun', year)
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl2}/simloan-ws/market/commodities/getRateList`)
+        this.http.get(`${environment.apiUrl2}/simloan-ws/market/commodities/getRateList`, {params})
       );
     } catch (error) {
       console.log(error);
@@ -409,7 +409,7 @@ export class MarketUpdateService {
     return error
   }
   }
- 
+
   async fetchDataInflasi(){
     try {
       return await lastValueFrom(
@@ -500,12 +500,13 @@ export class MarketUpdateService {
   async fetchDataPMI(){
     try {
       // const params = new HttpParams().set('tahun', year);
+      // const params = new HttpParams().set('tahun', year);
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_real_pmi`)
       );
     } catch (error) {
       console.log(error);
-      return null; 
+      return null;
     }
   }
   async fetchDataRealisasiPMI(){
@@ -515,7 +516,7 @@ export class MarketUpdateService {
       );
     } catch (error) {
       console.log(error);
-      return null; 
+      return null;
     }
   }
   async fetchDataUpdateRealisasiPMI(data:any){
@@ -614,7 +615,7 @@ export class MarketUpdateService {
         "nilai": data.nilai,
         "is_active":true
       }
-    try { 
+    try {
       return await lastValueFrom(
         this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-retail-sales?id=${data.id}`, data1)
       )
@@ -640,7 +641,7 @@ export class MarketUpdateService {
         "nilai": data.nilai,
         "is_active":true
       }
-    try { 
+    try {
       return await lastValueFrom(
         this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-rtsales?id=${data.id}`, data1)
       )
@@ -666,7 +667,7 @@ export class MarketUpdateService {
         "nilai": data.nilai,
         "is_active":true
       }
-    try { 
+    try {
       return await lastValueFrom(
         this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-rtsales?id=${data.id}`, data1)
       )
@@ -684,7 +685,7 @@ export class MarketUpdateService {
     } catch (error) {
       console.log(error);
       return null;
-    } 
+    }
   }
   async fetchDataRealisasiMoneySupply(){
     try {
@@ -694,7 +695,7 @@ export class MarketUpdateService {
     } catch (error) {
       console.log(error);
       return null;
-    } 
+    }
   }
   async fetchDataUpdateRealisasiMoneySupply(data:any){
       const data1 = {
@@ -729,7 +730,7 @@ export class MarketUpdateService {
       "triliun_beredar": data.triliun_beredar,
       "is_active": true
     }
-    try { 
+    try {
       return await lastValueFrom(
         this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-msupply?id=${data.id}`, data1)
       )
@@ -755,7 +756,7 @@ export class MarketUpdateService {
       "triliun_beredar": data.triliun_beredar,
       "is_active": true
     }
-    try { 
+    try {
       return await lastValueFrom(
         this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-msupply?id=${data.id}`, data1)
       )
@@ -854,11 +855,11 @@ export class MarketUpdateService {
   }
   
 
-  async fetchDataInterestRate(year: string){
+  async fetchDataInterestRate(year:string){
     try {
       const params = new HttpParams().set('tahun', year)
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl2}/market/interest/getList`)
+        this.http.get(`${environment.apiUrl2}/market/interest/getList`, {params})
       );
     } catch (error) {
       console.log(error);

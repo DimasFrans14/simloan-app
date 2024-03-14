@@ -156,7 +156,7 @@
                 <tbody>
                   <tr *ngFor="let item of listEditMacroIndicator">
                     <td>
-                      {{ item.kode }}
+                      {{ item.keterangan }}
                     </td>
                     <td>{{ item.nilai_real }}</td>
                     <td>{{ item.nilai_rkap }}</td>
@@ -188,12 +188,12 @@
                 <span>{{items.nilai_rkap}}</span>
               </div>
               <div class="d-flex flex-column align-items-center me-2 text-primary ">
-                <span>{{items.alias_periode}}</span>
+                <span>{{items.tahun}}</span>
                 <span>{{items.nilai_real}}</span>
               </div>
               <div class="d-flex flex-column align-items-center text-secondary">
                 <span>{{getQuartal}}{{getYear}}F<sup>{{items.indikator_tagging}}</sup></span>
-                <span>{{items.nilai_real}}</span>
+                <span>{{items.outlook}}</span>
               </div>
             </div>
             <div class="circle-card" [style.background]="items.indikator"></div>
@@ -246,12 +246,12 @@
                       </thead>
                       <tbody>
                         <tr *ngFor="let item of listEditCommodities">
-                          <th scope="row" style="font-size: 14px; border-style: none" >
-                            {{ item.kode_item }}
-                          </th>
+                          <td scope="row" style="font-size: 14px; border-style: none" >
+                            {{ item.keterangan }}
+                          </td>
                           <td>{{ item.nilai_realisasi }}</td>
                           <td>{{ item.nilai_rkap }}</td>
-                          <td>{{ item.nilai_realisasi }}</td>
+                          <td>{{ item.nilai_outlook }}</td>
                           <td><i class="bi bi-plus-slash-minus"
                  style="cursor: pointer;" (click)="getValueRowCommodities(item.kode_item)"></i></td>
                         </tr>
@@ -269,7 +269,7 @@
         </div>
 
         <!-- Card Commodity -->
-        <div *ngFor="let item of dataCommodities">
+        <div *ngFor="let item of dataDefaultCommodities">
             <!-- <div *ngIf="i < 3"> -->
             <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 mb-3 mt-2 position-relative">
           <span class="fw-semibold mb-3">{{item.keterangan}}</span>
@@ -335,9 +335,9 @@
                       </thead>
                       <tbody>
                         <tr *ngFor="let item of listEditCurrency">
-                          <th scope="row" style="font-size: 14px; border-style: none" >
+                          <td scope="row" style="font-size: 14px; border-style: none" >
                             {{ item.kode }}
-                          </th>
+                          </td>
                           <td>{{ item.nilai_real }}</td>
                           <td>{{ item.nilia_rkap }}</td>
                           <td>{{ item.nilai_outlook }}</td>
@@ -358,8 +358,8 @@
         </div>
 
         <!-- Card Commodity -->
-        <div *ngIf="dataCurrency">
-          <div *ngFor="let item of dataCurrency">
+        <div *ngIf="dataDefaultCurrency">
+          <div *ngFor="let item of dataDefaultCurrency">
             <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 mb-3 mt-2 position-relative">
               <span class="fw-semibold mb-3">{{item.kode}}/IDR</span>
               <div class="d-flex align-items-center justify-content-between" style="font-size: 12px;">

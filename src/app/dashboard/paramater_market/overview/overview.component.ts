@@ -2419,7 +2419,15 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.trendKursCategories = responseKurs
       this.trendKursData = responseKurs;
 
-      this.defaultKurs = this.trendKursData.d.arrayData.filter((item: any) => ['USD'].includes(item.kurs));
+      this.defaultKurs = this.trendKursData.d.arrayData.map((item: any) => {
+        item.kurs = item.kurs.trim();
+        return item;
+      });
+
+      console.log(this.defaultKurs);
+
+
+      this.defaultKurs = this.defaultKurs.filter((item: any) => ['USD'].includes(item.kurs));
 
       this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
 
