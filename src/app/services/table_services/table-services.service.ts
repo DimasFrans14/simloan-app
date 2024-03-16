@@ -39,7 +39,7 @@ export class TableServicesService {
   public shareDataRealisasiCommodities:any;
   public shareDataRkapCommodities:any;
   public shareDataOutlookCommodities:any;
-  
+
   public testData: any;
 
   public dataCommodities: any;
@@ -339,6 +339,15 @@ export class TableServicesService {
 
   tableDetailWithdrawal: any;
   tableDataDetailWithdrawal: any;
+
+  tableSHLSchedule: any;
+  tableDataSHLSchedule: any;
+
+  tableSHLScheduleDetailPreview: any;
+  tableDataSHLScheduleDetailPreview: any;
+
+  tableSHLScheduleCreatePreview: any;
+  tableDataSHLScheduleCreatePreview: any;
 
   //table import findebt
   tableDataImport:any;
@@ -864,7 +873,7 @@ export class TableServicesService {
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
           {title:"Edit", field:"EditButton", formatter:addBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
-        ]}, 
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, resizable:false,visible:false},
       ],
@@ -961,7 +970,7 @@ export class TableServicesService {
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapInflasi, headerSort:false, resizable:false,visible:false},
       ],
     });
-    
+
     this.tableOutlookInflasi = new Tabulator(".table-otulookInflasi", {
       // height:205,
       data:this.shareDataOutlookInflasi,
@@ -2195,7 +2204,7 @@ export class TableServicesService {
     });
   }
 
-  initializeTableDetailWithdrawal(){
+  initializeTableDetailWithdrawal1(){
     this.tableDataDetailWithdrawal = [
       {
         id:1, withdrawal:1, nominal_withdrawal: 25, tanggal_withdrawal: "DD/MM/YYY", berakhir_availability: "DD/MM/YYY"
@@ -2215,6 +2224,193 @@ export class TableServicesService {
         {title:"Nominal Withdrawal", field:"nominal_withdrawal", hozAlign:"left", headerHozAlign:"left", bottomCalc: "sum" ,bottomCalcParams:{precision:1}},
         {title:"Tanggal Withdrawal", field:"tanggal_withdrawal", hozAlign:"left", headerHozAlign:"left"},
         {title:"Berakhirnya Availablitily Period", field:"berakhir_availability", hozAlign:"left", headerHozAlign:"left"},
+      ],
+    });
+  }
+
+  initializeTableDetailWithdrawal2(){
+    this.tableDataDetailWithdrawal = [
+      {
+        id:1, withdrawal:1, nominal_withdrawal: 25, tanggal_withdrawal: "DD/MM/YYY", berakhir_availability: "DD/MM/YYY"
+      },
+      {
+        id:2, withdrawal:2, nominal_withdrawal: 25, tanggal_withdrawal: "DD/MM/YYY", berakhir_availability: "DD/MM/YYY"
+      },
+    ];
+
+    this.tableDetailWithdrawal = new Tabulator(".table-withdrawalDetail2", {
+      // height:205,
+      data:this.tableDataDetailWithdrawal,
+      layout:"fitColumns",
+      columns:[
+        // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
+        {title:"Withdrawal", field:"withdrawal", headerHozAlign:"left", hozAlign:'left', headerSort:true, bottomCalc: this.customBottomCalc},
+        {title:"Nominal Withdrawal", field:"nominal_withdrawal", hozAlign:"left", headerHozAlign:"left", bottomCalc: "sum" ,bottomCalcParams:{precision:1}},
+        {title:"Tanggal Withdrawal", field:"tanggal_withdrawal", hozAlign:"left", headerHozAlign:"left"},
+        {title:"Berakhirnya Availablitily Period", field:"berakhir_availability", hozAlign:"left", headerHozAlign:"left"},
+      ],
+    });
+  }
+
+  initializeTableDetailWithdrawalPreview(){
+    this.tableDataDetailWithdrawal = [
+      {
+        id:1, withdrawal:1, nominal_withdrawal: 25, tanggal_withdrawal: "DD/MM/YYY", berakhir_availability: "DD/MM/YYY"
+      },
+      {
+        id:2, withdrawal:2, nominal_withdrawal: 25, tanggal_withdrawal: "DD/MM/YYY", berakhir_availability: "DD/MM/YYY"
+      },
+      {
+        id:3, withdrawal:3, nominal_withdrawal: 25, tanggal_withdrawal: "DD/MM/YYY", berakhir_availability: "DD/MM/YYY"
+      },
+    ];
+
+    this.tableDetailWithdrawal = new Tabulator(".table-withdrawalDetailPreview", {
+      // height:205,
+      data:this.tableDataDetailWithdrawal,
+      layout:"fitColumns",
+      columns:[
+        // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
+        {title:"Withdrawal", field:"withdrawal", headerHozAlign:"left", hozAlign:'left', headerSort:true, bottomCalc: this.customBottomCalc},
+        {title:"Nominal Withdrawal", field:"nominal_withdrawal", hozAlign:"left", headerHozAlign:"left", bottomCalc: "sum" ,bottomCalcParams:{precision:1}},
+        {title:"Tanggal Withdrawal", field:"tanggal_withdrawal", hozAlign:"left", headerHozAlign:"left"},
+        {title:"Berakhirnya Availablitily Period", field:"berakhir_availability", hozAlign:"left", headerHozAlign:"left"},
+      ],
+    });
+  }
+
+  initializeTableSHLSchedule(){
+
+    this.tableDataSHLSchedule = [
+      {
+        id:1, anak_perusahaan:"PT. Indonesia Comnet Plus", agreement_number:"1620.Pj/KEU.01.09/F01070100/2022", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2022"
+      },
+      {
+        id:2, anak_perusahaan:"PT. PLN Batam", agreement_number:"1620.Pj/KEU.01.09/F01070100/2022", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2022"
+      },
+      {
+        id:3, anak_perusahaan:"PT. Pelayaran Bahtera Adhiguna", agreement_number:"1620.Pj/KEU.01.09/F01070100/2022", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2022"
+      },
+      {
+        id:4, anak_perusahaan:"PT. Pelayaran Bahtera Adhiguna", agreement_number:"1620.Pj/KEU.01.09/F01070100/2023", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2023"
+      },
+      {
+        id:5, anak_perusahaan:"PT. Pembangkitan Jawa-Bali", agreement_number:"1620.Pj/KEU.01.09/F01070100/2023", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2023"
+      },
+      {
+        id:6, anak_perusahaan:"PT. Indonesia Comnet Plus", agreement_number:"1620.Pj/KEU.01.09/F01070100/2023", agreement_number_anakperusahaan:"12305148/PJ/01/PST/2023"
+      },
+    ];
+
+    const actionBtn = function(_cell: any, _formatterParams: any){
+      return "<button type='button' class='btn'><i class='bi bi-eye'></i></button> <button type='button' class='btn' (click)='alert('clicked')'><i class='bi bi-pencil-square'></i></button";
+    }
+
+    const checkBox = function(_cell:any, _formatterParams: any){
+      return "<input type='checkbox'></input>"
+    }
+
+    this.tableSHLSchedule = new Tabulator(".table-shlSchedule", {
+      // height:"500px",
+      data:this.tableDataSHLSchedule,
+      layout:"fitColumns",
+      columns:[
+        // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
+        {title:"Anak Perusahaan", field:"anak_perusahaan", headerHozAlign:"left", hozAlign:'left', headerSort:true, width:300, frozen: true},
+        {title:"SHL Agreement Number", field:"agreement_number", hozAlign:"left", headerHozAlign:"left"},
+        {title:"SHL Agreement Number Anak Perusahaan", field:"agreement_number_anakperusahaan", hozAlign:"left", headerHozAlign:"left"},
+        {title: "Action", formatter:actionBtn,
+        //  cellClick:this.getRowData,
+        hozAlign:"center", headerHozAlign:"center"},
+      ],
+    });
+  }
+
+  initializeTableSHLScheduleDetailPreview(){
+
+    this.tableDataSHLScheduleDetailPreview = [
+      {
+        id:1, "withdrawal": 1, "nominal_penarikan": 500000000, "tanggal_penarikan": "12/12/2023", "end_availability_period": "DD/MM/YYYY"
+      },
+    ];
+
+    const actionBtn = function(_cell: any, _formatterParams: any){
+      return "<button type='button' class='btn'><i class='bi bi-eye'></i></button> <button type='button' class='btn' (click)='alert('clicked')'><i class='bi bi-pencil-square'></i></button";
+    }
+
+    const checkBox = function(_cell:any, _formatterParams: any){
+      return "<input type='checkbox'></input>"
+    }
+
+    this.tableSHLScheduleDetailPreview = new Tabulator(".table-shlScheduleDetailPreview", {
+      // height:"500px",
+      data:this.tableDataSHLScheduleDetailPreview,
+      layout:"fitColumns",
+      columns:[
+        // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
+        {title:"Withdrawal", field:"withdrawal", headerHozAlign:"left", hozAlign:'left', headerSort:true, width:300, frozen: true},
+        {title:"Nomial Penarikan", field:"nominal_penarikan", hozAlign:"left", headerHozAlign:"left"},
+        {title:"Tanggal Penarikan", field:"tanggal_penarikan", hozAlign:"left", headerHozAlign:"left"},
+        {title:"Berakhirnya Availbility Period", field:"end_availability_period", hozAlign:"left", headerHozAlign:"left"},
+      ],
+    });
+  }
+
+  initializeTableSHLScheduleCreatePreview(){
+
+    this.tableDataSHLScheduleCreatePreview = [
+      {
+        id:1, "tanggal_jatuh_tempo": "DD/MM/YYYY", "uraian": "Pokok & Bunga", "hari": 100, "masa": 0.50, "saldo": 100000000, "pokok": 40000000, "biaya_bunga": 0.00, "total_kewajiban": 0.00
+      },
+      {
+        id:2, "tanggal_jatuh_tempo": "DD/MM/YYYY", "uraian": "Pokok & Bunga", "hari": 100, "masa": 0.50, "saldo": 100000000, "pokok": 40000000, "biaya_bunga": 0.00, "total_kewajiban": 0.00
+      },
+      {
+        id:3, "tanggal_jatuh_tempo": "DD/MM/YYYY", "uraian": "Pokok & Bunga", "hari": 100, "masa": 0.50, "saldo": 100000000, "pokok": 40000000, "biaya_bunga": 0.00, "total_kewajiban": 0.00
+      },
+      {
+        id:4, "tanggal_jatuh_tempo": "DD/MM/YYYY", "uraian": "Pokok & Bunga", "hari": 100, "masa": 0.50, "saldo": 100000000, "pokok": 40000000, "biaya_bunga": 0.00, "total_kewajiban": 0.00
+      },
+      {
+        id:5, "tanggal_jatuh_tempo": "DD/MM/YYYY", "uraian": "Pokok & Bunga", "hari": 100, "masa": 0.50, "saldo": 100000000, "pokok": 40000000, "biaya_bunga": 0.00, "total_kewajiban": 0.00
+      },
+      {
+        id:6, "tanggal_jatuh_tempo": "DD/MM/YYYY", "uraian": "Pokok & Bunga", "hari": 100, "masa": 0.50, "saldo": 100000000, "pokok": 40000000, "biaya_bunga": 0.00, "total_kewajiban": 0.00
+      },
+      {
+        id:7, "tanggal_jatuh_tempo": "DD/MM/YYYY", "uraian": "Pokok & Bunga", "hari": 100, "masa": 0.50, "saldo": 100000000, "pokok": 40000000, "biaya_bunga": 0.00, "total_kewajiban": 0.00
+      },
+      {
+        id:8, "tanggal_jatuh_tempo": "DD/MM/YYYY", "uraian": "Pokok & Bunga", "hari": 100, "masa": 0.50, "saldo": 100000000, "pokok": 40000000, "biaya_bunga": 0.00, "total_kewajiban": 0.00
+      },
+      {
+        id:9, "tanggal_jatuh_tempo": "DD/MM/YYYY", "uraian": "Pokok & Bunga", "hari": 100, "masa": 0.50, "saldo": 100000000, "pokok": 40000000, "biaya_bunga": 0.00, "total_kewajiban": 0.00
+      },
+    ];
+
+    const actionBtn = function(_cell: any, _formatterParams: any){
+      return "<button type='button' class='btn'><i class='bi bi-eye'></i></button> <button type='button' class='btn' (click)='alert('clicked')'><i class='bi bi-pencil-square'></i></button";
+    }
+
+    const checkBox = function(_cell:any, _formatterParams: any){
+      return "<input type='checkbox'></input>"
+    }
+
+    this.tableSHLScheduleCreatePreview = new Tabulator(".table-shlScheduleCreatePreview", {
+      // height:"500px",
+      data:this.tableDataSHLScheduleCreatePreview,
+      layout:"fitColumns",
+      columns:[
+        // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
+        {title:"No", field:"id", width:50, frozen: true, headerSort:false},
+        {title:"Tanggal Jatuh Tempo", field:"tanggal_jatuh_tempo", headerSort:false},
+        {title:"Uraian", field:"uraian",width:200, headerSort:false},
+        {title:"Hari", field:"hari", width:100, headerSort:false},
+        {title:"Masa", field:"masa", width:100, headerSort:false},
+        {title:"Saldo", field:"saldo", headerSort:false},
+        {title:"Pokok", field:"pokok", headerSort:false},
+        {title:"Biaya Bunga", field:"biaya_bunga", headerSort:false},
+        {title:"Total Kewajiban", field:"total_kewajiban", headerSort:false},
       ],
     });
   }
@@ -2355,7 +2551,7 @@ export class TableServicesService {
     this.router.navigate(['shl_agreement/details', cell.getRow().getData().id]);
   }
 
-  // edit all macro 
+  // edit all macro
   //PDB
   cellClick_SaveButtonPdb = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
