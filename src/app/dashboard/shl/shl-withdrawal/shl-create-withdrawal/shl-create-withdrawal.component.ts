@@ -11,6 +11,9 @@ import Swal from 'sweetalert2';
 })
 export class ShlCreateWithdrawalComponent implements OnInit{
   @ViewChild('stepper') stepper!: MatStepper;
+  parameterCurrency: any;
+  agreementDocumentPLN: any;
+  isDisable: boolean = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -45,6 +48,11 @@ export class ShlCreateWithdrawalComponent implements OnInit{
     { id: 4, name: 'Proyek 3'},
   ];
 
+  listItemTenor = [
+    { id: 1, name: 'USD' },
+    { id: 2, name: 'EUR' },
+  ];
+
   firstFormGroup = this._formBuilder.group({
     selectedAP: ['', Validators.required],
     noSHLAgreementList: ['', Validators.required],
@@ -52,7 +60,12 @@ export class ShlCreateWithdrawalComponent implements OnInit{
   });
 
   secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+    nominalWithdrawal: ['', Validators.required],
+    tanggalWithdrawal: ['', Validators.required],
+  });
+
+  thirdFormGroup = this._formBuilder.group({
+
   });
 
   isLinear = false;
@@ -75,19 +88,55 @@ export class ShlCreateWithdrawalComponent implements OnInit{
   namaProyekChange = (event: any) => {
     const tabelDetailWithdrawal = document.getElementById('previewTabelProyek');
 
-    this.namaProyekDisplay = event !== undefined && event !== null;
+    if (tabelDetailWithdrawal !== null) {
+      this.namaProyekDisplay = event !== undefined && event !== null;
 
-    console.log(event, this.namaProyekDisplay);
+      console.log(event, this.namaProyekDisplay);
 
-    console.log(this.firstFormGroup.value);
-    this.tableConfig.initializeTableDetailWithdrawal();
+      console.log(this.firstFormGroup.value);
+      this.tableConfig.initializeTableDetailWithdrawal1();
 
-    setTimeout(() => {
-      if (tabelDetailWithdrawal) {
-        tabelDetailWithdrawal.style.display = this.namaProyekDisplay ? 'block' : 'none';
-        console.log(this.tableConfig.initializeTableDetailWithdrawal());
+      if (this.namaProyekDisplay) {
+          tabelDetailWithdrawal.classList.remove('hidden');
+      } else {
+          tabelDetailWithdrawal.classList.add('hidden');
       }
-    }, 50);
+
+          console.log(tabelDetailWithdrawal.classList.contains('hidden') ? 'hidden' : 'not hidden');
+      } else {
+          console.error('Element not found: previewTabelProyek');
+      }
+
+    // setTimeout(() => {
+    //   if (tabelDetailWithdrawal) {
+    //     tabelDetailWithdrawal.style.display = this.namaProyekDisplay ? 'block' : 'none';
+    //     console.log(this.tableConfig.initializeTableDetailWithdrawal());
+    //     console.log(tabelDetailWithdrawal.style.display);
+    //   }
+    // }, 10);
+  }
+
+  getDropdownVal = (name: string) => {
+    const buttonTenor = document.getElementById('buttonTenor');
+    buttonTenor ? (buttonTenor.textContent = name) : '';
+  };
+
+  onSelectDokumen(event: { addedFiles: any }) {
+    this.parameterCurrency.push(...event.addedFiles);
+    console.log(event.addedFiles);
+
+    // this.readExcel(event);
+    this.agreementDocumentPLN.push(event.addedFiles);
+    if (this.agreementDocumentPLN.length > 0) {
+      this.isDisable = false;
+    }
+  }
+
+  onRemove(event: File) {
+    console.log(event);
+    this.parameterCurrency.splice(this.parameterCurrency.indexOf(event), 1);
+    console.log(this.parameterCurrency);
+
   }
 
   firstWithdrawalForm = () => {
@@ -110,9 +159,8 @@ export class ShlCreateWithdrawalComponent implements OnInit{
       // localStorage.setItem('dataForm1', JSON.stringify(this.firstFormGroup.value));
       this.submitted = false;
       this.stepper.next();
-      setTimeout(() => {
-
-      }, 50);
+      this.tableConfig.initializeTableDetailWithdrawal2();
+      this.tableConfig.initializeTableDetailWithdrawalPreview();
     }
   }
 

@@ -22,7 +22,8 @@
     <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
       {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
     </button> -->
-    <mat-stepper [linear]="true" #stepper>
+    <mat-stepper [linear]="false" #stepper>
+
       <mat-step [stepControl]="firstFormGroup">
         <form [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Choose Agreement</ng-template>
@@ -197,7 +198,7 @@
                 </div>
                 <div class="d-flex flex-nowrap justify-content-between align-items-center mb-3">
                   <span>Nomor SHL Agreement Anak Perushaan</span>
-                  <span class="p-2 rounded detail-data">{{this.firstFormGroup.value.selectedProyek}}</span>
+                  <span class="p-2 rounded detail-data">{{this.firstFormGroup.value.noSHLAgreementList}}</span>
                 </div>
 
               <!-- </ng-container> -->
@@ -238,9 +239,7 @@
       </mat-step>
 
       <mat-step [stepControl]="secondFormGroup" label="Withdrawal">
-
         <ng-container *ngIf="namaProyekDisplay">
-
           <div class="d-flex justify-content-end align-items-center mb-3 mt-4">
           </div>
 
@@ -267,7 +266,7 @@
               </div>
               <div class="d-flex flex-nowrap justify-content-between align-items-center mb-3">
                 <span>Nomor SHL Agreement Anak Perushaan</span>
-                <span class="p-2 rounded detail-data">{{this.firstFormGroup.value.selectedProyek}}</span>
+                <span class="p-2 rounded detail-data">{{this.firstFormGroup.value.noSHLAgreementList}}</span>
               </div>
 
             <!-- </ng-container> -->
@@ -293,25 +292,285 @@
           </div>
           <hr />
           </div>
+
           <div class="py-3">
             <span class="fw-bold">Detail Withdrawal</span>
           </div>
         </ng-container>
 
-        <div class="table-withdrawalDetail pb-2" id="previewTabelProyek"></div>
-        <form [formGroup]="secondFormGroup">
+        <div class="table-withdrawalDetail2 pb-2" id="previewTabelProyek"></div>
 
+        <form [formGroup]="secondFormGroup" class="mt-3">
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputWithdrawal mb-4"
+                >Withdrawal</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <input type="text" class="form-control" [disabled]="true" [value]="3">
+            <!-- <ng-select
+              [items]="noSHLAnakPerusahaan"
+              class="form-control"
+              bindLabel="name"
+              id="noSHLAnakPerusahaan"
+              placeholder="Pilih Nama Anak Perusahaan"
+              bindValue="name"
+              formControlName="noSHLAnakPerusahaan"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && firstFormGroup.controls.noSHLAnakPerusahaan.errors
+              }"
+              required
+            >
+            </ng-select> -->
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputWithdrawal mb-4 me-1">Nominal Withdrawal</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+              class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+            >
+              <div class="d-flex justify-content-end align-items-center">
+                <input
+                  type="text"
+                  class="form-control input-tenor"
+                  id="noSHL"
+                  placeholder="0.00"
+                  formControlName="nominalWithdrawal"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted && secondFormGroup.controls.nominalWithdrawal.errors
+                  }"
+                  required
+                />
+                <button
+                  class="btn btn-outline-secondary dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  id="buttonTenor"
+                >
+                  USD
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <ng-container *ngFor="let item of listItemTenor">
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        id="item.id"
+                        (click)="getDropdownVal(item.name)"
+                        >{{ item.name }}</a
+                      >
+                    </li>
+                  </ng-container>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center my-4">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputWithdrawal mb-4 me-1"
+                >Tanggal Withdrawal</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <mat-form-field class="ms-2 input-date">
+                <mat-label class="label-datepicker">Select Date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker1"
+                  autocomplete="off"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted &&
+                      secondFormGroup.controls.tanggalWithdrawal.errors
+                  }"
+                  formControlName="tanggalWithdrawal"
+                  style="color: black"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker
+                  #picker1
+                  color="primary"
+                  disabled="false"
+                ></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-start my-4">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputWithdrawal mb-4 me-1"
+                >Dokumen Lainnya</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <ngx-dropzone
+                (change)="onSelectDokumen($event)"
+                required
+              >
+                <ngx-dropzone-label>
+                  <img src="/assets/icon/upload-cloud-02.svg" alt="" />
+                  <div class="text-center">
+                    Drag and Drop here or
+                    <span class="text-primary">Browser here</span>
+                    <!-- <div *ngIf="submitted && thirdFormGroup.controls.dokumenLainnya.errors" class="text-danger">
+                      Please upload a file.
+                    </div> -->
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview
+                  *ngFor="let f of parameterCurrency"
+                  [removable]="true"
+                  (removed)="onRemove(f)"
+                >
+                  <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+            </div>
+
+
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary px-3 py-1 rounded">Next</button>
+          </div>
         </form>
       </mat-step>
 
 
-      <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
-        <div>
+      <mat-step [stepControl]="thirdFormGroup" label="Preview">
+
+        <div class="bg-white rounded">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <img src="assets/image/detail_agreement_left_header.svg" alt="">
+            </div>
+            <div class="me-3">
+              <img src="assets/image/detail_agreement_right_header.svg" alt="">
+            </div>
+          </div>
+
+          <div class="row p-3">
+            <div class="col-6" style="border-right: 1px solid #E4E4E4;">
+              <!-- <ng-container *ngFor="let item of detailDataSHLAgreement"> -->
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span>Nama Anak Perusahaan</span>
+                <span class="p-2 rounded detail-data" id="detailDataSHLAgreement.id">{{this.firstFormGroup.value.selectedAP}}</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span>Nomor SHL Agreement</span>
+                <span class="p-2 rounded detail-data">{{this.firstFormGroup.value.noSHLAgreementList}}</span>
+              </div>
+              <div class="d-flex flex-nowrap justify-content-between align-items-center mb-3">
+                <span>Nomor SHL Agreement Anak Perushaan</span>
+                <span class="p-2 rounded detail-data">{{this.firstFormGroup.value.noSHLAgreementList}}</span>
+              </div>
+              <div class="d-flex flex-nowrap justify-content-between align-items-center mb-3">
+                <span>Nama Proyek</span>
+                <span class="p-2 rounded detail-data">{{this.firstFormGroup.value.selectedProyek}}</span>
+              </div>
+
+            <!-- </ng-container> -->
+            </div>
+
+            <div class="col-6">
+
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span>Mata Uang</span>
+                <span class="p-2 rounded detail-data">USD</span>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span>Total Pagu</span>
+                <span class="p-2 rounded detail-data">750.000.000.000</span>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span>Sisa Pagu</span>
+                <span class="p-2 rounded detail-data">50.000.000.000</span>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span>Terakhir Withdrawal</span>
+                <span class="p-2 rounded detail-data fw-bold">Withdrawal ke-3</span>
+              </div>
+            </div>
+          </div>
+          <hr />
+
+          <div class="py-3">
+            <span class="fw-bold">Detail Withdrawal</span>
+          </div>
+
+          <div class="table-withdrawalDetailPreview pb-2" id="previewTabelProyek"></div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary px-3 py-1 rounded">Save and Submit</button>
+          </div>
+          </div>
+        <!-- <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button (click)="stepper.reset()">Reset</button>
-        </div>
+        </div> -->
+
       </mat-step>
     </mat-stepper>
 
