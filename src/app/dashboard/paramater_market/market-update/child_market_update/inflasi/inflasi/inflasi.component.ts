@@ -17,6 +17,9 @@ export class InflasiComponent {
   }
 
   dataDetail: any;
+  dataDetailRealisasi:any;
+  dataDetailRkap:any;
+  dataDetailOutlook:any;
   filteredData: String[] = [];
   isLoading: Boolean = true;
   realisasiPdbItem!: number;
@@ -113,29 +116,70 @@ export class InflasiComponent {
     // }
   }
 
-  async getDataInflasi(){
+  // async getDataInflasi(){
+  //   this.isLoading = true;
+  //   console.log(this.isLoading, 'loading 1');
+
+  //   try {
+  //     const data = await this.marketUpdateService.fetchDataInflasi();
+  //     this.dataDetail = data;
+  //     this.dataDetail = this.dataDetail.data;
+  //     this.isLoading = false;
+  //     console.log(this.dataDetail);
+  //     console.log(this.isLoading, 'loading 2', this.dataDetail);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+
+  //   // for(let i=0; i<10; i++){
+  //   //   this.filteredData.push(this.dataDetail.data.content[i]);
+  //   // }
+
+  //   // console.log('updated data', this.filteredData);
+  //   this.tableConfig.setDataPdb(this.dataDetail);
+  //   console.log('finish get data in func');
+  // }
+  async getDataRealisasi(){
     this.isLoading = true;
-    console.log(this.isLoading, 'loading 1');
-
-    try {
-      const data = await this.marketUpdateService.fetchDataInflasi();
-      this.dataDetail = data;
-      this.dataDetail = this.dataDetail.data;
+    console.log(this.isLoading, 'loading Outlook');
+    try{
+      const data = await this.marketUpdateService.fetchDataRealisasiInflasi();
+      this.dataDetailRealisasi = data;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
       this.isLoading = false;
-      console.log(this.dataDetail);
-      console.log(this.isLoading, 'loading 2', this.dataDetail);
-    } catch (error) {
-      console.log(error);
+      console.log(this.isLoading,'loading 2', this.dataDetailRealisasi);
+    } catch(error) {
+      console.log(error)
     }
-
-    // for(let i=0; i<10; i++){
-    //   this.filteredData.push(this.dataDetail.data.content[i]);
-    // }
-
-    // console.log('updated data', this.filteredData);
-    this.tableConfig.setDataPdb(this.dataDetail);
-    console.log('finish get data in func');
-
+    console.log('finish get data by function')
+  }
+  async getDataRkap(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading Outlook');
+    try{
+      const data = await this.marketUpdateService.fetchDataRkapInflasi();
+      this.dataDetailRkap = data;
+      this.dataDetailRkap = this.dataDetailRkap.data;
+      this.isLoading = false;
+      console.log(this.isLoading,'loading 2', this.dataDetailRkap);
+    } catch(error) {
+      console.log(error)
+    }
+    console.log('finish get data by function')
+  }
+  async getDataOutlook(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading Outlook');
+    try{
+      const data = await this.marketUpdateService.fetchDataOutlookInflasi();
+      this.dataDetailOutlook = data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.isLoading = false;
+      console.log(this.isLoading,'loading 2', this.dataDetailOutlook);
+    } catch(error) {
+      console.log(error)
+    }
+    console.log('finish get data by function')
   }
 
   onDate(event: any){
@@ -185,7 +229,13 @@ export class InflasiComponent {
       console.log(error);
     }
 
+    await this.getDataRealisasi();
+    await this.getDataRkap();
+    await this.getDataOutlook();
     this.tableConfig.initializeTableDataInflasi();
+    this.tableConfig.setDataRealisasiInflasi(this.dataDetailRealisasi);
+    this.tableConfig.setDataRkapInflasi(this.dataDetailRkap);
+    this.tableConfig.setDataOutlookInflasi(this.dataDetailOutlook);
   }
 
   ngAfterViewInit(): void {

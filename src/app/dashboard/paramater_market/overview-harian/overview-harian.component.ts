@@ -10,6 +10,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'overview-harian',
@@ -242,12 +243,14 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   dataInterestRate: any;
   dataCommodities: any;
   listEditCommodities: any;
+  dataDefaultCommodities: any;
 
   dataMacroIndicator: any;
   listEditMacroIndicator: any;
 
   dataCurrency: any;
   listEditCurrency: any;
+  dataDefaultCurrency: any;
 
   formatTanggal: any;
   changeIcon: boolean = false;
@@ -266,16 +269,26 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
     const checkData = this.dataMacroIndicator.includes(getRow[0])
 
-    this.dataMacroIndicator = updatedData;
+    // this.dataMacroIndicator = updatedData;
 
     console.log(checkData);
 
     if(checkData){
-      console.log('clear data');
+      this.dataMacroIndicator = updatedData;
       this.changeIcon = true;
+      Swal.fire({
+        title: "Hapus item berhasil!",
+        icon: "info",
+        showCloseButton: true,
+      });
     }
     else{
       this.dataMacroIndicator.push(getRow[0]);
+      Swal.fire({
+        title: "Tambah item berhasil!",
+        icon: "info",
+        showCloseButton: true,
+      });
     }
 
     console.log(this.dataMacroIndicator, updatedData, getRow);
@@ -286,62 +299,87 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
     // const listedDataCommodities = this.dataCommodities.includes(event)
 
-    const updatedData = this.dataCommodities.filter((item: any) => item.kode_item !== event)
+    const updatedData = this.dataDefaultCommodities.filter((item: any) => item.kode_item !== event)
 
     const getRow = this.listEditCommodities.filter((item: any) => item.kode_item == event)
-    const checkData = this.dataCommodities.includes(getRow[0])
-
-    this.dataCommodities = updatedData;
+    const checkData = this.dataDefaultCommodities.includes(getRow[0])
 
     console.log(checkData);
 
     if(checkData){
-      console.log('clear data');
+      this.dataDefaultCommodities = updatedData;
       this.changeIcon = true;
+      Swal.fire({
+        title: "Hapus item berhasil!",
+        icon: "info",
+        showCloseButton: true,
+      });
     }
     else{
-      if(this.dataCommodities.length < 3){
-        this.dataCommodities.push(getRow[0]);
+      if(this.dataDefaultCommodities.length < 3){
+        this.dataDefaultCommodities.push(getRow[0]);
         this.changeIcon = false;
+        Swal.fire({
+          title: "Tambah item berhasil!",
+          icon: "info",
+          showCloseButton: true,
+        });
       }
       else{
-        alert('data lebih dari 3')
+        Swal.fire({
+          title: "Item lebih dari 3!",
+          icon: "error",
+          showCloseButton: true,
+        });
       }
       console.log('add data');
     }
 
-    console.log(this.dataCommodities, updatedData, getRow);
+    console.log(this.dataDefaultCommodities, updatedData, getRow);
   }
 
   getValueRowKurs(event: any){
     console.log(event);
 
-    const updatedData = this.dataCurrency.filter((item: any) => item.kode !== event)
+    const updatedData = this.dataDefaultCurrency.filter((item: any) => item.kode !== event)
 
     const getRow = this.listEditCurrency.filter((item: any) => item.kode == event)
 
-    const checkData = this.dataCurrency.includes(getRow[0])
+    const checkData = this.dataDefaultCurrency.includes(getRow[0])
 
-    this.dataCurrency = updatedData;
 
     console.log(checkData);
 
     if(checkData){
-      console.log('clear data');
+      this.dataDefaultCurrency = updatedData;
       this.changeIcon = true;
+      Swal.fire({
+        title: "Hapus item berhasil!",
+        icon: "info",
+        showCloseButton: true,
+      });
     }
     else{
-      if(this.dataCurrency.length < 3){
-        this.dataCurrency.push(getRow[0]);
+      if(this.dataDefaultCurrency.length < 3){
+        this.dataDefaultCurrency.push(getRow[0]);
         this.changeIcon = false;
+        Swal.fire({
+          title: "Tambah item berhasil!",
+          icon: "info",
+          showCloseButton: true,
+        });
       }
       else{
-        alert('data lebih dari 3')
+        Swal.fire({
+          title: "Item lebih dari 3!",
+          icon: "error",
+          showCloseButton: true,
+        });
       }
       // console.log('add data');
     }
 
-    console.log(this.dataCurrency, updatedData, getRow);
+    console.log(this.dataDefaultCurrency, updatedData, getRow);
 
   }
 
@@ -367,7 +405,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
         // console.log(parseFloat(this.dataCommodities[i].nilai_rkap).toLocaleString('en'));
 
       }
-      this.dataCommodities = this.dataCommodities.slice(0, 3);
+      this.dataDefaultCommodities = this.dataCommodities.slice(0,3);
 
       const currenciesOverview = await this.marketUpdateService.fetchDataKursOverview(date);
 
@@ -376,12 +414,13 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       for(let i=0; i<this.dataCurrency.length; i++){
         this.dataCurrency[i].nilai_rkap = parseFloat(this.dataCurrency[i].nilai_rkap).toLocaleString('en');
         this.dataCurrency[i].nilai_real = parseFloat(this.dataCurrency[i].nilai_real).toLocaleString('en');
+        this.dataCurrency[i].nilai_outlook = parseFloat(this.dataCurrency[i].nilai_outlook).toLocaleString('en');
         // console.log(parseFloat(this.dataCommodities[i].nilai_rkap).toLocaleString('en'));
 
       }
-      this.dataCurrency = this.dataCurrency.slice(0,3);
       this.listEditCurrency = currenciesOverview;
       this.listEditCurrency = this.listEditCurrency.d;
+      this.dataDefaultCurrency = this.dataCurrency.slice(0,3);
 
       const interestRateOverview = await this.marketUpdateService.fetchDataInterestOverview(date);
       this.dataInterestRate = interestRateOverview;
@@ -390,10 +429,12 @@ export class OverviewHarian implements OnInit, AfterViewInit{
         this.dataInterestRate[i].nilai_realisasi = this.dataInterestRate[i].nilai_realisasi.slice(0,4);
       }
 
-      const getKeyTakeways = await this.quillConfig.getKeyTakeways(date)
-      // console.log(getKeyTakeways);
-      this.getKeyTakeways = getKeyTakeways
-      this.getKeyTakeways = this.getKeyTakeways.d.label
+      const getKeyTakewaysRes = await this.quillConfig.getKeyTakeways(date)
+      console.log(getKeyTakewaysRes);
+      this.getKeyTakeways = getKeyTakewaysRes;
+
+      const checkLabel = this.getKeyTakeways.d.hasOwnProperty('label');
+      checkLabel ? this.getKeyTakeways = this.getKeyTakeways.d.label : this.getKeyTakeways = "";
 
       this.fetchFootnotes(date)
 
@@ -401,6 +442,26 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   getQuartal: any;
   getYear: any;
+
+  setDefaultQuartalAndYear = () => {
+    const formattedDate = moment().format("DD/MM/YYYY");
+    this.getYear = formattedDate.slice(8,10)
+    const quarter = Math.ceil(parseInt(formattedDate.slice(3, 5)) / 3);
+    switch (quarter) {
+      case 1:
+        this.getQuartal = "1Q";
+        break;
+      case 2:
+        this.getQuartal = "2Q";
+        break;
+      case 3:
+        this.getQuartal = "3Q";
+        break;
+      case 4:
+        this.getQuartal = "4Q";
+        break;
+    }
+  }
 
   async onDate(event: MatDatepickerInputEvent<Date>) {
     const selectedDate = event.value;
@@ -462,8 +523,9 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     this.dataCommodities = commoditiesOverview;
     this.dataCommodities = this.dataCommodities.d;
     this.listEditCommodities = this.dataCommodities;
-    this.dataCommodities = this.dataCommodities.slice(0, 3);
 
+    this.dataDefaultCommodities = this.dataCommodities.slice(0,3);
+    console.log('cmd', this.dataDefaultCommodities);
   }
 
   fetchCurrency = async () => {
@@ -483,10 +545,13 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   }
 
   fetchKeyTakeWays = async () => {
-    const getKeyTakeways = await this.quillConfig.getKeyTakeways(moment().format('DD/MM/YYYY'))
-    // console.log(getKeyTakeways);
-    this.getKeyTakeways = getKeyTakeways;
-    this.getKeyTakeways = this.getKeyTakeways.d.label
+    const getKeyTakewaysRes = await this.quillConfig.getKeyTakeways(moment().format('DD/MM/YYYY'))
+    console.log(getKeyTakewaysRes);
+
+    this.getKeyTakeways = getKeyTakewaysRes;
+
+    const checkLabel = this.getKeyTakeways.d.hasOwnProperty('label');
+    checkLabel ? this.getKeyTakeways = this.getKeyTakeways.d.label : this.getKeyTakeways = ""
   }
 
   date:string = moment().format('DD/MM/YYYY');
@@ -500,6 +565,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       this.fetchKeyTakeWays();
       this.fetchFootnotes(this.date);
 
+      this.setDefaultQuartalAndYear();
     }
     catch(err){
       console.log(err);
@@ -546,9 +612,12 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       this.statusKeytakeways = response
 
       if(this.statusKeytakeways.s === 200){
-        const getKeyTakeways = await this.quillConfig.getKeyTakeways(moment(new Date()).format('DD/MM/YYYY'));
-        this.getKeyTakeways = getKeyTakeways;
-        this.getKeyTakeways = this.getKeyTakeways.d.label
+        const getKeyTakewaysRes = await this.quillConfig.getKeyTakeways(moment(new Date()).format('DD/MM/YYYY'));
+        this.getKeyTakeways = getKeyTakewaysRes;
+
+        const checkLabel = this.getKeyTakeways.d.hasOwnProperty('label');
+        checkLabel ? this.getKeyTakeways = this.getKeyTakeways.d.label : this.getKeyTakeways = ""
+
     }
     } catch (error) {
       console.log(error);

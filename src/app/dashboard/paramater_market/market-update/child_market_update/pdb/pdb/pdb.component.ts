@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, OnInit ,Input } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 // import { Router } from '@angular/router';
@@ -14,13 +15,15 @@ export class PdbComponent {
   newRow: any= {};
   constructor(
     private tableConfig: TableServicesService,
-    private marketUpdateService: MarketUpdateService
+    private marketUpdateService: MarketUpdateService,
+    private formBuil1der:FormBuilder
   ){
     // console.log(this.tableConfig.initializeTableDataCurrency(), this.tableConfig.initializeTableData());
   }
 
   dataDetail: any;
   dataDetailOutlook:any;
+  dataDetailRkap:any;
   filteredData: String[] = [];
   isLoading: Boolean = true;
   realisasiPdbItem!: number;
@@ -31,68 +34,80 @@ export class PdbComponent {
 
   maxDate = new Date();
 
-  formDataRealisasi = {
-    'tahun': '',
-    'periode':'',
-    'nilai_realisasi':''
+  inputDataRealisasi = new FormGroup({  
+    quartal : new FormControl(''),
+    tahun : new FormControl(''),
+    nilai : new FormControl('')
+  });
+
+  async BtnSimpan(){
+    const data = this.inputDataRealisasi.value;
+    console.log(data)
+    const response = await this.marketUpdateService.fetchDataInputRealisasiPDB(data)
   }
 
-  formDataRKAP = {
-    'tanggal': '',
-    'nama_kurs':'',
-    'nilai_rkap':''
-  }
+  // formDataRealisasi = {
+  //   'tahun': '',
+  //   'periode':'',
+  //   'nilai_realisasi':''
+  // }
 
-  formDataOutlook = {
-    'tanggal': '',
-    'nama_kurs':'',
-    'nilai_outlook':''
-  }
+  // formDataRKAP = {
+  //   'tanggal': '',
+  //   'nama_kurs':'',
+  //   'nilai_rkap':''
+  // }
 
-  defaultMacroIndicatorItems = [
-    {
-      "id": "1",
-      "currency": "PDB (%)",
-      "rate1": "1.23",
-      "rate2": "1.25",
-      "rate3": "1.27"
-    },
-    {
-      "id": "2",
-      "currency": "Inflasi (%)",
-      "rate1": "0.98",
-      "rate2": "1.01",
-      "rate3": "0.95"
-    },
-    {
-      "id": "3",
-      "currency": "Fed Funds Rate (%)",
-      "rate1": "1.55",
-      "rate2": "1.52",
-      "rate3": "1.57"
-    },
-    {
-      "id": "4",
-      "currency": "BI 7-Day Reverse Repo (%)",
-      "rate1": "0.009",
-      "rate2": "0.008",
-      "rate3": "0.0095"
-    },
-    {
-      "id": "5",
-      "currency": "Yield UST 10-Yr",
-      "rate1": "0.009",
-      "rate2": "0.008",
-      "rate3": "0.0095"
-    },
-    {
-      "id": "6",
-      "currency": "Yield SBN 10-Yr",
-      "rate1": "0.009",
-      "rate2": "0.008",
-      "rate3": "0.0095"
-    },
-  ]
+  // formDataOutlook = {
+  //   'tanggal': '',
+  //   'nama_kurs':'',
+  //   'nilai_outlook':''
+  // }
+
+  // defaultMacroIndicatorItems = [
+  //   {
+  //     "id": "1",
+  //     "currency": "PDB (%)",
+  //     "rate1": "1.23",
+  //     "rate2": "1.25",
+  //     "rate3": "1.27"
+  //   },
+  //   {
+  //     "id": "2",
+  //     "currency": "Inflasi (%)",
+  //     "rate1": "0.98",
+  //     "rate2": "1.01",
+  //     "rate3": "0.95"
+  //   },
+  //   {
+  //     "id": "3",
+  //     "currency": "Fed Funds Rate (%)",
+  //     "rate1": "1.55",
+  //     "rate2": "1.52",
+  //     "rate3": "1.57"
+  //   },
+  //   {
+  //     "id": "4",
+  //     "currency": "BI 7-Day Reverse Repo (%)",
+  //     "rate1": "0.009",
+  //     "rate2": "0.008",
+  //     "rate3": "0.0095"
+  //   },
+  //   {
+  //     "id": "5",
+  //     "currency": "Yield UST 10-Yr",
+  //     "rate1": "0.009",
+  //     "rate2": "0.008",
+  //     "rate3": "0.0095"
+  //   },
+  //   {
+  //     "id": "6",
+  //     "currency": "Yield SBN 10-Yr",
+  //     "rate1": "0.009",
+  //     "rate2": "0.008",
+  //     "rate3": "0.0095"
+  //   },
+  // ]
 
   macroIndicatorSelect = [
     { id: 1, name: 'PDB (%)' },
@@ -138,7 +153,35 @@ export class PdbComponent {
     this.tableConfig.setDataPdb(this.dataDetail);
     console.log('finish get data in func');
   }
-
+  async getDataRkap(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading Outlook');
+    try{
+      const data = await this.marketUpdateService.fetchDataRkapPDB();
+      this.dataDetailRkap = data;
+      this.dataDetailRkap = this.dataDetailRkap.data;
+      this.isLoading = false;
+      console.log(this.isLoading,'loading 2', this.dataDetailRkap);
+    } catch(error) {
+      console.log(error)
+    }
+    console.log('finish get data by function')
+  }
+  async getDataOutlook(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading Outlook');
+    try{
+      const data = await this.marketUpdateService.fetchDataOutlookPdb();
+      this.dataDetailOutlook = data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.isLoading = false;
+      console.log(this.isLoading,'loading 2', this.dataDetailOutlook);
+    } catch(error) {
+      console.log(error)
+    }
+    console.log('finish get data by function')
+  }
+  
   async downloadPdf(){
     const dataDownload= this.marketUpdateService.fetchDataPDB();
   }
@@ -159,31 +202,36 @@ export class PdbComponent {
     console.log(val);
   }
 
-  onSubmitRealisasi() {
-    this.formDataRealisasi.tahun = this.tanggalEditKurs
-    console.log('Data yang di-submit:', this.formDataRealisasi);
-  }
+  // onSubmitRealisasi() {
+  //   this.formDataRealisasi.tahun = this.tanggalEditKurs
+  //   console.log('Data yang di-submit:', this.formDataRealisasi);
+  // }
 
-  onSubmitRKAP() {
-    this.formDataRKAP.tanggal = this.tanggalEditKurs
-    console.log('Data yang di-submit:', this.formDataRKAP);
-  }
-  onSubmitOutlook() {
-    this.formDataOutlook.tanggal = this.tanggalEditKurs
-    console.log('Data yang di-submit:', this.formDataOutlook);
-  }
+  // onSubmitRKAP() {
+  //   this.formDataRKAP.tanggal = this.tanggalEditKurs
+  //   console.log('Data yang di-submit:', this.formDataRKAP);
+  // }
+  // onSubmitOutlook() {
+  //   this.formDataOutlook.tanggal = this.tanggalEditKurs
+  //   console.log('Data yang di-submit:', this.formDataOutlook);
+  // }
 
   async ngOnInit(): Promise<void> {
     console.log('load data');
 
     await this.getData();
+    await this.getDataOutlook();
+    await this.getDataRkap();
     this.tableConfig.initializeTableDataPDB();
+    this.tableConfig.setDataOutlookPdb(this.dataDetailOutlook);
+    this.tableConfig.setDataRkapPdb(this.dataDetailRkap);
   }
 
   ngAfterViewInit(): void {
     console.log('finish load data');
   }
-  addRow() {
+
+  addRowRealisasi() {
     this.tableConfig.tableRealisasiPdb.addRow({});
   }
   addRowRKAP() {

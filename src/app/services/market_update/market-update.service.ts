@@ -148,7 +148,91 @@ export class MarketUpdateService {
     try {
       const params = new HttpParams().set('tahun', year)
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl2}/market/commodities/getRateList`, {params})
+        this.http.get(`${environment.apiUrl2}/simloan-ws/market/commodities/getRateList`, {params})
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataRealisasiCommodities(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/realisasi_commodities`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataUpdateRealisasiCommodities(data:any){
+    const data1 = {
+      "kode_item": data.kode_item,
+      "tahun": data.tahun,
+      "tanggal": data.tanggal,
+      "nilai": data.nilai,
+      "kategori": data.kategori,
+      "is_active": true
+    }
+  try {
+    return await lastValueFrom(
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pmi?id=${data.id}`, data1)
+    )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataRkapCommodities(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/master-rkap-commodities`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataUpdateRkapCommodities(data:any){
+    const data1 = {
+      "kode_item": data.kode_item,
+      "nilai": data.nilai,
+      "tanggal": data.tanggal,
+      "tahun": data.tahun,
+      "keterangan": data.keterangan,
+      "is_active": true
+    }
+  try {
+    return await lastValueFrom(
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/master-rkap-commodities?id=${data.id}`, data1)
+    )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataUpdateOutlookCommodities(data:any){
+    const data1 = {
+      "kode_item": data.kode_item,
+      "tahun": data.tahun,
+      "tanggal": data.tanggal,
+      "nilai": data.nilai,
+      "keterangan": data.keterangan,
+      "is_active": true
+    }
+  try {
+    return await lastValueFrom(
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/outlook-commodities?id=${data.id_outlook_com}`, data1)
+    )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataOutlookCommodities(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-commodities`)
       );
     } catch (error) {
       console.log(error);
@@ -220,7 +304,7 @@ export class MarketUpdateService {
 
   fetchDataCompareChangeRKAP = async () => {
     try {
-      const params = new HttpParams().set('tanggal', "05/02/2024")
+      const params = new HttpParams().set('tanggal', "21/02/2024")
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/dashboard/market/trending/kurs/compare`, {params})
       )
@@ -240,14 +324,13 @@ export class MarketUpdateService {
       return null;
     }
   }
-
   async fetchDataUpdateRealisasiPDB(data:any){
       const data1 = {
         "quartal": data.quartal,
         "tahun":data.tahun,
-        "nilai": data.nilai
+        "nilai": data.nilai,
+        "is_active": true
       }
-
     try {
       return await lastValueFrom(
         this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, data1)
@@ -257,7 +340,24 @@ export class MarketUpdateService {
       return error
     }
   }
-
+  async fetchDataInputRealisasiPDB(data:any){
+    const data1= {
+      "master_real_pdb_creates":[{
+        "quartal": data.quartal,
+        "tahun":data.tahun,
+        "nilai": data.nilai,
+        "is_active": true
+      }]
+    }
+    try {
+      return await lastValueFrom(
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
   async fetchDataRkapPDB(){
     try {
       return await lastValueFrom(
@@ -268,92 +368,83 @@ export class MarketUpdateService {
       return null;
     }
   }
-
   async fetchDataUpdateRkapPDB(data:any){
     const data1= {
-      "quartal": data.quartal,
+      "kuartal": data.quartal,
       "tahun":data.tahun,
-      "nilai": data.nilai
+      "pdb": data.pdb,
+      "is_active": true
     }
     try {
       return await lastValueFrom(
-        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, data1)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-pdb?id=${data.id}`, data1)
       )
     } catch (error) {
       console.log(error);
       return error
     }
   }
-
-  async fetchDataOutlookPDB(){
+  async fetchDataInputRkapPDB(data:any){
+    const data1= {
+      "master_rkap_pdb_creates": [{
+        "quartal": data.quartal,
+        "tahun":data.tahun,
+        "pdb": data.pdb,
+        "is_active": true
+      }]
+      }
+    try {
+      return await lastValueFrom(
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-pdb`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataOutlookPdb(){
     try {
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-pdb`)
       );
     } catch (error) {
       console.log(error);
-      return null;
+      return error;
     }
   }
-
-  async fetchDataUpdateOutlookPDB(data:any){
+  async fetchDataInputOutlookPDB(data:any){
     const data1= {
-      "quartal": data.quartal,
-      "tahun":data.tahun,
-      "nilai": data.nilai
-    }
+      "master_rkap_outlook_creates": [{
+        "quartal": data.quartal,
+        "tahun":data.tahun,
+        "nilai": data.nilai,
+        "is_active": true
+      }]
+      }
     try {
       return await lastValueFrom(
-        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, data1)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-pdb`, data1)
       )
     } catch (error) {
       console.log(error);
       return error
     }
   }
-
-  async fetchDataRealisasiPDB(){
-    try {
-      return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`)
-      );
-    } catch (error) {
-      console.log(error);
-      return null;
+  async fetchDataUpdateOutlookPDB(data:any){
+    const data1 = {
+      "quartal": data.quartal,
+      "tahun":data.tahun,
+      "nilai": data.nilai,
+      "is_active": true
     }
+  try {
+    return await lastValueFrom(
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-pdb?id=${data.id}`, data1)
+    )
+  } catch (error) {
+    console.log(error);
+    return error
   }
-
-  async fetchDataRkapPdb(){
-    try {
-      return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`)
-      );
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  }
-  async fetchDataOutlookPdb(){
-    try {
-      return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`)
-      );
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  }
-
-  async fetchDataInterestRate(year: string) {
-    try {
-      const params = new HttpParams().set('tahun', year);
-      return await lastValueFrom(
-        this.http.get(`${environment.apiUrl2}/market/interest/getList`, { params })
-      );
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
   }
 
   async fetchDataInflasi(){
@@ -366,29 +457,111 @@ export class MarketUpdateService {
       return null;
     }
   }
-
-  async getDataInflasiByParams(params: string){
-    try {
-      return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_inflasi?bulan=${params}`)
-      );
-    } catch (error) {
+  async fetchDataRealisasiInflasi(){
+    try{
+      return lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-inflasi`)
+      )
+    } catch (error){
       console.log(error);
       return null;
     }
   }
-
-  async fetchDataUpdateRealisasiInflasi(data:any){
-    data = {
-      "bulan": data.bulan,
-      "nilai_year_min3": data.nilai_year_min3,
-      "nilai_year_min2": data.nilai_year_min2,
-      "nilai_year_min1": data.nilai_year_min1,
-      "nilai_year_min0": data.nilai_year_min0
+  async fetchDataInputRealisasiInflasi(data:any){
+    const data1= {
+      "master_real_inflasi_creates":[{
+        "bulan": data.bulan,
+        "tahun":data.tahun,
+        "nilai": data.nilai,
+        "is_active": true
+      }]
     }
     try {
       return await lastValueFrom(
-        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_inflasi?id=${data.id}`, data)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-inflasi`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataUpdateRealisasiInflasi(data:any){
+    const data1 = {
+      "bulan": data.bulan,
+      "tahun": data.tahun,
+      "nilai": data.nilai,
+      "is_active": true
+    }
+    try {
+      return await lastValueFrom(
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-inflasi?id=${data.id}`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataRkapInflasi(){
+    try{
+      return lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-inflasi`)
+      )
+    } catch (error){
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataInputRkapInflasi(data:any){
+    const data1= {
+      "master_rkap_inflasi_creates":[{
+        "quartal": data.quartal,
+        "tahun":data.tahun,
+        "pdb": data.pdb
+      }]
+    }
+    try {
+      return await lastValueFrom(
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-inflasi`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataUpdateRkapInflasi(data:any){
+    data = {
+      "bulan": data.bulan,
+      "tahun": data.tahun,
+      "nilai": data.nilai
+    }
+    try {
+      return await lastValueFrom(
+        this.http.put(`${environment.apiUrl1}http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-rkap-inflasi?id=${data.id}`, data)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataOutlookInflasi(){
+    try{
+      return lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-inflasi`)
+      )
+    } catch (error){
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataUpdateOutlookInflasi(data:any){
+    data = {
+      "bulan": data.bulan,
+      "tahun": data.tahun,
+      "nilai": data.nilai
+    }
+    try {
+      return await lastValueFrom(
+        this.http.put(`${environment.apiUrl1}http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-outlook-inflasi?id=${data.id}`, data)
       )
     } catch (error) {
       console.log(error);
@@ -398,27 +571,88 @@ export class MarketUpdateService {
 
   async fetchDataPMI(){
     try {
+      // const params = new HttpParams().set('tahun', year);
+      // const params = new HttpParams().set('tahun', year);
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_real_pmi
-        `)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_real_pmi`)
       );
     } catch (error) {
       console.log(error);
       return null;
     }
   }
-
+  async fetchDataRealisasiPMI(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pmi`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
   async fetchDataUpdateRealisasiPMI(data:any){
-    const dataSent = {
-      data: {
-        "bulan": data.bulan,
+      const data1 = {
         "rate": data.rate,
+        "bulan": data.bulan,
         "tahun": data.tahun,
+        "is_active": true
       }
+    try {
+      return await lastValueFrom(
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pmi?id=${data.id}`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataRkapPMI(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-pmi`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataUpdateRkapPMI(data:any){
+    const data1 = {
+      "rate": data.rate,
+      "bulan": data.bulan,
+      "tahun": data.tahun,
     }
     try {
       return await lastValueFrom(
-        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, dataSent)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-pmi?id=${data.id}`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataOutlookPMI(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-pmi`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataUpdateOutlookPMI(data:any){
+    const data1 = {
+      "rate": data.rate,
+      "bulan": data.bulan,
+      "tahun": data.tahun,
+      "is_active": true
+    }
+    console.log(data1)
+    try {
+      return await lastValueFrom(
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-pmi?id=${data.id}`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -436,18 +670,78 @@ export class MarketUpdateService {
       return null;
     }
   }
-
-  async fetchDataUpdateRealisasiRetail(data:any){
-    const dataSent = {
-      data: {
-        "bulan": data.bulan,
-        "nilai": data.nilai,
-        "tahun": data.tahun,
-      }
-    }
+  async fetchDataRealisasiRetail(){
     try {
       return await lastValueFrom(
-        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, dataSent)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-retail-sales`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataUpdateRealisasiRetail(data:any){
+      const data1 = {
+        "bulan": data.bulan,
+        "tahun": data.tahun,
+        "nilai": data.nilai,
+        "is_active":true
+      }
+    try {
+      return await lastValueFrom(
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-retail-sales?id=${data.id}`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataRkapRetail(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-rtsales`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataUpdateRkapRetail(data:any){
+      const data1 = {
+        "bulan": data.bulan,
+        "tahun": data.tahun,
+        "nilai": data.nilai,
+        "is_active":true
+      }
+    try {
+      return await lastValueFrom(
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-rtsales?id=${data.id}`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataOutlookRetail(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-rtsales`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataUpdateOutlookRetail(data:any){
+      const data1 = {
+        "bulan": data.bulan,
+        "tahun": data.tahun,
+        "nilai": data.nilai,
+        "is_active":true
+      }
+    try {
+      return await lastValueFrom(
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-rtsales?id=${data.id}`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -465,18 +759,78 @@ export class MarketUpdateService {
       return null;
     }
   }
-
-  async fetchDataUpdateRealisasMoneySupply(data:any){
-    const dataSent = {
-      data: {
+  async fetchDataRealisasiMoneySupply(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-money-supply`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataUpdateRealisasiMoneySupply(data:any){
+      const data1 = {
         "bulan": data.bulan,
         "tahun": data.tahun,
-        "TriliunBeredar": data.TriliunBeredar,
+        "triliun_beredar": data.triliun_beredar,
+        "is_active": true
       }
+    try {
+      return await lastValueFrom(
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-money-supply?id=${data.id}`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataRkapMoneySupply(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-msupply`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataUpdateRkapMoneySupply(data:any){
+    const data1 = {
+      "bulan": data.bulan,
+      "tahun": data.tahun,
+      "triliun_beredar": data.triliun_beredar,
+      "is_active": true
     }
     try {
       return await lastValueFrom(
-        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, dataSent)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-msupply?id=${data.id}`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataOutlookMoneySupply(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-msupply`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataUpdateOutlookMoneySupply(data:any){
+    const data1 = {
+      "bulan": data.bulan,
+      "tahun": data.tahun,
+      "triliun_beredar": data.triliun_beredar,
+      "is_active": true
+    }
+    try {
+      return await lastValueFrom(
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-msupply?id=${data.id}`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -494,22 +848,105 @@ export class MarketUpdateService {
       return null;
     }
   }
-
-  async fetchDataUpdateRealisasCadev(data:any){
-    const dataSent = {
-      data: {
+  async fetchDataRealisasiCadev(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-cad-devisa`)
+      )
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
+  async fetchDataUpdateRealisasiCadev(data:any){
+      const data1 = {
         "bulan": data.bulan,
         "tahun": data.tahun,
         "MilliarUsd": data.MilliarUsd,
       }
-    }
     try {
       return await lastValueFrom(
-        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, dataSent)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-cad-devisa?id=${data.id}`, data1)
       )
     } catch (error) {
       console.log(error);
       return error
+    }
+  }
+  async fetchDataRkapCadev(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-cadev`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataUpdateRkapCadev(data:any){
+    const data1 = {
+      "bulan": data.bulan,
+      "tahun": data.tahun,
+      "MilliarUsd": data.MilliarUsd,
+    }
+  try {
+    return await lastValueFrom(
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-cadev?id=${data.id}`, data1)
+    )
+  } catch (error) {
+    console.log(error);
+    return error
+  }
+}
+  async fetchDataOutlookCadev(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-cadev`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataUpdateOutlookCadev(data:any){
+    const data1 = {
+      "bulan": data.bulan,
+      "tahun": data.tahun,
+      "miliar_usd": data.miliar_usd,
+      "is_active":true
+    }
+    console.log(data1)
+  try {
+    return await lastValueFrom(
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-cadev?id=${data.id}`, data1)
+    )
+  } catch (error) {
+    console.log(error);
+    return error
+  }
+  }
+  
+
+  async fetchDataInterestRate(year:string){
+    try {
+      const params = new HttpParams().set('tahun', year)
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl2}/market/interest/getList`, {params})
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async getDataInflasiByParams(params: string){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_inflasi?bulan=${params}`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
     }
   }
 
@@ -764,17 +1201,6 @@ export class MarketUpdateService {
       return await lastValueFrom(
         this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/delete_all_jisdor_nonusd?jisdor_non_usd=${JSON.parse(params)}
         `)
-      )
-    } catch (error) {
-      console.log(error);
-      return null
-    }
-  }
-
-  async fetchDataRealisasiCadev(){
-    try {
-      return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-cad-devisa`)
       )
     } catch (error) {
       console.log(error);

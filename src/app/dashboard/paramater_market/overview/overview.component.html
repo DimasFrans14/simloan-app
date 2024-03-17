@@ -412,7 +412,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of dataCompareChangeRKAP">
+                      <tr *ngFor="let item of listDataCompareChangeRKAP">
                         <td style="font-size: 14px; border-style: none" class="text-center">
                           {{ item.mata_uang }}
                         </td>
@@ -433,7 +433,7 @@
                           </p>
                         </td>
                         <td>
-                          <i class="bi bi-x-lg" (click)="hideCompare(item.mata_uang)" style="cursor: pointer"></i>
+                          <i class="bi bi-plus-lg" (click)="addCompare(item.mata_uang)" style="cursor: pointer"></i>
                         </td>
                       </tr>
 
@@ -468,13 +468,13 @@
     <!-- Commodity -->
     <div class="d-flex justify-content-between mt-5">
       <h4>Commodity</h4>
-      <div class="align-self-center">
+      <!-- <div class="align-self-center">
         <button
           class="btn btn-transparant btn-sm border border-1 px-3 bg-white"
         >
           Edit
         </button>
-      </div>
+      </div> -->
     </div>
 
     <div class="d-flex flex-row flex-wrap justify-content-evenly gap-3">
@@ -483,8 +483,7 @@
       <div class="card rounded p-2 mt-3">
 
         <div class="d-flex align-items-center justify-content-between p-1">
-          <div class="flex-fill fw-semibold">WTI & Brent (USD/Ton)</div>
-
+          <div class="flex-fill fw-semibold">WTI & Brent <br/><span class="info-unit">(USD/Ton)</span></div>
           <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-end py-2">
             <div>
               <button
@@ -756,7 +755,7 @@
       <!-- COAL NEWCASTLE -->
       <div class="card rounded p-2 mt-3">
         <div class="d-flex align-items-center justify-content-between p-1">
-          <div class="flex-fill fw-semibold">COAL Newcastle (USD/Ton)</div>
+            <div class="flex-fill fw-semibold">COAL Newcastle <br/><span class="info-unit">(USD/Ton)</span></div>
 
           <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-end py-2">
             <div>
@@ -894,8 +893,7 @@
       <!-- LNG -->
       <div class="card rounded p-2 mt-3">
         <div class="d-flex align-items-center justify-content-between p-1">
-          <div class="flex-fill fw-semibold">LNG (JKM) (USD/MMBtu)</div>
-
+          <div class="flex-fill fw-semibold">LNG (JKM) <br/><span class="info-unit">(USD/MMBtu)</span></div>
           <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-start py-2">
             <div>
               <button
@@ -1036,13 +1034,13 @@
       <div>
         <h4>Interest Rate</h4>
       </div>
-      <div>
+      <!-- <div>
         <button
           class="btn btn-transparant btn-sm border border-1 px-3 bg-white"
         >
           Edit
         </button>
-      </div>
+      </div> -->
     </div>
     <div>
       <div class="bg-white rounded p-2">

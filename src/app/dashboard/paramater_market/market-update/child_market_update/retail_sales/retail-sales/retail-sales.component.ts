@@ -19,6 +19,9 @@ export class RetailSalesComponent {
   }
 
   dataDetail: any;
+  dataDetailRealisasi: any;
+  dataDetailRkap: any;
+  dataDetailOutlook: any;
   filteredData: String[] = [];
   isLoading: Boolean = true;
   realisasiPdbItem!: number;
@@ -117,7 +120,6 @@ export class RetailSalesComponent {
   async getData(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
-
     try {
       const data = await this.marketUpdateService.fetchDataRetail();
       this.dataDetail = data;
@@ -127,15 +129,50 @@ export class RetailSalesComponent {
     } catch (error) {
       console.log(error);
     }
-
-    // for(let i=0; i<10; i++){
-    //   this.filteredData.push(this.dataDetail.data.content[i]);
-    // }
-
-    // console.log('updated data', this.filteredData);
     this.tableConfig.setDataPdb(this.dataDetail);
     console.log('finish get data in func');
-
+  }
+  async getDataRealisasi(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    try {
+      const data = await this.marketUpdateService.fetchDataRealisasiRetail();
+      this.dataDetailRealisasi = data;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log('finish get data in func');
+  }
+  async getDataRkap(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    try {
+      const data = await this.marketUpdateService.fetchDataRkapRetail();
+      this.dataDetailRkap = data;
+      this.dataDetailRkap = this.dataDetailRkap.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailRkap);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log('finish get data in func');
+  }
+  async getDataOutlook(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    try {
+      const data = await this.marketUpdateService.fetchDataOutlookRetail();
+      this.dataDetailOutlook = data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log('finish get data in func');
   }
 
   onDate(event: any){
@@ -172,7 +209,14 @@ export class RetailSalesComponent {
     console.log('load data');
 
     await this.getData();
+    await this.getDataRealisasi();
+    await this.getDataRkap();
+    await this.getDataOutlook();
+
     this.tableConfig.initializeTableDataRetail();
+    this.tableConfig.setDataRealisasiRetail(this.dataDetailRealisasi);
+    this.tableConfig.setDataRkapRetail(this.dataDetailRkap);
+    this.tableConfig.setDataOutlookRetail(this.dataDetailOutlook);
   }
 
   ngAfterViewInit(): void {
