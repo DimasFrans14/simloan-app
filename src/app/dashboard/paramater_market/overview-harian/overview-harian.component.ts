@@ -637,6 +637,10 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     // this.quillFootnote.setContents(JSON.parse(item.ori_content));
   }
 
+  linkFootnote = (position:string, tag:string) => {
+    alert("Position : "+position+" || Tag : "+tag)
+  }
+
   mentionInnerHTML: any = '';
 
   getValueMention(){

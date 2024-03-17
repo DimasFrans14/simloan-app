@@ -142,3 +142,12 @@ ul{
   margin-bottom: 0 !important;
   color: red;
 }
+
+.noteable {
+  text-decoration: none;
+  color: black;
+}
+
+.noteable:hover{
+  cursor:pointer;
+}
