@@ -85,10 +85,12 @@ export class PreviewLaporanComponent implements OnInit{
 
       if(indikatorParams === 'RKAP'){
         try {
-          const response = this.marketUpdateService.importLaporanRKAP(JSON.stringify(subCategory_params), fileExcel)
+          const response = await this.marketUpdateService.importLaporanRKAP(JSON.stringify(subCategory_params), fileExcel)
           console.log(response);
 
-          this.sendDataResponse = response
+          this.sendDataResponse = response;
+          console.log(this.sendDataResponse.status);
+
           if(this.sendDataResponse.status == 200){
             Swal.fire({
               title: "Berhasil!",
