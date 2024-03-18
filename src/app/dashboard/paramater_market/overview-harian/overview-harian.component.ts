@@ -575,11 +575,11 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   ngAfterViewInit() {
       const elementKeyTakeways = this.keyTakeways.nativeElement;
       const elementFootnote = this.footnote.nativeElement;
-      const elementMention = this.Mention.nativeElement;
+      // const elementMention = this.Mention.nativeElement;
 
       this.quillTakeways = this.quillConfig.initializeQuillKeyTakeways(elementKeyTakeways);
       this.quillFootnote = this.quillConfig.initializeQuillFootnote(elementFootnote);
-      this.mentionQuill = this.quillConfig.initializeQuillMention(elementMention)
+      // this.mentionQuill = this.quillConfig.initializeQuillMention(elementMention)
 
       // if(this.excelMacroIndicator != undefined){
       //   for(let i=0;i<this.excelMacroIndicator.length; i++){

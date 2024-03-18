@@ -1686,14 +1686,23 @@ export class TableServicesService {
 
   initializeTableDataCommodities(){
 
+    const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Tambah</span>";
+    }
     const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-warning'>Edit</span>";
     }
     const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-primary'>Save</span>";
     }
+    const saveAddBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-success'>Tambah</span>";
+    }
     const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-secondary'>Cancel</span>";
+    }
+    const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-danger'>Delete</span>";
     }
 
     this.tableCommodities = new Tabulator(".table-commoditiesDetail", {
@@ -1721,24 +1730,29 @@ export class TableServicesService {
   });
 
   this.tableRealisasiComodities = new Tabulator(".table-realisasi", {
-    // height:205,
+    height:500,
     data:this.shareDataRealisasiCommodities,
     layout:"fitColumns",
       columns:[
         {title:"Item", field:"kode_item", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
-        {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
-        {title:"Kategoria", field:"kategori", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
+        {title:"Kategori", field:"kategori", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiCommodities, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton", formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiCommodities, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton", formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton", formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiCommodities, headerSort:false, resizable:false,visible:false},
       ],
     });
 
 
     this.tableRKAPComodities = new Tabulator(".table-RKAP", {
-      // height:205,
+      height: 500,
       data:this.shareDataRkapCommodities,
       layout:"fitColumns",
         columns:[
@@ -1754,7 +1768,7 @@ export class TableServicesService {
     });
 
     this.tableOutlookComodities = new Tabulator(".table-Outlook", {
-      // height:205,
+      height:500,
       data:this.shareDataOutlookCommodities,
       layout:"fitColumns",
       columns:[
@@ -3598,6 +3612,7 @@ export class TableServicesService {
     console.log(data);
      await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data);
   }
+  // commodities
   cellClick_SaveButtonRealisasiCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
@@ -3618,7 +3633,31 @@ export class TableServicesService {
       kategori: rowData.kategori
     }
     console.log(data);
-    // const response = await this.marketUpdateService.fetchDataUpdateRealisasiCommodities(data);
+    const response = await this.marketUpdateService.fetchDataUpdateRealisasiCommodities(data);
+  }
+  cellClick_addButtonRealisasiCommodities = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      id: rowData.id,
+      kode_item: rowData.kode_item,
+      tahun: rowData.tahun,
+      tanggal: rowData.tanggal,
+      nilai: rowData.nilai,
+      kategori: rowData.kategori
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputRealisasiCommodities(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
   cellClick_SaveButtonRkapCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
