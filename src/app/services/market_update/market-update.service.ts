@@ -542,6 +542,24 @@ export class MarketUpdateService {
       return null;
     }
   }
+  async fetchDataInputRealisasiCommodities(data:any){
+    const data1= {
+      "master_real_pdb_creates":[{
+        "quartal": data.quartal,
+        "tahun":data.tahun,
+        "nilai": data.nilai,
+        "is_active": true
+      }]
+    }
+    try {
+      return await lastValueFrom(
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
   async fetchDataUpdateRealisasiCommodities(data:any){
     const data1 = {
       "kode_item": data.kode_item,
@@ -570,8 +588,29 @@ export class MarketUpdateService {
       return null;
     }
   }
+  async fetchDataInputRkapCommodities(data:any){
+    const data1= {
+      "master_rkap_commodities_creates":[{
+        "kode_item": data.quartal,
+        "nilai":data.tahun,
+        "tanggal": data.nilai,
+        "tahun": data.nilai,
+        "keterangan": data.nilai,
+        "is_active": true
+      }]
+    }
+    try {
+      return await lastValueFrom(
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
   async fetchDataUpdateRkapCommodities(data:any){
     const data1 = {
+      "id": data.id,  
       "kode_item": data.kode_item,
       "nilai": data.nilai,
       "tanggal": data.tanggal,
