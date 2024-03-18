@@ -1301,8 +1301,8 @@ h6 {
 
 .tabulator .tabulator-header .tabulator-col .tabulator-col-content{
   padding: 12px;
-  border-right: 1px solid #dee2e6 !important;
-  background-color: #F8F8F8;
+  /* border-right: 1px solid #dee2e6 !important; */
+  /* background-color: #F8F8F8; */
 }
 
 .tabulator .tabulator-header{
