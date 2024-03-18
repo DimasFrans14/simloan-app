@@ -869,7 +869,7 @@ export class TableServicesService {
           {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
         ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapPdb, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiPdb, headerSort:false, resizable:false,visible:false},
       ],
@@ -898,15 +898,15 @@ export class TableServicesService {
       data:this.shareDataOutlookPdb,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left',editable:this.isRowSelected, editor: "input",headerSort:false,},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center',editable:this.isRowSelected, editor: "number", headerSort:false},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input",headerSort:false,},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor: "number", headerSort:false},
         {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
         ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapPdb, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
     ],
@@ -965,7 +965,7 @@ export class TableServicesService {
           {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
         ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapPdb, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiInflasi, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiInflasi, headerSort:false, resizable:false,visible:false},
       ],
@@ -983,7 +983,7 @@ export class TableServicesService {
           {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
         ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapPdb, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapInflasi, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapInflasi, headerSort:false, resizable:false,visible:false},
       ],
@@ -1002,22 +1002,31 @@ export class TableServicesService {
           {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
         ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapPdb, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookInflasi, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiInflasi, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookInflasi, headerSort:false, resizable:false,visible:false},
       ],
     });
   }
 
   initializeTableDataPMI(){
+    const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Tambah</span>";
+    }
     const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-warning'>Edit</span>";
     }
     const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-primary'>Save</span>";
     }
+    const saveAddBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-success'>Tambah</span>";
+    }
     const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-secondary'>Cancel</span>";
+    }
+    const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-danger'>Delete</span>";
     }
     this.tableDetailPmi = new Tabulator(".table-detailPmi", {
       // height:205,
@@ -1044,12 +1053,17 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"nilai", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Bulan", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
+        {title:"Rate", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiPMI, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiPMI, headerSort:false, resizable:false,visible:false},
       ],
     });
     this.tableRkapPmi = new Tabulator(".table-rkapPmi", {
@@ -1057,12 +1071,17 @@ export class TableServicesService {
       data:this.shareDataRkapPMI,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Nilai", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Rate", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapPMI, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapPMI, headerSort:false, resizable:false,visible:false},
       ],
     });
     this.tableOutlookPmi = new Tabulator(".table-outlookPmi", {
@@ -1071,24 +1090,38 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"Nilai", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
+        {title:"Nilai", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPMI, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPMI, headerSort:false, resizable:false,visible:false},
       ],
     });
   }
 
   initializeTableDataRetail(){
+    const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Tambah</span>";
+    }
     const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-warning'>Edit</span>";
     }
     const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-primary'>Save</span>";
     }
+    const saveAddBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-success'>Tambah</span>";
+    }
     const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-secondary'>Cancel</span>";
+    }
+    const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-danger'>Delete</span>";
     }
     this.tableDetailRetail = new Tabulator(".table-detailRetail", {
       // height:205,
@@ -1115,24 +1148,35 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiRetail, headerSort:false, resizable:false,visible:false},],
-    });
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiRetail, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiRetail, headerSort:false, resizable:false,visible:false},
+      ]
+      });
     this.tableRkapRetail = new Tabulator(".table-rkapRetail", {
       // height:205,
       data:this.shareDataRkapRetail,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", editable:this.isRowSelected, bottomCalc: this.customBottomCalc},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapRetail, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapRetail, headerSort:false, resizable:false,visible:false},
       ],
     });
     this.tableOutlookRetail = new Tabulator(".table-outlookRetail", {
@@ -1140,25 +1184,39 @@ export class TableServicesService {
       data:this.shareDataOutlookRetail,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapRetail, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookRetail, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookRetail, headerSort:false, resizable:false,visible:false},
       ],
     });
   }
 
   initializeTableDataMoneySupply(){
+    const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Tambah</span>";
+    }
     const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-warning'>Edit</span>";
     }
     const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-primary'>Save</span>";
     }
+    const saveAddBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-success'>Tambah</span>";
+    }
     const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-secondary'>Cancel</span>";
+    }
+    const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-danger'>Delete</span>";
     }
 
     this.tableDetailMoneySupply = new Tabulator(".table-detailMoneySupply", {
@@ -1185,24 +1243,35 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"Nilai", field:"triliun_beredar", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input",editable:this.isRowSelected, bottomCalc: this.customBottomCalc},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Nilai", field:"triliun_beredar", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiMoneySupply, headerSort:false, resizable:false,visible:false},],
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiMoneySupply, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiMoneySupply, headerSort:false, resizable:false,visible:false}
+      ],
     });
     this.tableRkapMoneySupply = new Tabulator(".table-rkapMoneySupply", {
       // height:205,
       data:this.shareDataRkapMoneySupply,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"Nilai", field:"triliun_beredar", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", editable:this.isRowSelected, bottomCalc: this.customBottomCalc},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapMoneySupply, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapMoneySupply, headerSort:false, resizable:false,visible:false}
       ],
     });
     this.tableOutlookMoneySupply = new Tabulator(".table-outlookMoneySupply", {
@@ -1210,25 +1279,39 @@ export class TableServicesService {
       data:this.shareDataOutlookMoneySupply,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"Nilai", field:"triliun_beredar", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", editable:this.isRowSelected, bottomCalc: this.customBottomCalc},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Nilai", field:"triliun_beredar", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected, bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookMoneySupply, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookMoneySupply, headerSort:false, resizable:false,visible:false}
       ],
     });
   }
 
   initializeTableDataForeignExchange(){
+    const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Tambah</span>";
+    }
     const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-warning'>Edit</span>";
     }
     const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-primary'>Save</span>";
     }
+    const saveAddBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-success'>Tambah</span>";
+    }
     const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-secondary'>Cancel</span>";
+    }
+    const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-danger'>Delete</span>";
     }
 
     this.tableDetailForeignExchange = new Tabulator(".table-detailForeignExchange", {
@@ -1257,11 +1340,16 @@ export class TableServicesService {
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"Nilai", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Nilai", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiCadev, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiCadev, headerSort:false, resizable:false,visible:false}
       ],
     });
     this.tableRkapForeignExchange = new Tabulator(".table-rkapForeignExchange", {
@@ -1269,12 +1357,17 @@ export class TableServicesService {
       data:this.shareDataRkapCadev,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"Nilai", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapCadev, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapCadev, headerSort:false, resizable:false,visible:false}
       ],
     });
     this.tableOutlookForeignExchange = new Tabulator(".table-outlookForeignExchange", {
@@ -1283,11 +1376,16 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"Nilai", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Nilai", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        ]}, 
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookCadev, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookCadev, headerSort:false, resizable:false,visible:false}
       ],
     });
   }
@@ -2395,6 +2493,8 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2414,6 +2514,8 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
@@ -2433,6 +2535,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2452,6 +2555,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
@@ -2471,13 +2575,14 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
+      nilai: rowData.nilai,
       quartal: rowData.quartal,
       tahun: rowData.tahun,
-      nilai: rowData.nilai
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateOutlookPDB(data);
@@ -2490,6 +2595,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
@@ -2510,6 +2616,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2529,6 +2636,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
@@ -2540,7 +2648,7 @@ export class TableServicesService {
     const response = await this.marketUpdateService.fetchDataInputRealisasiInflasi(data);
     // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
-  async cellClick_SaveButtonRkapInflasi(e: any, cell:any){
+  cellClick_SaveButtonRkapInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
       return
@@ -2548,6 +2656,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2557,7 +2666,7 @@ export class TableServicesService {
       nilai: rowData.nilai
     }
     console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRealisasiInflasi(data);
+    const response = await this.marketUpdateService.fetchDataUpdateRkapInflasi(data);
   }
   cellClick_addButtonRkapInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -2567,6 +2676,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
@@ -2578,7 +2688,7 @@ export class TableServicesService {
     const response = await this.marketUpdateService.fetchDataInputRkapPDB(data);
     const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
-  async cellClick_SaveButtonOutlookInflasi(e: any, cell:any){
+  cellClick_SaveButtonOutlookInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
       return
@@ -2586,16 +2696,37 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
       bulan: rowData.bulan,
       tahun: rowData.tahun,
-      nilai: rowData.nilai
+      nilai: rowData.nilai,
     }
     console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRealisasiInflasi(data);
+    const response = await this.marketUpdateService.fetchDataUpdateOutlookInflasi(data);
+  }
+  cellClick_addButtonOutlookInflasi = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      quartal: rowData.quartal,
+      tahun: rowData.tahun,
+      pdb: rowData.pdb
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputOutlookInflasi(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
   //PMI
   cellClick_SaveButtonRealisasiPMI = async (e: any, cell:any) => {
@@ -2606,18 +2737,19 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      rate: rowData.bulan,
+      rate: rowData.rate,
       bulan: rowData.bulan,
       tahun: rowData.tahun,
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateRealisasiPMI(data);
   }
-  async cellClick_SaveButtonRkapPMI(e: any, cell:any){
+  cellClick_addButtonRealisasiPMI = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
       return
@@ -2625,16 +2757,58 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      bulan: rowData.bulan,
+      tahun: rowData.tahun,
+      rate: rowData.rate
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputRealisasiPMI(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+  }
+  cellClick_SaveButtonRkapPMI = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      rate: rowData.rate,
-      bulan: rowData.bulan,
-      tahun: rowData.tahun
+      quartal: rowData.quartal,
+      tahun: rowData.tahun,
+      pdb: rowData.pdb
     }
     console.log(data);
-     await this.marketUpdateService.fetchDataUpdateRkapPMI(data)
+    const response = await this.marketUpdateService.fetchDataUpdateRkapPMI(data);
+  }
+  cellClick_addButtonRkapPMI = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      bulan: rowData.bulan,
+      tahun: rowData.tahun,
+      rate: rowData.rate
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputRkapPMI(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
   cellClick_SaveButtonOutlookPMI = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -2644,6 +2818,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2655,8 +2830,7 @@ export class TableServicesService {
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateOutlookPMI(data);
   }
-  //Retail
-  async cellClick_SaveButtonRealisasiRetail(e: any, cell:any){
+  cellClick_addButtonOutlookPMI = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
       return
@@ -2664,6 +2838,29 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      quartal: rowData.quartal,
+      tahun: rowData.tahun,
+      pdb: rowData.pdb
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputOutlookPMI(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+  }
+  //Retail
+  cellClick_SaveButtonRealisasiRetail = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2675,7 +2872,7 @@ export class TableServicesService {
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateRealisasiRetail(data);
   }
-  async cellClick_SaveButtonRkapRetail(e: any, cell:any){
+  cellClick_addButtonRealisasiRetail = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
       return
@@ -2683,18 +2880,40 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      nilai: rowData.nilai,
+      bulan: rowData.bulan,
+      tahun: rowData.tahun
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputRealisasiRetail(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+  }
+  cellClick_SaveButtonRkapRetail = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      quartal: rowData.quartal,
       tahun: rowData.tahun,
-      nilai: rowData.nilai
+      pdb: rowData.pdb
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateRkapRetail(data);
   }
-  async cellClick_SaveButtonOutlookRetail(e: any, cell:any){
+  cellClick_addButtonRkapRetail = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
       return
@@ -2702,6 +2921,28 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      quartal: rowData.quartal,
+      tahun: rowData.tahun,
+      pdb: rowData.pdb
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputRkapRetail(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+  }
+  cellClick_SaveButtonOutlookRetail = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2713,6 +2954,26 @@ export class TableServicesService {
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateOutlookRetail(data);
   }
+  cellClick_addButtonOutlookRetail = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      quartal: rowData.quartal,
+      tahun: rowData.tahun,
+      pdb: rowData.pdb
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputOutlookRetail(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+  }
   //moneysupply
   cellClick_SaveButtonRealisasiMoneySupply = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -2722,6 +2983,8 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2733,6 +2996,27 @@ export class TableServicesService {
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateRealisasiMoneySupply(data);
   }
+  cellClick_addButtonRealisasiMoneySupply = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      bulan: rowData.bulan,
+      tahun: rowData.tahun,
+      triliun_beredar: rowData.triliun_beredar
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputRealisasiMoneySupply(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+  }
   cellClick_SaveButtonRkapMoneySupply = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
@@ -2741,16 +3025,39 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      quartal: rowData.quartal,
       tahun: rowData.tahun,
-      triliun_beredar: rowData.triliun_beredar
+      pdb: rowData.pdb
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateRkapMoneySupply(data);
+  }
+  cellClick_addButtonRkapMoneySupply = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      quartal: rowData.quartal,
+      tahun: rowData.tahun,
+      pdb: rowData.pdb
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputRkapMoneySupply(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
   cellClick_SaveButtonOutlookMoneySupply = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -2760,6 +3067,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2771,6 +3079,28 @@ export class TableServicesService {
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateOutlookMoneySupply(data);
   }
+  cellClick_addButtonOutlookMoneySupply = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      id: rowData.id,
+      bulan: rowData.bulan,
+      tahun: rowData.tahun,
+      triliun_beredar: rowData.triliun_beredar
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputOutlookMoneySupply(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+  }
   //cadev
   cellClick_SaveButtonRealisasiCadev = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -2780,6 +3110,8 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2791,6 +3123,28 @@ export class TableServicesService {
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateRealisasiCadev(data);
   }
+  cellClick_addButtonRealisasiCadev = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      id: rowData.id,
+      bulan: rowData.bulan,
+      tahun: rowData.tahun,
+      miliar_usd: rowData.miliar_usd
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputRealisasiCadev(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+  }
   cellClick_SaveButtonRkapCadev = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
@@ -2799,16 +3153,40 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      quartal: rowData.quartal,
       tahun: rowData.tahun,
-      miliar_usd: rowData.miliar_usd
+      pdb: rowData.pdb
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateRkapCadev(data);
+  }
+  cellClick_addButtonRkapCadev = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      id: rowData.id,
+      quartal: rowData.quartal,
+      tahun: rowData.tahun,
+      pdb: rowData.pdb
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputRkapCadev(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
   cellClick_SaveButtonOutlookCadev = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -2818,6 +3196,8 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2828,6 +3208,28 @@ export class TableServicesService {
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateOutlookCadev(data);
+  }
+  cellClick_addButtonOutlookCadev = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      id: rowData.id,
+      bulan: rowData.bulan,
+      tahun: rowData.tahun,
+      miliar_usd: rowData.miliar_usd
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputOutlookCadev(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
   // end save edit all non-macro
 
@@ -2840,6 +3242,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2859,6 +3262,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2878,6 +3282,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2899,6 +3304,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2920,6 +3326,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -2947,6 +3354,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     console.log(data);
@@ -2960,6 +3368,7 @@ export class TableServicesService {
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
@@ -3034,6 +3443,7 @@ export class TableServicesService {
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
     currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     }
@@ -3053,6 +3463,7 @@ export class TableServicesService {
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
     currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     }
@@ -3063,6 +3474,7 @@ export class TableServicesService {
   const currentTable = cell.getTable()
   currentTable.deselectRow()
   currentTable.showColumn("EditButton")
+  currentTable.showColumn("tambahButton")
   currentTable.showColumn("addButton")
   currentTable.hideColumn("CancelButton")
   currentTable.hideColumn("SaveButton")
