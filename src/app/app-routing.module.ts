@@ -45,6 +45,11 @@ import { ShlPreviewCreateAgreementComponent } from './dashboard/shl/shl-agreemen
 import { GMTNComponent } from './dashboard/paramater_market/financing-cost/gmtn/gmtn.component';
 import { ShlWithdrawalComponent } from './dashboard/shl/shl-withdrawal/shl-withdrawal.component';
 import { ShlCreateWithdrawalComponent } from './dashboard/shl/shl-withdrawal/shl-create-withdrawal/shl-create-withdrawal.component';
+import { ShlScheduleComponent } from './dashboard/shl/shl-schedule/shl-schedule.component';
+import { ShlCreateScheduleComponent } from './dashboard/shl/shl-schedule/shl-create-schedule/shl-create-schedule.component';
+import { ShlMonitoringComponent } from './dashboard/shl/shl-monitoring/shl-monitoring.component';
+import { ShlMonitoringDetailComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-monitoring-detail.component';
+import { ShlLoanDetailComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-loan-detail/shl-loan-detail.component';
 
 const routes: Routes = [
   //error msg
@@ -71,11 +76,13 @@ const routes: Routes = [
   { path: 'gmtn', component: GMTNComponent},
   { path: 'shl_agreement', component: ShlAgreementComponent},
   { path: 'shl_withdrawal', component: ShlWithdrawalComponent},
-  { path: 'create_agreement', component: CreateAgreementComponent},
-  { path: 'amandement_agreement', component: AmandementAgreementComponent},
-  { path: 'analisa_shl', component: AnalisaShlComponent},
-  { path: 'report_shl', component:  ReportShlComponent},
-  { path: 'detail_agreement', component: DetailAgreementComponent},
+  { path: 'shl_schedule', component: ShlScheduleComponent},
+  { path: 'shl_monitoring', component: ShlMonitoringComponent},
+  // { path: 'create_agreement', component: CreateAgreementComponent},
+  // { path: 'amandement_agreement', component: AmandementAgreementComponent},
+  // { path: 'analisa_shl', component: AnalisaShlComponent},
+  // { path: 'report_shl', component:  ReportShlComponent},
+  // { path: 'detail_agreement', component: DetailAgreementComponent},
   { path: 'financial_import', component: ImportComponent},
   { path: 'financial_report', component: FinancialReportComponent},
   { path: 'adm_overview', component: OverviewComponent},
@@ -108,6 +115,14 @@ const routes: Routes = [
 
   //Child Path SHL Withdawal
   { path: 'shl_withdrawal/create', component: ShlCreateWithdrawalComponent},
+
+  //Chile Path SHL Schedule
+  { path: 'shl_schedule/create', component: ShlCreateScheduleComponent},
+
+  //Child Path SHL Monitoring
+  { path: 'shl_monitoring/details/:id', component: ShlMonitoringDetailComponent},
+  { path: 'shl_monitoring/details/:id/loan_monitoring/:id', component: ShlLoanDetailComponent},
+
 ];
 
 @NgModule({

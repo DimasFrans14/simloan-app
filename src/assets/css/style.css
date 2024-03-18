@@ -1299,12 +1299,19 @@ h6 {
   /* max-width: 90%; */
 }
 
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content{
+  padding: 12px;
+  border-right: 1px solid #dee2e6 !important;
+  background-color: #F8F8F8;
+}
+
 .tabulator .tabulator-header{
   font-size: 12px;
 }
 
-.tabulator-cell{
-  font-size: 14px;
+.tabulator-row .tabulator-cell {
+  padding: 14px;
+  border-right: 1px solid #dee2e6 !important;
 }
 
 .mandatorySign{

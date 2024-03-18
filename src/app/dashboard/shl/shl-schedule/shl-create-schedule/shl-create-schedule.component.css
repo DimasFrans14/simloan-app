@@ -30,9 +30,10 @@ line-height: 24px; /* 150% */
 }
 
 ::ng-deep .mat-mdc-form-field{
-  width: 495px;
+  /* width: 495px; */
   height: 60px;
-  margin-top: 25px;
+  /* margin-top: 25px; */
+  background-color: #fff;
 }
 
 ::ng-deep .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
@@ -53,6 +54,10 @@ line-height: 24px; /* 150% */
   font-size: 14px !important;
 }
 
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled){
+  background-color: #fff !important;
+}
+
 .hidden{
   display: none;
 }
@@ -62,8 +67,35 @@ line-height: 24px; /* 150% */
   width: 420px;
 }
 
+.text-area-deskripsi-proyek{
+  width: 495px;
+}
+
 ngx-dropzone{
   width: 495px;
   height: 88px;
   /* background-color: #F8F8F8; */
+}
+
+.header-preview{
+  background-color: #f2f5f8;
+  padding: 1rem !important;
+}
+
+.label-gracecPeriode{
+font-family: Inter;
+font-size: 14px;
+font-weight: 500;
+line-height: 20px;
+letter-spacing: 0em;
+text-align: left;
+}
+
+.title-preview{
+font-family: Satoshi;
+font-size: 16px;
+font-weight: 700;
+line-height: 24px;
+letter-spacing: 0em;
+text-align: left;
 }

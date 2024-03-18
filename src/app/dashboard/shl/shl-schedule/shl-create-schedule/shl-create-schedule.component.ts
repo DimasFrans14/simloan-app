@@ -1,19 +1,16 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-shl-create-withdrawal',
-  templateUrl: './shl-create-withdrawal.component.html',
-  styleUrls: ['./shl-create-withdrawal.component.css']
+  selector: 'app-shl-create-schedule',
+  templateUrl: './shl-create-schedule.component.html',
+  styleUrls: ['./shl-create-schedule.component.css']
 })
-export class ShlCreateWithdrawalComponent implements OnInit{
+export class ShlCreateScheduleComponent {
   @ViewChild('stepper') stepper!: MatStepper;
-  parameterCurrency: any;
-  agreementDocumentPLN: any;
-  isDisable: boolean = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -60,8 +57,7 @@ export class ShlCreateWithdrawalComponent implements OnInit{
   });
 
   secondFormGroup = this._formBuilder.group({
-    nominalWithdrawal: ['', Validators.required],
-    tanggalWithdrawal: ['', Validators.required],
+
   });
 
   thirdFormGroup = this._formBuilder.group({
@@ -72,6 +68,11 @@ export class ShlCreateWithdrawalComponent implements OnInit{
   submitted: boolean = false;
   namaProyekDisplay: boolean = false;
   detailProyekDisplay: boolean = false;
+
+  parameterCurrency: any;
+  agreementDocumentPLN: any;
+  isDisable: boolean = false;
+
 
   onChange(event: any) {
     console.log("Nilai yang dipilih:", event);
@@ -94,7 +95,6 @@ export class ShlCreateWithdrawalComponent implements OnInit{
       console.log(event, this.namaProyekDisplay);
 
       console.log(this.firstFormGroup.value);
-      this.tableConfig.initializeTableDetailWithdrawal1();
 
       if (this.namaProyekDisplay) {
           tabelDetailWithdrawal.classList.remove('hidden');
@@ -139,7 +139,7 @@ export class ShlCreateWithdrawalComponent implements OnInit{
 
   }
 
-  firstWithdrawalForm = () => {
+  firstForm = () => {
     this.submitted = true;
 
     if (this.firstFormGroup.invalid) {
@@ -158,13 +158,33 @@ export class ShlCreateWithdrawalComponent implements OnInit{
 
       // localStorage.setItem('dataForm1', JSON.stringify(this.firstFormGroup.value));
       this.submitted = false;
+      this.tableConfig.initializeTableSHLScheduleDetailPreview()
       this.stepper.next();
-      this.tableConfig.initializeTableDetailWithdrawal2();
-      this.tableConfig.initializeTableDetailWithdrawalPreview();
     }
   }
 
-  ngOnInit(): void {
+  secondForm = () => {
+    this.submitted = true;
 
+    if (this.secondFormGroup.invalid) {
+      Swal.fire({
+        icon: "error",
+        title: "Form is not Valid!",
+        text: "Check your Form!",
+      });
+    } else {
+      // Swal.fire({
+      //   icon: "success",
+      //   title: "Form submitted successfully!",
+      //   text: "Form is valid!",
+      // });
+      // console.log('Form submitted successfully!', this.firstFormGroup.value);
+
+      // localStorage.setItem('dataForm1', JSON.stringify(this.firstFormGroup.value));
+      this.submitted = false;
+      this.tableConfig.initializeTableSHLScheduleCreatePreview()
+      this.stepper.next();
+    }
   }
+
 }

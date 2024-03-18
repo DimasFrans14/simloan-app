@@ -72,6 +72,11 @@ import { ShlCreateAgreementComponent } from './dashboard/shl/shl-agreement/shl-c
 import { ShlPreviewCreateAgreementComponent } from './dashboard/shl/shl-agreement/shl-create-agreement/shl-preview-create-agreement/shl-preview-create-agreement.component';
 import { ShlWithdrawalComponent } from './dashboard/shl/shl-withdrawal/shl-withdrawal.component';
 import { ShlCreateWithdrawalComponent } from './dashboard/shl/shl-withdrawal/shl-create-withdrawal/shl-create-withdrawal.component';
+import { ShlScheduleComponent } from './dashboard/shl/shl-schedule/shl-schedule.component';
+import { ShlCreateScheduleComponent } from './dashboard/shl/shl-schedule/shl-create-schedule/shl-create-schedule.component';
+import { ShlMonitoringComponent } from './dashboard/shl/shl-monitoring/shl-monitoring.component';
+import { ShlMonitoringDetailComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-monitoring-detail.component';
+import { ShlLoanDetailComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-loan-detail/shl-loan-detail.component';
 
 @NgModule({
   declarations: [
@@ -122,6 +127,11 @@ import { ShlCreateWithdrawalComponent } from './dashboard/shl/shl-withdrawal/shl
     ShlPreviewCreateAgreementComponent,
     ShlWithdrawalComponent,
     ShlCreateWithdrawalComponent,
+    ShlScheduleComponent,
+    ShlCreateScheduleComponent,
+    ShlMonitoringComponent,
+    ShlMonitoringDetailComponent,
+    ShlLoanDetailComponent,
   ],
   imports: [
     BrowserModule,
