@@ -40,6 +40,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   openModal: boolean = false;
   openModalFootnote1: boolean = false;
+  openModalTag: boolean = false;
 
   selectedItems!: string;
   selectedKurs!: string;
@@ -232,6 +233,11 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   }
   openModalFootnote(){
     this.openModalFootnote1 = !this.openModalFootnote1;
+    this.footNoteState = 'add';
+  }
+
+  openModalTagFootnote(){
+    this.openModalTag = !this.openModalTag;
   }
 
   getValueForm(event: any) {
