@@ -151,6 +151,7 @@ export class PmiComponent {
     } catch (error) {
       console.log(error);
     }
+    this.tableConfig.setDataRealisasiPMI(this.dataDetailRealisasi)
     console.log('finish get data in func');
   }
   async getDataRkap(){
@@ -165,6 +166,7 @@ export class PmiComponent {
     } catch (error) {
       console.log(error);
     }
+    this.tableConfig.setDataRkapPMI(this.dataDetailRkap)
     console.log('finish get data in func');
   }
   async getDataOutlook(){
@@ -179,6 +181,7 @@ export class PmiComponent {
     } catch (error) {
       console.log(error);
     }
+    this.tableConfig.setDataOutlookPMI(this.dataDetailOutlook)
     console.log('finish get data in func');
   }
 
@@ -220,9 +223,9 @@ export class PmiComponent {
     await this.getDataRkap();
     await this.getDataOutlook();
     this.tableConfig.initializeTableDataPMI();
-    this.tableConfig.setDataRealisasiPMI(this.dataDetailRealisasi);
-    this.tableConfig.setDataRkapPMI(this.dataDetailRkap);
-    this.tableConfig.setDataOutlookPMI(this.dataDetailOutlook);
+    // this.tableConfig.setDataRealisasiPMI(this.dataDetailRealisasi);
+    // this.tableConfig.setDataRkapPMI(this.dataDetailRkap);
+    // this.tableConfig.setDataOutlookPMI(this.dataDetailOutlook);
   }
 
   ngAfterViewInit(): void {

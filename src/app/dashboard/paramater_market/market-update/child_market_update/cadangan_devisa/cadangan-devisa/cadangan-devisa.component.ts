@@ -152,6 +152,7 @@ export class CadanganDevisaComponent {
     } catch (error) {
       console.log(error);
     }
+    this.tableConfig.setDataRealisasiCadev(this.dataDetailRealisasi);
     console.log('finish get data in func');
   }
   async getDataRRkap(){
@@ -166,6 +167,7 @@ export class CadanganDevisaComponent {
     } catch (error) {
       console.log(error);
     }
+    this.tableConfig.setDataRkapCadev(this.dataDetailRkap);
     console.log('finish get data in func');
   }
   async getDataOutlook(){
@@ -180,6 +182,7 @@ export class CadanganDevisaComponent {
     } catch (error) {
       console.log(error);
     }
+    this.tableConfig.setDataOutlookCadev(this.dataDetailOutlook)
     console.log('finish get data in func');
   }
 
@@ -222,9 +225,6 @@ export class CadanganDevisaComponent {
     await this.getDataOutlook();
 
     this.tableConfig.initializeTableDataForeignExchange();
-    this.tableConfig.setDataRealisasiCadev(this.dataDetailRealisasi);
-    this.tableConfig.setDataRkapCadev(this.dataDetailRkap);
-    this.tableConfig.setDataOutlookCadev(this.dataDetailOutlook)
   }
 
   ngAfterViewInit(): void {

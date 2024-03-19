@@ -147,7 +147,7 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
     } catch (error) {
       console.log(error);
     }
-    this.tableConfig.setDataPdb(this.dataDetailRealisasi);
+    this.tableConfig.setDataRealisasiCommodities(this.dataDetailRealisasi);
     console.log('finish get data in func');
   }
   async getDataRkap(){
@@ -163,7 +163,7 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
     } catch (error) {
       console.log(error);
     }
-    this.tableConfig.setDataPdb(this.dataDetailRkap);
+    this.tableConfig.setDataRkapCommodities(this.dataDetailRkap);
     console.log('finish get data in func');
   }
   async getDataOutlook(){
@@ -179,7 +179,7 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
     } catch (error) {
       console.log(error);
     }
-    this.tableConfig.setDataPdb(this.dataDetailOutlook);
+    this.tableConfig.setDataOutlookCommodities(this.dataDetailOutlook)
     console.log('finish get data in func');
   }
 
@@ -222,9 +222,6 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
     await this.getDataOutlook();
 
     this.tableConfig.initializeTableDataCommodities();
-    this.tableConfig.setDataRealisasiCommodities(this.dataDetailRealisasi);
-    this.tableConfig.setDataRkapCommodities(this.dataDetailRkap);
-    this.tableConfig.setDataOutlookCommodities(this.dataDetailOutlook)
   }
 
   ngAfterViewInit(): void {
