@@ -44,6 +44,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   stroke!: ApexStroke;
   lineChartKursTooltip!: ApexTooltip;
   lineChartKursMarkers!: ApexMarkers;
+  legendCurrencyLineChart!: ApexLegend;
 
   barChartKursSeries: ApexAxisChartSeries = [];
   barChartDataLabel!: ApexDataLabels;
@@ -67,15 +68,18 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   dataIcpChart!:ApexAxisChartSeries;
   dataIcpBarChart!:ApexAxisChartSeries;
   xAxisIcpChart!:ApexXAxis;
+  legendICPChart!: ApexLegend;
 
   dataChartCoal!:ApexAxisChartSeries;
   dataChartCoalBar!: ApexAxisChartSeries;
   xAxisChartCoal!:ApexXAxis;
+  legendCOALChart!: ApexLegend;
 
   dataChartLngLine!: ApexAxisChartSeries;
   dataChartLngBar!: ApexAxisChartSeries;
   xAxisChartLng!: ApexXAxis;
   xAxisChartBarLng!: ApexXAxis;
+  legendLNGChart!: ApexLegend;
 
   selectedItems!: number;
 
@@ -1434,7 +1438,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
 
           this.xAxisWtiChartBrent = {
-            type:'datetime'
+            type:'datetime',
+            labels: {
+              formatter: function(value, timestamp, opts) {
+                return moment(new Date(value)).format("DD MMM YYYY")
+              },
+            }
           }
 
         }
@@ -1530,7 +1539,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.dataIcpChart = this.allTrendICP.d.arrayData;
 
           this.xAxisIcpChart = {
-            type: 'datetime'
+            type: 'datetime',
+            labels: {
+              formatter: function(value, timestamp, opts) {
+                return moment(new Date(value)).format("DD MMM YYYY")
+              },
+            }
           }
 
         }
@@ -1552,7 +1566,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.dataIcpChart = this.allTrendICP.d.arrayData;
 
           this.xAxisIcpChart = {
-            type: 'datetime'
+            type: 'datetime',
+            labels: {
+              formatter: function(value, timestamp, opts) {
+                return moment(new Date(value)).format("DD MMM YYYY")
+              },
+            }
           }
 
         }
@@ -1619,7 +1638,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.dataChartCoal = this.allTrendCOAL.d.arrayData;
 
           this.xAxisChartCoal = {
-            type: 'datetime'
+            type: 'datetime',
+            labels: {
+              formatter: function(value, timestamp, opts) {
+                return moment(new Date(value)).format("DD MMM YYYY")
+              },
+            }
           }
         }
         else if(range_date === '3years'){
@@ -1640,7 +1664,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.dataChartCoal = this.allTrendCOAL.d.arrayData;
 
           this.xAxisChartCoal = {
-            type: 'datetime'
+            type: 'datetime',
+            labels: {
+              formatter: function(value, timestamp, opts) {
+                return moment(new Date(value)).format("DD MMM YYYY")
+              },
+            }
           }
         }
           break;
@@ -1710,6 +1739,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.xAxisChartLng = {
             type: 'datetime',
+            labels: {
+              formatter: function(value, timestamp, opts) {
+                return moment(new Date(value)).format("DD MMM YYYY")
+              },
+            }
           }
 
         }
@@ -1733,6 +1767,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.xAxisChartLng = {
             type: 'datetime',
+            labels: {
+              formatter: function(value, timestamp, opts) {
+                return moment(new Date(value)).format("DD MMM YYYY")
+              },
+            }
           }
 
         }
@@ -2960,6 +2999,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       await this.fetchDataLineKurs();
       await this.fetchDataLineCommodities();
       await this.fetchDataLineInterest();
+      await this.fetchDataCompare();
 
       //Fetch Bar Chart
       // await this.fetchDataBarChartKurs();
@@ -2968,7 +3008,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       // await this.fetchDataCompare();
 
       this.stateLoading();
-
       this.barChartKursSeries = this.trendKursDataBarChart;
 
       this.barYAxisKurs = {
@@ -3022,22 +3061,35 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         // size: 2
       }
 
+      this.legendCurrencyLineChart = {
+        showForSingleSeries: true
+      }
+
 
       this.dataChartWtibrent = [];
       this.xAxisWtiChartBrent = {
         // categories: [],
         type:'datetime',
+        labels: {
+          formatter: function(value, timestamp, opts) {
+            return moment(new Date(value)).format("DD MMM YYYY")
+          },
+        }
       }
 
 
       this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
       // this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
       this.xAxisBarWtiBrent = {
-        type: 'datetime'
+        type: 'datetime',
       }
 
 
       this.dataIcpChart = [];
+
+      this.legendICPChart = {
+        showForSingleSeries: true
+      }
 
 
         this.dataIcpChart = this.allTrendICP.d.arrayData;
@@ -3050,14 +3102,19 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         this.xAxisIcpChart = {
           // categories: [],
           type: 'datetime',
-          // labels : {
-          //   format : 'MMM \'yy'
-          // }
+          labels: {
+            formatter: function(value, timestamp, opts) {
+              return moment(new Date(value)).format("DD MMM YYYY")
+            },
+          }
         }
 
 
 
         this.dataChartCoal = [];
+        this.legendCOALChart = {
+          showForSingleSeries: true
+        }
 
         this.dataChartCoal = this.allTrendCOAL.d.arrayData;
         // this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
@@ -3065,15 +3122,28 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
         this.xAxisChartCoal = {
           // categories: [],
-          type: 'datetime'
+          type: 'datetime',
+          labels: {
+            formatter: function(value, timestamp, opts) {
+              return moment(new Date(value)).format("DD MMM YYYY")
+            },
+          }
         }
 
         this.dataChartLngLine = [];
+        this.legendLNGChart = {
+          showForSingleSeries: true
+        }
         this.dataChartLngLine = this.allTrendLNG.d.arrayData;
         // this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
 
         this.xAxisChartLng = {
-          type: 'datetime'
+          type: 'datetime',
+          labels: {
+            formatter: function(value, timestamp, opts) {
+              return moment(new Date(value)).format("DD MMM YYYY")
+            },
+          }
         }
 
 
@@ -3126,7 +3196,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         console.log(this.lineChartInterestRateSeries);
 
         this.interestRateXaxis = {
-          // categories: [],
+          categories: [],
             labels: {
               formatter: function(value, timestamp){
               return moment(new Date(value)).format("MMM YYYY")
@@ -3225,7 +3295,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       await this.fetchDataBarChartKurs();
       await this.fetchAllDataBarChartCommodities();
       await this.fetchAllDataBarChartInterest();
-      await this.fetchDataCompare();
 
       this.isLoadingKursLine = false;
       this.isLoadingWTILine = false;
@@ -3660,12 +3729,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       show: true,
       tools: {
         download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
       }
     }
   }
@@ -3676,12 +3745,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       show: true,
       tools: {
         download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
       }
     }
   }
@@ -3738,12 +3807,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       show: true,
       tools: {
         download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
       }
     }
   }
@@ -3773,12 +3842,12 @@ coalLineChart:ApexChart={
     show: true,
     tools: {
       download: true,
-      selection: false,
-      zoom: false,
-      zoomin: false,
-      zoomout: false,
-      pan: false,
-      reset: false,
+      selection: true,
+      zoom: true,
+      zoomin: true,
+      zoomout: true,
+      pan: true,
+      reset: true,
     }
   }
 }
@@ -3789,12 +3858,12 @@ coalBarChart:ApexChart={
     show: true,
     tools: {
       download: true,
-      selection: false,
-      zoom: false,
-      zoomin: false,
-      zoomout: false,
-      pan: false,
-      reset: false,
+      selection: true,
+      zoom: true,
+      zoomin: true,
+      zoomout: true,
+      pan: true,
+      reset: true,
     }
   }
 }
@@ -3835,12 +3904,12 @@ coalStroke:ApexStroke ={
       show: true,
       tools: {
         download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
       }
     }
   }
@@ -3897,12 +3966,12 @@ coalStroke:ApexStroke ={
       show: true,
       tools: {
         download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
       }
     }
   }
@@ -3949,12 +4018,12 @@ coalStroke:ApexStroke ={
       show: true,
       tools: {
         download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
       }
     }
   }

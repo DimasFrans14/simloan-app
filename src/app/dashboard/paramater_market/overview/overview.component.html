@@ -23,6 +23,7 @@
             class="btn btn-light bg-white ms-2 border"
             (click)="toggleVisibilityLine()"
              [ngClass]="{'active': activeAllLineChart === true}"
+             [disabled]="isLoadingKursLine"
           >
             <i class="bi bi-graph-up"></i>
           </button>
@@ -30,6 +31,8 @@
             class="btn btn-light bg-white ms-2 border"
             (click)="toggleVisibilityBar()"
              [ngClass]="{'active': activeAllBarChart === true}"
+             [disabled]="isLoadingKursLine"
+
           >
             <i class="bi bi-bar-chart-line"></i>
           </button>
@@ -287,6 +290,7 @@
               [stroke]="stroke"
               [tooltip]="lineChartKursTooltip"
               [markers]="lineChartKursMarkers"
+              [legend]="legendCurrencyLineChart"
             ></apx-chart>
             <apx-chart
               [style.display]="isVisibleBar ? 'none' : 'block'"
@@ -490,7 +494,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '1week')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingWTILine"
                 [ngClass]="{'active': activeButtonLineWTIBRENT === '1week'}"
               >
                 <span style="font-size: 13px">1W</span>
@@ -501,7 +505,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '1month')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingWTILine"
                 [ngClass]="{'active': activeButtonLineWTIBRENT === '1month'}"
               >
                 <span style="font-size: 13px">1M</span>
@@ -512,7 +516,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '1year')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingWTILine"
                 [ngClass]="{'active': activeButtonLineWTIBRENT === '1year'}"
               >
                 <span style="font-size: 13px">1Y</span>
@@ -523,7 +527,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesLineChart('[\'WTI\',\'BRENT\']', '3years')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingWTILine"
                 [ngClass]="{'active': activeButtonLineWTIBRENT === '3years'}"
               >
                 <span style="font-size: 13px">3Y</span>
@@ -537,7 +541,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesBarChart('[\'WTI\',\'BRENT\']', 'default', '1week')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingWTILine"
                 [ngClass]="{'active': activeButtonBarWTIBRENT === '1week'}"
               >
                 <span style="font-size: 13px">1W</span>
@@ -548,7 +552,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesBarChart('[\'WTI\',\'BRENT\']', 'default', '1month')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingWTILine"
                 [ngClass]="{'active': activeButtonBarWTIBRENT === '1month'}"
               >
                 <span style="font-size: 13px">1M</span>
@@ -559,7 +563,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesBarChart('[\'WTI\',\'BRENT\']', '1year', '1year')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingWTILine"
                 [ngClass]="{'active': activeButtonBarWTIBRENT === '1year'}"
               >
                 <span style="font-size: 13px">1Y</span>
@@ -570,7 +574,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesBarChart('[\'WTI\',\'BRENT\']', 'years', '3years')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingWTILine"
                 [ngClass]="{'active': activeButtonBarWTIBRENT === '3years'}"
               >
                 <span style="font-size: 13px">3Y</span>
@@ -670,7 +674,7 @@
           </div>
 
           <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
-            <div>
+            <!-- <div>
               <button
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
@@ -691,13 +695,13 @@
               >
                 <span style="font-size: 13px">1M</span>
               </button>
-            </div>
+            </div> -->
             <div>
               <button
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesBarChart('[\'ICP\']', '1year', '1year')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingICPLine"
                 [ngClass]="{'active': activeButtonBarICP === '1year'}"
               >
                 <span style="font-size: 13px">1Y</span>
@@ -708,7 +712,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesBarChart('[\'ICP\']', 'years', '3years')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingICPLine"
                 [ngClass]="{'active': activeButtonBarICP === '3years'}"
               >
                 <span style="font-size: 13px">3Y</span>
@@ -735,7 +739,9 @@
             [stroke]="icpStroke"
             [colors]="icpChartColors"
             [xaxis]="xAxisIcpChart"
-            [yaxis]="yAxisIcp">
+            [yaxis]="yAxisIcp"
+            [legend]="legendICPChart">
+
           </apx-chart>
           <apx-chart
             [style.display]="isVisibleBar ? 'none' : 'block'"
@@ -745,7 +751,8 @@
             [dataLabels]="barDataLabels"
             [colors]="icpChartColors"
             [xaxis]="xAxisIcpChart"
-            [yaxis]="yAxisIcp">
+            [yaxis]="yAxisIcp"
+            [legend]="legendICPChart">
           </apx-chart>
         </div>
 
@@ -763,7 +770,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '1week')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingCOALLine"
                 [ngClass]="{'active': activeButtonLineCOAL === '1week'}"
               >
                 <span style="font-size: 13px">1W</span>
@@ -774,7 +781,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '1month')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingCOALLine"
                 [ngClass]="{'active': activeButtonLineCOAL === '1month'}"
               >
                 <span style="font-size: 13px">1M</span>
@@ -785,7 +792,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '1year')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingCOALLine"
                 [ngClass]="{'active': activeButtonLineCOAL === '1year'}"
               >
                 <span style="font-size: 13px">1Y</span>
@@ -796,7 +803,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesLineChart('[\'COAL\']', '3years')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingCOALLine"
                 [ngClass]="{'active': activeButtonLineCOAL === '3years'}"
               >
                 <span style="font-size: 13px">3Y</span>
@@ -811,7 +818,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', 'default', '1week')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingCOALLine"
                 [ngClass]="{'active': activeButtonBarCOAL === '1week'}"
               >
                 <span style="font-size: 13px">1W</span>
@@ -822,7 +829,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', 'default', '1month')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingCOALLine"
                 [ngClass]="{'active': activeButtonBarCOAL === '1month'}"
               >
                 <span style="font-size: 13px">1M</span>
@@ -833,7 +840,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', '1year', '1year')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingCOALLine"
                 [ngClass]="{'active': activeButtonBarCOAL === '1year'}"
               >
                 <span style="font-size: 13px">1Y</span>
@@ -844,7 +851,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesBarChart('[\'COAL\']', 'years', '3years')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingCOALLine"
                 [ngClass]="{'active': activeButtonBarCOAL === '3years'}"
               >
                 <span style="font-size: 13px">3Y</span>
@@ -874,7 +881,8 @@
             [stroke]="coalStroke"
             [colors]="coalChartColors"
             [xaxis]="xAxisChartCoal"
-            [yaxis]="yAxisCoalChart">
+            [yaxis]="yAxisCoalChart"
+            [legend]="legendCOALChart">
           </apx-chart>
           <apx-chart
             [style.display]="isVisibleLine ? 'none' : 'block'"
@@ -884,7 +892,8 @@
             [dataLabels]="barDataLabels"
             [colors]="coalChartColors"
             [xaxis]="xAxisChartCoal"
-            [yaxis]="yAxisCoalChart">
+            [yaxis]="yAxisCoalChart"
+            [legend]="legendCOALChart">
           </apx-chart>
         </div>
       </div>
@@ -900,7 +909,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '1week')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingLNGLine"
                 [ngClass]="{'active': activeButtonLineLNG === '1week'}"
               >
                 <span style="font-size: 13px">1W</span>
@@ -911,7 +920,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '1month')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingLNGLine"
                 [ngClass]="{'active': activeButtonLineLNG === '1month'}"
               >
                 <span style="font-size: 13px">1M</span>
@@ -922,7 +931,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '1year')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingLNGLine"
                 [ngClass]="{'active': activeButtonLineLNG === '1year'}"
               >
                 <span style="font-size: 13px">1Y</span>
@@ -933,7 +942,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesLineChart('[\'LNG\']', '3years')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingLNGLine"
                 [ngClass]="{'active': activeButtonLineLNG === '3years'}"
               >
                 <span style="font-size: 13px">3Y</span>
@@ -948,7 +957,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesBarChart('[\'LNG\']', 'default', '1week')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingLNGLine"
                 [ngClass]="{'active': activeButtonBarLNG === '1week'}"
               >
                 <span style="font-size: 13px">1W</span>
@@ -959,7 +968,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesBarChart('[\'LNG\']', 'default', '1month')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingLNGLine"
                 [ngClass]="{'active': activeButtonBarLNG === '1month'}"
               >
                 <span style="font-size: 13px">1M</span>
@@ -970,7 +979,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesBarChart('[\'LNG\']', '1year', '1year')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingLNGLine"
                 [ngClass]="{'active': activeButtonBarLNG === '1year'}"
               >
                 <span style="font-size: 13px">1Y</span>
@@ -981,7 +990,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesBarChart('[\'LNG\']', 'years', '3years')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingLNGLine"
                 [ngClass]="{'active': activeButtonBarLNG === '3years'}"
               >
                 <span style="font-size: 13px">3Y</span>
@@ -1011,7 +1020,8 @@
             [stroke]="lngStroke"
             [colors]="lngChartColors"
             [xaxis]="xAxisChartLng"
-            [yaxis]="yAxisLng">
+            [yaxis]="yAxisLng"
+            [legend]="legendLNGChart">
           </apx-chart>
           <apx-chart
             [style.display]="isVisibleLine ? 'none' : 'block'"
@@ -1021,7 +1031,8 @@
             [dataLabels]="barDataLabels"
             [colors]="lngChartColors"
             [xaxis]="xAxisChartLng"
-            [yaxis]="yAxisLng">
+            [yaxis]="yAxisLng"
+            [legend]="legendLNGChart">
           </apx-chart>
         </div>
       </div>
@@ -1051,6 +1062,7 @@
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestLineChart('1week')"
+              [disabled]="isLoadingInterestLine"
               [ngClass]="{'active': activeButtonLineInterest === '1week'}"
             >
               <span style="font-size: 13px">1W</span>
@@ -1061,6 +1073,7 @@
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestLineChart('1month')"
+              [disabled]="isLoadingInterestLine"
               [ngClass]="{'active': activeButtonLineInterest === '1month'}"
             >
               <span style="font-size: 13px">1M</span>
@@ -1071,6 +1084,7 @@
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestLineChart('1year')"
+              [disabled]="isLoadingInterestLine"
               [ngClass]="{'active': activeButtonLineInterest === '1year'}"
             >
               <span style="font-size: 13px">1Y</span>
@@ -1081,6 +1095,7 @@
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestLineChart('3years')"
+              [disabled]="isLoadingInterestLine"
               [ngClass]="{'active': activeButtonLineInterest === '3years'}"
             >
               <span style="font-size: 13px">3Y</span>
@@ -1123,6 +1138,7 @@
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestBarChart('default', '1week')"
+              [disabled]="isLoadingInterestLine"
               [ngClass]="{'active': activeButtonBarInterest === '1week'}"
             >
               <span style="font-size: 13px">1W</span>
@@ -1133,6 +1149,7 @@
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestBarChart('default', '1month')"
+              [disabled]="isLoadingInterestLine"
               [ngClass]="{'active': activeButtonBarInterest === '1month'}"
             >
               <span style="font-size: 13px">1M</span>
@@ -1143,6 +1160,7 @@
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestBarChart('1year', '1year')"
+              [disabled]="isLoadingInterestLine"
               [ngClass]="{'active': activeButtonBarInterest === '1year'}"
             >
               <span style="font-size: 13px">1Y</span>
@@ -1153,6 +1171,7 @@
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
               (click)="filterRangeDateInterestBarChart('years', '3years')"
+              [disabled]="isLoadingInterestLine"
               [ngClass]="{'active': activeButtonBarInterest === '3years'}"
             >
               <span style="font-size: 13px">3Y</span>
