@@ -622,7 +622,7 @@
           <div class="flex-fill fw-semibold">ICP <span class="info-unit">(USD/Barel)</span></div>
 
           <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-end py-2">
-            <div>
+            <!-- <div>
               <button
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
@@ -643,7 +643,7 @@
               >
                 <span style="font-size: 13px">1M</span>
               </button>
-            </div>
+            </div> -->
             <div>
               <button
                 type="button"
@@ -1206,7 +1206,6 @@
             [xaxis]="interestRateXaxis"
             [stroke]="intersetRateLineStroke"
             [legend]="interestRateLegend"
-            [colors]="interestRateChartColors"
           ></apx-chart>
 
           <apx-chart
@@ -1214,7 +1213,6 @@
             [series]="barChartInterestRateSeries"
             [chart]="currencyBarChartDetails"
             [dataLabels]="barDataLabels"
-            [colors]="interestRateChartColors"
           ></apx-chart>
         </div>
       </div>
