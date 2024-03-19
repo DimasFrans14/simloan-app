@@ -31,7 +31,8 @@ export class TablePreviewServices {
     const hasNilai = this.dataTabelPreview[0].hasOwnProperty('NILAI');
     const hasMiliarUSD = this.dataTabelPreview[0].hasOwnProperty('miliar_usd');
     const hasTriliunUSD = this.dataTabelPreview[0].hasOwnProperty('triliun_beredar');
-    console.log(hasKurs, hasNilai, hasMiliarUSD, hasTriliunUSD);
+    const hasRate = this.dataTabelPreview[0].hasOwnProperty('RATE');
+    console.log(hasKurs, hasNilai, hasMiliarUSD, hasTriliunUSD, hasRate);
 
     if(hasKurs){
       this.dataTabelPreview = this.dataTabelPreview.map((item: any) => {
@@ -63,6 +64,15 @@ export class TablePreviewServices {
         item.triliun_beredar = parseFloat(item.triliun_beredar);;
         item.triliun_beredar = item.triliun_beredar.toLocaleString('en-US');;
         console.log('masuk triliun');
+
+        return item
+      })
+    }
+    else if(hasRate){
+      this.dataTabelPreview = this.dataTabelPreview.map((item: any) => {
+        item.RATE = parseFloat(item.RATE);
+        item.RATE = item.RATE.toLocaleString('en-US');;
+        console.log('rate');
 
         return item
       })
