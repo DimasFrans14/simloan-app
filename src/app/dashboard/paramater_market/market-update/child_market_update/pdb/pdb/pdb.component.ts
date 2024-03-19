@@ -165,6 +165,7 @@ export class PdbComponent {
     } catch(error) {
       console.log(error)
     }
+    this.tableConfig.setDataRkapPdb(this.dataDetailRkap);
     console.log('finish get data by function')
   }
   async getDataOutlook(){
@@ -179,6 +180,7 @@ export class PdbComponent {
     } catch(error) {
       console.log(error)
     }
+    this.tableConfig.setDataOutlookPdb(this.dataDetailOutlook);
     console.log('finish get data by function')
   }
   
@@ -223,8 +225,6 @@ export class PdbComponent {
     await this.getDataOutlook();
     await this.getDataRkap();
     this.tableConfig.initializeTableDataPDB();
-    this.tableConfig.setDataOutlookPdb(this.dataDetailOutlook);
-    this.tableConfig.setDataRkapPdb(this.dataDetailRkap);
   }
 
   ngAfterViewInit(): void {

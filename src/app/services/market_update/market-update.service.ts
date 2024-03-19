@@ -26,7 +26,7 @@ export class MarketUpdateService {
       return null;
     }
   }
-
+//kurs
   async fetchDataKurs(year: string){
     try {
       const params = new HttpParams().set('tahun', year)
@@ -38,31 +38,23 @@ export class MarketUpdateService {
       return null;
     }
   }
-  async fetchDataUpdateRealisasiKurs(data:any){
-    const data1 = {
-      "quartal": data.quartal,
-      "tahun":data.tahun,
-      "nilai": data.nilai,
-      "is_active": true
+  async fetchDataRealisasiKursUsd(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/list`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
     }
-  try {
-    return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-Kurs?id=${data.id}`, data1)
-    )
-  } catch (error) {
-    console.log(error);
-    return error
   }
-  }
-  async fetchDataInputRealisasiKurs(data:any){
+  async fetchDataInputRealisasiKursUsd(data:any){
     const data1= {
-      "master_real_Kurs_creates":[{
-        "quartal": data.quartal,
-        "tahun":data.tahun,
-        "nilai": data.nilai,
-        "is_active": true
-      }]
-    }
+      "id_mst_jisdor": data.quartal,
+      "mata_uang":data.tahun,
+      "nilai": data.nilai,
+      "tanggal": true
+      }
     try {
       return await lastValueFrom(
         this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-Kurs`, data1)
@@ -72,16 +64,234 @@ export class MarketUpdateService {
       return error
     }
   }
-  async fetchDataRkapKurs(){
+  async fetchDataUpdateRealisasiKursUsd(data:any){
+    const data1 = {
+      "id_mst_jisdor": data.quartal,
+      "mata_uang":data.tahun,
+      "nilai": data.nilai,
+      "tanggal": true
+    }
+  try {
+    return await lastValueFrom(
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/real_update_jisdor?id=17282&id_mst_jisdor=${data.id}`, data1)
+    )
+  } catch (error) {
+    console.log(error);
+    return error
+  }
+  }
+  async fetchDataRealisasiKursNonUsd(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-Kurs`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/nonusd`)
       );
     } catch (error) {
       console.log(error);
       return null;
     }
   }
+  async fetchDataInputRealisasiKursNonUsd(data:any){
+    const data1= {
+      "id_mst_jisdor": data.quartal,
+      "mata_uang":data.tahun,
+      "nilai": data.nilai,
+      "tanggal": true
+      }
+    try {
+      return await lastValueFrom(
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/create-nonusd`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  //belum ada end point
+  async fetchDataUpdateRealisasiKursNonUsd(data:any){
+    const data1 = {
+      "id_mst_jisdor": data.quartal,
+      "mata_uang":data.tahun,
+      "nilai": data.nilai,
+      "tanggal": true
+    }
+  try {
+    return await lastValueFrom(
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/real_update_jisdor?id=17282&id_mst_jisdor=${data.id}`, data1)
+    )
+  } catch (error) {
+    console.log(error);
+    return error
+  }
+  }
+  async fetchDataRkapKursUsd(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/rkap-kurs/master-usd-nonusd/list`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataInputRkapKursUsd(data:any){
+    const data1= {
+      "mata_uang":data.tahun,
+      "nilai": data.nilai,
+      "kurs": data.kurs,
+      "tanggal": true
+      }
+    try {
+      return await lastValueFrom(
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/rkap-kurs/master-usd-nonusd/create_jisdor`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataUpdateRkapKursUsd(data:any){
+    const data1 = {
+      "id_mst_jisdor": data.quartal,
+      "mata_uang":data.tahun,
+      "nilai": data.nilai,
+      "tanggal": true
+    }
+  try {
+    return await lastValueFrom(
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/rkap-kurs/master-usd-nonusd/update_jisdor=${data.id}`, data1)
+    )
+  } catch (error) {
+    console.log(error);
+    return error
+  }
+  }
+  async fetchDataRkapKursNonUsd(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/rkap-kurs/master-usd-nonusd/nonusd`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataInputRkapKursNonUsd(data:any){
+    const data1= {
+      "mata_uang":data.tahun,
+      "nilai": data.nilai,
+      "kurs": data.kurs,
+      "tanggal": true
+      }
+    try {
+      return await lastValueFrom(
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/rkap-kurs/master-usd-nonusd/create`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataUpdateRkapKursNonUsd(data:any){
+    const data1 = {
+      "id_mstr_rkap_jisdor": data.quartal,
+      "mata_uang":data.tahun,
+      "nilai": data.nilai,
+      "tanggal": true,
+      "is_active": true
+    }
+  try {
+    return await lastValueFrom(
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/rkap-kurs/master-usd-nonusd/update=${data.id}`, data1)
+    )
+  } catch (error) {
+    console.log(error);
+    return error
+  }
+  }
+  async fetchDataOutlookKursUsd(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}//simloan/ws-v01/out-kurs/master-usd-nonusd/list`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataInputOutlookKursUsd(data:any){
+    const data1= {
+      "mata_uang":data.tahun,
+      "nilai": data.nilai,
+      "kurs": data.kurs,
+      "tanggal": true
+      }
+    try {
+      return await lastValueFrom(
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/jisdor`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataUpdateOutlookKursUsd(data:any){
+    const data1 = {
+      "mata_uang":data.tahun,
+      "nilai": data.nilai,
+      "tanggal": true
+    }
+  try {
+    return await lastValueFrom(
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/jisdor=${data.id}`, data1)
+    )
+  } catch (error) {
+    console.log(error);
+    return error
+  }
+  }
+  async fetchDataRkapOutlookNonUsd(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/nonusd`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataInputRkapOutlookNonUsd(data:any){
+    const data1= {
+      "mata_uang":data.tahun,
+      "nilai": data.nilai,
+      "kurs": data.kurs,
+      "tanggal": true
+      }
+    try {
+      return await lastValueFrom(
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/nonusd`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataUpdateRkapOutlookNonUsd(data:any){
+    const data1 = {
+      "mata_uang":data.mata_uang,
+      "nilai": data.nilai,
+      "kurs": data.kurs,
+      "tanggal": data.tanggal,
+    }
+  try {
+    return await lastValueFrom(
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/usd_nonusd=${data.id}`, data1)
+    )
+  } catch (error) {
+    console.log(error);
+    return error
+  }
+  }
+
   async fetchDataUpdateRkapKurs(data:any){
     const data1= {
       "kuartal": data.quartal,
@@ -386,7 +596,7 @@ export class MarketUpdateService {
     return error
   }
   }
-  //nond Yield US treasury
+  //bond Yield US treasury
   async fetchDataBondYieldTreasury(year: string){
     try {
       const params = new HttpParams().set('tahun', year)

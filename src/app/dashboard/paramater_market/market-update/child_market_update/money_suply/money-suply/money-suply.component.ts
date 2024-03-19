@@ -152,6 +152,7 @@ export class MoneySuplyComponent {
     } catch (error) {
       console.log(error);
     }
+    this.tableConfig.setDataRealisasiMoneySupply(this.dataDetailRealisasi);
     console.log('finish get data in func');
   }
   async getDataRkap(){
@@ -166,6 +167,7 @@ export class MoneySuplyComponent {
     } catch (error) {
       console.log(error);
     }
+    this.tableConfig.setDataRkapMoneySupply(this.dataDetailRkap);
     console.log('finish get data in func');
   }
   async getDataOutlook(){
@@ -180,6 +182,7 @@ export class MoneySuplyComponent {
     } catch (error) {
       console.log(error);
     }
+    this.tableConfig.setDataOutlookMoneySupply(this.dataDetailOutlook);
     console.log('finish get data in func');
   }
 
@@ -222,9 +225,6 @@ export class MoneySuplyComponent {
     await this.getDataOutlook();
 
     this.tableConfig.initializeTableDataMoneySupply();
-    this.tableConfig.setDataRealisasiMoneySupply(this.dataDetailRealisasi);
-    this.tableConfig.setDataRkapMoneySupply(this.dataDetailRkap);
-    this.tableConfig.setDataOutlookMoneySupply(this.dataDetailOutlook);
   }
 
   ngAfterViewInit(): void {
