@@ -144,6 +144,7 @@ export class RetailSalesComponent {
     } catch (error) {
       console.log(error);
     }
+    this.tableConfig.setDataRealisasiRetail(this.dataDetailRealisasi);
     console.log('finish get data in func');
   }
   async getDataRkap(){
@@ -158,6 +159,7 @@ export class RetailSalesComponent {
     } catch (error) {
       console.log(error);
     }
+    this.tableConfig.setDataRkapRetail(this.dataDetailRkap);
     console.log('finish get data in func');
   }
   async getDataOutlook(){
@@ -172,6 +174,7 @@ export class RetailSalesComponent {
     } catch (error) {
       console.log(error);
     }
+    this.tableConfig.setDataOutlookRetail(this.dataDetailOutlook);
     console.log('finish get data in func');
   }
 
@@ -214,9 +217,6 @@ export class RetailSalesComponent {
     await this.getDataOutlook();
 
     this.tableConfig.initializeTableDataRetail();
-    this.tableConfig.setDataRealisasiRetail(this.dataDetailRealisasi);
-    this.tableConfig.setDataRkapRetail(this.dataDetailRkap);
-    this.tableConfig.setDataOutlookRetail(this.dataDetailOutlook);
   }
 
   ngAfterViewInit(): void {

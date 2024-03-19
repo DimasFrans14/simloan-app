@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class TableServicesService {
+  
   constructor(
     private marketUpdateService: MarketUpdateService,
     private router: Router,
@@ -39,6 +40,9 @@ export class TableServicesService {
   public shareDataRealisasiCommodities:any;
   public shareDataRkapCommodities:any;
   public shareDataOutlookCommodities:any;
+  public shareDataRealisasiKursUsd: any;
+  public shareDataRkapKursUsd: any;
+  public shareDataOutlookKursUsd: any;
 
   public testData: any;
 
@@ -152,6 +156,18 @@ export class TableServicesService {
   setDataOutlookCommodities(data:any){
     this.shareDataOutlookCommodities = data.content;
     console.log(this.shareDataOutlookCommodities);
+  }
+  setDataRealisasiKursUsd(data:any){
+    this.shareDataRealisasiKursUsd = data;
+    console.log(this.shareDataRealisasiKursUsd);
+  }
+  setDataRkapKursUsd(data:any){
+    this.shareDataRkapKursUsd = data.content;
+    console.log(this.shareDataRkapKursUsd);
+  }
+  setDataOutlookKursUsd(data:any){
+    this.shareDataOutlookKursUsd = data.content;
+    console.log(this.shareDataOutlookKursUsd);
   }
 
   getDataCommodities(data: any){
@@ -720,14 +736,23 @@ export class TableServicesService {
   }
 
   initializeTableDataUsTreasury(){
+    const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Tambah</span>";
+    }
     const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-warning'>Edit</span>";
     }
     const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-primary'>Save</span>";
     }
+    const saveAddBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-success'>Tambah</span>";
+    }
     const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-secondary'>Cancel</span>";
+    }
+    const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-danger'>Delete</span>";
     }
 
     this.tableBondYieldUST = new Tabulator(".table-bondYieldUST", {
@@ -773,9 +798,14 @@ export class TableServicesService {
         {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
         {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton", formatter:saveBtn, cellClick:this.cellClick_SaveButtonUsTreasury, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiPdb, headerSort:false, resizable:false,visible:false},
       ],
     });
 
@@ -800,9 +830,14 @@ export class TableServicesService {
           {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input",},
           {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input",},
           {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input",},
-          {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+          {title:"Action", headerHozAlign:"center", columns:[
+            {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+            {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+          ]},
           {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonUsTreasury, headerSort:false, resizable:false,visible:false},
+          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, resizable:false,visible:false},
+          {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+          {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiPdb, headerSort:false, resizable:false,visible:false},
       ],
       });
 
@@ -827,9 +862,14 @@ export class TableServicesService {
         {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input",},
         {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input",},
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input",},
-        {title:"", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
-        {title:"", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", formatter:saveBtn, cellClick:this.cellClick_SaveButtonUsTreasury, headerSort:false, resizable:false,visible:false},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        ]},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiPdb, headerSort:false, resizable:false,visible:false},
       ],
     })
   }
@@ -1406,15 +1446,23 @@ export class TableServicesService {
   }
 
   initializeTableDataCurrency(){
-    //
+    const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Tambah</span>";
+    }
     const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-warning'>Edit</span>";
     }
     const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-primary'>Save</span>";
     }
+    const saveAddBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-success'>Tambah</span>";
+    }
     const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-secondary'>Cancel</span>";
+    }
+    const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-danger'>Delete</span>";
     }
 
     this.tableDataCurrencyDetail = [
@@ -1450,31 +1498,22 @@ export class TableServicesService {
     },
     );
 
-    this.tableDataRealisasi = [
-      {id:1, month:"18 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-      {id:2, month:"17 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-      {id:3, month:"16 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-      {id:4, month:"15 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-      {id:5, month:"14 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-      {id:6, month:"13 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-      {id:7, month:"12 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-      {id:8, month:"11 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-      {id:9, month:"10 Oktober 2023", USD: "15.731", EUR: "4.90", JPY: "4.90", GBP: "4.90"},
-  ]
-
   this.tableRealisasi = new Tabulator(".table-realisasi", {
     // height:205,
-    data:this.tableDataRealisasi,
+    data:this.shareDataRealisasiKursUsd,
     layout:"fitColumns",
     columns:[
-      {title:"Tanggal", field:"month", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
-      {title:"USD", field:"USD", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
-      {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
-      {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
-      {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
-      {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+      {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+      {title:"Mata Uang", field:"mata_uang", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
+      {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
+      {title:"Action", headerHozAlign:"center", columns:[
+        {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
+        {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
+      ]},
       {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonCurrency, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
     ],
   });
 
@@ -1500,9 +1539,15 @@ export class TableServicesService {
       {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
       {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
       {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
-      {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+      {title:"Action", headerHozAlign:"center", columns:[
+        {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
+        {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
+      ]},
       {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonCurrency, headerSort:false, resizable:false,visible:false},],
+      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
+    ],
   });
 
     this.tableDataOutlook = [
@@ -1527,9 +1572,14 @@ export class TableServicesService {
       {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
       {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
       {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
-      {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+      {title:"Action", headerHozAlign:"center", columns:[
+        {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
+        {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
+      ]},
       {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonCurrency, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
       ],
   });
 
@@ -1562,14 +1612,23 @@ export class TableServicesService {
   }
 
   initializeTableDataInterestRate(){
+    const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Tambah</span>";
+    }
     const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-warning'>Edit</span>";
     }
     const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-primary'>Save</span>";
     }
+    const saveAddBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-success'>Tambah</span>";
+    }
     const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-secondary'>Cancel</span>";
+    }
+    const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-danger'>Delete</span>";
     }
 
     this.tableDataInterestRate = [
@@ -1622,9 +1681,14 @@ export class TableServicesService {
         {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
         {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonInterestRate, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
       ],
       });
 
@@ -1649,9 +1713,14 @@ export class TableServicesService {
           {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
           {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
           {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
-          {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+          {title:"Action", headerHozAlign:"center", columns:[
+            {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
+            {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
+          ]},
           {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonInterestRate, headerSort:false, resizable:false,visible:false},
+          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
+          {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+          {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
         ],
     });
 
@@ -1677,23 +1746,37 @@ export class TableServicesService {
         {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
         {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonInterestRate, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
       ],
     });
   }
 
   initializeTableDataCommodities(){
 
+    const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Tambah</span>";
+    }
     const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-warning'>Edit</span>";
     }
     const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-primary'>Save</span>";
     }
+    const saveAddBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-success'>Tambah</span>";
+    }
     const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-secondary'>Cancel</span>";
+    }
+    const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-danger'>Delete</span>";
     }
 
     this.tableCommodities = new Tabulator(".table-commoditiesDetail", {
@@ -1721,24 +1804,33 @@ export class TableServicesService {
   });
 
   this.tableRealisasiComodities = new Tabulator(".table-realisasi", {
-    // height:205,
+    // height:500,
     data:this.shareDataRealisasiCommodities,
+    pagination:true, //enable.
+    paginationSize:15,
     layout:"fitColumns",
       columns:[
         {title:"Item", field:"kode_item", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
-        {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
-        {title:"Kategoria", field:"kategori", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
+        {title:"Kategori", field:"kategori", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiCommodities, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton", formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiCommodities, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton", formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton", formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiCommodities, headerSort:false, resizable:false,visible:false},
       ],
     });
 
 
     this.tableRKAPComodities = new Tabulator(".table-RKAP", {
-      // height:205,
+      // height: 500,
+      pagination:true, //enable.
+      paginationSize:15,
       data:this.shareDataRkapCommodities,
       layout:"fitColumns",
         columns:[
@@ -1754,7 +1846,9 @@ export class TableServicesService {
     });
 
     this.tableOutlookComodities = new Tabulator(".table-Outlook", {
-      // height:205,
+      // height:500,
+      pagination:true, //enable.
+      paginationSize:15,
       data:this.shareDataOutlookCommodities,
       layout:"fitColumns",
       columns:[
@@ -1771,14 +1865,23 @@ export class TableServicesService {
   }
 
   initializeTableDataBondYield(){
+    const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-primary'>Tambah</span>";
+    }
     const editBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-warning'>Edit</span>";
     }
     const saveBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-primary'>Save</span>";
     }
+    const saveAddBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-success'>Tambah</span>";
+    }
     const cancelBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span class='badge text-bg-secondary'>Cancel</span>";
+    }
+    const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span class='badge text-bg-danger'>Delete</span>";
     }
     this.tableBondYieldUST = new Tabulator(".table-bondYieldDetail", {
       // height:205,
@@ -1824,9 +1927,14 @@ export class TableServicesService {
       {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "input" },
       {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "input"},
       {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "input"},
-      {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+      {title:"Action", headerHozAlign:"center", columns:[
+        {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
+        {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
+      ]},
       {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonBondYield, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
     ],
   });
 
@@ -1851,9 +1959,14 @@ export class TableServicesService {
         {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "input"},
         {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "input"},
         {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "input"},
-        {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonBondYield, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
       ],
     });
 
@@ -1878,9 +1991,14 @@ export class TableServicesService {
           {title:"EUR", field:"EUR", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
           {title:"JPY", field:"JPY", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
           {title:"GBP", field:"GBP", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
-          {title:"", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, resizable:false},
+          {title:"Action", headerHozAlign:"center", columns:[
+            {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
+            {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
+          ]},
           {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonBondYield, headerSort:false, resizable:false,visible:false},
+          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
+          {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+          {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
         ],
       })
   }
@@ -3598,6 +3716,7 @@ export class TableServicesService {
     console.log(data);
      await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data);
   }
+  // commodities
   cellClick_SaveButtonRealisasiCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
@@ -3618,7 +3737,31 @@ export class TableServicesService {
       kategori: rowData.kategori
     }
     console.log(data);
-    // const response = await this.marketUpdateService.fetchDataUpdateRealisasiCommodities(data);
+    const response = await this.marketUpdateService.fetchDataUpdateRealisasiCommodities(data);
+  }
+  cellClick_addButtonRealisasiCommodities = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      id: rowData.id,
+      kode_item: rowData.kode_item,
+      tahun: rowData.tahun,
+      tanggal: rowData.tanggal,
+      nilai: rowData.nilai,
+      kategori: rowData.kategori
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputRealisasiCommodities(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
   cellClick_SaveButtonRkapCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();

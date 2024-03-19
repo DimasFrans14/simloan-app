@@ -151,6 +151,7 @@ export class InflasiComponent {
     } catch(error) {
       console.log(error)
     }
+    this.tableConfig.setDataRealisasiInflasi(this.dataDetailRealisasi);
     console.log('finish get data by function')
   }
   async getDataRkap(){
@@ -165,6 +166,7 @@ export class InflasiComponent {
     } catch(error) {
       console.log(error)
     }
+    this.tableConfig.setDataRkapInflasi(this.dataDetailRkap);
     console.log('finish get data by function')
   }
   async getDataOutlook(){
@@ -179,6 +181,7 @@ export class InflasiComponent {
     } catch(error) {
       console.log(error)
     }
+    this.tableConfig.setDataOutlookInflasi(this.dataDetailOutlook);
     console.log('finish get data by function')
   }
 
@@ -232,10 +235,8 @@ export class InflasiComponent {
     await this.getDataRealisasi();
     await this.getDataRkap();
     await this.getDataOutlook();
+
     this.tableConfig.initializeTableDataInflasi();
-    this.tableConfig.setDataRealisasiInflasi(this.dataDetailRealisasi);
-    this.tableConfig.setDataRkapInflasi(this.dataDetailRkap);
-    this.tableConfig.setDataOutlookInflasi(this.dataDetailOutlook);
   }
 
   ngAfterViewInit(): void {
