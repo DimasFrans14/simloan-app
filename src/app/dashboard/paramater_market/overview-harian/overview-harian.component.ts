@@ -231,9 +231,11 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   openModalTakeways(){
     this.openModal = !this.openModal;
   }
-  openModalFootnote(){
+  openModalFootnote(stateFootnote: string){
     this.openModalFootnote1 = !this.openModalFootnote1;
-    this.footNoteState = 'add';
+    if(stateFootnote === ''){
+      this.footNoteState = 'add';
+    }
   }
 
   openModalTagFootnote(){
@@ -688,7 +690,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     this.footNoteData.dashboard_date = (this.filteredDate == '') ? moment().format('DD/MM/YYYY'): this.filteredDate;
     console.log("Footnote : ", item);
 
-    this.openModalFootnote()
+    this.openModalFootnote(this.footNoteState)
     this.quillFootnote.setContents(JSON.parse(item.ori_content));
   }
 
