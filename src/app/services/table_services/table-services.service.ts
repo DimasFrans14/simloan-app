@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class TableServicesService {
-  
+
   constructor(
     private marketUpdateService: MarketUpdateService,
     private router: Router,
@@ -191,7 +191,7 @@ export class TableServicesService {
   }
 
   getDataCommodities(data: any){
-    this.dataCommodities = data.data;
+    this.dataCommodities = data;
     // console.log('data commodities', this.dataCommodities);
   }
   getDataPDB(data: any){
@@ -471,7 +471,7 @@ export class TableServicesService {
 
   tableDataFincost:any;
   tableFincost:any;
- 
+
   editCheck = function(cell:any){
     //cell - the cell component for the editable cell
 
@@ -509,10 +509,10 @@ export class TableServicesService {
         ],
         headerHozAlign:"center"
     },
-    {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-    {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-    {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-    {title:"Change 1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Change <br/>RKAP %", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Change 1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     }
     );
@@ -530,10 +530,10 @@ export class TableServicesService {
         {title:yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
         {title:today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
 
-        {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change 1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>RKAP %", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change 1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
    });
 
@@ -553,9 +553,9 @@ export class TableServicesService {
         ],
         headerHozAlign:"center"
     },
-    {title:"Yield Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-    {title:"Yield Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-    {title:"Yield Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Yield Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Yield Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Yield Change <br/>1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
 
   });
@@ -576,9 +576,9 @@ export class TableServicesService {
         ],
         headerHozAlign:"center"
     },
-    {title:"Yield Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-    {title:"Yield Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-    {title:"Yield Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Yield Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Yield Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Yield Change <br/>1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
 
   });
@@ -588,7 +588,7 @@ export class TableServicesService {
     data:this.dataCommodities,
     layout:"fitColumns",
     columns:[
-      {title:"Commodities", field:"keterangan", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+      {title:"Commodities", field:"kode", headerHozAlign:"center", hozAlign:'left', headerSort:false},
   {//create column group
       title:"Price",
       columns:[
@@ -600,8 +600,8 @@ export class TableServicesService {
       ],
       headerHozAlign:"center"
   },
-  {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-  {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+  {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+  {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
   {title:"Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
   {title:"Change Dari RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
     ],
@@ -758,9 +758,9 @@ export class TableServicesService {
           ],
           headerHozAlign:"center"
       },
-      {title:"Yield Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"Yield Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"Yield Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"Yield Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"Yield Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"Yield Change <br/>1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     ],
     });
     this.tableDataRealisasi = [
@@ -909,7 +909,7 @@ export class TableServicesService {
     },
       columns:[
         {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left',editable:this.isRowSelected, editor: "input",headerSort:false,},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center',editable:this.isRowSelected, editor: "number", headerSort:false}, 
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center',editable:this.isRowSelected, editor: "number", headerSort:false},
         {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerSort:false, headerHozAlign:"center", hozAlign:'center', resizable:false},
@@ -1117,7 +1117,7 @@ export class TableServicesService {
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", resizable:false}
-        ]}, 
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiPMI, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
@@ -1137,7 +1137,7 @@ export class TableServicesService {
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", resizable:false}
-        ]}, 
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapPMI, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
@@ -1157,7 +1157,7 @@ export class TableServicesService {
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", resizable:false}
-        ]}, 
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
@@ -1217,7 +1217,7 @@ export class TableServicesService {
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", resizable:false}
-        ]}, 
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiRetail, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
@@ -1237,7 +1237,7 @@ export class TableServicesService {
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", resizable:false}
-        ]}, 
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapRetail, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
@@ -1257,7 +1257,7 @@ export class TableServicesService {
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", resizable:false}
-        ]}, 
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookRetail, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
@@ -1317,7 +1317,7 @@ export class TableServicesService {
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", resizable:false}
-        ]}, 
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiMoneySupply, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
@@ -1337,7 +1337,7 @@ export class TableServicesService {
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", resizable:false}
-        ]}, 
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapMoneySupply, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
@@ -1357,7 +1357,7 @@ export class TableServicesService {
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", resizable:false}
-        ]}, 
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookMoneySupply, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
@@ -1411,7 +1411,7 @@ export class TableServicesService {
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", resizable:false}
-        ]}, 
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiCadev, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
@@ -1431,7 +1431,7 @@ export class TableServicesService {
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", resizable:false}
-        ]}, 
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapCadev, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
@@ -1451,7 +1451,7 @@ export class TableServicesService {
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", resizable:false}
-        ]}, 
+        ]},
         {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
         {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookCadev, headerSort:false, resizable:false,visible:false},
         {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
@@ -1497,8 +1497,8 @@ export class TableServicesService {
         ],
         headerHozAlign:"center"
     },
-    {title:"Change <br/>MoM", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-    {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+    {title:"Change <br/>MoM %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+    {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
     {title:"Change <br/>1 Day", field:"change1_day", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
     {title:"Change Dari RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
     ],},
@@ -1629,10 +1629,10 @@ export class TableServicesService {
         {title:"24/02/23", field:"rate", hozAlign:"center", headerHozAlign:"center"},
         {title:"20/03/23", field:"rate", hozAlign:"center", headerHozAlign:"center"},
 
-        {title:"Change <br/>RKAP", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>MoM", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>WoW", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change 1 Day", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>RKAP %", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>MoM %", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>WoW %", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change 1 Day %", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
     this.tableRealisasiInterestRate = new Tabulator(".table-realisasiInterestRate", {
@@ -1744,8 +1744,8 @@ export class TableServicesService {
       ],
       headerHozAlign:"center"
   },
-  {title:"Change <br/>MoM", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-  {title:"Change <br/>WoW", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>MoM %", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+  {title:"Change <br/>WoW %", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
   {title:"Change <br/>1 Day", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
   {title:"Change Dari RKAP", field:"nilai_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     ],
@@ -1859,9 +1859,9 @@ export class TableServicesService {
         ],
         headerHozAlign:"center"
     },
-    {title:"Yield Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
-    {title:"Yield Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Yield Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
+    {title:"Yield Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       ],
   });
 
@@ -2127,9 +2127,9 @@ export class TableServicesService {
         ],
         headerHozAlign:"center"
     },
-    {title:"Yield Change <br/>MoM", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Yield Change <br/>WoW", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-    {title:"Yield Change <br/>1 Day", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>MoM %", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>WoW %", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+    {title:"Yield Change <br/>1 Day %", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
       ],
 
   });
