@@ -44,6 +44,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   stroke!: ApexStroke;
   lineChartKursTooltip!: ApexTooltip;
   lineChartKursMarkers!: ApexMarkers;
+  legendCurrencyLineChart!: ApexLegend;
 
   barChartKursSeries: ApexAxisChartSeries = [];
   barChartDataLabel!: ApexDataLabels;
@@ -67,15 +68,18 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   dataIcpChart!:ApexAxisChartSeries;
   dataIcpBarChart!:ApexAxisChartSeries;
   xAxisIcpChart!:ApexXAxis;
+  legendICPChart!: ApexLegend;
 
   dataChartCoal!:ApexAxisChartSeries;
   dataChartCoalBar!: ApexAxisChartSeries;
   xAxisChartCoal!:ApexXAxis;
+  legendCOALChart!: ApexLegend;
 
   dataChartLngLine!: ApexAxisChartSeries;
   dataChartLngBar!: ApexAxisChartSeries;
   xAxisChartLng!: ApexXAxis;
   xAxisChartBarLng!: ApexXAxis;
+  legendLNGChart!: ApexLegend;
 
   selectedItems!: number;
 
@@ -137,6 +141,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   isLoadingInterestLine: boolean = false;
   isLoadingInterestBar: boolean = false;
+
+  isClickedBarChart: boolean = false;
 
   chartCommodities = [
     {
@@ -1247,7 +1253,15 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         responseData  = await this.marketUpdateService.fetchDataInterestRateTrending(oneWeekAgo, today)
 
         this.trendInterestData = responseData;
-        this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData
+        this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData;
+
+        this.interestRateXaxis = {
+          labels: {
+              formatter: function(value, timestamp){
+              return moment(new Date(value)).format("DD MMM YYYY")
+            }
+          }
+        }
 
         localStorage.setItem('dataInterestLine', JSON.stringify(this.trendInterestData.d.arrayData))
 
@@ -1268,6 +1282,14 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         this.trendInterestData = responseData;
         this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData
 
+        this.interestRateXaxis = {
+          labels: {
+              formatter: function(value, timestamp){
+              return moment(new Date(value)).format("DD MMM YYYY")
+            }
+          }
+        }
+
         localStorage.setItem('dataInterestLine', JSON.stringify(this.trendInterestData.d.arrayData))
 
         if(this.trendInterestData.s === 200){
@@ -1285,7 +1307,18 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         responseData  = await this.marketUpdateService.fetchDataInterestRateTrending(oneYearsAgo, today)
 
         this.trendInterestData = responseData;
-        this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData
+        this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData;
+
+        this.interestRateXaxis = {
+          labels:{},
+          type:'datetime'
+        }
+
+        this.interestRateXaxis.labels = {
+            formatter: function(value, timestamp){
+            return moment(new Date(value)).format("DD MMM YYYY")
+          }
+        }
 
         localStorage.setItem('dataInterestLine', JSON.stringify(this.trendInterestData.d.arrayData))
 
@@ -1305,6 +1338,17 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
       this.trendInterestData = responseData;
       this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData;
+
+      this.interestRateXaxis = {
+        labels:{},
+        type:'datetime'
+      }
+
+      this.interestRateXaxis.labels = {
+          formatter: function(value, timestamp){
+          return moment(new Date(value)).format("DD MMM YYYY")
+        }
+      }
 
       localStorage.setItem('dataInterestLine', JSON.stringify(this.trendInterestData.d.arrayData))
 
@@ -1394,7 +1438,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
 
           this.xAxisWtiChartBrent = {
-            type:'datetime'
+            type:'datetime',
+            labels: {
+              formatter: function(value, timestamp, opts) {
+                return moment(new Date(value)).format("DD MMM YYYY")
+              },
+            }
           }
 
         }
@@ -1416,7 +1465,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
 
           this.xAxisWtiChartBrent = {
-            type:'datetime'
+              type:'datetime',
+              labels: {
+                formatter: function(value, timestamp){
+                  return moment(new Date(value)).format("DD MMM YYYY")
+              }
+            }
           }
 
         }
@@ -1485,7 +1539,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.dataIcpChart = this.allTrendICP.d.arrayData;
 
           this.xAxisIcpChart = {
-            type: 'datetime'
+            type: 'datetime',
+            labels: {
+              formatter: function(value, timestamp, opts) {
+                return moment(new Date(value)).format("DD MMM YYYY")
+              },
+            }
           }
 
         }
@@ -1507,7 +1566,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.dataIcpChart = this.allTrendICP.d.arrayData;
 
           this.xAxisIcpChart = {
-            type: 'datetime'
+            type: 'datetime',
+            labels: {
+              formatter: function(value, timestamp, opts) {
+                return moment(new Date(value)).format("DD MMM YYYY")
+              },
+            }
           }
 
         }
@@ -1574,7 +1638,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.dataChartCoal = this.allTrendCOAL.d.arrayData;
 
           this.xAxisChartCoal = {
-            type: 'datetime'
+            type: 'datetime',
+            labels: {
+              formatter: function(value, timestamp, opts) {
+                return moment(new Date(value)).format("DD MMM YYYY")
+              },
+            }
           }
         }
         else if(range_date === '3years'){
@@ -1595,7 +1664,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.dataChartCoal = this.allTrendCOAL.d.arrayData;
 
           this.xAxisChartCoal = {
-            type: 'datetime'
+            type: 'datetime',
+            labels: {
+              formatter: function(value, timestamp, opts) {
+                return moment(new Date(value)).format("DD MMM YYYY")
+              },
+            }
           }
         }
           break;
@@ -1665,6 +1739,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.xAxisChartLng = {
             type: 'datetime',
+            labels: {
+              formatter: function(value, timestamp, opts) {
+                return moment(new Date(value)).format("DD MMM YYYY")
+              },
+            }
           }
 
         }
@@ -1688,6 +1767,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.xAxisChartLng = {
             type: 'datetime',
+            labels: {
+              formatter: function(value, timestamp, opts) {
+                return moment(new Date(value)).format("DD MMM YYYY")
+              },
+            }
           }
 
         }
@@ -2643,6 +2727,17 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.allTrendCOAL= trendCOALCommodities;
     this.allTrendLNG = trendLNGCommodities;
 
+    // this.dataChartWtibrent = [];
+    // this.dataIcpChart = [];
+    // this.dataChartCoal = [];
+    // this.dataChartLngLine = [];
+
+    // this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
+    // this.dataIcpChart = this.allTrendICP.d.arrayData;
+    // this.dataChartCoal = this.allTrendCOAL.d.arrayData;
+    // this.dataChartLngLine = this.allTrendLNG.d.arrayData;
+
+
     // const group = ["['WTI', 'BRENT']", "['ICP']", "['COAL']", "['LNG']"];
 
     // for(let i=0; i<group.length; i++){
@@ -2742,38 +2837,38 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.trendInterestDataBarChart = trendInterestBarChart
     this.barChartInterestRateSeries = this.trendInterestDataBarChart.d.arrayData
 
-    if(this.trendInterestDataBarChart.s === 200){
-      this.isLoadingAllData = false;
-      this.isLoadingKursLine = false;
-      this.isLoadingWTILine = false;
-      this.isLoadingICPLine = false;
-      this.isLoadingCOALLine = false;
-      this.isLoadingLNGLine = false;
-      this.isLoadingInterestLine = false;
+    // if(this.trendInterestDataBarChart.s === 200){
+    //   this.isLoadingAllData = false;
+    //   this.isLoadingKursLine = false;
+    //   this.isLoadingWTILine = false;
+    //   this.isLoadingICPLine = false;
+    //   this.isLoadingCOALLine = false;
+    //   this.isLoadingLNGLine = false;
+    //   this.isLoadingInterestLine = false;
 
-      this.isLoadingKursBar = false;
-      this.isLoadingWTIBar = false;
-      this.isLoadingCOALBar = false;
-      this.isLoadingICPBar = false;
-      this.isLoadingLNGBar = false;
-      this.isLoadingInterestBar = false;
-    }
-    else{
-      this.isLoadingAllData = false;
-      this.isLoadingKursLine = true;
-      this.isLoadingWTILine = true;
-      this.isLoadingICPLine = true;
-      this.isLoadingCOALLine = true;
-      this.isLoadingLNGLine = true;
-      this.isLoadingInterestLine = true;
+    //   this.isLoadingKursBar = false;
+    //   this.isLoadingWTIBar = false;
+    //   this.isLoadingCOALBar = false;
+    //   this.isLoadingICPBar = false;
+    //   this.isLoadingLNGBar = false;
+    //   this.isLoadingInterestBar = false;
+    // }
+    // else{
+    //   this.isLoadingAllData = false;
+    //   this.isLoadingKursLine = true;
+    //   this.isLoadingWTILine = true;
+    //   this.isLoadingICPLine = true;
+    //   this.isLoadingCOALLine = true;
+    //   this.isLoadingLNGLine = true;
+    //   this.isLoadingInterestLine = true;
 
-      this.isLoadingKursBar = true;
-      this.isLoadingWTIBar = true;
-      this.isLoadingCOALBar = true;
-      this.isLoadingICPBar = true;
-      this.isLoadingLNGBar = true;
-      this.isLoadingInterestBar = true;
-    }
+    //   this.isLoadingKursBar = true;
+    //   this.isLoadingWTIBar = true;
+    //   this.isLoadingCOALBar = true;
+    //   this.isLoadingICPBar = true;
+    //   this.isLoadingLNGBar = true;
+    //   this.isLoadingInterestBar = true;
+    // }
   }
 
   fetchDataCompare = async () => {
@@ -2794,6 +2889,23 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   sanitizeInnerHTML(html: string){
     return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+
+  stateLoading = () => {
+    this.isLoadingAllData = false;
+    this.isLoadingKursLine = false;
+    this.isLoadingWTILine = false;
+    this.isLoadingICPLine = false;
+    this.isLoadingCOALLine = false;
+    this.isLoadingLNGLine = false;
+    this.isLoadingInterestLine = false;
+
+    this.isLoadingKursBar = false;
+    this.isLoadingWTIBar = false;
+    this.isLoadingCOALBar = false;
+    this.isLoadingICPBar = false;
+    this.isLoadingLNGBar = false;
+    this.isLoadingInterestBar = false;
   }
 
   async ngOnInit(): Promise<void> {
@@ -2883,16 +2995,19 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.isLoadingLNGBar = true;
       this.isLoadingInterestBar = true;
 
+      //Fetch Line Chart
       await this.fetchDataLineKurs();
       await this.fetchDataLineCommodities();
       await this.fetchDataLineInterest();
-
-      await this.fetchDataBarChartKurs();
-      await this.fetchAllDataBarChartCommodities();
-      await this.fetchAllDataBarChartInterest();
       await this.fetchDataCompare();
-      // console.log(this.isLoadingAllData);
 
+      //Fetch Bar Chart
+      // await this.fetchDataBarChartKurs();
+      // await this.fetchAllDataBarChartCommodities();
+      // await this.fetchAllDataBarChartInterest();
+      // await this.fetchDataCompare();
+
+      this.stateLoading();
       this.barChartKursSeries = this.trendKursDataBarChart;
 
       this.barYAxisKurs = {
@@ -2946,59 +3061,101 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         // size: 2
       }
 
+      this.legendCurrencyLineChart = {
+        showForSingleSeries: true
+      }
+
 
       this.dataChartWtibrent = [];
       this.xAxisWtiChartBrent = {
         // categories: [],
         type:'datetime',
+        labels: {
+          formatter: function(value, timestamp, opts) {
+            return moment(new Date(value)).format("DD MMM YYYY")
+          },
+        }
       }
 
 
       this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
-      this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
+      // this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData;
       this.xAxisBarWtiBrent = {
-        type: 'datetime'
+        type: 'datetime',
       }
 
 
       this.dataIcpChart = [];
 
-      console.log(this.trenddataICPBarChart);
+      this.legendICPChart = {
+        showForSingleSeries: true
+      }
+
 
         this.dataIcpChart = this.allTrendICP.d.arrayData;
-        this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData;
+        // this.dataChartCoal = this.allTrendCOAL.d.arrayData;
+        // this.dataChartLngLine = this.allTrendLNG.d.arrayData;
+        // this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData;
+      console.log(this.dataIcpChart);
+
 
         this.xAxisIcpChart = {
           // categories: [],
           type: 'datetime',
-          // labels : {
-          //   format : 'MMM \'yy'
-          // }
+          labels: {
+            formatter: function(value, timestamp, opts) {
+              return moment(new Date(value)).format("DD MMM YYYY")
+            },
+          }
         }
 
 
 
         this.dataChartCoal = [];
+        this.legendCOALChart = {
+          showForSingleSeries: true
+        }
 
         this.dataChartCoal = this.allTrendCOAL.d.arrayData;
-        this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
+        // this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData;
 
 
         this.xAxisChartCoal = {
           // categories: [],
-          type: 'datetime'
+          type: 'datetime',
+          labels: {
+            formatter: function(value, timestamp, opts) {
+              return moment(new Date(value)).format("DD MMM YYYY")
+            },
+          }
         }
 
+        this.dataChartLngLine = [];
+        this.legendLNGChart = {
+          showForSingleSeries: true
+        }
         this.dataChartLngLine = this.allTrendLNG.d.arrayData;
-        this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
+        // this.dataChartLngBar = this.dataLNGBarChart.d.arrayData;
 
         this.xAxisChartLng = {
-          type: 'datetime'
+          type: 'datetime',
+          labels: {
+            formatter: function(value, timestamp, opts) {
+              return moment(new Date(value)).format("DD MMM YYYY")
+            },
+          }
         }
 
 
       let tempArrInterestRate: any[] = []
       this.lineChartInterestRateSeries = [];
+
+      console.log('first', this.lineChartInterestRateSeries);
+
+      this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData;
+
+      console.log('kedua', this.lineChartInterestRateSeries);
+
 
       // console.log(this.filteredMinMaxInterestRateData.d.arrayData.length)
       for(let i=0; i<this.filteredMinMaxInterestRateData.d.arrayData.length; i++){
@@ -3036,9 +3193,39 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         }
 
         // console.log(this.trendInterestData);
-        this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData;
+        console.log(this.lineChartInterestRateSeries);
+
         this.interestRateXaxis = {
-          type:'datetime',
+          categories: [],
+            labels: {
+              formatter: function(value, timestamp){
+              return moment(new Date(value)).format("MMM YYYY")
+            }
+          },
+          type: 'datetime'
+        }
+
+        for(let i = 0; i < this.trendInterestRateCategories.d.arrayData.length; i++){
+          // const currentDate = this.trendKursCategories.d.arrayTanggal[i];
+
+          // this.tesXaxis.categories.push(currentDate);
+          // if(i < 1){
+          //   this.tesXaxis.labels = {
+          //     formatter: function(value, timestamp){
+          //       return moment(new Date(value)).format("DD MMM YYYY")
+          //     }
+          //   }
+          // }
+          for(let j=0; j<this.trendInterestRateCategories.d.arrayData[i].data.length; j++){
+            this.interestRateXaxis.categories.push(this.trendInterestRateCategories.d.arrayData[i].data[j].x)
+          }
+          if(i < 1){
+            this.tesXaxis.labels = {
+              formatter: function(value, timestamp){
+                return moment(new Date(value)).format("DD MMM YYYY")
+              }
+            }
+          }
         }
 
       // console.log([interestMinVal, interestMaxVal]);
@@ -3092,13 +3279,36 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.activeAllLineChart = true;
   }
 
-  toggleVisibilityBar() {
-    if(this.isVisibleLine){
-      this.isVisibleLine = !this.isVisibleLine;
-      this.activeAllLineChart = !this.activeAllLineChart
-    }
+  toggleVisibilityBar = async () => {
     this.isVisibleBar = false;
     this.activeAllBarChart = true;
+    this.activeAllLineChart = false;
+
+    this.isLoadingKursLine = true;
+    this.isLoadingWTILine = true;
+    this.isLoadingICPLine = true;
+    this.isLoadingCOALLine = true;
+    this.isLoadingLNGLine = true;
+    this.isLoadingInterestLine = true;
+
+    if(!this.isClickedBarChart){
+      await this.fetchDataBarChartKurs();
+      await this.fetchAllDataBarChartCommodities();
+      await this.fetchAllDataBarChartInterest();
+
+      this.isLoadingKursLine = false;
+      this.isLoadingWTILine = false;
+      this.isLoadingICPLine = false;
+      this.isLoadingCOALLine = false;
+      this.isLoadingLNGLine = false;
+      this.isLoadingInterestLine = false;
+    }
+
+
+    this.isClickedBarChart = true;
+    if(this.isVisibleLine){
+      this.isVisibleLine = !this.isVisibleLine;
+    }
   }
 
   filterCurrencyLineChart(event: any) {
@@ -3519,12 +3729,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       show: true,
       tools: {
         download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
       }
     }
   }
@@ -3535,12 +3745,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       show: true,
       tools: {
         download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
       }
     }
   }
@@ -3597,12 +3807,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       show: true,
       tools: {
         download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
       }
     }
   }
@@ -3632,12 +3842,12 @@ coalLineChart:ApexChart={
     show: true,
     tools: {
       download: true,
-      selection: false,
-      zoom: false,
-      zoomin: false,
-      zoomout: false,
-      pan: false,
-      reset: false,
+      selection: true,
+      zoom: true,
+      zoomin: true,
+      zoomout: true,
+      pan: true,
+      reset: true,
     }
   }
 }
@@ -3648,12 +3858,12 @@ coalBarChart:ApexChart={
     show: true,
     tools: {
       download: true,
-      selection: false,
-      zoom: false,
-      zoomin: false,
-      zoomout: false,
-      pan: false,
-      reset: false,
+      selection: true,
+      zoom: true,
+      zoomin: true,
+      zoomout: true,
+      pan: true,
+      reset: true,
     }
   }
 }
@@ -3694,12 +3904,12 @@ coalStroke:ApexStroke ={
       show: true,
       tools: {
         download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
       }
     }
   }
@@ -3756,12 +3966,12 @@ coalStroke:ApexStroke ={
       show: true,
       tools: {
         download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
       }
     }
   }
@@ -3808,12 +4018,12 @@ coalStroke:ApexStroke ={
       show: true,
       tools: {
         download: true,
-        selection: false,
-        zoom: false,
-        zoomin: false,
-        zoomout: false,
-        pan: false,
-        reset: false,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
       }
     }
   }

@@ -40,6 +40,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   openModal: boolean = false;
   openModalFootnote1: boolean = false;
+  openModalTag: boolean = false;
 
   selectedItems!: string;
   selectedKurs!: string;
@@ -232,6 +233,11 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   }
   openModalFootnote(){
     this.openModalFootnote1 = !this.openModalFootnote1;
+    this.footNoteState = 'add';
+  }
+
+  openModalTagFootnote(){
+    this.openModalTag = !this.openModalTag;
   }
 
   getValueForm(event: any) {
@@ -704,6 +710,10 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     this.quillInnerHTMLFootnote = this.resObject.d
     // this.openModalFootnote()
     // this.quillFootnote.setContents(JSON.parse(item.ori_content));
+  }
+
+  linkFootnote = (position:string, tag:string) => {
+    alert("Position : "+position+" || Tag : "+tag)
   }
 
   mentionInnerHTML: any = '';
