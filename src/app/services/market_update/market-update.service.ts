@@ -735,7 +735,7 @@ export class MarketUpdateService {
     try {
       const params = new HttpParams().set('tahun', year)
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl2}/simloan-ws/market/commodities/getRateList`, {params})
+        this.http.get(`${environment.apiUrl2}/market/commodities/getRateList`, {params})
       );
     } catch (error) {
       console.log(error);
