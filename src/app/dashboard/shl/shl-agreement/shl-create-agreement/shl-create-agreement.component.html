@@ -145,11 +145,11 @@
                 />
               </svg>
             </div>
-            <mat-form-field class="ms-2 input-date">
+            <mat-form-field class="ms-2 input-date-agreement">
               <mat-label class="label-datepicker">Select Date</mat-label>
               <input
                 matInput
-                [matDatepicker]="picker1"
+                [matDatepicker]="tanggalSHLAgreement"
                 autocomplete="off"
                 [ngClass]="{
                   'is-invalid':
@@ -161,10 +161,10 @@
               />
               <mat-datepicker-toggle
                 matSuffix
-                [for]="picker1"
+                [for]="tanggalSHLAgreement"
               ></mat-datepicker-toggle>
               <mat-datepicker
-                #picker1
+                #tanggalSHLAgreement
                 color="primary"
                 disabled="false"
               ></mat-datepicker>
@@ -239,7 +239,7 @@
             </ng-container>
 
             <ng-container *ngIf="selectionOptionCreateAgreement === 'date'">
-              <mat-form-field class="ms-2 input-date">
+              <mat-form-field class="ms-2 input-date-agreement">
                 <mat-label class="label-datepicker">Select Date</mat-label>
                 <input
                   matInput
@@ -362,18 +362,21 @@
           <div class="col-3" style="border-right: 1px solid #d9d9d9">
             <span class="title-nonPenerusan">Non Penerusan Pinjaman</span>
             <br />
-            <span>Total Proyek : 1</span>
+            <span>Total Proyek : {{totalProjectList}}</span>
 
             <div
               class="d-flex flex-column justify-content-center align-items-start mt-4 list-project"
               style="gap: 24px"
             >
+            <ng-container *ngFor="let item of buttonProject">
               <button
-                class="btn btn-outline-primary p-2 text-start"
-                style="min-width: 260px"
+              class="btn btn-outline-primary p-2 text-start"
+              style="min-width: 260px"
+              (click)="getDataProject(item)"
               >
-                <i class="bi bi-file-earmark-lock px-1"></i>Project 1
+                <i class="bi bi-file-earmark-lock px-1"></i>Project {{item}}
               </button>
+            </ng-container>
               <!-- <button
                 class="btn btn-outline-primary p-2 text-start"
                 style="min-width: 260px"
@@ -383,6 +386,7 @@
               <button
                 class="btn btn-outline-primary p-2 text-start"
                 style="min-width: 260px"
+                (click)="tambahProject()"
               >
                 <i class="bi bi-plus-lg px-1"></i>Tambah Project Baru
               </button>
@@ -527,7 +531,7 @@
                 </ng-container>
 
                 <ng-container *ngIf="berakhirPerjanjian === 'date'">
-                  <mat-form-field class="ms-2 input-date">
+                  <mat-form-field class="ms-2 input-date-agreement">
                     <mat-label class="label-datepicker">Select Date</mat-label>
                     <input
                       matInput
@@ -626,7 +630,7 @@
                 </ng-container>
 
                 <ng-container *ngIf="availabilityPeriode === 'date'">
-                  <mat-form-field class="ms-2 input-date">
+                  <mat-form-field class="ms-2 input-date-agreement">
                     <mat-label class="label-datepicker">Select Date</mat-label>
                     <input
                       matInput
@@ -722,7 +726,7 @@
                 </ng-container>
 
                 <ng-container *ngIf="gracePeriod === 'date'">
-                  <mat-form-field class="ms-2 input-date">
+                  <mat-form-field class="ms-2 input-date-agreement">
                     <mat-label class="label-datepicker">Select Date</mat-label>
                     <input
                       matInput
@@ -858,7 +862,7 @@
                     />
                   </svg>
                 </div>
-                <mat-form-field class="ms-2 input-date">
+                <mat-form-field class="ms-2 input-date-agreement">
                   <mat-label class="label-datepicker">Select Date</mat-label>
                   <input
                     matInput
@@ -1074,8 +1078,13 @@
                   >
                 </div>
               </div>
-              <div>
-                <button mat-button (click)="onNextClickSecond()">Next</button>
+              <div class="d-flex justify-content-end align-items-center gap-1">
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                </div>
+                <div>
+                  <button mat-button (click)="onNextClickSecond()">Next</button>
+                </div>
               </div>
             </form>
           </div>
