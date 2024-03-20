@@ -19,12 +19,9 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
   }
 
   dataDetail: any;
-  dataDetailRealisasiKursUsd: any;
-  dataDetailRkapKursUsd: any;
-  dataDetailOutlookKursUsd: any;
-  dataDetailRealisasiKursNonUsd: any;
-  dataDetailRkapKursNonUsd: any;
-  dataDetailOutlookKursNonUsd: any;
+  dataDetailRealisasi: any;
+  dataDetailRkap: any;
+  dataDetailOutlook: any;
   filteredData: String[] = [];
   isLoading: Boolean = true;
   realisasiKursItem!: number;
@@ -133,42 +130,52 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     } catch (error) {
       console.log(error);
     }
-
-    // for(let i=0; i<10; i++){
-    //   this.filteredData.push(this.dataDetail.data.content[i]);
-    // }
-
-    // console.log('updated data', this.filteredData);
     this.tableConfig.setData(this.dataDetail);
     console.log('finish get data in func');
-
+  }
+  async getDataRealisasi(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading RealisasiKursUsd');
+    try{
+      const data = await this.marketUpdateService.fetchDataRealisasiKursUsd();
+      this.dataDetailRealisasi = data;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      this.isLoading = false;
+      console.log(this.isLoading,'loading 2', this.dataDetailRealisasi);
+    } catch(error) {
+      console.log(error)
+    }
+    this.tableConfig.setDataRealisasiKursUsd(this.dataDetailRealisasi);
+    console.log('finish get data by function')
   }
   async getDataRkapKursUsd(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading RealisasiKursUsd');
     try{
       const data = await this.marketUpdateService.fetchDataRkapKursUsd();
-      this.dataDetailRkapKursUsd = data;
-      this.dataDetailRkapKursUsd = this.dataDetailRkapKursUsd.data;
+      this.dataDetailRkap = data;
+      this.dataDetailRkap = this.dataDetailRkap.data;
       this.isLoading = false;
-      console.log(this.isLoading,'loading 2', this.dataDetailRkapKursUsd);
+      console.log(this.isLoading,'loading 2', this.dataDetailRkap);
     } catch(error) {
       console.log(error)
     }
+    this.tableConfig.setDataRkapKursUsd(this.dataDetailRkap);
     console.log('finish get data by function')
   }
-  async getDataRealisasiKursUsd(){
+  async getDataOutlookKursUsd(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading RealisasiKursUsd');
     try{
-      const data = await this.marketUpdateService.fetchDataRealisasiKursUsd();
-      this.dataDetailRealisasiKursUsd = data;
-      this.dataDetailRealisasiKursUsd = this.dataDetailRealisasiKursUsd.data;
+      const data = await this.marketUpdateService.fetchDataOutlookKursUsd();
+      this.dataDetailOutlook = data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data;
       this.isLoading = false;
-      console.log(this.isLoading,'loading 2', this.dataDetailRealisasiKursUsd);
+      console.log(this.isLoading,'loading 2', this.dataDetailOutlook);
     } catch(error) {
       console.log(error)
     }
+    this.tableConfig.setDataOutlookKursUsd(this.dataDetailOutlook);
     console.log('finish get data by function')
   }
 
@@ -206,9 +213,10 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     console.log('load data');
 
     await this.getData();
-    await this.getDataRealisasiKursUsd();
+    await this.getDataRealisasi();
+    await this.getDataRkapKursUsd();
+    await this.getDataOutlookKursUsd();
 
-    this.tableConfig.setDataRealisasiKursUsd(this.dataDetailOutlookKursUsd);
     this.tableConfig.initializeTableDataCurrency();
   }
 

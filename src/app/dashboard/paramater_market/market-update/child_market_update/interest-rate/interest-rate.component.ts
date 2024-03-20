@@ -20,6 +20,9 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
   }
 
   dataDetail: any;
+  dataDetailRealisasi: any;
+  dataDetailRkap: any;
+  dataDetailOutlook: any;
   filteredData: String[] = [];
   isLoading: Boolean = true;
   realisasiKursItem!: number;
@@ -139,7 +142,57 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
     console.log('finish get data in func');
 
   }
+  async getDataRealisasi(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    let getYear = moment().format('YYYY');
 
+    try {
+      const data = await this.marketUpdateService.fetchDataRealisasiInterestRate();
+      this.dataDetailRealisasi = data;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
+    } catch (error) {
+      console.log(error);
+    }
+    this.tableConfig.setDataRealisasiInterestRate(this.dataDetailRealisasi);
+    console.log('finish get data in func');
+  }
+  async getDataRkap(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    let getYear = moment().format('YYYY');
+
+    try {
+      const data = await this.marketUpdateService.fetchDataRkapInterestRate();
+      this.dataDetailRkap = data;
+      this.dataDetailRkap = this.dataDetailRkap.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailRkap);
+    } catch (error) {
+      console.log(error);
+    }
+    this.tableConfig.setDataRkapInterestRate(this.dataDetailRkap);
+    console.log('finish get data in func');
+  }
+  async getDataOutlook(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    let getYear = moment().format('YYYY');
+
+    try {
+      const data = await this.marketUpdateService.fetchDataOutlookInterestRate();
+      this.dataDetailOutlook = data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
+    } catch (error) {
+      console.log(error);
+    }
+    this.tableConfig.setDataOutlookInterestRate(this.dataDetailOutlook);
+    console.log('finish get data in func');
+  }
   onDate(event: any){
     console.log(event);
 
@@ -174,6 +227,10 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
     console.log('load data');
 
     await this.getData();
+    await this.getDataRealisasi();
+    await this.getDataRkap();
+    await this.getDataOutlook();
+    
     this.tableConfig.initializeTableDataInterestRate();
   }
 

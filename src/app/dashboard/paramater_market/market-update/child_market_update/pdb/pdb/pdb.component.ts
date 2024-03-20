@@ -22,6 +22,7 @@ export class PdbComponent {
   }
 
   dataDetail: any;
+  dataDetailRealisasi: any;
   dataDetailOutlook:any;
   dataDetailRkap:any;
   filteredData: String[] = [];
@@ -144,13 +145,23 @@ export class PdbComponent {
     } catch (error) {
       console.log(error);
     }
-
-    // for(let i=0; i<10; i++){
-    //   this.filteredData.push(this.dataDetail.data.content[i]);
-    // }
-
-    // console.log('updated data', this.filteredData);
     this.tableConfig.setDataPdb(this.dataDetail);
+    console.log('finish get data in func');
+  }
+  async getDataRealisasi(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+
+    try {
+      const data = await this.marketUpdateService.fetchDataRealisasiPDB();
+      this.dataDetailRealisasi = data;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
+    } catch (error) {
+      console.log(error);
+    }
+    this.tableConfig.setDataRealisasiPdb(this.dataDetailRealisasi);
     console.log('finish get data in func');
   }
   async getDataRkap(){
@@ -222,6 +233,7 @@ export class PdbComponent {
     console.log('load data');
 
     await this.getData();
+    await this.getDataRealisasi();
     await this.getDataOutlook();
     await this.getDataRkap();
     this.tableConfig.initializeTableDataPDB();
