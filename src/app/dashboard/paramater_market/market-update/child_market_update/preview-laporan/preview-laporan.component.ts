@@ -61,7 +61,7 @@ export class PreviewLaporanComponent implements OnInit{
   }
 
   dashRealMacroIndicators = {
-    "dash_real_macro_indicators": this.tablePreview.dataTabelPreview
+    "mstr_real_macro_indicators": this.tablePreview.dataTabelPreview
   };
 
   sendDataResponse: any;
@@ -416,7 +416,7 @@ export class PreviewLaporanComponent implements OnInit{
               if(indikatorParams === 'Realisasi'){
                 try {
                   this.isLoading = true;
-                  const response = await this.marketUpdateService.importLaporanMacroIndicator(JSON.stringify(subCategory_params), this.dashRealMacroIndicators)
+                  const response = await this.marketUpdateService.importLaporanMacroIndicator(JSON.stringify(subCategory_params), fileExcel)
                   // console.log(response);
 
 

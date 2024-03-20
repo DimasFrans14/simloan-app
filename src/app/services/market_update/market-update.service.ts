@@ -586,7 +586,7 @@ export class MarketUpdateService {
       "get_20y": data.get_20y,
       "get_25y": data.get_25y,
       "get_30y": data.get_30y,
-      "group":data.group, 
+      "group":data.group,
       "is_active": true
       }
     try {
@@ -608,7 +608,7 @@ export class MarketUpdateService {
       "get_20y": data.get_20y,
       "get_25y": data.get_25y,
       "get_30y": data.get_30y,
-      "group":data.group, 
+      "group":data.group,
       "is_active": true
     }
   try {
@@ -854,7 +854,7 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateRkapCommodities(data:any){
     const data1 = {
-      "id": data.id,  
+      "id": data.id,
       "kode_item": data.kode_item,
       "nilai": data.nilai,
       "tanggal": data.tanggal,
@@ -2360,12 +2360,12 @@ export class MarketUpdateService {
     }
   }
 
-  importLaporanMacroIndicator = async (params: string, data: any) => {
-    const headers = { 'content-type': 'application/json'}
-    const body = JSON.stringify(data)
+  importLaporanMacroIndicator = async (params: string, file: File) => {
+    const form = new FormData()
+    form.append('file', file, file.name);
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/macro/create?globalMacroIndicatorEnum=${JSON.parse(params)}`, body, {'headers': headers})
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/macro/create?globalMacroIndicatorEnum=${JSON.parse(params)}`, form)
       )
     } catch (error) {
       return null
