@@ -2859,15 +2859,15 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.allTrendCOAL= trendCOALCommodities;
     this.allTrendLNG = trendLNGCommodities;
 
-    // this.dataChartWtibrent = [];
-    // this.dataIcpChart = [];
-    // this.dataChartCoal = [];
-    // this.dataChartLngLine = [];
+    this.dataChartWtibrent = [];
+    this.dataIcpChart = [];
+    this.dataChartCoal = [];
+    this.dataChartLngLine = [];
 
-    // this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
-    // this.dataIcpChart = this.allTrendICP.d.arrayData;
-    // this.dataChartCoal = this.allTrendCOAL.d.arrayData;
-    // this.dataChartLngLine = this.allTrendLNG.d.arrayData;
+    this.dataChartWtibrent = this.allTrendWTIBRENT.d.arrayData;
+    this.dataIcpChart = this.allTrendICP.d.arrayData;
+    this.dataChartCoal = this.allTrendCOAL.d.arrayData;
+    this.dataChartLngLine = this.allTrendLNG.d.arrayData;
 
 
     // const group = ["['WTI', 'BRENT']", "['ICP']", "['COAL']", "['LNG']"];
@@ -2906,6 +2906,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
     localStorage.setItem('dataInterestLine', JSON.stringify(this.allTrendDataInterestRate.d.arrayData))
 
+    this.lineChartInterestRateSeries = [];
+
     console.log("All Interest Rate : ", this.allTrendDataInterestRate)
     this.allTrendDataInterestRate = this.allTrendDataInterestRate.d.arrayData;
     // console.log("All Interest Rate2 : ", this.allTrendDataInterestRate)
@@ -2913,6 +2915,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.trendInterestData = trendInterestRate;
     this.filteredMinMaxInterestRateData = trendInterestRate;
 
+    this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData
 
   }
 
