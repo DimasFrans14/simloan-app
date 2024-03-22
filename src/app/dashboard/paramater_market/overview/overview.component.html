@@ -259,16 +259,16 @@
                   Customize Bar Chart
                 </button>
                 <div class="dropdown-menu ps-2">
-                  <form (ngSubmit)="filterCurrencyLineChart($event)">
+                  <form (ngSubmit)="filterCurrencyBarChart($event)">
                     <div style="font-size: 15px">
-                      <ng-container *ngFor="let item of allTrendDataKurs">
+                      <ng-container *ngFor="let item of allTrendDataKursBarChart">
                         <input
                           type="checkbox"
                           name="selectedKurs"
                           [id]="item.kurs"
                         />
                         <label class="ms-2" for="item.kurs">{{
-                          item.kurs
+                          item.name
                         }}</label>
                         <br />
                       </ng-container>
@@ -306,12 +306,8 @@
               [style.display]="isVisibleLine ? 'none' : 'block'"
               [series]="barChartKursSeries"
               [chart]="currencyBarChartDetails"
-              [yaxis]="barYAxisKurs"
               [xaxis]="barXAxisKurs"
               [dataLabels]="barDataLabels"
-              [stroke]="stroke"
-              [tooltip]="lineChartKursTooltip"
-              [markers]="lineChartKursMarkers"
             ></apx-chart>
           </div>
       </div>

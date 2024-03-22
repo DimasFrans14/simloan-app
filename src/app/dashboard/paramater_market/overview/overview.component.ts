@@ -25,16 +25,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     // console.log(dataService);
   }
 
-// chart Batu Bara
-  // dataChartBatuBara = this.chartService.dataChartBatuBara;
-  // batuBaraChart = this.chartService.batuBaraChart;
-  // batuBaraChartTitle = this.chartService.batuBaraChartTitle;
-  // batuBaraColors = this.chartService.batuBaraChartColors;
-  // xAxisBatuBaraChart = this.chartService.xAxixBatuBaraChart;
-  // yAxisBatuBara = this.chartService.yAxisLng;
-  // batuBaraStroke = this.chartService.batuBaraStroke;
-  // end Batu Bara
 
+  tempDataKurs: any;
   dataKurs: any;
   dataRKAP: any;
   lineChartKursSeries: ApexAxisChartSeries = [];
@@ -392,7 +384,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     const oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
     const threeYearsAgo = moment(new Date()).subtract(3, 'years').format('DD/MM/YYYY');
 
-    let responseData;
+    let responseData: any;
     let updateValueOFJPY;
 
     let combinedArray: any = [];
@@ -618,165 +610,122 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       case '1month':
         this.activeButtonLineKurs = range;
         this.isLoadingKursLine = true;
+        let tempData;
+          responseData  = await this.marketUpdateService.fetchDataKursTrend(oneMonthAgo, today).then(
+            data => {
+              setTimeout(() => {
+                tempData = data
+              }, 500);
+            }
+          );
 
-        responseData  = await this.marketUpdateService.fetchDataKursTrend(oneMonthAgo, today);
 
-        setTimeout(() => {
-          console.log(this.lineChartKursSeries);
-        }, 100);
+          this.tempDataKurs = tempData;
+          this.dataKurs = tempData;
+          this.trendKursCategories = tempData;
 
-        this.dataKurs = responseData;
-        this.trendKursCategories = responseData;
+          localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
 
-        localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
+          this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.kurs));
 
-        if(this.dataKurs.s === 200){
-          this.isLoadingKursLine = false;
-        }
-        else{
-          this.isLoadingKursLine = true;
-        }
+          this.valueJPY = responseData;
+          this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
 
-        this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.kurs));
-
-        this.valueJPY = responseData;
-        this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
-
-        updateValueOFJPY = this.valueJPY.map((item: any) => {
-          return item.data.map((value: any) => {
-            const val = value / 100;
-            const slice = val.toString().slice(0,6)
-            const toNumber = parseFloat(slice)
-            return toNumber
+          updateValueOFJPY = this.valueJPY.map((item: any) => {
+            return item.data.map((value: any) => {
+              const val = value / 100;
+              const slice = val.toString().slice(0,6)
+              const toNumber = parseFloat(slice)
+              return toNumber
+            });
           });
-        });
 
-        this.valueJPY = updateValueOFJPY;
+          this.valueJPY = updateValueOFJPY;
 
-        this.lineChartKursSeries = [];
-        console.log('1', this.lineChartKursSeries);
+          this.lineChartKursSeries = [];
 
+          for(let i=0; i < this.dataKurs.length ; i++){
+            const kurs = this.dataKurs[i].kurs;
 
-        for(let i=0; i < this.dataKurs.length ; i++){
-          const kurs = this.dataKurs[i].kurs;
+            if(kurs == 'JPY'){
+              const jpyValue = this.dataKurs[i].data
+              const kursJPY = this.dataKurs[i].kurs
 
-          if(kurs == 'JPY'){
-            const jpyValue = this.dataKurs[i].data
-            const kursJPY = this.dataKurs[i].kurs
-
-            this.lineChartKursSeries.push({
-              name: kursJPY,
-              data: this.valueJPY[0]
-            })
-          }
-          else{
-
-            this.lineChartKursSeries.push(
-              {
-              name: `${kurs}`,
-              data: this.dataKurs[i].data,
-              },
-            )
-          }
-        }
-
-        console.log('2', this.lineChartKursSeries);
-
-
-        this.lineYAxisKurs = [];
-        this.tesXaxis = {
-          categories: [],
-          labels: {}
-        }
-
-        for(let i=0; i< this.dataKurs.length; i++){
-          const kurs = this.dataKurs[i].kurs
-
-          var minVal;
-          var maxVal;
-
-          let minValJPY;
-          let maxValJPY;
-
-          if(kurs != 'JPY' && i < 1){
-            // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
-            combinedArray = combinedArray.concat(this.dataKurs[i].data)
-
-            minVal = combinedArray[0];
-            maxVal = combinedArray[0];
-
-            for(let j=0; j<combinedArray.length; j++){
-              if (combinedArray[j] < minVal) {
-                minVal = combinedArray[j];
-              }
-              else if(combinedArray[j] > maxVal){
-                maxVal = combinedArray[j]
-              }
+              this.lineChartKursSeries.push({
+                name: kursJPY,
+                data: this.valueJPY[0]
+              })
             }
-            console.log(minVal, maxVal);
+            else{
+              this.lineChartKursSeries.push(
+                {
+                name: `${kurs}`,
+                data: this.dataKurs[i].data,
+                },
+              )
+            }
           }
 
-          if(kurs == 'JPY'){
-            // let combinedArray = this.dataKurs[i].data
-            // console.log(combinedArray);
-
-            minValJPY = this.valueJPY[0][0];
-            maxValJPY = this.valueJPY[0][0];
-
-            for(let j=0; j<this.valueJPY[0].length; j++){
-              if (this.valueJPY[0][j] < minValJPY) {
-                minValJPY = this.valueJPY[0][j];
-              }
-              else if(this.valueJPY[0][j] > maxValJPY){
-                maxValJPY = this.valueJPY[0][j]
-              }
-            }
-            console.log(minValJPY, maxValJPY);
+          this.lineYAxisKurs = [];
+          this.tesXaxis = {
+            categories: [],
+            labels: {},
+            type: 'datetime'
           }
 
+          for(let i=0; i< this.dataKurs.length; i++){
+            const kurs = this.dataKurs[i].kurs
 
-        if(kurs === 'USD'){
-          console.log(kurs);
+            var minVal;
+            var maxVal;
 
-          this.lineYAxisKurs.push({
-            showAlways: true,
-            seriesName: kurs,
-            min: minVal - 50,
-            max: maxVal + 50,
-            axisTicks: {
-              show: true
-            },
-            axisBorder: {
-              show: false,
-              color: "#000"
-            },
-            labels: {
-              style: {
-                colors: ["#000"]
-              },
-              formatter : (value) => {return new Intl.NumberFormat().format(value)}
-            },
-            title: {
-              style: {
-                color: "#000"
+            let minValJPY;
+            let maxValJPY;
+
+            if(kurs != 'JPY' && i < 1){
+              // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
+              combinedArray = combinedArray.concat(this.dataKurs[i].data)
+
+              minVal = combinedArray[0];
+              maxVal = combinedArray[0];
+
+              for(let j=0; j<combinedArray.length; j++){
+                if (combinedArray[j] < minVal) {
+                  minVal = combinedArray[j];
+                }
+                else if(combinedArray[j] > maxVal){
+                  maxVal = combinedArray[j]
+                }
               }
-            },
-            tooltip: {
-              enabled: true
+              // console.log(minVal, maxVal);
             }
-              },)
-        }else if(kurs === 'JPY'){
-          console.log(kurs);
 
-          this.lineYAxisKurs.push({
+            if(kurs == 'JPY'){
+              // let combinedArray = this.dataKurs[i].data
+              // console.log(combinedArray);
 
+              minValJPY = this.valueJPY[0][0];
+              maxValJPY = this.valueJPY[0][0];
+
+              for(let j=0; j<this.valueJPY[0].length; j++){
+                if (this.valueJPY[0][j] < minValJPY) {
+                  minValJPY = this.valueJPY[0][j];
+                }
+                else if(this.valueJPY[0][j] > maxValJPY){
+                  maxValJPY = this.valueJPY[0][j]
+                }
+              }
+              console.log(minValJPY, maxValJPY);
+            }
+
+
+          if(kurs === 'USD'){
+
+            this.lineYAxisKurs.push({
               showAlways: true,
               seriesName: kurs,
-              min: minValJPY,
-              max: maxValJPY,
-              tickAmount: 15,
-              opposite: true,
-
+              min: minVal - 50,
+              max: maxVal + 50,
               axisTicks: {
                 show: true
               },
@@ -786,60 +735,101 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               },
               labels: {
                 style: {
-                  colors: ["##000"]
+                  colors: ["#000"]
                 },
                 formatter : (value) => {return new Intl.NumberFormat().format(value)}
               },
               title: {
                 style: {
-                  color: "##000"
+                  color: "#000"
                 }
               },
               tooltip: {
                 enabled: true
               }
-            },
-          )
-        } else {
+                },)
+          }else if(kurs === 'JPY'){
+            console.log(kurs);
 
-          this.lineYAxisKurs.push({
-            show: true,
-            showAlways: true,
-            seriesName: "USD",
-            min:minVal - 200,
-            max:maxVal,
+            this.lineYAxisKurs.push({
 
-            axisTicks: {
-              show: false,
-            },
-            axisBorder: {
-              show: false,
-            },
-            labels: {
-              show:false,
-            },
-            title: {
-              text: "",
-            },
-            tooltip: {
-              enabled: false
-            }
-          })
-        }
-        }
+                showAlways: true,
+                seriesName: kurs,
+                min: minValJPY,
+                max: maxValJPY,
+                tickAmount: 15,
+                opposite: true,
 
-        for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
-          const currentDate = this.trendKursCategories.d.arrayTanggal[i];
+                axisTicks: {
+                  show: true
+                },
+                axisBorder: {
+                  show: false,
+                  color: "#000"
+                },
+                labels: {
+                  style: {
+                    colors: ["##000"]
+                  },
+                  formatter : (value) => {return new Intl.NumberFormat().format(value)}
+                },
+                title: {
+                  style: {
+                    color: "##000"
+                  }
+                },
+                tooltip: {
+                  enabled: true
+                }
+              },
+            )
+          } else {
 
-          this.tesXaxis.categories.push(currentDate);
-          if(i < 1){
-            this.tesXaxis.labels = {
-              formatter: function(value, timestamp){
-                return moment(new Date(value)).format("DD MMM YYYY")
+            this.lineYAxisKurs.push({
+              show: true,
+              showAlways: true,
+              seriesName: "USD",
+              min:minVal - 200,
+              max:maxVal,
+
+              axisTicks: {
+                show: false,
+              },
+              axisBorder: {
+                show: false,
+              },
+              labels: {
+                show:false,
+              },
+              title: {
+                text: "",
+              },
+              tooltip: {
+                enabled: false
+              }
+            })
+          }
+          }
+
+          for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
+            const currentDate = this.trendKursCategories.d.arrayTanggal[i];
+
+            this.tesXaxis.categories.push(currentDate);
+            if(i < 1){
+              this.tesXaxis.labels = {
+                formatter: function(value, timestamp){
+                  return moment(new Date(value)).format("DD MMM YYYY")
+                }
               }
             }
           }
-        }
+
+          if(this.dataKurs.s === 200){
+            this.isLoadingKursLine = false;
+          }
+          else{
+            this.isLoadingKursLine = true;
+          }
       break;
 
 
@@ -1990,7 +1980,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         this.activeButtonBarKurs = range;
         this.isLoadingKursLine = true;
 
-        responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, oneWeekAgo, today)
+        responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(today)
 
         console.log(responseData);
 
@@ -2013,7 +2003,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         this.activeButtonBarKurs = range;
         this.isLoadingKursLine = true;
 
-        responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, oneMonthAgo, today)
+        responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(today)
 
         console.log(responseData);
 
@@ -2036,7 +2026,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         this.activeButtonBarKurs = range;
         this.isLoadingKursLine = true;
 
-        responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, oneYearsAgo, today)
+        responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(today)
 
         console.log(responseData);
 
@@ -2057,7 +2047,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         this.activeButtonBarKurs = range;
         this.isLoadingKursLine = true;
 
-        responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(params, threeYearsAgo, today)
+        responseData  = await this.marketUpdateService.fetchDataKursTrendBarChart(today)
 
         console.log(responseData);
 
@@ -2655,10 +2645,15 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.trendKursCategories = responseKurs
       this.trendKursData = responseKurs;
 
-      this.defaultKurs = this.trendKursData.d.arrayData.map((item: any) => {
-        item.kurs = item.kurs.trim();
-        return item;
-      });
+      if(this.trendKursData.d.hasOwnValue('arrayData')){
+        this.defaultKurs = this.trendKursData.d.arrayData.map((item: any) => {
+          item.kurs = item.kurs.trim();
+          return item;
+        });
+      }
+      else{
+        this.defaultKurs = {}
+      }
 
       console.log(this.defaultKurs);
 
@@ -2925,13 +2920,27 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     let today = moment(new Date());
     let oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
 
-    const trendBarChartKurs = await this.marketUpdateService.fetchDataKursTrendBarChart('1year', oneYearsAgo, today.format('DD/MM/YYYY'));
+    const trendBarChartKurs = await this.marketUpdateService.fetchDataKursTrendBarChart('15/03/2024');
+
+    this.barChartKursSeries = [];
+    this.barXAxisKurs = {
+      categories: []
+    }
 
     this.trendKursDataBarChart = trendBarChartKurs;
     this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
     this.allTrendDataKursBarChart = trendBarChartKurs;
     this.allTrendDataKursBarChart = this.allTrendDataKursBarChart.d.arrayData;
 
+    this.barChartKursSeries = this.trendKursDataBarChart
+    console.log(this.barChartKursSeries, this.trendKursDataBarChart);
+
+    for(let i=0; i<1; i++){
+      for(let j=0; j<this.trendKursDataBarChart[i].data.length; j++){
+        // console.log(this.trendKursDataBarChart[i].data[j].x);
+        this.barXAxisKurs.categories.push(this.trendKursDataBarChart[i].data[j].x)
+      }
+    }
   }
 
   fetchAllDataBarChartCommodities = async () => {
@@ -3063,7 +3072,39 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
     }
     else if(this.filteredDate != '' && this.isVisibleBar){
-      alert('bar chart page')
+      alert('bar chart page');
+      this.stateLoadingTrue();
+
+      const kursBarByDate = await this.marketUpdateService.fetchDataKursTrendBarChart(this.filteredDate);
+      this.trendKursDataBarChart = kursBarByDate;
+
+      this.barChartKursSeries = [];
+      this.barXAxisKurs = {
+        categories: []
+      }
+
+      this.trendKursDataBarChart = kursBarByDate;
+      this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
+
+      if(this.trendKursDataBarChart[0]){
+        this.barChartKursSeries = this.trendKursDataBarChart;
+        console.log(this.barChartKursSeries, this.trendKursDataBarChart);
+
+        for(let i=0; i<1; i++){
+          for(let j=0; j<this.trendKursDataBarChart[i].data.length; j++){
+            this.barXAxisKurs.categories.push(this.trendKursDataBarChart[i].data[j].x)
+          }
+        }
+
+        this.stateLoadingFalse()
+      }
+      else{
+        alert('data not found')
+      }
+
+
+      // this.stateLoadingFalse()
+
     }
     else{
       Swal.fire({
@@ -3410,69 +3451,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
     console.log(filteredData);
 
-    this.barChartKursSeries = [];
-    this.barYAxisKurs = [];
+    // this.barChartKursSeries = [];
 
-    for(let i=0; i<filteredData.length; i++){
-      const kursName = filteredData[i].kode
 
-      this.barChartKursSeries.push({
-        name: kursName,
-        data: filteredData[i].data
-      })
-
-      if(i < 1){
-
-        this.barYAxisKurs.push({
-          showAlways: true,
-          seriesName: kursName,
-          // min:-1,
-          // max:1,
-          axisTicks: {
-            show: true
-          },
-          axisBorder: {
-            show: true,
-            color: "#000"
-          },
-          labels: {
-            style: {
-              colors: ["#000"]
-            }
-          },
-          title: {
-            text: "Bar Chart",
-            style: {
-              color: "#000"
-            }
-          },
-          tooltip: {
-            enabled: true
-          }
-            },)
-      }
-      else{
-
-        this.barYAxisKurs.push({
-          seriesName: "USD",
-          axisTicks: {
-            show: false,
-          },
-          axisBorder: {
-            show: false,
-          },
-          labels: {
-            show:false,
-          },
-          title: {
-            text: "",
-          },
-          tooltip: {
-            enabled: false
-          }
-        })
-      }
-    }
   }
 
   filterInterestRateLineChart(event: any) {
@@ -3588,8 +3569,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.chartSeries2 = [];
       this.barYAxisKurs = [];
       this.barXAxisKurs = {
-        type: 'datetime',
-        tickAmount: 100
+        categories:[
+          "Change MoM",
+          "Change 1 Day",
+          "Change RKAP",
+          "Change Change WoW",
+        ]
       }
 
       this.barDataLabels = {
@@ -3627,8 +3612,60 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       // await this.fetchDataCompare();
 
       this.stateLoadingFalse();
-      this.barChartKursSeries = this.trendKursDataBarChart;
 
+      this.barChartKursSeries = [
+        {
+          name: 'USD',
+          data: [
+            {
+              x: 'Change RKAP',
+              y: 10000
+            },
+            {
+              x: 'Change MoM',
+              y: 12000
+            },
+            {
+              x: 'Change Wow',
+              y: 13000
+            }
+          ]
+        },
+        {
+          name: 'EUR',
+          data: [
+            {
+              x: 'Change RKAP',
+              y: 13000
+            },
+            {
+              x: 'Change WoW',
+              y: 10000
+            },
+            {
+              x: 'Change MoM',
+              y: 16000
+            }
+          ]
+        },
+        {
+          name: 'JPY',
+          data: [
+            {
+              x: 'Change RKAP',
+              y: 13000
+            },
+            {
+              x: 'Change WoW',
+              y: 10000
+            },
+            {
+              x: 'Change MoM',
+              y: 16000
+            }
+          ]
+        }
+      ]
       this.barYAxisKurs = {
         showAlways: true,
         forceNiceScale: true,

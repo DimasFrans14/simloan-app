@@ -260,10 +260,20 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   listEditCurrency: any;
   dataDefaultCurrency: any;
 
+  listEditInterest: any;
+
   formatTanggal: any;
   changeIcon: boolean = false;
+  iconClass: string = 'bi bi-plus'
 
   getKeyTakeways!: any;
+
+  isLoadingMacro: boolean = false;
+  isLoadingCommodity: boolean = false;
+  isLoadingKurs: boolean = false;
+  isLoadingInterestRate: boolean = false;
+  isLoadingKeyTakeways: boolean = false;
+  isLoadingFootnote: boolean = false;
 
   getValueMacroIndicator(event: any){
     console.log(event);
@@ -355,6 +365,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
     const checkData = this.dataDefaultCurrency.includes(getRow[0])
 
+    console.log(updatedData, getRow);
 
     console.log(checkData);
 
@@ -391,6 +402,42 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   }
 
+  getValueRowInterest(event: any){
+    console.log(event);
+
+    const updatedData = this.dataInterestRate.filter((item: any) => item.kode !== event)
+
+    const getRow = this.listEditInterest.filter((item: any) => item.kode == event)
+
+    const checkData = this.dataInterestRate.includes(getRow[0])
+
+    console.log(updatedData, getRow);
+
+    console.log(checkData);
+
+    if(checkData){
+      this.dataInterestRate = updatedData;
+      this.changeIcon = true;
+      Swal.fire({
+        title: "Hapus item berhasil!",
+        icon: "info",
+        showCloseButton: true,
+      });
+    }
+    else{
+      this.dataInterestRate.push(getRow[0]);
+      this.changeIcon = false;
+      Swal.fire({
+        title: "Tambah item berhasil!",
+        icon: "info",
+        showCloseButton: true,
+      });
+    }
+
+    console.log(this.dataDefaultCurrency, updatedData, getRow);
+
+  }
+
   filteredDate:string = "";
 
   reFetchAllOverviewHarian = async (date: string) => {
@@ -398,19 +445,23 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       const responseMacroIndicator = await this.marketUpdateService.fetchDataMacroIndicatorOverview(date);
 
       this.dataMacroIndicator = responseMacroIndicator;
+      this.dataMacroIndicator.s === 200 ? this.isLoadingMacro = false : this.isLoadingMacro = true;
+
       this.dataMacroIndicator = this.dataMacroIndicator.d;
       this.listEditMacroIndicator = this.dataMacroIndicator;
 
       const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview(date);
 
       this.dataCommodities = commoditiesOverview;
+      this.dataCommodities.s === 200 ? this.isLoadingCommodity = false : this.isLoadingCommodity = true;
+
       this.dataCommodities = this.dataCommodities.d;
       this.listEditCommodities = this.dataCommodities;
 
       for(let i=0; i<this.dataCommodities.length; i++){
-        this.dataCommodities[i].nilai_rkap = parseFloat(this.dataCommodities[i].nilai_rkap).toLocaleString('en');
-        this.dataCommodities[i].nilai_real = parseFloat(this.dataCommodities[i].nilai_real).toLocaleString('en');
-        // console.log(parseFloat(this.dataCommodities[i].nilai_rkap).toLocaleString('en'));
+        this.dataCommodities[i].nilai_rkap = parseFloat(this.dataCommodities[i].nilai_rkap).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        this.dataCommodities[i].nilai_real = parseFloat(this.dataCommodities[i].nilai_real).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        this.dataCommodities[i].nilai_outlook = parseFloat(this.dataCommodities[i].nilai_outlook).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
       }
       this.dataDefaultCommodities = this.dataCommodities.slice(0,3);
@@ -418,12 +469,14 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       const currenciesOverview = await this.marketUpdateService.fetchDataKursOverview(date);
 
       this.dataCurrency = currenciesOverview;
+      this.dataCurrency.s === 200 ? this.isLoadingKurs = false : this.isLoadingKurs = true;
+
       this.dataCurrency = this.dataCurrency.d;
       for(let i=0; i<this.dataCurrency.length; i++){
-        this.dataCurrency[i].nilai_rkap = parseFloat(this.dataCurrency[i].nilai_rkap).toLocaleString('en');
-        this.dataCurrency[i].nilai_real = parseFloat(this.dataCurrency[i].nilai_real).toLocaleString('en');
-        this.dataCurrency[i].nilai_outlook = parseFloat(this.dataCurrency[i].nilai_outlook).toLocaleString('en');
-        // console.log(parseFloat(this.dataCommodities[i].nilai_rkap).toLocaleString('en'));
+        this.dataCurrency[i].nilai_rkap = parseFloat(this.dataCurrency[i].nilai_rkap).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        this.dataCurrency[i].nilai_real = parseFloat(this.dataCurrency[i].nilai_real).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        this.dataCurrency[i].nilai_outlook = parseFloat(this.dataCurrency[i].nilai_outlook).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        // console.log(parseFloat(this.dataCommodities[i].nilai_rkap).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
 
       }
       this.listEditCurrency = currenciesOverview;
@@ -432,7 +485,13 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
       const interestRateOverview = await this.marketUpdateService.fetchDataInterestOverview(date);
       this.dataInterestRate = interestRateOverview;
+      this.dataInterestRate.s === 200 ? this.isLoadingInterestRate = false : this.isLoadingInterestRate = true;
+
       this.dataInterestRate = this.dataInterestRate.d;
+
+      this.listEditInterest = interestRateOverview;
+      this.listEditInterest = this.listEditInterest.d;
+
       for(let i=0; i<this.dataInterestRate.length; i++){
         this.dataInterestRate[i].nilai_realisasi = this.dataInterestRate[i].nilai_realisasi.slice(0,4);
       }
@@ -440,6 +499,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       const getKeyTakewaysRes = await this.quillConfig.getKeyTakeways(date)
       console.log(getKeyTakewaysRes);
       this.getKeyTakeways = getKeyTakewaysRes;
+      this.getKeyTakeways.s === 200 ? this.isLoadingKeyTakeways = false : this.isLoadingKeyTakeways = true;
 
       const checkLabel = this.getKeyTakeways.d.hasOwnProperty('label');
       checkLabel ? this.getKeyTakeways = this.getKeyTakeways.d.label : this.getKeyTakeways = "";
@@ -496,11 +556,9 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
     console.log(formattedDate.slice(3, 5), this.getQuartal);
 
-
-    // console.log(month);
-
     try {
 
+      this.isLoadingTrue();
       this.reFetchAllOverviewHarian(formattedDate)
 
     } catch (error) {
@@ -511,24 +569,24 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   quillInnerHTMLFootnote: any[] = [];
   resObject:any;
-  fetchFootnotes = async (date:string) => {
-    const res = await this.quillConfig.getFootnotes(date);
-    this.resObject = res;
-    this.quillInnerHTMLFootnote = this.resObject.d;
-  }
 
   fetchMacroIndicator = async () => {
     const responseMacroIndicator = await this.marketUpdateService.fetchDataMacroIndicatorOverview(moment().format('DD/MM/YYYY'));
 
     this.dataMacroIndicator = responseMacroIndicator;
+    this.dataMacroIndicator.s === 200 ? this.isLoadingMacro = false : this.isLoadingMacro = true;
+
     this.dataMacroIndicator = this.dataMacroIndicator.d;
     this.listEditMacroIndicator = this.dataMacroIndicator;
+
   }
 
   fetchCommodities = async () => {
     const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview(moment().format('DD/MM/YYYY'));
 
     this.dataCommodities = commoditiesOverview;
+    this.dataCommodities.s === 200 ? this.isLoadingCommodity = false : this.isLoadingCommodity = true;
+
     this.dataCommodities = this.dataCommodities.d;
     this.listEditCommodities = this.dataCommodities;
 
@@ -540,6 +598,8 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     const currenciesOverview = await this.marketUpdateService.fetchDataKursOverview(moment().format('DD/MM/YYYY'))
 
     this.dataCurrency = currenciesOverview;
+    this.dataCurrency.s === 200 ? this.isLoadingKurs = false : this.isLoadingKurs = true;
+
     this.dataCurrency = this.dataCurrency.d.slice(0,3);
     this.listEditCurrency = currenciesOverview;
     this.listEditCurrency = this.listEditCurrency.d;
@@ -549,7 +609,12 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     const interestRateOverview = await this.marketUpdateService.fetchDataInterestOverview(moment().format('DD/MM/YYYY'));
 
     this.dataInterestRate = interestRateOverview;
+    this.dataInterestRate.s === 200 ? this.isLoadingInterestRate = false : this.isLoadingInterestRate = true;
+
     this.dataInterestRate = this.dataInterestRate.d;
+
+    this.listEditInterest = interestRateOverview;
+    this.listEditInterest = this.listEditInterest.d
   }
 
   fetchKeyTakeWays = async () => {
@@ -557,21 +622,40 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     console.log(getKeyTakewaysRes);
 
     this.getKeyTakeways = getKeyTakewaysRes;
+    this.getKeyTakeways.s === 200 ? this.isLoadingKeyTakeways = false : this.isLoadingKeyTakeways = true;
 
     const checkLabel = this.getKeyTakeways.d.hasOwnProperty('label');
     checkLabel ? this.getKeyTakeways = this.getKeyTakeways.d.label : this.getKeyTakeways = ""
+  }
+
+  fetchFootnotes = async (date:string) => {
+    const res = await this.quillConfig.getFootnotes(date);
+    this.resObject = res;
+    this.resObject.s === 200 ? this.isLoadingFootnote = false : this.isLoadingFootnote = true;
+    this.quillInnerHTMLFootnote = this.resObject.d;
+  }
+
+  isLoadingTrue = () => {
+    this.isLoadingMacro = true;
+    this.isLoadingCommodity = true;
+    this.isLoadingKurs = true;
+    this.isLoadingInterestRate = true;
+    this.isLoadingKeyTakeways = true;
+    this.isLoadingFootnote = true;
   }
 
   date:string = moment().format('DD/MM/YYYY');
   async ngOnInit(): Promise<void> {
     try {
 
-      this.fetchMacroIndicator();
-      this.fetchCommodities();
-      this.fetchCurrency();
-      this.fetchInterestRate();
-      this.fetchKeyTakeWays();
-      this.fetchFootnotes(this.date);
+      this.isLoadingTrue();
+
+      await this.fetchMacroIndicator();
+      await this.fetchCommodities();
+      await this.fetchCurrency();
+      await this.fetchInterestRate();
+      await this.fetchKeyTakeWays();
+      await this.fetchFootnotes(this.date);
 
       this.setDefaultQuartalAndYear();
     }
