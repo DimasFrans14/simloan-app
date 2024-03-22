@@ -298,6 +298,8 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   dataBondYieldSBN: any;
   dataBondYieldUST: any;
 
+  dataPDB: any;
+
   async ngOnInit(): Promise<void> {
     try {
 
@@ -308,11 +310,11 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       let getYear = moment().format('YYYY')
 
       console.log('load before fetch: ' + this.isLoading);
-      const responsePDB = await this.marketUpdateService.fetchDataPDB();
       const responseKurs = await this.marketUpdateService.fetchDataKurs(getYear);
       const responseInterestRate = await this.marketUpdateService.fetchDataInterestRate(getYear);
-      const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll(getYear);
       const responseBondYield = await this.marketUpdateService.fetchDataBondYield(getYear);
+      const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll(getYear);
+      const responsePDB = await this.marketUpdateService.fetchDataPDB();
 
       this.getLabelDate = responseKurs
       this.getLabelDate = this.getLabelDate.d.list.filter((item: any) => item.kode.includes('Label'));
@@ -327,31 +329,31 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
         }
         else{
-          item.nilai_rkap = parseFloat(item.nilai_rkap);
+          item.nilai_rkap = parseFloat(item.nilai_rkap).toFixed(2);
           item.nilai_rkap = item.nilai_rkap.toLocaleString('en-US');
 
-          item.h_min_0 = parseFloat(item.h_min_0);
+          item.h_min_0 = parseFloat(item.h_min_0).toFixed(2);
           item.h_min_0 = item.h_min_0.toLocaleString('en-US');
 
-          item.h_min_1 = parseFloat(item.h_min_1);
+          item.h_min_1 = parseFloat(item.h_min_1).toFixed(2);
           item.h_min_1 = item.h_min_1.toLocaleString('en-US');
 
-          item.h_min_7 = parseFloat(item.h_min_7);
+          item.h_min_7 = parseFloat(item.h_min_7).toFixed(2);
           item.h_min_7 = item.h_min_7.toLocaleString('en-US');
 
-          item.h_min_30 = parseFloat(item.h_min_30);
+          item.h_min_30 = parseFloat(item.h_min_30).toFixed(2);
           item.h_min_30 = item.h_min_30.toLocaleString('en-US');
 
-          item.change_rkap = parseFloat(item.change_rkap);
+          item.change_rkap = parseFloat(item.change_rkap).toFixed(2);
           item.change_rkap = item.change_rkap.toLocaleString('en-US');
 
-          item.change_wow = parseFloat(item.change_wow);
+          item.change_wow = parseFloat(item.change_wow).toFixed(2);
           item.change_wow = item.change_wow.toLocaleString('en-US');
 
-          item.change_mom = parseFloat(item.change_mom);
+          item.change_mom = parseFloat(item.change_mom).toFixed(2);
           item.change_mom = item.change_mom.toLocaleString('en-US');
 
-          item.change_1day = parseFloat(item.change_1day);
+          item.change_1day = parseFloat(item.change_1day).toFixed(2);
           item.change_1day = item.change_1day.toLocaleString('en-US');
           return item
         }
@@ -504,20 +506,99 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
         return item
       })
 
+      this.dataPDB = responsePDB;
+      this.dataPDB = this.dataPDB.data.content.map((item: any) => {
+        item.nilai = item.nilai.toFixed(2);
+        item.nilai = item.nilai.toLocaleString('en-US');
+
+        return item
+      })
+
       // const keyBY = Object.keys(responseBondYield)
       this.keysBondYield = responseBondYield
       // console.log(Object.keys(this.keysBondYield.data.content[0]));
 
-
       const responseInflasi = await this.marketUpdateService.fetchDataInflasi();
-      // this.dataInflasi = responseInflasi;
+      this.dataInflasi = responseInflasi;
+      this.dataInflasi = this.dataInflasi.data.map((item: any) => {
+        item.nilai_year_min0 = item.nilai_year_min0.toFixed(2);
+        item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
+
+        item.nilai_year_min1 = item.nilai_year_min1.toFixed(2);
+        item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
+
+        item.nilai_year_min2 = item.nilai_year_min2.toFixed(2);
+        item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
+
+        item.nilai_year_min3 = item.nilai_year_min3.toFixed(2);
+        item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
+
+        return item
+      })
 
       const responsePMI = await this.marketUpdateService.fetchDataPMI();
+      this.dataPMI = responsePMI;
+      this.dataPMI = this.dataPMI.data.map((item: any) => {
+        item.nilai_year_min0 = item.nilai_year_min0.toFixed(2);
+        item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
+
+        item.nilai_year_min1 = item.nilai_year_min1.toFixed(2);
+        item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
+
+        item.nilai_year_min2 = item.nilai_year_min2.toFixed(2);
+        item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
+
+        item.nilai_year_min3 = item.nilai_year_min3.toFixed(2);
+        item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
+
+        return item
+      })
+
       const responseRetail = await this.marketUpdateService.fetchDataRetail();
+      this.dataRetail = responseRetail;
+      this.dataRetail = this.dataRetail.data.map((item: any) => {
+        item.nilai_year_min0 = item.nilai_year_min0.toFixed(2);
+        item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
+
+        item.nilai_year_min1 = item.nilai_year_min1.toFixed(2);
+        item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
+
+        item.nilai_year_min2 = item.nilai_year_min2.toFixed(2);
+        item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
+
+        item.nilai_year_min3 != null ? item.nilai_year_min3 = item.nilai_year_min3.toFixed(2) : item.nilai_year_min3 = 0
+        item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
+
+        return item
+      })
       // console.log(responseRetail);
 
       const responseMoneySupply = await this.marketUpdateService.fetchDataMoneySupply();
+      this.dataMoneySupply = responseMoneySupply;
+      this.dataMoneySupply = this.dataMoneySupply.data.map((item: any) => {
+        // Parse and format number with locale string
+        item.triliun_year_min0 = parseFloat(item.triliun_year_min0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        item.triliun_year_min1 = parseFloat(item.triliun_year_min1).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        item.triliun_year_min2 = parseFloat(item.triliun_year_min2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        item.triliun_year_min3 = parseFloat(item.triliun_year_min3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        return item;
+    });
+
+
+      console.log();
+
+
       const responseDevisa = await this.marketUpdateService.fetchDataDevisa();
+      this.dataDevisa = responseDevisa;
+      this.dataDevisa = this.dataDevisa.data.map((item: any) => {
+        item.nilai_year_min0 = parseFloat(item.nilai_year_min0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        item.nilai_year_min1 = parseFloat(item.nilai_year_min1).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        item.nilai_year_min2 = parseFloat(item.nilai_year_min2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        item.nilai_year_min3 = parseFloat(item.nilai_year_min3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        return item
+      })
 
       this.dataRKAP = responseInterestRate;
 

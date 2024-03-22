@@ -404,12 +404,10 @@ export class MarketUpdateService {
     }
   }
 
-  async fetchDataKursTrendBarChart(groupParams: string, startDate: string, endDate: string){
+  async fetchDataKursTrendBarChart(date: string){
     const option = {
       params: {
-        "start_date" : startDate,
-        "end_date" : endDate,
-        "group" : groupParams
+        "date": date
       }
     }
     try {
