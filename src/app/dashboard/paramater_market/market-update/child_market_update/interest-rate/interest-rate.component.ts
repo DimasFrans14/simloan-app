@@ -126,27 +126,18 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
     try {
       const data = await this.marketUpdateService.fetchDataInterestRate(getYear);
       this.dataDetail = data;
-      this.dataDetail = this.dataDetail.data;
+      this.dataDetail = this.dataDetail.d.list;
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetail);
     } catch (error) {
       console.log(error);
     }
-
-    // for(let i=0; i<10; i++){
-    //   this.filteredData.push(this.dataDetail.data.content[i]);
-    // }
-
-    // console.log('updated data', this.filteredData);
     this.tableConfig.setData(this.dataDetail);
     console.log('finish get data in func');
-
   }
   async getDataRealisasi(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
-    let getYear = moment().format('YYYY');
-
     try {
       const data = await this.marketUpdateService.fetchDataRealisasiInterestRate();
       this.dataDetailRealisasi = data;
@@ -162,8 +153,6 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
   async getDataRkap(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
-    let getYear = moment().format('YYYY');
-
     try {
       const data = await this.marketUpdateService.fetchDataRkapInterestRate();
       this.dataDetailRkap = data;
@@ -179,8 +168,6 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
   async getDataOutlook(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
-    let getYear = moment().format('YYYY');
-
     try {
       const data = await this.marketUpdateService.fetchDataOutlookInterestRate();
       this.dataDetailOutlook = data;

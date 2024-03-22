@@ -20,8 +20,11 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
 
   dataDetail: any;
   dataDetailRealisasi: any;
+  dataDetailRealisasiNonUsd: any;
   dataDetailRkap: any;
+  dataDetailRkapNonUsd: any;
   dataDetailOutlook: any;
+  dataDetailOutlookNonUsd: any;
   filteredData: String[] = [];
   isLoading: Boolean = true;
   realisasiKursItem!: number;
@@ -124,7 +127,7 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     try {
       const data = await this.marketUpdateService.fetchDataKurs(getYear);
       this.dataDetail = data;
-      this.dataDetail = this.dataDetail.data;
+      this.dataDetail = this.dataDetail.d.list;
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetail);
     } catch (error) {
@@ -137,45 +140,54 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     this.isLoading = true;
     console.log(this.isLoading, 'loading RealisasiKursUsd');
     try{
-      const data = await this.marketUpdateService.fetchDataRealisasiKursUsd();
-      this.dataDetailRealisasi = data;
+      const dataUsd = await this.marketUpdateService.fetchDataRealisasiKursUsd();
+      const dataNonUsd = await this.marketUpdateService.fetchDataRealisasiKursNonUsd();
+      this.dataDetailRealisasi = dataUsd;
       this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      this.dataDetailRealisasiNonUsd = dataNonUsd;
+      this.dataDetailRealisasiNonUsd = this.dataDetailRealisasiNonUsd.data;
       this.isLoading = false;
       console.log(this.isLoading,'loading 2', this.dataDetailRealisasi);
     } catch(error) {
       console.log(error)
     }
-    this.tableConfig.setDataRealisasiKursUsd(this.dataDetailRealisasi);
+    this.tableConfig.setDataRealisasiKurs(this.dataDetailRealisasi, this.dataDetailRealisasiNonUsd);
     console.log('finish get data by function')
   }
   async getDataRkapKursUsd(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading RealisasiKursUsd');
     try{
-      const data = await this.marketUpdateService.fetchDataRkapKursUsd();
-      this.dataDetailRkap = data;
+      const dataUsd = await this.marketUpdateService.fetchDataRkapKursUsd();
+      const dataNonUsd = await this.marketUpdateService.fetchDataRkapKursNonUsd();
+      this.dataDetailRkap = dataUsd;
       this.dataDetailRkap = this.dataDetailRkap.data;
+      this.dataDetailRkapNonUsd = dataNonUsd;
+      this.dataDetailRkapNonUsd = this.dataDetailRkapNonUsd.data;
       this.isLoading = false;
       console.log(this.isLoading,'loading 2', this.dataDetailRkap);
     } catch(error) {
       console.log(error)
     }
-    this.tableConfig.setDataRkapKursUsd(this.dataDetailRkap);
+    this.tableConfig.setDataRkapKursUsd(this.dataDetailRkap, this.dataDetailRkapNonUsd);
     console.log('finish get data by function')
   }
   async getDataOutlookKursUsd(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading RealisasiKursUsd');
     try{
-      const data = await this.marketUpdateService.fetchDataOutlookKursUsd();
-      this.dataDetailOutlook = data;
+      const dataUsd = await this.marketUpdateService.fetchDataOutlookKursUsd();
+      const dataNonUsd = await this.marketUpdateService.fetchDataOutlookKursNonUsd();
+      this.dataDetailOutlook = dataUsd;
       this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.dataDetailOutlookNonUsd = dataNonUsd;
+      this.dataDetailOutlookNonUsd = this.dataDetailOutlookNonUsd.data;
       this.isLoading = false;
       console.log(this.isLoading,'loading 2', this.dataDetailOutlook);
     } catch(error) {
       console.log(error)
     }
-    this.tableConfig.setDataOutlookKursUsd(this.dataDetailOutlook);
+    this.tableConfig.setDataOutlookKursUsd(this.dataDetailOutlook, this.dataDetailOutlookNonUsd);
     console.log('finish get data by function')
   }
 
@@ -225,7 +237,7 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
 
   }
   addRow() {
-    this.tableConfig.tableRealisasi.addRow({});
+    this.tableConfig.tableRealisasiCurrencyRate.addRow({});
   }
   addRowRKAP() {
     this.tableConfig.tableRKAP.addRow({});
