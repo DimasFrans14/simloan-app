@@ -9,6 +9,7 @@ import { TableServicesService } from 'src/app/services/table_services/table-serv
   styleUrls: ['./us-treasury.component.css']
 })
 export class UsTreasuryComponent {
+  
   constructor(
     private tableConfig: TableServicesService,
     private marketUpdateService: MarketUpdateService
@@ -17,6 +18,9 @@ export class UsTreasuryComponent {
   }
 
   dataDetail: any;
+  dataDetailRealisasi: any;
+  dataDetailOutlook: any;
+  dataDetailRkap: any;
   filteredData: String[] = [];
   isLoading: Boolean = true;
   realisasiKursItem!: number;
@@ -125,17 +129,37 @@ export class UsTreasuryComponent {
     } catch (error) {
       console.log(error);
     }
-
-    // for(let i=0; i<10; i++){
-    //   this.filteredData.push(this.dataDetail.data.content[i]);
-    // }
-
-    // console.log('updated data', this.filteredData);
     this.tableConfig.setData(this.dataDetail);
     console.log('finish get data in func');
-
   }
-
+  async getDataRealisasi(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    try {
+      const data = await this.marketUpdateService.fetchDataRealisasiBondYieldSBN();
+      this.dataDetailRealisasi = data;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
+    } catch (error) {
+      console.log(error);
+    }
+    this.tableConfig.setDataRealisasiBondYieldUsTreasury(this.dataDetailRealisasi);
+  }
+  async getDataOutlook(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    try {
+      const data = await this.marketUpdateService.fetchDataRealisasiBondYieldSBN();
+      this.dataDetailOutlook = data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
+    } catch (error) {
+      console.log(error);
+    }
+    this.tableConfig.setDataOutlookBondYieldUsTreasury(this.dataDetailOutlook);
+  }
   onDate(event: any){
     console.log(event);
 
@@ -170,6 +194,8 @@ export class UsTreasuryComponent {
     console.log('load data');
 
     await this.getData();
+    await this.getDataRealisasi();
+    await this.getDataOutlook();
     this.tableConfig.initializeTableDataUsTreasury();
   }
 

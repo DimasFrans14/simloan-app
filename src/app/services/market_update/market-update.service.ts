@@ -50,14 +50,14 @@ export class MarketUpdateService {
   }
   async fetchDataInputRealisasiKursUsd(data:any){
     const data1= {
-      "id_mst_jisdor": data.quartal,
-      "mata_uang":data.tahun,
+      "id_mst_jisdor": data.id_mst_jisdor,
+      "mata_uang": data.mataUang,
       "nilai": data.nilai,
-      "tanggal": true
+      "tanggal": data.tanggal
       }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-Kurs`, data1)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/create_jisdor`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -66,14 +66,15 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateRealisasiKursUsd(data:any){
     const data1 = {
-      "id_mst_jisdor": data.quartal,
+      "id_mst_jisdor": data.idJisdor,
       "mata_uang":data.tahun,
       "nilai": data.nilai,
-      "tanggal": true
+      "tanggal": data.tanggal
     }
-  try {
+    console.log(data1)
+    try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/real_update_jisdor?id=17282&id_mst_jisdor=${data.id}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/real_update_jisdor?id=${data.idJisdor}`, data1)
     )
   } catch (error) {
     console.log(error);
@@ -92,14 +93,14 @@ export class MarketUpdateService {
   }
   async fetchDataInputRealisasiKursNonUsd(data:any){
     const data1= {
-      "id_mst_jisdor": data.quartal,
-      "mata_uang":data.tahun,
+      "mata_uang": data.mataUang,
       "nilai": data.nilai,
-      "tanggal": true
+      "kurs": data.kurs,
+      "tanggal": data.tanggal
       }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/create-nonusd`, data1)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/create_nonusd`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -109,14 +110,14 @@ export class MarketUpdateService {
   //belum ada end point
   async fetchDataUpdateRealisasiKursNonUsd(data:any){
     const data1 = {
-      "id_mst_jisdor": data.quartal,
-      "mata_uang":data.tahun,
+      "id_mst_jisdor": data.idJisdor,
+      "mata_uang":data.mataUang,
       "nilai": data.nilai,
-      "tanggal": true
+      "tanggal": data.tanggal
     }
   try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/real_update_jisdor?id=17282&id_mst_jisdor=${data.id}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/real?id=${data.idJisdor}`, data1)
     )
   } catch (error) {
     console.log(error);
@@ -218,12 +219,21 @@ export class MarketUpdateService {
       return null;
     }
   }
+  async fetchDataOutlookKursNonUsd(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/nonusd`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
   async fetchDataInputOutlookKursUsd(data:any){
     const data1= {
-      "mata_uang":data.tahun,
+      "mata_uang":data.mataUang,
       "nilai": data.nilai,
-      "kurs": data.kurs,
-      "tanggal": true
+      "tanggal": data.tanggal
       }
     try {
       return await lastValueFrom(
@@ -236,20 +246,21 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateOutlookKursUsd(data:any){
     const data1 = {
-      "mata_uang":data.tahun,
+      "mata_uang": data.mataUang,
       "nilai": data.nilai,
-      "tanggal": true
+      "kurs": data.kurs,
+      "tanggal": data.tanggal
     }
   try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/jisdor=${data.id}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/jisdor=${data.id_mst_outjisdor}`, data1)
     )
   } catch (error) {
     console.log(error);
     return error
   }
   }
-  async fetchDataRkapOutlookNonUsd(){
+  async fetchDataOutlookNonUsd(){
     try {
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/nonusd`)
@@ -259,12 +270,12 @@ export class MarketUpdateService {
       return null;
     }
   }
-  async fetchDataInputRkapOutlookNonUsd(data:any){
+  async fetchDataInputOutlookNonUsd(data:any){
     const data1= {
       "mata_uang":data.tahun,
       "nilai": data.nilai,
       "kurs": data.kurs,
-      "tanggal": true
+      "tanggal": data.tanggal
       }
     try {
       return await lastValueFrom(
@@ -275,16 +286,16 @@ export class MarketUpdateService {
       return error
     }
   }
-  async fetchDataUpdateRkapOutlookNonUsd(data:any){
+  async fetchDataUpdateOutlookNonUsd(data:any){
     const data1 = {
-      "mata_uang":data.mata_uang,
+      "mata_uang": data.mataUang,
       "nilai": data.nilai,
       "kurs": data.kurs,
-      "tanggal": data.tanggal,
+      "tanggal": data.tanggal
     }
   try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/usd_nonusd=${data.id}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/usd_nonusd=${data.idNonJisdor}`, data1)
     )
   } catch (error) {
     console.log(error);
@@ -474,10 +485,10 @@ export class MarketUpdateService {
       return null;
     }
   }
-  async fetchDataUpdateRealisasiBondYieldSBN(){
+  async fetchDataRealisasiBondYieldSBN(){
   try {
     return await lastValueFrom(
-      this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/outlook/non-macro/list_rby`)
+      this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/list_rby`)
     )
     } catch (error) {
       console.log(error);
@@ -567,9 +578,12 @@ export class MarketUpdateService {
     }
   }
   async fetchDataOutlookBondYieldSBN(){
+    // const params = {
+    //    "grup": "SBN"
+    // }
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/outlook/non-macro/list_rby`)
       );
     } catch (error) {
       console.log(error);
@@ -2045,10 +2059,12 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateRealisasiInterestRate(data:any){
     const data1 = {
-      "bulan": data.bulan,
+      "grup": data.interest_rate_enum,
+      "tanggal": data.tanggal,
       "tahun": data.tahun,
-      "miliar_usd": data.miliar_usd,
-      "is_active":true
+      "rate": data.rate,
+      "month3": data.month3,
+      "month6": data.month6
     }
     console.log(data1)
   try {
@@ -2082,10 +2098,12 @@ export class MarketUpdateService {
   }
   async fetchDataInputRkapInterestRate(data:any){
     const data1 = {
-      "bulan": data.bulan,
+      "grup": data.interest_rate_enum,
+      "tanggal": data.tanggal,
       "tahun": data.tahun,
-      "miliar_usd": data.miliar_usd,
-      "is_active":true
+      "rate": data.rate,
+      "month3": data.month3,
+      "month6": data.month6
     }
     console.log(data1)
   try {
@@ -2099,10 +2117,12 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateRkapInterestRate(data:any){
     const data1 = {
-      "bulan": data.bulan,
+      "grup": data.interest_rate_enum,
+      "tanggal": data.tanggal,
       "tahun": data.tahun,
-      "miliar_usd": data.miliar_usd,
-      "is_active":true
+      "rate": data.rate,
+      "month3": data.month3,
+      "month6": data.month6
     }
     console.log(data1)
   try {
@@ -2142,12 +2162,11 @@ export class MarketUpdateService {
       "rate": data.rate,
       "month3": data.month3,
       "month6": data.month6,
-      "is_active":true
     }
     console.log(data1)
   try {
     return await lastValueFrom(
-      this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-interest-rate`, data1)
+      this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-interest-rate?interest_rate_enum=${data.interest_rate_enum}`, data1)
     )
     } catch (error) {
       console.log(error);
@@ -2156,18 +2175,17 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateOutlookInterestRate(data:any){
     const data1 = {
-      "group": data.bulan,
+      "grup": data.interest_rate_enum,
       "tanggal": data.tanggal,
       "tahun": data.tahun,
       "rate": data.rate,
       "month3": data.month3,
-      "month6": data.month6,
-      "is_active":true
+      "month6": data.month6
     }
     console.log(data1)
   try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-interest-rate?id=${data.id}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-interest-rate?id=${data.id}&interest_rate_enum=${data.interest_rate_enum}`, data1)
     )
     } catch (error) {
       console.log(error);

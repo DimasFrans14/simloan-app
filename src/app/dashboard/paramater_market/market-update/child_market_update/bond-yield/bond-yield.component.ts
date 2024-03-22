@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
+import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 
 @Component({
   selector: 'app-bond-yield',
@@ -11,6 +12,7 @@ export class BondYieldComponent {
 
   constructor(
     private tableConfig: TableServicesService,
+    private marketUpdateService: MarketUpdateService,
     private dataService: DataService
   ){
     // console.log(this.tableConfig.initializeTableDataCurrency(), this.tableConfig.initializeTableData());
@@ -19,6 +21,9 @@ export class BondYieldComponent {
   testData: any;
   filteredData: String[] = [];
   isLoading: Boolean = true;
+  dataDetailRealisasi: any;
+  dataDetailRkap: any;
+  dataDetailOutlook: any;
 
   selectedItems!: number;
 
@@ -107,11 +112,57 @@ export class BondYieldComponent {
       console.log(error)
     }
   }
+  async getDataRealisasi(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    try {
+      const data = await this.marketUpdateService.fetchDataRealisasiBondYieldSBN();
+      this.dataDetailRealisasi = data;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
+    } catch (error) {
+      console.log(error);
+    }
+    this.tableConfig.setDataRealisasiBondYieldSBN(this.dataDetailRealisasi);
+    console.log('finish get data in func');
+  }
+  async getDataRkap(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    try {
+      const data = await this.marketUpdateService.fetchDataRkapBondYieldSBN();
+      this.dataDetailRealisasi = data;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
+    } catch (error) {
+      console.log(error);
+    }
+    this.tableConfig.setDataRkapBondYieldSBN(this.dataDetailRealisasi);
+    console.log('finish get data in func');
+  }
+  async getDataOutlook(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    try {
+      const data = await this.marketUpdateService.fetchDataOutlookBondYieldSBN();
+      this.dataDetailOutlook = data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
+    } catch (error) {
+      console.log(error);
+    }
+    this.tableConfig.setDataOutlookBondYieldSBN(this.dataDetailOutlook);
+    console.log('finish get data in func');
+  }
 
   async ngOnInit(): Promise<void> {
     console.log('load data');
 
     await this.getData();
+    await this.getDataOutlook();
     this.tableConfig.initializeTableDataBondYield();
   }
 
