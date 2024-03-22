@@ -443,12 +443,10 @@ export class MarketUpdateService {
     }
   }
 
-  async fetchInterestRateBarChart(params: string, startDate: string, endDate: string){
+  async fetchInterestRateBarChart(date: string){
     const option = {
       params: {
-        "start_date" : startDate,
-        "end_date" : endDate,
-        "group" : params
+        "date": date
       }
     }
     try {
@@ -941,15 +939,14 @@ export class MarketUpdateService {
     }
   }
 
-  async fetchDataBarCommodities(kategori:string, startDate: string, endDate: string, groupParams: string){
+  async fetchDataBarCommodities(kategori:string, date:string){
     const option = {
       params: {
-        "kategori": kategori,
-        "start_date": startDate,
-        "end_date": endDate,
-        "group": groupParams
+        "kode": kategori,
+        "date": date
       }
     }
+
     try {
       return await lastValueFrom(
         // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
@@ -2363,7 +2360,7 @@ export class MarketUpdateService {
     form.append('file', file, file.name);
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/macro/create?globalMacroIndicatorEnum=${JSON.parse(params)}`, form)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/macro/upload?globalDashboardRealisasiEnum=${JSON.parse(params)}`, form)
       )
     } catch (error) {
       return null
