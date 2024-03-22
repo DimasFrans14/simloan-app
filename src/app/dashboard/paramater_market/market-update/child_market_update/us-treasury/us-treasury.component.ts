@@ -136,7 +136,7 @@ export class UsTreasuryComponent {
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
     try {
-      const data = await this.marketUpdateService.fetchDataRealisasiBondYieldSBN();
+      const data = await this.marketUpdateService.fetchDataRealisasiBondYieldUsTreasury();
       this.dataDetailRealisasi = data;
       this.dataDetailRealisasi = this.dataDetailRealisasi.data;
       this.isLoading = false;
@@ -146,11 +146,25 @@ export class UsTreasuryComponent {
     }
     this.tableConfig.setDataRealisasiBondYieldUsTreasury(this.dataDetailRealisasi);
   }
+  // async getDataRkap(){
+  //   this.isLoading = true;
+  //   console.log(this.isLoading, 'loading 1');
+    // try {
+    //   // const data = await this.marketUpdateService.fetchDataRkapBondYieldSBN();
+    //   this.dataDetailRkap = data;
+    //   this.dataDetailRkap = this.dataDetailRkap.data;
+    //   this.isLoading = false;
+    //   console.log(this.isLoading, 'loading 2', this.dataDetailRkap);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  //   this.tableConfig.setDataRkapBondYieldUsTreasury(this.dataDetailRkap);
+  // }
   async getDataOutlook(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
     try {
-      const data = await this.marketUpdateService.fetchDataRealisasiBondYieldSBN();
+      const data = await this.marketUpdateService.fetchDataOutlookBondYieldUsTreasury();
       this.dataDetailOutlook = data;
       this.dataDetailOutlook = this.dataDetailOutlook.data;
       this.isLoading = false;
@@ -195,6 +209,7 @@ export class UsTreasuryComponent {
 
     await this.getData();
     await this.getDataRealisasi();
+    // await this.getDataRkap();
     await this.getDataOutlook();
     this.tableConfig.initializeTableDataUsTreasury();
   }

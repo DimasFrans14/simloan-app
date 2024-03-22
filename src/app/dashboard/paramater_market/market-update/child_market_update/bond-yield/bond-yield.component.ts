@@ -132,10 +132,10 @@ export class BondYieldComponent {
     console.log(this.isLoading, 'loading 1');
     try {
       const data = await this.marketUpdateService.fetchDataRkapBondYieldSBN();
-      this.dataDetailRealisasi = data;
-      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      this.dataDetailRkap = data;
+      this.dataDetailRkap = this.dataDetailRkap.data;
       this.isLoading = false;
-      console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
+      console.log(this.isLoading, 'loading 2', this.dataDetailRkap);
     } catch (error) {
       console.log(error);
     }
@@ -162,6 +162,7 @@ export class BondYieldComponent {
     console.log('load data');
 
     await this.getData();
+    await this.getDataRealisasi();
     await this.getDataOutlook();
     this.tableConfig.initializeTableDataBondYield();
   }
