@@ -2645,15 +2645,15 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.trendKursCategories = responseKurs
       this.trendKursData = responseKurs;
 
-      if(this.trendKursData.d.hasOwnValue('arrayData')){
+      // if(this.trendKursData.d.hasOwnValue('arrayData')){
         this.defaultKurs = this.trendKursData.d.arrayData.map((item: any) => {
           item.kurs = item.kurs.trim();
           return item;
         });
-      }
-      else{
-        this.defaultKurs = {}
-      }
+      // }
+      // else{
+      //   this.defaultKurs = {}
+      // }
 
       console.log(this.defaultKurs);
 
