@@ -74,6 +74,7 @@ img{
 
 .card{
   border: none;
+  box-shadow: none;
 }
 
 .header-btn{

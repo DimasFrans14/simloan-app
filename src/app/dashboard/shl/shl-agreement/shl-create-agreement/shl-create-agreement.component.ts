@@ -422,6 +422,150 @@ export class ShlCreateAgreementComponent implements OnInit{
     buttonTenor ? (buttonTenor.textContent = name) : '';
   };
 
+  totalProjectList: number = 1;
+  buttonProject: number[] = [1];
+  allDataProject: any[] = [];
+
+  dataProjectIndex: any;
+
+  getDataProject = (param: number) => {
+    // console.log(param);
+
+    if(this.secondFormGroup.value != null){
+
+      const data = {
+        namaProyek: this.secondFormGroup.get('namaProyek')?.value,
+        totalPagu: this.secondFormGroup.get('totalPagu')?.value,
+        berakhirPerjanjian: this.secondFormGroup.get('berakhirPerjanjian')?.value,
+        deskripsiBerakhirPerjanjian: this.secondFormGroup.get('deskripsiBerakhirPerjanjian')?.value,
+        availabilityPeriode: this.secondFormGroup.get('availabilityPeriode')?.value,
+        deskripsiAvailabilityPeriode: this.secondFormGroup.get('deskripsiAvailabilityPeriode')?.value,
+        gracePeriod: this.secondFormGroup.get('gracePeriod')?.value,
+        deskripsiGracePeriod: this.secondFormGroup.get('deskripsiGracePeriod')?.value,
+        tenor: this.secondFormGroup.get('tenor')?.value,
+        repaymentMethod: this.secondFormGroup.get('repaymentMethod')?.value,
+        dateRepayment: this.secondFormGroup.get('dateRepayment')?.value,
+        deskripsiDenda: this.secondFormGroup.get('deskripsiDenda')?.value,
+        pembayaranPokokPinjaman: this.secondFormGroup.get('pembayaranPokokPinjaman')?.value,
+        interestType: this.secondFormGroup.get('interestType')?.value,
+        bunga: this.secondFormGroup.get('bunga')?.value,
+      }
+
+      const getCheckDataFirst = localStorage.getItem('allDataProjectAgreement');
+
+      if(getCheckDataFirst){
+        let tempData = JSON.parse(getCheckDataFirst)
+        console.log(tempData);
+
+        console.log(tempData[0].namaProyek, data.namaProyek);
+
+
+        let checkData = tempData.some((item: any) => {
+          return item.namaProyek === data.namaProyek
+        })
+
+        console.log(checkData);
+
+        if(checkData){
+          console.log('data dobel');
+        }
+        else{
+          this.allDataProject.push(data)
+          localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
+        }
+      }
+      else{
+        this.allDataProject.push(data)
+        localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
+      }
+
+      this.allDataProject.push(data)
+      localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
+    }
+
+    const getProjectData = localStorage.getItem('allDataProjectAgreement');
+    getProjectData ? this.dataProjectIndex = JSON.parse(getProjectData) : {}
+
+    this.dataProjectIndex = this.dataProjectIndex[param - 1];
+
+    console.log(this.dataProjectIndex);
+
+    this.secondFormGroup = this._formBuilder.group({
+      namaProyek: [this.dataProjectIndex.namaProyek, Validators.required],
+      totalPagu: [this.dataProjectIndex.totalPagu, Validators.required],
+      berakhirPerjanjian: [this.dataProjectIndex.berakhirPerjanjian, Validators.required],
+      deskripsiBerakhirPerjanjian: [this.dataProjectIndex.deskripsiBerakhirPerjanjian, Validators.required],
+      availabilityPeriode: [this.dataProjectIndex.availabilityPeriode, Validators.required],
+      deskripsiAvailabilityPeriode: [this.dataProjectIndex.deskripsiAvailabilityPeriode, Validators.required],
+      gracePeriod: [this.dataProjectIndex.gracePeriod, Validators.required],
+      deskripsiGracePeriod: [this.dataProjectIndex.deskripsiGracePeriod, Validators.required],
+      tenor: [this.dataProjectIndex.tenor, Validators.required],
+      repaymentMethod: [this.dataProjectIndex.repaymentMethod, Validators.required],
+      dateRepayment: [this.dataProjectIndex.dateRepayment, Validators.required],
+      deskripsiDenda: [this.dataProjectIndex.deskripsiDenda, Validators.required],
+      pembayaranPokokPinjaman: [this.dataProjectIndex.pembayaranPokokPinjaman, Validators.required],
+      interestType: [this.dataProjectIndex.interestType, Validators.required],
+      bunga: [this.dataProjectIndex.bunga, Validators.required],
+    });
+  }
+
+  tambahProject = () => {
+    this.totalProjectList = this.totalProjectList + 1;
+    this.buttonProject.push(this.totalProjectList)
+    console.log(this.totalProjectList);
+
+    const data = {
+      namaProyek: this.secondFormGroup.get('namaProyek')?.value,
+      totalPagu: this.secondFormGroup.get('totalPagu')?.value,
+      berakhirPerjanjian: this.secondFormGroup.get('berakhirPerjanjian')?.value,
+      deskripsiBerakhirPerjanjian: this.secondFormGroup.get('deskripsiBerakhirPerjanjian')?.value,
+      availabilityPeriode: this.secondFormGroup.get('availabilityPeriode')?.value,
+      deskripsiAvailabilityPeriode: this.secondFormGroup.get('deskripsiAvailabilityPeriode')?.value,
+      gracePeriod: this.secondFormGroup.get('gracePeriod')?.value,
+      deskripsiGracePeriod: this.secondFormGroup.get('deskripsiGracePeriod')?.value,
+      tenor: this.secondFormGroup.get('tenor')?.value,
+      repaymentMethod: this.secondFormGroup.get('repaymentMethod')?.value,
+      dateRepayment: this.secondFormGroup.get('dateRepayment')?.value,
+      deskripsiDenda: this.secondFormGroup.get('deskripsiDenda')?.value,
+      pembayaranPokokPinjaman: this.secondFormGroup.get('pembayaranPokokPinjaman')?.value,
+      interestType: this.secondFormGroup.get('interestType')?.value,
+      bunga: this.secondFormGroup.get('bunga')?.value,
+    }
+
+    const getCheckDataFirst = localStorage.getItem('allDataProjectAgreement');
+
+    if(getCheckDataFirst){
+      let tempData = JSON.parse(getCheckDataFirst)
+      console.log(tempData);
+
+      console.log(tempData[0].namaProyek, data.namaProyek);
+
+
+      let checkData = tempData.some((item: any) => {
+        return item.namaProyek === data.namaProyek
+      })
+
+      console.log(checkData);
+
+      if(checkData){
+        console.log('data dobel');
+      }
+      else{
+        this.allDataProject.push(data)
+        localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
+      }
+    }
+    else{
+      this.allDataProject.push(data)
+      localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
+    }
+
+    // this.allDataProject.push(data)
+    // localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
+
+    this.secondFormGroup.reset();
+  }
+
   onNextClickFirst() {
     this.submitted = true;
 

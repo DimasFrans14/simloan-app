@@ -415,12 +415,10 @@ export class MarketUpdateService {
     }
   }
 
-  async fetchDataKursTrendBarChart(groupParams: string, startDate: string, endDate: string){
+  async fetchDataKursTrendBarChart(date: string){
     const option = {
       params: {
-        "start_date" : startDate,
-        "end_date" : endDate,
-        "group" : groupParams
+        "date": date
       }
     }
     try {
@@ -600,7 +598,7 @@ export class MarketUpdateService {
       "get_20y": data.get_20y,
       "get_25y": data.get_25y,
       "get_30y": data.get_30y,
-      "group":data.group, 
+      "group":data.group,
       "is_active": true
       }
     try {
@@ -622,7 +620,7 @@ export class MarketUpdateService {
       "get_20y": data.get_20y,
       "get_25y": data.get_25y,
       "get_30y": data.get_30y,
-      "group":data.group, 
+      "group":data.group,
       "is_active": true
     }
   try {
@@ -783,7 +781,7 @@ export class MarketUpdateService {
     try {
       const params = new HttpParams().set('tahun', year)
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl2}/simloan-ws/market/commodities/getRateList`, {params})
+        this.http.get(`${environment.apiUrl2}/market/commodities/getRateList`, {params})
       );
     } catch (error) {
       console.log(error);
@@ -868,7 +866,7 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateRkapCommodities(data:any){
     const data1 = {
-      "id": data.id,  
+      "id": data.id,
       "kode_item": data.kode_item,
       "nilai": data.nilai,
       "tanggal": data.tanggal,
@@ -2378,12 +2376,12 @@ export class MarketUpdateService {
     }
   }
 
-  importLaporanMacroIndicator = async (params: string, data: any) => {
-    const headers = { 'content-type': 'application/json'}
-    const body = JSON.stringify(data)
+  importLaporanMacroIndicator = async (params: string, file: File) => {
+    const form = new FormData()
+    form.append('file', file, file.name);
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/macro/create?globalMacroIndicatorEnum=${JSON.parse(params)}`, body, {'headers': headers})
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/macro/create?globalMacroIndicatorEnum=${JSON.parse(params)}`, form)
       )
     } catch (error) {
       return null

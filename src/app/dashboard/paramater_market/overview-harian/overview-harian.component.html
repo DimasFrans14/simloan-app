@@ -178,8 +178,17 @@
 
     <!-- Card Macro Indicator -->
     <div class="d-flex flex-sm-wrap flex-md-wrap flex-lg-nowrap align-items-center justify-content-center">
+
+      <div class="text-primary" [style.display]="isLoadingMacro ? 'block' : 'none'">
+        <div class="d-flex align-items-center justify-content-center bg-white rounded" style="padding: 50px 140px;">
+          <div class="spinner-border" role="status">
+          </div>
+          <span class="text-dark ms-2">Load Data...</span>
+        </div>
+      </div>
+
       <!-- <div *ngIf="defaultMacroIndicatorItems"> -->
-        <div *ngFor="let items of dataMacroIndicator">
+        <div *ngFor="let items of dataMacroIndicator" [style.display]="isLoadingMacro ? 'none' : 'block'">
           <div class="d-flex flex-column justify-content-center bg-white rounded p-3 me-3 position-relative mt-2">
             <a class="fw-semibold align-self-center text-center mb-3 noteable">{{items.keterangan}}</a>
             <div class="d-flex align-items-center justify-content-between pb-2" style="font-size: 12px;">
@@ -204,7 +213,8 @@
     <!-- End Card Macro Indicator -->
 
     <div class="row mt-4">
-      <div class="vertical-card col-4">
+      <div class="col-4">
+
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <h4>Commodity</h4>
@@ -268,8 +278,16 @@
           </div>
         </div>
 
+        <div class="text-primary mt-2" [style.display]="isLoadingCommodity ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center bg-white rounded" style="padding:50px 0px">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-2">Load Data...</span>
+          </div>
+        </div>
+
         <!-- Card Commodity -->
-        <div *ngFor="let item of dataDefaultCommodities">
+        <div *ngFor="let item of dataDefaultCommodities" [style.display]="isLoadingCommodity ? 'none' : 'block'">
             <!-- <div *ngIf="i < 3"> -->
           <div class="d-flex flex-column justify-content-center bg-white rounded p-3 mb-3 mt-2 position-relative">
           <span class="fw-semibold align-self-center mb-3">{{item.keterangan}}</span>
@@ -357,9 +375,17 @@
           </div>
         </div>
 
+        <div class="text-primary mt-2" [style.display]="isLoadingKurs ? 'block' : 'none'">
+          <div class="d-flex align-items-center justify-content-center bg-white rounded" style="padding:50px 0px">
+            <div class="spinner-border" role="status">
+            </div>
+            <span class="text-dark ms-2">Load Data...</span>
+          </div>
+        </div>
+
         <!-- Card Commodity -->
-        <div *ngIf="dataCurrency">
-          <div *ngFor="let item of dataCurrency">
+        <div *ngIf="dataDefaultCurrency">
+          <div *ngFor="let item of dataDefaultCurrency" [style.display]="isLoadingKurs ? 'none' : 'block'">
             <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 mb-3 mt-2 position-relative">
               <span class="fw-semibold mb-3">{{item.kode}}/IDR</span>
               <div class="d-flex align-items-center justify-content-between" style="font-size: 12px;">
@@ -474,23 +500,30 @@
            bindValue="id"
            [(ngModel)]="selectedItems">
             </ng-select> -->
-            <div *ngFor="let items of defaultMacroIndicatorItems">
+            <div>
               <div class="d-flex align-items-center justify-content-between">
-                <div style="max-width: 58px;">
-                  <span style="font-size: 12px;">{{items.currency}}</span>
-                </div>
-                <div>
-                  <span style="font-size: 12px;" class="text-danger">{{items.rate1}}</span>
-                </div>
-                <div>
-                  <span style="font-size: 12px;" class="text-primary">{{items.rate2}}</span>
-                </div>
-                <div>
-                  <span style="font-size: 12px;" class="text-secondary">{{items.rate3}}</span>
-                </div>
-                <div class="d-flex justify-content-center">
-                  <div class="btn btn-transparant"><i class="bi bi-trash"></i></div>
-                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col" style="font-size: 14px">Interest Rate</th>
+                      <th scope="col" style="font-size: 14px">Realiasi</th>
+                      <th scope="col" style="font-size: 14px">RKAP</th>
+                      <th scope="col" style="font-size: 14px">Outlook</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of listEditInterest">
+                      <td scope="row" style="font-size: 14px; border-style: none" >
+                        {{ item.kode }}
+                      </td>
+                      <td>{{ item.nilai_real }}</td>
+                      <td>{{ item.nilia_rkap }}</td>
+                      <td>{{ item.nilai_outlook }}</td>
+                      <td><i class="bi bi-plus-slash-minus"
+             style="cursor: pointer;" (click)="getValueRowInterest(item.kode)"></i></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -502,7 +535,16 @@
       </div>
   </div>
 
+    <div class="text-primary" [style.display]="isLoadingInterestRate ? 'block' : 'none'">
+      <div class="d-flex align-items-center justify-content-center bg-white rounded" style="padding: 50px 140px;">
+        <div class="spinner-border" role="status">
+        </div>
+        <span class="text-dark ms-2">Load Data...</span>
+      </div>
+    </div>
+
     <!-- Card Macro Indicator -->
+    <div [style.display]="isLoadingInterestRate ? 'none' : 'block'">
       <div class="d-flex flex-wrap align-items-center justify-content-center">
         <div *ngFor="let items of dataInterestRate">
           <div class="d-flex flex-column align-items-center justify-content-center bg-white rounded p-3 me-3 my-2 position-relative">
@@ -524,6 +566,7 @@
             <div class="circle-card" [style.background]="items.indikator"></div>
           </div>
         </div>
+      </div>
       </div>
     </div>
     <!-- End Card Macro Indicator -->
@@ -555,7 +598,15 @@
     </div>
   </div>
 
-  <div class="row bg-white p-3 rounded">
+  <div class="text-primary" [style.display]="isLoadingKeyTakeways ? 'block' : 'none'">
+    <div class="d-flex align-items-center justify-content-center bg-white rounded" style="padding: 50px 140px;">
+      <div class="spinner-border" role="status">
+      </div>
+      <span class="text-dark ms-2">Load Data...</span>
+    </div>
+  </div>
+
+  <div class="row bg-white p-3 rounded" [style.display]="isLoadingKeyTakeways ? 'none' : 'block'">
     <div class="col-12" style="font-size: 12px;" [innerHTML]="sanitize.bypassSecurityTrustHtml(getKeyTakeways)">
     </div>
   </div>
@@ -565,7 +616,7 @@
         <h4>Footnote</h4>
       </div>
       <div>
-        <button class="btn btn-light bg-white"  style="font-size: 14px;" data-bs-toggle="modal" (click)="openModalFootnote()" data-bs-target="#footnoteModal">Add</button>
+        <button class="btn btn-light bg-white"  style="font-size: 14px;" data-bs-toggle="modal" (click)="openModalFootnote('')" data-bs-target="#footnoteModal">Add</button>
       </div>
     </div>
     <!-- modal Footnote -->
@@ -587,7 +638,16 @@
       </div>
     </div>
     <!-- end modal -->
-    <div class="row bg-white p-3 rounded">
+
+    <div class="text-primary" [style.display]="isLoadingFootnote ? 'block' : 'none'">
+      <div class="d-flex align-items-center justify-content-center bg-white rounded" style="padding: 50px 140px;">
+        <div class="spinner-border" role="status">
+        </div>
+        <span class="text-dark ms-2">Load Data...</span>
+      </div>
+    </div>
+
+    <div class="row bg-white p-3 rounded" [style.display]="isLoadingFootnote ? 'none' : 'block'">
       <div class="col-12" style="font-size: 12px;">
         <ul class="list-group-flush">
           <ng-container *ngFor="let item of quillInnerHTMLFootnote">
