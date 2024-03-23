@@ -2,6 +2,7 @@ import { Injectable, AfterViewInit } from '@angular/core';
 import { CellComponent, TabulatorFull as Tabulator } from 'tabulator-tables';
 import { MarketUpdateService } from '../market_update/market-update.service';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -230,32 +231,32 @@ export class TableServicesService {
     // console.log('data commodities', this.dataCommodities);
   }
   getDataPDB(data: any){
-    this.dataPDB = data.data.content;
+    this.dataPDB = data;
     // console.log('data pdb', this.dataPDB);
   }
   getDataInflasi(data: any){
-    this.dataInflasi = data.data;
+    this.dataInflasi = data;
     // console.log('data inflasi', this.dataInflasi);
   }
 
   getDataPMI(data: any){
-    this.dataPMI = data.data;
+    this.dataPMI = data;
     // console.log('data PMI', this.dataPMI);
   }
 
   getDataRetail(data: any){
-    this.dataRetail = data.data;
+    this.dataRetail = data;
     // console.log('data retail', this.dataRetail);
 
   }
 
   getDataMoneySupply(data: any){
-    this.dataMoneySupply = data.data;
+    this.dataMoneySupply = data;
     // console.log('data money supply', this.dataMoneySupply);
   }
 
   getDataDevisa(data: any){
-    this.dataDevisa = data.data;
+    this.dataDevisa = data;
     // console.log('data devisa', this.dataDevisa);
   }
   getDataRealisasiCadev(data: any){
@@ -525,10 +526,12 @@ export class TableServicesService {
      // only allow the name cell to be edited if the age is over 18
   }
 
-  initializeTableData(lastMonth: string, lastWeek: string, yesterday: string, today: string) {
+  initializeTableData(arrayDate: any[]) {
+    console.log(arrayDate);
+    // console.log(arrayDate[0][0].h_min_30);
 
     // console.log(today.slice(-2, 10));
-    const formattedYear = today.slice(-2, 10);
+    const formattedYear = moment().format('DD/MM/YYYY').slice(-2, 10);
 
     this.tableCurrency = new Tabulator(".table-currency", {
       height: "335px",
@@ -540,10 +543,10 @@ export class TableServicesService {
             title:"Exchange Rate",
             columns:[
             {title:`RKAP <br/> ${formattedYear}`, field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center"},
-            {title:lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
-            {title:lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
-            {title:yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
-            {title:today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
+            {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_30 : '', field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
+            {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
+            {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
+            {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
           ],
           headerHozAlign:"center"
           },
@@ -561,10 +564,10 @@ export class TableServicesService {
       columns:[
         {title:"Rates", field:"keterangan", headerHozAlign:"center", hozAlign:'left', headerSort:false},
         {title:`RKAP <br/> ${formattedYear}`, field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center"},
-        {title:lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
-        {title:lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
-        {title:yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
-        {title:today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate[1].length ? arrayDate[1][0].h_min_30 : '', field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate[1].length ? arrayDate[1][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate[1].length ? arrayDate[1][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate[1].length ? arrayDate[1][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
         {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
@@ -581,10 +584,10 @@ export class TableServicesService {
           {//create column group
           title:"Yield",
           columns:[
-          {title: lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
-          {title: lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
-          {title: yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
-          {title: today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
+          {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_30 : '', field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
+          {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
+          {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
+          {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
           ],
           headerHozAlign:"center"
         },
@@ -603,10 +606,10 @@ export class TableServicesService {
         {//create column group
           title:"Yield",
           columns:[
-          {title: lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
-          {title: lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
-          {title: yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
-          {title: today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
+            {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_30 : '', field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
+            {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
+            {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
+            {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
           ],
           headerHozAlign:"center"
         },
@@ -626,10 +629,10 @@ export class TableServicesService {
         title:"Price",
         columns:[
         {title:`RKAP <br/> ${formattedYear}`, field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center"},
-        {title:lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
-        {title:lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
-        {title:yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
-        {title:today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate[3].length > 0 ? arrayDate[3][0].h_min_30 : '', field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate[3].length > 0 ? arrayDate[3][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate[3].length > 0 ? arrayDate[3][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate[3].length > 0 ? arrayDate[3][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
         ],
         headerHozAlign:"center"
       },
