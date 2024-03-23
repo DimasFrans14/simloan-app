@@ -527,6 +527,9 @@ export class TableServicesService {
 
   initializeTableData(lastMonth: string, lastWeek: string, yesterday: string, today: string) {
 
+    // console.log(today.slice(-2, 10));
+    const formattedYear = today.slice(-2, 10);
+
     this.tableCurrency = new Tabulator(".table-currency", {
       height: "335px",
       data:this.dataKurs,
@@ -536,7 +539,7 @@ export class TableServicesService {
           {//create column group
             title:"Exchange Rate",
             columns:[
-            {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center"},
+            {title:`RKAP <br/> ${formattedYear}`, field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center"},
             {title:lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
             {title:lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
             {title:yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
@@ -557,7 +560,7 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Rates", field:"keterangan", headerHozAlign:"center", hozAlign:'left', headerSort:false},
-        {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center"},
+        {title:`RKAP <br/> ${formattedYear}`, field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center"},
         {title:lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
         {title:lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
         {title:yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
@@ -622,7 +625,7 @@ export class TableServicesService {
       {//create column group
         title:"Price",
         columns:[
-        {title:"RKAP <br/>23", field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center"},
+        {title:`RKAP <br/> ${formattedYear}`, field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center"},
         {title:lastMonth, field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
         {title:lastWeek, field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
         {title:yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
@@ -1854,7 +1857,7 @@ export class TableServicesService {
         {title:"Yield Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, },
         {title:"Yield Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"Yield Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],  
+      ],
     });
 
     this.tableRealisasiBondYield = new Tabulator(".table-realisasi", {
@@ -3338,7 +3341,7 @@ export class TableServicesService {
     console.log(data);
     const response = await this.marketUpdateService.fetchDeleteDataOutlookPMI(data);
   }
-  
+
   //Retail
   cellClick_SaveButtonRealisasiRetail = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
