@@ -478,22 +478,16 @@
     <!-- Commodity -->
     <div class="d-flex justify-content-between mt-5">
       <h4>Commodity</h4>
-      <!-- <div class="align-self-center">
-        <button
-          class="btn btn-transparant btn-sm border border-1 px-3 bg-white"
-        >
-          Edit
-        </button>
-      </div> -->
     </div>
 
     <div class="d-flex flex-row flex-wrap justify-content-evenly gap-3">
 
       <!-- WTI & Brent -->
-      <div class="card rounded p-2 mt-3">
+      <div class="card rounded p-2 mt-3" [style.display]="isVisibleLine ? 'block' : 'none'">
 
         <div class="d-flex align-items-center justify-content-between p-1">
           <div class="flex-fill fw-semibold">WTI & Brent <br/><span class="info-unit">(USD/Ton)</span></div>
+
           <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-end py-2">
             <div>
               <button
@@ -611,22 +605,21 @@
             [xaxis]="xAxisWtiChartBrent"
             [yaxis]="yAxisWtiBrentChart">
           </apx-chart>
-          <apx-chart
+          <!-- <apx-chart
             [style.display]="isVisibleLine ? 'none' : 'block'"
             [series]="dataBarChartWtiBrent"
             [chart]="wtiBrentBarChart"
-            [dataLabels]="barDataLabels"
-            [colors]="wtiBrentChartColors"
-            [xaxis]="xAxisWtiChartBrent"
-            [yaxis]="yAxisWtiBrentBarChart">
-          </apx-chart>
+            [dataLabels]="barDataLabelsWTIBRENT"
+            [xaxis]="xAxisBarWtiBrent"
+            >
+          </apx-chart> -->
         </div>
 
       </div>
       <!-- end WTI Brent -->
 
       <!-- ICP -->
-      <div class="card rounded p-2 mt-3">
+      <div class="card rounded p-2 mt-3" [style.display]="isVisibleLine ? 'block' : 'none'">
 
         <div class="d-flex align-items-center justify-content-between p-1">
           <div class="flex-fill fw-semibold">ICP <span class="info-unit">(USD/Barel)</span></div>
@@ -659,7 +652,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '1year')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingICPLine"
                 [ngClass]="{'active': activeButtonLineICP === '1year'}"
               >
                 <span style="font-size: 13px">1Y</span>
@@ -670,7 +663,7 @@
                 type="button"
                 class="btn btn-light rounded-pill text-dark bg-white ms-1"
                 (click)="fetchRangeDataCommoditiesLineChart('[\'ICP\']', '3years')"
-                [disabled]="isLoadingAllData"
+                [disabled]="isLoadingICPLine"
                 [ngClass]="{'active': activeButtonLineICP === '3years'}"
               >
                 <span style="font-size: 13px">3Y</span>
@@ -749,24 +742,22 @@
             [legend]="legendICPChart">
 
           </apx-chart>
-          <apx-chart
+          <!-- <apx-chart
             [style.display]="isVisibleLine ? 'none' : 'block'"
             [series]="dataIcpBarChart"
             [chart]="icpBarChart"
-            [stroke]="icpStroke"
             [dataLabels]="barDataLabels"
             [colors]="icpChartColors"
-            [xaxis]="xAxisIcpChart"
-            [yaxis]="yAxisIcp"
+            [xaxis]="xAxisIcpBarChart"
             [legend]="legendICPChart">
-          </apx-chart>
+          </apx-chart> -->
         </div>
 
       </div>
       <!-- end ICP -->
 
       <!-- COAL NEWCASTLE -->
-      <div class="card rounded p-2 mt-3">
+      <div class="card rounded p-2 mt-3" [style.display]="isVisibleLine ? 'block' : 'none'">
         <div class="d-flex align-items-center justify-content-between p-1">
             <div class="flex-fill fw-semibold">COAL Newcastle <br/><span class="info-unit">(USD/Ton)</span></div>
 
@@ -890,23 +881,21 @@
             [yaxis]="yAxisCoalChart"
             [legend]="legendCOALChart">
           </apx-chart>
-          <apx-chart
+          <!-- <apx-chart
             [style.display]="isVisibleLine ? 'none' : 'block'"
             [series]="dataChartCoalBar"
             [chart]="coalBarChart"
-            [stroke]="coalStroke"
-            [dataLabels]="barDataLabels"
+            [dataLabels]="barDataLabelsCOAL"
             [colors]="coalChartColors"
-            [xaxis]="xAxisChartCoal"
-            [yaxis]="yAxisCoalChart"
-            [legend]="legendCOALChart">
-          </apx-chart>
+            [xaxis]="xAxisChartCoalBar"
+            >
+          </apx-chart> -->
         </div>
       </div>
       <!-- end COAL NEWCASTLE -->
 
       <!-- LNG -->
-      <div class="card rounded p-2 mt-3">
+      <div class="card rounded p-2 mt-3" [style.display]="isVisibleLine ? 'block' : 'none'">
         <div class="d-flex align-items-center justify-content-between p-1">
           <div class="flex-fill fw-semibold">LNG (JKM) <br/><span class="info-unit">(USD/MMBtu)</span></div>
           <div [style.display]="isVisibleLine ? 'flex' : 'none'" class="align-items-center justify-content-start py-2">
@@ -1029,22 +1018,135 @@
             [yaxis]="yAxisLng"
             [legend]="legendLNGChart">
           </apx-chart>
-          <apx-chart
+          <!-- <apx-chart
             [style.display]="isVisibleLine ? 'none' : 'block'"
             [series]="dataChartLngBar"
             [chart]="lngBarChart"
-            [stroke]="lngStroke"
-            [dataLabels]="barDataLabels"
             [colors]="lngChartColors"
-            [xaxis]="xAxisChartLng"
-            [yaxis]="yAxisLng"
+            [xaxis]="xAxisChartBarLng"
+            [dataLabels]="barDataLabelsLNG"
             [legend]="legendLNGChart">
-          </apx-chart>
+          </apx-chart> -->
         </div>
       </div>
       <!-- end LNG -->
 
       <!-- </ng-container> -->
+    </div>
+
+    <div [style.display]="isVisibleLine ? 'none' : 'block'">
+      <div class="row justify-content-evenly mt-3">
+
+        <div class="col-md-5 py-2 px-2 bg-white rounded">
+          <div class="d-flex align-items-center justify-content-between p-1">
+            <div class="flex-fill fw-semibold">WTI & Brent <br/><span class="info-unit">(USD/Ton)</span></div>
+          </div>
+
+            <div class="text-primary" [style.display]="isLoadingWTIBar ? 'block' : 'none'">
+              <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+                <div class="spinner-border" role="status">
+                </div>
+                <span class="text-dark ms-2">Load Data Chart...</span>
+              </div>
+            </div>
+
+            <div>
+              <apx-chart
+              [style.display]="isLoadingWTIBar? 'none' : 'block'"
+              [series]="dataBarChartWtiBrent"
+              [chart]="currencyBarChartDetails"
+              [dataLabels]="barDataLabelsWTIBRENT"
+              [xaxis]="xAxisBarWtiBrent"
+              ></apx-chart>
+            </div>
+        </div>
+
+        <div class="col-md-5 py-2 px-2 bg-white rounded">
+          <div class="d-flex align-items-center justify-content-between p-1">
+            <div class="flex-fill fw-semibold">ICP <br/><span class="info-unit">(USD/Barel)</span>
+            </div>
+          </div>
+
+            <div class="text-primary" [style.display]="isLoadingICPBar ? 'block' : 'none'">
+              <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+                <div class="spinner-border" role="status">
+                </div>
+                <span class="text-dark ms-2">Load Data Chart...</span>
+              </div>
+            </div>
+
+            <div>
+              <apx-chart
+              [style.display]="isLoadingICPBar ? 'none' : 'block'"
+              [series]="dataIcpBarChart"
+              [chart]="currencyBarChartDetails"
+              [dataLabels]="barDataLabels"
+              [colors]="icpChartColors"
+              [xaxis]="xAxisIcpBarChart"
+              [legend]="legendICPChart"
+              ></apx-chart>
+            </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-evenly mt-3">
+        <div class="col-md-5 py-2 px-2 bg-white rounded">
+
+          <div class="d-flex align-items-center justify-content-between p-1">
+            <div class="flex-fill fw-semibold">COAL Newcastle <br/><span class="info-unit">(USD/Ton)</span>
+            </div>
+          </div>
+
+            <div class="text-primary" [style.display]="isLoadingCOALBar ? 'block' : 'none'">
+              <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+                <div class="spinner-border" role="status">
+                </div>
+                <span class="text-dark ms-2">Load Data Chart...</span>
+              </div>
+            </div>
+
+            <div>
+              <apx-chart
+              ></apx-chart>
+              <apx-chart
+              [style.display]="isLoadingCOALBar ? 'none' : 'block'"
+              [series]="dataChartCoalBar"
+              [chart]="currencyBarChartDetails"
+              [dataLabels]="barDataLabelsCOAL"
+              [colors]="coalChartColors"
+              [xaxis]="xAxisChartCoalBar"
+              [legend]="legendCOALChart"
+              ></apx-chart>
+            </div>
+        </div>
+
+        <div class="col-md-5 py-2 px-2 bg-white rounded">
+
+          <div class="d-flex align-items-center justify-content-between p-1">
+            <div class="flex-fill fw-semibold">LNG (JKM) <br/><span class="info-unit">(USD/MMBtu)</span></div>
+            </div>
+
+            <div class="text-primary" [style.display]="isLoadingLNGBar ? 'block' : 'none'">
+              <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+                <div class="spinner-border" role="status">
+                </div>
+                <span class="text-dark ms-2">Load Data Chart...</span>
+              </div>
+            </div>
+
+            <div>
+              <apx-chart
+              [style.display]="isLoadingLNGBar ? 'none' : 'block'"
+              [series]="dataChartLngBar"
+              [chart]="currencyBarChartDetails"
+              [colors]="lngChartColors"
+              [xaxis]="xAxisChartBarLng"
+              [dataLabels]="barDataLabelsLNG"
+              [legend]="legendLNGChart"
+              ></apx-chart>
+            </div>
+        </div>
+      </div>
     </div>
 
     <div class="d-flex justify-content-between align-items-center mt-4 mb-2">
