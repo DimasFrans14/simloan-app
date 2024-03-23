@@ -29,7 +29,7 @@ export class MarketUpdateService {
 //kurs
   async fetchDataKurs(year: string){
     try {
-      const params = new HttpParams().set('tahun', year)
+      const params = new HttpParams().set('date', year)
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/market/currency/getList`, {params})
       );
@@ -493,7 +493,7 @@ export class MarketUpdateService {
   // bond Yield SBN
   async fetchDataBondYield(year: string){
     try {
-      const params = new HttpParams().set('tahun', year)
+      const params = new HttpParams().set('date', year)
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/market/bondyield/getList`, {params})
       );
@@ -504,7 +504,7 @@ export class MarketUpdateService {
   }
   async fetchDataRealisasiBondYieldSBN(){
     try {
-      const params = {  
+      const params = {
         "grup": "SBN"
       }
       console.log(params)
@@ -547,7 +547,7 @@ export class MarketUpdateService {
   //end point belum ada
   async fetchDataRkapBondYieldSBN(){
     try {
-      const params = {  
+      const params = {
         "grup": "SBN"
       }
       console.log(params)
@@ -605,7 +605,7 @@ export class MarketUpdateService {
   }
   async fetchDataOutlookBondYieldSBN(){
     try {
-      const params = {  
+      const params = {
         "grup": "SBN"
       }
       console.log(params)
@@ -674,7 +674,7 @@ export class MarketUpdateService {
   //bond Yield US treasury
   async fetchDataBondYieldTreasury(year: string){
     try {
-      const params = new HttpParams().set('tahun', year)
+      const params = new HttpParams().set('date', year)
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/market/bondyield/getList`, {params})
       );
@@ -733,7 +733,7 @@ export class MarketUpdateService {
   }
   async fetchDataRkapBondYieldUsTreasury(){
     try {
-      const params = {  
+      const params = {
         "grup": "US TREASURY"
       }
       console.log(params)
@@ -781,7 +781,7 @@ export class MarketUpdateService {
   }
   async fetchDataOutlookBondYieldUsTreasury(){
     try {
-      const params = {  
+      const params = {
         "grup": "US TREASURY"
       }
       console.log(params)
@@ -830,7 +830,7 @@ export class MarketUpdateService {
   //commodities
   async fetchDataCommoditiesAll(year: string){
     try {
-      const params = new HttpParams().set('tahun', year)
+      const params = new HttpParams().set('date', year)
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/market/commodities/getRateList`, {params})
       );
@@ -1381,8 +1381,8 @@ export class MarketUpdateService {
 //PMI
   async fetchDataPMI(){
     try {
-      // const params = new HttpParams().set('tahun', year);
-      // const params = new HttpParams().set('tahun', year);
+      // const params = new HttpParams().set('date', year);
+      // const params = new HttpParams().set('date', year);
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_real_pmi`)
       );
@@ -2069,7 +2069,7 @@ export class MarketUpdateService {
   //interest rate
   async fetchDataInterestRate(year:string){
     try {
-      const params = new HttpParams().set('tahun', year)
+      const params = new HttpParams().set('date', year)
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/market/interest/getList`, {params})
       );
@@ -2134,7 +2134,7 @@ export class MarketUpdateService {
       return null;
     }
   }
-  //end point belum ada 
+  //end point belum ada
   async fetchDataRkapInterestRate(){
     try {
       return await lastValueFrom(
