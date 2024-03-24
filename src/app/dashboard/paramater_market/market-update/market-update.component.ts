@@ -510,8 +510,10 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
         this.isLoadingTablePDB = false;
       }
 
-      const responseInflasi = await this.marketUpdateService.fetchDataInflasi();
+      const responseInflasi = await this.marketUpdateService.fetchAllDataMacroIndicator(this.selectedDate, "INFLASI");
+
       this.dataInflasi = responseInflasi;
+
       if(this.dataInflasi.data.length > 0){
         this.getLabelYear = this.dataInflasi.data.filter((item: any) => {
           return item.bulan === 'Bulan';
@@ -519,123 +521,141 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
         this.dataInflasi = this.dataInflasi.data.filter((item: any) => {
           return item.bulan != 'Bulan'
         })
-        this.dataInflasi = this.dataInflasi.data.map((item: any) => {
-          item.nilai_year_min0 != null ? item.nilai_year_min0 = item.nilai_year_min0.toFixed(2) : item.nilai_year_min0 = 0;
-          item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
 
-          item.nilai_year_min1 != null ? item.nilai_year_min1 = item.nilai_year_min1.toFixed(2) : item.nilai_year_min1 = 0;
-          item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
+        this.dataInflasi = this.dataInflasi.map((item: any) => {
+          item.year_min_0 != null ? item.year_min_0 = item.year_min_0.toFixed(2) : item.year_min_0 = 0;
+          item.year_min_0 = item.year_min_0.toLocaleString('en-US');
 
-          item.nilai_year_min2 != null ? item.nilai_year_min2 = item.nilai_year_min2.toFixed(2) : item.nilai_year_min2 = 0;
-          item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
+          item.year_min_1 != null ? item.year_min_1 = item.year_min_1.toFixed(2) : item.year_min_1 = 0;
+          item.year_min_1 = item.year_min_1.toLocaleString('en-US');
 
-          item.nilai_year_min3 != null ? item.nilai_year_min3 = item.nilai_year_min3.toFixed(2) : item.nilai_year_min3 = 0;
-          item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
+          item.year_min_2 != null ? item.year_min_2 = item.year_min_2.toFixed(2) : item.year_min_2 = 0;
+          item.year_min_2 = item.year_min_2.toLocaleString('en-US');
+
+          item.year_min_3 != null ? item.year_min_3 = item.year_min_3.toFixed(2) : item.year_min_3 = 0;
+          item.year_min_3 = item.year_min_3.toLocaleString('en-US');
 
           return item
         })
-        this.isLoadingTableInflasi = false;
+        // this.isLoadingTableInflasi = false;
       }
       else{
         this.dataInflasi = [];
-        this.isLoadingTableInflasi = false;
+        // this.isLoadingTableInflasi = false;
       }
 
-      const responsePMI = await this.marketUpdateService.fetchDataPMI();
+      const responsePMI = await this.marketUpdateService.fetchAllDataMacroIndicator(this.selectedDate, "PMI");
       this.dataPMI = responsePMI;
+
       if(this.dataPMI.data.length > 0){
-        this.dataPMI = this.dataPMI.data.map((item: any) => {
-          item.nilai_year_min0 != null ? item.nilai_year_min0 = item.nilai_year_min0.toFixed(2) : item.nilai_year_min0 = 0;
-          item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
+        this.dataPMI = this.dataPMI.data.filter((item: any) => {
+          return item.bulan != 'Bulan'
+        })
 
-          item.nilai_year_min1 != null ? item.nilai_year_min1 = item.nilai_year_min1.toFixed(2) : item.nilai_year_min1 = 0;
-          item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
+        this.dataPMI = this.dataPMI.map((item: any) => {
+          item.year_min_0 != null ? item.year_min_0 = item.year_min_0.toFixed(2) : item.year_min_0 = 0;
+          item.year_min_0 = item.year_min_0.toLocaleString('en-US');
 
-          item.nilai_year_min2 != null ? item.nilai_year_min2 = item.nilai_year_min2.toFixed(2) : item.nilai_year_min2 = 0;
-          item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
+          item.year_min_1 != null ? item.year_min_1 = item.year_min_1.toFixed(2) : item.year_min_1 = 0;
+          item.year_min_1 = item.year_min_1.toLocaleString('en-US');
 
-          item.nilai_year_min3 != null ? item.nilai_year_min3 = item.nilai_year_min3.toFixed(2) : item.nilai_year_min3 = 0;
-          item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
+          item.year_min_2 != null ? item.year_min_2 = item.year_min_2.toFixed(2) : item.year_min_2 = 0;
+          item.year_min_2 = item.year_min_2.toLocaleString('en-US');
+
+          item.year_min_3 != null ? item.year_min_3 = item.year_min_3.toFixed(2) : item.year_min_3 = 0;
+          item.year_min_3 = item.year_min_3.toLocaleString('en-US');
 
           return item
         })
-        this.isLoadingTablePMI = false;
+        // this.isLoadingTablePMI = false;
       }else{
         this.dataPMI = [];
-        this.isLoadingTablePMI = false;
+        // this.isLoadingTablePMI = false;
       }
 
-      const responseRetail = await this.marketUpdateService.fetchDataRetail();
+      const responseRetail = await this.marketUpdateService.fetchAllDataMacroIndicator(this.selectedDate, "RETAIL");
       this.dataRetail = responseRetail;
 
       if(this.dataRetail.data.length > 0){
-        this.dataRetail = this.dataRetail.data.map((item: any) => {
-          item.nilai_year_min0 != null ? item.nilai_year_min0 = item.nilai_year_min0.toFixed(2) : item.nilai_year_min0 = 0;
-          item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
+        this.dataRetail = this.dataRetail.data.filter((item: any) => {
+          return item.bulan != 'Bulan'
+        })
 
-          item.nilai_year_min1 != null ? item.nilai_year_min1 = item.nilai_year_min1.toFixed(2) : item.nilai_year_min1 = 0;
-          item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
+        this.dataRetail = this.dataRetail.map((item: any) => {
+          item.year_min_0 != null ? item.year_min_0 = item.year_min_0.toFixed(2) : item.year_min_0 = 0;
+          item.year_min_0 = item.year_min_0.toLocaleString('en-US');
 
-          item.nilai_year_min2 != null ? item.nilai_year_min2 = item.nilai_year_min2.toFixed(2) : item.nilai_year_min2 = 0;
-          item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
+          item.year_min_1 != null ? item.year_min_1 = item.year_min_1.toFixed(2) : item.year_min_1 = 0;
+          item.year_min_1 = item.year_min_1.toLocaleString('en-US');
 
-          item.nilai_year_min3 != null ? item.nilai_year_min3 = item.nilai_year_min3.toFixed(2) : item.nilai_year_min3 = 0;
-          item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
+          item.year_min_2 != null ? item.year_min_2 = item.year_min_2.toFixed(2) : item.year_min_2 = 0;
+          item.year_min_2 = item.year_min_2.toLocaleString('en-US');
+
+          item.year_min_3 != null ? item.year_min_3 = item.year_min_3.toFixed(2) : item.year_min_3 = 0;
+          item.year_min_3 = item.year_min_3.toLocaleString('en-US');
 
           return item
         })
-        this.isLoadingTableRetail = false;
+        // this.isLoadingTableRetail = false;
       }else{
         this.dataRetail = [];
-        this.isLoadingTableRetail = false;
+        // this.isLoadingTableRetail = false;
       }
 
-      const responseMoneySupply = await this.marketUpdateService.fetchDataMoneySupply();
+      const responseMoneySupply = await this.marketUpdateService.fetchAllDataMacroIndicator(this.selectedDate, "MONEY");
       this.dataMoneySupply = responseMoneySupply;
 
       if(this.dataMoneySupply.data.length > 0){
-        this.dataMoneySupply = this.dataMoneySupply.data.map((item: any) => {
+        this.dataMoneySupply = this.dataMoneySupply.data.filter((item: any) => {
+          return item.bulan != 'Bulan'
+        })
+
+        this.dataMoneySupply = this.dataMoneySupply.map((item: any) => {
           // Parse and format number with locale string
-          item.triliun_year_min0 != null ? item.triliun_year_min0 = parseFloat(item.triliun_year_min0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.triliun_year_min0 = 0;
+          item.year_min_0 != null ? item.year_min_0 = parseFloat(item.year_min_0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_0 = 0;
 
-          item.triliun_year_min1 != null ? item.triliun_year_min1 = parseFloat(item.triliun_year_min1).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.triliun_year_min1 = 0;
+          item.year_min_1 != null ? item.year_min_1 = parseFloat(item.year_min_1).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_1 = 0;
 
-          item.triliun_year_min2 != null ? item.triliun_year_min2 = parseFloat(item.triliun_year_min2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.triliun_year_min2 = 0;
+          item.year_min_2 != null ? item.year_min_2 = parseFloat(item.year_min_2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_2 = 0;
 
-          item.triliun_year_min3 != null ? item.triliun_year_min3 = parseFloat(item.triliun_year_min3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.triliun_year_min3 = 0;
+          item.year_min_3 != null ? item.year_min_3 = parseFloat(item.year_min_3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_3 = 0;
 
           return item;
       });
-      this.isLoadingTableRetail = false;
+      // this.isLoadingTableRetail = false;
       }
       else{
         this.dataMoneySupply = [];
-      this.isLoadingTableRetail = false;
+      // this.isLoadingTableRetail = false;
       }
 
-      const responseDevisa = await this.marketUpdateService.fetchDataDevisa();
+      const responseDevisa = await this.marketUpdateService.fetchAllDataMacroIndicator(this.selectedDate, "CADEV");
       this.dataDevisa = responseDevisa;
 
       if(this.dataDevisa.data.length > 0){
-        this.dataDevisa = this.dataDevisa.data.map((item: any) => {
-          item.nilai_year_min0 != null ? item.nilai_year_min0 = item.nilai_year_min0.toFixed(2) : item.nilai_year_min0 = 0;
-          item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
+        this.dataDevisa = this.dataDevisa.data.filter((item: any) => {
+          return item.bulan != 'Bulan'
+        })
 
-          item.nilai_year_min1 != null ? item.nilai_year_min1 = item.nilai_year_min1.toFixed(2) : item.nilai_year_min1 = 0;
-          item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
+        this.dataDevisa = this.dataDevisa.map((item: any) => {
+          item.year_min_0 != null ? item.year_min_0 = item.year_min_0.toFixed(2) : item.year_min_0 = 0;
+          item.year_min_0 = item.year_min_0.toLocaleString('en-US');
 
-          item.nilai_year_min2 != null ? item.nilai_year_min2 = item.nilai_year_min2.toFixed(2) : item.nilai_year_min2 = 0;
-          item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
+          item.year_min_1 != null ? item.year_min_1 = item.year_min_1.toFixed(2) : item.year_min_1 = 0;
+          item.year_min_1 = item.year_min_1.toLocaleString('en-US');
 
-          item.nilai_year_min3 != null ? item.nilai_year_min3 = item.nilai_year_min3.toFixed(2) : item.nilai_year_min3 = 0;
-          item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
+          item.year_min_2 != null ? item.year_min_2 = item.year_min_2.toFixed(2) : item.year_min_2 = 0;
+          item.year_min_2 = item.year_min_2.toLocaleString('en-US');
+
+          item.year_min_3 != null ? item.year_min_3 = item.year_min_3.toFixed(2) : item.year_min_3 = 0;
+          item.year_min_3 = item.year_min_3.toLocaleString('en-US');
 
           return item
         })
-        this.isLoadingTableCadev = false;
+        // this.isLoadingTableCadev = false;
       }else{
         this.dataDevisa = [];
-        this.isLoadingTableCadev = false;
+        // this.isLoadingTableCadev = false;
       }
 
       this.allLabelYear = [];
@@ -649,6 +669,9 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
       this.tableConfig.getDataKurs(this.dataKurs);
       this.tableConfig.getDataInterestRate(this.dataInterestRate);
+
+      console.log(this.dataBondYieldSBN, this.dataBondYieldUST);
+
       this.tableConfig.getDataBondYield(this.dataBondYieldSBN, this.dataBondYieldUST);
       this.tableConfig.getDataCommodities(this.dataCommodtities);
       this.tableConfig.getDataPDB(this.dataPDB);
@@ -978,137 +1001,155 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       // this.isLoadingTablePDB = false;
     }
 
-    const responseInflasi = await this.marketUpdateService.fetchDataInflasi();
-    this.dataInflasi = responseInflasi;
-    if(this.dataInflasi.data.length > 0){
-      this.getLabelYear = this.dataInflasi.data.filter((item: any) => {
-        return item.bulan === 'Bulan';
-      })
-      this.dataInflasi = this.dataInflasi.data.filter((item: any) => {
-        return item.bulan != 'Bulan'
-      })
-      this.dataInflasi = this.dataInflasi.data.map((item: any) => {
-        item.nilai_year_min0 != null ? item.nilai_year_min0 = item.nilai_year_min0.toFixed(2) : item.nilai_year_min0 = 0;
-        item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
+    const responseInflasi = await this.marketUpdateService.fetchAllDataMacroIndicator(today, "INFLASI");
 
-        item.nilai_year_min1 != null ? item.nilai_year_min1 = item.nilai_year_min1.toFixed(2) : item.nilai_year_min1 = 0;
-        item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
+      this.dataInflasi = responseInflasi;
 
-        item.nilai_year_min2 != null ? item.nilai_year_min2 = item.nilai_year_min2.toFixed(2) : item.nilai_year_min2 = 0;
-        item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
+      if(this.dataInflasi.data.length > 0){
+        this.getLabelYear = this.dataInflasi.data.filter((item: any) => {
+          return item.bulan === 'Bulan';
+        })
+        this.dataInflasi = this.dataInflasi.data.filter((item: any) => {
+          return item.bulan != 'Bulan'
+        })
 
-        item.nilai_year_min3 != null ? item.nilai_year_min3 = item.nilai_year_min3.toFixed(2) : item.nilai_year_min3 = 0;
-        item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
+        this.dataInflasi = this.dataInflasi.map((item: any) => {
+          item.year_min_0 != null ? item.year_min_0 = item.year_min_0.toFixed(2) : item.year_min_0 = 0;
+          item.year_min_0 = item.year_min_0.toLocaleString('en-US');
 
-        return item
-      })
-      // this.isLoadingTableInflasi = false;
-    }
-    else{
-      this.dataInflasi = [];
-      // this.isLoadingTableInflasi = false;
-    }
+          item.year_min_1 != null ? item.year_min_1 = item.year_min_1.toFixed(2) : item.year_min_1 = 0;
+          item.year_min_1 = item.year_min_1.toLocaleString('en-US');
 
-    const responsePMI = await this.marketUpdateService.fetchDataPMI();
-    this.dataPMI = responsePMI;
-    if(this.dataPMI.data.length > 0){
-      this.dataPMI = this.dataPMI.data.map((item: any) => {
-        item.nilai_year_min0 != null ? item.nilai_year_min0 = item.nilai_year_min0.toFixed(2) : item.nilai_year_min0 = 0;
-        item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
+          item.year_min_2 != null ? item.year_min_2 = item.year_min_2.toFixed(2) : item.year_min_2 = 0;
+          item.year_min_2 = item.year_min_2.toLocaleString('en-US');
 
-        item.nilai_year_min1 != null ? item.nilai_year_min1 = item.nilai_year_min1.toFixed(2) : item.nilai_year_min1 = 0;
-        item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
+          item.year_min_3 != null ? item.year_min_3 = item.year_min_3.toFixed(2) : item.year_min_3 = 0;
+          item.year_min_3 = item.year_min_3.toLocaleString('en-US');
 
-        item.nilai_year_min2 != null ? item.nilai_year_min2 = item.nilai_year_min2.toFixed(2) : item.nilai_year_min2 = 0;
-        item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
+          return item
+        })
+        // this.isLoadingTableInflasi = false;
+      }
+      else{
+        this.dataInflasi = [];
+        // this.isLoadingTableInflasi = false;
+      }
 
-        item.nilai_year_min3 != null ? item.nilai_year_min3 = item.nilai_year_min3.toFixed(2) : item.nilai_year_min3 = 0;
-        item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
+      const responsePMI = await this.marketUpdateService.fetchAllDataMacroIndicator(today, "PMI");
+      this.dataPMI = responsePMI;
 
-        return item
-      })
-      // this.isLoadingTablePMI = false;
-    }else{
-      this.dataPMI = [];
-      // this.isLoadingTablePMI = false;
-    }
+      if(this.dataPMI.data.length > 0){
+        this.dataPMI = this.dataPMI.data.filter((item: any) => {
+          return item.bulan != 'Bulan'
+        })
 
-    const responseRetail = await this.marketUpdateService.fetchDataRetail();
-    this.dataRetail = responseRetail;
+        this.dataPMI = this.dataPMI.map((item: any) => {
+          item.year_min_0 != null ? item.year_min_0 = item.year_min_0.toFixed(2) : item.year_min_0 = 0;
+          item.year_min_0 = item.year_min_0.toLocaleString('en-US');
 
-    if(this.dataRetail.data.length > 0){
-      this.dataRetail = this.dataRetail.data.map((item: any) => {
-        item.nilai_year_min0 != null ? item.nilai_year_min0 = item.nilai_year_min0.toFixed(2) : item.nilai_year_min0 = 0;
-        item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
+          item.year_min_1 != null ? item.year_min_1 = item.year_min_1.toFixed(2) : item.year_min_1 = 0;
+          item.year_min_1 = item.year_min_1.toLocaleString('en-US');
 
-        item.nilai_year_min1 != null ? item.nilai_year_min1 = item.nilai_year_min1.toFixed(2) : item.nilai_year_min1 = 0;
-        item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
+          item.year_min_2 != null ? item.year_min_2 = item.year_min_2.toFixed(2) : item.year_min_2 = 0;
+          item.year_min_2 = item.year_min_2.toLocaleString('en-US');
 
-        item.nilai_year_min2 != null ? item.nilai_year_min2 = item.nilai_year_min2.toFixed(2) : item.nilai_year_min2 = 0;
-        item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
+          item.year_min_3 != null ? item.year_min_3 = item.year_min_3.toFixed(2) : item.year_min_3 = 0;
+          item.year_min_3 = item.year_min_3.toLocaleString('en-US');
 
-        item.nilai_year_min3 != null ? item.nilai_year_min3 = item.nilai_year_min3.toFixed(2) : item.nilai_year_min3 = 0;
-        item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
+          return item
+        })
+        // this.isLoadingTablePMI = false;
+      }else{
+        this.dataPMI = [];
+        // this.isLoadingTablePMI = false;
+      }
 
-        return item
-      })
+      const responseRetail = await this.marketUpdateService.fetchAllDataMacroIndicator(today, "RETAIL");
+      this.dataRetail = responseRetail;
+
+      if(this.dataRetail.data.length > 0){
+        this.dataRetail = this.dataRetail.data.filter((item: any) => {
+          return item.bulan != 'Bulan'
+        })
+
+        this.dataRetail = this.dataRetail.map((item: any) => {
+          item.year_min_0 != null ? item.year_min_0 = item.year_min_0.toFixed(2) : item.year_min_0 = 0;
+          item.year_min_0 = item.year_min_0.toLocaleString('en-US');
+
+          item.year_min_1 != null ? item.year_min_1 = item.year_min_1.toFixed(2) : item.year_min_1 = 0;
+          item.year_min_1 = item.year_min_1.toLocaleString('en-US');
+
+          item.year_min_2 != null ? item.year_min_2 = item.year_min_2.toFixed(2) : item.year_min_2 = 0;
+          item.year_min_2 = item.year_min_2.toLocaleString('en-US');
+
+          item.year_min_3 != null ? item.year_min_3 = item.year_min_3.toFixed(2) : item.year_min_3 = 0;
+          item.year_min_3 = item.year_min_3.toLocaleString('en-US');
+
+          return item
+        })
+        // this.isLoadingTableRetail = false;
+      }else{
+        this.dataRetail = [];
+        // this.isLoadingTableRetail = false;
+      }
+
+      const responseMoneySupply = await this.marketUpdateService.fetchAllDataMacroIndicator(today, "MONEY");
+      this.dataMoneySupply = responseMoneySupply;
+
+      if(this.dataMoneySupply.data.length > 0){
+        this.dataMoneySupply = this.dataMoneySupply.data.filter((item: any) => {
+          return item.bulan != 'Bulan'
+        })
+
+        this.dataMoneySupply = this.dataMoneySupply.map((item: any) => {
+          // Parse and format number with locale string
+          item.year_min_0 != null ? item.year_min_0 = parseFloat(item.year_min_0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_0 = 0;
+
+          item.year_min_1 != null ? item.year_min_1 = parseFloat(item.year_min_1).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_1 = 0;
+
+          item.year_min_2 != null ? item.year_min_2 = parseFloat(item.year_min_2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_2 = 0;
+
+          item.year_min_3 != null ? item.year_min_3 = parseFloat(item.year_min_3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_3 = 0;
+
+          return item;
+      });
       // this.isLoadingTableRetail = false;
-    }else{
-      this.dataRetail = [];
+      }
+      else{
+        this.dataMoneySupply = [];
       // this.isLoadingTableRetail = false;
-    }
+      }
 
-    const responseMoneySupply = await this.marketUpdateService.fetchDataMoneySupply();
-    this.dataMoneySupply = responseMoneySupply;
+      const responseDevisa = await this.marketUpdateService.fetchAllDataMacroIndicator(today, "CADEV");
+      this.dataDevisa = responseDevisa;
 
-    if(this.dataMoneySupply.data.length > 0){
-      this.dataMoneySupply = this.dataMoneySupply.data.map((item: any) => {
-        // Parse and format number with locale string
-        item.triliun_year_min0 != null ? item.triliun_year_min0 = parseFloat(item.triliun_year_min0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.triliun_year_min0 = 0;
+      if(this.dataDevisa.data.length > 0){
+        this.dataDevisa = this.dataDevisa.data.filter((item: any) => {
+          return item.bulan != 'Bulan'
+        })
 
-        item.triliun_year_min1 != null ? item.triliun_year_min1 = parseFloat(item.triliun_year_min1).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.triliun_year_min1 = 0;
+        this.dataDevisa = this.dataDevisa.map((item: any) => {
+          item.year_min_0 != null ? item.year_min_0 = item.year_min_0.toFixed(2) : item.year_min_0 = 0;
+          item.year_min_0 = item.year_min_0.toLocaleString('en-US');
 
-        item.triliun_year_min2 != null ? item.triliun_year_min2 = parseFloat(item.triliun_year_min2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.triliun_year_min2 = 0;
+          item.year_min_1 != null ? item.year_min_1 = item.year_min_1.toFixed(2) : item.year_min_1 = 0;
+          item.year_min_1 = item.year_min_1.toLocaleString('en-US');
 
-        item.triliun_year_min3 != null ? item.triliun_year_min3 = parseFloat(item.triliun_year_min3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.triliun_year_min3 = 0;
+          item.year_min_2 != null ? item.year_min_2 = item.year_min_2.toFixed(2) : item.year_min_2 = 0;
+          item.year_min_2 = item.year_min_2.toLocaleString('en-US');
 
-        return item;
-    });
-    // this.isLoadingTableRetail = false;
-    }
-    else{
-      this.dataMoneySupply = [];
-    // this.isLoadingTableRetail = false;
-    }
+          item.year_min_3 != null ? item.year_min_3 = item.year_min_3.toFixed(2) : item.year_min_3 = 0;
+          item.year_min_3 = item.year_min_3.toLocaleString('en-US');
 
-    const responseDevisa = await this.marketUpdateService.fetchDataDevisa();
-    this.dataDevisa = responseDevisa;
+          return item
+        })
+        // this.isLoadingTableCadev = false;
+      }else{
+        this.dataDevisa = [];
+        // this.isLoadingTableCadev = false;
+      }
 
-    if(this.dataDevisa.data.length > 0){
-      this.dataDevisa = this.dataDevisa.data.map((item: any) => {
-        item.nilai_year_min0 != null ? item.nilai_year_min0 = item.nilai_year_min0.toFixed(2) : item.nilai_year_min0 = 0;
-        item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
-
-        item.nilai_year_min1 != null ? item.nilai_year_min1 = item.nilai_year_min1.toFixed(2) : item.nilai_year_min1 = 0;
-        item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
-
-        item.nilai_year_min2 != null ? item.nilai_year_min2 = item.nilai_year_min2.toFixed(2) : item.nilai_year_min2 = 0;
-        item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
-
-        item.nilai_year_min3 != null ? item.nilai_year_min3 = item.nilai_year_min3.toFixed(2) : item.nilai_year_min3 = 0;
-        item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
-
-        return item
-      })
-      // this.isLoadingTableCadev = false;
-      this.isLoading = false;
-    }else{
-      this.dataDevisa = [];
-      // this.isLoadingTableCadev = false;
-      this.isLoading = false;
-    }
-
-    this.allLabelYear = [];
+      this.allLabelYear = [];
 
       this.allLabelYear.push(this.getLabelYear[0].year_min_0);
       this.allLabelYear.push(this.getLabelYear[0].year_min_1);
@@ -1117,7 +1158,22 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
       console.log(this.allLabelYear);
 
-    this.tableConfig.initializeTableData(this.allLabelDate, this.allLabelYear);
+      this.tableConfig.getDataKurs(this.dataKurs);
+      this.tableConfig.getDataInterestRate(this.dataInterestRate);
+
+      console.log(this.dataBondYieldSBN, this.dataBondYieldUST);
+
+      this.tableConfig.getDataBondYield(this.dataBondYieldSBN, this.dataBondYieldUST);
+      this.tableConfig.getDataCommodities(this.dataCommodtities);
+      this.tableConfig.getDataPDB(this.dataPDB);
+      this.tableConfig.getDataInflasi(this.dataInflasi);
+      this.tableConfig.getDataPMI(this.dataPMI);
+      this.tableConfig.getDataRetail(this.dataRetail);
+      this.tableConfig.getDataMoneySupply(this.dataMoneySupply);
+      this.tableConfig.getDataDevisa(this.dataDevisa);
+
+      this.tableConfig.initializeTableData(this.allLabelDate, this.allLabelYear);
+      this.isLoading = false;
   }
 
   keysBondYield: any;
