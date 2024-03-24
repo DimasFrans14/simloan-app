@@ -29,7 +29,7 @@ export class MarketUpdateService {
 //kurs
   async fetchDataKurs(year: string){
     try {
-      const params = new HttpParams().set('tahun', year)
+      const params = new HttpParams().set('date', year)
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/market/currency/getList`, {params})
       );
@@ -511,12 +511,10 @@ export class MarketUpdateService {
     }
   }
 
-  async fetchInterestRateBarChart(params: string, startDate: string, endDate: string){
+  async fetchInterestRateBarChart(date: string){
     const option = {
       params: {
-        "start_date" : startDate,
-        "end_date" : endDate,
-        "group" : params
+        "date": date
       }
     }
     try {
@@ -531,7 +529,7 @@ export class MarketUpdateService {
   // bond Yield SBN
   async fetchDataBondYield(year: string){
     try {
-      const params = new HttpParams().set('tahun', year)
+      const params = new HttpParams().set('date', year)
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/market/bondyield/getList`, {params})
       );
@@ -671,6 +669,10 @@ export class MarketUpdateService {
   }
   async fetchDataOutlookBondYieldSBN(){
     try {
+      const params = {  
+        "grup": "SBN"
+      }
+      console.log(params)
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?grup=SBN`)
       );
@@ -734,7 +736,7 @@ export class MarketUpdateService {
   //bond Yield US treasury
   async fetchDataBondYieldTreasury(year: string){
     try {
-      const params = new HttpParams().set('tahun', year)
+      const params = new HttpParams().set('date', year)
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/market/bondyield/getList`, {params})
       );
@@ -922,7 +924,7 @@ export class MarketUpdateService {
   //commodities
   async fetchDataCommoditiesAll(year: string){
     try {
-      const params = new HttpParams().set('tahun', year)
+      const params = new HttpParams().set('date', year)
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/market/commodities/getRateList`, {params})
       );
@@ -1147,15 +1149,14 @@ export class MarketUpdateService {
     }
   }
 
-  async fetchDataBarCommodities(kategori:string, startDate: string, endDate: string, groupParams: string){
+  async fetchDataBarCommodities(kategori:string, date:string){
     const option = {
       params: {
-        "kategori": kategori,
-        "start_date": startDate,
-        "end_date": endDate,
-        "group": groupParams
+        "kode": kategori,
+        "date": date
       }
     }
+
     try {
       return await lastValueFrom(
         // this.http.get('http://10.1.18.47:8080/simloan-ws/dashboard/market/trending/commodities/getLineChart', option)
@@ -1523,8 +1524,8 @@ export class MarketUpdateService {
 //PMI
   async fetchDataPMI(){
     try {
-      // const params = new HttpParams().set('tahun', year);
-      // const params = new HttpParams().set('tahun', year);
+      // const params = new HttpParams().set('date', year);
+      // const params = new HttpParams().set('date', year);
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/view_real_pmi`)
       );
@@ -2211,7 +2212,7 @@ export class MarketUpdateService {
   //interest rate
   async fetchDataInterestRate(year:string){
     try {
-      const params = new HttpParams().set('tahun', year)
+      const params = new HttpParams().set('date', year)
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/market/interest/getList`, {params})
       );
@@ -2276,7 +2277,7 @@ export class MarketUpdateService {
       return null;
     }
   }
-  //end point belum ada 
+  //end point belum ada
   async fetchDataRkapInterestRate(){
     try {
       return await lastValueFrom(
@@ -2574,7 +2575,7 @@ export class MarketUpdateService {
     form.append('file', file, file.name);
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/macro/create?globalMacroIndicatorEnum=${JSON.parse(params)}`, form)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/macro/upload?globalDashboardRealisasiEnum=${JSON.parse(params)}`, form)
       )
     } catch (error) {
       return null

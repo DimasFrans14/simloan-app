@@ -141,6 +141,13 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   twoDaysBefore!: string;
   threeDaysBefore!:string;
 
+  getLabelDateKurs: any;
+  getLabelInterestRate: any;
+  getLabelBondYield: any;
+  getLabelCommodities: any;
+
+  allLabelDate: any[] = [];
+
   //Limiting Datepicker to Today
   maxDate = new Date();
 
@@ -209,7 +216,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     try {
 
 
-      this.tableConfig.initializeTableData(this.getLabelDate[0].h_min_30, this.getLabelDate[0].h_min_7, this.getLabelDate[0].h_min_1, this.getLabelDate[0].h_min_0)
+      this.tableConfig.initializeTableData(this.allLabelDate)
 
       //FETCH BASED ON PARAMS
       const responseInflasi = await this.marketUpdateService.fetchDataViewInflasiByDate(this.selectedDate, this.selectedMonth);
@@ -259,7 +266,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     let threeDaysBefore = getThreeDaysBefore.setDate(getThreeDaysBefore.getDate() - 3);
     let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
 
-    this.tableConfig.initializeTableData(this.getLabelDate[0].h_min_30, this.getLabelDate[0].h_min_7, this.getLabelDate[0].h_min_1, this.getLabelDate[0].h_min_0);
+    this.tableConfig.initializeTableData(this.allLabelDate);
   }
 
   keysBondYield: any;
@@ -290,7 +297,6 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
   }
 
   dataKurs: any;
-  getLabelDate: any;
 
   dataInterestRate: any;
   dataCommodtities: any;
@@ -307,28 +313,81 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       this.isLoading = true;
       // this.lineChartCommodity.initializeCommoditiesLineChart();
 
-      let getYear = moment().format('YYYY')
+      let today = moment().format('DD/MM/YYYY')
 
       console.log('load before fetch: ' + this.isLoading);
-      const responseKurs = await this.marketUpdateService.fetchDataKurs(getYear);
-      const responseInterestRate = await this.marketUpdateService.fetchDataInterestRate(getYear);
-      const responseBondYield = await this.marketUpdateService.fetchDataBondYield(getYear);
-      const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll(getYear);
+      const responseKurs = await this.marketUpdateService.fetchDataKurs(today);
+      const responseInterestRate = await this.marketUpdateService.fetchDataInterestRate(today);
+      const responseBondYield = await this.marketUpdateService.fetchDataBondYield(today);
+      const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll(today);
       const responsePDB = await this.marketUpdateService.fetchDataPDB();
 
-      this.getLabelDate = responseKurs
-      this.getLabelDate = this.getLabelDate.d.list.filter((item: any) => item.kode.includes('Label'));
-
-      console.log('before', this.getLabelDate);
-
-
+      this.getLabelDateKurs = responseKurs;
       this.dataKurs = responseKurs;
-      this.dataKurs = this.dataKurs.d.list.map((item: any) => {
+
+      if(this.dataKurs.d.length > 0){
+        this.getLabelDateKurs = this.getLabelDateKurs.d.filter((item: any) => item.kode.includes('Label'));
+
+      console.log('before', this.getLabelDateKurs);
+
+
+      this.dataKurs = this.dataKurs.d.map((item: any) => {
 
         if(item.kode === 'Label'){
 
         }
         else{
+          item.nilai_rkap = parseFloat(item.nilai_rkap);
+          item.nilai_rkap = item.nilai_rkap.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.h_min_0 = parseFloat(item.h_min_0);
+          item.h_min_0 = item.h_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.h_min_1 = parseFloat(item.h_min_1);
+          item.h_min_1 = item.h_min_1.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.h_min_7 = parseFloat(item.h_min_7);
+          item.h_min_7 = item.h_min_7.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.h_min_30 = parseFloat(item.h_min_30);
+          item.h_min_30 = item.h_min_30.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.change_rkap = parseFloat(item.change_rkap);
+          item.change_rkap = item.change_rkap.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.change_wow = parseFloat(item.change_wow);
+          item.change_wow = item.change_wow.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.change_mom = parseFloat(item.change_mom);
+          item.change_mom = item.change_mom.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.change_1day = parseFloat(item.change_1day);
+          item.change_1day = item.change_1day.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          return item
+        }
+
+
+      })
+
+      console.log(this.dataKurs);
+      console.log('after', this.getLabelDateKurs);
+      }
+      else{
+        this.dataKurs = [];
+        this.getLabelDateKurs = []
+      }
+
+      // this.dataKurs = this.dataKurs.filter((item: any) => !item.kode.includes('Label'));
+
+      this.dataInterestRate = responseInterestRate;
+      if(this.dataInterestRate.d.length > 0){
+        this.getLabelInterestRate = this.dataInterestRate.d.filter((item: any) => item.kode.includes('Label'));
+
+        this.dataInterestRate = this.dataInterestRate.d.filter((item: any) => !item.kode.includes('Label'))
+
+
+        this.dataInterestRate = this.dataInterestRate.map((item: any) => {
+
           item.nilai_rkap = parseFloat(item.nilai_rkap).toFixed(2);
           item.nilai_rkap = item.nilai_rkap.toLocaleString('en-US');
 
@@ -356,251 +415,259 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
           item.change_1day = parseFloat(item.change_1day).toFixed(2);
           item.change_1day = item.change_1day.toLocaleString('en-US');
           return item
-        }
-
-
-      })
-
-      console.log(this.dataKurs);
-      console.log('after', this.getLabelDate);
-
-
-      // this.dataKurs = this.dataKurs.filter((item: any) => !item.kode.includes('Label'));
-
-      this.dataInterestRate = responseInterestRate;
-      this.dataInterestRate = this.dataInterestRate.d.list.map((item: any) => {
-
-        item.nilai_rkap = parseFloat(item.nilai_rkap).toFixed(2);
-        item.nilai_rkap = item.nilai_rkap.toLocaleString('en-US');
-
-        item.h_min_0 = parseFloat(item.h_min_0).toFixed(2);
-        item.h_min_0 = item.h_min_0.toLocaleString('en-US');
-
-        item.h_min_1 = parseFloat(item.h_min_1).toFixed(2);
-        item.h_min_1 = item.h_min_1.toLocaleString('en-US');
-
-        item.h_min_7 = parseFloat(item.h_min_7).toFixed(2);
-        item.h_min_7 = item.h_min_7.toLocaleString('en-US');
-
-        item.h_min_30 = parseFloat(item.h_min_30).toFixed(2);
-        item.h_min_30 = item.h_min_30.toLocaleString('en-US');
-
-        item.change_rkap = parseFloat(item.change_rkap).toFixed(2);
-        item.change_rkap = item.change_rkap.toLocaleString('en-US');
-
-        item.change_wow = parseFloat(item.change_wow).toFixed(2);
-        item.change_wow = item.change_wow.toLocaleString('en-US');
-
-        item.change_mom = parseFloat(item.change_mom).toFixed(2);
-        item.change_mom = item.change_mom.toLocaleString('en-US');
-
-        item.change_1day = parseFloat(item.change_1day).toFixed(2);
-        item.change_1day = item.change_1day.toLocaleString('en-US');
-        return item
-      })
-
-      this.dataInterestRate = this.dataInterestRate.filter((item: any) => !item.kode.includes('Label'))
+        })
+      }
+      else{
+        this.dataInterestRate = [];
+        this.getLabelInterestRate = [];
+      }
 
       this.dataBondYieldSBN = responseBondYield;
-      this.dataBondYieldSBN = this.dataBondYieldSBN.d.list.filter((item: any) => item.tipe.includes('SBN') && item.tenor != 'Label');
+      if(this.dataBondYieldSBN.d.length > 0){
+        this.getLabelBondYield = this.dataBondYieldSBN.d.filter((item: any) => item.tenor === 'Label');
 
-      this.dataBondYieldSBN = this.dataBondYieldSBN.map((item: any) => {
+        this.dataBondYieldSBN = this.dataBondYieldSBN.d.filter((item: any) => item.tipe.includes('SBN') && item.tenor != 'Label');
 
-        item.nilai_rkap = parseFloat(item.nilai_rkap).toFixed(2);
-        item.nilai_rkap = item.nilai_rkap.toLocaleString('en-US');
+        this.dataBondYieldSBN = this.dataBondYieldSBN.map((item: any) => {
 
-        item.h_min_0 = parseFloat(item.h_min_0).toFixed(2);
-        item.h_min_0 = item.h_min_0.toLocaleString('en-US');
+          item.nilai_rkap = parseFloat(item.nilai_rkap).toFixed(2);
+          item.nilai_rkap = item.nilai_rkap.toLocaleString('en-US');
 
-        item.h_min_1 = parseFloat(item.h_min_1).toFixed(2);
-        item.h_min_1 = item.h_min_1.toLocaleString('en-US');
+          item.h_min_0 = parseFloat(item.h_min_0).toFixed(2);
+          item.h_min_0 = item.h_min_0.toLocaleString('en-US');
 
-        item.h_min_7 = parseFloat(item.h_min_7).toFixed(2);
-        item.h_min_7 = item.h_min_7.toLocaleString('en-US');
+          item.h_min_1 = parseFloat(item.h_min_1).toFixed(2);
+          item.h_min_1 = item.h_min_1.toLocaleString('en-US');
 
-        item.h_min_30 = parseFloat(item.h_min_30).toFixed(2);
-        item.h_min_30 = item.h_min_30.toLocaleString('en-US');
+          item.h_min_7 = parseFloat(item.h_min_7).toFixed(2);
+          item.h_min_7 = item.h_min_7.toLocaleString('en-US');
 
-        item.change_rkap = parseFloat(item.change_rkap).toFixed(2);
-        item.change_rkap = item.change_rkap.toLocaleString('en-US');
+          item.h_min_30 = parseFloat(item.h_min_30).toFixed(2);
+          item.h_min_30 = item.h_min_30.toLocaleString('en-US');
 
-        item.change_wow = parseFloat(item.change_wow).toFixed(2);
-        item.change_wow = item.change_wow.toLocaleString('en-US');
+          item.change_rkap = parseFloat(item.change_rkap).toFixed(2);
+          item.change_rkap = item.change_rkap.toLocaleString('en-US');
 
-        item.change_mom = parseFloat(item.change_mom).toFixed(2);
-        item.change_mom = item.change_mom.toLocaleString('en-US');
+          item.change_wow = parseFloat(item.change_wow).toFixed(2);
+          item.change_wow = item.change_wow.toLocaleString('en-US');
 
-        item.change_1day = parseFloat(item.change_1day).toFixed(2);
-        item.change_1day = item.change_1day.toLocaleString('en-US');
-        return item
-      })
+          item.change_mom = parseFloat(item.change_mom).toFixed(2);
+          item.change_mom = item.change_mom.toLocaleString('en-US');
 
-      this.dataBondYieldUST = responseBondYield;
-      this.dataBondYieldUST = this.dataBondYieldUST.d.list.filter((item: any) => item.tipe.includes('US_TREASURY'));
+          item.change_1day = parseFloat(item.change_1day).toFixed(2);
+          item.change_1day = item.change_1day.toLocaleString('en-US');
+          return item
+        })
 
-      this.dataBondYieldUST = this.dataBondYieldUST.map((item: any) => {
+        this.dataBondYieldUST = responseBondYield;
+        this.dataBondYieldUST = this.dataBondYieldUST.d.filter((item: any) => item.tipe.includes('US_TREASURY'));
 
-        item.nilai_rkap = parseFloat(item.nilai_rkap).toFixed(2);
-        item.nilai_rkap = item.nilai_rkap.toLocaleString('en-US');
+        this.dataBondYieldUST = this.dataBondYieldUST.map((item: any) => {
 
-        item.h_min_0 = parseFloat(item.h_min_0).toFixed(2);
-        item.h_min_0 = item.h_min_0.toLocaleString('en-US');
+          item.nilai_rkap = parseFloat(item.nilai_rkap).toFixed(2);
+          item.nilai_rkap = item.nilai_rkap.toLocaleString('en-US');
 
-        item.h_min_1 = parseFloat(item.h_min_1).toFixed(2);
-        item.h_min_1 = item.h_min_1.toLocaleString('en-US');
+          item.h_min_0 = parseFloat(item.h_min_0).toFixed(2);
+          item.h_min_0 = item.h_min_0.toLocaleString('en-US');
 
-        item.h_min_7 = parseFloat(item.h_min_7).toFixed(2);
-        item.h_min_7 = item.h_min_7.toLocaleString('en-US');
+          item.h_min_1 = parseFloat(item.h_min_1).toFixed(2);
+          item.h_min_1 = item.h_min_1.toLocaleString('en-US');
 
-        item.h_min_30 = parseFloat(item.h_min_30).toFixed(2);
-        item.h_min_30 = item.h_min_30.toLocaleString('en-US');
+          item.h_min_7 = parseFloat(item.h_min_7).toFixed(2);
+          item.h_min_7 = item.h_min_7.toLocaleString('en-US');
 
-        item.change_rkap = parseFloat(item.change_rkap).toFixed(2);
-        item.change_rkap = item.change_rkap.toLocaleString('en-US');
+          item.h_min_30 = parseFloat(item.h_min_30).toFixed(2);
+          item.h_min_30 = item.h_min_30.toLocaleString('en-US');
 
-        item.change_wow = parseFloat(item.change_wow).toFixed(2);
-        item.change_wow = item.change_wow.toLocaleString('en-US');
+          item.change_rkap = parseFloat(item.change_rkap).toFixed(2);
+          item.change_rkap = item.change_rkap.toLocaleString('en-US');
 
-        item.change_mom = parseFloat(item.change_mom).toFixed(2);
-        item.change_mom = item.change_mom.toLocaleString('en-US');
+          item.change_wow = parseFloat(item.change_wow).toFixed(2);
+          item.change_wow = item.change_wow.toLocaleString('en-US');
 
-        item.change_1day = parseFloat(item.change_1day).toFixed(2);
-        item.change_1day = item.change_1day.toLocaleString('en-US');
-        return item
-      })
+          item.change_mom = parseFloat(item.change_mom).toFixed(2);
+          item.change_mom = item.change_mom.toLocaleString('en-US');
 
-      console.log(this.dataBondYieldSBN, this.dataBondYieldUST);
-      // console.log(limitedDIR);
+          item.change_1day = parseFloat(item.change_1day).toFixed(2);
+          item.change_1day = item.change_1day.toLocaleString('en-US');
+          return item
+        })
+
+        console.log(this.dataBondYieldSBN, this.dataBondYieldUST);
+      }
+      else{
+        this.dataBondYieldSBN = [];
+        this.dataBondYieldUST = [];
+        this.getLabelBondYield = [];
+      }
 
       this.dataCommodtities = responseCommodities;
-      this.dataCommodtities = this.dataCommodtities.d.list.filter((item: any) => !item.kode.includes('Label'));
+      if(this.dataCommodtities.d.length > 0){
+        this.getLabelCommodities = this.dataCommodtities.d.filter((item: any) => item.kode.includes('Label'));
 
-      this.dataCommodtities = this.dataCommodtities.map((item: any) => {
+        this.dataCommodtities = this.dataCommodtities.d.filter((item: any) => !item.kode.includes('Label'));
 
-        item.nilai_rkap = parseFloat(item.nilai_rkap).toFixed(2);
-        item.nilai_rkap = item.nilai_rkap.toLocaleString('en-US');
+        this.dataCommodtities = this.dataCommodtities.map((item: any) => {
 
-        item.h_min_0 = parseFloat(item.h_min_0).toFixed(2);
-        item.h_min_0 = item.h_min_0.toLocaleString('en-US');
+          item.nilai_rkap = parseFloat(item.nilai_rkap).toFixed(2);
+          item.nilai_rkap = item.nilai_rkap.toLocaleString('en-US');
 
-        item.h_min_1 = parseFloat(item.h_min_1).toFixed(2);
-        item.h_min_1 = item.h_min_1.toLocaleString('en-US');
+          item.h_min_0 = parseFloat(item.h_min_0).toFixed(2);
+          item.h_min_0 = item.h_min_0.toLocaleString('en-US');
 
-        item.h_min_7 = parseFloat(item.h_min_7).toFixed(2);
-        item.h_min_7 = item.h_min_7.toLocaleString('en-US');
+          item.h_min_1 = parseFloat(item.h_min_1).toFixed(2);
+          item.h_min_1 = item.h_min_1.toLocaleString('en-US');
 
-        item.h_min_30 = parseFloat(item.h_min_30).toFixed(2);
-        item.h_min_30 = item.h_min_30.toLocaleString('en-US');
+          item.h_min_7 = parseFloat(item.h_min_7).toFixed(2);
+          item.h_min_7 = item.h_min_7.toLocaleString('en-US');
 
-        item.change_rkap = parseFloat(item.change_rkap).toFixed(2);
-        item.change_rkap = item.change_rkap.toLocaleString('en-US');
+          item.h_min_30 = parseFloat(item.h_min_30).toFixed(2);
+          item.h_min_30 = item.h_min_30.toLocaleString('en-US');
 
-        item.change_wow = parseFloat(item.change_wow).toFixed(2);
-        item.change_wow = item.change_wow.toLocaleString('en-US');
+          item.change_rkap = parseFloat(item.change_rkap).toFixed(2);
+          item.change_rkap = item.change_rkap.toLocaleString('en-US');
 
-        item.change_mom = parseFloat(item.change_mom).toFixed(2);
-        item.change_mom = item.change_mom.toLocaleString('en-US');
+          item.change_wow = parseFloat(item.change_wow).toFixed(2);
+          item.change_wow = item.change_wow.toLocaleString('en-US');
 
-        item.change_1day = parseFloat(item.change_1day).toFixed(2);
-        item.change_1day = item.change_1day.toLocaleString('en-US');
-        return item
-      })
+          item.change_mom = parseFloat(item.change_mom).toFixed(2);
+          item.change_mom = item.change_mom.toLocaleString('en-US');
+
+          item.change_1day = parseFloat(item.change_1day).toFixed(2);
+          item.change_1day = item.change_1day.toLocaleString('en-US');
+          return item
+        })
+      }
+      else{
+        this.dataCommodtities = [];
+        this.getLabelCommodities = [];
+      }
+
+
+      console.log([
+        this.getLabelDateKurs,
+        this.getLabelInterestRate,
+        this.getLabelBondYield,
+        this.getLabelCommodities
+      ]);
+
+      this.allLabelDate.push(this.getLabelDateKurs);
+      this.allLabelDate.push(this.getLabelInterestRate);
+      this.allLabelDate.push(this.getLabelBondYield);
+      this.allLabelDate.push(this.getLabelCommodities);
+      console.log(this.allLabelDate);
 
       this.dataPDB = responsePDB;
-      this.dataPDB = this.dataPDB.data.content.map((item: any) => {
-        item.nilai = item.nilai.toFixed(2);
-        item.nilai = item.nilai.toLocaleString('en-US');
+      if(this.dataPDB.data.hasOwnProperty('content')){
+        this.dataPDB = this.dataPDB.data.content.map((item: any) => {
+          item.nilai = item.nilai.toFixed(2);
+          item.nilai = item.nilai.toLocaleString('en-US');
 
-        return item
-      })
-
-      // const keyBY = Object.keys(responseBondYield)
-      this.keysBondYield = responseBondYield
-      // console.log(Object.keys(this.keysBondYield.data.content[0]));
+          return item
+        })
+      }
 
       const responseInflasi = await this.marketUpdateService.fetchDataInflasi();
       this.dataInflasi = responseInflasi;
-      this.dataInflasi = this.dataInflasi.data.map((item: any) => {
-        item.nilai_year_min0 = item.nilai_year_min0.toFixed(2);
-        item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
+      if(this.dataInflasi.data.length > 0){
+        this.dataInflasi = this.dataInflasi.data.map((item: any) => {
+          item.nilai_year_min0 = item.nilai_year_min0.toFixed(2);
+          item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
 
-        item.nilai_year_min1 = item.nilai_year_min1.toFixed(2);
-        item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
+          item.nilai_year_min1 = item.nilai_year_min1.toFixed(2);
+          item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
 
-        item.nilai_year_min2 = item.nilai_year_min2.toFixed(2);
-        item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
+          item.nilai_year_min2 = item.nilai_year_min2.toFixed(2);
+          item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
 
-        item.nilai_year_min3 = item.nilai_year_min3.toFixed(2);
-        item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
+          item.nilai_year_min3 = item.nilai_year_min3.toFixed(2);
+          item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
 
-        return item
-      })
+          return item
+        })
+      }
+      else{
+        this.dataInflasi = [];
+      }
 
       const responsePMI = await this.marketUpdateService.fetchDataPMI();
       this.dataPMI = responsePMI;
-      this.dataPMI = this.dataPMI.data.map((item: any) => {
-        item.nilai_year_min0 = item.nilai_year_min0.toFixed(2);
-        item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
+      if(this.dataPMI.data.length > 0){
+        this.dataPMI = this.dataPMI.data.map((item: any) => {
+          item.nilai_year_min0 = item.nilai_year_min0.toFixed(2);
+          item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
 
-        item.nilai_year_min1 = item.nilai_year_min1.toFixed(2);
-        item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
+          item.nilai_year_min1 = item.nilai_year_min1.toFixed(2);
+          item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
 
-        item.nilai_year_min2 = item.nilai_year_min2.toFixed(2);
-        item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
+          item.nilai_year_min2 = item.nilai_year_min2.toFixed(2);
+          item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
 
-        item.nilai_year_min3 = item.nilai_year_min3.toFixed(2);
-        item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
+          item.nilai_year_min3 = item.nilai_year_min3.toFixed(2);
+          item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
 
-        return item
-      })
+          return item
+        })
+      }else{
+        this.dataPMI = [];
+      }
 
       const responseRetail = await this.marketUpdateService.fetchDataRetail();
       this.dataRetail = responseRetail;
-      this.dataRetail = this.dataRetail.data.map((item: any) => {
-        item.nilai_year_min0 = item.nilai_year_min0.toFixed(2);
-        item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
 
-        item.nilai_year_min1 = item.nilai_year_min1.toFixed(2);
-        item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
+      if(this.dataRetail.data.length > 0){
+        this.dataRetail = this.dataRetail.data.map((item: any) => {
+          item.nilai_year_min0 = item.nilai_year_min0.toFixed(2);
+          item.nilai_year_min0 = item.nilai_year_min0.toLocaleString('en-US');
 
-        item.nilai_year_min2 = item.nilai_year_min2.toFixed(2);
-        item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
+          item.nilai_year_min1 = item.nilai_year_min1.toFixed(2);
+          item.nilai_year_min1 = item.nilai_year_min1.toLocaleString('en-US');
 
-        item.nilai_year_min3 != null ? item.nilai_year_min3 = item.nilai_year_min3.toFixed(2) : item.nilai_year_min3 = 0
-        item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
+          item.nilai_year_min2 = item.nilai_year_min2.toFixed(2);
+          item.nilai_year_min2 = item.nilai_year_min2.toLocaleString('en-US');
 
-        return item
-      })
-      // console.log(responseRetail);
+          item.nilai_year_min3 != null ? item.nilai_year_min3 = item.nilai_year_min3.toFixed(2) : item.nilai_year_min3 = 0
+          item.nilai_year_min3 = item.nilai_year_min3.toLocaleString('en-US');
+
+          return item
+        })
+      }else{
+        this.dataRetail = [];
+      }
 
       const responseMoneySupply = await this.marketUpdateService.fetchDataMoneySupply();
       this.dataMoneySupply = responseMoneySupply;
-      this.dataMoneySupply = this.dataMoneySupply.data.map((item: any) => {
-        // Parse and format number with locale string
-        item.triliun_year_min0 = parseFloat(item.triliun_year_min0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        item.triliun_year_min1 = parseFloat(item.triliun_year_min1).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        item.triliun_year_min2 = parseFloat(item.triliun_year_min2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        item.triliun_year_min3 = parseFloat(item.triliun_year_min3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-        return item;
-    });
+      if(this.dataMoneySupply.data.length > 0){
+        this.dataMoneySupply = this.dataMoneySupply.data.map((item: any) => {
+          // Parse and format number with locale string
+          item.triliun_year_min0 = parseFloat(item.triliun_year_min0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          item.triliun_year_min1 = parseFloat(item.triliun_year_min1).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          item.triliun_year_min2 = parseFloat(item.triliun_year_min2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          item.triliun_year_min3 = parseFloat(item.triliun_year_min3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-
-      console.log();
-
+          return item;
+      });
+      }
+      else{
+        this.dataMoneySupply = [];
+      }
 
       const responseDevisa = await this.marketUpdateService.fetchDataDevisa();
       this.dataDevisa = responseDevisa;
-      this.dataDevisa = this.dataDevisa.data.map((item: any) => {
-        item.nilai_year_min0 = parseFloat(item.nilai_year_min0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        item.nilai_year_min1 = parseFloat(item.nilai_year_min1).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        item.nilai_year_min2 = parseFloat(item.nilai_year_min2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        item.nilai_year_min3 = parseFloat(item.nilai_year_min3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-        return item
-      })
+      if(this.dataDevisa.data.length > 0){
+        this.dataDevisa = this.dataDevisa.data.map((item: any) => {
+          item.nilai_year_min0 = parseFloat(item.nilai_year_min0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          item.nilai_year_min1 = parseFloat(item.nilai_year_min1).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          item.nilai_year_min2 = parseFloat(item.nilai_year_min2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          item.nilai_year_min3 = parseFloat(item.nilai_year_min3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-      this.dataRKAP = responseInterestRate;
+          return item
+        })
+      }else{
+        this.dataDevisa = [];
+      }
 
       //Grouping data from one API
       // const filteredDataInterestRate = this.dataRKAP.data.content.filter((item: any) => item.grup === 'INTEREST RATE');
@@ -614,12 +681,12 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       this.tableConfig.getDataInterestRate(this.dataInterestRate);
       this.tableConfig.getDataBondYield(this.dataBondYieldSBN, this.dataBondYieldUST);
       this.tableConfig.getDataCommodities(this.dataCommodtities);
-      this.tableConfig.getDataPDB(responsePDB);
-      this.tableConfig.getDataInflasi(responseInflasi);
-      this.tableConfig.getDataPMI(responsePMI);
-      this.tableConfig.getDataRetail(responseRetail);
-      this.tableConfig.getDataMoneySupply(responseMoneySupply);
-      this.tableConfig.getDataDevisa(responseDevisa);
+      this.tableConfig.getDataPDB(this.dataPDB);
+      this.tableConfig.getDataInflasi(this.dataInflasi);
+      this.tableConfig.getDataPMI(this.dataPMI);
+      this.tableConfig.getDataRetail(this.dataRetail);
+      this.tableConfig.getDataMoneySupply(this.dataMoneySupply);
+      this.tableConfig.getDataDevisa(this.dataDevisa);
 
       this.isLoading = false;
       console.log('load after fetch: ' + this.isLoading);
@@ -646,11 +713,10 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     let threeDaysBefore = getThreeDaysBefore.setDate(getThreeDaysBefore.getDate() - 3);
     let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
 
-    console.log(this.getLabelDate);
+    console.log(this.getLabelDateKurs);
 
 
-    this.tableConfig.initializeTableData(this.getLabelDate[0].h_min_30, this.getLabelDate[0].h_min_7, this.getLabelDate[0].h_min_1, this.getLabelDate[0].h_min_0);
-    // console.log(this.tableConfig.initializeTableData());
+    this.tableConfig.initializeTableData(this.allLabelDate);
   }
 
   ngAfterViewInit(): void {
