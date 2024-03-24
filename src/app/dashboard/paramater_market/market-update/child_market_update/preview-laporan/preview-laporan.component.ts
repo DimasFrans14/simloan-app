@@ -194,36 +194,36 @@ export class PreviewLaporanComponent implements OnInit{
                 break;
             case 'INTEREST_RATE':
               if(indikatorParams === 'Realisasi'){
-                if(this.dataATDBank.includes(subCategory_params)){
-                  try {
-                    this.isLoading = true;
-                    const response = await this.marketUpdateService.importLaporanMarketUpdateInterestRateATDBANK(JSON.stringify(subCategory_params), fileExcel);
+                // if(this.dataATDBank.includes(subCategory_params)){
+                //   try {
+                //     this.isLoading = true;
+                //     const response = await this.marketUpdateService.importLaporanMarketUpdateInterestRateATDBANK(JSON.stringify(subCategory_params), fileExcel);
 
-                    console.log(response);
+                //     console.log(response);
 
-                    this.sendDataResponse = response
-                    if(this.sendDataResponse.status === 200){
-                      Swal.fire({
-                        title: "Berhasil!",
-                        text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
-                        icon: "success"
-                        })
-                        this.isLoading = false
-                      }
-                    else{
-                      Swal.fire({
-                        icon: "error",
-                        title: "Failed!",
-                        text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
-                          });
-                          this.isLoading = false
-                        }
-                  } catch (error) {
-                    console.log(error);
-                    this.isLoading = false
-                  }
-                }
-                else{
+                //     this.sendDataResponse = response
+                //     if(this.sendDataResponse.status === 200){
+                //       Swal.fire({
+                //         title: "Berhasil!",
+                //         text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
+                //         icon: "success"
+                //         })
+                //         this.isLoading = false
+                //       }
+                //     else{
+                //       Swal.fire({
+                //         icon: "error",
+                //         title: "Failed!",
+                //         text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
+                //           });
+                //           this.isLoading = false
+                //         }
+                //   } catch (error) {
+                //     console.log(error);
+                //     this.isLoading = false
+                //   }
+                // }
+                // else{
                   try {
                     this.isLoading = true;
                     const response = await this.marketUpdateService.importLaporanMarketUpdateInterestRate(JSON.stringify(subCategory_params), fileExcel)
@@ -251,7 +251,7 @@ export class PreviewLaporanComponent implements OnInit{
                     console.log(error);
                     this.isLoading = false
                   }
-                }
+                // }
               }
               else if(indikatorParams === 'Outlook'){
                 try {
