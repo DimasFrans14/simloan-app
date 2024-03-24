@@ -146,20 +146,20 @@ export class UsTreasuryComponent {
     }
     this.tableConfig.setDataRealisasiBondYieldUsTreasury(this.dataDetailRealisasi);
   }
-  // async getDataRkap(){
-  //   this.isLoading = true;
-  //   console.log(this.isLoading, 'loading 1');
-    // try {
-    //   // const data = await this.marketUpdateService.fetchDataRkapBondYieldSBN();
-    //   this.dataDetailRkap = data;
-    //   this.dataDetailRkap = this.dataDetailRkap.data;
-    //   this.isLoading = false;
-    //   console.log(this.isLoading, 'loading 2', this.dataDetailRkap);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-  //   this.tableConfig.setDataRkapBondYieldUsTreasury(this.dataDetailRkap);
-  // }
+  async getDataRkap(){
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    try {
+      const data = await this.marketUpdateService.fetchDataRkapBondYieldUsTreasury();
+      this.dataDetailRkap = data;
+      this.dataDetailRkap = this.dataDetailRkap.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailRkap);
+    } catch (error) {
+      console.log(error);
+    }
+    this.tableConfig.setDataRkapBondYieldUsTreasury(this.dataDetailRkap);
+  }
   async getDataOutlook(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');

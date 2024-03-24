@@ -161,7 +161,7 @@ export class TableServicesService {
     console.log(this.shareDataOutlookCadev);
   }
   setDataRealisasiCommodities(data:any){
-    this.shareDataRealisasiCommodities = data.content;
+    this.shareDataRealisasiCommodities = data;
     console.log(this.shareDataRealisasiCommodities);
   }
   setDataRkapCommodities(data:any){
@@ -545,8 +545,8 @@ export class TableServicesService {
           headerHozAlign:"center"
           },
         {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change 1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
@@ -563,8 +563,8 @@ export class TableServicesService {
         {title:yesterday, field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
         {title:today, field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
         {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change 1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
@@ -665,7 +665,7 @@ export class TableServicesService {
         {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
+        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
 
@@ -780,16 +780,16 @@ export class TableServicesService {
       {//create column group
           title:"Yield",
           columns:[
-          {title: "Last Month", field:"h_min_30", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-          {title: "lastWeek", field:"h_min_7", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-          {title: "yesterday", field:"h_min_1", hozAlign:"center", headerHozAlign:"center", editor: "input"},
-          {title: "today", field:"h_min_0", hozAlign:"center", headerHozAlign:"center", editor: "input"},
+          {title: "Last Month", field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
+          {title: "lastWeek", field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
+          {title: "yesterday", field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
+          {title: "today", field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
           ],
           headerHozAlign:"center"
       },
-      {title:"Yield Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"Yield Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      {title:"Yield Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
+      {title:"Yield Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+      {title:"Yield Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+      {title:"Yield Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
     ],
     });
 
@@ -801,7 +801,13 @@ export class TableServicesService {
       columns:[
         {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-        {title:"Tenor 5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
+        {title:"5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"7Yr", field:"7yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"10Yr", field:"10yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"15Yr", field:"15r", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"20Yr", field:"20Yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"25Yr", field:"25yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"30Yr", field:"30yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
@@ -820,9 +826,15 @@ export class TableServicesService {
       data:this.shareDataRkapBondYieldUsTreasury,
       layout:"fitColumns",
       columns:[
-        {title:"Group", field:"grup", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input",},
-        {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"Tenor 5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number",},
+        {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
+        {title:"5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"7Yr", field:"7yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"10Yr", field:"10yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"15Yr", field:"15r", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"20Yr", field:"20Yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"25Yr", field:"25yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"30Yr", field:"30yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
@@ -841,9 +853,15 @@ export class TableServicesService {
       data:this.shareDataOutlookBondYieldUsTreasury,
       layout:"fitColumns",
       columns:[
-        {title:"Group", field:"grup", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input",},
-        {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-        {title:"Tenor 5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number",},
+        {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
+        {title:"5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"7Yr", field:"7yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"10Yr", field:"10yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"15Yr", field:"15r", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"20Yr", field:"20Yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"25Yr", field:"25yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"30Yr", field:"30yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
@@ -986,11 +1004,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
+        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
     this.tableRealisasiInflasi = new Tabulator(".table-ralisasiInflasi", {
@@ -1036,7 +1054,6 @@ export class TableServicesService {
         {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapInflasi, headerSort:false, resizable:false,visible:false},
       ],
     });
-
     this.tableOutlookInflasi = new Tabulator(".table-otulookInflasi", {
       pagination:true, //enable.
       paginationSize:20,
@@ -1087,11 +1104,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
+        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
     this.tableRealisasiPmi = new Tabulator(".table-ralisasiPmi", {
@@ -1187,11 +1204,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
+        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
     this.tableRealisasiRetail = new Tabulator(".table-ralisasiRetail", {
@@ -1288,10 +1305,10 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"triliun_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"triliun_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"triliun_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
+        {title:"2020", field:"triliun_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2021", field:"triliun_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2022", field:"triliun_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         ],
     });
     this.tableRealisasiMoneySupply = new Tabulator(".table-realisasiMoneySupply", {
@@ -1386,11 +1403,11 @@ export class TableServicesService {
       data:this.dataDevisa,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
+        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
     this.tableRealisasiForeignExchange = new Tabulator(".table-realisasiForeignExchange", {
@@ -1491,26 +1508,26 @@ export class TableServicesService {
         headerHozAlign:"center"
         },
         {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change 1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
-      }
-    );
-
+    }
+  );
+  
   this.tableRealisasiCurrencyRate = new Tabulator(".table-realisasi", {
     pagination:true, //enable.
     paginationSize:20,
     data:this.shareDataRealisasiKurs,
     layout:"fitColumns",
     columns:[
-      {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor:"input", minWidth: 130},
+      {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor:"input"},
       {title:"Mata Uang", field:"mata_uang", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
       {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false, },
       {title:"Action", headerHozAlign:"center", columns:[
         {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
         {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiCurrency, headerSort:false,headerHozAlign:"center", resizable:false},
       ]},
       {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
       {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtoRealisasiCurrency, headerSort:false, resizable:false,visible:false},
@@ -1525,18 +1542,18 @@ export class TableServicesService {
     data:this.shareDataRkapKursUsd,
     layout:"fitColumns",
     columns:[
-      {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+      {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor:"input", headerSort:false},
       {title:"Mata Uang", field:"mata_uang", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
-      {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
+      {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false, },
       {title:"Action", headerHozAlign:"center", columns:[
         {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
         {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapCurrencyRate, headerSort:false,headerHozAlign:"center", resizable:false},
       ]},
       {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapCurrency, headerSort:false, resizable:false,visible:false},
       {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
+      {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapCurrency, headerSort:false, resizable:false,visible:false},
     ],
   });
 
@@ -1546,13 +1563,13 @@ export class TableServicesService {
     data:this.shareDataOutlookKursUsd,
     layout:"fitColumns",
     columns:[
-      {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false,  minWidth: 130},
+      {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor:"input"},
       {title:"Mata Uang", field:"mata_uang", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
-      {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false, },
+      {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false, },
       {title:"Action", headerHozAlign:"center", columns:[
         {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
         {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookCurrencyRate, headerSort:false,headerHozAlign:"center", resizable:false},
       ]},
       {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
       {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookCurrency, headerSort:false, resizable:false,visible:false},
@@ -1622,8 +1639,8 @@ export class TableServicesService {
         {title:"yesterday", field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
         {title:"today", field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
         {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change 1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
@@ -1749,11 +1766,10 @@ export class TableServicesService {
     paginationSize:15,
     layout:"fitColumns",
       columns:[
-        {title:"Commodities", field:"kode_item", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"Commodities", field:"kode", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
-        {title:"Kategori", field:"kategori", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
@@ -1864,17 +1880,23 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-          {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-          {title:"Tenor 5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-          {title:"Action", headerHozAlign:"center", columns:[
-            {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-            {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-            {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          ]},
-          {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiPdb, headerSort:false, resizable:false,visible:false},
+        {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
+        {title:"5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"7Yr", field:"7yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"10Yr", field:"10yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"15Yr", field:"15r", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"20Yr", field:"20Yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"25Yr", field:"25yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"30Yr", field:"30yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
+        ]},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiPdb, headerSort:false, resizable:false,visible:false},
       ],
     });
 
@@ -1884,9 +1906,15 @@ export class TableServicesService {
     data:this.tableDataRKAP,
     layout:"fitColumns",
     columns:[
-      {title:"Group", field:"grup", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
-      {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-      {title:"Teno 5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input" },
+      {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
+        {title:"5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"7Yr", field:"7yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"10Yr", field:"10yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"15Yr", field:"15r", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"20Yr", field:"20Yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"25Yr", field:"25yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"30Yr", field:"30yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
       {title:"Action", headerHozAlign:"center", columns:[
         {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
         {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
@@ -1905,9 +1933,15 @@ export class TableServicesService {
     data:this.shareDataOutlookBondYieldSBN,
     layout:"fitColumns",
     columns:[
-      {title:"Group", field:"grup", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
-      {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-      {title:"Teno 5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input" },
+      {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
+        {title:"5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"7Yr", field:"7yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"10Yr", field:"10yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"15Yr", field:"15r", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"20Yr", field:"20Yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"25Yr", field:"25yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"30Yr", field:"30yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
       {title:"Action", headerHozAlign:"center", columns:[
         {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
         {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
@@ -3868,10 +3902,83 @@ export class TableServicesService {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
+      mataUang: rowData.mata_uang
+    }
+    if(data.mataUang == "USD"){
+      const response = await this.marketUpdateService.fetchDeleteDataRealisasiCurrencyRate(data);
+    } else {
+      const response = await this.marketUpdateService.fetchDeleteDataRealisasiCurrencyRateNonUsd(data);
     }
     this.tableRealisasiCurrencyRate.deleteRow(data.id)
+    console.log(data);const response = await this.marketUpdateService.fetchDeleteDataRealisasiCurrencyRate(data);
+  }
+  cellClick_SaveButtonRkapCurrency = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("deleteButton")
+    currentTable.hideColumn("CancelButton")
+    currentTable.hideColumn("SaveButton")
+    const data = {
+      idJisdor: rowData.id_mstr_rkap_jisdor,
+      idNonJisdor: rowData.id_mstr_rkap_kurs,
+      mataUang: rowData.mata_uang,
+      nilai: rowData.nilai,
+      tanggal: rowData.tanggal,
+      kurs: rowData.kurs
+    }
+    if (data.idJisdor == undefined){
+      await this.marketUpdateService.fetchDataUpdateRkapKursNonUsd(data);
+    }else {
+      await this.marketUpdateService.fetchDataUpdateRkapKursUsd(data);
+    }
     console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRealisasiCurrencyRate(data);
+  }
+  cellClick_addButtonRkapCurrency = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("deleteButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      idJisdor: rowData.id_mst_jisdor,
+      idNonJisdor: rowData.id,
+      mataUang: rowData.mata_uang,
+      nilai: rowData.nilai,
+      tanggal: rowData.tanggal,
+      kurs: rowData.kurs
+    }
+    if(data.mataUang == "USD"){
+      const response = await this.marketUpdateService.fetchDataInputRkapKursUsd(data);
+    } else {
+      const response = await this.marketUpdateService.fetchDataInputRkapKursNonUsd(data);
+    }
+    console.log(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+  }
+  cellClick_deleteButtonRkapCurrencyRate = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    const data = {
+      id: rowData.id,
+      mataUang: rowData.mata_uang
+    }
+    if(data.mataUang == "USD"){
+      const response = await this.marketUpdateService.fetchDeleteDataRkapKursUsd(data);
+    } else {
+      const response = await this.marketUpdateService.fetchDeleteDataRkapNonUsd(data);
+    }
+    this.tableOutlookCurrencyRate.deleteRow(data.id)
   }
   cellClick_SaveButtonOutlookCurrency = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3932,10 +4039,14 @@ export class TableServicesService {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
+      mataUang: rowData.mata_uang
+    }
+    if(data.mataUang == "USD"){
+      const response = await this.marketUpdateService.fetchDeleteDataRkapKursUsd(data);
+    } else {
+      const response = await this.marketUpdateService.fetchDeleteDataRkapNonUsd(data);
     }
     this.tableOutlookCurrencyRate.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataOutlookCurrencyRate(data);
   }
   //Interest Rate
   cellClick_SaveButtonInterestRate = async (e: any, cell:any) => {
@@ -3987,6 +4098,15 @@ export class TableServicesService {
     const response = await this.marketUpdateService.fetchDataInputRealisasiPDB(data);
     const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
+  cellClick_deleteButtonRealisasiInterestRate = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    const data = {
+      id: rowData.id,
+    }
+    this.tableOutlookCurrencyRate.deleteRow(data.id)
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDeleteDataRealisasiInterestRate(data);
+  }
   cellClick_SaveButtonRkapInterestRate = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
@@ -4035,6 +4155,15 @@ export class TableServicesService {
     console.log(data);
     const response = await this.marketUpdateService.fetchDataInputRkapInterestRate(data);
   }
+  cellClick_deleteButtonRkapInterestRate = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    const data = {
+      id: rowData.id,
+    }
+    this.tableOutlookCurrencyRate.deleteRow(data.id)
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDeleteDataRkapInterestRate(data);
+  }
   cellClick_SaveButtonOutlookInterestRate = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
@@ -4081,6 +4210,15 @@ export class TableServicesService {
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataInputOutlookInterestRate(data);
+  }
+  cellClick_deleteButtonOutlookInterestRate = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    const data = {
+      id: rowData.id,
+    }
+    this.tableOutlookCurrencyRate.deleteRow(data.id)
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDeleteDataOutlookInterestRate(data);
   }
   // commodities
   cellClick_SaveButtonRealisasiCommodities = async (e: any, cell:any) => {
@@ -4130,6 +4268,15 @@ export class TableServicesService {
     const response = await this.marketUpdateService.fetchDataInputRealisasiCommodities(data);
     // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
+  cellClick_deleteButtonRealisasiCommodities = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    const data = {
+      id: rowData.id,
+    }
+    this.tableOutlookCurrencyRate.deleteRow(data.id)
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDeleteDataOutlookCurrencyRate(data);
+  }
   cellClick_SaveButtonRkapCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
@@ -4175,6 +4322,15 @@ export class TableServicesService {
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataInputRkapCommodities(data);
+  }
+  cellClick_deleteButtonRkaommodities = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    const data = {
+      id: rowData.id,
+    }
+    this.tableOutlookCurrencyRate.deleteRow(data.id)
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDeleteDataOutlookCurrencyRate(data);
   }
   cellClick_SaveButtonOutlookCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4223,29 +4379,17 @@ export class TableServicesService {
     const response = await this.marketUpdateService.fetchDataUpdateOutlookCommodities(data);
     // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
-  //bond yield SBN & Us Treasury
-  async cellClick_SaveButtonBondYield(e: any, cell:any){
+  cellClick_deleteButtonOutlookCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
-    if (!cell.getRow().isSelected()){
-      return
-    }
     const data = {
       id: rowData.id,
-      quartal: rowData.quartal,
-      tahun: rowData.tahun,
-      nilai: rowData.nilai
     }
-    const currentTable = cell.getTable()
-    currentTable.deselectRow()
-    currentTable.showColumn("EditButton")
-    currentTable.showColumn("tambahButton")
-    currentTable.showColumn("deleteButton")
-    currentTable.hideColumn("CancelButton")
-    currentTable.hideColumn("SaveButton")
+    this.tableOutlookCurrencyRate.deleteRow(data.id)
     console.log(data);
-     await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data)
+    const response = await this.marketUpdateService.fetchDeleteDataOutlookCurrencyRate(data);
   }
-  async cellClick_SaveButtonUsTreasury(e: any, cell:any){
+  //bond yield SBN 
+  cellClick_SaveButtonRealisasiSBN = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     if (!cell.getRow().isSelected()){
       return
@@ -4259,12 +4403,364 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      quartal: rowData.quartal,
-      tahun: rowData.tahun,
-      nilai: rowData.nilai
+      tanggal: rowData.tanggal,
+      yr5: rowData.yr5,
+      yr7: rowData.yr7,
+      yr10: rowData.yr10,
+      yr15: rowData.yr15,
+      yr20: rowData.yr20,
+      yr25: rowData.yr25,
+      yr30: rowData.yr30,
     }
     console.log(data);
-     await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data)
+    const response = await this.marketUpdateService.fetchDataUpdateRealisasiBondYieldSBN(data);
+  }
+  cellClick_addButtonRealisasiSBN = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("deleteButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      id: rowData.id,
+      tanggal: rowData.tanggal,
+      yr5: rowData.yr5,
+      yr7: rowData.yr7,
+      yr10: rowData.yr10,
+      yr15: rowData.yr15,
+      yr20: rowData.yr20,
+      yr25: rowData.yr25,
+      yr30: rowData.yr30,
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputRealisasiBondYieldSBN(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+  }
+  cellClick_deleteButtonRealisasiSBN = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    const data = {
+      id: rowData.id,
+    }
+    this.tableRealisasiForeignExchange.deleteRow(data.id)
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDeleteDataRkapBondYieldSBN(data);
+  }
+  cellClick_SaveButtonRkapSBN = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("deleteButton")
+    currentTable.hideColumn("CancelButton")
+    currentTable.hideColumn("SaveButton")
+    const data = {
+      id: rowData.id,
+      tanggal: rowData.tanggal,
+      yr5: rowData.yr5,
+      yr7: rowData.yr7,
+      yr10: rowData.yr10,
+      yr15: rowData.yr15,
+      yr20: rowData.yr20,
+      yr25: rowData.yr25,
+      yr30: rowData.yr30,
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataUpdateRkapBondYieldSBN(data);
+  }
+  cellClick_addButtonRkapSBN = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("deleteButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      id: rowData.id,
+      tanggal: rowData.tanggal,
+      yr5: rowData.yr5,
+      yr7: rowData.yr7,
+      yr10: rowData.yr10,
+      yr15: rowData.yr15,
+      yr20: rowData.yr20,
+      yr25: rowData.yr25,
+      yr30: rowData.yr30,
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputRkapBondYieldSBN(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+  }
+  cellClick_deleteButtonRkapSBN = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    const data = {
+      id: rowData.id,
+    }
+    this.tableRealisasiForeignExchange.deleteRow(data.id)
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDeleteDataRkapBondYieldSBN(data);
+  }
+  cellClick_SaveButtonOutlookSBN = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("deleteButton")
+    currentTable.hideColumn("CancelButton")
+    currentTable.hideColumn("SaveButton")
+    const data = {
+      id: rowData.id,
+      tanggal: rowData.tanggal,
+      yr5: rowData.yr5,
+      yr7: rowData.yr7,
+      yr10: rowData.yr10,
+      yr15: rowData.yr15,
+      yr20: rowData.yr20,
+      yr25: rowData.yr25,
+      yr30: rowData.yr30,
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataUpdateOutlookBondYieldSBN(data);
+  }
+  cellClick_addButtonOutlookSBN = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("deleteButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      id: rowData.id,
+      tanggal: rowData.tanggal,
+      yr5: rowData.yr5,
+      yr7: rowData.yr7,
+      yr10: rowData.yr10,
+      yr15: rowData.yr15,
+      yr20: rowData.yr20,
+      yr25: rowData.yr25,
+      yr30: rowData.yr30,
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputOutlookBondYieldSBN(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+  }
+  cellClick_deleteButtonOutlookSBN = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    const data = {
+      id: rowData.id,
+    }
+    this.tableRealisasiForeignExchange.deleteRow(data.id)
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDeleteDataOutlookBondYieldSBN(data);
+  }
+  //Us Treasury
+  cellClick_SaveButtonRealisasiUsTreasury = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("deleteButton")
+    currentTable.hideColumn("CancelButton")
+    currentTable.hideColumn("SaveButton")
+    const data = {
+      id: rowData.id,
+      tanggal: rowData.tanggal,
+      yr5: rowData.yr5,
+      yr7: rowData.yr7,
+      yr10: rowData.yr10,
+      yr15: rowData.yr15,
+      yr20: rowData.yr20,
+      yr25: rowData.yr25,
+      yr30: rowData.yr30,
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataUpdateRealisasiBondYieldTreasury(data);
+  }
+  cellClick_addButtonRealisasiUsTreasury = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("deleteButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      id: rowData.id,
+      tanggal: rowData.tanggal,
+      yr5: rowData.yr5,
+      yr7: rowData.yr7,
+      yr10: rowData.yr10,
+      yr15: rowData.yr15,
+      yr20: rowData.yr20,
+      yr25: rowData.yr25,
+      yr30: rowData.yr30,
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputRealisasiBondYieldUsTreasury(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+  }
+  cellClick_deleteButtonRealisasiUsTreasury = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    const data = {
+      id: rowData.id,
+    }
+    this.tableRealisasiForeignExchange.deleteRow(data.id)
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDeleteDataRealisasiBondYieldUsTreasury(data);
+  }
+  cellClick_SaveButtonRkapUsTreasury = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("deleteButton")
+    currentTable.hideColumn("CancelButton")
+    currentTable.hideColumn("SaveButton")
+    const data = {
+      id: rowData.id,
+      tanggal: rowData.tanggal,
+      yr5: rowData.yr5,
+      yr7: rowData.yr7,
+      yr10: rowData.yr10,
+      yr15: rowData.yr15,
+      yr20: rowData.yr20,
+      yr25: rowData.yr25,
+      yr30: rowData.yr30,
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataUpdateRkapBondYieldUsTreasury(data);
+  }
+  cellClick_addButtonRkapUsTreasury = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("deleteButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      id: rowData.id,
+      tanggal: rowData.tanggal,
+      yr5: rowData.yr5,
+      yr7: rowData.yr7,
+      yr10: rowData.yr10,
+      yr15: rowData.yr15,
+      yr20: rowData.yr20,
+      yr25: rowData.yr25,
+      yr30: rowData.yr30,
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputRkapBondYieldUsTreasury(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+  }
+  cellClick_deleteButtonRkapUsTreasury = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    const data = {
+      id: rowData.id,
+    }
+    this.tableRealisasiForeignExchange.deleteRow(data.id)
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDeleteDataRkapBondYieldUsTreasury(data);
+  }
+  cellClick_SaveButtonOutlookUsTreasury = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("deleteButton")
+    currentTable.hideColumn("CancelButton")
+    currentTable.hideColumn("SaveButton")
+    const data = {
+      id: rowData.id,
+      tanggal: rowData.tanggal,
+      yr5: rowData.yr5,
+      yr7: rowData.yr7,
+      yr10: rowData.yr10,
+      yr15: rowData.yr15,
+      yr20: rowData.yr20,
+      yr25: rowData.yr25,
+      yr30: rowData.yr30,
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataUpdateOutlookBondYieldUsTreasury(data);
+  }
+  cellClick_addButtonOutlookUsTreasury = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    if (!cell.getRow().isSelected()){
+      return
+    }
+    const currentTable = cell.getTable()
+    currentTable.deselectRow()
+    currentTable.showColumn("EditButton")
+    currentTable.showColumn("tambahButton")
+    currentTable.showColumn("deleteButton")
+    currentTable.hideColumn("CancelAddButton")
+    currentTable.hideColumn("SaveAddButton")
+    const data = {
+      id: rowData.id,
+      tanggal: rowData.tanggal,
+      yr5: rowData.yr5,
+      yr7: rowData.yr7,
+      yr10: rowData.yr10,
+      yr15: rowData.yr15,
+      yr20: rowData.yr20,
+      yr25: rowData.yr25,
+      yr30: rowData.yr30,
+    }
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDataInputOutlookBondYieldUsTreasury(data);
+    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+  }
+  cellClick_deleteButtonOutlookUsTreasury = async (e: any, cell:any) => {
+    const rowData = cell.getRow().getData();
+    const data = {
+      id: rowData.id,
+    }
+    this.tableRealisasiForeignExchange.deleteRow(data.id)
+    console.log(data);
+    const response = await this.marketUpdateService.fetchDeleteDataOutlookBondYieldUsTreasury(data);
   }
   // end save edit non macro
 
