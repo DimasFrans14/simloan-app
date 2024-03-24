@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-bond-yield',
@@ -9,7 +10,7 @@ import { MarketUpdateService } from 'src/app/services/market_update/market-updat
   styleUrls: ['./bond-yield.component.css']
 })
 export class BondYieldComponent {
-
+  
   constructor(
     private tableConfig: TableServicesService,
     private marketUpdateService: MarketUpdateService,
@@ -25,75 +26,12 @@ export class BondYieldComponent {
   dataDetailRkap: any;
   dataDetailOutlook: any;
 
+  dataBondYieldSBN: any;
+  dataBondYieldUST:any;
+  getLabelBondYield: any;
+  allLabelDate: any[] = [];
+
   selectedItems!: number;
-
-
-  defaultMacroIndicatorItems = [
-    {
-      "id": "1",
-      "currency": "PDB (%)",
-      "rate1": "1.23",
-      "rate2": "1.25",
-      "rate3": "1.27"
-    },
-    {
-      "id": "2",
-      "currency": "Inflasi (%)",
-      "rate1": "0.98",
-      "rate2": "1.01",
-      "rate3": "0.95"
-    },
-    {
-      "id": "3",
-      "currency": "Fed Funds Rate (%)",
-      "rate1": "1.55",
-      "rate2": "1.52",
-      "rate3": "1.57"
-    },
-    {
-      "id": "4",
-      "currency": "BI 7-Day Reverse Repo (%)",
-      "rate1": "0.009",
-      "rate2": "0.008",
-      "rate3": "0.0095"
-    },
-    {
-      "id": "5",
-      "currency": "Yield UST 10-Yr",
-      "rate1": "0.009",
-      "rate2": "0.008",
-      "rate3": "0.0095"
-    },
-    {
-      "id": "6",
-      "currency": "Yield SBN 10-Yr",
-      "rate1": "0.009",
-      "rate2": "0.008",
-      "rate3": "0.0095"
-    },
-  ]
-
-  macroIndicatorSelect = [
-    { id: 1, name: 'PDB (%)' },
-    { id: 2, name: 'Inflasi (%)' },
-    { id: 3, name: 'Fed Funds Rate (%)' },
-    { id: 4, name: 'BI 7-Day Reverse Repo (%)' },
-    { id: 5, name: 'Yield UST 10-Yr' },
-    { id: 6, name: 'Yield SBN 10-Yr' },
-  ];
-
-  kursSelect: any;
-
-  // async getBondYieldData(){
-  //   try {
-  //     const response = await this.dataService.fetchDataBondYield();
-  //     this.kursSelect = response;
-  //     this.kursSelect = this.kursSelect.d.list;
-  //     console.log(this.kursSelect);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
 
   async getData(){
     try {
@@ -159,12 +97,130 @@ export class BondYieldComponent {
   }
 
   async ngOnInit(): Promise<void> {
+    try {
+
+      this.isLoading = true;
+
+      let today = moment().format('DD/MM/YYYY')
+      const responseInterestRate = await this.marketUpdateService.fetchDataInterestRate(today);
+      const responseBondYield = await this.marketUpdateService.fetchDataBondYield(today);
+
+      this.dataBondYieldSBN = responseBondYield;
+      if(this.dataBondYieldSBN.d.length > 0){
+        this.getLabelBondYield = this.dataBondYieldSBN.d.filter((item: any) => item.tenor === 'Label');
+
+        this.dataBondYieldSBN = this.dataBondYieldSBN.d.filter((item: any) => item.tipe.includes('SBN') && item.tenor != 'Label');
+
+        this.dataBondYieldSBN = this.dataBondYieldSBN.map((item: any) => {
+
+          item.nilai_rkap = parseFloat(item.nilai_rkap).toFixed(2);
+          item.nilai_rkap = item.nilai_rkap.toLocaleString('en-US');
+
+          item.h_min_0 = parseFloat(item.h_min_0).toFixed(2);
+          item.h_min_0 = item.h_min_0.toLocaleString('en-US');
+
+          item.h_min_1 = parseFloat(item.h_min_1).toFixed(2);
+          item.h_min_1 = item.h_min_1.toLocaleString('en-US');
+
+          item.h_min_7 = parseFloat(item.h_min_7).toFixed(2);
+          item.h_min_7 = item.h_min_7.toLocaleString('en-US');
+
+          item.h_min_30 = parseFloat(item.h_min_30).toFixed(2);
+          item.h_min_30 = item.h_min_30.toLocaleString('en-US');
+
+          item.change_rkap = parseFloat(item.change_rkap).toFixed(2);
+          item.change_rkap = item.change_rkap.toLocaleString('en-US');
+
+          item.change_wow = parseFloat(item.change_wow).toFixed(2);
+          item.change_wow = item.change_wow.toLocaleString('en-US');
+
+          item.change_mom = parseFloat(item.change_mom).toFixed(2);
+          item.change_mom = item.change_mom.toLocaleString('en-US');
+
+          item.change_1day = parseFloat(item.change_1day).toFixed(2);
+          item.change_1day = item.change_1day.toLocaleString('en-US');
+          return item
+        })
+
+        this.dataBondYieldUST = responseBondYield;
+        this.dataBondYieldUST = this.dataBondYieldUST.d.filter((item: any) => item.tipe.includes('US_TREASURY'));
+
+        this.dataBondYieldUST = this.dataBondYieldUST.map((item: any) => {
+
+          item.nilai_rkap = parseFloat(item.nilai_rkap).toFixed(2);
+          item.nilai_rkap = item.nilai_rkap.toLocaleString('en-US');
+
+          item.h_min_0 = parseFloat(item.h_min_0).toFixed(2);
+          item.h_min_0 = item.h_min_0.toLocaleString('en-US');
+
+          item.h_min_1 = parseFloat(item.h_min_1).toFixed(2);
+          item.h_min_1 = item.h_min_1.toLocaleString('en-US');
+
+          item.h_min_7 = parseFloat(item.h_min_7).toFixed(2);
+          item.h_min_7 = item.h_min_7.toLocaleString('en-US');
+
+          item.h_min_30 = parseFloat(item.h_min_30).toFixed(2);
+          item.h_min_30 = item.h_min_30.toLocaleString('en-US');
+
+          item.change_rkap = parseFloat(item.change_rkap).toFixed(2);
+          item.change_rkap = item.change_rkap.toLocaleString('en-US');
+
+          item.change_wow = parseFloat(item.change_wow).toFixed(2);
+          item.change_wow = item.change_wow.toLocaleString('en-US');
+
+          item.change_mom = parseFloat(item.change_mom).toFixed(2);
+          item.change_mom = item.change_mom.toLocaleString('en-US');
+
+          item.change_1day = parseFloat(item.change_1day).toFixed(2);
+          item.change_1day = item.change_1day.toLocaleString('en-US');
+          return item
+        })
+
+        console.log(this.dataBondYieldSBN, this.dataBondYieldUST);
+      }
+      else{
+        this.dataBondYieldSBN = [];
+        this.dataBondYieldUST = [];
+        this.getLabelBondYield = [];
+      }
+
+      this.allLabelDate.push(this.getLabelBondYield);
+      console.log(this.allLabelDate);
+
+
+      this.tableConfig.getDataBondYield(this.dataBondYieldSBN, this.dataBondYieldUST);
+
+      this.isLoading = false;
+      console.log('load after fetch: ' + this.isLoading);
+      console.log( responseInterestRate, responseBondYield);
+
+
+    } catch (error) {
+      console.log(error);
+      this.isLoading = false;
+    }
+
+    let today = new Date();
+    let formatToday = moment(today).format("DD/MM/YYYY").toString();
+
+    let getYesterday = new Date();
+    let yesterday = getYesterday.setDate(getYesterday.getDate() - 1);
+    let formatYesterday = moment(yesterday).format("DD/MM/YYYY").toString();
+
+    let getTwoDaysBefore = new Date();
+    let twoDaysBefore = getTwoDaysBefore.setDate(getTwoDaysBefore.getDate() - 2);
+    let formatTwoDaysBefore = moment(twoDaysBefore).format("DD/MM/YYYY").toString();
+
+    let getThreeDaysBefore = new Date();
+    let threeDaysBefore = getThreeDaysBefore.setDate(getThreeDaysBefore.getDate() - 3);
+    let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
+
     console.log('load data');
 
     await this.getData();
     await this.getDataRealisasi();
     await this.getDataOutlook();
-    this.tableConfig.initializeTableDataBondYield();
+    this.tableConfig.initializeTableDataBondYield(this.allLabelDate);
   }
 
   ngAfterViewInit(): void {

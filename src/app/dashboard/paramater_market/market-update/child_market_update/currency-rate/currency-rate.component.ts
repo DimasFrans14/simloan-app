@@ -28,114 +28,34 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
   filteredData: String[] = [];
   isLoading: Boolean = true;
   realisasiKursItem!: number;
+  allLabelDate: any[] = []
 
+  getLabelDateKurs: any;
+  dataKurs: any;
+  
   tanggalEditKurs: any;
   namaEditKurs: any;
   nilaiEditKurs: any;
 
   maxDate = new Date();
 
-  formDataRealisasi = {
-    'tanggal': '',
-    'nama_kurs':'',
-    'nilai_realisasi':''
-  }
 
-  formDataRKAP = {
-    'tanggal': '',
-    'nama_kurs':'',
-    'nilai_rkap':''
-  }
-
-  formDataOutlook = {
-    'tanggal': '',
-    'nama_kurs':'',
-    'nilai_outlook':''
-  }
-
-  defaultMacroIndicatorItems = [
-    {
-      "id": "1",
-      "currency": "PDB (%)",
-      "rate1": "1.23",
-      "rate2": "1.25",
-      "rate3": "1.27"
-    },
-    {
-      "id": "2",
-      "currency": "Inflasi (%)",
-      "rate1": "0.98",
-      "rate2": "1.01",
-      "rate3": "0.95"
-    },
-    {
-      "id": "3",
-      "currency": "Fed Funds Rate (%)",
-      "rate1": "1.55",
-      "rate2": "1.52",
-      "rate3": "1.57"
-    },
-    {
-      "id": "4",
-      "currency": "BI 7-Day Reverse Repo (%)",
-      "rate1": "0.009",
-      "rate2": "0.008",
-      "rate3": "0.0095"
-    },
-    {
-      "id": "5",
-      "currency": "Yield UST 10-Yr",
-      "rate1": "0.009",
-      "rate2": "0.008",
-      "rate3": "0.0095"
-    },
-    {
-      "id": "6",
-      "currency": "Yield SBN 10-Yr",
-      "rate1": "0.009",
-      "rate2": "0.008",
-      "rate3": "0.0095"
-    },
-  ]
-
-  macroIndicatorSelect = [
-    { id: 1, name: 'PDB (%)' },
-    { id: 2, name: 'Inflasi (%)' },
-    { id: 3, name: 'Fed Funds Rate (%)' },
-    { id: 4, name: 'BI 7-Day Reverse Repo (%)' },
-    { id: 5, name: 'Yield UST 10-Yr' },
-    { id: 6, name: 'Yield SBN 10-Yr' },
-  ];
-
-  kursSelect: any;
-
-  async getCurrencyRateData(){
-    // try {
-    //   const response = await this.dataService.fetchDataKurs();
-    //   this.kursSelect = response;
-    //   this.kursSelect = this.kursSelect.d.list;
-    //   console.log(this.kursSelect);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-  }
-
-  async getData(){
-    this.isLoading = true;
-    console.log(this.isLoading, 'loading 1');
-    let getYear = moment().format('YYYY')
-    try {
-      const data = await this.marketUpdateService.fetchDataKurs(getYear);
-      this.dataDetail = data;
-      this.dataDetail = this.dataDetail.d.list;
-      this.isLoading = false;
-      console.log(this.isLoading, 'loading 2', this.dataDetail);
-    } catch (error) {
-      console.log(error);
-    }
-    this.tableConfig.setData(this.dataDetail);
-    console.log('finish get data in func');
-  }
+  // async getData(){
+  //   this.isLoading = true;
+  //   console.log(this.isLoading, 'loading 1');
+  //   let getYear = moment().format('YYYY')
+  //   try {
+  //     const data = await this.marketUpdateService.fetchDataKurs(getYear);
+  //     this.dataDetail = data;
+  //     this.dataDetail = this.dataDetail.d.list;
+  //     this.isLoading = false;
+  //     console.log(this.isLoading, 'loading 2', this.dataDetail);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   this.tableConfig.setData(this.dataDetail);
+  //   console.log('finish get data in func');
+  // }
   async getDataRealisasi(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading RealisasiKursUsd');
@@ -191,45 +111,101 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     console.log('finish get data by function')
   }
 
-  onDate(event: any){
-    console.log(event);
-
-    console.log(moment(event.value._d).format("DD/MM/YYYY"));
-
-    this.tanggalEditKurs = moment(event.value._d).format("DD/MM/YYYY");
-  }
-
-  realisasiKursSelect = (event: any) => {
-    console.log(event);
-  }
-
-  nilaiEditRealKurs = (val: any) => {
-    console.log(val);
-  }
-
-  onSubmitRealisasi() {
-    this.formDataRealisasi.tanggal = this.tanggalEditKurs
-    console.log('Data yang di-submit:', this.formDataRealisasi);
-  }
-
-  onSubmitRKAP() {
-    this.formDataRKAP.tanggal = this.tanggalEditKurs
-    console.log('Data yang di-submit:', this.formDataRKAP);
-  }
-  onSubmitOutlook() {
-    this.formDataOutlook.tanggal = this.tanggalEditKurs
-    console.log('Data yang di-submit:', this.formDataOutlook);
-  }
-
   async ngOnInit(): Promise<void> {
-    console.log('load data');
+    try {
+      this.isLoading = true;
+      let today = moment().format('DD/MM/YYYY')
 
-    await this.getData();
+      console.log('load before fetch: ' + this.isLoading);
+      const responseKurs = await this.marketUpdateService.fetchDataKurs(today);
+
+      this.getLabelDateKurs = responseKurs;
+      this.dataKurs = responseKurs;
+
+      if(this.dataKurs.d.length > 0){
+        this.getLabelDateKurs = this.getLabelDateKurs.d.filter((item: any) => item.kode.includes('Label'));
+      console.log('before', this.getLabelDateKurs);
+      this.dataKurs = this.dataKurs.d.map((item: any) => {
+        if(item.kode === 'Label'){
+        }
+        else{
+          item.nilai_rkap = parseFloat(item.nilai_rkap);
+          item.nilai_rkap = item.nilai_rkap.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.h_min_0 = parseFloat(item.h_min_0);
+          item.h_min_0 = item.h_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.h_min_1 = parseFloat(item.h_min_1);
+          item.h_min_1 = item.h_min_1.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.h_min_7 = parseFloat(item.h_min_7);
+          item.h_min_7 = item.h_min_7.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.h_min_30 = parseFloat(item.h_min_30);
+          item.h_min_30 = item.h_min_30.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.change_rkap = parseFloat(item.change_rkap);
+          item.change_rkap = item.change_rkap.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.change_wow = parseFloat(item.change_wow);
+          item.change_wow = item.change_wow.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.change_mom = parseFloat(item.change_mom);
+          item.change_mom = item.change_mom.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          item.change_1day = parseFloat(item.change_1day);
+          item.change_1day = item.change_1day.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          return item
+        }
+      })
+
+      console.log(this.dataKurs);
+      console.log('after', this.getLabelDateKurs);
+      }
+      else{
+        this.dataKurs = [];
+        this.getLabelDateKurs = []
+      }
+        
+      this.allLabelDate.push(this.getLabelDateKurs);
+
+      this.tableConfig.getDataKurs(this.dataKurs);
+      this.isLoading = false;
+      console.log('load after fetch: ' + this.isLoading);
+
+
+    } catch (error) {
+      console.log(error);
+      this.isLoading = false;
+    }
+
+    this.tableConfig.getDataKurs(this.dataKurs);
+
+    let today = new Date();
+    let formatToday = moment(today).format("DD/MM/YYYY").toString();
+
+    let getYesterday = new Date();
+    let yesterday = getYesterday.setDate(getYesterday.getDate() - 1);
+    let formatYesterday = moment(yesterday).format("DD/MM/YYYY").toString();
+
+    let getTwoDaysBefore = new Date();
+    let twoDaysBefore = getTwoDaysBefore.setDate(getTwoDaysBefore.getDate() - 2);
+    let formatTwoDaysBefore = moment(twoDaysBefore).format("DD/MM/YYYY").toString();
+
+    let getThreeDaysBefore = new Date();
+    let threeDaysBefore = getThreeDaysBefore.setDate(getThreeDaysBefore.getDate() - 3);
+    let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
+
+    console.log(this.getLabelDateKurs);
+
+    console.log('load data');
+    
+    // await this.getData();
     await this.getDataRealisasi();
     await this.getDataRkapKursUsd();
     await this.getDataOutlookKursUsd();
 
-    this.tableConfig.initializeTableDataCurrency();
+    this.tableConfig.initializeTableDataCurrency(this.allLabelDate);
   }
 
   ngAfterViewInit(): void {
