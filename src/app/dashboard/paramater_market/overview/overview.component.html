@@ -200,7 +200,7 @@
             </div>
 
             <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center">
-              <div>
+              <!-- <div>
                 <button
                   type="button"
                   class="btn btn-light rounded-pill text-dark bg-white ms-1"
@@ -247,7 +247,7 @@
                 >
                   <span style="font-size: 13px">3Y</span>
                 </button>
-              </div>
+              </div> -->
               <div>
                 <button
                   class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
@@ -265,9 +265,9 @@
                         <input
                           type="checkbox"
                           name="selectedKurs"
-                          [id]="item.kurs"
+                          [id]="item.name"
                         />
-                        <label class="ms-2" for="item.kurs">{{
+                        <label class="ms-2" for="item.name">{{
                           item.name
                         }}</label>
                         <br />
@@ -307,6 +307,7 @@
               [series]="barChartKursSeries"
               [chart]="currencyBarChartDetails"
               [xaxis]="barXAxisKurs"
+              [yaxis]="barYAxisKurs"
               [dataLabels]="barDataLabels"
             ></apx-chart>
           </div>
@@ -330,26 +331,26 @@
               <tbody>
                 <tr *ngFor="let item of dataCompareChangeRKAP">
                   <td style="font-size: 14px; border-style: none" class="text-center">
-                    {{ item.mata_uang }}
+                    {{ item.kode }}
                   </td>
-                  <td [style.color]="item.font_color_rkap" class="text-center">{{ item.persen_change_rkap }}</td>
+                  <td [style.color]="item.font_color_rkap" class="text-center">{{ item.change_rkap }}</td>
                   <td>
                     <p class="rounded py-1 text-center" [style.background-color]="item.bg_wow" [style.color]="item.font_color_bg_wow">
-                      <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_wow)"></span>{{ item.persen_change_wow }}
+                      <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_wow)"></span>{{ item.change_wow }}
                     </p>
                   </td>
                   <td>
                     <p class="rounded py-1 text-center" [style.background-color]="item.bg_mom" [style.color]="item.font_color_bg_mom">
-                      <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_mom)"></span>{{ item.persen_change_mom }}
+                      <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_mom)"></span>{{ item.change_mom }}
                     </p>
                   </td>
                   <td>
                     <p class="rounded py-1 text-center" [style.background-color]="item.bg_1day" [style.color]="item.font_color_bg_1day">
-                      <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_1day)"></span>{{ item.persen_change_1day }}
+                      <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_1day)"></span>{{ item.change_1day }}
                     </p>
                   </td>
                   <td>
-                    <i class="bi bi-x-lg" (click)="hideCompare(item.mata_uang)" style="cursor: pointer"></i>
+                    <i class="bi bi-x-lg" (click)="hideCompare(item.kode)" style="cursor: pointer"></i>
                   </td>
                 </tr>
 
@@ -424,26 +425,26 @@
                     <tbody>
                       <tr *ngFor="let item of listDataCompareChangeRKAP">
                         <td style="font-size: 14px; border-style: none" class="text-center">
-                          {{ item.mata_uang }}
+                          {{ item.kode }}
                         </td>
-                        <td [style.color]="item.font_color_rkap" class="text-center">{{ item.persen_change_rkap }}</td>
+                        <td [style.color]="item.font_color_rkap" class="text-center">{{ item.change_rkap }}</td>
                         <td>
                           <p class="rounded py-1 text-center" [style.background-color]="item.bg_wow" [style.color]="item.font_color_bg_wow">
-                            <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_wow)"></span>{{ item.persen_change_wow }}
+                            <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_wow)"></span>{{ item.change_wow }}
                           </p>
                         </td>
                         <td>
                           <p class="rounded py-1 text-center" [style.background-color]="item.bg_mom" [style.color]="item.font_color_bg_mom">
-                            <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_mom)"></span>{{ item.persen_change_mom }}
+                            <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_mom)"></span>{{ item.change_mom }}
                           </p>
                         </td>
                         <td>
                           <p class="rounded py-1 text-center" [style.background-color]="item.bg_1day" [style.color]="item.font_color_bg_1day">
-                            <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_1day)"></span>{{ item.persen_change_1day }}
+                            <span class="me-2" [innerHTML]="sanitizeInnerHTML(item.arrow_1day)"></span>{{ item.change_1day }}
                           </p>
                         </td>
                         <td>
-                          <i class="bi bi-plus-lg" (click)="addCompare(item.mata_uang)" style="cursor: pointer"></i>
+                          <i class="bi bi-plus-lg" (click)="addCompare(item.kode)" style="cursor: pointer"></i>
                         </td>
                       </tr>
 
@@ -1241,7 +1242,7 @@
         </div>
 
         <div [style.display]="isVisibleLine ? 'none' : 'flex'" class="align-items-center justify-content-end py-2">
-          <div>
+          <!-- <div>
             <button
               type="button"
               class="btn btn-light rounded-pill text-dark bg-white ms-1"
@@ -1284,7 +1285,7 @@
             >
               <span style="font-size: 13px">3Y</span>
             </button>
-          </div>
+          </div> -->
           <div>
             <button
               class="btn btn-transparant border-secondary bg-white dropdown-toggle ms-2"
@@ -1296,9 +1297,9 @@
               Customize Bar Chart
             </button>
             <div class="dropdown-menu ps-2">
-              <form (ngSubmit)="filterInterestRateLineChart($event)">
+              <form (ngSubmit)="filterInterestBarChart($event)">
                 <div style="font-size: 15px">
-                  <ng-container *ngFor="let item of allTrendDataInterestRate">
+                  <ng-container *ngFor="let item of allTrendDataInterestRateBar">
                     <input
                       type="checkbox"
                       name="selectedInterestRate"
