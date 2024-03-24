@@ -2281,7 +2281,7 @@ export class MarketUpdateService {
   async fetchDataRkapInterestRate(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/list/interest`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap`)
       );
     } catch (error) {
       console.log(error);
@@ -2329,7 +2329,7 @@ export class MarketUpdateService {
   async fetchDeleteDataRkapInterestRate(data:any){
     try {
       return await lastValueFrom(
-        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/list/interest?id=${data.id}`)
+        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap/non-macro/list/interest?id=${data.id}`)
       );
     } catch (error) {
       console.log(error);

@@ -328,10 +328,8 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
       if(this.dataKurs.d.length > 0){
         this.getLabelDateKurs = this.getLabelDateKurs.d.filter((item: any) => item.kode.includes('Label'));
 
-      console.log('before', this.getLabelDateKurs);
-
-
-      this.dataKurs = this.dataKurs.d.map((item: any) => {
+        console.log('before', this.getLabelDateKurs);
+        this.dataKurs = this.dataKurs.d.map((item: any) => {
 
         if(item.kode === 'Label'){
 
@@ -365,8 +363,6 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
           item.change_1day = item.change_1day.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
           return item
         }
-
-
       })
 
       console.log(this.dataKurs);

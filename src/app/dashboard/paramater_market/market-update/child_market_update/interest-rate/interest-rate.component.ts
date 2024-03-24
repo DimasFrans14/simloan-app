@@ -26,115 +26,30 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
   filteredData: String[] = [];
   isLoading: Boolean = true;
   realisasiKursItem!: number;
-
-  tanggalEditKurs: any;
-  namaEditKurs: any;
-  nilaiEditKurs: any;
+  dataInterestRate: any;
+  getLabelInterestRate: any;
+  allLabelDate: any[] = [];
 
   maxDate = new Date();
 
-  formDataRealisasi = {
-    'tanggal': '',
-    'nama_kurs':'',
-    'nilai_realisasi':''
-  }
 
-  formDataRKAP = {
-    'tanggal': '',
-    'nama_kurs':'',
-    'nilai_rkap':''
-  }
-
-  formDataOutlook = {
-    'tanggal': '',
-    'nama_kurs':'',
-    'nilai_outlook':''
-  }
-
-  defaultMacroIndicatorItems = [
-    {
-      "id": "1",
-      "currency": "PDB (%)",
-      "rate1": "1.23",
-      "rate2": "1.25",
-      "rate3": "1.27"
-    },
-    {
-      "id": "2",
-      "currency": "Inflasi (%)",
-      "rate1": "0.98",
-      "rate2": "1.01",
-      "rate3": "0.95"
-    },
-    {
-      "id": "3",
-      "currency": "Fed Funds Rate (%)",
-      "rate1": "1.55",
-      "rate2": "1.52",
-      "rate3": "1.57"
-    },
-    {
-      "id": "4",
-      "currency": "BI 7-Day Reverse Repo (%)",
-      "rate1": "0.009",
-      "rate2": "0.008",
-      "rate3": "0.0095"
-    },
-    {
-      "id": "5",
-      "currency": "Yield UST 10-Yr",
-      "rate1": "0.009",
-      "rate2": "0.008",
-      "rate3": "0.0095"
-    },
-    {
-      "id": "6",
-      "currency": "Yield SBN 10-Yr",
-      "rate1": "0.009",
-      "rate2": "0.008",
-      "rate3": "0.0095"
-    },
-  ]
-
-  macroIndicatorSelect = [
-    { id: 1, name: 'PDB (%)' },
-    { id: 2, name: 'Inflasi (%)' },
-    { id: 3, name: 'Fed Funds Rate (%)' },
-    { id: 4, name: 'BI 7-Day Reverse Repo (%)' },
-    { id: 5, name: 'Yield UST 10-Yr' },
-    { id: 6, name: 'Yield SBN 10-Yr' },
-  ];
-
-  kursSelect: any;
-
-  async getCurrencyRateData(){
-    // try {
-    //   const response = await this.dataService.fetchDataKurs();
-    //   this.kursSelect = response;
-    //   this.kursSelect = this.kursSelect.d.list;
-    //   console.log(this.kursSelect);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-  }
-
-  async getData(){
-    this.isLoading = true;
-    console.log(this.isLoading, 'loading 1');
-    let getYear = moment().format('YYYY');
-
-    try {
-      const data = await this.marketUpdateService.fetchDataInterestRate(getYear);
-      this.dataDetail = data;
-      this.dataDetail = this.dataDetail.d.list;
-      this.isLoading = false;
-      console.log(this.isLoading, 'loading 2', this.dataDetail);
-    } catch (error) {
-      console.log(error);
-    }
-    this.tableConfig.setData(this.dataDetail);
-    console.log('finish get data in func');
-  }
+  // async getData(){
+  //   this.isLoading = true;
+  //   console.log(this.isLoading, 'loading 1');
+  //   let getYear = moment().format('YYYY');
+  //   let today = moment().format('DD/MM/YYYY')
+  //   try {
+  //     const data = await this.marketUpdateService.fetchDataInterestRate(today);
+  //     this.dataDetail = data;
+  //     this.dataDetail = this.dataDetail.d.list;
+  //     this.isLoading = false;
+  //     console.log(this.isLoading, 'loading 2', this.dataDetail);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   this.tableConfig.setData(this.dataDetail);
+  //   console.log('finish get data in func');
+  // }
   async getDataRealisasi(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
@@ -180,45 +95,94 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
     this.tableConfig.setDataOutlookInterestRate(this.dataDetailOutlook);
     console.log('finish get data in func');
   }
-  onDate(event: any){
-    console.log(event);
-
-    console.log(moment(event.value._d).format("DD/MM/YYYY"));
-
-    this.tanggalEditKurs = moment(event.value._d).format("DD/MM/YYYY");
-  }
-
-  realisasiKursSelect = (event: any) => {
-    console.log(event);
-  }
-
-  nilaiEditRealKurs = (val: any) => {
-    console.log(val);
-  }
-
-  onSubmitRealisasi() {
-    this.formDataRealisasi.tanggal = this.tanggalEditKurs
-    console.log('Data yang di-submit:', this.formDataRealisasi);
-  }
-
-  onSubmitRKAP() {
-    this.formDataRKAP.tanggal = this.tanggalEditKurs
-    console.log('Data yang di-submit:', this.formDataRKAP);
-  }
-  onSubmitOutlook() {
-    this.formDataOutlook.tanggal = this.tanggalEditKurs
-    console.log('Data yang di-submit:', this.formDataOutlook);
-  }
 
   async ngOnInit(): Promise<void> {
+    try {
+
+      // const responseCommodities = await this.marketUpdateService.fetchDataCommoditiesAll();
+      this.isLoading = true;
+      // this.lineChartCommodity.initializeCommoditiesLineChart();
+
+      let today = moment().format('DD/MM/YYYY')
+
+      console.log('load before fetch: ' + this.isLoading);
+      const responseKurs = await this.marketUpdateService.fetchDataKurs(today);
+      const responseInterestRate = await this.marketUpdateService.fetchDataInterestRate(today);
+      
+
+      // this.dataKurs = this.dataKurs.filter((item: any) => !item.kode.includes('Label'));
+
+      this.dataInterestRate = responseInterestRate;
+      if(this.dataInterestRate.d.length > 0){
+        this.getLabelInterestRate = this.dataInterestRate.d.filter((item: any) => item.kode.includes('Label'));
+        this.dataInterestRate = this.dataInterestRate.d.filter((item: any) => !item.kode.includes('Label'))
+        this.dataInterestRate = this.dataInterestRate.map((item: any) => {
+
+          item.nilai_rkap = parseFloat(item.nilai_rkap).toFixed(2);
+          item.nilai_rkap = item.nilai_rkap.toLocaleString('en-US');
+
+          item.h_min_0 = parseFloat(item.h_min_0).toFixed(2);
+          item.h_min_0 = item.h_min_0.toLocaleString('en-US');
+
+          item.h_min_1 = parseFloat(item.h_min_1).toFixed(2);
+          item.h_min_1 = item.h_min_1.toLocaleString('en-US');
+
+          item.h_min_7 = parseFloat(item.h_min_7).toFixed(2);
+          item.h_min_7 = item.h_min_7.toLocaleString('en-US');
+
+          item.h_min_30 = parseFloat(item.h_min_30).toFixed(2);
+          item.h_min_30 = item.h_min_30.toLocaleString('en-US');
+
+          item.change_rkap = parseFloat(item.change_rkap).toFixed(2);
+          item.change_rkap = item.change_rkap.toLocaleString('en-US');
+
+          item.change_wow = parseFloat(item.change_wow).toFixed(2);
+          item.change_wow = item.change_wow.toLocaleString('en-US');
+
+          item.change_mom = parseFloat(item.change_mom).toFixed(2);
+          item.change_mom = item.change_mom.toLocaleString('en-US');
+
+          item.change_1day = parseFloat(item.change_1day).toFixed(2);
+          item.change_1day = item.change_1day.toLocaleString('en-US');
+          return item
+        })
+      }
+      else{
+        this.dataInterestRate = [];
+        this.getLabelInterestRate = [];
+      }
+      this.allLabelDate.push(this.getLabelInterestRate);
+      this.tableConfig.getDataInterestRate(this.dataInterestRate);
+      this.isLoading = false;
+    } catch (error) {
+      console.log(error);
+      this.isLoading = false;
+    }
+    this.tableConfig.getDataInterestRate(this.dataInterestRate);
+
+    let today = new Date();
+    let formatToday = moment(today).format("DD/MM/YYYY").toString();
+
+    let getYesterday = new Date();
+    let yesterday = getYesterday.setDate(getYesterday.getDate() - 1);
+    let formatYesterday = moment(yesterday).format("DD/MM/YYYY").toString();
+
+    let getTwoDaysBefore = new Date();
+    let twoDaysBefore = getTwoDaysBefore.setDate(getTwoDaysBefore.getDate() - 2);
+    let formatTwoDaysBefore = moment(twoDaysBefore).format("DD/MM/YYYY").toString();
+
+    let getThreeDaysBefore = new Date();
+    let threeDaysBefore = getThreeDaysBefore.setDate(getThreeDaysBefore.getDate() - 3);
+    let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
+
     console.log('load data');
 
-    await this.getData();
+    // await this.getData();
     await this.getDataRealisasi();
     await this.getDataRkap();
     await this.getDataOutlook();
     
-    this.tableConfig.initializeTableDataInterestRate();
+    this.tableConfig.initializeTableDataInterestRate(this.allLabelDate);
   }
 
   ngAfterViewInit(): void {
