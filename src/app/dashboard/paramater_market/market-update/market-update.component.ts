@@ -558,7 +558,6 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
         this.dataPDB = this.dataPDB.data.content.map((item: any) => {
           item.nilai = item.nilai.toFixed(2);
           item.nilai = item.nilai.toLocaleString('en-US');
-
           return item
         })
       }

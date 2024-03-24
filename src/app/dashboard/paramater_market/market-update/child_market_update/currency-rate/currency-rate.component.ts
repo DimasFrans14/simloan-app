@@ -216,9 +216,9 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     this.tableConfig.tableRealisasiCurrencyRate.addRow({});
   }
   addRowRKAP() {
-    this.tableConfig.tableRKAP.addRow({});
+    this.tableConfig.tableRkapCurrencyRate.addRow({});
   }
   addRowOutlook() {
-    this.tableConfig.tableOutlook.addRow({});
+    this.tableConfig.tableOutlookCurrencyRate.addRow({});
   }
 }
