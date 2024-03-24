@@ -289,7 +289,7 @@ export class TableServicesService {
 
   getDataKurs(data: any){
     this.dataKurs = data;
-    // console.log('data kurs', this.dataKurs);
+    console.log('data kurs', this.dataKurs, data);
   }
 
   getData() {
@@ -526,8 +526,10 @@ export class TableServicesService {
      // only allow the name cell to be edited if the age is over 18
   }
 
-  initializeTableData(arrayDate: any[]) {
-    console.log(arrayDate);
+  initializeTableData(arrayDate: any[], arrayYear: any[]) {
+    console.log('tanggal', arrayDate);
+    console.log('tahun', arrayYear);
+
     // console.log(arrayDate[0][0].h_min_30);
 
     // console.log(today.slice(-2, 10));
@@ -543,10 +545,10 @@ export class TableServicesService {
             title:"Exchange Rate",
             columns:[
             {title:`RKAP <br/> ${formattedYear}`, field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center"},
-            {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_30 : '', field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
-            {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
-            {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
-            {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
+            {title:arrayDate.length > 0 ? arrayDate[0][0].h_min_30 : '', field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
+            {title:arrayDate.length > 0 ? arrayDate[0][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
+            {title:arrayDate.length > 0 ? arrayDate[0][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
+            {title:arrayDate.length > 0 ? arrayDate[0][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
           ],
           headerHozAlign:"center"
           },
@@ -564,10 +566,10 @@ export class TableServicesService {
       columns:[
         {title:"Rates", field:"keterangan", headerHozAlign:"center", hozAlign:'left', headerSort:false},
         {title:`RKAP <br/> ${formattedYear}`, field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center"},
-        {title:arrayDate[1].length ? arrayDate[1][0].h_min_30 : '', field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
-        {title:arrayDate[1].length ? arrayDate[1][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
-        {title:arrayDate[1].length ? arrayDate[1][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
-        {title:arrayDate[1].length ? arrayDate[1][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate.length ? arrayDate[1][0].h_min_30 : '', field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate.length ? arrayDate[1][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate.length ? arrayDate[1][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate.length ? arrayDate[1][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
         {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
@@ -584,10 +586,10 @@ export class TableServicesService {
           {//create column group
           title:"Yield",
           columns:[
-          {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_30 : '', field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
-          {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
-          {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
-          {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
+          {title: arrayDate.length > 0 ? arrayDate[2][0].h_min_30 : '', field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
+          {title: arrayDate.length > 0 ? arrayDate[2][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
+          {title: arrayDate.length > 0 ? arrayDate[2][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
+          {title: arrayDate.length > 0 ? arrayDate[2][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
           ],
           headerHozAlign:"center"
         },
@@ -606,10 +608,10 @@ export class TableServicesService {
         {//create column group
           title:"Yield",
           columns:[
-            {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_30 : '', field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
-            {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
-            {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
-            {title: arrayDate[2].length > 0 ? arrayDate[2][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
+            {title: arrayDate.length > 0 ? arrayDate[2][0].h_min_30 : '', field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
+            {title: arrayDate.length > 0 ? arrayDate[2][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
+            {title: arrayDate.length > 0 ? arrayDate[2][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
+            {title: arrayDate.length > 0 ? arrayDate[2][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
           ],
           headerHozAlign:"center"
         },
@@ -629,10 +631,10 @@ export class TableServicesService {
         title:"Price",
         columns:[
         {title:`RKAP <br/> ${formattedYear}`, field:"nilai_rkap", hozAlign:"center", headerHozAlign:"center"},
-        {title:arrayDate[3].length > 0 ? arrayDate[3][0].h_min_30 : '', field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
-        {title:arrayDate[3].length > 0 ? arrayDate[3][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
-        {title:arrayDate[3].length > 0 ? arrayDate[3][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
-        {title:arrayDate[3].length > 0 ? arrayDate[3][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate.length > 0 ? arrayDate[3][0].h_min_30 : '', field:"h_min_30", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate.length > 0 ? arrayDate[3][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate.length > 0 ? arrayDate[3][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
+        {title:arrayDate.length > 0 ? arrayDate[3][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
         ],
         headerHozAlign:"center"
       },
@@ -668,10 +670,10 @@ export class TableServicesService {
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
+        {title:arrayYear[3], field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear[2], field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear[1], field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear[0], field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
       ],
     });
 
@@ -685,10 +687,10 @@ export class TableServicesService {
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2020", field:"triliun_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2021", field:"triliun_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"triliun_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"triliun_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
+        {title:arrayYear[3], field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear[2], field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear[1], field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear[0], field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
       ],
     });
 
@@ -702,10 +704,10 @@ export class TableServicesService {
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
+        {title:arrayYear[3], field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear[2], field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear[1], field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear[0], field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
       ],
     });
 
@@ -715,10 +717,10 @@ export class TableServicesService {
     //   layout:"fitColumns",
     //   columns:[
     //     {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", bottomCalc: this.customBottomCalc},
-    //     {title:"2020", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-    //     {title:"2021", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-    //     {title:"2022", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
-    //     {title:"2023", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
+    //     {title:arrayYear[3], field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+    //     {title:arrayYear[2], field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+    //     {title:arrayYear[1], field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}},
+    //     {title:arrayYear[0], field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input", bottomCalc:"sum", bottomCalcParams:{precision:1}, maxWidth:100},
     //   ],
     // });
 
@@ -732,10 +734,10 @@ export class TableServicesService {
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
+        {title:arrayYear[3], field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear[2], field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear[1], field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear[0], field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
       ],
     });
 
@@ -749,10 +751,10 @@ export class TableServicesService {
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
+        {title:arrayYear[3], field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear[2], field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear[1], field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear[0], field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
       ],
     });
   }

@@ -1025,9 +1025,9 @@ export class MarketUpdateService {
     }
   }
 
-  fetchDataCompareChangeRKAP = async () => {
+  fetchDataCompareChangeRKAP = async (date: string) => {
     try {
-      const params = new HttpParams().set('tanggal', "21/02/2024")
+      const params = new HttpParams().set('tanggal', date)
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/dashboard/market/trending/kurs/compare`, {params})
       )
@@ -1036,6 +1036,19 @@ export class MarketUpdateService {
       return error
     }
   }
+
+  fetchAllDataMacroIndicator = async (tanggal: string, param_func: string) => {
+    try {
+      const params = new HttpParams().set('tanggal', tanggal).set('param_funct', param_func)
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/call_all_functs`, {params})
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
 //pdb
   async fetchDataPDB(){
     try {
