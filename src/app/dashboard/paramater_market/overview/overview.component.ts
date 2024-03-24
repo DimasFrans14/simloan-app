@@ -100,6 +100,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   trendInterestRateCategories: any;
   trendInterestData: any;
   trendInterestDataBarChart: any;
+  allTrendDataInterestRateBar: any;
   filteredMinMaxInterestRateData: any;
 
   //Line Chart Commodities
@@ -4686,9 +4687,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     this.trendKursDataBarChart = trendBarChartKurs;
     // this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
     this.allTrendDataKursBarChart = trendBarChartKurs;
-    this.allTrendDataKursBarChart = this.allTrendDataKursBarChart.d.arrayData;
+    // this.allTrendDataKursBarChart = this.allTrendDataKursBarChart.d.arrayData;
 
     if(this.trendKursDataBarChart.d.hasOwnProperty('arrayData')){
+      this.allTrendDataKursBarChart = this.allTrendDataKursBarChart.d.arrayData;
       this.barChartKursSeries = this.trendKursDataBarChart.d.arrayData
       console.log(this.barChartKursSeries);
 
@@ -4836,9 +4838,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
     this.barChartInterestRateSeries = [];
 
-    this.trendInterestDataBarChart = trendInterestBarChart
+    this.trendInterestDataBarChart = trendInterestBarChart;
+    this.allTrendDataInterestRateBar = trendInterestBarChart;
 
     if(this.trendInterestDataBarChart.d.hasOwnProperty('arrayData')){
+      this.allTrendDataInterestRateBar = this.allTrendDataInterestRateBar.d.arrayData;
       this.barChartInterestRateSeries = this.trendInterestDataBarChart.d.arrayData;
     }else{
       this.barChartInterestRateSeries = [];
@@ -4846,20 +4850,38 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   }
 
-  fetchDataCompare = async () => {
-    const response = await this.marketUpdateService.fetchDataCompareChangeRKAP();
+  fetchDataCompare = async (date: string) => {
+    const response = await this.marketUpdateService.fetchDataCompareChangeRKAP(date);
 
     this.dataCompareChangeRKAP = response;
-    this.dataCompareChangeRKAP = this.dataCompareChangeRKAP.d;
+    if(this.dataCompareChangeRKAP.d.length > 0){
+      this.dataCompareChangeRKAP = this.dataCompareChangeRKAP.d;
+      this.dataCompareChangeRKAP.map((item: any) => {
+        item.change_rkap != null ? item.change_rkap = parseFloat(item.change_rkap).toFixed(2) : item.change_rkap = 0;
 
-    // this.dataCompareChangeRKAP = this.dataCompareChangeRKAP.map((item: any) => {
-    //   item.persen_change_rkap = parseFloat(item.persen_change_rkap)
-    //   return item
-    // })
+        item.change_mom != null ? item.change_mom = parseFloat(item.change_mom).toFixed(2) : item.change_mom = 0;
 
-    // console.log(this.dataCompareChangeRKAP);
+        item.change_wow != null ? item.change_wow = parseFloat(item.change_wow).toFixed(2) : item.change_wow = 0;
 
-    this.listDataCompareChangeRKAP = this.dataCompareChangeRKAP;
+        item.change_1day != null ? item.change_1day = parseFloat(item.change_1day).toFixed(2) : item.change_1day = 0;
+
+        return item;
+      })
+
+      this.dataCompareChangeRKAP = this.dataCompareChangeRKAP.filter((item: any) => {
+        return item.kode != 'Label'
+      })
+
+      this.listDataCompareChangeRKAP = this.dataCompareChangeRKAP;
+
+    }
+    else{
+      this.dataCompareChangeRKAP = [];
+      this.listDataCompareChangeRKAP = [];
+    }
+
+    console.log(this.dataCompareChangeRKAP);
+
   }
 
   sanitizeInnerHTML(html: string){
@@ -5282,7 +5304,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
   filterCurrencyBarChart(event: any) {
 
-    // console.log(this.allTrendDataKurs);
     let targetColumn: any[] = [];
     for(let i=0; i<event.target.length - 1; i++){
       if(event.target[i].checked){
@@ -5290,16 +5311,19 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       }
     }
 
-    console.log(targetColumn);
-
     const filteredData = this.allTrendDataKursBarChart.filter(
-      (item: any) => targetColumn.includes(item.kode)
+      (item: any) => targetColumn.includes(item.name)
     )
 
-    console.log(filteredData);
+    this.barChartKursSeries = [];
+    this.barXAxisKurs = {
+      categories: []
+    }
 
-    // this.barChartKursSeries = [];
-
+    this.barChartKursSeries = filteredData;
+    for(let i=0; i<filteredData[0].data.length; i++){
+      this.barXAxisKurs.categories.push(filteredData[0].data[i].x)
+    }
 
   }
 
@@ -5363,6 +5387,34 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         }
       }
     }
+  }
+
+  filterInterestBarChart(event: any) {
+
+    let targetColumn: any[] = [];
+    for(let i=0; i<event.target.length - 1; i++){
+      if(event.target[i].checked){
+        targetColumn.push(event.target[i].id);
+      }
+    }
+
+    console.log(this.allTrendDataInterestRateBar);
+
+
+    const filteredData = this.allTrendDataInterestRateBar.filter(
+      (item: any) => targetColumn.includes(item.name)
+    )
+
+    this.barChartInterestRateSeries = [];
+    // this.barXAxisKurs = {
+    //   categories: []
+    // }
+
+    this.barChartInterestRateSeries = filteredData;
+    // for(let i=0; i<filteredData[0].data.length; i++){
+    //   this.barXAxisKurs.categories.push(filteredData[0].data[i].x)
+    // }
+
   }
 
   async ngOnInit(): Promise<void> {
@@ -5458,7 +5510,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       await this.fetchDataLineKurs(today, getOneYear);
       await this.fetchDataLineCommodities(today, getOneYear);
       await this.fetchDataLineInterest(today, getOneYear);
-      await this.fetchDataCompare();
+      await this.fetchDataCompare(today);
 
       //Fetch Bar Chart
       // await this.fetchDataBarChartKurs();
@@ -5535,7 +5587,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           style: {
             colors: ["#000"]
           },
-          align: 'center'
+          align: "center",
+          formatter : (value) => {return new Intl.NumberFormat().format(value)}
         },
         title: {
           style: {
