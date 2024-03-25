@@ -262,7 +262,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     console.log(event);
 
     const check = this.dataCompareChangeRKAP.filter(
-      (item: any) => item.mata_uang.includes(event)
+      (item: any) => item.kode.includes(event)
     )
     if(event != undefined){
       this.hideValueCompare = !this.hideValueCompare
@@ -270,7 +270,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       for(let i=0; i<check.length; i++){
         if(this.dataCompareChangeRKAP.length > 2){
           const removeData = this.dataCompareChangeRKAP.filter(
-            (item: any) => item.mata_uang != check[i].mata_uang
+            (item: any) => item.kode != check[i].kode
           )
           console.log(removeData);
           this.dataCompareChangeRKAP = removeData;
@@ -301,11 +301,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     console.log(event);
 
     const getData = this.listDataCompareChangeRKAP.filter(
-      (item: any) => item.mata_uang.includes(event)
+      (item: any) => item.kode.includes(event)
     )
 
     const dataFound = this.dataCompareChangeRKAP.some((item: any) => {
-      return item.mata_uang === event;
+      return item.kode === event;
     });
 
     console.log(getData, dataFound);
