@@ -116,29 +116,24 @@ export class InflasiComponent {
     // }
   }
 
-  // async getDataInflasi(){
-  //   this.isLoading = true;
-  //   console.log(this.isLoading, 'loading 1');
+  async getDataInflasi(){
+    const today = moment().format('DD/MM/YYYY');
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
 
-  //   try {
-  //     const data = await this.marketUpdateService.fetchDataInflasi();
-  //     this.dataDetail = data;
-  //     this.dataDetail = this.dataDetail.data;
-  //     this.isLoading = false;
-  //     console.log(this.dataDetail);
-  //     console.log(this.isLoading, 'loading 2', this.dataDetail);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-
-  //   // for(let i=0; i<10; i++){
-  //   //   this.filteredData.push(this.dataDetail.data.content[i]);
-  //   // }
-
-  //   // console.log('updated data', this.filteredData);
-  //   this.tableConfig.setDataPdb(this.dataDetail);
-  //   console.log('finish get data in func');
-  // }
+    try {
+      const data = await this.marketUpdateService.fetchAllDataMacroIndicator(today, "INFLASI");
+      this.dataDetail = data;
+      this.dataDetail = this.dataDetail.data;
+      this.isLoading = false;
+      console.log(this.dataDetail);
+      console.log(this.isLoading, 'loading 2', this.dataDetail);
+    } catch (error) {
+      console.log(error);
+    }
+    this.tableConfig.setDataInflasi(this.dataDetail);
+    console.log('finish get data in func');
+  }
   async getDataRealisasi(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading Outlook');
@@ -218,21 +213,8 @@ export class InflasiComponent {
   async ngOnInit(): Promise<void> {
     console.log('load data');
 
-    try {
-      const data = await this.marketUpdateService.fetchDataInflasi();
-      this.dataDetail = data;
-      this.dataDetail = this.dataDetail.data;
-      this.isLoading = false;
-      console.log(this.dataDetail);
-
-      this.tableConfig.getDetailData(this.dataDetail, this.dataDetail, this.dataDetail, this.dataDetail)
-
-      console.log(this.isLoading, 'loading 2', this.dataDetail);
-    } catch (error) {
-      console.log(error);
-    }
-
     await this.getDataRealisasi();
+    await this.getDataInflasi();
     await this.getDataRkap();
     await this.getDataOutlook();
 
