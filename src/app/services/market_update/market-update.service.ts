@@ -26,6 +26,16 @@ export class MarketUpdateService {
       return null;
     }
   }
+  async fetchDataAllRkap(){
+    try{
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap`)
+      )
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
 //kurs
   async fetchDataKurs(year: string){
     try {
@@ -232,7 +242,7 @@ export class MarketUpdateService {
     const data1 = {
       "id_mstr_rkap_kurs": data.idNonJisdor,
       "mata_uang":data.mataUang,
-      "nilai": data.nilai,
+      "kurs": data.nilai,
       "tanggal": data.tanggal,
       "is_active": true
     }
@@ -607,7 +617,7 @@ export class MarketUpdateService {
   async fetchDataRkapBondYieldSBN(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-bondyield`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap`)
       );
     } catch (error) {
       console.log(error);
@@ -2223,9 +2233,9 @@ export class MarketUpdateService {
     }
   }
   //interest rate
-  async fetchDataInterestRate(year:string){
+  async fetchDataInterestRate(today:string){
     try {
-      const params = new HttpParams().set('date', year)
+      const params = new HttpParams().set('date', today)
       return await lastValueFrom(
         this.http.get(`${environment.apiUrl2}/market/interest/getList`, {params})
       );
