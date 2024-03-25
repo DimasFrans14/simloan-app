@@ -118,10 +118,11 @@ export class RetailSalesComponent {
   }
 
   async getData(){
+    const today = moment().format('DD/MM/YYYY');
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
     try {
-      const data = await this.marketUpdateService.fetchDataRetail();
+      const data = await this.marketUpdateService.fetchAllDataMacroIndicator(today, "RETAIL");
       this.dataDetail = data;
       this.dataDetail = this.dataDetail.data;
       this.isLoading = false;
@@ -129,7 +130,7 @@ export class RetailSalesComponent {
     } catch (error) {
       console.log(error);
     }
-    this.tableConfig.setDataPdb(this.dataDetail);
+    this.tableConfig.setDataRetail(this.dataDetail);
     console.log('finish get data in func');
   }
   async getDataRealisasi(){

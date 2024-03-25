@@ -21,6 +21,11 @@ export class TableServicesService {
 
   public sharedData: any;
   public sharedDataPdb:any;
+  public sharedDataInflasi:any;
+  public sharedDataPMI:any;
+  public sharedDataRetail:any;
+  public sharedDataMoneySupply:any;
+  public sharedDataCadev:any;
   public shareDataRealisasiPdb:any;
   public shareDataOutlookPdb:any;
   public shareDataRkapPdb:any;
@@ -89,8 +94,23 @@ export class TableServicesService {
   setDataPdb(data:any){
     this.sharedDataPdb = data;
   }
+  setDataInflasi(data:any){
+    this.sharedDataInflasi = data;;
+  }
+  setDataPMI(data:any){
+    this.sharedDataPMI = data;
+  }
+  setDataRetail(data:any){
+    this.sharedDataRetail = data;
+  }
+  setDataMoneySupply(data:any){
+    this.sharedDataMoneySupply = data;
+  }
+  setDataCadev(data:any){
+    this.sharedDataCadev = data;
+  }
   setDataRealisasiPdb(data:any){
-    this.shareDataRealisasiPdb = data;
+    this.shareDataRealisasiPdb = data.content;
     console.log(this.shareDataRealisasiPdb)
   }
   setDataOutlookPdb(data:any){
@@ -98,7 +118,7 @@ export class TableServicesService {
     console.log(this.shareDataOutlookPdb)
   }
   setDataRkapPdb(data:any){
-    this.shareDataRkapPdb = data;
+    this.shareDataRkapPdb = data.content;
     console.log(this.shareDataRkapPdb)
   }
   setDataRealisasiInflasi(data:any){
@@ -1002,17 +1022,17 @@ export class TableServicesService {
     this.tableInflasi = new Tabulator(".table-detailInflasi", {
       // height:205,
       height:"555px",
-      data:this.dataDetail,
+      data:this.sharedDataInflasi,
       layout:"fitColumns",
       // frozenRows: 4,
       // movableRows: true,
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2020", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2021", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2021", field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2022", field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2023", field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2023", field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
     this.tableRealisasiInflasi = new Tabulator(".table-ralisasiInflasi", {
@@ -1102,17 +1122,17 @@ export class TableServicesService {
     this.tableDetailPmi = new Tabulator(".table-detailPmi", {
       pagination:true, //enable.
       paginationSize:20,
-      data:this.dataPMI,
+      data:this.sharedDataPMI,
       layout:"fitColumns",
       // frozenRows: 4,
       // movableRows: true,
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2021", field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2022", field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2023", field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2024", field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
     this.tableRealisasiPmi = new Tabulator(".table-ralisasiPmi", {
@@ -1202,17 +1222,17 @@ export class TableServicesService {
     this.tableDetailRetail = new Tabulator(".table-detailRetail", {
       // height:205,
       height:"555px",
-      data:this.dataRetail,
+      data:this.sharedDataRetail,
       layout:"fitColumns",
       // frozenRows: 4,
       // movableRows: true,
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2021", field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2022", field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2023", field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2024", field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
     this.tableRealisasiRetail = new Tabulator(".table-ralisasiRetail", {
@@ -1303,18 +1323,19 @@ export class TableServicesService {
     this.tableDetailMoneySupply = new Tabulator(".table-detailMoneySupply", {
       pagination:true, //enable.
       paginationSize:20,
-      data:this.dataMoneySupply,
+      data:this.sharedDataMoneySupply,
       layout:"fitColumns",
       // frozenRows: 4,
       // movableRows: true,
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2020", field:"triliun_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2021", field:"triliun_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"triliun_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2021", field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2022", field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2023", field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2024", field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         ],
-    });
+      });
     this.tableRealisasiMoneySupply = new Tabulator(".table-realisasiMoneySupply", {
       pagination:true, //enable.
       paginationSize:20,
@@ -1404,14 +1425,14 @@ export class TableServicesService {
       pagination:true, //enable.
       paginationSize:20,
       height:"555px",
-      data:this.dataDevisa,
+      data:this.sharedDataCadev,
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2020", field:"nilai_year_min0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2021", field:"nilai_year_min1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"nilai_year_min2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"nilai_year_min3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2021", field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2022", field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2023", field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"2024", field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
     this.tableRealisasiForeignExchange = new Tabulator(".table-realisasiForeignExchange", {
