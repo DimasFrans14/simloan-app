@@ -427,16 +427,16 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               this.valueJPY = responseData;
               this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
 
-              updateValueOFJPY = this.valueJPY.map((item: any) => {
-                return item.data.map((value: any) => {
-                  const val = value / 100;
-                  const slice = val.toString().slice(0,6)
-                  const toNumber = parseFloat(slice)
-                  return toNumber
-                });
-              });
+              // updateValueOFJPY = this.valueJPY.map((item: any) => {
+              //   return item.data.map((value: any) => {
+              //     const val = value / 100;
+              //     const slice = val.toString().slice(0,6)
+              //     const toNumber = parseFloat(slice)
+              //     return toNumber
+              //   });
+              // });
 
-              this.valueJPY = updateValueOFJPY;
+              // this.valueJPY = updateValueOFJPY;
 
               this.lineChartKursSeries = [];
               console.log(this.dataKurs);
@@ -648,16 +648,16 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                 this.valueJPY = responseData;
                 this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
 
-                updateValueOFJPY = this.valueJPY.map((item: any) => {
-                  return item.data.map((value: any) => {
-                    const val = value / 100;
-                    const slice = val.toString().slice(0,6)
-                    const toNumber = parseFloat(slice)
-                    return toNumber
-                  });
-                });
+                // updateValueOFJPY = this.valueJPY.map((item: any) => {
+                //   return item.data.map((value: any) => {
+                //     const val = value / 100;
+                //     const slice = val.toString().slice(0,6)
+                //     const toNumber = parseFloat(slice)
+                //     return toNumber
+                //   });
+                // });
 
-                this.valueJPY = updateValueOFJPY;
+                // this.valueJPY = updateValueOFJPY;
 
                 this.lineChartKursSeries = [];
                 console.log(this.dataKurs);
@@ -868,16 +868,16 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                 this.valueJPY = responseData;
                 this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
 
-                updateValueOFJPY = this.valueJPY.map((item: any) => {
-                  return item.data.map((value: any) => {
-                    const val = value / 100;
-                    const slice = val.toString().slice(0,6)
-                    const toNumber = parseFloat(slice)
-                    return toNumber
-                  });
-                });
+                // updateValueOFJPY = this.valueJPY.map((item: any) => {
+                //   return item.data.map((value: any) => {
+                //     const val = value / 100;
+                //     const slice = val.toString().slice(0,6)
+                //     const toNumber = parseFloat(slice)
+                //     return toNumber
+                //   });
+                // });
 
-                this.valueJPY = updateValueOFJPY;
+                // this.valueJPY = updateValueOFJPY;
 
                 this.lineChartKursSeries = [];
                 console.log(this.dataKurs);
@@ -1089,16 +1089,16 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                   this.valueJPY = responseData;
                   this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
 
-                  updateValueOFJPY = this.valueJPY.map((item: any) => {
-                    return item.data.map((value: any) => {
-                      const val = value / 100;
-                      const slice = val.toString().slice(0,6)
-                      const toNumber = parseFloat(slice)
-                      return toNumber
-                    });
-                  });
+                  // updateValueOFJPY = this.valueJPY.map((item: any) => {
+                  //   return item.data.map((value: any) => {
+                  //     const val = value / 100;
+                  //     const slice = val.toString().slice(0,6)
+                  //     const toNumber = parseFloat(slice)
+                  //     return toNumber
+                  //   });
+                  // });
 
-                  this.valueJPY = updateValueOFJPY;
+                  // this.valueJPY = updateValueOFJPY;
 
                   this.lineChartKursSeries = [];
                   console.log(this.dataKurs);
@@ -1317,16 +1317,16 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               this.valueJPY = responseData;
               this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
 
-              updateValueOFJPY = this.valueJPY.map((item: any) => {
-                return item.data.map((value: any) => {
-                  const val = value / 100;
-                  const slice = val.toString().slice(0,6)
-                  const toNumber = parseFloat(slice)
-                  return toNumber
-                });
-              });
+              // updateValueOFJPY = this.valueJPY.map((item: any) => {
+              //   return item.data.map((value: any) => {
+              //     const val = value / 100;
+              //     const slice = val.toString().slice(0,6)
+              //     const toNumber = parseFloat(slice)
+              //     return toNumber
+              //   });
+              // });
 
-              this.valueJPY = updateValueOFJPY;
+              // this.valueJPY = updateValueOFJPY;
 
               this.lineChartKursSeries = [];
               console.log(this.dataKurs);
@@ -1538,16 +1538,16 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                 this.valueJPY = responseData;
                 this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
 
-                updateValueOFJPY = this.valueJPY.map((item: any) => {
-                  return item.data.map((value: any) => {
-                    const val = value / 100;
-                    const slice = val.toString().slice(0,6)
-                    const toNumber = parseFloat(slice)
-                    return toNumber
-                  });
-                });
+                // updateValueOFJPY = this.valueJPY.map((item: any) => {
+                //   return item.data.map((value: any) => {
+                //     const val = value / 100;
+                //     const slice = val.toString().slice(0,6)
+                //     const toNumber = parseFloat(slice)
+                //     return toNumber
+                //   });
+                // });
 
-                this.valueJPY = updateValueOFJPY;
+                // this.valueJPY = updateValueOFJPY;
 
                 this.lineChartKursSeries = [];
                 console.log(this.dataKurs);
@@ -1758,16 +1758,16 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                 this.valueJPY = responseData;
                 this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
 
-                updateValueOFJPY = this.valueJPY.map((item: any) => {
-                  return item.data.map((value: any) => {
-                    const val = value / 100;
-                    const slice = val.toString().slice(0,6)
-                    const toNumber = parseFloat(slice)
-                    return toNumber
-                  });
-                });
+                // updateValueOFJPY = this.valueJPY.map((item: any) => {
+                //   return item.data.map((value: any) => {
+                //     const val = value / 100;
+                //     const slice = val.toString().slice(0,6)
+                //     const toNumber = parseFloat(slice)
+                //     return toNumber
+                //   });
+                // });
 
-                this.valueJPY = updateValueOFJPY;
+                // this.valueJPY = updateValueOFJPY;
 
                 this.lineChartKursSeries = [];
                 console.log(this.dataKurs);
@@ -1979,16 +1979,16 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                   this.valueJPY = responseData;
                   this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
 
-                  updateValueOFJPY = this.valueJPY.map((item: any) => {
-                    return item.data.map((value: any) => {
-                      const val = value / 100;
-                      const slice = val.toString().slice(0,6)
-                      const toNumber = parseFloat(slice)
-                      return toNumber
-                    });
-                  });
+                  // updateValueOFJPY = this.valueJPY.map((item: any) => {
+                  //   return item.data.map((value: any) => {
+                  //     const val = value / 100;
+                  //     const slice = val.toString().slice(0,6)
+                  //     const toNumber = parseFloat(slice)
+                  //     return toNumber
+                  //   });
+                  // });
 
-                  this.valueJPY = updateValueOFJPY;
+                  // this.valueJPY = updateValueOFJPY;
 
                   this.lineChartKursSeries = [];
                   console.log(this.dataKurs);
@@ -5105,6 +5105,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       else if(kursName == 'JPY'){
         // let combinedArray = this.defaultKurs[i].data
         // console.log(combinedArray);
+        console.log(this.valueJPY);
 
         minValJPY = this.valueJPY[0].data[0];
         maxValJPY = this.valueJPY[0].data[0];
@@ -5163,7 +5164,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             style: {
               colors: ["##000"]
             },
-            formatter : (value) => {return new Intl.NumberFormat().format(value)}
+            // formatter : (value) => {return new Intl.NumberFormat().format(value)}
           },
           title: {
             style: {
