@@ -33,23 +33,23 @@ export class BondYieldComponent {
 
   selectedItems!: number;
 
-  async getData(){
-    try {
-      const response = await this.dataService.fetchDataKurs();
-      this.testData = response
-      if(this.testData){
-        this.isLoading = false;
-        const filteredData = this.testData.data.content.filter((item: any) => item.grup === 'BOND YIELD');
-        // this.tableConfig.getDataBondYield(filteredData)
-        console.log(filteredData);
-      }
-      else{
-        console.log('data gagal di load');
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // async getData(){
+  //   try {
+  //     const response = await this.dataService.fetchDataKurs();
+  //     this.testData = response
+  //     if(this.testData){
+  //       this.isLoading = false;
+  //       const filteredData = this.testData.data.content.filter((item: any) => item.grup === 'BOND YIELD');
+  //       // this.tableConfig.getDataBondYield(filteredData)
+  //       console.log(filteredData);
+  //     }
+  //     else{
+  //       console.log('data gagal di load');
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
   async getDataRealisasi(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
@@ -62,6 +62,11 @@ export class BondYieldComponent {
     } catch (error) {
       console.log(error);
     }
+    this.dataDetailRealisasi = this.dataDetailRealisasi.content.map((item: any) =>{
+      item.yr5 != null ? item.yr5 = parseFloat(item.yr5) : item.yr5 = 0;
+      item.yr5 = item.yr5.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
     this.tableConfig.setDataRealisasiBondYieldSBN(this.dataDetailRealisasi);
     console.log('finish get data in func');
   }
@@ -69,7 +74,7 @@ export class BondYieldComponent {
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
     try {
-      const data = await this.marketUpdateService.fetchDataRkapBondYieldSBN();
+      const data = await this.marketUpdateService.fetchDataAllRkap();
       this.dataDetailRkap = data;
       this.dataDetailRkap = this.dataDetailRkap.data;
       this.isLoading = false;
@@ -77,7 +82,15 @@ export class BondYieldComponent {
     } catch (error) {
       console.log(error);
     }
-    this.tableConfig.setDataRkapBondYieldSBN(this.dataDetailRealisasi);
+    this.dataDetailRkap = this.dataDetailRkap.content.filter((item:any)=>{
+      return item.grup ==="BOND_YIELD" && item.mtu ==="SBN"
+    })
+    this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
+      item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+      item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
+    this.tableConfig.setDataRkapBondYieldSBN(this.dataDetailRkap);
     console.log('finish get data in func');
   }
   async getDataOutlook(){
@@ -86,11 +99,20 @@ export class BondYieldComponent {
     try {
       const data = await this.marketUpdateService.fetchDataOutlookBondYieldSBN();
       this.dataDetailOutlook = data;
-      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data.content;
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
     } catch (error) {
       console.log(error);
+    }
+    if (this.dataDetailOutlook == !null){
+      this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
+        item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+        item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return item;
+      })
+    }else {
+
     }
     this.tableConfig.setDataOutlookBondYieldSBN(this.dataDetailOutlook);
     console.log('finish get data in func');
@@ -102,7 +124,6 @@ export class BondYieldComponent {
       this.isLoading = true;
 
       let today = moment().format('DD/MM/YYYY')
-      const responseInterestRate = await this.marketUpdateService.fetchDataInterestRate(today);
       const responseBondYield = await this.marketUpdateService.fetchDataBondYield(today);
 
       this.dataBondYieldSBN = responseBondYield;
@@ -192,7 +213,7 @@ export class BondYieldComponent {
 
       this.isLoading = false;
       console.log('load after fetch: ' + this.isLoading);
-      console.log( responseInterestRate, responseBondYield);
+      console.log(responseBondYield);
 
 
     } catch (error) {
@@ -217,8 +238,9 @@ export class BondYieldComponent {
 
     console.log('load data');
 
-    await this.getData();
+    // await this.getData();
     await this.getDataRealisasi();
+    await this.getDataRkap();
     await this.getDataOutlook();
     this.tableConfig.initializeTableDataBondYield(this.allLabelDate);
   }

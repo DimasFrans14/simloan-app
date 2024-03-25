@@ -71,6 +71,17 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     } catch(error) {
       console.log(error)
     }
+    this.dataDetailRealisasi = this.dataDetailRealisasi.content.map((item: any) =>{
+      item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
+      item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 
+      });
+      return item;
+    })
+    this.dataDetailRealisasiNonUsd = this.dataDetailRealisasiNonUsd.content.map((item: any) =>{
+      item.kurs != null ? item.kurs = parseFloat(item.kurs) : item.kurs = 0;
+      item.kurs = item.kurs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
     this.tableConfig.setDataRealisasiKurs(this.dataDetailRealisasi, this.dataDetailRealisasiNonUsd);
     console.log('finish get data by function')
   }
@@ -78,18 +89,23 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     this.isLoading = true;
     console.log(this.isLoading, 'loading RealisasiKursUsd');
     try{
-      const dataUsd = await this.marketUpdateService.fetchDataRkapKursUsd();
-      const dataNonUsd = await this.marketUpdateService.fetchDataRkapKursNonUsd();
+      const dataUsd = await this.marketUpdateService.fetchDataAllRkap();
       this.dataDetailRkap = dataUsd;
       this.dataDetailRkap = this.dataDetailRkap.data;
-      this.dataDetailRkapNonUsd = dataNonUsd;
-      this.dataDetailRkapNonUsd = this.dataDetailRkapNonUsd.data;
       this.isLoading = false;
       console.log(this.isLoading,'loading 2', this.dataDetailRkap);
     } catch(error) {
       console.log(error)
     }
-    this.tableConfig.setDataRkapKursUsd(this.dataDetailRkap, this.dataDetailRkapNonUsd);
+    this.dataDetailRkap = this.dataDetailRkap.content.filter((item:any)=>{
+      return item.grup ==="KURS"
+    })
+    this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
+      item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+      item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
+    this.tableConfig.setDataRkapKursUsd(this.dataDetailRkap);
     console.log('finish get data by function')
   }
   async getDataOutlookKursUsd(){
@@ -107,6 +123,16 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     } catch(error) {
       console.log(error)
     }
+    this.dataDetailOutlook = this.dataDetailOutlook.content.map((item: any) =>{
+      item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
+      item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
+    this.dataDetailOutlookNonUsd = this.dataDetailOutlookNonUsd.content.map((item: any) =>{
+      item.kurs != null ? item.kurs = parseFloat(item.kurs) : item.kurs = 0;
+      item.kurs = item.kurs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
     this.tableConfig.setDataOutlookKursUsd(this.dataDetailOutlook, this.dataDetailOutlookNonUsd);
     console.log('finish get data by function')
   }
@@ -216,9 +242,9 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     this.tableConfig.tableRealisasiCurrencyRate.addRow({});
   }
   addRowRKAP() {
-    this.tableConfig.tableRKAP.addRow({});
+    this.tableConfig.tableRkapCurrencyRate.addRow({});
   }
   addRowOutlook() {
-    this.tableConfig.tableOutlook.addRow({});
+    this.tableConfig.tableOutlookCurrencyRate.addRow({});
   }
 }

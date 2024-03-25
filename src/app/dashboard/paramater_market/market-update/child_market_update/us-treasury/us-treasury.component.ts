@@ -155,7 +155,7 @@ export class UsTreasuryComponent {
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
     try {
-      const data = await this.marketUpdateService.fetchDataRkapBondYieldUsTreasury();
+      const data = await this.marketUpdateService.fetchDataAllRkap();
       this.dataDetailRkap = data;
       this.dataDetailRkap = this.dataDetailRkap.data;
       this.isLoading = false;
@@ -163,6 +163,10 @@ export class UsTreasuryComponent {
     } catch (error) {
       console.log(error);
     }
+    this.dataDetailRkap = this.dataDetailRkap.content.filter((item:any)=>{
+      return item.grup ==="BOND_YIELD" && item.mtu ==="US_TREASURY"
+    })
+    console.log(this.dataDetailRkap)
     this.tableConfig.setDataRkapBondYieldUsTreasury(this.dataDetailRkap);
   }
   async getDataOutlook(){
@@ -331,7 +335,7 @@ export class UsTreasuryComponent {
 
     await this.getData();
     await this.getDataRealisasi();
-    // await this.getDataRkap();
+    await this.getDataRkap();
     await this.getDataOutlook();
     this.tableConfig.initializeTableDataUsTreasury(this.allLabelDate);
   }

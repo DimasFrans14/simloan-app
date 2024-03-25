@@ -76,7 +76,7 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
     console.log(this.isLoading, 'loading 1');
 
     try {
-      const data = await this.marketUpdateService.fetchDataRkapCommodities();
+      const data = await this.marketUpdateService.fetchDataAllRkap();
       this.dataDetailRkap = data;
       this.dataDetailRkap = this.dataDetailRkap.data;
       this.isLoading = false;
@@ -84,6 +84,9 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
     } catch (error) {
       console.log(error);
     }
+    this.dataDetailRkap = this.dataDetailRkap.content.filter((item:any)=>{
+      return item.grup ==="COMMODITIES"
+    })
     this.tableConfig.setDataRkapCommodities(this.dataDetailRkap);
     console.log('finish get data in func');
   }
