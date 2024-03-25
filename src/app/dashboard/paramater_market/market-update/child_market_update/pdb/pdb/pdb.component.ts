@@ -145,6 +145,11 @@ export class PdbComponent {
     } catch (error) {
       console.log(error);
     }
+    this.dataDetail = this.dataDetail.content.map((item: any) =>{
+      item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
+      item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
     this.tableConfig.setDataPdb(this.dataDetail);
     console.log('finish get data in func');
   }
@@ -161,6 +166,11 @@ export class PdbComponent {
     } catch (error) {
       console.log(error);
     }
+    this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
+      item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
+      item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
     this.tableConfig.setDataRealisasiPdb(this.dataDetailRealisasi);
     console.log('finish get data in func');
   }
@@ -176,6 +186,11 @@ export class PdbComponent {
     } catch(error) {
       console.log(error)
     }
+    this.dataDetailRkap = this.dataDetailRkap.content.map((item: any) =>{
+      item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
+      item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
     this.tableConfig.setDataRkapPdb(this.dataDetailRkap);
     console.log('finish get data by function')
   }
@@ -191,6 +206,11 @@ export class PdbComponent {
     } catch(error) {
       console.log(error)
     }
+    this.dataDetailOutlook = this.dataDetailOutlook.content.map((item: any) =>{
+      item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
+      item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
     this.tableConfig.setDataOutlookPdb(this.dataDetailOutlook);
     console.log('finish get data by function')
   }

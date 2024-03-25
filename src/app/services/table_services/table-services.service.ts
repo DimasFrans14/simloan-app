@@ -90,7 +90,7 @@ export class TableServicesService {
     this.sharedDataPdb = data;
   }
   setDataRealisasiPdb(data:any){
-    this.shareDataRealisasiPdb = data.content;
+    this.shareDataRealisasiPdb = data;
     console.log(this.shareDataRealisasiPdb)
   }
   setDataOutlookPdb(data:any){
@@ -98,7 +98,7 @@ export class TableServicesService {
     console.log(this.shareDataOutlookPdb)
   }
   setDataRkapPdb(data:any){
-    this.shareDataRkapPdb = data.content;
+    this.shareDataRkapPdb = data;
     console.log(this.shareDataRkapPdb)
   }
   setDataRealisasiInflasi(data:any){
@@ -1514,7 +1514,7 @@ export class TableServicesService {
           ],
           headerHozAlign:"center"
           },
-        {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>RKAP %", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change 1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
@@ -1671,7 +1671,7 @@ export class TableServicesService {
         {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
         {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
         {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
-        {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>RKAP %", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change 1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
