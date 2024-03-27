@@ -99,7 +99,15 @@ export class PreviewLaporanComponent implements OnInit{
               text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil diunggah!`,
               icon: "success"
               })
-              this.isLoading = false
+              this.isLoading = false;
+
+              localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
             }
           else{
             Swal.fire({
@@ -107,6 +115,15 @@ export class PreviewLaporanComponent implements OnInit{
               title: "Failed!",
               text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                 });
+
+                localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
+
                 this.isLoading = false
               }
         } catch (error) {
@@ -140,8 +157,15 @@ export class PreviewLaporanComponent implements OnInit{
                       text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                       icon: "success"
                     })
+
+                    localStorage.removeItem('indikator_params');
+                    localStorage.removeItem('category_params');
+                    localStorage.removeItem('subCategory_deskripsi');
+                    localStorage.removeItem('subCategory_params');
+                    localStorage.removeItem('deskripsi_param');
+
+                    this.router.navigate(['market_update/importLaporan_marketUpdate'])
                     this.isLoading = false;
-                console.log(this.isLoading);
 
                   }
                   else{
@@ -150,6 +174,15 @@ export class PreviewLaporanComponent implements OnInit{
                       title: "Failed!",
                       text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                     });
+
+                    localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
+
                     this.isLoading = false
                 console.log(this.isLoading);
 
@@ -161,6 +194,15 @@ export class PreviewLaporanComponent implements OnInit{
                     title: "Failed!",
                     text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                   });
+
+                  localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
+
                   this.isLoading = false
                 }
               }
@@ -177,6 +219,14 @@ export class PreviewLaporanComponent implements OnInit{
                     text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                     icon: "success"
                     })
+
+                    localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
                     this.isLoading = false
                   }
                 else{
@@ -185,6 +235,14 @@ export class PreviewLaporanComponent implements OnInit{
                     title: "Failed!",
                     text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                       });
+
+                      localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
                       this.isLoading = false
                     }
               }
@@ -237,6 +295,14 @@ export class PreviewLaporanComponent implements OnInit{
                         text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                         icon: "success"
                         })
+
+                        localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
                         this.isLoading = false
                       }
                     else{
@@ -245,6 +311,14 @@ export class PreviewLaporanComponent implements OnInit{
                         title: "Failed!",
                         text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                           });
+
+                          localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
                           this.isLoading = false
                         }
                   } catch (error) {
@@ -267,6 +341,14 @@ export class PreviewLaporanComponent implements OnInit{
                       text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                       icon: "success"
                       })
+
+                      localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
                       this.isLoading = false
                     }
                   else{
@@ -275,6 +357,14 @@ export class PreviewLaporanComponent implements OnInit{
                       title: "Failed!",
                       text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                         });
+
+                        localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
                         this.isLoading = false
               }
                 } catch (error) {
@@ -301,6 +391,15 @@ export class PreviewLaporanComponent implements OnInit{
                       text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                       icon: "success"
                       })
+
+                      localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
+
                       this.isLoading = false
                     }
                   else{
@@ -309,6 +408,14 @@ export class PreviewLaporanComponent implements OnInit{
                       title: "Failed!",
                       text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                         });
+
+                        localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
                         this.isLoading = false
               }
                 } catch (error) {
@@ -329,6 +436,15 @@ export class PreviewLaporanComponent implements OnInit{
                       text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                       icon: "success"
                       })
+
+                      localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
+
                       this.isLoading = false
                     }
                   else{
@@ -337,6 +453,14 @@ export class PreviewLaporanComponent implements OnInit{
                       title: "Failed!",
                       text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                         });
+
+                        localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
                         this.isLoading = false
               }
                 } catch (error) {
@@ -366,6 +490,15 @@ export class PreviewLaporanComponent implements OnInit{
                         text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                         icon: "success"
                         })
+
+                        localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
+
                         this.isLoading = false
                       }
                     else{
@@ -374,6 +507,14 @@ export class PreviewLaporanComponent implements OnInit{
                         title: "Failed!",
                         text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                           });
+
+                          localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
                           this.isLoading = false
                         }
                   } catch (error) {
@@ -393,6 +534,15 @@ export class PreviewLaporanComponent implements OnInit{
                         text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                         icon: "success"
                         })
+
+                        localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
+
                         this.isLoading = false
                       }
                     else{
@@ -401,6 +551,14 @@ export class PreviewLaporanComponent implements OnInit{
                         title: "Failed!",
                         text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                           });
+
+                          localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
                           this.isLoading = false
               }
                   } catch (error) {
@@ -427,6 +585,15 @@ export class PreviewLaporanComponent implements OnInit{
                       text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                       icon: "success"
                       })
+
+                      localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
+
                       this.isLoading = false
                     }
                   else{
@@ -435,6 +602,14 @@ export class PreviewLaporanComponent implements OnInit{
                       title: "Failed!",
                       text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                         });
+
+                        localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
                         this.isLoading = false
                       }
                 } catch (error) {
@@ -456,6 +631,15 @@ export class PreviewLaporanComponent implements OnInit{
                       text: `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} berhasil di upload!`,
                       icon: "success"
                       })
+
+                      localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
+
                       this.isLoading = false
                     }
                   else{
@@ -464,6 +648,14 @@ export class PreviewLaporanComponent implements OnInit{
                       title: "Failed!",
                       text:  `Data ${indikatorParams} ${(deskripsi_param == null ? '': deskripsi_param)} ${subCategory_deskripsi == null ? '' : subCategory_deskripsi} gagal di upload!`,
                         });
+
+                        localStorage.removeItem('indikator_params');
+              localStorage.removeItem('category_params');
+              localStorage.removeItem('subCategory_deskripsi');
+              localStorage.removeItem('subCategory_params');
+              localStorage.removeItem('deskripsi_param');
+
+              this.router.navigate(['market_update/importLaporan_marketUpdate'])
                         this.isLoading = false
                       }
                 } catch (error) {
