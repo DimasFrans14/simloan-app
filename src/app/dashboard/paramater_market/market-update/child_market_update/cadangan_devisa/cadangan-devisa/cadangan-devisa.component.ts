@@ -43,6 +43,17 @@ export class CadanganDevisaComponent {
     } catch (error) {
       console.log(error);
     }
+    this.dataDetail = this.dataDetail.map((item: any) =>{
+      item.year_min_0 != null ? item.year_min_0 = parseFloat(item.year_min_0) : item.year_min_0 = 0;
+      item.year_min_0 = item.year_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.year_min_1 != null ? item.year_min_1 = parseFloat(item.year_min_1) : item.year_min_1 = 0;
+      item.year_min_1 = item.year_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.year_min_2 != null ? item.year_min_2 = parseFloat(item.year_min_2) : item.year_min_0 = 0;
+      item.year_min_2 = item.year_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.year_min_3 != null ? item.year_min_3 = parseFloat(item.year_min_3) : item.year_min_0 = 0;
+      item.year_min_3 = item.year_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
     this.tableConfig.setDataCadev(this.dataDetail);
     console.log('finish get data in func');
 
@@ -53,12 +64,16 @@ export class CadanganDevisaComponent {
     try {
       const data = await this.marketUpdateService.fetchDataRealisasiCadev();
       this.dataDetailRealisasi = data;
-      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.data.content;
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
     } catch (error) {
       console.log(error);
     }
+    this.dataDetailRealisasi.map((item: any) =>{
+      item.miliar_usd != null ? item.miliar_usd = parseFloat(item.miliar_usd) : item.miliar_usd = 0;
+      item.miliar_usd = item.miliar_usd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    })
     this.tableConfig.setDataRealisasiCadev(this.dataDetailRealisasi);
     console.log('finish get data in func');
   }
@@ -68,7 +83,16 @@ export class CadanganDevisaComponent {
     try {
       const data = await this.marketUpdateService.fetchDataRkapCadev();
       this.dataDetailRkap = data;
-      this.dataDetailRkap = this.dataDetailRkap.data;
+      this.dataDetailRkap = this.dataDetailRkap.data.content;
+      this.dataDetailRkap.sort((a: { tahun: number; }, b: { tahun: number; }) => {
+        const aYear = a.tahun || 0;
+        const bYear = b.tahun || 0;
+        return bYear - aYear;
+      });
+      this.dataDetailRkap.map((item: any) =>{
+        item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
+        item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      })
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRkap);
     } catch (error) {
@@ -83,7 +107,12 @@ export class CadanganDevisaComponent {
     try {
       const data = await this.marketUpdateService.fetchDataOutlookCadev();
       this.dataDetailOutlook = data;
-      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data.content;
+      this.dataDetailOutlook.sort((a: { tahun: number; }, b: { tahun: number; }) => {
+        const aYear = a.tahun || 0;
+        const bYear = b.tahun || 0;
+        return bYear - aYear;
+      });
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
     } catch (error) {

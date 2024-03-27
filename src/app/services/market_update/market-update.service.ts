@@ -684,7 +684,7 @@ export class MarketUpdateService {
       }
       console.log(params)
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?grup=SBN`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?grup=SBN&isActive=true`)
       );
     } catch (error) {
       console.log(error);
@@ -758,7 +758,7 @@ export class MarketUpdateService {
   async fetchDataRealisasiBondYieldUsTreasury(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/list_rby?grup=US_TREASURY`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?grup=US_TREASURY&isActive=true`)
       );
     } catch (error) {
       console.log(error);
@@ -1206,7 +1206,7 @@ export class MarketUpdateService {
   async fetchDataPDB(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?is_active=true`)
       );
     } catch (error) {
       console.log(error);
@@ -1216,7 +1216,7 @@ export class MarketUpdateService {
   async fetchDataRealisasiPDB(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?is_active=true`)
       );
     } catch (error) {
       console.log(error);
@@ -1270,7 +1270,7 @@ export class MarketUpdateService {
   async fetchDataRkapPDB(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-pdb`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-pdb?isActive=true`)
       );
     } catch (error) {
       console.log(error);
@@ -1504,10 +1504,10 @@ export class MarketUpdateService {
   }
   async fetchDataInputOutlookInflasi(data:any){
     const data1= {
-      "master_rkap_inflasi_creates":[{
-        "quartal": data.quartal,
+      "master_outlook_inflasi_creates":[{
+        "bulan": data.bulan,
         "tahun":data.tahun,
-        "pdb": data.pdb
+        "nilai": data.nilai
       }]
     }
     try {
@@ -1623,7 +1623,7 @@ export class MarketUpdateService {
   }
   async fetchDataInputRkapPMI(data:any){
     const data1= {
-      "master_rkap_inflasi_creates":[{
+      "master_rkap_pmi_creates":[{
         "quartal": data.quartal,
         "tahun":data.tahun,
         "pdb": data.pdb

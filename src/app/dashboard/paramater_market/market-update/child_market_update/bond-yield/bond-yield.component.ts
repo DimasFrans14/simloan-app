@@ -90,6 +90,15 @@ export class BondYieldComponent {
       item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       return item;
     })
+    if (this.dataDetailRkap == !null){
+      this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
+        item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+        item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return item;
+      })
+    }else {
+      console.log('data kosong')
+    }
     this.tableConfig.setDataRkapBondYieldSBN(this.dataDetailRkap);
     console.log('finish get data in func');
   }
@@ -112,7 +121,7 @@ export class BondYieldComponent {
         return item;
       })
     }else {
-
+      console.log('data kosong')
     }
     this.tableConfig.setDataOutlookBondYieldSBN(this.dataDetailOutlook);
     console.log('finish get data in func');

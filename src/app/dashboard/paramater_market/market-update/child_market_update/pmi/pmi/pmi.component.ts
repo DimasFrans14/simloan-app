@@ -43,6 +43,21 @@ export class PmiComponent {
     } catch (error) {
       console.log(error);
     }
+      this.dataDetail = this.dataDetail.map((item: any) =>{
+      item.year_min_0 != null ? item.year_min_0 = parseFloat(item.year_min_0) : item.year_min_0 = 0;
+      item.year_min_0 = item.year_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      item.year_min_1 != null ? item.year_min_1 = parseFloat(item.year_min_1) : item.year_min_1 = 0;
+      item.year_min_1 = item.year_min_1.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      item.year_min_2 != null ? item.year_min_2 = parseFloat(item.year_min_2) : item.year_min_2 = 0;
+      item.year_min_2 = item.year_min_2.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      item.year_min_3 != null ? item.year_min_3 = parseFloat(item.year_min_3) : item.year_min_3 = 0;
+      item.year_min_3 = item.year_min_3.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      
+      return item;
+      })
     this.tableConfig.setDataPMI(this.dataDetail);
     console.log('finish get data in func');
 
@@ -53,12 +68,22 @@ export class PmiComponent {
     try {
       const data = await this.marketUpdateService.fetchDataRealisasiPMI();
       this.dataDetailRealisasi = data;
-      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.data.content;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
+        item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+        item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return item;
+      })
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
     } catch (error) {
       console.log(error);
     }
+      this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
+        item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
+        item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return item
+      })
     this.tableConfig.setDataRealisasiPMI(this.dataDetailRealisasi)
     console.log('finish get data in func');
   }
@@ -68,12 +93,22 @@ export class PmiComponent {
     try {
       const data = await this.marketUpdateService.fetchDataRkapPMI();
       this.dataDetailRkap = data;
-      this.dataDetailRkap = this.dataDetailRkap.data;
+      this.dataDetailRkap = this.dataDetailRkap.data.content;
+      this.dataDetailRkap.sort((a: { tahun: number; }, b: { tahun: number; }) => {
+        const aYear = a.tahun || 0;
+        const bYear = b.tahun || 0;
+        return bYear - aYear;
+      });
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRkap);
     } catch (error) {
       console.log(error);
     }
+    this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
+      item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+      item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
     this.tableConfig.setDataRkapPMI(this.dataDetailRkap)
     console.log('finish get data in func');
   }
@@ -83,11 +118,29 @@ export class PmiComponent {
     try {
       const data = await this.marketUpdateService.fetchDataOutlookPMI();
       this.dataDetailOutlook = data;
-      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data.content;
+      if (this.dataDetailOutlook == !null){
+        this.dataDetailOutlook.sort((a: { tahun: number; }, b: { tahun: number; }) => {
+          const aYear = a.tahun || 0;
+          const bYear = b.tahun || 0;
+          return bYear - aYear;
+        });
+      }else {
+        console.log('data kosong')
+      } 
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
     } catch (error) {
       console.log(error);
+    }
+    if (this.dataDetailOutlook == !null){
+      this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
+        item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
+        item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return item;
+      })
+    }else {
+      console.log('data kosong')
     }
     this.tableConfig.setDataOutlookPMI(this.dataDetailOutlook)
     console.log('finish get data in func');

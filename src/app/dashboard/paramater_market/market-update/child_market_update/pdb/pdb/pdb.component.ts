@@ -35,34 +35,6 @@ export class PdbComponent {
 
   maxDate = new Date();
 
-  inputDataRealisasi = new FormGroup({  
-    quartal : new FormControl(''),
-    tahun : new FormControl(''),
-    nilai : new FormControl('')
-  });
-
-  async BtnSimpan(){
-    const data = this.inputDataRealisasi.value;
-    console.log(data)
-    const response = await this.marketUpdateService.fetchDataInputRealisasiPDB(data)
-  }
-
-  async getData(){
-    this.isLoading = true;
-    console.log(this.isLoading, 'loading 1');
-
-    try {
-      const data = await this.marketUpdateService.fetchDataPDB();
-      this.dataDetail = data;
-      this.dataDetail = this.dataDetail.data;
-      this.isLoading = false;
-      console.log(this.isLoading, 'loading 2', this.dataDetail);
-    } catch (error) {
-      console.log(error);
-    }
-    this.tableConfig.setDataPdb(this.dataDetail);
-    console.log('finish get data in func');
-  }
   async getDataRealisasi(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
@@ -70,12 +42,22 @@ export class PdbComponent {
     try {
       const data = await this.marketUpdateService.fetchDataRealisasiPDB();
       this.dataDetailRealisasi = data;
-      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.data.content;
+      this.dataDetailRealisasi.sort((a: { tahun: number; }, b: { tahun: number; }) => {
+        const aYear = a.tahun || 0;
+        const bYear = b.tahun || 0;
+        return bYear - aYear;
+      });
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
     } catch (error) {
       console.log(error);
     }
+    this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
+      item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
+      item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
     this.tableConfig.setDataRealisasiPdb(this.dataDetailRealisasi);
     console.log('finish get data in func');
   }
@@ -85,12 +67,22 @@ export class PdbComponent {
     try{
       const data = await this.marketUpdateService.fetchDataRkapPDB();
       this.dataDetailRkap = data;
-      this.dataDetailRkap = this.dataDetailRkap.data;
+      this.dataDetailRkap = this.dataDetailRkap.data.content;
+      this.dataDetailRkap.sort((a: { tahun: number; }, b: { tahun: number; }) => {
+        const aYear = a.tahun || 0;
+        const bYear = b.tahun || 0;
+        return bYear - aYear;
+      });
       this.isLoading = false;
       console.log(this.isLoading,'loading 2', this.dataDetailRkap);
     } catch(error) {
       console.log(error)
     }
+    this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
+      item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
+      item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
     this.tableConfig.setDataRkapPdb(this.dataDetailRkap);
     console.log('finish get data by function')
   }
@@ -100,12 +92,22 @@ export class PdbComponent {
     try{
       const data = await this.marketUpdateService.fetchDataOutlookPdb();
       this.dataDetailOutlook = data;
-      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data.content;
+      this.dataDetailOutlook.sort((a: { tahun: number; }, b: { tahun: number; }) => {
+        const aYear = a.tahun || 0;
+        const bYear = b.tahun || 0;
+        return bYear - aYear;
+      });
       this.isLoading = false;
       console.log(this.isLoading,'loading 2', this.dataDetailOutlook);
     } catch(error) {
       console.log(error)
     }
+    this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
+      item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
+      item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
     this.tableConfig.setDataOutlookPdb(this.dataDetailOutlook);
     console.log('finish get data by function')
   }
@@ -132,7 +134,6 @@ export class PdbComponent {
   async ngOnInit(): Promise<void> {
     console.log('load data');
 
-    await this.getData();
     await this.getDataRealisasi();
     await this.getDataOutlook();
     await this.getDataRkap();
