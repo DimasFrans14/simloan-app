@@ -46,21 +46,22 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
       const dataUsd = await this.marketUpdateService.fetchDataRealisasiKursUsd();
       const dataNonUsd = await this.marketUpdateService.fetchDataRealisasiKursNonUsd();
       this.dataDetailRealisasi = dataUsd;
-      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.data.content;
+      
       this.dataDetailRealisasiNonUsd = dataNonUsd;
-      this.dataDetailRealisasiNonUsd = this.dataDetailRealisasiNonUsd.data;
+      this.dataDetailRealisasiNonUsd = this.dataDetailRealisasiNonUsd.data.content;
       this.isLoading = false;
       console.log(this.isLoading,'loading 2', this.dataDetailRealisasi);
     } catch(error) {
       console.log(error)
     }
-    this.dataDetailRealisasi = this.dataDetailRealisasi.content.map((item: any) =>{
+    this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
       item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
       item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 
       });
       return item;
     })
-    this.dataDetailRealisasiNonUsd = this.dataDetailRealisasiNonUsd.content.map((item: any) =>{
+    this.dataDetailRealisasiNonUsd = this.dataDetailRealisasiNonUsd.map((item: any) =>{
       item.kurs != null ? item.kurs = parseFloat(item.kurs) : item.kurs = 0;
       item.kurs = item.kurs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       return item;
@@ -68,6 +69,7 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     this.tableConfig.setDataRealisasiKurs(this.dataDetailRealisasi, this.dataDetailRealisasiNonUsd);
     console.log('finish get data by function')
   }
+  
   async getDataRkapKursUsd(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading RealisasiKursUsd');

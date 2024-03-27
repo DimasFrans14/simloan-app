@@ -69,6 +69,11 @@ export class PmiComponent {
       const data = await this.marketUpdateService.fetchDataRealisasiPMI();
       this.dataDetailRealisasi = data;
       this.dataDetailRealisasi = this.dataDetailRealisasi.data.content;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.sort((a: { tahun: number; }, b: { tahun: number; }) => {
+        const aYear = a.tahun || 0;
+        const bYear = b.tahun || 0;
+        return bYear - aYear;
+      });
       this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
         item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
         item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -79,11 +84,6 @@ export class PmiComponent {
     } catch (error) {
       console.log(error);
     }
-      this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
-        item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
-        item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        return item
-      })
     this.tableConfig.setDataRealisasiPMI(this.dataDetailRealisasi)
     console.log('finish get data in func');
   }
@@ -165,7 +165,7 @@ export class PmiComponent {
   async ngOnInit(): Promise<void> {
     console.log('load data');
 
-    await this.getData();
+    // await this.getData();
     await this.getDataRealisasi();
     await this.getDataRkap();
     await this.getDataOutlook();

@@ -193,13 +193,9 @@ export class TableServicesService {
     this.shareDataOutlookCommodities = data.content;
     console.log(this.shareDataOutlookCommodities);
   }
-  setDataRealisasiKursUsd(data:any){
-    this.shareDataRealisasiKursUsd = data.content;
-    console.log(this.shareDataRealisasiKursUsd);
-  }
   setDataRealisasiKurs(dataUsd:any, dataNonUsd:any){
     this.shareDataRealisasiKurs = dataUsd.concat(dataNonUsd);
-    console.log(this.shareDataRealisasiKurs.content)
+    console.log(this.shareDataRealisasiKurs)
   }
   setDataRkapKursUsd(data:any){
     this.shareDataRkapKursUsd = data;
@@ -928,7 +924,7 @@ export class TableServicesService {
         alert("The user has moved column: " + column.getField()); //display the columns field name
     },
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left',editable:this.isRowSelected, editor: "input",headerSort:false,},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left',editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center',editable:this.isRowSelected, editor: "number", headerSort:false},
         {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
         {title:"Action", headerHozAlign:"center", columns:[
@@ -949,7 +945,7 @@ export class TableServicesService {
       data:this.shareDataRkapPdb,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left',editable:this.isRowSelected, editor: "input",headerSort:false,},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left',editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center',editable:this.isRowSelected, editor: "number", headerSort:false},
         {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
         {title:"Action", headerHozAlign:"center", columns:[
@@ -969,7 +965,7 @@ export class TableServicesService {
       data:this.shareDataOutlookPdb,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input",headerSort:false,},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input",headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor: "number", headerSort:false},
         {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
         {title:"Action", headerHozAlign:"center", columns:[
@@ -1031,7 +1027,7 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Bulan", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editable:this.isRowSelected, editor:"input"},
+        {title:"Bulan", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, editable:this.isRowSelected, editor:"input"},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
@@ -1039,7 +1035,7 @@ export class TableServicesService {
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiInflasi, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
         {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiInflasi, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
         {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
         {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiInflasi, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
@@ -1051,7 +1047,7 @@ export class TableServicesService {
       data:this.shareDataRkapInflasi,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editable:this.isRowSelected, editor:"input"},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, editable:this.isRowSelected, editor:"input"},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
@@ -1071,7 +1067,7 @@ export class TableServicesService {
       data:this.shareDataOutlookInflasi,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editable:this.isRowSelected, editor:"input"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, editable:this.isRowSelected, editor:"input"},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
@@ -1131,7 +1127,7 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Bulan", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
+        {title:"Bulan", field:"bulan", headerHozAlign:"left", hozAlign:'left', editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
         {title:"Rate", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
         {title:"Action", headerHozAlign:"center", columns:[
@@ -1151,7 +1147,7 @@ export class TableServicesService {
       data:this.shareDataRkapPMI,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"Rate", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"Action", headerHozAlign:"center", columns:[
@@ -1171,16 +1167,16 @@ export class TableServicesService {
       data:this.shareDataOutlookPMI,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
+        {title:"Bulan", field:"bulan", headerHozAlign:"left", hozAlign:'left', editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
-        {title:"Nilai", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
+        {title:"Rate", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", hozAlign:"center", resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookPMI, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
         {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
-        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPMI, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
         {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
         {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPMI, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
@@ -1231,7 +1227,7 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', editor: "input", editable:this.isRowSelected, headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Action", headerHozAlign:"center", columns:[
@@ -1251,7 +1247,7 @@ export class TableServicesService {
       data:this.shareDataRkapRetail,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", editable:this.isRowSelected},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', editor: "input", editable:this.isRowSelected, headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Action", headerHozAlign:"center", columns:[
@@ -1271,9 +1267,9 @@ export class TableServicesService {
       data:this.shareDataOutlookRetail,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
-        {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
+        {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
@@ -1332,7 +1328,7 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input",editable:this.isRowSelected},
+        {title:"Bulan", field:"bulan", headerHozAlign:"left", hozAlign:'left', editor: "input",editable:this.isRowSelected, headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Nilai", field:"triliun_beredar", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Action", headerHozAlign:"center", columns:[
@@ -1352,7 +1348,7 @@ export class TableServicesService {
       data:this.shareDataRkapMoneySupply,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", editable:this.isRowSelected},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', editor: "input", editable:this.isRowSelected, headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Action", headerHozAlign:"center", columns:[
@@ -1372,7 +1368,7 @@ export class TableServicesService {
       data:this.shareDataOutlookMoneySupply,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", editable:this.isRowSelected},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', editor: "input", editable:this.isRowSelected, headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Nilai", field:"triliun_beredar", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Action", headerHozAlign:"center", columns:[
@@ -1428,9 +1424,9 @@ export class TableServicesService {
       data:this.shareDataRealisasiCadev,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
-        {title:"Nilai", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "number"},
+        {title:"Nilai", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton ,headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
@@ -1448,9 +1444,9 @@ export class TableServicesService {
       data:this.shareDataRkapCadev,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
-        {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "number"},
+        {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
@@ -1468,9 +1464,9 @@ export class TableServicesService {
       data:this.shareDataOutlookCadev,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
-        {title:"Nilai", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "number"},
+        {title:"Nilai", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
@@ -1525,7 +1521,7 @@ export class TableServicesService {
         {title:"Change <br/>RKAP %", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change 1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change 1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
 
@@ -1535,8 +1531,8 @@ export class TableServicesService {
     data:this.shareDataRealisasiKurs,
     layout:"fitColumns",
     columns:[
+      {title:"Mata Uang", field:"mata_uang", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
       {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor:"input"},
-      {title:"Mata Uang", field:"mata_uang", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
       {
         title: "Nilai",
         formatter: function(cell) {
@@ -1569,7 +1565,7 @@ export class TableServicesService {
     data:this.shareDataRkapKursUsd,
     layout:"fitColumns",
     columns:[
-      {title:"Mata Uang", field:"mtu", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor:"number", headerSort:false},
+      {title:"Mata Uang", field:"mtu", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor:"number", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
       {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
       {title:"tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
       {title:"Rate", field:"rate", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
@@ -1591,8 +1587,8 @@ export class TableServicesService {
     data:this.shareDataOutlookKursUsd,
     layout:"fitColumns",
     columns:[
+      {title:"Mata Uang", field:"mata_uang", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
       {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor:"input"},
-      {title:"Mata Uang", field:"mata_uang", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
       {
         title: "Nilai",
         formatter: function(cell) {
@@ -1679,10 +1675,10 @@ export class TableServicesService {
         {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
         {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
         {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
-        {title:"Change <br/>RKAP %", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change 1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change 1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
     this.tableRealisasiInterestRate = new Tabulator(".table-realisasiInterestRate", {
@@ -1691,11 +1687,22 @@ export class TableServicesService {
       data:this.shareDataRealisasiInterestRate,
       layout:"fitColumns",
       columns:[
-        {title:"Rates", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor: "input", minWidth: 130},
+        {title:"Rates", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, width:130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
-        {title:"Month 3", field:"month3", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
-        {title:"Month 6", field:"month6", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
+        {
+          title: "Nilai",
+          formatter: function(cell) {
+            // Mendapatkan nilai 'nilai' atau 'kurs' berdasarkan data di setiap baris
+            const interest = cell.getRow().getData().grup;
+            const fieldValue = interest === 'JIBOR_3M' && 'AVG_SOFR_3M' && 'EURIBOR_3M' ? 'month3' : 'JIBOR_6M' && 'AVG_SOFR_6M' && 'EURIBOR_6M' ? 'month6' : 'rate';
+  
+            // Mengembalikan nilai yang ingin ditampilkan di dalam sel
+            return cell.getRow().getData()[fieldValue];
+          },
+          headerHozAlign: "center",
+          hozAlign: 'center',
+          editable: this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
@@ -1713,11 +1720,10 @@ export class TableServicesService {
         data:this.shareDataRkapInterestRate,
         layout:"fitColumns",
         columns:[
-        {title:"Grup", field:"mtu", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input", minWidth: 130},
+        {title:"Grup", field:"mtu", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, width:130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
-        {title:"Month 3", field:"rate", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
-        {title:"Month 6", field:"month6", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
+        {title:"Nilai", field:"rate", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
           {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
@@ -1735,12 +1741,10 @@ export class TableServicesService {
       data:this.shareDataOutlookInterestRate,
       layout:"fitColumns",
       columns:[
-        {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor: "input", minWidth: 130},
+        {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input",headerFilterParams:{valuesLookup:"all", clearable:true}, minWidth: 130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
-        {title:"Rate", field:"rate", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
-        {title:"Month 3", field:"month3", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
-        {title:"Month 6", field:"month6", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
+        {title:"Nilai", field:"rate", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
@@ -1794,9 +1798,9 @@ export class TableServicesService {
           ],
         headerHozAlign:"center"
       },
-    {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-    {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-    {title:"Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Change <br/>1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
     {title:"Change Dari RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
     ],
     });
@@ -1807,7 +1811,7 @@ export class TableServicesService {
     paginationSize:15,
     layout:"fitColumns",
       columns:[
-        {title:"Commodities", field:"kode", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"Commodities", field:"kode", headerHozAlign:"left", hozAlign:'left', headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, editor: "input", minWidth: 130},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
@@ -1829,7 +1833,7 @@ export class TableServicesService {
       data:this.shareDataRkapCommodities,
       layout:"fitColumns",
         columns:[
-          {title:"Commodities", field:"mtu", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+          {title:"Commodities", field:"mtu", headerHozAlign:"left", hozAlign:'left', headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, editor: "input", minWidth: 130},
           {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
           {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
           {title:"Rate", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
@@ -1851,7 +1855,7 @@ export class TableServicesService {
       data:this.shareDataOutlookCommodities,
       layout:"fitColumns",
       columns:[
-        {title:"Commodities", field:"kode_item", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"Commodities", field:"kode_item", headerHozAlign:"left", hozAlign:'left', headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, editor: "input", minWidth: 130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
@@ -3084,7 +3088,6 @@ export class TableServicesService {
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataInputOutlookPDB(data);
-    const getBackData = await this.marketUpdateService.fetchDataOutlookPdb();
   }
   cellClick_deleteButtonOutlookPdb = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3115,7 +3118,7 @@ export class TableServicesService {
       nilai: rowData.nilai
     }
     console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRealisasiInflasi(data);
+    const response = await this.marketUpdateService.fetchDataUpdateRealisasiInflasi(data);
   }
   cellClick_addButtonRealisasiInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3161,9 +3164,9 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      quartal: rowData.quartal,
       tahun: rowData.tahun,
-      nilai: rowData.nilai
+      pdb: rowData.pdb
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateRkapInflasi(data);
@@ -3186,8 +3189,7 @@ export class TableServicesService {
       pdb: rowData.pdb
     }
     console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRkapPDB(data);
-    const getBackData = await this.marketUpdateService.fetchDataPDB();
+    await this.marketUpdateService.fetchDataInputRkapInflasi(data);
   }
   cellClick_deleteButtonRkapInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3217,7 +3219,7 @@ export class TableServicesService {
       nilai: rowData.nilai,
     }
     console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateOutlookInflasi(data);
+    await this.marketUpdateService.fetchDataUpdateOutlookInflasi(data);
   }
   cellClick_addButtonOutlookInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3385,13 +3387,13 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      quartal: rowData.quartal,
+      id: rowData.id,
+      bulan: rowData.bulan,
       tahun: rowData.tahun,
-      pdb: rowData.pdb
+      rate: rowData.rate
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataInputOutlookPMI(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
   cellClick_deleteButtonOutlookPMI = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3520,9 +3522,9 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      quartal: rowData.quartal,
       tahun: rowData.tahun,
-      nilai: rowData.nilai
+      pdb: rowData.pdb
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateOutlookRetail(data);

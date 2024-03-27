@@ -132,11 +132,15 @@ export class InflasiComponent {
     } catch(error) {
       console.log(error)
     }
-      this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
-        item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
-        item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        return item;
-      })
+      if (this.dataDetailRkap == !null){
+        this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
+          item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
+          item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          return item;
+        })
+      }else {
+        console.log('data kosong')
+      } 
     this.tableConfig.setDataRkapInflasi(this.dataDetailRkap);
     console.log('finish get data by function')
   }
@@ -195,8 +199,9 @@ export class InflasiComponent {
           return item.bulan === 'Bulan';
         })
         this.dataInflasi = this.dataInflasi.data.filter((item: any) => {
-          return item.bulan != 'Bulan'
+          return item.bulan !== 'Bulan'
         })
+        console.log( this.dataInflasi, this.getLabelYear)
 
         this.dataInflasi = this.dataInflasi.map((item: any) => {
           item.year_min_0 != null ? item.year_min_0 = item.year_min_0.toFixed(2) : item.year_min_0 = 0;
@@ -228,7 +233,7 @@ export class InflasiComponent {
       this.allLabelYear.push(this.getLabelYear[0].year_min_3);
 
       console.log(this.allLabelYear);
-
+      console.log(this.dataInflasi)
       this.tableConfig.setDataInflasi(this.dataInflasi);
 
       this.isLoading = false;
@@ -254,11 +259,11 @@ export class InflasiComponent {
     let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
 
     await this.getDataRealisasi();
-    await this.getDataInflasi();
+    // await this.getDataInflasi();
     await this.getDataRkap();
     await this.getDataOutlook();
 
-    this.tableConfig.initializeTableDataInflasi(this.allLabelYear);
+    this.tableConfig.initializeTableDataInflasi(this.allLabelYear,);
   }
 
   ngAfterViewInit(): void {

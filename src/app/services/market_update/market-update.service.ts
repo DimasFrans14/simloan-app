@@ -1304,7 +1304,7 @@ export class MarketUpdateService {
       }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-pdb`, data1)
+        this.http.post(`${environment.apiUrl1}simloan/ws-v01/dashboard/macro/master-rkap-pdb`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -1333,11 +1333,10 @@ export class MarketUpdateService {
   }
   async fetchDataInputOutlookPDB(data:any){
     const data1= {
-      "master_rkap_outlook_creates": [{
+      "master_outlook_pdb_creates": [{
         "quartal": data.quartal,
         "tahun":data.tahun,
         "nilai": data.nilai,
-        "is_active": true
       }]
       }
     try {
@@ -1401,8 +1400,7 @@ export class MarketUpdateService {
       "master_real_inflasi_creates":[{
         "bulan": data.bulan,
         "tahun":data.tahun,
-        "nilai": data.nilai,
-        "is_active": true
+        "nilai": data.nilai
       }]
     }
     try {
@@ -1468,14 +1466,14 @@ export class MarketUpdateService {
     }
   }
   async fetchDataUpdateRkapInflasi(data:any){
-    data = {
-      "bulan": data.bulan,
+    const data1 = {
+      "quartal": data.quartal,
       "tahun": data.tahun,
-      "nilai": data.nilai
+      "pdb": data.pdb
     }
     try {
       return await lastValueFrom(
-        this.http.put(`${environment.apiUrl1}http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-rkap-inflasi?id=${data.id}`, data)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-inflasi?id=${data.id}`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -1520,14 +1518,14 @@ export class MarketUpdateService {
     }
   }
   async fetchDataUpdateOutlookInflasi(data:any){
-    data = {
+    const data1 = {
       "bulan": data.bulan,
       "tahun": data.tahun,
       "nilai": data.nilai
     }
     try {
       return await lastValueFrom(
-        this.http.put(`${environment.apiUrl1}http://10.1.18.47:9051/simloan/ws-v01/dashboard/macro/master-outlook-inflasi?id=${data.id}`, data)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-inflasi?id=${data.id}`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -1676,15 +1674,15 @@ export class MarketUpdateService {
   }
   async fetchDataInputOutlookPMI(data:any){
     const data1= {
-      "master_rkap_inflasi_creates":[{
-        "quartal": data.quartal,
+      "master_outlook_pmi_creates":[{
+        "bulan": data.bulan,
         "tahun":data.tahun,
-        "pdb": data.pdb
+        "rate": data.rate
       }]
     }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-Outlook-inflasi`, data1)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-pmi`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -1696,7 +1694,6 @@ export class MarketUpdateService {
       "rate": data.rate,
       "bulan": data.bulan,
       "tahun": data.tahun,
-      "is_active": true
     }
     console.log(data1)
     try {
@@ -1811,9 +1808,9 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateRkapRetail(data:any){
       const data1 = {
-        "bulan": data.bulan,
+        "kuartal": data.quartal,
         "tahun": data.tahun,
-        "nilai": data.nilai,
+        "pdb": data.pdb,
         "is_active":true
       }
     try {
@@ -1828,7 +1825,7 @@ export class MarketUpdateService {
   async fetchDeleteDataRkapRetail(data:any){
     try {
       return await lastValueFrom(
-        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-retail-sales?id=${data.id}`)
+        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-rtsales?id=${data.id}`)
       );
     } catch (error) {
       console.log(error);
@@ -1881,7 +1878,7 @@ export class MarketUpdateService {
   async fetchDeleteDataOutlookRetail(data:any){
     try {
       return await lastValueFrom(
-        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-retail-sales?id=${data.id}`)
+        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-rtsales?id=${data.id}`)
       );
     } catch (error) {
       console.log(error);
