@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DomSanitizer } from '@angular/platform-browser';
+import { log } from 'console';
 import * as moment from 'moment';
 import { ApexAnnotations, ApexAxisChartSeries, ApexChart,  ApexDataLabels,  ApexLegend,  ApexMarkers,  ApexPlotOptions,  ApexStroke,  ApexTitleSubtitle, ApexTooltip, ApexXAxis, ApexYAxis } from 'ng-apexcharts';
 import { filter, range } from 'rxjs';
@@ -43,7 +44,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   barChartDataLabel!: ApexDataLabels;
   barYAxisKurs!: ApexYAxis | ApexYAxis[];
   barXAxisKurs!: ApexXAxis;
-  barPlotOptions!: ApexPlotOptions;
+  plotOptionsBarKurs!: ApexPlotOptions;
   barDataLabels!: ApexDataLabels;
 
   lineChartInterestRateSeries: ApexAxisChartSeries = [];
@@ -51,17 +52,20 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   interestRateXaxis!: ApexXAxis;
   interestRateLegend!: ApexLegend;
   interestRateYAxis!: ApexYAxis;
+  interestRateBarYAxis!: ApexYAxis;
 
   dataChartWtibrent!:ApexAxisChartSeries;
   xAxisWtiChartBrent!:ApexXAxis
   barDataLabelsWTIBRENT!: ApexDataLabels
   dataBarChartWtiBrent!: ApexAxisChartSeries;
   xAxisBarWtiBrent!: ApexXAxis;
+  yAxisBarWtiBrent!: ApexYAxis;
 
   dataIcpChart!:ApexAxisChartSeries;
   dataIcpBarChart!:ApexAxisChartSeries;
   xAxisIcpChart!:ApexXAxis;
   xAxisIcpBarChart!:ApexXAxis;
+  yAxisIcpBarChart!:ApexYAxis;
   legendICPChart!: ApexLegend;
   barDataLabelsICP!: ApexDataLabels;
 
@@ -69,6 +73,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   dataChartCoalBar!: ApexAxisChartSeries;
   xAxisChartCoal!:ApexXAxis;
   xAxisChartCoalBar!: ApexXAxis;
+  yAxisChartCoalBar!: ApexYAxis;
   barDataLabelsCOAL!: ApexDataLabels
   legendCOALChart!: ApexLegend;
 
@@ -76,6 +81,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   dataChartLngBar!: ApexAxisChartSeries;
   xAxisChartLng!: ApexXAxis;
   xAxisChartBarLng!: ApexXAxis;
+  yAxisChartBarLng!: ApexYAxis;
   barDataLabelsLNG!: ApexDataLabels
   legendLNGChart!: ApexLegend;
 
@@ -4681,7 +4687,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
     this.barChartKursSeries = [];
     this.barXAxisKurs = {
-      categories: []
+      categories: [
+
+      ]
     }
 
     this.trendKursDataBarChart = trendBarChartKurs;
@@ -4691,14 +4699,18 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
     if(this.trendKursDataBarChart.d.hasOwnProperty('arrayData')){
       this.allTrendDataKursBarChart = this.allTrendDataKursBarChart.d.arrayData;
-      this.barChartKursSeries = this.trendKursDataBarChart.d.arrayData
+
+      this.trendKursDataBarChart.d.arrayData.map((item: any) => {
+        item.data.sort((a: any, b: any) => a.id - b.id)
+        return item
+      })
+
+      console.log(this.trendKursDataBarChart);
+
+
+      this.barChartKursSeries = this.trendKursDataBarChart.d.arrayData;
       console.log(this.barChartKursSeries);
 
-      for(let i=0; i<1; i++){
-        for(let j=0; j<this.trendKursDataBarChart.d.arrayData[i].data.length; j++){
-          this.barXAxisKurs.categories.push(this.trendKursDataBarChart.d.arrayData[i].data[j].x)
-        }
-      }
     }
     else{
       this.barChartKursSeries = [];
@@ -4714,13 +4726,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     let today = moment(new Date());
     let oneYearsAgo = moment(new Date()).subtract(1, 'years').format('DD/MM/YYYY');
 
-    const trendBarChartWtiBrent = await this.marketUpdateService.fetchDataBarCommodities("['WTI', 'BRENT']", date);
+    const dataBarChart = await this.marketUpdateService.fetchDataBarCommodities('', date);
 
-    const trendBarChartICP = await this.marketUpdateService.fetchDataBarCommodities("['ICP']", date);
-
-    const trendBarChartCOAL = await this.marketUpdateService.fetchDataBarCommodities("['COAL']", date);
-
-    const trendBarChartLNG = await this.marketUpdateService.fetchDataBarCommodities("['LNG']", date);
+    const trendBarChartICP = await this.marketUpdateService.fetchDataBarCommodities('ICP', date);
 
     // const trendBarChartBATUBARA = await this.marketUpdateService.fetchDataBarCommodities("['BATUBARA']", today.format('DD/MM/YYYY'));
 
@@ -4745,13 +4753,19 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       categories: []
     };
 
-    this.dataWTIBRENTBarChart = trendBarChartWtiBrent;
+    this.dataWTIBRENTBarChart = dataBarChart;
+    this.dataCOALBarChart = dataBarChart;
+    this.dataLNGBarChart = dataBarChart;
     this.trenddataICPBarChart = trendBarChartICP;
-    this.dataCOALBarChart = trendBarChartCOAL;
-    this.dataLNGBarChart = trendBarChartLNG;
 
     if(this.dataWTIBRENTBarChart.d.hasOwnProperty('arrayData')){
       this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData
+      .map((item: any) => {
+        item.data.sort((a: any, b: any) => a.id - b.id);
+        return item;
+      })
+      .filter((items: any) => items.name === 'WTI')
+
       console.log(this.dataBarChartWtiBrent);
 
       for(let i=0; i<1; i++){
@@ -4759,6 +4773,36 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.xAxisBarWtiBrent.categories.push(this.dataWTIBRENTBarChart.d.arrayData[i].data[j].x)
         }
       }
+
+      this.yAxisBarWtiBrent = {
+        showAlways: true,
+        forceNiceScale: true,
+        axisTicks: {
+          show: true
+        },
+        axisBorder: {
+          show: false,
+          color: "#000"
+        },
+        labels: {
+          style: {
+            colors: ["#000"]
+          },
+          align: "center",
+          formatter : (value) => {return value.toFixed(2)}
+        },
+        title: {
+          style: {
+            color: "#000",
+            fontFamily:"satoshi-regular"
+          },
+          text: "% Change RKAP"
+        },
+        tooltip: {
+          enabled: true
+        }
+      }
+
       this.isLoadingWTIBar = false;
     }
     else{
@@ -4770,6 +4814,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     }
 
     if(this.trenddataICPBarChart.d.hasOwnProperty('arrayData')){
+
+      this.trenddataICPBarChart.d.arrayData.map((item: any) => {
+        item.data.sort((a: any, b: any) => a.id - b.id)
+      })
+
       this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData
       console.log(this.dataIcpBarChart);
 
@@ -4778,6 +4827,36 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.xAxisIcpBarChart.categories.push(this.trenddataICPBarChart.d.arrayData[i].data[j].x)
         }
       }
+
+      this.yAxisIcpBarChart = {
+        showAlways: true,
+        forceNiceScale: true,
+        axisTicks: {
+          show: true
+        },
+        axisBorder: {
+          show: false,
+          color: "#000"
+        },
+        labels: {
+          style: {
+            colors: ["#000"]
+          },
+          align: "center",
+          formatter : (value) => {return value.toFixed(2)}
+        },
+        title: {
+          style: {
+            color: "#000",
+            fontFamily:"satoshi-regular"
+          },
+          text: "% Change RKAP"
+        },
+        tooltip: {
+          enabled: true
+        }
+      }
+
       this.isLoadingICPBar = false;
     }
     else{
@@ -4789,7 +4868,19 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     }
 
     if(this.dataCOALBarChart.d.hasOwnProperty('arrayData')){
+
+      // this.dataCOALBarChart.d.arrayData.map((item: any) => {
+      //   item.data.sort((a: any, b: any) => a.id - b.id)
+      // })
+
       this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData
+        .map((item: any) => {
+          item.data.sort((a: any, b: any) => a.id - b.id);
+          return item;
+        })
+        .filter((items: any) => items.name === 'COAL');
+
+
       console.log(this.dataChartCoalBar);
 
       for(let i=0; i<1; i++){
@@ -4797,6 +4888,36 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.xAxisChartCoalBar.categories.push(this.dataCOALBarChart.d.arrayData[i].data[j].x)
         }
       }
+
+      this.yAxisChartCoalBar = {
+        showAlways: true,
+        forceNiceScale: true,
+        axisTicks: {
+          show: true
+        },
+        axisBorder: {
+          show: false,
+          color: "#000"
+        },
+        labels: {
+          style: {
+            colors: ["#000"]
+          },
+          align: "center",
+          formatter : (value) => {return value.toFixed(2)}
+        },
+        title: {
+          style: {
+            color: "#000",
+            fontFamily:"satoshi-regular"
+          },
+          text: "% Change RKAP"
+        },
+        tooltip: {
+          enabled: true
+        }
+      }
+
       this.isLoadingCOALBar = false;
     }
     else{
@@ -4808,7 +4929,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     }
 
     if(this.dataLNGBarChart.d.hasOwnProperty('arrayData')){
-      this.dataChartLngBar = this.dataLNGBarChart.d.arrayData
+      this.dataChartLngBar = this.dataLNGBarChart.d.arrayData.map((item: any) => {
+        item.data.sort((a: any, b: any) => a.id - b.id);
+        return item
+      })
+      .filter((items: any) => items.name === 'LNG')
       console.log(this.dataChartLngBar);
 
       for(let i=0; i<1; i++){
@@ -4816,6 +4941,36 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.xAxisChartBarLng.categories.push(this.dataLNGBarChart.d.arrayData[i].data[j].x)
         }
       }
+
+      this.yAxisChartBarLng = {
+        showAlways: true,
+        forceNiceScale: true,
+        axisTicks: {
+          show: true
+        },
+        axisBorder: {
+          show: false,
+          color: "#000"
+        },
+        labels: {
+          style: {
+            colors: ["#000"]
+          },
+          align: "center",
+          formatter : (value) => {return value.toFixed(2)}
+        },
+        title: {
+          style: {
+            color: "#000",
+            fontFamily:"satoshi-regular"
+          },
+          text: "% Change RKAP"
+        },
+        tooltip: {
+          enabled: true
+        }
+      }
+
       this.isLoadingLNGBar = false;
     }
     else{
@@ -4837,13 +4992,52 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     const trendInterestBarChart = await this.marketUpdateService.fetchInterestRateBarChart(date);
 
     this.barChartInterestRateSeries = [];
+    this.interestRateBarYAxis = {
+      showAlways: true,
+      forceNiceScale: true,
+      axisTicks: {
+        show: true
+      },
+      axisBorder: {
+        show: false,
+        color: "#000"
+      },
+      labels: {
+        style: {
+          colors: ["#000"]
+        },
+        align: "center",
+        formatter : (value) => {return value.toFixed(2)}
+      },
+      title: {
+        style: {
+          color: "#000",
+          fontFamily:"satoshi-regular"
+        },
+        text: "% Change RKAP"
+      },
+      tooltip: {
+        enabled: true
+      }
+    }
 
     this.trendInterestDataBarChart = trendInterestBarChart;
     this.allTrendDataInterestRateBar = trendInterestBarChart;
 
     if(this.trendInterestDataBarChart.d.hasOwnProperty('arrayData')){
+      this.trendInterestDataBarChart = this.trendInterestDataBarChart.d.arrayData.map((item: any) => {
+        item.data = item.data.map((items: any) => {
+          items.y = (items.y === null || items.y === undefined) ? 0 : items.y;
+          return items;
+        });
+        item.data.sort((a: any, b: any) => a.id - b.id)
+        return item;
+      });
+
+      console.log(this.trendInterestDataBarChart);
+
       this.allTrendDataInterestRateBar = this.allTrendDataInterestRateBar.d.arrayData;
-      this.barChartInterestRateSeries = this.trendInterestDataBarChart.d.arrayData;
+      this.barChartInterestRateSeries = this.trendInterestDataBarChart;
     }else{
       this.barChartInterestRateSeries = [];
     }
@@ -4932,30 +5126,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       const reFetchKursBar = await this.fetchDataBarChartKurs(this.filteredDate);
       const reFetchCommodities = await this.fetchAllDataBarChartCommodities(this.filteredDate);
       const reFetchInterest = await this.fetchAllDataBarChartInterest(this.filteredDate);
-      //USE THIS WHEN DIRECTLY HIT SERVICES
-      // this.barChartKursSeries = [];
-      // this.barXAxisKurs = {
-      //   categories: []
-      // }
-
-      // this.trendKursDataBarChart = reFetchKursBar;
-      // this.trendKursDataBarChart = this.trendKursDataBarChart.d.arrayData;
-
-      // if(this.trendKursDataBarChart[0]){
-      //   this.barChartKursSeries = this.trendKursDataBarChart;
-      //   console.log(this.barChartKursSeries, this.trendKursDataBarChart);
-
-      //   for(let i=0; i<1; i++){
-      //     for(let j=0; j<this.trendKursDataBarChart[i].data.length; j++){
-      //       this.barXAxisKurs.categories.push(this.trendKursDataBarChart[i].data[j].x)
-      //     }
-      //   }
-
-      //   this.stateLoadingFalse()
-      // }
-      // else{
-      //   alert('data not found')
-      // }
 
       this.stateLoadingFalse();
 
@@ -5477,16 +5647,64 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         ]
       }
 
+      this.plotOptionsBarKurs = {
+        bar: {
+          dataLabels: {
+            position: "top"
+          }
+        }
+      }
+
       this.barDataLabels = {
-        enabled: false
+        enabled: true,
+        formatter: function(val) {
+          return val.toLocaleString('en-US', {minimumFractionDigits
+          :2, maximumFractionDigits: 2}) + "%";
+        },
+        offsetY: -20,
+        style: {
+          fontSize: "12px",
+          colors: ["#304758"]
+        }
       }
 
       this.barDataLabelsWTIBRENT = {
-        enabled: false
+        enabled: true,
+        formatter: function(val) {
+          return val.toLocaleString('en-US', {minimumFractionDigits
+          :2, maximumFractionDigits: 2}) + "%";
+        },
+        offsetY: -20,
+        style: {
+          fontSize: "12px",
+          colors: ["#304758"]
+        }
       }
 
       this.barDataLabelsCOAL = {
-        enabled: false
+        enabled: true,
+        formatter: function(val) {
+          return val.toLocaleString('en-US', {minimumFractionDigits
+          :2, maximumFractionDigits: 2}) + "%";
+        },
+        offsetY: -20,
+        style: {
+          fontSize: "12px",
+          colors: ["#304758"]
+        }
+      }
+
+      this.barDataLabelsLNG = {
+        enabled: true,
+        formatter: function(val) {
+          return val.toLocaleString('en-US', {minimumFractionDigits
+          :2, maximumFractionDigits: 2}) + "%";
+        },
+        offsetY: -20,
+        style: {
+          fontSize: "12px",
+          colors: ["#304758"]
+        }
       }
 
       this.tesXaxis = {
@@ -5589,7 +5807,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             colors: ["#000"]
           },
           align: "center",
-          formatter : (value) => {return new Intl.NumberFormat().format(value)}
+          formatter : (value) => {return value.toFixed(2)}
         },
         title: {
           style: {
