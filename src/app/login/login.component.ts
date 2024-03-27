@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
 import { AuthService } from '../services/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -68,16 +69,38 @@ export class LoginComponent implements OnInit{
       console.log(error);
     }
 
-    localStorage.setItem('token', JSON.stringify(this.userAccount.data.token).replace(/"/g, ''))
-    localStorage.setItem('role', JSON.stringify(this.userAccount.data.user_akses))
+    if(this.userAccount.hasOwnProperty('data')){
+      const user_account = {
+        user: this.userAccount.data.name,
+        role: this.userAccount.data.role_name
+      }
+
+      localStorage.setItem('account', JSON.stringify(user_account))
+      localStorage.setItem('token', JSON.stringify(this.userAccount.data.token).replace(/"/g, ''))
+    }
 
     if (this.userAccount.success) {
       this.isLoading = false;
-      alert(this.userAccount.message);
-      this.router.navigate(['/main']);
-    } else {
+
+      Swal.fire({
+        title: "Berhasil!",
+        text: `Login Berhasil`,
+        icon: "success"
+        }).then((result: any) => {
+          if(result.isConfirmed){
+            this.router.navigate(['/main']);
+          }
+        })
+
+    } else if(this.userAccount.status === 404){
       this.isLoading = false;
-      alert(this.userAccount.message);
+
+       Swal.fire({
+        title: "Gagal!",
+        text: `Login Gagal`,
+        icon: "error"
+        })
+
     }
   }
 

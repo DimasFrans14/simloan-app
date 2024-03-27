@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
 
   toggle(){
     const element = document.body as HTMLBodyElement;
@@ -16,6 +16,17 @@ export class HeaderComponent {
 
     header.classList.toggle('header-closed');
     element.classList.toggle('toggle-sidebar');
+  }
+
+  userAccount: any;
+
+  ngOnInit(): void {
+    const getDataAccount =  localStorage.getItem('account');
+    getDataAccount ? this.userAccount = JSON.parse(getDataAccount) : this.userAccount = {}
+
+    console.log(this.userAccount);
+
+
   }
 
 }
