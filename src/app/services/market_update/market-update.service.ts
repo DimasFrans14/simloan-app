@@ -679,7 +679,7 @@ export class MarketUpdateService {
   }
   async fetchDataOutlookBondYieldSBN(){
     try {
-      const params = {  
+      const params = {
         "grup": "SBN"
       }
       console.log(params)
@@ -1115,7 +1115,7 @@ export class MarketUpdateService {
       return null;
     }
   }
-  
+
   async fetchDataCommoditiesByDate(currentDate: any){
     try {
       return await lastValueFrom(
@@ -1160,10 +1160,22 @@ export class MarketUpdateService {
   }
 
   async fetchDataBarCommodities(kategori:string, date:string){
-    const option = {
-      params: {
-        "kode": kategori,
-        "date": date
+
+    let option;
+
+    if(kategori != ''){
+        option = {
+          params: {
+            "kode": kategori,
+            "date": date
+          }
+      }
+    }
+    else{
+      option = {
+        params: {
+          "date": date
+        }
       }
     }
 
