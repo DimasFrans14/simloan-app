@@ -308,6 +308,7 @@
               [chart]="currencyBarChartDetails"
               [xaxis]="barXAxisKurs"
               [yaxis]="barYAxisKurs"
+              [plotOptions]="plotOptionsBarKurs"
               [dataLabels]="barDataLabels"
             ></apx-chart>
           </div>
@@ -1058,6 +1059,7 @@
               [chart]="currencyBarChartDetails"
               [dataLabels]="barDataLabelsWTIBRENT"
               [xaxis]="xAxisBarWtiBrent"
+              [yaxis]="barYAxisKurs"
               ></apx-chart>
             </div>
         </div>
@@ -1084,6 +1086,7 @@
               [dataLabels]="barDataLabels"
               [colors]="icpChartColors"
               [xaxis]="xAxisIcpBarChart"
+              [yaxis]="barYAxisKurs"
               [legend]="legendICPChart"
               ></apx-chart>
             </div>
@@ -1116,6 +1119,7 @@
               [dataLabels]="barDataLabelsCOAL"
               [colors]="coalChartColors"
               [xaxis]="xAxisChartCoalBar"
+              [yaxis]="barYAxisKurs"
               [legend]="legendCOALChart"
               ></apx-chart>
             </div>
@@ -1142,6 +1146,7 @@
               [chart]="currencyBarChartDetails"
               [colors]="lngChartColors"
               [xaxis]="xAxisChartBarLng"
+              [yaxis]="barYAxisKurs"
               [dataLabels]="barDataLabelsLNG"
               [legend]="legendLNGChart"
               ></apx-chart>
@@ -1341,6 +1346,7 @@
             [series]="barChartInterestRateSeries"
             [chart]="currencyBarChartDetails"
             [dataLabels]="barDataLabels"
+            [yaxis]="interestRateBarYAxis"
           ></apx-chart>
         </div>
       </div>

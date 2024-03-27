@@ -50,6 +50,7 @@ import { ShlCreateScheduleComponent } from './dashboard/shl/shl-schedule/shl-cre
 import { ShlMonitoringComponent } from './dashboard/shl/shl-monitoring/shl-monitoring.component';
 import { ShlMonitoringDetailComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-monitoring-detail.component';
 import { ShlLoanDetailComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-loan-detail/shl-loan-detail.component';
+import { RouteGuard } from './guard/route-guard.guard';
 
 const routes: Routes = [
   //error msg
@@ -61,67 +62,64 @@ const routes: Routes = [
   { path: 'forgotpassword', component: ForgotPasswordComponent },
 
   //Dashboard Path
-  { path: 'main', component: MainComponent },
-  { path: 'shloverview', component: ShlOverviewComponent },
-  { path: 'overview_trending', component: ParameterMarketOverviewComponent },
-  { path: 'overview_harian', component: OverviewHarian },
-  { path: 'financing_cost', component: FinancingCostComponent },
-  { path: 'liabilities', component: LiabilitiesComponent},
-  { path: 'market_update', component: MarketUpdateComponent, children:
-    [
-      // {path: 'currency_rate', component: CurrencyRateComponent}
-    ]
+  { path: 'main', component: MainComponent , canActivate:[RouteGuard]},
+  { path: 'shloverview', component: ShlOverviewComponent ,canActivate:[RouteGuard]},
+  { path: 'overview_trending', component: ParameterMarketOverviewComponent ,canActivate:[RouteGuard]},
+  { path: 'overview_harian', component: OverviewHarian ,canActivate:[RouteGuard]},
+  { path: 'financing_cost', component: FinancingCostComponent ,canActivate:[RouteGuard]},
+  { path: 'liabilities', component: LiabilitiesComponent,canActivate:[RouteGuard]},
+  { path: 'market_update', component: MarketUpdateComponent, canActivate:[RouteGuard]
   },
-  { path: 'hitung_fincost', component: HitungFincostComponent},
-  { path: 'gmtn', component: GMTNComponent},
-  { path: 'shl_agreement', component: ShlAgreementComponent},
-  { path: 'shl_withdrawal', component: ShlWithdrawalComponent},
-  { path: 'shl_schedule', component: ShlScheduleComponent},
-  { path: 'shl_monitoring', component: ShlMonitoringComponent},
-  // { path: 'create_agreement', component: CreateAgreementComponent},
-  // { path: 'amandement_agreement', component: AmandementAgreementComponent},
-  // { path: 'analisa_shl', component: AnalisaShlComponent},
-  // { path: 'report_shl', component:  ReportShlComponent},
-  // { path: 'detail_agreement', component: DetailAgreementComponent},
-  { path: 'financial_import', component: ImportComponent},
-  { path: 'financial_report', component: FinancialReportComponent},
-  { path: 'adm_overview', component: OverviewComponent},
+  { path: 'hitung_fincost', component: HitungFincostComponent, canActivate:[RouteGuard]},
+  { path: 'gmtn', component: GMTNComponent, canActivate:[RouteGuard]},
+  { path: 'shl_agreement', component: ShlAgreementComponent, canActivate:[RouteGuard]},
+  { path: 'shl_withdrawal', component: ShlWithdrawalComponent, canActivate:[RouteGuard]},
+  { path: 'shl_schedule', component: ShlScheduleComponent, canActivate:[RouteGuard]},
+  { path: 'shl_monitoring', component: ShlMonitoringComponent, canActivate:[RouteGuard]},
+  // { path: 'create_agreement', component: CreateAgreementComponent, canActivate:[RouteGuard]},
+  // { path: 'amandement_agreement', component: AmandementAgreementComponent, canActivate:[RouteGuard]},
+  // { path: 'analisa_shl', component: AnalisaShlComponent, canActivate:[RouteGuard]},
+  // { path: 'report_shl', component:  ReportShlComponent, canActivate:[RouteGuard]},
+  // { path: 'detail_agreement', component: DetailAgreementComponent, canActivate:[RouteGuard]},
+  { path: 'financial_import', component: ImportComponent, canActivate:[RouteGuard]},
+  { path: 'financial_report', component: FinancialReportComponent, canActivate:[RouteGuard]},
+  { path: 'adm_overview', component: OverviewComponent, canActivate:[RouteGuard]},
 
   //Child Path Market Update Component
-  { path: 'market_update/currency_rate', component: CurrencyRateComponent},
-  { path: 'market_update/interest_rate', component: InterestRateComponent},
-  { path: 'market_update/commodities', component: CommoditiesComponent},
-  { path: 'market_update/bond_yield', component: BondYieldComponent},
-  { path: 'market_update/pdb', component: PdbComponent},
-  { path: 'market_update/inflasi', component: InflasiComponent},
-  { path: 'market_update/pmi', component: PmiComponent},
-  { path: 'market_update/retail_sales', component: RetailSalesComponent},
-  { path: 'market_update/money_supply', component: MoneySuplyComponent},
-  { path: 'market_update/usTrasury', component: UsTreasuryComponent},
-  { path: 'market_update/cadev', component: CadanganDevisaComponent},
-  { path: 'market_update/importLaporan_marketUpdate', component: ImportLaporanMarketUpdateComponent},
-  { path: 'market_update/preview_laporan', component: PreviewLaporanComponent},
+  { path: 'market_update/currency_rate', component: CurrencyRateComponent, canActivate:[RouteGuard]},
+  { path: 'market_update/interest_rate', component: InterestRateComponent, canActivate:[RouteGuard]},
+  { path: 'market_update/commodities', component: CommoditiesComponent, canActivate:[RouteGuard]},
+  { path: 'market_update/bond_yield', component: BondYieldComponent, canActivate:[RouteGuard]},
+  { path: 'market_update/pdb', component: PdbComponent, canActivate:[RouteGuard]},
+  { path: 'market_update/inflasi', component: InflasiComponent, canActivate:[RouteGuard]},
+  { path: 'market_update/pmi', component: PmiComponent, canActivate:[RouteGuard]},
+  { path: 'market_update/retail_sales', component: RetailSalesComponent, canActivate:[RouteGuard]},
+  { path: 'market_update/money_supply', component: MoneySuplyComponent, canActivate:[RouteGuard]},
+  { path: 'market_update/usTrasury', component: UsTreasuryComponent, canActivate:[RouteGuard]},
+  { path: 'market_update/cadev', component: CadanganDevisaComponent, canActivate:[RouteGuard]},
+  { path: 'market_update/importLaporan_marketUpdate', component: ImportLaporanMarketUpdateComponent, canActivate:[RouteGuard]},
+  { path: 'market_update/preview_laporan', component: PreviewLaporanComponent, canActivate:[RouteGuard]},
 
   //child path financial-debt
-  {path: 'import_laporan', component: ImportLaporanComponent},
+  {path: 'import_laporan', component: ImportLaporanComponent, canActivate:[RouteGuard]},
   //child path liabilities
-  { path: 'create_liabilities', component: CreateLiabilitiesComponent},
-  { path: 'preview_liabilities', component: PreviewLiabilitiesComponent},
+  { path: 'create_liabilities', component: CreateLiabilitiesComponent, canActivate:[RouteGuard]},
+  { path: 'preview_liabilities', component: PreviewLiabilitiesComponent, canActivate:[RouteGuard]},
 
   //Child Path SHL Agreement
-  { path: 'shl_agreement/details/:id', component: ShlAgreementDetailComponent},
-  { path: 'shl_agreement/create', component: ShlCreateAgreementComponent},
-  { path: 'shl_agreement/preview_create', component: ShlPreviewCreateAgreementComponent},
+  { path: 'shl_agreement/details/:id', component: ShlAgreementDetailComponent, canActivate:[RouteGuard]},
+  { path: 'shl_agreement/create', component: ShlCreateAgreementComponent, canActivate:[RouteGuard]},
+  { path: 'shl_agreement/preview_create', component: ShlPreviewCreateAgreementComponent, canActivate:[RouteGuard]},
 
   //Child Path SHL Withdawal
-  { path: 'shl_withdrawal/create', component: ShlCreateWithdrawalComponent},
+  { path: 'shl_withdrawal/create', component: ShlCreateWithdrawalComponent, canActivate:[RouteGuard]},
 
   //Chile Path SHL Schedule
-  { path: 'shl_schedule/create', component: ShlCreateScheduleComponent},
+  { path: 'shl_schedule/create', component: ShlCreateScheduleComponent, canActivate:[RouteGuard]},
 
   //Child Path SHL Monitoring
-  { path: 'shl_monitoring/details/:id', component: ShlMonitoringDetailComponent},
-  { path: 'shl_monitoring/details/:id/loan_monitoring/:id', component: ShlLoanDetailComponent},
+  { path: 'shl_monitoring/details/:id', component: ShlMonitoringDetailComponent, canActivate:[RouteGuard]},
+  { path: 'shl_monitoring/details/:id/loan_monitoring/:id', component: ShlLoanDetailComponent, canActivate:[RouteGuard]},
 
 ];
 

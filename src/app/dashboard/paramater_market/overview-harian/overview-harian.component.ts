@@ -3,7 +3,7 @@ import Quill from 'quill';
 import { QuillServicesService } from 'src/app/services/textArea_services/quill-services.service';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 import { NgxCaptureService } from 'ngx-capture';
-import { tap } from 'rxjs';
+import { filter, tap } from 'rxjs';
 import PptxGenJS from 'pptxgenjs';
 import { DataService } from 'src/app/data.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
@@ -11,6 +11,10 @@ import * as moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 import Swal from 'sweetalert2';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs
 
 @Component({
   selector: 'overview-harian',
@@ -176,18 +180,49 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     triwulan: ''
   };
 
+  isCapture: boolean = false;
+
+  async captureAndConvertToPDF() {
+    this.isCapture = true;
+
+    if(this.isCapture){
+      this.captureService
+  .getImage(this.screen.nativeElement, true)
+  .pipe(
+    tap((img) => {
+      console.log(img);
+      let docDefinition = {
+      content: [
+        {
+          image: img,
+          width: 550,
+        }
+      ]
+    }
+
+    pdfMake.createPdf(docDefinition).open();
+    }),
+  )
+  .subscribe();
+    }
+    else{
+      this.isCapture = false;
+    }
+
+  setTimeout(() => {
+    this.isCapture = false;
+  }, 3500);
+  }
+
+
   fullCaptureWithDownload() {
     let slide;
     this.captureService
-      .getImage(this.screen.nativeElement, false, {
-        x: -10,
-        y: -10,
-        width: 1150,
-        height: 900,
-      })
+      .getImage(this.screen.nativeElement, true)
       .pipe(
         tap((img: string) => {
           this.img = img;
+          console.log(img);
 
           // Once the image is captured, create a slide and add the image
           slide = this.PPTFile.addSlide();
@@ -228,8 +263,53 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     console.log(this.valueFilterTanggal);
   }
 
-  openModalTakeways(){
+  tempIDKeytakeways: any;
+
+  openModalTakeways = async () => {
     this.openModal = !this.openModal;
+    if(this.filteredDate != ''){
+      const getKeyTakewaysRes = await this.quillConfig.getKeyTakeways(this.filteredDate);
+      console.log(getKeyTakewaysRes);
+
+      this.getKeyTakeways = getKeyTakewaysRes
+      if(this.getKeyTakeways.d.hasOwnProperty('label')){
+        this.tempIDKeytakeways = this.getKeyTakeways.d.id_mkta;
+        console.log(this.tempIDKeytakeways);
+
+        this.quillTakeways.setContents(JSON.parse(this.getKeyTakeways.d.ori_content))
+        console.log(this.getKeyTakeways.d.ori_content);
+        this.getKeyTakeways = this.getKeyTakeways.d.label;
+      }
+      else{
+        const deltaString = '{"ops":[{"insert":"\\n"}]}';
+        const deltaObject = JSON.parse(deltaString);
+
+        this.quillTakeways.setContents(deltaObject)
+        this.tempIDKeytakeways = null
+        console.log(this.tempIDKeytakeways);
+
+      }
+    }else{
+      const getKeyTakewaysRes = await this.quillConfig.getKeyTakeways(moment().format('DD/MM/YYYY'))
+      this.getKeyTakeways = getKeyTakewaysRes
+      if(this.getKeyTakeways.d.hasOwnProperty('label')){
+        this.tempIDKeytakeways = this.getKeyTakeways.d.id_mkta;
+        console.log(this.tempIDKeytakeways);
+
+        this.quillTakeways.setContents(JSON.parse(this.getKeyTakeways.d.ori_content));
+        console.log(this.getKeyTakeways.d.ori_content);
+        this.getKeyTakeways = this.getKeyTakeways.d.label;
+      }
+      else{
+        const deltaString = '{"ops":[{"insert":"\\n"}]}';
+        const deltaObject = JSON.parse(deltaString);
+
+        this.quillTakeways.setContents(deltaObject)
+        this.tempIDKeytakeways = null
+        console.log(this.tempIDKeytakeways);
+
+      }
+    }
   }
   openModalFootnote(stateFootnote: string){
     this.openModalFootnote1 = !this.openModalFootnote1;
@@ -646,6 +726,8 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   date:string = moment().format('DD/MM/YYYY');
   async ngOnInit(): Promise<void> {
+    console.log(this.filteredDate);
+
     try {
 
       this.isLoadingTrue();
@@ -693,26 +775,86 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   async transformYourHtmlKeyTakeways(htmlTextWithStyle: any) {
     const innerHTML = this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
     this.quillInnerHTML = innerHTML;
-    const data = {
-      label: this.quillInnerHTML.changingThisBreaksApplicationSecurity,
-      user_created: 'user',
-      dashboard_date: moment(new Date()).format('DD/MM/YYYY'),
+    const content = this.quillTakeways.getContents();
+
+    let data;
+    if(this.filteredDate != '' && this.tempIDKeytakeways != null || this.tempIDKeytakeways != undefined){
+      data = {
+        id_mkta: this.tempIDKeytakeways,
+        label: this.quillInnerHTML.changingThisBreaksApplicationSecurity,
+        user_created: 'user',
+        ori_content: JSON.stringify(content),
+        dashboard_date: this.filteredDate,
+      }
+
+      try {
+        const response = await this.quillConfig.sendKeyTakeways(data)
+        this.statusKeytakeways = response;
+
+        if(this.statusKeytakeways.s === 200){
+          const getKeyTakewaysRes = await this.quillConfig.getKeyTakeways(this.filteredDate);
+          this.getKeyTakeways = getKeyTakewaysRes;
+
+          const checkLabel = this.getKeyTakeways.d.hasOwnProperty('label');
+          checkLabel ? this.getKeyTakeways = this.getKeyTakeways.d.label : this.getKeyTakeways = ""
+
+      }
+      } catch (error) {
+        console.log(error);
+      }
     }
+    else{
+      if(this.filteredDate != ''){
+        data = {
+          label: this.quillInnerHTML.changingThisBreaksApplicationSecurity,
+          user_created: 'user',
+          ori_content: JSON.stringify(content),
+          dashboard_date: this.filteredDate,
+        }
 
-    try {
-      const response = await this.quillConfig.sendKeyTakeways(data)
-      this.statusKeytakeways = response
+        try {
+          const response = await this.quillConfig.sendKeyTakeways(data)
+          this.statusKeytakeways = response;
 
-      if(this.statusKeytakeways.s === 200){
-        const getKeyTakewaysRes = await this.quillConfig.getKeyTakeways(moment(new Date()).format('DD/MM/YYYY'));
-        this.getKeyTakeways = getKeyTakewaysRes;
+          if(this.statusKeytakeways.s === 200){
+            const getKeyTakewaysRes = await this.quillConfig.getKeyTakeways(this.filteredDate);
+            this.getKeyTakeways = getKeyTakewaysRes;
 
-        const checkLabel = this.getKeyTakeways.d.hasOwnProperty('label');
-        checkLabel ? this.getKeyTakeways = this.getKeyTakeways.d.label : this.getKeyTakeways = ""
+            const checkLabel = this.getKeyTakeways.d.hasOwnProperty('label');
+            checkLabel ? this.getKeyTakeways = this.getKeyTakeways.d.label : this.getKeyTakeways = ""
 
-    }
-    } catch (error) {
-      console.log(error);
+        }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      else{
+        console.log('masuk 4');
+
+        data = {
+          label: this.quillInnerHTML.changingThisBreaksApplicationSecurity,
+          user_created: 'user',
+          ori_content: JSON.stringify(content),
+          dashboard_date: moment().format('DD/MM/YYYY'),
+        }
+
+        try {
+          const response = await this.quillConfig.sendKeyTakeways(data)
+          this.statusKeytakeways = response;
+
+          if(this.statusKeytakeways.s === 200){
+            const getKeyTakewaysRes = await this.quillConfig.getKeyTakeways(moment().format('DD/MM/YYYY'));
+            this.getKeyTakeways = getKeyTakewaysRes;
+
+            const checkLabel = this.getKeyTakeways.d.hasOwnProperty('label');
+            checkLabel ? this.getKeyTakeways = this.getKeyTakeways.d.label : this.getKeyTakeways = ""
+
+        }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
     }
   }
 

@@ -11,15 +11,16 @@ export class RouteGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    let localData: any;
-    localData = localStorage.getItem('dataRegister');
-    const parseData = JSON.parse(localData);
-
-    if (parseData) {
-      return true;
+    // Cek apakah pengguna sudah login
+    const checkUser = localStorage.getItem('token')
+    if (checkUser) {
+      return true; // Izinkan navigasi jika pengguna sudah login
     } else {
+      // Jika pengguna belum login, redirect ke halaman login
       this.router.navigate(['/login']);
-      return false;
+      return false; // Blokir navigasi
     }
   }
+
+
 }
