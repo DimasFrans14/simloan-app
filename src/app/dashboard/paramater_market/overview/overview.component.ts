@@ -53,6 +53,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   interestRateLegend!: ApexLegend;
   interestRateYAxis!: ApexYAxis;
   interestRateBarYAxis!: ApexYAxis;
+  barDataLabelsInterest!: ApexDataLabels;
 
   dataChartWtibrent!:ApexAxisChartSeries;
   xAxisWtiChartBrent!:ApexXAxis
@@ -5014,7 +5015,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           color: "#000",
           fontFamily:"satoshi-regular"
         },
-        text: "% Change RKAP"
+        text: "Change BPS"
       },
       tooltip: {
         enabled: true
@@ -5660,6 +5661,19 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         formatter: function(val) {
           return val.toLocaleString('en-US', {minimumFractionDigits
           :2, maximumFractionDigits: 2}) + "%";
+        },
+        offsetY: -20,
+        style: {
+          fontSize: "12px",
+          colors: ["#304758"]
+        }
+      }
+
+      this.barDataLabelsInterest = {
+        enabled: true,
+        formatter: function(val) {
+          return val.toLocaleString('en-US', {minimumFractionDigits
+          :2, maximumFractionDigits: 2});
         },
         offsetY: -20,
         style: {

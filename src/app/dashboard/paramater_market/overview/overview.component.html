@@ -1060,6 +1060,7 @@
               [dataLabels]="barDataLabelsWTIBRENT"
               [xaxis]="xAxisBarWtiBrent"
               [yaxis]="barYAxisKurs"
+              [plotOptions]="plotOptionsBarKurs"
               ></apx-chart>
             </div>
         </div>
@@ -1088,6 +1089,7 @@
               [xaxis]="xAxisIcpBarChart"
               [yaxis]="barYAxisKurs"
               [legend]="legendICPChart"
+              [plotOptions]="plotOptionsBarKurs"
               ></apx-chart>
             </div>
         </div>
@@ -1121,6 +1123,7 @@
               [xaxis]="xAxisChartCoalBar"
               [yaxis]="barYAxisKurs"
               [legend]="legendCOALChart"
+              [plotOptions]="plotOptionsBarKurs"
               ></apx-chart>
             </div>
         </div>
@@ -1149,6 +1152,7 @@
               [yaxis]="barYAxisKurs"
               [dataLabels]="barDataLabelsLNG"
               [legend]="legendLNGChart"
+              [plotOptions]="plotOptionsBarKurs"
               ></apx-chart>
             </div>
         </div>
@@ -1345,8 +1349,9 @@
             [style.display]="isVisibleLine ? 'none' : 'block'"
             [series]="barChartInterestRateSeries"
             [chart]="currencyBarChartDetails"
-            [dataLabels]="barDataLabels"
+            [dataLabels]="barDataLabelsInterest"
             [yaxis]="interestRateBarYAxis"
+            [plotOptions]="plotOptionsBarKurs"
           ></apx-chart>
         </div>
       </div>
