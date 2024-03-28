@@ -93,7 +93,7 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
       console.log('load before fetch: ' + this.isLoading);
       const responseKurs = await this.marketUpdateService.fetchDataKurs(today);
       const responseInterestRate = await this.marketUpdateService.fetchDataInterestRate(today);
-      
+
 
       // this.dataKurs = this.dataKurs.filter((item: any) => !item.kode.includes('Label'));
 
@@ -103,31 +103,31 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
         this.dataInterestRate = this.dataInterestRate.d.filter((item: any) => !item.kode.includes('Label'))
         this.dataInterestRate = this.dataInterestRate.map((item: any) => {
 
-          item.nilai_rkap = parseFloat(item.nilai_rkap).toFixed(2);
+          item.nilai_rkap != null ? item.nilai_rkap = parseFloat(item.nilai_rkap).toFixed(2) : item.nilai_rkap = 0;
           item.nilai_rkap = item.nilai_rkap.toLocaleString('en-US');
 
-          item.h_min_0 = parseFloat(item.h_min_0).toFixed(2);
+          item.h_min_0 != null ? item.h_min_0 = parseFloat(item.h_min_0).toFixed(2) : item.h_min_0 = 0;
           item.h_min_0 = item.h_min_0.toLocaleString('en-US');
 
-          item.h_min_1 = parseFloat(item.h_min_1).toFixed(2);
+          item.h_min_1 != null ? item.h_min_1 = parseFloat(item.h_min_1).toFixed(2) : item.h_min_1 = 0;
           item.h_min_1 = item.h_min_1.toLocaleString('en-US');
 
-          item.h_min_7 = parseFloat(item.h_min_7).toFixed(2);
+          item.h_min_7 != null ? item.h_min_7 = parseFloat(item.h_min_7).toFixed(2) : item.h_min_7 = 0;
           item.h_min_7 = item.h_min_7.toLocaleString('en-US');
 
-          item.h_min_30 = parseFloat(item.h_min_30).toFixed(2);
+          item.h_min_30 != null ? item.h_min_30 = parseFloat(item.h_min_30).toFixed(2) : item.h_min_30 = 0;
           item.h_min_30 = item.h_min_30.toLocaleString('en-US');
 
-          item.change_rkap = parseFloat(item.change_rkap).toFixed(2);
+          item.change_rkap != null ? item.change_rkap = parseFloat(item.change_rkap).toFixed(2) : item.change_rkap = 0;
           item.change_rkap = item.change_rkap.toLocaleString('en-US');
 
-          item.change_wow = parseFloat(item.change_wow).toFixed(2);
+          item.change_wow != null ? item.change_wow = parseFloat(item.change_wow).toFixed(2) : item.change_wow = 0;
           item.change_wow = item.change_wow.toLocaleString('en-US');
 
-          item.change_mom = parseFloat(item.change_mom).toFixed(2);
+          item.change_mom != null ? item.change_mom = parseFloat(item.change_mom).toFixed(2) : item.change_mom = 0;
           item.change_mom = item.change_mom.toLocaleString('en-US');
 
-          item.change_1day = parseFloat(item.change_1day).toFixed(2);
+          item.change_1day != null ? item.change_1day = parseFloat(item.change_1day).toFixed(2) : item.change_1day = 0;
           item.change_1day = item.change_1day.toLocaleString('en-US');
           return item
         })
@@ -166,7 +166,7 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
     await this.getDataRealisasi();
     await this.getDataRkap();
     await this.getDataOutlook();
-    
+
     this.tableConfig.initializeTableDataInterestRate(this.allLabelDate);
   }
 
