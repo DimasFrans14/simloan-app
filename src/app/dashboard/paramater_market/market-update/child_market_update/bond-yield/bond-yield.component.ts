@@ -57,6 +57,14 @@ export class BondYieldComponent {
       const data = await this.marketUpdateService.fetchDataRealisasiBondYieldSBN();
       this.dataDetailRealisasi = data;
       this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.sort((a: { tanggal: string; }, b: { tanggal: string; }) => {
+        const dateA = new Date(a.tanggal.split('/').reverse().join('/'));
+        const dateB = new Date(b.tanggal.split('/').reverse().join('/'));
+      
+        // Sort by latest year (ascending order)
+        return dateA.getFullYear() - dateB.getFullYear();
+      });
+      console.log('sort', this.dataDetailRealisasi)
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
     } catch (error) {
@@ -90,6 +98,11 @@ export class BondYieldComponent {
       item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       return item;
     })
+      this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
+        item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+        item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return item;
+      });
     this.tableConfig.setDataRkapBondYieldSBN(this.dataDetailRkap);
     console.log('finish get data in func');
   }
@@ -105,15 +118,11 @@ export class BondYieldComponent {
     } catch (error) {
       console.log(error);
     }
-    if (this.dataDetailOutlook == !null){
       this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
         item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
         item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         return item;
-      })
-    }else {
-
-    }
+      });
     this.tableConfig.setDataOutlookBondYieldSBN(this.dataDetailOutlook);
     console.log('finish get data in func');
   }

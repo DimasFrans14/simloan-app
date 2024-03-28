@@ -104,49 +104,5 @@
   </div>
   <!-- end  table outlook -->
 </div>
-<!-- Modal Edit -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true" data-bs-backdrop="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Modal</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form>
-      <div class="modal-body">
-          <mat-form-field class="me-2 date-field">
-            <mat-label class="label-datepicker">Pilih Tanggal</mat-label>
-          <input #datePickerValue matInput [matDatepicker]="picker3" autocomplete="off" disabled style="color: black;" name="tanggal">
-          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-          <mat-datepicker #picker3 color="primary" disabled="false" style="z-index: 3;"></mat-datepicker>
-        </mat-form-field>
-        <br/>
-        <!-- <label for="" class="fw-bold mb-1">Pilih Kurs</label> -->
-        <!-- <ng-select
-          [items]="dataDetail"
-          bindLabel="mata_uang"
-          bindValue="mata_uang"
-          [(ngModel)]="realisasiKursItem"
-          placeholder="Pilih Kurs"
-          (change)="realisasiKursSelect($event)"
-          name="nama_kurs"
-          [(ngModel)]="formDataOutlook.nama_kurs">
-        </ng-select> -->
-        <br/>
-        <!-- <input type="number" > -->
-        <label for="" ngClass="showDataOutlook" class="fw-bold mb-1"></label>
-        <input class="form-control" type="number" placeholder="Masukan nilai kurs" aria-label="Masukan nilai kurs" name="nilai" id="nilai" #nilaiEditRealKurs [(ngModel)]="formDataOutlook.nilai_outlook">
-        <br/>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save</button>
-      </div>
-    </form>
-
-    </div>
-  </div>
-</div>
-<!-- End Modal Edit -->
 </main>
 <app-footer></app-footer>

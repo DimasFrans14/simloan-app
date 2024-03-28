@@ -110,75 +110,75 @@ export class TableServicesService {
     this.sharedDataCadev = data;
   }
   setDataRealisasiPdb(data:any){
-    this.shareDataRealisasiPdb = data.content;
+    this.shareDataRealisasiPdb = data;
     console.log(this.shareDataRealisasiPdb)
   }
   setDataOutlookPdb(data:any){
-    this.shareDataOutlookPdb = data.content;
+    this.shareDataOutlookPdb = data;
     console.log(this.shareDataOutlookPdb)
   }
   setDataRkapPdb(data:any){
-    this.shareDataRkapPdb = data.content;
+    this.shareDataRkapPdb = data;
     console.log(this.shareDataRkapPdb)
   }
   setDataRealisasiInflasi(data:any){
-    this.shareDataRealisasiInflasi = data.content;
+    this.shareDataRealisasiInflasi = data;
     console.log(this.shareDataRealisasiInflasi)
   }
   setDataRkapInflasi(data:any){
-    this.shareDataRkapInflasi = data.content;
+    this.shareDataRkapInflasi = data;
     console.log(this.shareDataRkapInflasi)
   }
   setDataOutlookInflasi(data:any){
-    this.shareDataOutlookInflasi = data.content;
+    this.shareDataOutlookInflasi = data;
     console.log(this.shareDataOutlookInflasi)
   }
   setDataRealisasiPMI(data:any){
-    this.shareDataRealisasiPMI = data.content;
+    this.shareDataRealisasiPMI = data;
     console.log(this.shareDataRealisasiPMI);
   }
   setDataRkapPMI(data:any){
-    this.shareDataRkapPMI = data.content;
+    this.shareDataRkapPMI = data;
     console.log(this.shareDataRkapPMI);
   }
   setDataOutlookPMI(data:any){
-    this.shareDataOutlookPMI = data.content;
+    this.shareDataOutlookPMI = data;
     console.log(this.shareDataOutlookPMI);
   }
   setDataRealisasiRetail(data:any){
-    this.shareDataRealisasiRetail = data.content;
+    this.shareDataRealisasiRetail = data;
     console.log(this.shareDataRealisasiRetail);
   }
   setDataRkapRetail(data:any){
-    this.shareDataRkapRetail = data.content;
+    this.shareDataRkapRetail = data;
     console.log(this.shareDataRkapRetail);
   }
   setDataOutlookRetail(data:any){
-    this.shareDataOutlookMoneySupply = data.content;
-    console.log(this.shareDataOutlookMoneySupply);
+    this.shareDataOutlookRetail = data;
+    console.log(this.shareDataOutlookRetail);
   }
   setDataRealisasiMoneySupply(data:any){
-    this.shareDataRealisasiMoneySupply = data.content;
+    this.shareDataRealisasiMoneySupply = data;
     console.log(this.shareDataRealisasiMoneySupply);
   }
   setDataRkapMoneySupply(data:any){
-    this.shareDataRkapMoneySupply = data.content;
+    this.shareDataRkapMoneySupply = data;
     console.log(this.shareDataRkapMoneySupply);
   }
   setDataOutlookMoneySupply(data:any){
-    this.shareDataOutlookMoneySupply = data.content;
+    this.shareDataOutlookMoneySupply = data;
     console.log(this.shareDataOutlookMoneySupply);
   }
   setDataRealisasiCadev(data:any){
-    this.shareDataRealisasiCadev = data.content;
+    this.shareDataRealisasiCadev = data;
     console.log(this.shareDataRealisasiCadev);
   }
   setDataRkapCadev(data:any){
-    this.shareDataRkapCadev = data.content;
+    this.shareDataRkapCadev = data;
     console.log(this.shareDataRkapCadev);
   }
   setDataOutlookCadev(data:any){
-    this.shareDataOutlookCadev = data.content;
+    this.shareDataOutlookCadev = data;
     console.log(this.shareDataOutlookCadev);
   }
   setDataRealisasiCommodities(data:any){
@@ -193,13 +193,9 @@ export class TableServicesService {
     this.shareDataOutlookCommodities = data.content;
     console.log(this.shareDataOutlookCommodities);
   }
-  setDataRealisasiKursUsd(data:any){
-    this.shareDataRealisasiKursUsd = data.content;
-    console.log(this.shareDataRealisasiKursUsd);
-  }
   setDataRealisasiKurs(dataUsd:any, dataNonUsd:any){
     this.shareDataRealisasiKurs = dataUsd.concat(dataNonUsd);
-    console.log(this.shareDataRealisasiKurs.content)
+    console.log(this.shareDataRealisasiKurs)
   }
   setDataRkapKursUsd(data:any){
     this.shareDataRkapKursUsd = data;
@@ -550,7 +546,7 @@ export class TableServicesService {
     console.log('tanggal', arrayDate);
     console.log('tahun', arrayYear);
 
-    // console.log(arrayDate[0][0].h_min_30);
+    console.log(arrayDate[0][0].h_min_30);
 
     // console.log(today.slice(-2, 10));
     const formattedYear = moment().format('DD/MM/YYYY').slice(-2, 10);
@@ -575,7 +571,7 @@ export class TableServicesService {
         {title:"Change <br/>RKAP %", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change 1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change 1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
 
@@ -590,10 +586,10 @@ export class TableServicesService {
         {title:arrayDate.length > 0 && arrayDate[1].length > 0  ? arrayDate[1][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
         {title:arrayDate.length > 0 && arrayDate[1].length > 0  ? arrayDate[1][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
         {title:arrayDate.length > 0 && arrayDate[1].length > 0  ? arrayDate[1][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
-        {title:"Change <br/>RKAP %", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change 1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change 1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
 
@@ -658,10 +654,10 @@ export class TableServicesService {
         ],
         headerHozAlign:"center"
       },
-    {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-    {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-    {title:"Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-    {title:"Change Dari RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Change <br/>1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Change Dari RKAP %", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
     ],
   });
 
@@ -831,21 +827,21 @@ export class TableServicesService {
         {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
         {title:"5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"7Yr", field:"7yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"10Yr", field:"10yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"15Yr", field:"15r", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"20Yr", field:"20Yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"25Yr", field:"25yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"30Yr", field:"30yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"7Yr", field:"yr7", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"10Yr", field:"yr10", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"15Yr", field:"yr15", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"20Yr", field:"yr20", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"25Yr", field:"yr25", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"30Yr", field:"yr30", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiUsTreasury, headerSort:false,headerHozAlign:"center", resizable:false},
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiUsTreasury, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiUsTreasury, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiUsTreasury, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiUsTreasury, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiUsTreasury, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
 
@@ -860,14 +856,14 @@ export class TableServicesService {
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
         {title:"Rate", field:"rate", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapUsTreasury, headerSort:false,headerHozAlign:"center", resizable:false},
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapUsTreasury, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapUsTreasury, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapUsTreasury, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
     ],
     });
 
@@ -891,10 +887,10 @@ export class TableServicesService {
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookUsTreasury, headerSort:false,headerHozAlign:"center", resizable:false},
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookUsTreasury, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookUsTreasury, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     })
   }
@@ -918,21 +914,6 @@ export class TableServicesService {
     const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/trash.svg'</span>";
     }
-    // detail
-    this.tablePDB = new Tabulator(".table-DetailPdb", {
-      pagination:true, //enable.
-      paginationSize:20,
-      data:this.dataPDB,
-      layout:"fitColumns",
-      columnMoved:function(column, _columns){
-        alert("The user has moved column: " + column.getField()); //display the columns field name
-    },
-      columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false}
-      ],
-    });
     //realisasi
     this.tableRealisasiPdb = new Tabulator(".table-realisasiPdb", {
       pagination:true, //enable.
@@ -943,7 +924,7 @@ export class TableServicesService {
         alert("The user has moved column: " + column.getField()); //display the columns field name
     },
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left',editable:this.isRowSelected, editor: "input",headerSort:false,},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left',editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center',editable:this.isRowSelected, editor: "number", headerSort:false},
         {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
         {title:"Action", headerHozAlign:"center", columns:[
@@ -951,10 +932,10 @@ export class TableServicesService {
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:'center',  resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiPdb, headerSort:false, headerHozAlign:"center", hozAlign:'center',  resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, hozAlign:'center', resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, hozAlign:'center', resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, hozAlign:'center', resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiPdb, headerSort:false, hozAlign:'center', resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonPdb, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiPdb, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
     //Rkap
@@ -964,18 +945,18 @@ export class TableServicesService {
       data:this.shareDataRkapPdb,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left',editable:this.isRowSelected, editor: "input",headerSort:false,},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left',editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center',editable:this.isRowSelected, editor: "number", headerSort:false},
         {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapPdb, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapPdb, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapPdb, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapPdb, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapPdb, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapPdb, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
     this.tableOutlookPdb = new Tabulator(".table-outlookPdb", {
@@ -984,23 +965,23 @@ export class TableServicesService {
       data:this.shareDataOutlookPdb,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input",headerSort:false,},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input",headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor: "number", headerSort:false},
         {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookPdb, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookPdb, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPdb, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
     ],
     });
   }
 
-  initializeTableDataInflasi(){
+  initializeTableDataInflasi( arrayYear: any[]){
     const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/plus-square.svg'></span>";
     }
@@ -1019,6 +1000,8 @@ export class TableServicesService {
     const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/trash.svg'</span>";
     }
+    const formattedYear = moment().format('DD/MM/YYYY').slice(-2, 10);
+
     this.tableInflasi = new Tabulator(".table-detailInflasi", {
       // height:205,
       height:"555px",
@@ -1028,11 +1011,11 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2021", field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Bulan", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
+        {title:arrayYear.length > 0 ? arrayYear[3] : '', field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[2] : '', field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[1] : '', field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[0] : '', field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
       ],
     });
     this.tableRealisasiInflasi = new Tabulator(".table-ralisasiInflasi", {
@@ -1044,18 +1027,18 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Bulan", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editable:this.isRowSelected, editor:"input"},
+        {title:"Bulan", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, editable:this.isRowSelected, editor:"input"},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiInflasi, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiInflasi, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiInflasi, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiInflasi, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiInflasi, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiInflasi, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
     this.tableRkapInflasi = new Tabulator(".table-rkapInflasi", {
@@ -1064,18 +1047,18 @@ export class TableServicesService {
       data:this.shareDataRkapInflasi,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editable:this.isRowSelected, editor:"input"},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, editable:this.isRowSelected, editor:"input"},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapInflasi, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapInflasi, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapInflasi, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapInflasi, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapInflasi, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapInflasi, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
     this.tableOutlookInflasi = new Tabulator(".table-otulookInflasi", {
@@ -1084,18 +1067,18 @@ export class TableServicesService {
       data:this.shareDataOutlookInflasi,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected},
-        {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, editable:this.isRowSelected, editor:"input"},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
+        {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookInflasi, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookInflasi, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookInflasi, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookInflasi, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookInflasi, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookInflasi, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
   }
@@ -1144,18 +1127,18 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Bulan", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
+        {title:"Bulan", field:"bulan", headerHozAlign:"left", hozAlign:'left', editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
         {title:"Rate", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiPMI, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiPMI, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiPMI, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiPMI, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiPMI, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiPMI, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
     this.tableRkapPmi = new Tabulator(".table-rkapPmi", {
@@ -1164,18 +1147,18 @@ export class TableServicesService {
       data:this.shareDataRkapPMI,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"Rate", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapPMI, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapPMI, headerSort:false,  headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapPMI, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapPMI, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapPMI, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapPMI, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
     this.tableOutlookPmi = new Tabulator(".table-outlookPmi", {
@@ -1184,18 +1167,18 @@ export class TableServicesService {
       data:this.shareDataOutlookPMI,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
+        {title:"Bulan", field:"bulan", headerHozAlign:"left", hozAlign:'left', editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
-        {title:"Nilai", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
+        {title:"Rate", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookPMI, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookPMI, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPdb, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPMI, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookPMI, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookPMI, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
   }
@@ -1244,18 +1227,18 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', editor: "input", editable:this.isRowSelected, headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambha", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiRetail, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambha", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiRetail, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiRetail, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiRetail, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiRetail, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiRetail, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ]
     });
     this.tableRkapRetail = new Tabulator(".table-rkapRetail", {
@@ -1264,18 +1247,18 @@ export class TableServicesService {
       data:this.shareDataRkapRetail,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", editable:this.isRowSelected},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', editor: "input", editable:this.isRowSelected, headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapRetail, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapRetail, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapRetail, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapRetail, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapRetail, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapRetail, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
     this.tableOutlookRetail = new Tabulator(".table-outlookRetail", {
@@ -1284,18 +1267,18 @@ export class TableServicesService {
       data:this.shareDataOutlookRetail,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
-        {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
+        {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookRetail, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookRetail, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookRetail, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookRetail, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookRetail, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookRetail, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
   }
@@ -1345,18 +1328,18 @@ export class TableServicesService {
       // movableRows: true,
       // movableColumns: true,
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input",editable:this.isRowSelected},
+        {title:"Bulan", field:"bulan", headerHozAlign:"left", hozAlign:'left', editor: "input",editable:this.isRowSelected, headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Nilai", field:"triliun_beredar", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiMoneySupply, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiMoneySupply, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiMoneySupply, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiMoneySupply, headerSort:false, resizable:false,visible:false}
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiMoneySupply, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiMoneySupply, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false}
       ],
     });
     this.tableRkapMoneySupply = new Tabulator(".table-rkapMoneySupply", {
@@ -1365,18 +1348,18 @@ export class TableServicesService {
       data:this.shareDataRkapMoneySupply,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", editable:this.isRowSelected},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', editor: "input", editable:this.isRowSelected, headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapMoneySupply, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapMoneySupply, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapMoneySupply, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapMoneySupply, headerSort:false, resizable:false,visible:false}
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapMoneySupply, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapMoneySupply, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false}
       ],
     });
     this.tableOutlookMoneySupply = new Tabulator(".table-outlookMoneySupply", {
@@ -1385,18 +1368,18 @@ export class TableServicesService {
       data:this.shareDataOutlookMoneySupply,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input", editable:this.isRowSelected},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', editor: "input", editable:this.isRowSelected, headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Nilai", field:"triliun_beredar", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookMoneySupply, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookMoneySupply, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookMoneySupply, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookMoneySupply, headerSort:false, resizable:false,visible:false}
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookMoneySupply, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookMoneySupply, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false}
       ],
     });
   }
@@ -1441,18 +1424,18 @@ export class TableServicesService {
       data:this.shareDataRealisasiCadev,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
-        {title:"Nilai", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "number"},
+        {title:"Nilai", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "number"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiCadev, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton ,headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiCadev, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiCadev, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiCadev, headerSort:false, resizable:false,visible:false}
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiCadev, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiCadev, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false}
       ],
     });
     this.tableRkapForeignExchange = new Tabulator(".table-rkapForeignExchange", {
@@ -1461,18 +1444,18 @@ export class TableServicesService {
       data:this.shareDataRkapCadev,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
-        {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
+        {title:"Periode", field:"quartal", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "number"},
+        {title:"Nilai", field:"pdb", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "number"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapCadev, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapCadev, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapCadev, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapCadev, headerSort:false, resizable:false,visible:false}
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapCadev, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapCadev, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false}
       ],
     });
     this.tableOutlookForeignExchange = new Tabulator(".table-outlookForeignExchange", {
@@ -1481,18 +1464,18 @@ export class TableServicesService {
       data:this.shareDataOutlookCadev,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true, editor: "input"},
-        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
-        {title:"Nilai", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number"},
+        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "number"},
+        {title:"Nilai", field:"miliar_usd", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor: "number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookCadev, headerSort:false, headerHozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookCadev, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookCadev, headerSort:false, resizable:false,visible:false}
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookCadev, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookCadev, headerSort:false, resizable:false,visible:false}
       ],
     });
   }
@@ -1538,7 +1521,7 @@ export class TableServicesService {
         {title:"Change <br/>RKAP %", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
         {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change 1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change 1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
 
@@ -1548,8 +1531,8 @@ export class TableServicesService {
     data:this.shareDataRealisasiKurs,
     layout:"fitColumns",
     columns:[
+      {title:"Mata Uang", field:"mata_uang", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
       {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor:"input"},
-      {title:"Mata Uang", field:"mata_uang", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
       {
         title: "Nilai",
         formatter: function(cell) {
@@ -1565,14 +1548,14 @@ export class TableServicesService {
         editable: this.isRowSelected, editor:"number"},
       // {title:"Kurs", field:"kurs", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false },
       {title:"Action", headerHozAlign:"center", columns:[
-        {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
-        {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiCurrency, headerSort:false,headerHozAlign:"center", resizable:false},
+        {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+        {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiCurrency, headerSort:false,headerHozAlign:"center", hozAlign:"center", resizable:false},
       ]},
-      {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtoRealisasiCurrency, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiCurrency, headerSort:false, resizable:false,visible:false},
+      {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+      {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtoRealisasiCurrency, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+      {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+      {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiCurrency, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
     ],
   });
 
@@ -1582,19 +1565,19 @@ export class TableServicesService {
     data:this.shareDataRkapKursUsd,
     layout:"fitColumns",
     columns:[
-      {title:"Mata Uang", field:"mtu", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor:"number", headerSort:false},
+      {title:"Mata Uang", field:"mtu", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor:"number", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
       {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
       {title:"tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
       {title:"Rate", field:"rate", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
         {title:"Action", headerHozAlign:"center", columns:[
-        {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
-        {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapCurrencyRate, headerSort:false,headerHozAlign:"center", resizable:false},
+        {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+        {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapCurrencyRate, headerSort:false,headerHozAlign:"center", hozAlign:"center", resizable:false},
       ]},
-      {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapCurrency, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapCurrency, headerSort:false, resizable:false,visible:false},
+      {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+      {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapCurrency, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+      {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+      {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapCurrency, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
     ],
   });
 
@@ -1604,8 +1587,8 @@ export class TableServicesService {
     data:this.shareDataOutlookKursUsd,
     layout:"fitColumns",
     columns:[
+      {title:"Mata Uang", field:"mata_uang", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
       {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor:"input"},
-      {title:"Mata Uang", field:"mata_uang", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
       {
         title: "Nilai",
         formatter: function(cell) {
@@ -1621,14 +1604,14 @@ export class TableServicesService {
         editable: this.isRowSelected, editor:"number"},
       // {title:"Kurs", field:"kurs", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
       {title:"Action", headerHozAlign:"center", columns:[
-        {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
-        {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookCurrencyRate, headerSort:false,headerHozAlign:"center", resizable:false},
+        {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+        {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookCurrencyRate, headerSort:false,headerHozAlign:"center", hozAlign:"center", resizable:false},
       ]},
-      {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookCurrency, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookCurrency, headerSort:false, resizable:false,visible:false},
+      {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+      {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookCurrency, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+      {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+      {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookCurrency, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
   });
 
@@ -1692,10 +1675,10 @@ export class TableServicesService {
         {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_7 : '', field:"h_min_7", hozAlign:"center", headerHozAlign:"center"},
         {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_1 : '', field:"h_min_1", hozAlign:"center", headerHozAlign:"center"},
         {title:arrayDate[0].length > 0 ? arrayDate[0][0].h_min_0 : '', field:"h_min_0", hozAlign:"center", headerHozAlign:"center"},
-        {title:"Change <br/>RKAP %", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"Change 1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:"Change 1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
     this.tableRealisasiInterestRate = new Tabulator(".table-realisasiInterestRate", {
@@ -1704,20 +1687,31 @@ export class TableServicesService {
       data:this.shareDataRealisasiInterestRate,
       layout:"fitColumns",
       columns:[
-        {title:"Rates", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor: "input", minWidth: 130},
+        {title:"Rates", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, width:130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
-        {title:"Month 3", field:"month3", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
-        {title:"Month 6", field:"month6", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
+        {
+          title: "Nilai",
+          formatter: function(cell) {
+            // Mendapatkan nilai 'nilai' atau 'kurs' berdasarkan data di setiap baris
+            const interest = cell.getRow().getData().grup;
+            const fieldValue = interest === 'JIBOR_3M' && 'AVG_SOFR_3M' && 'EURIBOR_3M' ? 'month3' : 'JIBOR_6M' && 'AVG_SOFR_6M' && 'EURIBOR_6M' ? 'month6' : 'rate';
+  
+            // Mengembalikan nilai yang ingin ditampilkan di dalam sel
+            return cell.getRow().getData()[fieldValue];
+          },
+          headerHozAlign: "center",
+          hozAlign: 'center',
+          editable: this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Hapus", field:"tambahButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiInterestRate, headerSort:false,headerHozAlign:"center", resizable:false},
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Hapus", field:"tambahButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_addButtonRealisasiInterestRate, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiInterestRate, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_addButtonRealisasiInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
     this.tableRkapInterestRate = new Tabulator(".table-rkapInterestRate", {
@@ -1726,44 +1720,40 @@ export class TableServicesService {
         data:this.shareDataRkapInterestRate,
         layout:"fitColumns",
         columns:[
-          {title:"Grup", field:"mtu", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input", minWidth: 130},
+        {title:"Grup", field:"mtu", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, width:130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
-        {title:"Month 3", field:"rate", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
-        {title:"Month 6", field:"month6", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
+        {title:"Nilai", field:"rate", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
           {title:"Action", headerHozAlign:"center", columns:[
-            {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
-            {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-            {title:"Hapus", field:"tambahButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapInterestRate, headerSort:false, headerHozAlign:"center", resizable:false},
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Hapus", field:"tambahButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
           ]},
-          {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapInterestRate, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapInterestRate, headerSort:false, resizable:false,visible:false},
+          {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+          {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+          {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+          {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
         ],
     });
-
     this.tableOutlookInterestRate = new Tabulator(".table-outlookInterestRate", {
       pagination: true,
       paginationSize:20,
       data:this.shareDataOutlookInterestRate,
       layout:"fitColumns",
       columns:[
-        {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor: "input", minWidth: 130},
+        {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input",headerFilterParams:{valuesLookup:"all", clearable:true}, minWidth: 130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
-        {title:"Rate", field:"rate", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
-        {title:"Month 3", field:"month3", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
-        {title:"Month 6", field:"month6", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
+        {title:"Nilai", field:"rate", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookInterestRate, headerSort:false,headerHozAlign:"center", resizable:false},
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookInterestRate, headerSort:false,headerHozAlign:"center", hozAlign:"center", resizable:false},
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookInterestRate, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookInterestRate, headerSort:false, resizable:false,visible:false},
+        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
   }
@@ -1808,9 +1798,9 @@ export class TableServicesService {
           ],
         headerHozAlign:"center"
       },
-    {title:"Change <br/>MoM", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-    {title:"Change <br/>WoW", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-    {title:"Change <br/>1 Day", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Change <br/>MoM %", field:"change_mom", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Change <br/>WoW %", field:"change_wow", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+    {title:"Change <br/>1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
     {title:"Change Dari RKAP", field:"change_rkap", headerHozAlign:"center", hozAlign:'center', headerSort:false},
     ],
     });
@@ -1821,19 +1811,19 @@ export class TableServicesService {
     paginationSize:15,
     layout:"fitColumns",
       columns:[
-        {title:"Commodities", field:"kode", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"Commodities", field:"kode", headerHozAlign:"left", hozAlign:'left', headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, editor: "input", minWidth: 130},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiCommodities, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiCommodities, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton", formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiCommodities, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton", formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton", formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiCommodities, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton", formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiCommodities, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton", formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton", formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiCommodities, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
     this.tableRKAPComodities = new Tabulator(".table-RKAP", {
@@ -1843,19 +1833,19 @@ export class TableServicesService {
       data:this.shareDataRkapCommodities,
       layout:"fitColumns",
         columns:[
-          {title:"Commodities", field:"mtu", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+          {title:"Commodities", field:"mtu", headerHozAlign:"left", hozAlign:'left', headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, editor: "input", minWidth: 130},
           {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
           {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
           {title:"Rate", field:"rate", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
           {title:"Action", headerHozAlign:"center", columns:[
-            {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
-            {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-            {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkaommodities, headerSort:false, headerHozAlign:"center", resizable:false}
+            {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+            {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+            {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkaommodities, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
           ]},
-          {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"SaveButton", formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiCommodities, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"CancelAddButton", formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-          {title:"", field:"SaveAddButton", formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiCommodities, headerSort:false, resizable:false,visible:false},
+          {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+          {title:"Simpan", field:"SaveButton", formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiCommodities, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+          {title:"Cancel", field:"CancelAddButton", formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+          {title:"Tambah", field:"SaveAddButton", formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiCommodities, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
     this.tableOutlookComodities = new Tabulator(".table-Outlook", {
@@ -1865,25 +1855,25 @@ export class TableServicesService {
       data:this.shareDataOutlookCommodities,
       layout:"fitColumns",
       columns:[
-        {title:"Commodities", field:"kode_item", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+        {title:"Commodities", field:"kode_item", headerHozAlign:"left", hozAlign:'left', headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, editor: "input", minWidth: 130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"Nilai", field:"nilai", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"Keteranga", field:"keterangan", headerHozAlign:"center", hozAlign:'center', headerSort:false, editable:this.isRowSelected, editor:"input"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookCommodities, headerSort:false, headerHozAlign:"center", resizable:false}
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookCommodities, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton", formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookCommodities, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton", formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton", formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookCommodities, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton", formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookCommodities, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton", formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton", formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookCommodities, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
   }
 
-  initializeTableDataBondYield(arrayDate:any[]){
+ initializeTableDataBondYield(arrayDate:any[]){
     const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/plus-square.svg'></span>";
     }
@@ -1902,7 +1892,7 @@ export class TableServicesService {
     const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/trash.svg'</span>";
     }
-    const formattedYear = moment().format('DD/MM/YYYY').slice(-2, 10);
+    moment().format('DD/MM/YYYY').slice(-2, 10);
     this.tableBondYieldUST = new Tabulator(".table-bondYieldDetail", {
       // height:205,
       data:this.dataBondYieldSBN,
@@ -1934,73 +1924,71 @@ export class TableServicesService {
         {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
         {title:"5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"7Yr", field:"7yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"10Yr", field:"10yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"15Yr", field:"15r", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"20Yr", field:"20Yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"25Yr", field:"25yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"30Yr", field:"30yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"7Yr", field:"yr7", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"10Yr", field:"yr10", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"15Yr", field:"yr15", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"20Yr", field:"yr20", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"25Yr", field:"yr25", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"30Yr", field:"yr30", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton,headerHozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false,headerHozAlign:"center", resizable:false},
-          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiSBN, headerSort:false,headerHozAlign:"center", resizable:false},
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center" ,hozAlign:"center", headerSort:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center"},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiSBN, headerSort:false, headerHozAlign:"center", hozAlign:"center"},
         ]},
-        {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiSBN, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-        {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiSBN, headerSort:false, resizable:false,visible:false},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiSBN, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiSBN, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
-
-  this.tableRKAPBondYield = new Tabulator(".table-rkap", {
-    pagination:true, //enable.
-    paginationSize:20,
-    data:this.shareDataRkapBondYieldSBN,
-    layout:"fitColumns",
-    columns:[
-      {title:"Group", field:"mtu", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
-      {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-      {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-      {title:"Rate", field:"rate", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-      {title:"Action", headerHozAlign:"center", columns:[
-        {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
-        {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapSBN, headerSort:false, headerHozAlign:"center", resizable:false}
-      ]},
-      {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapSBN, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapSBN, headerSort:false, resizable:false,visible:false},
-    ],
-  });
-
-  this.tableOutlookBondYield = new Tabulator(".table-Outlook", {
-    pagination:true, //enable.
-    paginationSize:20,
-    data:this.shareDataOutlookBondYieldSBN,
-    layout:"fitColumns",
-    columns:[
-      {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+    this.tableRKAPBondYield = new Tabulator(".table-rkap", {
+      pagination:true, //enable.
+      paginationSize:20,
+      data:this.shareDataRkapBondYieldSBN,
+      layout:"fitColumns",
+      columns:[
+        {title:"Group", field:"mtu", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-        {title:"5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"7Yr", field:"7yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"10Yr", field:"10yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"15Yr", field:"15r", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"20Yr", field:"20Yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"25Yr", field:"25yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"30Yr", field:"30yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-      {title:"Action", headerHozAlign:"center", columns:[
-        {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", headerSort:false, resizable:false},
-        {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", headerSort:false, resizable:false},
-        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookSBN, headerSort:false, headerHozAlign:"center", resizable:false}
-      ]},
-      {title:"", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookSBN, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, resizable:false,visible:false},
-      {title:"", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookSBN, headerSort:false, resizable:false,visible:false},
-    ],
-  });
-  }
+        {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
+        {title:"Rate", field:"rate", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapSBN, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
+        ]},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonRkapSBN, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRkapSBN, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+      ],
+    });
+    this.tableOutlookBondYield = new Tabulator(".table-Outlook", {
+      pagination:true, //enable.
+      paginationSize:20,
+      data:this.shareDataOutlookBondYieldSBN,
+      layout:"fitColumns",
+      columns:[
+        {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editor: "input", minWidth: 130},
+          {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
+          {title:"5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+          {title:"7Yr", field:"7yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+          {title:"10Yr", field:"10yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+          {title:"15Yr", field:"15r", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+          {title:"20Yr", field:"20Yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+          {title:"25Yr", field:"25yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+          {title:"30Yr", field:"30yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookSBN, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false}
+        ]},
+        {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonOutlookSBN, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookSBN, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+      ],
+    });
+  } 
 
   initializeTableDataFindebt(){
 
@@ -2978,6 +2966,7 @@ export class TableServicesService {
       nilai: rowData.nilai
     }
     console.log(data);
+     await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data);
   }
   cellClick_addButtonRealisasiPdb = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -2997,8 +2986,7 @@ export class TableServicesService {
       nilai: rowData.nilai
     }
     console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRealisasiPDB(data);
-    const getBackData = await this.marketUpdateService.fetchDataPDB();
+    await this.marketUpdateService.fetchDataInputRealisasiPDB(data);
   }
   cellClick_deleteButtonRealisasiPdb = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3100,7 +3088,6 @@ export class TableServicesService {
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataInputOutlookPDB(data);
-    const getBackData = await this.marketUpdateService.fetchDataOutlookPdb();
   }
   cellClick_deleteButtonOutlookPdb = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3131,7 +3118,7 @@ export class TableServicesService {
       nilai: rowData.nilai
     }
     console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRealisasiInflasi(data);
+    const response = await this.marketUpdateService.fetchDataUpdateRealisasiInflasi(data);
   }
   cellClick_addButtonRealisasiInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3177,9 +3164,9 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      quartal: rowData.quartal,
       tahun: rowData.tahun,
-      nilai: rowData.nilai
+      pdb: rowData.pdb
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateRkapInflasi(data);
@@ -3202,8 +3189,7 @@ export class TableServicesService {
       pdb: rowData.pdb
     }
     console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRkapPDB(data);
-    const getBackData = await this.marketUpdateService.fetchDataPDB();
+    await this.marketUpdateService.fetchDataInputRkapInflasi(data);
   }
   cellClick_deleteButtonRkapInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3233,7 +3219,7 @@ export class TableServicesService {
       nilai: rowData.nilai,
     }
     console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateOutlookInflasi(data);
+    await this.marketUpdateService.fetchDataUpdateOutlookInflasi(data);
   }
   cellClick_addButtonOutlookInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3248,9 +3234,9 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      quartal: rowData.quartal,
+      bulan: rowData.bulan,
       tahun: rowData.tahun,
-      pdb: rowData.pdb
+      nilai: rowData.nilai
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataInputOutlookInflasi(data);
@@ -3350,9 +3336,9 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      bulan: rowData.bulan,
+      quartal: rowData.quartal,
       tahun: rowData.tahun,
-      rate: rowData.rate
+      pdb: rowData.pdb
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataInputRkapPMI(data);
@@ -3401,13 +3387,13 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      quartal: rowData.quartal,
+      id: rowData.id,
+      bulan: rowData.bulan,
       tahun: rowData.tahun,
-      pdb: rowData.pdb
+      rate: rowData.rate
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataInputOutlookPMI(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
   cellClick_deleteButtonOutlookPMI = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3536,9 +3522,9 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      quartal: rowData.quartal,
       tahun: rowData.tahun,
-      nilai: rowData.nilai
+      pdb: rowData.pdb
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataUpdateOutlookRetail(data);
