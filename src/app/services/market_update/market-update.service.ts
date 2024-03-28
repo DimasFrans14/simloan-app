@@ -7,6 +7,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class MarketUpdateService {
+  fetchDeleteDataRkapCurrencyRate(data: { id: any; }) {
+    throw new Error('Method not implemented.');
+  }
   static fetchDataUpdateRealisasiPDB: any;
   // getDataInflasiByParams(rowId: any) {
   //   throw new Error('Method not implemented.');
@@ -954,18 +957,15 @@ export class MarketUpdateService {
     }
   }
   async fetchDataInputRealisasiCommodities(data:any){
-    const params = {
-      "globalCommoditiesEnum": data.kode_item
-    }
     const data1= {
-      "kode": data.kode_item,
+      "kode": data.kode,
       "tanggal": data.tanggal,
       "nilai": data.nilai,
       "tahun": data.tahun,
     }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/create_commodities?globalCommoditiesEnum=${params}`, data1)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/create_commodities?globalCommoditiesEnum=${data1.kode}`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -973,11 +973,8 @@ export class MarketUpdateService {
     }
   }
   async fetchDataUpdateRealisasiCommodities(data:any){
-    const params = {
-      "globalCommoditiesEnum": data.kode_item
-    }
     const data1 = {
-      "kode_item": data.kode_item,
+      "kode": data.kode,
       "tahun": data.tahun,
       "tanggal": data.tanggal,
       "nilai": data.nilai,
@@ -986,7 +983,7 @@ export class MarketUpdateService {
     }
     try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/create_commodities?globalCommoditiesEnum=${params}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/create_commodities?id=${data.id}&globalCommoditiesEnum=${data1.kode}`, data1)
     )
     } catch (error) {
       console.log(error);
@@ -1015,18 +1012,19 @@ export class MarketUpdateService {
   }
   async fetchDataInputRkapCommodities(data:any){
     const data1= {
-      "master_rkap_commodities_creates":[{
-        "kode_item": data.quartal,
-        "nilai":data.tahun,
-        "tanggal": data.nilai,
-        "tahun": data.nilai,
-        "keterangan": data.nilai,
-        "is_active": true
-      }]
+      "master_rkap_commodities_creates": [
+        {
+          "kode_item": data.mtu,
+          "nilai": data.rate,
+          "tanggal": data.tanggal,
+          "tahun": data.tahun,
+          "keterangan": data.keterangan
+        }
+      ]
     }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`, data1)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/master-rkap-commodities`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -1036,12 +1034,11 @@ export class MarketUpdateService {
   async fetchDataUpdateRkapCommodities(data:any){
     const data1 = {
       "id": data.id,
-      "kode_item": data.kode_item,
-      "nilai": data.nilai,
+      "kode_item": data.mtu,
+      "nilai": data.rate,
       "tanggal": data.tanggal,
       "tahun": data.tahun,
-      "keterangan": data.keterangan,
-      "is_active": true
+      "keterangan": data.keterangan
     }
   try {
     return await lastValueFrom(
@@ -1079,7 +1076,6 @@ export class MarketUpdateService {
       "tanggal": data.tanggal,
       "nilai": data.nilai,
       "keterangan": data.keterangan,
-      "is_active": true
     }
   try {
     return await lastValueFrom(
@@ -1090,15 +1086,13 @@ export class MarketUpdateService {
       return error
     }
   }
-  // belum di cek
   async fetchDataInputOutlookCommodities(data:any){
     const data1= {
-      "master_real_pdb_creates":[{
-        "quartal": data.quartal,
-        "tahun":data.tahun,
-        "nilai": data.nilai,
-        "is_active": true
-      }]
+      "kode_item": data.kode_item,
+      "tanggal": data.tanggal,
+      "tahun": data.tahun,
+      "nilai": data.nilai,
+      "keterangan": data.keterangan
     }
     try {
       return await lastValueFrom(

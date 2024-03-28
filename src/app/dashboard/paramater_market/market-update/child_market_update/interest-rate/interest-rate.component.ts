@@ -52,6 +52,7 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
           item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
           return item
         })
+        
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
     } catch (error) {

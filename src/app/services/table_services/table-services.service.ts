@@ -1852,7 +1852,7 @@ export class TableServicesService {
           {title:"Action", headerHozAlign:"center", columns:[
             {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
             {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
-            {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkaommodities, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
+            {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapmmodities, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
           ]},
           {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
           {title:"Simpan", field:"SaveButton", formatter:saveBtn, cellClick:this.cellClick_SaveButtonRealisasiCommodities, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
@@ -4284,7 +4284,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      kode_item: rowData.kode,
+      kode: rowData.kode,
       tahun: rowData.tahun,
       tanggal: rowData.tanggal,
       nilai: rowData.nilai,
@@ -4306,7 +4306,7 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      kode_item: rowData.kode,
+      kode: rowData.kode,
       tahun: rowData.tahun,
       tanggal: rowData.tanggal,
       nilai: rowData.nilai,
@@ -4337,10 +4337,10 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      kode_item: rowData.kode_item,
+      kode_item: rowData.mtu,
       tahun: rowData.tahun,
       tanggal: rowData.tanggal,
-      nilai: rowData.nilai,
+      rate: rowData.rate,
       keterangan: rowData.keterangan
     }
     console.log(data);
@@ -4360,23 +4360,23 @@ export class TableServicesService {
     currentTable.hideColumn("SaveAddButton")
     const data = {
       id: rowData.id,
-      kode_item: rowData.kode_item,
+      kode_item: rowData.mtu,
       tahun: rowData.tahun,
       tanggal: rowData.tanggal,
-      nilai: rowData.nilai,
+      rate: rowData.rate,
       kategori: rowData.kategori
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataInputRkapCommodities(data);
   }
-  cellClick_deleteButtonRkaommodities = async (e: any, cell:any) => {
+  cellClick_deleteButtonRkapmmodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
     this.tableOutlookCurrencyRate.deleteRow(data.id)
     console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataOutlookCurrencyRate(data);
+    const response = await this.marketUpdateService.fetchDeleteDataRkapCurrencyRate(data);
   }
   cellClick_SaveButtonOutlookCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4422,8 +4422,7 @@ export class TableServicesService {
       kategori: rowData.kategori
     }
     console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateOutlookCommodities(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const response = await this.marketUpdateService.fetchDataInputOutlookCommodities(data);
   }
   cellClick_deleteButtonOutlookCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
