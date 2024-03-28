@@ -78,11 +78,16 @@ export class PdbComponent {
     } catch(error) {
       console.log(error)
     }
-    this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
-      item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
-      item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      return item;
-    })
+    if (this.dataDetailRkap != null){
+      this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
+        item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
+        item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return item;
+      })
+    } else {
+      console.log('data kosong')
+    }
+    
     this.tableConfig.setDataRkapPdb(this.dataDetailRkap);
     console.log('finish get data by function')
   }
