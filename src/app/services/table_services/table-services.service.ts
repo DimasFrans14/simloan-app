@@ -1695,8 +1695,8 @@ export class TableServicesService {
           formatter: function(cell) {
             // Mendapatkan nilai 'nilai' atau 'kurs' berdasarkan data di setiap baris
             const interest = cell.getRow().getData().grup;
-            const fieldValue = interest === 'JIBOR_3M' && 'AVG_SOFR_3M' && 'EURIBOR_3M' ? 'month3' : 'JIBOR_6M' && 'AVG_SOFR_6M' && 'EURIBOR_6M' ? 'month6' : 'rate';
-  
+            const fieldValue = interest === 'JIBOR_3M'|| interest === 'AVG_SOFR_3M' || interest === 'EURIBOR_3M' ? 'month3' : interest === 'JIBOR_6M' || interest === 'AVG_SOFR_6M' || interest === 'EURIBOR_6M' ? 'month6' : 'rate';
+
             // Mengembalikan nilai yang ingin ditampilkan di dalam sel
             return cell.getRow().getData()[fieldValue];
           },
@@ -1744,7 +1744,19 @@ export class TableServicesService {
         {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input",headerFilterParams:{valuesLookup:"all", clearable:true}, minWidth: 130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
-        {title:"Nilai", field:"rate", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
+        {
+          title: "Nilai",
+          formatter: function(cell) {
+            // Mendapatkan nilai 'nilai' atau 'kurs' berdasarkan data di setiap baris
+            const interest = cell.getRow().getData().grup;
+            const fieldValue = interest === 'JIBOR_3M'|| interest === 'AVG_SOFR_3M' || interest === 'EURIBOR_3M' ? 'month3' : interest === 'JIBOR_6M' || interest === 'AVG_SOFR_6M' || interest === 'EURIBOR_6M' ? 'month6' : 'rate';
+
+            // Mengembalikan nilai yang ingin ditampilkan di dalam sel
+            return cell.getRow().getData()[fieldValue];
+          },
+          headerHozAlign: "center",
+          hozAlign: 'center',
+          editable: this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
@@ -1988,7 +2000,7 @@ export class TableServicesService {
         {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookSBN, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
     });
-  } 
+  }
 
   initializeTableDataFindebt(){
 
@@ -3973,7 +3985,7 @@ export class TableServicesService {
     }else {
       await this.marketUpdateService.fetchDataUpdateRkapKursUsd(data);
     }
-    // 
+    //
     console.log(data);
   }
   cellClick_addButtonRkapCurrency = async (e: any, cell:any) => {
@@ -4447,7 +4459,7 @@ export class TableServicesService {
       yr30: rowData.yr30,
     }
     console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRealisasiBondYieldSBN(data);    
+    const response = await this.marketUpdateService.fetchDataUpdateRealisasiBondYieldSBN(data);
   }
   cellClick_addButtonRealisasiSBN = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();

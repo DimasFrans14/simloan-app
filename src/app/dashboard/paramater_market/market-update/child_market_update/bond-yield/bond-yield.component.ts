@@ -10,7 +10,7 @@ import * as moment from 'moment';
   styleUrls: ['./bond-yield.component.css']
 })
 export class BondYieldComponent {
-  
+
   constructor(
     private tableConfig: TableServicesService,
     private marketUpdateService: MarketUpdateService,
@@ -60,7 +60,7 @@ export class BondYieldComponent {
       this.dataDetailRealisasi = this.dataDetailRealisasi.sort((a: { tanggal: string; }, b: { tanggal: string; }) => {
         const dateA = new Date(a.tanggal.split('/').reverse().join('/'));
         const dateB = new Date(b.tanggal.split('/').reverse().join('/'));
-      
+
         // Sort by latest year (ascending order)
         return dateA.getFullYear() - dateB.getFullYear();
       });
@@ -112,12 +112,19 @@ export class BondYieldComponent {
     try {
       const data = await this.marketUpdateService.fetchDataOutlookBondYieldSBN();
       this.dataDetailOutlook = data;
-      this.dataDetailOutlook = this.dataDetailOutlook.data.content;
+      this.dataDetailOutlook = this.dataDetailOutlook;
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
     } catch (error) {
       console.log(error);
     }
+
+    this.dataDetailOutlook = this.dataDetailOutlook.data.content.filter((item: any) => {
+      return item.grup != 'US_TREASURY';
+    })
+
+    // console.log(this.dataDetailOutlook);
+
       this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
         item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
         item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
