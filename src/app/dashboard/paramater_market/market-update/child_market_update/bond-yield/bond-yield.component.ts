@@ -56,21 +56,26 @@ export class BondYieldComponent {
     try {
       const data = await this.marketUpdateService.fetchDataRealisasiBondYieldSBN();
       this.dataDetailRealisasi = data;
-      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
-      this.dataDetailRealisasi = this.dataDetailRealisasi.sort((a: { tanggal: string; }, b: { tanggal: string; }) => {
-        const dateA = new Date(a.tanggal.split('/').reverse().join('/'));
-        const dateB = new Date(b.tanggal.split('/').reverse().join('/'));
-
-        // Sort by latest year (ascending order)
-        return dateA.getFullYear() - dateB.getFullYear();
-      });
-      console.log('sort', this.dataDetailRealisasi)
+      this.dataDetailRealisasi = this.dataDetailRealisasi.data.content;
+      this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) => {
+        const dateParts = item.tanggal.split("/");
+        const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
+        item.tanggal = dateObject.toISOString().split("T")[0];
+        
+        return item;
+        }).sort((a: any, b: any) => {
+          return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
+        });
+        this.dataDetailRealisasi.map((item:any)=>{
+          item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
+          return item
+        })
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
     } catch (error) {
       console.log(error);
     }
-    this.dataDetailRealisasi = this.dataDetailRealisasi.content.map((item: any) =>{
+    this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
       item.yr5 != null ? item.yr5 = parseFloat(item.yr5) : item.yr5 = 0;
       item.yr5 = item.yr5.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       return item;
@@ -78,6 +83,7 @@ export class BondYieldComponent {
     this.tableConfig.setDataRealisasiBondYieldSBN(this.dataDetailRealisasi);
     console.log('finish get data in func');
   }
+
   async getDataRkap(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
