@@ -2263,15 +2263,18 @@ export class MarketUpdateService {
   }
   async fetchDataInputRealisasiInterestRate(data:any){
     const data1 = {
-      "bulan": data.bulan,
+      "grup": data.grup,
+      "tanggal": data.tanggal,
       "tahun": data.tahun,
-      "miliar_usd": data.miliar_usd,
-      "is_active":true
+      "mtu": data.mtu,
+      "month3": data.month,
+      "month6": data.month6,
+      "rate": data.rate
     }
     console.log(data1)
   try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-cadev?id=${data.id}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-cadev?id=${data.grup}`, data1)
     )
     } catch (error) {
       console.log(error);
@@ -2280,17 +2283,18 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateRealisasiInterestRate(data:any){
     const data1 = {
-      "grup": data.interest_rate_enum,
+      "grup": data.grup,
       "tanggal": data.tanggal,
       "tahun": data.tahun,
-      "rate": data.rate,
-      "month3": data.month3,
-      "month6": data.month6
+      "mtu": data.mtu,
+      "month3": data.month,
+      "month6": data.month6,
+      "rate": data.rate
     }
     console.log(data1)
   try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-cadev?id=${data.id}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/update_ir?id=${data.id}&interest_rate_enum=${data.grup}`, data1)
     )
     } catch (error) {
       console.log(error);
@@ -2307,7 +2311,6 @@ export class MarketUpdateService {
       return null;
     }
   }
-  //end point belum ada
   async fetchDataRkapInterestRate(){
     try {
       return await lastValueFrom(
@@ -2330,7 +2333,7 @@ export class MarketUpdateService {
     console.log(data1)
   try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-cadev?id=${data.id}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap/create_ir?interest_rate_enum=${data.grup}`, data1)
     )
     } catch (error) {
       console.log(error);
@@ -2349,7 +2352,7 @@ export class MarketUpdateService {
     console.log(data1)
   try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-cadev?id=${data.id}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap/update_ir?id=${data.id}&interest_rate_enum=${data.grup}`, data1)
     )
     } catch (error) {
       console.log(error);
@@ -2359,7 +2362,7 @@ export class MarketUpdateService {
   async fetchDeleteDataRkapInterestRate(data:any){
     try {
       return await lastValueFrom(
-        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap/non-macro/list/interest?id=${data.id}`)
+        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap/delete_ir?id${data.id}`)
       );
     } catch (error) {
       console.log(error);

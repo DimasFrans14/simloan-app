@@ -1690,13 +1690,10 @@ export class TableServicesService {
         {title:"Rates", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, width:130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
-        {
-          title: "Nilai",
-          formatter: function(cell) {
+        {title: "Nilai", formatter: function(cell) {
             // Mendapatkan nilai 'nilai' atau 'kurs' berdasarkan data di setiap baris
             const interest = cell.getRow().getData().grup;
             const fieldValue = interest === 'JIBOR_3M'|| interest === 'AVG_SOFR_3M' || interest === 'EURIBOR_3M' ? 'month3' : interest === 'JIBOR_6M' || interest === 'AVG_SOFR_6M' || interest === 'EURIBOR_6M' ? 'month6' : 'rate';
-
             // Mengembalikan nilai yang ingin ditampilkan di dalam sel
             return cell.getRow().getData()[fieldValue];
           },
@@ -1704,12 +1701,12 @@ export class TableServicesService {
           hozAlign: 'center',
           editable: this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
-          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
-          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
-          {title:"Hapus", field:"tambahButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
+        {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+        {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+        {title:"Hapus", field:"tambahButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
         ]},
         {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
-        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_addButtonRealisasiInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
+        {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
         {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
         {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
@@ -4112,7 +4109,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id_outlook_ir,
-      interest_rate_enum: rowData.grup,
+      grup: rowData.grup,
       tanggal: rowData.tanggal,
       tahun: rowData.tahun,
       rate: rowData.rate,
@@ -4136,7 +4133,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveAddButton")
     const data = {
       id: rowData.id_outlook_ir,
-      interest_rate_enum: rowData.grup,
+      grup: rowData.grup,
       tanggal: rowData.tanggal,
       tahun: rowData.tahun,
       rate: rowData.rate,
@@ -4144,8 +4141,7 @@ export class TableServicesService {
       month6: rowData.month6,
     }
     console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRealisasiPDB(data);
-    const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const response = await this.marketUpdateService.fetchDataInputRealisasiInterestRate(data);
   }
   cellClick_deleteButtonRealisasiInterestRate = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4178,7 +4174,7 @@ export class TableServicesService {
       month6: rowData.month6,
     }
     console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRkapPDB(data);
+    const response = await this.marketUpdateService.fetchDataUpdateRkapInterestRate(data);
   }
   cellClick_addButtonRkapInterestRate = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
