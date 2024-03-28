@@ -5126,7 +5126,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       const reFetchKursBar = await this.fetchDataBarChartKurs(this.filteredDate);
       const reFetchCommodities = await this.fetchAllDataBarChartCommodities(this.filteredDate);
       const reFetchInterest = await this.fetchAllDataBarChartInterest(this.filteredDate);
-
+      const reFetchCompareData = await this.fetchDataCompare(this.filteredDate)
       this.stateLoadingFalse();
 
     }
