@@ -4284,7 +4284,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      kode_item: rowData.kode,
+      kode: rowData.kode,
       tahun: rowData.tahun,
       tanggal: rowData.tanggal,
       nilai: rowData.nilai,
@@ -4306,7 +4306,7 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      kode_item: rowData.kode,
+      kode: rowData.kode,
       tahun: rowData.tahun,
       tanggal: rowData.tanggal,
       nilai: rowData.nilai,

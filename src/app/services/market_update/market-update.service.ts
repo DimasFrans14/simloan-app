@@ -954,18 +954,15 @@ export class MarketUpdateService {
     }
   }
   async fetchDataInputRealisasiCommodities(data:any){
-    const params = {
-      "globalCommoditiesEnum": data.kode_item
-    }
     const data1= {
-      "kode": data.kode_item,
+      "kode": data.kode,
       "tanggal": data.tanggal,
       "nilai": data.nilai,
       "tahun": data.tahun,
     }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/create_commodities?globalCommoditiesEnum=${params}`, data1)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/create_commodities?globalCommoditiesEnum=${data1.kode}`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -973,11 +970,8 @@ export class MarketUpdateService {
     }
   }
   async fetchDataUpdateRealisasiCommodities(data:any){
-    const params = {
-      "globalCommoditiesEnum": data.kode_item
-    }
     const data1 = {
-      "kode_item": data.kode_item,
+      "kode": data.kode,
       "tahun": data.tahun,
       "tanggal": data.tanggal,
       "nilai": data.nilai,
@@ -986,7 +980,7 @@ export class MarketUpdateService {
     }
     try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/create_commodities?globalCommoditiesEnum=${params}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/create_commodities?id=${data.id}&globalCommoditiesEnum=${data1.kode}`, data1)
     )
     } catch (error) {
       console.log(error);
