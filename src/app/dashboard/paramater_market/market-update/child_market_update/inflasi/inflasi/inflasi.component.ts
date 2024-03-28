@@ -93,14 +93,15 @@ export class InflasiComponent {
         if (a.tahun < b.tahun) {
           return 1;
         }
-        if (aIndex < bIndex) {
+        if (aIndex > bIndex) {
           return 1;
         }
-        if (aIndex > bIndex) {
+        if (aIndex < bIndex) {
           return -1;
         }
         return 0;
       });
+      console.log(this.dataDetailRealisasi)
       this.isLoading = false;
         console.log(this.isLoading,'loading 2', this.dataDetailRealisasi);
     } catch(error) {
@@ -259,7 +260,7 @@ export class InflasiComponent {
     let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
 
     await this.getDataRealisasi();
-    // await this.getDataInflasi();
+    await this.getDataInflasi();
     await this.getDataRkap();
     await this.getDataOutlook();
 
