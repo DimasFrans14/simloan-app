@@ -127,10 +127,14 @@ export class MoneySuplyComponent {
     } catch (error) {
       console.log(error);
     }
-    this.dataDetailRkap.map((item: any) =>{
-      item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
-      item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    })
+    if (this.dataDetailRkap == !null){
+      this.dataDetailRkap.map((item: any) =>{
+        item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
+        item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      })
+    } else {
+      console.log('data kosong')
+    }
     this.tableConfig.setDataRkapMoneySupply(this.dataDetailRkap);
     console.log('finish get data in func');
   }

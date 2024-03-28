@@ -4272,7 +4272,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      kode_item: rowData.kode_item,
+      kode_item: rowData.kode,
       tahun: rowData.tahun,
       tanggal: rowData.tanggal,
       nilai: rowData.nilai,
@@ -4294,23 +4294,20 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      id: rowData.id,
-      kode_item: rowData.kode_item,
+      kode_item: rowData.kode,
       tahun: rowData.tahun,
       tanggal: rowData.tanggal,
       nilai: rowData.nilai,
-      kategori: rowData.kategori
     }
     console.log(data);
     const response = await this.marketUpdateService.fetchDataInputRealisasiCommodities(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
   cellClick_deleteButtonRealisasiCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableOutlookCurrencyRate.deleteRow(data.id)
+    this.tableRealisasiComodities.deleteRow(data.id)
     console.log(data);
     const response = await this.marketUpdateService.fetchDeleteDataOutlookCurrencyRate(data);
   }
