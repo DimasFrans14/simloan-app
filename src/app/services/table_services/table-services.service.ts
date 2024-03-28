@@ -4309,7 +4309,7 @@ export class TableServicesService {
     }
     this.tableRealisasiComodities.deleteRow(data.id)
     console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataOutlookCurrencyRate(data);
+    const response = await this.marketUpdateService.fetchDeleteDataRealisasiCommodities(data);
   }
   cellClick_SaveButtonRkapCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();

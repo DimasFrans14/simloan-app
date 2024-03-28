@@ -121,22 +121,22 @@ export class UsTreasuryComponent {
     // }
   }
 
-  async getData(){
-    this.isLoading = true;
-    console.log(this.isLoading, 'loading 1');
-    let getYear = moment().format('YYYY');
-    try {
-      const data = await this.marketUpdateService.fetchDataBondYield(getYear);
-      this.dataDetail = data;
-      this.dataDetail = this.dataDetail.data;
-      this.isLoading = false;
-      console.log(this.isLoading, 'loading 2', this.dataDetail);
-    } catch (error) {
-      console.log(error);
-    }
-    this.tableConfig.setData(this.dataDetail);
-    console.log('finish get data in func');
-  }
+  // async getData(){
+  //   this.isLoading = true;
+  //   console.log(this.isLoading, 'loading 1');
+  //   let getYear = moment().format('YYYY');
+  //   try {
+  //     const data = await this.marketUpdateService.fetchDataBondYield(getYear);
+  //     this.dataDetail = data;
+  //     this.dataDetail = this.dataDetail.data;
+  //     this.isLoading = false;
+  //     console.log(this.isLoading, 'loading 2', this.dataDetail);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   this.tableConfig.setData(this.dataDetail);
+  //   console.log('finish get data in func');
+  // }
   async getDataRealisasi(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
@@ -333,7 +333,7 @@ export class UsTreasuryComponent {
 
     console.log('load data');
 
-    await this.getData();
+    // await this.getData();
     await this.getDataRealisasi();
     await this.getDataRkap();
     await this.getDataOutlook();
