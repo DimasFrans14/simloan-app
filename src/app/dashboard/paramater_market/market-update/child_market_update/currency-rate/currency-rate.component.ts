@@ -47,9 +47,35 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
       const dataNonUsd = await this.marketUpdateService.fetchDataRealisasiKursNonUsd();
       this.dataDetailRealisasi = dataUsd;
       this.dataDetailRealisasi = this.dataDetailRealisasi.data.content;
+      //sort tanggal USD 
+      this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) => {
+      const dateParts = item.tanggal.split("/");
+      const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
+      item.tanggal = dateObject.toISOString().split("T")[0];
       
+      return item;
+      }).sort((a: any, b: any) => {
+        return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
+      });
+      this.dataDetailRealisasi.map((item:any)=>{
+        item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
+        return item
+      })
       this.dataDetailRealisasiNonUsd = dataNonUsd;
       this.dataDetailRealisasiNonUsd = this.dataDetailRealisasiNonUsd.data.content;
+      this.dataDetailRealisasiNonUsd = this.dataDetailRealisasiNonUsd.map((item: any) => {
+      const dateParts = item.tanggal.split("/");
+      const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
+      item.tanggal = dateObject.toISOString().split("T")[0];
+      
+      return item;
+      }).sort((a: any, b: any) => {
+        return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
+      });
+      this.dataDetailRealisasiNonUsd.map((item:any)=>{
+        item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
+        return item
+      })
       this.isLoading = false;
       console.log(this.isLoading,'loading 2', this.dataDetailRealisasi);
     } catch(error) {
@@ -100,20 +126,46 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
       const dataUsd = await this.marketUpdateService.fetchDataOutlookKursUsd();
       const dataNonUsd = await this.marketUpdateService.fetchDataOutlookKursNonUsd();
       this.dataDetailOutlook = dataUsd;
-      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data.content;
+      this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) => {
+        const dateParts = item.tanggal.split("/");
+        const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
+        item.tanggal = dateObject.toISOString().split("T")[0];
+        
+        return item;
+        }).sort((a: any, b: any) => {
+          return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
+        });
+        this.dataDetailOutlook.map((item:any)=>{
+          item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
+          return item
+        })
       this.dataDetailOutlookNonUsd = dataNonUsd;
-      this.dataDetailOutlookNonUsd = this.dataDetailOutlookNonUsd.data;
+      this.dataDetailOutlookNonUsd = this.dataDetailOutlookNonUsd.data.content;
+      this.dataDetailOutlookNonUsd = this.dataDetailOutlookNonUsd.map((item: any) => {
+        const dateParts = item.tanggal.split("/");
+        const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
+        item.tanggal = dateObject.toISOString().split("T")[0];
+        
+        return item;
+        }).sort((a: any, b: any) => {
+          return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
+        });
+        this.dataDetailOutlookNonUsd.map((item:any)=>{
+          item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
+          return item
+        })
       this.isLoading = false;
       console.log(this.isLoading,'loading 2', this.dataDetailOutlook);
     } catch(error) {
       console.log(error)
     }
-    this.dataDetailOutlook = this.dataDetailOutlook.content.map((item: any) =>{
+    this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
       item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
       item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       return item;
     })
-    this.dataDetailOutlookNonUsd = this.dataDetailOutlookNonUsd.content.map((item: any) =>{
+    this.dataDetailOutlookNonUsd = this.dataDetailOutlookNonUsd.map((item: any) =>{
       item.kurs != null ? item.kurs = parseFloat(item.kurs) : item.kurs = 0;
       item.kurs = item.kurs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       return item;

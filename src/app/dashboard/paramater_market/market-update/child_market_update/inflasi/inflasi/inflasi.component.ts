@@ -162,10 +162,10 @@ export class InflasiComponent {
         if (a.tahun < b.tahun) {
           return 1;
         }
-        if (aIndex < bIndex) {
+        if (aIndex > bIndex) {
           return 1;
         }
-        if (aIndex > bIndex) {
+        if (aIndex < bIndex) {
           return -1;
         }
         return 0;
