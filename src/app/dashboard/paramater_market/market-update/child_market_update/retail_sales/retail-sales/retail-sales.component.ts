@@ -29,6 +29,10 @@ export class RetailSalesComponent {
   tanggalEditKurs: any;
   namaEditKurs: any;
   nilaiEditKurs: any;
+  dataRetail: any;
+  allLabelDate: any[] = [];
+  getLabelYear: any;
+  allLabelYear: any[] = [];
 
   async getData(){
     const today = moment().format('DD/MM/YYYY');
@@ -150,8 +154,80 @@ export class RetailSalesComponent {
 
   async ngOnInit(): Promise<void> {
     console.log('load data');
+    try {
+      this.isLoading = true;
 
-    await this.getData();
+      let today = moment().format('DD/MM/YYYY')
+
+      const responseRetail = await this.marketUpdateService.fetchAllDataMacroIndicator(today, "RETAIL");
+
+      this.dataRetail = responseRetail;
+
+      if(this.dataRetail.data.length > 0){
+        this.getLabelYear = this.dataRetail.data.filter((item: any) => {
+          return item.bulan === 'Bulan';
+        })
+        this.dataRetail = this.dataRetail.data.filter((item: any) => {
+          return item.bulan !== 'Bulan'
+        })
+        console.log( this.dataRetail, this.getLabelYear)
+
+        this.dataRetail = this.dataRetail.map((item: any) => {
+          item.year_min_0 != null ? item.year_min_0 = item.year_min_0.toFixed(2) : item.year_min_0 = 0;
+          item.year_min_0 = item.year_min_0.toLocaleString('en-US');
+
+          item.year_min_1 != null ? item.year_min_1 = item.year_min_1.toFixed(2) : item.year_min_1 = 0;
+          item.year_min_1 = item.year_min_1.toLocaleString('en-US');
+
+          item.year_min_2 != null ? item.year_min_2 = item.year_min_2.toFixed(2) : item.year_min_2 = 0;
+          item.year_min_2 = item.year_min_2.toLocaleString('en-US');
+
+          item.year_min_3 != null ? item.year_min_3 = item.year_min_3.toFixed(2) : item.year_min_3 = 0;
+          item.year_min_3 = item.year_min_3.toLocaleString('en-US');
+
+          return item
+        })
+        // this.isLoadingTableInflasi = false;
+      }
+      else{
+        this.dataRetail = [];
+        // this.isLoadingTableInflasi = false;
+      }
+
+      this.allLabelYear = [];
+
+      this.allLabelYear.push(this.getLabelYear[0].year_min_0);
+      this.allLabelYear.push(this.getLabelYear[0].year_min_1);
+      this.allLabelYear.push(this.getLabelYear[0].year_min_2);
+      this.allLabelYear.push(this.getLabelYear[0].year_min_3);
+
+      console.log(this.allLabelYear);
+      console.log(this.dataRetail)
+      this.tableConfig.setDataRetail(this.dataRetail);
+
+      this.isLoading = false;
+
+    } catch (error) {
+      console.log(error);
+      this.isLoading = false;
+    }
+
+    let today = new Date();
+    let formatToday = moment(today).format("DD/MM/YYYY").toString();
+
+    let getYesterday = new Date();
+    let yesterday = getYesterday.setDate(getYesterday.getDate() - 1);
+    let formatYesterday = moment(yesterday).format("DD/MM/YYYY").toString();
+
+    let getTwoDaysBefore = new Date();
+    let twoDaysBefore = getTwoDaysBefore.setDate(getTwoDaysBefore.getDate() - 2);
+    let formatTwoDaysBefore = moment(twoDaysBefore).format("DD/MM/YYYY").toString();
+
+    let getThreeDaysBefore = new Date();
+    let threeDaysBefore = getThreeDaysBefore.setDate(getThreeDaysBefore.getDate() - 3);
+    let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
+
+    // await this.getData();
     await this.getDataRealisasi();
     await this.getDataRkap();
     await this.getDataOutlook();

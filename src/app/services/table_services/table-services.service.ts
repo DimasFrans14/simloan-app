@@ -1084,7 +1084,7 @@ export class TableServicesService {
     });
   }
 
-  initializeTableDataPMI(){
+  initializeTableDataPMI(arrayYear: any[]){
     const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/plus-square.svg'></span>";
     }
@@ -1103,6 +1103,7 @@ export class TableServicesService {
     const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/trash.svg'</span>";
     }
+    const formattedYear = moment().format('DD/MM/YYYY').slice(-2, 10);
     this.tableDetailPmi = new Tabulator(".table-detailPmi", {
       pagination:true, //enable.
       paginationSize:20,
@@ -1113,10 +1114,10 @@ export class TableServicesService {
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2021", field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2024", field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[3] : '', field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[2] : '', field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[1] : '', field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[0] : '', field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
       ],
     });
     this.tableRealisasiPmi = new Tabulator(".table-ralisasiPmi", {
@@ -1284,7 +1285,7 @@ export class TableServicesService {
     });
   }
 
-  initializeTableDataMoneySupply(){
+  initializeTableDataMoneySupply( arrayYear: any[]){
     const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/plus-square.svg'></span>";
     }
@@ -1314,11 +1315,11 @@ export class TableServicesService {
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2021", field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2024", field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        ],
+        {title:arrayYear.length > 0 ? arrayYear[3] : '', field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[2] : '', field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[1] : '', field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[0] : '', field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
+      ],
       });
     this.tableRealisasiMoneySupply = new Tabulator(".table-realisasiMoneySupply", {
       pagination:true, //enable.
@@ -1385,7 +1386,7 @@ export class TableServicesService {
     });
   }
 
-  initializeTableDataForeignExchange(){
+  initializeTableDataForeignExchange(arrayYear: any[]){
     const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/plus-square.svg'></span>";
     }
@@ -1413,10 +1414,10 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2021", field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2024", field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[3] : '', field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[2] : '', field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[1] : '', field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[0] : '', field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
       ],
     });
     this.tableRealisasiForeignExchange = new Tabulator(".table-realisasiForeignExchange", {
@@ -1535,18 +1536,13 @@ export class TableServicesService {
       {title:"Mata Uang", field:"mata_uang", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
       {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor:"input"},
       {
-        title: "Nilai",
-        formatter: function(cell) {
+        title: "Nilai", formatter: function(cell) {
           // Mendapatkan nilai 'nilai' atau 'kurs' berdasarkan data di setiap baris
           const currency = cell.getRow().getData().mata_uang;
           const fieldValue = currency === 'USD' ? 'nilai' : 'kurs';
-
           // Mengembalikan nilai yang ingin ditampilkan di dalam sel
           return cell.getRow().getData()[fieldValue];
-        },
-        headerHozAlign: "center",
-        hozAlign: 'center',
-        editable: this.isRowSelected, editor:"number"},
+        }, headerHozAlign: "center", hozAlign: 'center', editable: this.isRowSelected, editor:"number"},
       // {title:"Kurs", field:"kurs", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false },
       {title:"Action", headerHozAlign:"center", columns:[
         {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
@@ -1704,7 +1700,7 @@ export class TableServicesService {
         {title:"Action", headerHozAlign:"center", columns:[
         {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
         {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
-        {title:"Hapus", field:"tambahButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
+        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
         ]},
         {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
         {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
@@ -3903,18 +3899,16 @@ export class TableServicesService {
       idJisdor: rowData.id_mst_jisdor,
       idNonJisdor: rowData.id,
       mataUang: rowData.mata_uang,
-      nilai: rowData.nilai,
+      nilai : rowData.nilai.replace(/,/g, ''),
       tanggal: rowData.tanggal,
-      kurs: rowData.kurs
+      kurs: rowData.kurs.replace(/,/g, ''),
     }
-    if (data.idJisdor == undefined){
-      await this.marketUpdateService.fetchDataUpdateRealisasiKursNonUsd(data);
+    if (data.mataUang == "USD"){
+      await this.marketUpdateService.fetchDataUpdateRealisasiKursUsd(data);
       this
     }else {
-      await this.marketUpdateService.fetchDataUpdateRealisasiKursUsd(data);
+      await this.marketUpdateService.fetchDataUpdateRealisasiKursNonUsd(data);
     }
-    await this.marketUpdateService.fetchDataRealisasiKursUsd();
-    await this.marketUpdateService.fetchDataRealisasiKursNonUsd();
     console.log(data);
   }
   cellClick_addButtonRealisasiCurrency = async (e: any, cell:any) => {
@@ -3945,19 +3939,20 @@ export class TableServicesService {
     console.log(data);
     // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
-  cellClick_deleteButtonRealisasiCurrency = async (e: any, cell:any) => {
+  cellClick_deleteButtonRealisasiCurrency = async (e: any, cell:any) => {  
     const rowData = cell.getRow().getData();
     const data = {
-      id: rowData.id,
+      id: rowData.id_mst_jisdor,
+      idNonJisdor: rowData.id,
       mataUang: rowData.mata_uang
     }
-    if(data.mataUang == "USD"){
+    if(data.id != null){
       await this.marketUpdateService.fetchDeleteDataRealisasiCurrencyRate(data);
     } else {
       await this.marketUpdateService.fetchDeleteDataRealisasiCurrencyRateNonUsd(data);
     }
+    console.log(data)
     this.tableRealisasiCurrencyRate.deleteRow(data.id)
-    console.log(data);const response = await this.marketUpdateService.fetchDeleteDataRealisasiCurrencyRate(data);
   }
   cellClick_SaveButtonRkapCurrency = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3972,19 +3967,13 @@ export class TableServicesService {
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
-      idJisdor: rowData.id_mstr_rkap_jisdor,
-      idNonJisdor: rowData.id_mstr_rkap_kurs,
-      mataUang: rowData.mata_uang,
-      nilai: rowData.nilai,
+      id: rowData.id_dash_rkap,
+      mtu: rowData.mtu,
       tanggal: rowData.tanggal,
-      kurs: rowData.kurs
+      tahun: rowData.tahun,
+      rate: rowData.rate,
     }
-    if (data.idJisdor == undefined){
-      await this.marketUpdateService.fetchDataUpdateRkapKursNonUsd(data);
-    }else {
-      await this.marketUpdateService.fetchDataUpdateRkapKursUsd(data);
-    }
-    //
+    await this.marketUpdateService.fetchDataUpdateRkapKursNonUsd(data);
     console.log(data);
   }
   cellClick_addButtonRkapCurrency = async (e: any, cell:any) => {
@@ -4048,10 +4037,10 @@ export class TableServicesService {
       tanggal: rowData.tanggal,
       kurs: rowData.kurs
     }
-    if (data.idJisdor == undefined){
-      await this.marketUpdateService.fetchDataUpdateOutlookNonUsd(data);
-    }else {
+    if (data.mataUang == "USD"){
       await this.marketUpdateService.fetchDataUpdateOutlookKursUsd(data);
+    }else {
+      await this.marketUpdateService.fetchDataUpdateOutlookNonUsd(data);
     }
     console.log(data);
   }
@@ -4108,9 +4097,9 @@ export class TableServicesService {
     currentTable.showColumn("tambahButton")
     currentTable.showColumn("deleteButton")
     currentTable.hideColumn("CancelButton")
-    currentTable.hideColumn("SaveButton")
+    currentTable.hideColumn("SaveBut;ton")
     const data = {
-      id: rowData.id_outlook_ir,
+      id: rowData.id,
       grup: rowData.grup,
       tanggal: rowData.tanggal,
       tahun: rowData.tahun,
