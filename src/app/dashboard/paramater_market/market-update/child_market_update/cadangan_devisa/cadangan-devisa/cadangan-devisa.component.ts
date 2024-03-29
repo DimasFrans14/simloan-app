@@ -26,38 +26,13 @@ export class CadanganDevisaComponent {
   isLoading: Boolean = true;
   realisasiPdbItem!: number;
 
+  allLabelDate: any[] = [];
+  getLabelYear: any;
+  allLabelYear: any[] = [];
   tanggalEditKurs: any;
   namaEditKurs: any;
   nilaiEditKurs: any;
 
-  async getData(){
-    const today = moment().format('DD/MM/YYYY');
-    this.isLoading = true;
-    console.log(this.isLoading, 'loading 1');
-    try {
-      const data = await this.marketUpdateService.fetchAllDataMacroIndicator(today,"CADEV");
-      this.dataDetail = data;
-      this.dataDetail = this.dataDetail.data;
-      this.isLoading = false;
-      console.log(this.isLoading, 'loading 2', this.dataDetail);
-    } catch (error) {
-      console.log(error);
-    }
-    this.dataDetail = this.dataDetail.map((item: any) =>{
-      item.year_min_0 != null ? item.year_min_0 = parseFloat(item.year_min_0) : item.year_min_0 = 0;
-      item.year_min_0 = item.year_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      item.year_min_1 != null ? item.year_min_1 = parseFloat(item.year_min_1) : item.year_min_1 = 0;
-      item.year_min_1 = item.year_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      item.year_min_2 != null ? item.year_min_2 = parseFloat(item.year_min_2) : item.year_min_0 = 0;
-      item.year_min_2 = item.year_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      item.year_min_3 != null ? item.year_min_3 = parseFloat(item.year_min_3) : item.year_min_0 = 0;
-      item.year_min_3 = item.year_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      return item;
-    })
-    this.tableConfig.setDataCadev(this.dataDetail);
-    console.log('finish get data in func');
-
-  }
   async getDataRealisasi(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
@@ -77,7 +52,7 @@ export class CadanganDevisaComponent {
     this.tableConfig.setDataRealisasiCadev(this.dataDetailRealisasi);
     console.log('finish get data in func');
   }
-  async getDataRRkap(){
+  async getDataRkap(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
     try {
@@ -140,13 +115,84 @@ export class CadanganDevisaComponent {
 
   async ngOnInit(): Promise<void> {
     console.log('load data');
+    try {
+      this.isLoading = true;
 
-    await this.getData();
+      let today = moment().format('DD/MM/YYYY')
+
+      const responseDEVISA = await this.marketUpdateService.fetchAllDataMacroIndicator(today, "CADEV");
+
+      this.dataDetail = responseDEVISA;
+
+      if(this.dataDetail.data.length > 0){
+        this.getLabelYear = this.dataDetail.data.filter((item: any) => {
+          return item.bulan === 'Bulan';
+        })
+        this.dataDetail = this.dataDetail.data.filter((item: any) => {
+          return item.bulan !== 'Bulan'
+        })
+        console.log( this.dataDetail, this.getLabelYear)
+
+        this.dataDetail = this.dataDetail.map((item: any) => {
+          item.year_min_0 != null ? item.year_min_0 = item.year_min_0.toFixed(2) : item.year_min_0 = 0;
+          item.year_min_0 = item.year_min_0.toLocaleString('en-US');
+
+          item.year_min_1 != null ? item.year_min_1 = item.year_min_1.toFixed(2) : item.year_min_1 = 0;
+          item.year_min_1 = item.year_min_1.toLocaleString('en-US');
+
+          item.year_min_2 != null ? item.year_min_2 = item.year_min_2.toFixed(2) : item.year_min_2 = 0;
+          item.year_min_2 = item.year_min_2.toLocaleString('en-US');
+
+          item.year_min_3 != null ? item.year_min_3 = item.year_min_3.toFixed(2) : item.year_min_3 = 0;
+          item.year_min_3 = item.year_min_3.toLocaleString('en-US');
+
+          return item
+        })
+        // this.isLoadingTableInflasi = false;
+      }
+      else{
+        this.dataDetail = [];
+        // this.isLoadingTableInflasi = false;
+      }
+
+      this.allLabelYear = [];
+
+      this.allLabelYear.push(this.getLabelYear[0].year_min_0);
+      this.allLabelYear.push(this.getLabelYear[0].year_min_1);
+      this.allLabelYear.push(this.getLabelYear[0].year_min_2);
+      this.allLabelYear.push(this.getLabelYear[0].year_min_3);
+
+      console.log(this.allLabelYear);
+      console.log(this.dataDetail)
+      this.tableConfig.setDataCadev(this.dataDetail);
+
+      this.isLoading = false;
+
+    } catch (error) {
+      console.log(error);
+      this.isLoading = false;
+    }
+
+    let today = new Date();
+    let formatToday = moment(today).format("DD/MM/YYYY").toString();
+
+    let getYesterday = new Date();
+    let yesterday = getYesterday.setDate(getYesterday.getDate() - 1);
+    let formatYesterday = moment(yesterday).format("DD/MM/YYYY").toString();
+
+    let getTwoDaysBefore = new Date();
+    let twoDaysBefore = getTwoDaysBefore.setDate(getTwoDaysBefore.getDate() - 2);
+    let formatTwoDaysBefore = moment(twoDaysBefore).format("DD/MM/YYYY").toString();
+
+    let getThreeDaysBefore = new Date();
+    let threeDaysBefore = getThreeDaysBefore.setDate(getThreeDaysBefore.getDate() - 3);
+    let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
+
     await this.getDataRealisasi();
-    await this.getDataRRkap();
+    await this.getDataRkap();
     await this.getDataOutlook();
 
-    this.tableConfig.initializeTableDataForeignExchange();
+    this.tableConfig.initializeTableDataForeignExchange(this.allLabelYear);
   }
 
   ngAfterViewInit(): void {
