@@ -60,7 +60,7 @@ export class MoneySuplyComponent {
       this.dataDetailRealisasi.sort((a: { bulan: string; tahun: number; }, b: { bulan: string; tahun: number; }) => {
         const aIndex = this.months.indexOf(a.bulan);
         const bIndex = this.months.indexOf(b.bulan);
-  
+
         if (a.tahun > b.tahun) {
           return -1;
         }

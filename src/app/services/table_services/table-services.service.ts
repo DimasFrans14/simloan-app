@@ -105,6 +105,7 @@ export class TableServicesService {
   }
   setDataMoneySupply(data:any){
     this.sharedDataMoneySupply = data;
+    console.log(data);
   }
   setDataCadev(data:any){
     this.sharedDataCadev = data;

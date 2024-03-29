@@ -33,6 +33,40 @@ export class CadanganDevisaComponent {
   namaEditKurs: any;
   nilaiEditKurs: any;
 
+  async getData(){
+    const today = moment().format('DD/MM/YYYY');
+    this.isLoading = true;
+    console.log(this.isLoading, 'loading 1');
+    try {
+      const data = await this.marketUpdateService.fetchAllDataMacroIndicator(today,"CADEV");
+      this.dataDetail = data;
+      this.dataDetail = this.dataDetail.data;
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetail);
+    } catch (error) {
+      console.log(error);
+    }
+    this.dataDetail = this.dataDetail.filter((item: any) => {
+      return item.bulan != 'Bulan';
+    })
+
+    console.log(this.dataDetail);
+
+    this.dataDetail = this.dataDetail.map((item: any) =>{
+      item.year_min_0 != null ? item.year_min_0 = parseFloat(item.year_min_0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_0 = 0;
+
+      item.year_min_1 != null ? item.year_min_1 = parseFloat(item.year_min_1).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_1 = 0;
+
+      item.year_min_2 != null ? item.year_min_2 = parseFloat(item.year_min_2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_0 = 0;
+
+      item.year_min_3 != null ? item.year_min_3 = parseFloat(item.year_min_3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_0 = 0;
+
+      return item;
+    })
+    this.tableConfig.setDataCadev(this.dataDetail);
+    console.log('finish get data in func');
+
+  }
   async getDataRealisasi(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
