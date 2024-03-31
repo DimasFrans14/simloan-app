@@ -667,10 +667,15 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     this.dataCommodities = commoditiesOverview;
     this.dataCommodities.s === 200 ? this.isLoadingCommodity = false : this.isLoadingCommodity = true;
 
-    this.dataCommodities = this.dataCommodities.d;
-    this.listEditCommodities = this.dataCommodities;
+    if(this.dataCommodities.d != null){
+      this.dataCommodities = this.dataCommodities.d;
+      this.listEditCommodities = this.dataCommodities;
 
-    this.dataDefaultCommodities = this.dataCommodities.slice(0,3);
+      this.dataDefaultCommodities = this.dataCommodities.slice(0,3);
+    }else{
+      this.dataCommodities = [];
+      this.listEditCommodities = [];
+    }
     console.log('cmd', this.dataDefaultCommodities);
   }
 
@@ -680,9 +685,17 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     this.dataCurrency = currenciesOverview;
     this.dataCurrency.s === 200 ? this.isLoadingKurs = false : this.isLoadingKurs = true;
 
-    this.dataCurrency = this.dataCurrency.d.slice(0,3);
-    this.listEditCurrency = currenciesOverview;
-    this.listEditCurrency = this.listEditCurrency.d;
+    if(this.dataCurrency.d.length > 0){
+      this.dataCurrency = this.dataCurrency.d.slice(0,3);
+      this.listEditCurrency = currenciesOverview;
+      this.listEditCurrency = this.listEditCurrency.d;
+    }else{
+      this.dataCurrency = [];
+      this.listEditCurrency = [];
+    }
+
+    console.log(this.dataCurrency);
+
   }
 
   fetchInterestRate = async () => {
