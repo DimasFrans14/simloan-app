@@ -8,6 +8,8 @@ import * as moment from 'moment';
   providedIn: 'root'
 })
 export class TableServicesService {
+  tableRkapCadev: any;
+  tableOutlookCadev: any;
 
   constructor(
     private marketUpdateService: MarketUpdateService,
@@ -18,6 +20,10 @@ export class TableServicesService {
     // this.initializeTableDataCurrency()
   }
   // [x: string]: any;
+
+  public responseDelete: any;
+  public responseUpdate: any;
+  public responseCreate: any;
 
   public sharedData: any;
   public sharedDataPdb:any;
@@ -231,7 +237,7 @@ export class TableServicesService {
     console.log(this.shareDataOutlookBondYieldSBN);
   }
   setDataRealisasiBondYieldUsTreasury(data:any){
-    this.shareDataRealisasiBondYieldUsTreasury = data.content;
+    this.shareDataRealisasiBondYieldUsTreasury = data;
     console.log(this.shareDataRealisasiBondYieldUsTreasury);
   }
   setDataRkapBondYieldUsTreasury(data:any){
@@ -828,12 +834,10 @@ export class TableServicesService {
         {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor: "input", minWidth: 130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
         {title:"5Yr", field:"5yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"7Yr", field:"7yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"10Yr", field:"10yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"15Yr", field:"15yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"20Yr", field:"20yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"25Yr", field:"25yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
-        {title:"30Yr", field:"30yr", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"7Yr", field:"yr7", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"10Yr", field:"yr10", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"15Yr", field:"yr15", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"30Yr", field:"yr30", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
@@ -951,7 +955,7 @@ export class TableServicesService {
         {title:"PDB", field:"pdb", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
-          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRkapPdb, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
         {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
@@ -971,7 +975,7 @@ export class TableServicesService {
         {title:"PDB", field:"nilai", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
-          {title:"Edit", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonOutlookPdb, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false}
         ]},
         {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
@@ -1084,7 +1088,7 @@ export class TableServicesService {
     });
   }
 
-  initializeTableDataPMI(){
+  initializeTableDataPMI(arrayYear: any[]){
     const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/plus-square.svg'></span>";
     }
@@ -1103,6 +1107,7 @@ export class TableServicesService {
     const deleteBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/trash.svg'</span>";
     }
+    const formattedYear = moment().format('DD/MM/YYYY').slice(-2, 10);
     this.tableDetailPmi = new Tabulator(".table-detailPmi", {
       pagination:true, //enable.
       paginationSize:20,
@@ -1113,10 +1118,10 @@ export class TableServicesService {
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2021", field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2024", field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[3] : '', field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[2] : '', field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[1] : '', field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[0] : '', field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
       ],
     });
     this.tableRealisasiPmi = new Tabulator(".table-ralisasiPmi", {
@@ -1284,7 +1289,7 @@ export class TableServicesService {
     });
   }
 
-  initializeTableDataMoneySupply(){
+  initializeTableDataMoneySupply( arrayYear: any[]){
     const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/plus-square.svg'></span>";
     }
@@ -1314,11 +1319,11 @@ export class TableServicesService {
       // movableColumns: true,
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2021", field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2024", field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        ],
+        {title:arrayYear.length > 0 ? arrayYear[3] : '', field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[2] : '', field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[1] : '', field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[0] : '', field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
+      ],
       });
     this.tableRealisasiMoneySupply = new Tabulator(".table-realisasiMoneySupply", {
       pagination:true, //enable.
@@ -1385,7 +1390,7 @@ export class TableServicesService {
     });
   }
 
-  initializeTableDataForeignExchange(){
+  initializeTableDataForeignExchange(arrayYear: any[]){
     const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/plus-square.svg'></span>";
     }
@@ -1413,10 +1418,10 @@ export class TableServicesService {
       layout:"fitColumns",
       columns:[
         {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', headerSort:true},
-        {title:"2021", field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2022", field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2023", field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
-        {title:"2024", field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[3] : '', field:"year_min_3", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[2] : '', field:"year_min_2", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[1] : '', field:"year_min_1", headerHozAlign:"center", hozAlign:'center', headerSort:false},
+        {title:arrayYear.length > 0 ? arrayYear[0] : '', field:"year_min_0", headerHozAlign:"center", hozAlign:'center', headerSort:false, maxWidth:100},
       ],
     });
     this.tableRealisasiForeignExchange = new Tabulator(".table-realisasiForeignExchange", {
@@ -1480,7 +1485,7 @@ export class TableServicesService {
       ],
     });
   }
-
+  
   initializeTableDataCurrency(arrayDate: any[]){
     const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/plus-square.svg'></span>";
@@ -1502,6 +1507,7 @@ export class TableServicesService {
     }
     const formattedYear = moment().format('DD/MM/YYYY').slice(-2, 10);
 
+    
     this.tableCurrencyDetail = new Tabulator(".table-currencyDetail", {
       height: "335px",
       data:this.dataKurs,
@@ -1525,29 +1531,23 @@ export class TableServicesService {
         {title:"Change 1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
-
+    
   this.tableRealisasiCurrencyRate = new Tabulator(".table-realisasi", {
     pagination:true, //enable.
     paginationSize:20,
     data:this.shareDataRealisasiKurs,
     layout:"fitColumns",
-    columns:[
+    columns: [
       {title:"Mata Uang", field:"mata_uang", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}},
       {title:"Tanggal", field:"tanggal", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor:"input"},
       {
-        title: "Nilai",
-        formatter: function(cell) {
+        title: "Nilai", formatter: function(cell : any) {
           // Mendapatkan nilai 'nilai' atau 'kurs' berdasarkan data di setiap baris
           const currency = cell.getRow().getData().mata_uang;
           const fieldValue = currency === 'USD' ? 'nilai' : 'kurs';
-
           // Mengembalikan nilai yang ingin ditampilkan di dalam sel
           return cell.getRow().getData()[fieldValue];
-        },
-        headerHozAlign: "center",
-        hozAlign: 'center',
-        editable: this.isRowSelected, editor:"number"},
-      // {title:"Kurs", field:"kurs", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number", headerSort:false },
+        }, headerHozAlign: "center", hozAlign: 'center', editable: this.isRowSelected, editor:"number"},
       {title:"Action", headerHozAlign:"center", columns:[
         {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
         {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
@@ -1557,7 +1557,7 @@ export class TableServicesService {
       {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtoRealisasiCurrency, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiCurrency, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
-    ],
+    ] 
   });
 
   this.tableRkapCurrencyRate = new Tabulator(".table-RKAP", {
@@ -1615,7 +1615,7 @@ export class TableServicesService {
       {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookCurrency, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
   });
-
+  
   //tabledataoutlook2 get data from API
 
   //   this.tableDataOutlook2 = [
@@ -1704,7 +1704,7 @@ export class TableServicesService {
         {title:"Action", headerHozAlign:"center", columns:[
         {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
         {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
-        {title:"Hapus", field:"tambahButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
+        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
         ]},
         {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
         {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
@@ -2854,8 +2854,139 @@ export class TableServicesService {
     const table = this.tableOutlookPdb;
     table.replaceData(data);
   }
-
-
+  //replace data table detail
+  public replaceTableRealisasiPDB (data:any){
+    const table = this.tableRealisasiPdb;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRkapPDB (data:any){
+    const table = this.tableRkapPdb;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableOutlookPDB (data:any){
+    const table = this.tableOutlookPdb;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRealisasiInflasi (data:any){
+    const table = this.tableRealisasiInflasi;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRkapInflasi (data:any){
+    const table = this.tableRkapInflasi;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableOutlookInflasi (data:any){
+    const table = this.tableOutlookInflasi;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRealisasiPMI (data:any){
+    const table = this.tableRealisasiPmi;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRkapPMI (data:any){
+    const table = this.tableRkapPmi;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableOutlookPMI (data:any){
+    const table = this.tableOutlookPmi;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRealisasiRetail (data:any){
+    const table = this.tableRealisasiRetail;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRkapRetail (data:any){
+    const table = this.tableRkapRetail;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableOutlookRetail (data:any){
+    const table = this.tableOutlookRetail;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRealisasiMoneySupply (data:any){
+    const table = this.tableRealisasiMoneySupply;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRkapMoneySupply (data:any){
+    const table = this.tableRkapMoneySupply;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableOutlookMoneySupply (data:any){
+    const table = this.tableRkapMoneySupply;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRealisasiCadev (data:any){
+    const table = this.tableRealisasiCadev;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRkapCadev (data:any){
+    const table = this.tableRkapCadev;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableOutlookCadev (data:any){
+    const table = this.tableOutlookCadev;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRealisasiCurrency (data:any, data2:any){
+    const table = this.tableRealisasiCurrencyRate;
+    table.replaceData(data.data.content, data2.data.content);
+  }
+  public replaceTableRkapCurrency (data:any){
+    const table = this.tableRkapCurrencyRate;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableOutlookCurrency (data:any, data2: any){
+    const table = this.tableOutlookCurrencyRate;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRealisasiInterest (data:any){
+    const table = this.tableRealisasiInterestRate;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRkapInterest (data:any){
+    const table = this.tableRkapInterestRate;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableOutlookInterest (data:any){
+    const table = this.tableOutlookInterestRate;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRealisasiBondYield (data:any){
+    const table = this.tableRealisasiBondYield;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRkapBondYield (data:any){
+    const table = this.tableRKAPBondYield;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableOutlookBondYield (data:any){
+    const table = this.tableOutlookBondYield;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRealisasiUsTreasury (data:any){
+    const table = this.tableRealisasiUSTreasury;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRkapUsTreasury (data:any){
+    const table = this.tableRKAPUSTreasury;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableOutlookUsTreasury (data:any){
+    const table = this.tableOutlookUSTreasury;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRealisasiCommodities (data:any){
+    const table = this.tableRealisasiComodities;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableRkapCommodities (data:any){
+    const table = this.tableRKAPComodities;
+    table.replaceData(data.data.content);
+  }
+  public replaceTableOutlookCommodities (data:any){
+    const table = this.tableOutlookComodities;
+    table.replaceData(data.data.content);
+  }
   getBackData(){
     const dataInflasi = this.dataInflasi != undefined ? this.dataInflasi : ``;
     const tabelInflasi = this.tableInflasi;
@@ -2976,8 +3107,14 @@ export class TableServicesService {
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
-    console.log(data);
-     await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data);
+    const responesDeleteRealisasi = await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data);
+    this.responseUpdate = responesDeleteRealisasi;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiPDB();
+      this.replaceTableRealisasiPDB(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRealisasiPdb = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -2996,17 +3133,28 @@ export class TableServicesService {
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
-    console.log(data);
-    await this.marketUpdateService.fetchDataInputRealisasiPDB(data);
+    const responesCreate = await this.marketUpdateService.fetchDataInputRealisasiPDB(data);
+    this.responseCreate = responesCreate;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiPDB();
+      this.replaceTableRealisasiPDB(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRealisasiPdb = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRealisasiPdb.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRealisasiPDB(data);
+    const responesDeleteRealisasi = await this.marketUpdateService.fetchDeleteDataRealisasiPDB(data);
+    this.responseDelete = responesDeleteRealisasi;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiPDB();
+      this.replaceTableRealisasiPDB(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonRkapPdb = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3026,8 +3174,14 @@ export class TableServicesService {
       tahun: rowData.tahun,
       pdb: rowData.pdb
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRkapPDB(data);
+    const responesUpdate = await this.marketUpdateService.fetchDataUpdateRealisasiPDB(data);
+    this.responseUpdate = responesUpdate;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapPDB();
+      this.replaceTableRkapPDB(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRkapPdb = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3046,18 +3200,28 @@ export class TableServicesService {
       tahun: rowData.tahun,
       pdb: rowData.pdb
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRkapPDB(data);
-    const getBackData = await this.marketUpdateService.fetchDataRkapPDB();
+    const responesCreate = await this.marketUpdateService.fetchDataInputRkapPDB(data);
+    this.responseCreate = responesCreate;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapPDB();
+      this.replaceTableRkapPDB(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRkapPdb = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRkapPdb.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRkapPDB(data);
+    const responesDelete = await this.marketUpdateService.fetchDeleteDataRkapPDB(data);
+    this.responseDelete = responesDelete;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapPDB();
+      this.replaceTableRkapPDB(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonOutlookPdb = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3077,8 +3241,14 @@ export class TableServicesService {
       quartal: rowData.quartal,
       tahun: rowData.tahun,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateOutlookPDB(data);
+    const responesOutlook = await this.marketUpdateService.fetchDataUpdateOutlookPDB(data);
+    this.responseUpdate = responesOutlook;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookPdb();
+      this.replaceTableOutlookPDB(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonOutlookPdb = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3097,17 +3267,28 @@ export class TableServicesService {
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputOutlookPDB(data);
+    const responesOutlook = await this.marketUpdateService.fetchDataInputOutlookPDB(data);
+    this.responseCreate = responesOutlook;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookPdb();
+      this.replaceTableOutlookPDB(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonOutlookPdb = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableOutlookPdb.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataOutlookPDB(data);
+    const responesOutlook = await this.marketUpdateService.fetchDeleteDataOutlookPDB(data);
+    this.responseDelete = responesOutlook;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookPdb();
+      this.replaceTableOutlookPDB(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   //Inflasi
   cellClick_SaveButtonRealisasiInflasi = async (e: any, cell:any) => {
@@ -3128,8 +3309,14 @@ export class TableServicesService {
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRealisasiInflasi(data);
+    const responesRealisasi = await this.marketUpdateService.fetchDataUpdateRealisasiInflasi(data);
+    this.responseUpdate = responesRealisasi;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiInflasi();
+      this.replaceTableRealisasiInflasi(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRealisasiInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3148,18 +3335,28 @@ export class TableServicesService {
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRealisasiInflasi(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responesRealisasi = await this.marketUpdateService.fetchDataInputRealisasiInflasi(data);
+    this.responseCreate = responesRealisasi;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiInflasi();
+      this.replaceTableRealisasiInflasi(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRealisasiInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRealisasiInflasi.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRealisasiInflasi(data);
+    const responesRealisasi = await this.marketUpdateService.fetchDeleteDataRealisasiInflasi(data);
+    this.responseDelete = responesRealisasi;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiInflasi();
+      this.replaceTableRealisasiInflasi(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonRkapInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3179,8 +3376,14 @@ export class TableServicesService {
       tahun: rowData.tahun,
       pdb: rowData.pdb
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRkapInflasi(data);
+    const responesRkap = await this.marketUpdateService.fetchDataUpdateRkapInflasi(data);
+    this.responseUpdate = responesRkap;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapInflasi();
+      this.replaceTableRkapInflasi(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRkapInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3199,17 +3402,28 @@ export class TableServicesService {
       tahun: rowData.tahun,
       pdb: rowData.pdb
     }
-    console.log(data);
-    await this.marketUpdateService.fetchDataInputRkapInflasi(data);
+    const responesRkap = await this.marketUpdateService.fetchDataInputRkapInflasi(data);
+    this.responseCreate = responesRkap;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiInflasi();
+      this.replaceTableRkapInflasi(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRkapInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRkapInflasi.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRkapInflasi(data);
+    const responesRkap = await this.marketUpdateService.fetchDeleteDataRkapInflasi(data);
+    this.responseDelete = responesRkap;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapInflasi();
+      this.replaceTableRkapPDB(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonOutlookInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3229,8 +3443,14 @@ export class TableServicesService {
       tahun: rowData.tahun,
       nilai: rowData.nilai,
     }
-    console.log(data);
-    await this.marketUpdateService.fetchDataUpdateOutlookInflasi(data);
+    const responesOutlook = await this.marketUpdateService.fetchDataUpdateOutlookInflasi(data);
+    this.responseUpdate = responesOutlook;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookInflasi();
+      this.replaceTableOutlookInflasi(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonOutlookInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3249,18 +3469,28 @@ export class TableServicesService {
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputOutlookInflasi(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responesOutlook = await this.marketUpdateService.fetchDataInputOutlookInflasi(data);
+    this.responseCreate = responesOutlook;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookInflasi();
+      this.replaceTableOutlookInflasi(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonOutlookInflasi = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableOutlookInflasi.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataOutlookInflasi(data);
+    const responesOutlook = await this.marketUpdateService.fetchDeleteDataOutlookInflasi(data);
+    this.responseDelete = responesOutlook;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookInflasi();
+      this.replaceTableOutlookInflasi(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   //PMI
   cellClick_SaveButtonRealisasiPMI = async (e: any, cell:any) => {
@@ -3280,8 +3510,14 @@ export class TableServicesService {
       bulan: rowData.bulan,
       tahun: rowData.tahun,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRealisasiPMI(data);
+    const responesRealisasi = await this.marketUpdateService.fetchDataUpdateRealisasiPMI(data);
+    this.responseUpdate = responesRealisasi;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiPMI();
+      this.replaceTableRealisasiPMI(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRealisasiPMI = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3300,18 +3536,28 @@ export class TableServicesService {
       tahun: rowData.tahun,
       rate: rowData.rate
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRealisasiPMI(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responesRealisasi = await this.marketUpdateService.fetchDataInputRealisasiPMI(data);
+    this.responseCreate = responesRealisasi;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiPMI();
+      this.replaceTableRealisasiPMI(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRealisasiPMI = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRealisasiPmi.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRealisasiPMI(data);
+    const responesRealisasi = await this.marketUpdateService.fetchDeleteDataRealisasiPMI(data);
+    this.responseDelete = responesRealisasi;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiPMI();
+      this.replaceTableRealisasiPMI(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonRkapPMI = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3331,8 +3577,14 @@ export class TableServicesService {
       tahun: rowData.tahun,
       pdb: rowData.pdb
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRkapPMI(data);
+    const responeseRkap = await this.marketUpdateService.fetchDataUpdateRkapPMI(data);
+    this.responseUpdate = responeseRkap;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapPMI();
+      this.replaceTableRkapPMI(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRkapPMI = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3351,18 +3603,28 @@ export class TableServicesService {
       tahun: rowData.tahun,
       pdb: rowData.pdb
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRkapPMI(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responeseRkap = await this.marketUpdateService.fetchDataInputRkapPMI(data);
+    this.responseCreate = responeseRkap;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapPMI();
+      this.replaceTableRkapPMI(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRkapPMI = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRkapPmi.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRkapPMI(data);
+    const responeseRkap = await this.marketUpdateService.fetchDeleteDataRkapPMI(data);
+    this.responseDelete = responeseRkap;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapPMI();
+      this.replaceTableRkapPMI(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonOutlookPMI = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3382,8 +3644,14 @@ export class TableServicesService {
       bulan: rowData.bulan,
       tahun: rowData.tahun
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateOutlookPMI(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDataUpdateOutlookPMI(data);
+    this.responseUpdate = responeseOutlook;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookPMI();
+      this.replaceTableOutlookPMI(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonOutlookPMI = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3403,19 +3671,29 @@ export class TableServicesService {
       tahun: rowData.tahun,
       rate: rowData.rate
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputOutlookPMI(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDataInputOutlookPMI(data);
+    this.responseCreate = responeseOutlook;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookPMI();
+      this.replaceTableOutlookPMI(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonOutlookPMI = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableOutlookPmi.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataOutlookPMI(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDeleteDataOutlookPMI(data);
+    this.responseDelete = responeseOutlook;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookPMI();
+      this.replaceTableOutlookPMI(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
-
   //Retail
   cellClick_SaveButtonRealisasiRetail = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3435,8 +3713,14 @@ export class TableServicesService {
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRealisasiRetail(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDataUpdateRealisasiRetail(data);
+    this.responseUpdate = responeseRealisasi;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiRetail();
+      this.replaceTableRealisasiRetail(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRealisasiRetail = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3455,18 +3739,28 @@ export class TableServicesService {
       bulan: rowData.bulan,
       tahun: rowData.tahun
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRealisasiRetail(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responeseRealisasi = await this.marketUpdateService.fetchDataInputRealisasiRetail(data);
+    this.responseCreate = responeseRealisasi;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiRetail();
+      this.replaceTableRealisasiRetail(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRealisasiRetail = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRealisasiRetail.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRealisasiRetail(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDeleteDataRealisasiRetail(data);
+    this.responseDelete = responeseRealisasi;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiRetail();
+      this.replaceTableRealisasiRetail(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonRkapRetail = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3486,7 +3780,14 @@ export class TableServicesService {
       tahun: rowData.tahun,
       pdb: rowData.pdb
     }
-    console.log(data);
+    const responeseRkap = await this.marketUpdateService.fetchDataUpdateRkapRetail(data);
+    this.responseUpdate = responeseRkap;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapRetail();
+      this.replaceTableRkapRetail(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
     const response = await this.marketUpdateService.fetchDataUpdateRkapRetail(data);
   }
   cellClick_addButtonRkapRetail = async (e: any, cell:any) => {
@@ -3506,18 +3807,28 @@ export class TableServicesService {
       tahun: rowData.tahun,
       pdb: rowData.pdb
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRkapRetail(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responeseRkap = await this.marketUpdateService.fetchDataInputRkapRetail(data);
+    this.responseCreate = responeseRkap;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapRetail();
+      this.replaceTableRkapRetail(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRkapRetail = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRkapRetail.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRkapRetail(data);
+    const responeseRkap = await this.marketUpdateService.fetchDeleteDataRkapRetail(data);
+    this.responseDelete = responeseRkap;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapRetail();
+      this.replaceTableRkapRetail(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonOutlookRetail = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3537,8 +3848,14 @@ export class TableServicesService {
       tahun: rowData.tahun,
       pdb: rowData.pdb
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateOutlookRetail(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDataUpdateOutlookRetail(data);
+    this.responseUpdate = responeseOutlook;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookRetail();
+      this.replaceTableOutlookRetail(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonOutlookRetail = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3557,18 +3874,28 @@ export class TableServicesService {
       tahun: rowData.tahun,
       pdb: rowData.pdb
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputOutlookRetail(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responeseOutlook = await this.marketUpdateService.fetchDataInputOutlookRetail(data);
+    this.responseCreate = responeseOutlook;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookRetail();
+      this.replaceTableOutlookRetail(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonOutlookRetail = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableOutlookRetail.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataOutlookRetail(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDeleteDataOutlookRetail(data);
+    this.responseDelete = responeseOutlook;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookRetail();
+      this.replaceTableOutlookRetail(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   //moneysupply
   cellClick_SaveButtonRealisasiMoneySupply = async (e: any, cell:any) => {
@@ -3589,8 +3916,14 @@ export class TableServicesService {
       tahun: rowData.tahun,
       triliun_beredar: rowData.triliun_beredar
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRealisasiMoneySupply(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDataUpdateRealisasiMoneySupply(data);
+    this.responseUpdate = responeseRealisasi;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiMoneySupply();
+      this.replaceTableRealisasiMoneySupply(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRealisasiMoneySupply = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3609,18 +3942,28 @@ export class TableServicesService {
       tahun: rowData.tahun,
       triliun_beredar: rowData.triliun_beredar
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRealisasiMoneySupply(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responeseRealisasi = await this.marketUpdateService.fetchDataInputRealisasiMoneySupply(data);
+    this.responseCreate = responeseRealisasi;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiMoneySupply();
+      this.replaceTableRealisasiMoneySupply(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRealisasiMoneySupply = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRealisasiMoneySupply.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRealisasiMoneySupply(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDeleteDataRealisasiMoneySupply(data);
+    this.responseDelete = responeseRealisasi;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiMoneySupply();
+      this.replaceTableRealisasiMoneySupply(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonRkapMoneySupply = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3640,8 +3983,14 @@ export class TableServicesService {
       tahun: rowData.tahun,
       pdb: rowData.pdb
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRkapMoneySupply(data);
+    const responeseRkap = await this.marketUpdateService.fetchDataUpdateRkapMoneySupply(data);
+    this.responseUpdate = responeseRkap;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapMoneySupply();
+      this.replaceTableRkapMoneySupply(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRkapMoneySupply = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3660,17 +4009,28 @@ export class TableServicesService {
       tahun: rowData.tahun,
       pdb: rowData.pdb
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRkapMoneySupply(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responeseRkap = await this.marketUpdateService.fetchDataInputRkapMoneySupply(data);
+    this.responseCreate = responeseRkap;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapMoneySupply();
+      this.replaceTableRkapMoneySupply(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRkapMoneySupply = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRkapMoneySupply.deleteRow(data.id)
-    console.log(data);
+    const responeseRkap = await this.marketUpdateService.fetchDeleteDataRkapMoneySupply(data);
+    this.responseDelete = responeseRkap;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapMoneySupply();
+      this.replaceTableRkapMoneySupply(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
     const response = await this.marketUpdateService.fetchDeleteDataRkapMoneySupply(data);
   }
   cellClick_SaveButtonOutlookMoneySupply = async (e: any, cell:any) => {
@@ -3691,8 +4051,14 @@ export class TableServicesService {
       tahun: rowData.tahun,
       triliun_beredar: rowData.triliun_beredar
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateOutlookMoneySupply(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDataUpdateOutlookMoneySupply(data);
+    this.responseUpdate = responeseOutlook;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookMoneySupply();
+      this.replaceTableOutlookMoneySupply(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonOutlookMoneySupply = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3712,18 +4078,28 @@ export class TableServicesService {
       tahun: rowData.tahun,
       triliun_beredar: rowData.triliun_beredar
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputOutlookMoneySupply(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responeseOutlook = await this.marketUpdateService.fetchDataInputOutlookMoneySupply(data);
+    this.responseUpdate = responeseOutlook;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookMoneySupply();
+      this.replaceTableOutlookMoneySupply(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonOutlookMoneySupply = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableOutlookMoneySupply.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataOutlookMoneySupply(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDeleteDataOutlookMoneySupply(data);
+    this.responseDelete = responeseOutlook;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookMoneySupply();
+      this.replaceTableOutlookMoneySupply(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   //cadev
   cellClick_SaveButtonRealisasiCadev = async (e: any, cell:any) => {
@@ -3744,8 +4120,14 @@ export class TableServicesService {
       tahun: rowData.tahun,
       miliar_usd: rowData.miliar_usd
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRealisasiCadev(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDataUpdateRealisasiCadev(data);
+    this.responseUpdate = responeseRealisasi;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiCadev();
+      this.replaceTableRealisasiCadev(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRealisasiCadev = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3765,18 +4147,28 @@ export class TableServicesService {
       tahun: rowData.tahun,
       miliar_usd: rowData.miliar_usd
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRealisasiCadev(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responeseRealisasi = await this.marketUpdateService.fetchDataInputRealisasiCadev(data);
+    this.responseCreate = responeseRealisasi;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiCadev();
+      this.replaceTableRealisasiCadev(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRealisasiCadev = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRealisasiForeignExchange.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRealisasiCadev(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDeleteDataRealisasiCadev(data);
+    this.responseDelete = responeseRealisasi;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiCadev();
+      this.replaceTableRealisasiCadev(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonRkapCadev = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3796,8 +4188,14 @@ export class TableServicesService {
       tahun: rowData.tahun,
       pdb: rowData.pdb
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRkapCadev(data);
+    const responeseRkap = await this.marketUpdateService.fetchDataUpdateRkapCadev(data);
+    this.responseUpdate = responeseRkap;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapCadev();
+      this.replaceTableRkapCadev(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRkapCadev = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3817,18 +4215,28 @@ export class TableServicesService {
       tahun: rowData.tahun,
       pdb: rowData.pdb
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRkapCadev(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responeseRkap = await this.marketUpdateService.fetchDataInputRkapCadev(data);
+    this.responseCreate = responeseRkap;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapCadev();
+      this.replaceTableRkapCadev(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRkapCadev = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRkapForeignExchange.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRkapCadev(data);
+    const responeseRkap = await this.marketUpdateService.fetchDeleteDataRkapCadev(data);
+    this.responseDelete = responeseRkap;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapCadev();
+      this.replaceTableRkapCadev(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonOutlookCadev = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3848,8 +4256,14 @@ export class TableServicesService {
       tahun: rowData.tahun,
       miliar_usd: rowData.miliar_usd
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateOutlookCadev(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDataUpdateOutlookCadev(data);
+    this.responseUpdate = responeseOutlook;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookCadev();
+      this.replaceTableOutlookCadev(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonOutlookCadev = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3869,23 +4283,30 @@ export class TableServicesService {
       tahun: rowData.tahun,
       miliar_usd: rowData.miliar_usd
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputOutlookCadev(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responeseOutlook = await this.marketUpdateService.fetchDataInputOutlookCadev(data);
+    this.responseCreate = responeseOutlook;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookCadev();
+      this.replaceTableOutlookCadev(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonOutlookCadev = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableOutlookForeignExchange.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataOutlookCadev(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDeleteDataOutlookCadev(data);
+    this.responseDelete = responeseOutlook;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookCadev();
+      this.replaceTableOutlookCadev(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   // end save edit all non-macro
-  //currency
-
-  //non macro
   //currency rate
   cellClick_SaveButtoRealisasiCurrency = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3903,19 +4324,32 @@ export class TableServicesService {
       idJisdor: rowData.id_mst_jisdor,
       idNonJisdor: rowData.id,
       mataUang: rowData.mata_uang,
-      nilai: rowData.nilai,
+      nilai : rowData.nilai,
       tanggal: rowData.tanggal,
-      kurs: rowData.kurs
+      kurs: rowData.kurs,
     }
-    if (data.idJisdor == undefined){
-      await this.marketUpdateService.fetchDataUpdateRealisasiKursNonUsd(data);
-      this
+    
+    if (data.mataUang == "USD"){
+      const responeseRealisasi = await this.marketUpdateService.fetchDataUpdateRealisasiKursUsd(data);
+      this.responseUpdate = responeseRealisasi;
+      if (this.responseUpdate.status == 200){
+        const dataReplaceUsd = await this.marketUpdateService.fetchDataRealisasiKursUsd();
+        const dataReplacenonUsd = await  this.marketUpdateService.fetchDataRealisasiKursNonUsd();
+        this.replaceTableRealisasiCurrency(dataReplaceUsd, dataReplacenonUsd)
+      }else{
+        console.log('data kosong');
+      }
     }else {
-      await this.marketUpdateService.fetchDataUpdateRealisasiKursUsd(data);
+      const responeseRealisasiNonUsd = await this.marketUpdateService.fetchDataUpdateRealisasiKursNonUsd(data);
+      this.responseUpdate = responeseRealisasiNonUsd;
+      if (this.responseUpdate.status == 200){
+        const dataReplaceUsd = await this.marketUpdateService.fetchDataRealisasiKursUsd();
+        const dataReplacenonUsd = await  this.marketUpdateService.fetchDataRealisasiKursNonUsd();
+        this.replaceTableRealisasiCurrency(dataReplaceUsd, dataReplacenonUsd)
+      }else{
+        console.log('data kosong');
+      }
     }
-    await this.marketUpdateService.fetchDataRealisasiKursUsd();
-    await this.marketUpdateService.fetchDataRealisasiKursNonUsd();
-    console.log(data);
   }
   cellClick_addButtonRealisasiCurrency = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3937,27 +4371,57 @@ export class TableServicesService {
       tanggal: rowData.tanggal,
       kurs: rowData.kurs
     }
-    if(data.mataUang == "USD"){
-      await this.marketUpdateService.fetchDataInputRealisasiKursUsd(data);
-    } else {
-      await this.marketUpdateService.fetchDataInputRealisasiKursNonUsd(data);
+    if (data.mataUang == "USD"){
+      const responeseRealisasi = await this.marketUpdateService.fetchDataInputRealisasiKursUsd(data);
+      this.responseDelete = responeseRealisasi;
+      if (this.responseDelete.status == 200){
+        const dataReplaceUsd = await this.marketUpdateService.fetchDataRealisasiKursUsd();
+        const dataReplacenonUsd = await  this.marketUpdateService.fetchDataRealisasiKursNonUsd();
+        this.replaceTableRealisasiCurrency(dataReplaceUsd, dataReplacenonUsd)
+      }else{
+        console.log('data kosong');
+      }
+    }else {
+      const responeseRealisasiNonUsd = await this.marketUpdateService.fetchDeleteDataRealisasiCurrencyRateNonUsd(data);
+      this.responseDelete = responeseRealisasiNonUsd;
+      if (this.responseDelete.status == 200){
+        const dataReplaceUsd = await this.marketUpdateService.fetchDataRealisasiKursUsd();
+        const dataReplacenonUsd = await  this.marketUpdateService.fetchDataRealisasiKursNonUsd();
+        this.replaceTableRealisasiCurrency(dataReplaceUsd, dataReplacenonUsd)
+      }else{
+        console.log('data kosong');
+      }
     }
-    console.log(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
-  cellClick_deleteButtonRealisasiCurrency = async (e: any, cell:any) => {
+  cellClick_deleteButtonRealisasiCurrency = async (e: any, cell:any) => {  
     const rowData = cell.getRow().getData();
     const data = {
-      id: rowData.id,
+      id: rowData.id_mst_jisdor,
+      idNonJisdor: rowData.id,
       mataUang: rowData.mata_uang
     }
     if(data.mataUang == "USD"){
-      await this.marketUpdateService.fetchDeleteDataRealisasiCurrencyRate(data);
-    } else {
-      await this.marketUpdateService.fetchDeleteDataRealisasiCurrencyRateNonUsd(data);
+      const responeseRealisasi = await this.marketUpdateService.fetchDeleteDataRealisasiCurrencyRate(data);
+      this.responseCreate = responeseRealisasi;
+      if (this.responseCreate.status == 200){
+        const dataReplaceUsd = await this.marketUpdateService.fetchDataRealisasiKursUsd();
+        const dataReplacenonUsd = await  this.marketUpdateService.fetchDataRealisasiKursNonUsd();
+        this.replaceTableRealisasiCurrency(dataReplaceUsd, dataReplacenonUsd)
+      }else{
+        console.log('data kosong');
+      }
+    }else {
+      const responeseRealisasiNonUsd = await this.marketUpdateService.fetchDeleteDataRealisasiCurrencyRate(data);
+      this.responseUpdate = responeseRealisasiNonUsd;
+      if (this.responseUpdate.status == 200){
+        const dataReplaceUsd = await this.marketUpdateService.fetchDataRealisasiKursUsd();
+        const dataReplacenonUsd = await  this.marketUpdateService.fetchDataRealisasiKursNonUsd();
+        this.replaceTableRealisasiCurrency(dataReplaceUsd, dataReplacenonUsd)
+      }else{
+        console.log('data kosong');
+      }
     }
-    this.tableRealisasiCurrencyRate.deleteRow(data.id)
-    console.log(data);const response = await this.marketUpdateService.fetchDeleteDataRealisasiCurrencyRate(data);
+    console.log(rowData)
   }
   cellClick_SaveButtonRkapCurrency = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -3972,20 +4436,21 @@ export class TableServicesService {
     currentTable.hideColumn("CancelButton")
     currentTable.hideColumn("SaveButton")
     const data = {
-      idJisdor: rowData.id_mstr_rkap_jisdor,
-      idNonJisdor: rowData.id_mstr_rkap_kurs,
-      mataUang: rowData.mata_uang,
-      nilai: rowData.nilai,
+      id: rowData.id_dash_rkap,
+      mtu: rowData.mtu,
+      grup: rowData.grup,
       tanggal: rowData.tanggal,
-      kurs: rowData.kurs
+      tahun: rowData.tahun,
+      rate: rowData.rate,
     }
-    if (data.idJisdor == undefined){
-      await this.marketUpdateService.fetchDataUpdateRkapKursNonUsd(data);
-    }else {
-      await this.marketUpdateService.fetchDataUpdateRkapKursUsd(data);
+    const responeseRkap = await this.marketUpdateService.fetchDataUpdateRkapKurs(data);
+    this.responseUpdate = responeseRkap;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapKursUsd();
+      this.replaceTableRkapCurrency(dataReplace)
+    } else {
+      console.log('gagal hapus')
     }
-    //
-    console.log(data);
   }
   cellClick_addButtonRkapCurrency = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4007,13 +4472,14 @@ export class TableServicesService {
       tanggal: rowData.tanggal,
       kurs: rowData.kurs
     }
-    if(data.mataUang == "USD"){
-      const response = await this.marketUpdateService.fetchDataInputRkapKursUsd(data);
+    const responeseRkap = await this.marketUpdateService.fetchDataInputRkapKurs(data);
+    this.responseCreate = responeseRkap;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapKursUsd();
+      this.replaceTableRkapCurrency(dataReplace)
     } else {
-      const response = await this.marketUpdateService.fetchDataInputRkapKursNonUsd(data);
+      console.log('gagal hapus')
     }
-    console.log(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
   cellClick_deleteButtonRkapCurrencyRate = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4021,12 +4487,14 @@ export class TableServicesService {
       id: rowData.id,
       mataUang: rowData.mata_uang
     }
-    if(data.mataUang == "USD"){
-      const response = await this.marketUpdateService.fetchDeleteDataRkapKursUsd(data);
+    const responeseRkap = await this.marketUpdateService.fetchDeleteDataRkapKursUsd(data);
+    this.responseDelete = responeseRkap;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapKursUsd();
+      this.replaceTableRkapCurrency(dataReplace)
     } else {
-      const response = await this.marketUpdateService.fetchDeleteDataRkapNonUsd(data);
+      console.log('gagal hapus')
     }
-    this.tableOutlookCurrencyRate.deleteRow(data.id)
   }
   cellClick_SaveButtonOutlookCurrency = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4048,12 +4516,27 @@ export class TableServicesService {
       tanggal: rowData.tanggal,
       kurs: rowData.kurs
     }
-    if (data.idJisdor == undefined){
-      await this.marketUpdateService.fetchDataUpdateOutlookNonUsd(data);
+    if (data.mataUang == "USD"){
+      const responeseOutlook = await this.marketUpdateService.fetchDataUpdateOutlookKursUsd(data);
+      this.responseUpdate = responeseOutlook;
+      if (this.responseUpdate.status == 200){
+        const dataReplaceUsd = await this.marketUpdateService.fetchDataOutlookKursUsd();
+        const dataReplacenonUsd = await  this.marketUpdateService.fetchDataOutlookKursNonUsd();
+        this.replaceTableOutlookCurrency(dataReplaceUsd, dataReplacenonUsd)
+      }else{
+        console.log('data kosong');
+      }
     }else {
-      await this.marketUpdateService.fetchDataUpdateOutlookKursUsd(data);
+      const responeseOutlookNonUsd = await this.marketUpdateService.fetchDataUpdateOutlookKursUsd(data);
+      this.responseUpdate = responeseOutlookNonUsd;
+      if (this.responseUpdate.status == 200){
+        const dataReplaceUsd = await this.marketUpdateService.fetchDataOutlookKursUsd();
+        const dataReplacenonUsd = await  this.marketUpdateService.fetchDataOutlookKursNonUsd();
+        this.replaceTableOutlookCurrency(dataReplaceUsd, dataReplacenonUsd)
+      }else{
+        console.log('data kosong');
+      }
     }
-    console.log(data);
   }
   cellClick_addButtonOutlookCurrency = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4075,13 +4558,27 @@ export class TableServicesService {
       tanggal: rowData.tanggal,
       kurs: rowData.kurs
     }
-    if(data.mataUang == "USD"){
-      const response = await this.marketUpdateService.fetchDataInputOutlookKursUsd(data);
-    } else {
-      const response = await this.marketUpdateService.fetchDataInputOutlookNonUsd(data);
+    if (data.mataUang == "USD"){
+      const responeseOutlook = await this.marketUpdateService.fetchDataInputOutlookKursUsd(data);
+      this.responseCreate = responeseOutlook;
+      if (this.responseCreate.status == 200){
+        const dataReplaceUsd = await this.marketUpdateService.fetchDataOutlookKursUsd();
+        const dataReplacenonUsd = await  this.marketUpdateService.fetchDataOutlookKursNonUsd();
+        this.replaceTableOutlookCurrency(dataReplaceUsd, dataReplacenonUsd)
+      }else{
+        console.log('data kosong');
+      }
+    }else {
+      const responeseOutlookNonUsd = await this.marketUpdateService.fetchDataInputOutlookKursUsd(data);
+      this.responseCreate = responeseOutlookNonUsd;
+      if (this.responseCreate.status == 200){
+        const dataReplaceUsd = await this.marketUpdateService.fetchDataOutlookKursUsd();
+        const dataReplacenonUsd = await  this.marketUpdateService.fetchDataOutlookKursNonUsd();
+        this.replaceTableOutlookCurrency(dataReplaceUsd, dataReplacenonUsd)
+      }else{
+        console.log('data kosong');
+      }
     }
-    console.log(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
   }
   cellClick_deleteButtonOutlookCurrencyRate = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4089,12 +4586,27 @@ export class TableServicesService {
       id: rowData.id,
       mataUang: rowData.mata_uang
     }
-    if(data.mataUang == "USD"){
-      const response = await this.marketUpdateService.fetchDeleteDataRkapKursUsd(data);
-    } else {
-      const response = await this.marketUpdateService.fetchDeleteDataRkapNonUsd(data);
+    if (data.mataUang == "USD"){
+      const responeseOutlook = await this.marketUpdateService.fetchDeleteDataOutlookCurrencyRate(data);
+      this.responseDelete = responeseOutlook;
+      if (this.responseDelete.status == 200){
+        const dataReplaceUsd = await this.marketUpdateService.fetchDataOutlookKursUsd();
+        const dataReplacenonUsd = await  this.marketUpdateService.fetchDataOutlookKursNonUsd();
+        this.replaceTableOutlookCurrency(dataReplaceUsd, dataReplacenonUsd)
+      }else{
+        console.log('data kosong');
+      }
+    }else {
+      const responeseOutlookNonUsd = await this.marketUpdateService.fetchDeleteDataOutlookNonUsd(data);
+      this.responseDelete = responeseOutlookNonUsd;
+      if (this.responseDelete.status == 200){
+        const dataReplaceUsd = await this.marketUpdateService.fetchDataOutlookKursUsd();
+        const dataReplacenonUsd = await  this.marketUpdateService.fetchDataOutlookKursNonUsd();
+        this.replaceTableOutlookCurrency(dataReplaceUsd, dataReplacenonUsd)
+      }else{
+        console.log('data kosong');
+      }
     }
-    this.tableOutlookCurrencyRate.deleteRow(data.id)
   }
   //Interest Rate
   cellClick_SaveButtonInterestRate = async (e: any, cell:any) => {
@@ -4108,9 +4620,9 @@ export class TableServicesService {
     currentTable.showColumn("tambahButton")
     currentTable.showColumn("deleteButton")
     currentTable.hideColumn("CancelButton")
-    currentTable.hideColumn("SaveButton")
+    currentTable.hideColumn("SaveBut;ton")
     const data = {
-      id: rowData.id_outlook_ir,
+      id: rowData.id,
       grup: rowData.grup,
       tanggal: rowData.tanggal,
       tahun: rowData.tahun,
@@ -4118,8 +4630,14 @@ export class TableServicesService {
       month3: rowData.month3,
       month6: rowData.month6,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRealisasiInterestRate(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDataUpdateRealisasiInterestRate(data);
+    this.responseUpdate = responeseRealisasi;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiInterestRate();
+      this.replaceTableRealisasiInterest(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRealisasiInterestRate = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4142,17 +4660,28 @@ export class TableServicesService {
       month3: rowData.month3,
       month6: rowData.month6,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRealisasiInterestRate(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDataInputRealisasiInterestRate(data);
+    this.responseCreate = responeseRealisasi;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiInterestRate();
+      this.replaceTableRealisasiInterest(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRealisasiInterestRate = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableOutlookCurrencyRate.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRealisasiInterestRate(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDeleteDataRealisasiInterestRate(data);
+    this.responseDelete = responeseRealisasi;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiInterestRate();
+      this.replaceTableRealisasiInterest(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonRkapInterestRate = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4175,8 +4704,14 @@ export class TableServicesService {
       grup: rowData.grup,
       tahun: rowData.tahun,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRkapInterestRate(data);
+    const responeseRkap = await this.marketUpdateService.fetchDataUpdateRkapInterestRate(data);
+    this.responseUpdate = responeseRkap;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapInterestRate();
+      this.replaceTableRkapInterest(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRkapInterestRate = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4199,17 +4734,28 @@ export class TableServicesService {
       month3: rowData.month3,
       month6: rowData.month6,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRkapInterestRate(data);
+    const responeseRkap = await this.marketUpdateService.fetchDataInputRkapInterestRate(data);
+    this.responseCreate = responeseRkap;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapInterestRate();
+      this.replaceTableRkapInterest(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRkapInterestRate = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableOutlookCurrencyRate.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRkapInterestRate(data);
+    const responeseRkap = await this.marketUpdateService.fetchDeleteDataRkapInterestRate(data);
+    this.responseDelete = responeseRkap;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapInterestRate();
+      this.replaceTableRkapInterest(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonOutlookInterestRate = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4232,8 +4778,14 @@ export class TableServicesService {
       month3: rowData.month3,
       month6: rowData.month6,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateOutlookInterestRate(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDataUpdateOutlookInterestRate(data);
+    this.responseUpdate = responeseOutlook;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookInterestRate();
+      this.replaceTableOutlookInterest(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonOutlookInterestRate = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4255,17 +4807,28 @@ export class TableServicesService {
       month3: rowData.month3,
       month6: rowData.month6,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputOutlookInterestRate(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDataInputOutlookInterestRate(data);
+    this.responseCreate = responeseOutlook;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookInterestRate();
+      this.replaceTableOutlookInterest(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonOutlookInterestRate = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableOutlookCurrencyRate.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataOutlookInterestRate(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDeleteDataOutlookInterestRate(data);
+    this.responseDelete = responeseOutlook;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookInterestRate();
+      this.replaceTableOutlookInterest(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   // commodities
   cellClick_SaveButtonRealisasiCommodities = async (e: any, cell:any) => {
@@ -4288,8 +4851,14 @@ export class TableServicesService {
       nilai: rowData.nilai,
       kategori: rowData.kategori
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRealisasiCommodities(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDataUpdateRealisasiCommodities(data);
+    this.responseUpdate = responeseRealisasi;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiCommodities();
+      this.replaceTableRealisasiCommodities(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRealisasiCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4309,17 +4878,28 @@ export class TableServicesService {
       tanggal: rowData.tanggal,
       nilai: rowData.nilai,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRealisasiCommodities(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDataInputRealisasiCommodities(data);
+    this.responseCreate = responeseRealisasi;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiCommodities();
+      this.replaceTableRealisasiCommodities(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRealisasiCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRealisasiComodities.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRealisasiCommodities(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDeleteDataRealisasiCommodities(data);
+    this.responseDelete = responeseRealisasi;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiCommodities();
+      this.replaceTableRealisasiCommodities(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonRkapCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4341,8 +4921,14 @@ export class TableServicesService {
       rate: rowData.rate,
       keterangan: rowData.keterangan
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRkapCommodities(data);
+    const responeseRkap = await this.marketUpdateService.fetchDataUpdateRkapCommodities(data);
+    this.responseUpdate = responeseRkap;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapCommodities();
+      this.replaceTableRkapCommodities(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRkapCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4364,17 +4950,28 @@ export class TableServicesService {
       rate: rowData.rate,
       kategori: rowData.kategori
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRkapCommodities(data);
+    const responeseRkap = await this.marketUpdateService.fetchDataInputRkapCommodities(data);
+    this.responseCreate = responeseRkap;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapCommodities();
+      this.replaceTableRkapCommodities(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRkapmmodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableOutlookCurrencyRate.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRkapCurrencyRate(data);
+    const responeseRkap = await this.marketUpdateService.fetchDeleteDataRkapCommodities(data);
+    this.responseDelete = responeseRkap;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapCommodities();
+      this.replaceTableRkapCommodities(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonOutlookCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4396,8 +4993,14 @@ export class TableServicesService {
       nilai: rowData.nilai,
       keterangan: rowData.keterangan
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateOutlookCommodities(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDataUpdateOutlookCommodities(data);
+    this.responseUpdate = responeseOutlook;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookCommodities();
+      this.replaceTableOutlookCommodities(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonOutlookCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4419,17 +5022,28 @@ export class TableServicesService {
       nilai: rowData.nilai,
       kategori: rowData.kategori
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputOutlookCommodities(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDataInputOutlookCommodities(data);
+    this.responseCreate = responeseOutlook;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookCommodities();
+      this.replaceTableOutlookCommodities(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonOutlookCommodities = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableOutlookCurrencyRate.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataOutlookCurrencyRate(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDataUpdateOutlookCommodities(data);
+    this.responseDelete = responeseOutlook;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookCommodities();
+      this.replaceTableOutlookCommodities(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   //bond yield SBN
   cellClick_SaveButtonRealisasiSBN = async (e: any, cell:any) => {
@@ -4455,8 +5069,14 @@ export class TableServicesService {
       yr25: rowData.yr25,
       yr30: rowData.yr30,
     }
-    console.log(data);
-    await this.marketUpdateService.fetchDataUpdateRealisasiBondYieldSBN(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDataUpdateRealisasiBondYieldSBN(data);
+    this.responseUpdate = responeseRealisasi;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiBondYieldSBN();
+      this.replaceTableRealisasiBondYield(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRealisasiSBN = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4481,17 +5101,28 @@ export class TableServicesService {
       yr25: rowData.yr25,
       yr30: rowData.yr30,
     }
-    console.log(data);
-    await this.marketUpdateService.fetchDataInputRealisasiBondYieldSBN(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDataInputRealisasiBondYieldSBN(data);
+    this.responseCreate = responeseRealisasi;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiBondYieldSBN();
+      this.replaceTableRealisasiBondYield(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRealisasiSBN = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRealisasiForeignExchange.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRkapBondYieldSBN(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDeleteDataRealisasuBondYieldSBN(data);
+    this.responseDelete = responeseRealisasi;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiBondYieldSBN();
+      this.replaceTableRealisasiBondYield(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonRkapSBN = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4516,8 +5147,14 @@ export class TableServicesService {
       yr25: rowData.yr25,
       yr30: rowData.yr30,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRkapBondYieldSBN(data);
+    const responeseRkap = await this.marketUpdateService.fetchDataUpdateRkapBondYieldSBN(data);
+    this.responseUpdate = responeseRkap;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapBondYieldSBN();
+      this.replaceTableRkapBondYield(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRkapSBN = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4542,18 +5179,28 @@ export class TableServicesService {
       yr25: rowData.yr25,
       yr30: rowData.yr30,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRkapBondYieldSBN(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responeseRkap = await this.marketUpdateService.fetchDataInputRkapBondYieldSBN(data);
+    this.responseCreate = responeseRkap;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapBondYieldSBN();
+      this.replaceTableRkapBondYield(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRkapSBN = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRealisasiForeignExchange.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRkapBondYieldSBN(data);
+    const responeseRkap = await this.marketUpdateService.fetchDeleteDataRkapBondYieldSBN(data);
+    this.responseDelete = responeseRkap;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapBondYieldSBN();
+      this.replaceTableRkapBondYield(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonOutlookSBN = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4578,8 +5225,14 @@ export class TableServicesService {
       yr25: rowData.yr25,
       yr30: rowData.yr30,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateOutlookBondYieldSBN(data);
+    const responesOutlook = await this.marketUpdateService.fetchDataUpdateOutlookBondYieldSBN(data);
+    this.responseUpdate = responesOutlook;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookBondYieldSBN();
+      this.replaceTableOutlookBondYield(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonOutlookSBN = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4604,18 +5257,28 @@ export class TableServicesService {
       yr25: rowData.yr25,
       yr30: rowData.yr30,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputOutlookBondYieldSBN(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responeseOutlook = await this.marketUpdateService.fetchDataInputOutlookBondYieldSBN(data);
+    this.responseCreate = responeseOutlook;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookBondYieldSBN();
+      this.replaceTableOutlookBondYield(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonOutlookSBN = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRealisasiForeignExchange.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataOutlookBondYieldSBN(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDeleteDataOutlookBondYieldSBN(data);
+    this.responseDelete = responeseOutlook;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookBondYieldSBN();
+      this.replaceTableOutlookBondYield(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   //Us Treasury
   cellClick_SaveButtonRealisasiUsTreasury = async (e: any, cell:any) => {
@@ -4641,8 +5304,14 @@ export class TableServicesService {
       yr25: rowData.yr25,
       yr30: rowData.yr30,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRealisasiBondYieldTreasury(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDataUpdateRealisasiBondYieldTreasury(data);
+    this.responseUpdate = responeseRealisasi;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiBondYieldUsTreasury();
+      this.replaceTableRealisasiUsTreasury(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRealisasiUsTreasury = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4667,18 +5336,28 @@ export class TableServicesService {
       yr25: rowData.yr25,
       yr30: rowData.yr30,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRealisasiBondYieldUsTreasury(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responeseRealisasi = await this.marketUpdateService.fetchDataInputRealisasiBondYieldUsTreasury(data);
+    this.responseCreate = responeseRealisasi;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiBondYieldUsTreasury();
+      this.replaceTableRealisasiUsTreasury(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRealisasiUsTreasury = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRealisasiForeignExchange.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRealisasiBondYieldUsTreasury(data);
+    const responeseRealisasi = await this.marketUpdateService.fetchDeleteDataRealisasiBondYieldUsTreasury(data);
+    this.responseDelete = responeseRealisasi;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRealisasiBondYieldUsTreasury();
+      this.replaceTableRealisasiUsTreasury(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonRkapUsTreasury = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4703,8 +5382,14 @@ export class TableServicesService {
       yr25: rowData.yr25,
       yr30: rowData.yr30,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateRkapBondYieldUsTreasury(data);
+    const responeseRkap = await this.marketUpdateService.fetchDataUpdateRkapBondYieldUsTreasury(data);
+    this.responseUpdate = responeseRkap;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapBondYieldUsTreasury();
+      this.replaceTableRkapUsTreasury(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonRkapUsTreasury = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4729,18 +5414,28 @@ export class TableServicesService {
       yr25: rowData.yr25,
       yr30: rowData.yr30,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputRkapBondYieldUsTreasury(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responeseRkap = await this.marketUpdateService.fetchDataInputRkapBondYieldUsTreasury(data);
+    this.responseCreate = responeseRkap;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapBondYieldUsTreasury();
+      this.replaceTableRkapUsTreasury(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonRkapUsTreasury = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRealisasiForeignExchange.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataRkapBondYieldUsTreasury(data);
+    const responeseRkap = await this.marketUpdateService.fetchDeleteDataRkapBondYieldUsTreasury(data);
+    this.responseDelete = responeseRkap;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataRkapBondYieldUsTreasury();
+      this.replaceTableRkapUsTreasury(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_SaveButtonOutlookUsTreasury = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4765,8 +5460,14 @@ export class TableServicesService {
       yr25: rowData.yr25,
       yr30: rowData.yr30,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataUpdateOutlookBondYieldUsTreasury(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDataUpdateOutlookBondYieldUsTreasury(data);
+    this.responseUpdate = responeseOutlook;
+    if (this.responseUpdate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookBondYieldUsTreasury();
+      this.replaceTableOutlookUsTreasury(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_addButtonOutlookUsTreasury = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
@@ -4791,18 +5492,28 @@ export class TableServicesService {
       yr25: rowData.yr25,
       yr30: rowData.yr30,
     }
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDataInputOutlookBondYieldUsTreasury(data);
-    // const getBackData = await this.marketUpdateService.fetchDataPDB();
+    const responeseOutlook = await this.marketUpdateService.fetchDataInputOutlookBondYieldUsTreasury(data);
+    this.responseCreate = responeseOutlook;
+    if (this.responseCreate.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookBondYieldUsTreasury();
+      this.replaceTableOutlookUsTreasury(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   cellClick_deleteButtonOutlookUsTreasury = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
     }
-    this.tableRealisasiForeignExchange.deleteRow(data.id)
-    console.log(data);
-    const response = await this.marketUpdateService.fetchDeleteDataOutlookBondYieldUsTreasury(data);
+    const responeseOutlook = await this.marketUpdateService.fetchDeleteDataOutlookBondYieldUsTreasury(data);
+    this.responseDelete = responeseOutlook;
+    if (this.responseDelete.status == 200){
+      const dataReplace = await this.marketUpdateService.fetchDataOutlookBondYieldUsTreasury();
+      this.replaceTableRkapUsTreasury(dataReplace)
+    } else {
+      console.log('gagal hapus')
+    }
   }
   // end save edit non macro
 

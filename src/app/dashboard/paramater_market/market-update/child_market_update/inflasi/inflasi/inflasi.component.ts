@@ -48,41 +48,34 @@ export class InflasiComponent {
     "Desember"
   ];
 
-  async getDataInflasi(){
-    const today = moment().format('DD/MM/YYYY');
-    this.isLoading = true;
-    console.log(this.isLoading, 'loading 1');
+  // async getDataInflasi(){
+  //   const today = moment().format('DD/MM/YYYY');
+  //   this.isLoading = true;
+  //   console.log(this.isLoading, 'loading 1');
 
-    try {
-      const data = await this.marketUpdateService.fetchAllDataMacroIndicator(today, "INFLASI");
-      this.dataDetail = data;
-      this.dataDetail = this.dataDetail.data;
-      this.isLoading = false;
-      console.log(this.isLoading, 'loading 2', this.dataDetail);
-    } catch (error) {
-      console.log(error);
-    }
-
-      this.dataDetail = this.dataDetail.filter((item: any) => {
-      return item.bulan != 'Bulan';
-    })
-
-    console.log(this.dataDetail);
-
-    this.dataDetail = this.dataDetail.map((item: any) =>{
-      item.year_min_0 != null ? item.year_min_0 = parseFloat(item.year_min_0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_0 = 0;
-
-      item.year_min_1 != null ? item.year_min_1 = parseFloat(item.year_min_1).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_1 = 0;
-
-      item.year_min_2 != null ? item.year_min_2 = parseFloat(item.year_min_2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_0 = 0;
-
-      item.year_min_3 != null ? item.year_min_3 = parseFloat(item.year_min_3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_0 = 0;
-
-      return item;
-    })
-    this.tableConfig.setDataInflasi(this.dataDetail);
-    console.log('finish get data in func');
-  }
+  //   try {
+  //     const data = await this.marketUpdateService.fetchAllDataMacroIndicator(today, "INFLASI");
+  //     this.dataDetail = data;
+  //     this.dataDetail = this.dataDetail.data;
+  //     this.isLoading = false;
+  //     console.log(this.isLoading, 'loading 2', this.dataDetail);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //     this.dataDetail = this.dataDetail.map((item: any) =>{
+  //       item.year_min_0 != null ? item.year_min_0 = parseFloat(item.year_min_0) : item.year_min_0 = 0;
+  //       item.year_min_0 = item.year_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  //       item.year_min_1 != null ? item.year_min_1 = parseFloat(item.year_min_1) : item.year_min_1 = 0;
+  //       item.year_min_1 = item.year_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  //       item.year_min_2 != null ? item.year_min_2 = parseFloat(item.year_min_2) : item.year_min_0 = 0;
+  //       item.year_min_2 = item.year_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  //       item.year_min_3 != null ? item.year_min_3 = parseFloat(item.year_min_3) : item.year_min_0 = 0;
+  //       item.year_min_3 = item.year_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  //       return item;
+  //     })
+  //   this.tableConfig.setDataInflasi(this.dataDetail);
+  //   console.log('finish get data in func');
+  // }
   async getDataRealisasi(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading Outlook');
@@ -93,7 +86,7 @@ export class InflasiComponent {
       this.dataDetailRealisasi.sort((a: { bulan: string; tahun: number; }, b: { bulan: string; tahun: number; }) => {
         const aIndex = this.months.indexOf(a.bulan);
         const bIndex = this.months.indexOf(b.bulan);
-
+  
         if (a.tahun > b.tahun) {
           return -1;
         }
@@ -148,7 +141,7 @@ export class InflasiComponent {
         })
       }else {
         console.log('data kosong')
-      }
+      } 
     this.tableConfig.setDataRkapInflasi(this.dataDetailRkap);
     console.log('finish get data by function')
   }
@@ -162,7 +155,7 @@ export class InflasiComponent {
       this.dataDetailOutlook.sort((a: { bulan: string; tahun: number; }, b: { bulan: string; tahun: number; }) => {
         const aIndex = this.months.indexOf(a.bulan);
         const bIndex = this.months.indexOf(b.bulan);
-
+  
         if (a.tahun > b.tahun) {
           return -1;
         }
@@ -267,11 +260,11 @@ export class InflasiComponent {
     let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
 
     await this.getDataRealisasi();
-    await this.getDataInflasi();
+    // await this.getDataInflasi();
     await this.getDataRkap();
     await this.getDataOutlook();
 
-    this.tableConfig.initializeTableDataInflasi(this.allLabelYear,);
+    this.tableConfig.initializeTableDataInflasi(this.allLabelYear);
   }
 
   ngAfterViewInit(): void {
