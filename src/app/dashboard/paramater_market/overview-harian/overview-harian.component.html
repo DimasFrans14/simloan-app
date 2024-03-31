@@ -655,9 +655,9 @@
           </div>
 
           <!-- Card Commodity -->
-          <div *ngIf="dataDefaultCurrency">
+          <div *ngIf="dataCurrency">
             <div
-              *ngFor="let item of dataDefaultCurrency"
+              *ngFor="let item of dataCurrency"
               [style.display]="isLoadingKurs ? 'none' : 'block'"
             >
               <div
