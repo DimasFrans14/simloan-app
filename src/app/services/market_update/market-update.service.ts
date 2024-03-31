@@ -579,7 +579,26 @@ export class MarketUpdateService {
   }
   async fetchDataInputRealisasiBondYieldSBN(data:any){
     const data1= {
-      "grup": data.grup,
+      "tanggal": data.tanggal,
+      "yr5": data.yr5,
+      "yr7": data.yr7,
+      "yr10": data.yr10,
+      "yr15": data.yr15,
+      "yr20": data.yr20,
+      "yr25": data.yr25,
+      "yr30": data.yr30
+      }
+    try {
+      return await lastValueFrom(
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/create?ustreasury_usbn=SBN`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataUpdateRealisasiBondYieldSBN(data:any){
+    const data1= {
       "tanggal": data.tanggal,
       "yr5": data.yr5,
       "yr7": data.yr7,
@@ -592,27 +611,6 @@ export class MarketUpdateService {
     try {
       return await lastValueFrom(
         this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/update_by?id=${data.id}&ustreasury_usbn=SBN`, data1)
-      )
-    } catch (error) {
-      console.log(error);
-      return error
-    }
-  }
-  async fetchDataUpdateRealisasiBondYieldSBN(data:any){
-    const data1= {
-      "grup": data.grup,
-      "tanggal": data.tanggal,
-      "yr5": data.yr5,
-      "yr7": data.yr7,
-      "yr10": data.yr10,
-      "yr15": data.yr15,
-      "yr20": data.yr20,
-      "yr25": data.yr25,
-      "yr30": data.yr30
-      }
-    try {
-      return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-realisasi-bondyield?ustreasury_usbn=SBN`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -795,6 +793,7 @@ export class MarketUpdateService {
       "yr25": data.yr25,
       "yr30": data.yr30
       }
+      console.log(data1)
     try {
       return await lastValueFrom(
         this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/update_by?id=${data.id}&ustreasury_usbn=US_TREASURY`, data1)
@@ -818,7 +817,7 @@ export class MarketUpdateService {
     }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/update_by?id=${data.id}&ustreasury_usbn=US_TREASURY`, data1)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/create?ustreasury_usbn=US_TREASURY`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -1101,7 +1100,7 @@ export class MarketUpdateService {
     }
   try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/outlook-commodities?id=${data.id_outlook_com}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-commodities?id=${data.id_outlook_com}`, data1)
     )
     } catch (error) {
       console.log(error);
@@ -1114,11 +1113,11 @@ export class MarketUpdateService {
       "tanggal": data.tanggal,
       "tahun": data.tahun,
       "nilai": data.nilai,
-      "keterangan": data.keterangan
+      "keterangan": data.keterangan   
     }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb`, data1)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-commodities`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -1128,7 +1127,7 @@ export class MarketUpdateService {
   async fetchDeleteDataOutlookCommodities(data:any){
     try {
       return await lastValueFrom(
-        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-money-supply?id=${data.id}`)
+        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-commodities?id=${data.id}`)
       );
     } catch (error) {
       console.log(error);
@@ -1619,8 +1618,7 @@ export class MarketUpdateService {
       const data1 = {
         "rate": data.rate,
         "bulan": data.bulan,
-        "tahun": data.tahun,
-        "is_active": true
+        "tahun": data.tahun
       }
     try {
       return await lastValueFrom(
@@ -1876,7 +1874,7 @@ export class MarketUpdateService {
   }
   async fetchDataInputOutlookRetail(data:any){
     const data1= {
-      "master_outlook_retail_sales_creates":[{
+      "master_rkap_retail_sales_creates":[{
         "quartal": data.quartal,
         "tahun":data.tahun,
         "pdb": data.pdb
@@ -2083,7 +2081,7 @@ export class MarketUpdateService {
   async fetchDeleteDataOutlookMoneySupply(data:any){
     try {
       return await lastValueFrom(
-        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-money-supply?id=${data.id}`)
+        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-msupply?id=${data.id}`)
       );
     } catch (error) {
       console.log(error);

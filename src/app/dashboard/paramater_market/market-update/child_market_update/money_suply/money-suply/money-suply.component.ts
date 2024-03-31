@@ -101,6 +101,9 @@ export class MoneySuplyComponent {
     } catch (error) {
       console.log(error);
     }
+    this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
+      return item.mtu ==="MONEY_SUPPLY"
+    })
     if (this.dataDetailRkap == !null){
       this.dataDetailRkap.map((item: any) =>{
         item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
@@ -119,15 +122,24 @@ export class MoneySuplyComponent {
       const data = await this.marketUpdateService.fetchDataOutlookMoneySupply();
       this.dataDetailOutlook = data;
       this.dataDetailOutlook = this.dataDetailOutlook.data.content;
-      if (this.dataDetailOutlook == !null){
-        this.dataDetailOutlook.sort((a: { tahun: number; }, b: { tahun: number; }) => {
-          const aYear = a.tahun || 0;
-          const bYear = b.tahun || 0;
-          return bYear - aYear;
+        this.dataDetailOutlook.sort((a: { bulan: string; tahun: number; }, b: { bulan: string; tahun: number; }) => {
+          const aIndex = this.months.indexOf(a.bulan);
+          const bIndex = this.months.indexOf(b.bulan);
+  
+          if (a.tahun > b.tahun) {
+            return -1;
+          }
+          if (a.tahun < b.tahun) {
+            return 1;
+          }
+          if (aIndex > bIndex) {
+            return 1;
+          }
+          if (aIndex < bIndex) {
+            return -1;
+          }
+          return 0;
         });
-      }else {
-        console.log('data kosong')
-      }
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
     } catch (error) {
@@ -139,10 +151,6 @@ export class MoneySuplyComponent {
     })
     this.tableConfig.setDataOutlookMoneySupply(this.dataDetailOutlook);
     console.log('finish get data in func');
-  }
-
-  nilaiEditRealKurs = (val: any) => {
-    console.log(val);
   }
 
   async ngOnInit(): Promise<void> {

@@ -120,7 +120,7 @@ export class InflasiComponent {
     this.isLoading = true;
     console.log(this.isLoading, 'loading Outlook');
     try{
-      const data = await this.marketUpdateService.fetchDataRkapInflasi();
+      const data = await this.marketUpdateService.fetchDataAllRkap();
       this.dataDetailRkap = data;
       this.dataDetailRkap = this.dataDetailRkap.data.content;
       this.dataDetailRkap.sort((a: { tahun: number; }, b: { tahun: number; }) => {
@@ -133,6 +133,9 @@ export class InflasiComponent {
     } catch(error) {
       console.log(error)
     }
+    this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
+      return item.mtu ==="INFLASI"
+    })
       if (this.dataDetailRkap == !null){
         this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
           item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;

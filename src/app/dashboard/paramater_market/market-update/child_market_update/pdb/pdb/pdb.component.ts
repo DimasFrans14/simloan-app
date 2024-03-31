@@ -43,10 +43,42 @@ export class PdbComponent {
       const data = await this.marketUpdateService.fetchDataRealisasiPDB();
       this.dataDetailRealisasi = data;
       this.dataDetailRealisasi = this.dataDetailRealisasi.data.content;
-      this.dataDetailRealisasi.sort((a: { tahun: number; }, b: { tahun: number; }) => {
-        const aYear = a.tahun || 0;
-        const bYear = b.tahun || 0;
-        return bYear - aYear;
+      this.dataDetailRealisasi.sort((a: { tahun: any; quartal: any; }, b: { tahun: any; quartal: any; }) => {
+        const aYear = a.tahun;
+        const bYear = b.tahun;
+        if (aYear === bYear) {
+          const aQuartal = a.quartal;
+          const bQuartal = b.quartal;
+          if (aQuartal === bQuartal) {
+            return 0;
+          }
+          if (aQuartal === "Q4") {
+            return -1;
+          }
+          if (bQuartal === "Q4") {
+            return 1;
+          }
+          if (aQuartal === "Q3") {
+            return -1;
+          }
+          if (bQuartal === "Q3") {
+            return 1;
+          }
+          if (aQuartal === "Q2") {
+            return -1;
+          }
+          if (bQuartal === "Q2") {
+            return 1;
+          }
+          if (aQuartal === "Q1") {
+            return 1;
+          }
+          return -1;
+        }
+        if (aYear > bYear) {
+          return -1;
+        }
+        return 1;
       });
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
@@ -65,9 +97,12 @@ export class PdbComponent {
     this.isLoading = true;
     console.log(this.isLoading, 'loading Outlook');
     try{
-      const data = await this.marketUpdateService.fetchDataRkapPDB();
+      const data = await this.marketUpdateService.fetchDataAllRkap();
       this.dataDetailRkap = data;
       this.dataDetailRkap = this.dataDetailRkap.data.content;
+      this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
+      return item.mtu ==="PDB"
+    })
       this.dataDetailRkap.sort((a: { tahun: number; }, b: { tahun: number; }) => {
         const aYear = a.tahun || 0;
         const bYear = b.tahun || 0;
@@ -98,10 +133,42 @@ export class PdbComponent {
       const data = await this.marketUpdateService.fetchDataOutlookPdb();
       this.dataDetailOutlook = data;
       this.dataDetailOutlook = this.dataDetailOutlook.data.content;
-      this.dataDetailOutlook.sort((a: { tahun: number; }, b: { tahun: number; }) => {
-        const aYear = a.tahun || 0;
-        const bYear = b.tahun || 0;
-        return bYear - aYear;
+      this.dataDetailOutlook.sort((a: { tahun: any; quartal: any; }, b: { tahun: any; quartal: any; }) => {
+        const aYear = a.tahun;
+        const bYear = b.tahun;
+        if (aYear === bYear) {
+          const aQuartal = a.quartal;
+          const bQuartal = b.quartal;
+          if (aQuartal === bQuartal) {
+            return 0;
+          }
+          if (aQuartal === "Q4") {
+            return -1;
+          }
+          if (bQuartal === "Q4") {
+            return 1;
+          }
+          if (aQuartal === "Q3") {
+            return -1;
+          }
+          if (bQuartal === "Q3") {
+            return 1;
+          }
+          if (aQuartal === "Q2") {
+            return -1;
+          }
+          if (bQuartal === "Q2") {
+            return 1;
+          }
+          if (aQuartal === "Q1") {
+            return 1;
+          }
+          return -1;
+        }
+        if (aYear > bYear) {
+          return -1;
+        }
+        return 1;
       });
       this.isLoading = false;
       console.log(this.isLoading,'loading 2', this.dataDetailOutlook);
@@ -158,9 +225,4 @@ export class PdbComponent {
   addRowOutlook() {
     this.tableConfig.tableOutlookPdb.addRow({});
   }
-
-  
-  // download(){
-  //   this.tableConfig.downloadPdf();
-  // }
 }
