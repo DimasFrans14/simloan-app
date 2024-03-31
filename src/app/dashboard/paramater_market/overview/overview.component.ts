@@ -230,7 +230,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   activeButtonLineInterest: string = '1year';
   activeButtonBarInterest: string = '1year';
 
-  filteredDate: string = '';
+  filteredDate: any;
 
   addSample(event: any){
     // console.log(event);
@@ -419,7 +419,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.isLoadingKursLine = true;
 
           responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today);
-          responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today);
+          // responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today);
 
           this.dataKurs = responseData;
           this.trendKursCategories = responseData;
@@ -453,11 +453,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
                 if(kurs == 'JPY'){
                   const jpyValue = this.dataKurs[i].data
-                  const kursJPY = this.dataKurs[i].kurs
+                  const kursJPY = this.dataKurs[i].name
 
                   this.lineChartKursSeries.push({
                     name: kursJPY,
-                    data: this.valueJPY[0]
+                    data: this.valueJPY[0].data
                   })
                 }
                 else{
@@ -473,11 +473,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               this.lineYAxisKurs = [];
               this.tesXaxis = {
                 categories: [],
-                labels: {}
+                labels: {},
+                type: 'datetime'
               }
 
               for(let i=0; i< this.dataKurs.length; i++){
-                const kurs = this.dataKurs[i].kurs
+                const kurs = this.dataKurs[i].name
 
                 var minVal;
                 var maxVal;
@@ -487,7 +488,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
                 if(kurs != 'JPY' && i < 1){
                   // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
-                  combinedArray = combinedArray.concat(this.dataKurs[i].data)
+
+                  for(let k = 0; k<this.dataKurs[0].data.length; k++){
+                    combinedArray.push(parseFloat(this.dataKurs[0].data[k].y))
+                  }
+
+                  console.log(combinedArray);
 
                   minVal = combinedArray[0];
                   maxVal = combinedArray[0];
@@ -503,22 +509,21 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                   // console.log(minVal, maxVal);
                 }
 
-                if(kurs == 'JPY'){
-                  // let combinedArray = this.dataKurs[i].data
-                  // console.log(combinedArray);
+                else if(kurs == 'JPY'){
 
-                  minValJPY = this.valueJPY[0][0];
-                  maxValJPY = this.valueJPY[0][0];
+                  minValJPY = this.valueJPY[0].data[0].y;
+                  maxValJPY = this.valueJPY[0].data[0].y;
 
-                  for(let j=0; j<this.valueJPY[0].length; j++){
-                    if (this.valueJPY[0][j] < minValJPY) {
-                      minValJPY = this.valueJPY[0][j];
+                  for(let j=0; j<this.valueJPY[0].data.length; j++){
+                    if (this.valueJPY[0].data[j].y < minValJPY) {
+                      minValJPY = this.valueJPY[0].data[j].y;
                     }
-                    else if(this.valueJPY[0][j] > maxValJPY){
-                      maxValJPY = this.valueJPY[0][j]
+                    else if(this.valueJPY[0].data[j].y > maxValJPY){
+                      maxValJPY = this.valueJPY[0].data[j].y
                     }
                   }
                   console.log(minValJPY, maxValJPY);
+
                 }
 
 
@@ -614,22 +619,30 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               }
               }
 
-              for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
-                const currentDate = this.trendKursCategories.d.arrayTanggal[i];
-
-                this.tesXaxis.categories.push(currentDate);
-                if(i < 1){
-                  this.tesXaxis.labels = {
-                    formatter: function(value, timestamp){
-                      return moment(new Date(value)).format("DD MMM YYYY")
-                    }
-                  }
+              this.tesXaxis.labels = {
+                formatter: function(value, timestamp){
+                  return moment(new Date(value)).format("DD MMM YYYY")
                 }
               }
+
+              // for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
+              //   const currentDate = this.trendKursCategories.d.arrayTanggal[i];
+
+              //   this.tesXaxis.categories.push(currentDate);
+              //   if(i < 1){
+              //     this.tesXaxis.labels = {
+              //       formatter: function(value, timestamp){
+              //         return moment(new Date(value)).format("DD MMM YYYY")
+              //       }
+              //     }
+              //   }
+              // }
             }
           }
           else{
             this.isLoadingKursLine = true;
+            this.lineChartKursSeries = [];
+            this.dataKurs = [];
           }
 
         break;
@@ -638,118 +651,156 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.activeButtonLineKurs = range;
           this.isLoadingKursLine = true;
 
-            responseData  = await this.marketUpdateService.fetchDataKursTrend(oneMonthAgo, today)
-            responseData  = await this.marketUpdateService.fetchDataKursTrend(oneMonthAgo, today)
+          responseData  = await this.marketUpdateService.fetchDataKursTrend(oneMonthAgo, today);
+          // responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today);
 
-            this.tempDataKurs = responseData;
-            this.dataKurs = responseData;
-            this.trendKursCategories = responseData;
+          this.dataKurs = responseData;
+          this.trendKursCategories = responseData;
 
-            if(this.dataKurs.s === 200){
-              this.isLoadingKursLine = false;
-              if(this.dataKurs.d.hasOwnProperty('arrayData')){
-                localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
+          if(this.dataKurs.s === 200){
+            this.isLoadingKursLine = false;
+            if(this.dataKurs.d.hasOwnProperty('arrayData')){
+              localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
 
-                this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.kurs));
+              this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.name));
 
-                this.valueJPY = responseData;
-                this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
+              this.valueJPY = responseData;
+              this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.name === 'JPY')
 
-                // updateValueOFJPY = this.valueJPY.map((item: any) => {
-                //   return item.data.map((value: any) => {
-                //     const val = value / 100;
-                //     const slice = val.toString().slice(0,6)
-                //     const toNumber = parseFloat(slice)
-                //     return toNumber
-                //   });
-                // });
+              // updateValueOFJPY = this.valueJPY.map((item: any) => {
+              //   return item.data.map((value: any) => {
+              //     const val = value / 100;
+              //     const slice = val.toString().slice(0,6)
+              //     const toNumber = parseFloat(slice)
+              //     return toNumber
+              //   });
+              // });
 
-                // this.valueJPY = updateValueOFJPY;
+              // this.valueJPY = updateValueOFJPY;
 
-                this.lineChartKursSeries = [];
-                console.log(this.dataKurs);
+              this.lineChartKursSeries = [];
+              console.log(this.dataKurs);
 
-                for(let i=0; i < this.dataKurs.length ; i++){
-                  const kurs = this.dataKurs[i].kurs;
+              for(let i=0; i < this.dataKurs.length ; i++){
+                const kurs = this.dataKurs[i].name;
 
-                  if(kurs == 'JPY'){
-                    const jpyValue = this.dataKurs[i].data
-                    const kursJPY = this.dataKurs[i].kurs
+                if(kurs == 'JPY'){
+                  const jpyValue = this.dataKurs[i].data
+                  const kursJPY = this.dataKurs[i].name
 
-                    this.lineChartKursSeries.push({
-                      name: kursJPY,
-                      data: this.valueJPY[0]
-                    })
+                  this.lineChartKursSeries.push({
+                    name: kursJPY,
+                    data: this.valueJPY[0].data
+                  })
+                }
+                else{
+                  this.lineChartKursSeries.push(
+                    {
+                    name: `${kurs}`,
+                    data: this.dataKurs[i].data,
+                    },
+                  )
+                }
+              }
+
+              this.lineYAxisKurs = [];
+              this.tesXaxis = {
+                categories: [],
+                labels: {},
+                type: 'datetime'
+              }
+
+              for(let i=0; i< this.dataKurs.length; i++){
+                const kurs = this.dataKurs[i].name
+
+                var minVal;
+                var maxVal;
+
+                let minValJPY;
+                let maxValJPY;
+
+                if(kurs != 'JPY' && i < 1){
+                  // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
+
+                  for(let k = 0; k<this.dataKurs[0].data.length; k++){
+                    combinedArray.push(parseFloat(this.dataKurs[0].data[k].y))
                   }
-                  else{
-                    this.lineChartKursSeries.push(
-                      {
-                      name: `${kurs}`,
-                      data: this.dataKurs[i].data,
-                      },
-                    )
+
+                  console.log(combinedArray);
+
+                  minVal = combinedArray[0];
+                  maxVal = combinedArray[0];
+
+                  for(let j=0; j<combinedArray.length; j++){
+                    if (combinedArray[j] < minVal) {
+                      minVal = combinedArray[j];
+                    }
+                    else if(combinedArray[j] > maxVal){
+                      maxVal = combinedArray[j]
+                    }
                   }
+                  console.log(minVal, maxVal);
                 }
 
-                this.lineYAxisKurs = [];
-                this.tesXaxis = {
-                  categories: [],
-                  labels: {}
+                else if(kurs == 'JPY'){
+
+                  minValJPY = this.valueJPY[0].data[0].y;
+                  maxValJPY = this.valueJPY[0].data[0].y;
+
+                  for(let j=0; j<this.valueJPY[0].data.length; j++){
+                    if (this.valueJPY[0].data[j].y < minValJPY) {
+                      minValJPY = this.valueJPY[0].data[j].y;
+                    }
+                    else if(this.valueJPY[0].data[j].y > maxValJPY){
+                      maxValJPY = this.valueJPY[0].data[j].y
+                    }
+                  }
+                  console.log(minValJPY, maxValJPY);
+
                 }
 
-                for(let i=0; i< this.dataKurs.length; i++){
-                  const kurs = this.dataKurs[i].kurs
 
-                  var minVal;
-                  var maxVal;
+              if(kurs === 'USD'){
 
-                  let minValJPY;
-                  let maxValJPY;
-
-                  if(kurs != 'JPY' && i < 1){
-                    // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
-                    combinedArray = combinedArray.concat(this.dataKurs[i].data)
-
-                    minVal = combinedArray[0];
-                    maxVal = combinedArray[0];
-
-                    for(let j=0; j<combinedArray.length; j++){
-                      if (combinedArray[j] < minVal) {
-                        minVal = combinedArray[j];
-                      }
-                      else if(combinedArray[j] > maxVal){
-                        maxVal = combinedArray[j]
-                      }
+                this.lineYAxisKurs.push({
+                  showAlways: true,
+                  seriesName: kurs,
+                  min: minVal - 50,
+                  max: maxVal + 50,
+                  axisTicks: {
+                    show: true
+                  },
+                  axisBorder: {
+                    show: false,
+                    color: "#000"
+                  },
+                  labels: {
+                    style: {
+                      colors: ["#000"]
+                    },
+                    formatter : (value) => {return new Intl.NumberFormat().format(value)}
+                  },
+                  title: {
+                    style: {
+                      color: "#000"
                     }
-                    // console.log(minVal, maxVal);
+                  },
+                  tooltip: {
+                    enabled: true
                   }
+                    },)
+              }else if(kurs === 'JPY'){
+                console.log(kurs);
 
-                  if(kurs == 'JPY'){
-                    // let combinedArray = this.dataKurs[i].data
-                    // console.log(combinedArray);
+                this.lineYAxisKurs.push({
 
-                    minValJPY = this.valueJPY[0][0];
-                    maxValJPY = this.valueJPY[0][0];
-
-                    for(let j=0; j<this.valueJPY[0].length; j++){
-                      if (this.valueJPY[0][j] < minValJPY) {
-                        minValJPY = this.valueJPY[0][j];
-                      }
-                      else if(this.valueJPY[0][j] > maxValJPY){
-                        maxValJPY = this.valueJPY[0][j]
-                      }
-                    }
-                    console.log(minValJPY, maxValJPY);
-                  }
-
-
-                if(kurs === 'USD'){
-
-                  this.lineYAxisKurs.push({
                     showAlways: true,
                     seriesName: kurs,
-                    min: minVal - 50,
-                    max: maxVal + 50,
+                    min: minValJPY,
+                    max: maxValJPY,
+                    tickAmount: 15,
+                    opposite: true,
+
                     axisTicks: {
                       show: true
                     },
@@ -759,99 +810,73 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                     },
                     labels: {
                       style: {
-                        colors: ["#000"]
+                        colors: ["##000"]
                       },
                       formatter : (value) => {return new Intl.NumberFormat().format(value)}
                     },
                     title: {
                       style: {
-                        color: "#000"
+                        color: "##000"
                       }
                     },
                     tooltip: {
                       enabled: true
                     }
-                      },)
-                }else if(kurs === 'JPY'){
-                  console.log(kurs);
+                  },
+                )
+              } else {
 
-                  this.lineYAxisKurs.push({
+                this.lineYAxisKurs.push({
+                  show: true,
+                  showAlways: true,
+                  seriesName: "USD",
+                  min:minVal - 200,
+                  max:maxVal,
 
-                      showAlways: true,
-                      seriesName: kurs,
-                      min: minValJPY,
-                      max: maxValJPY,
-                      tickAmount: 15,
-                      opposite: true,
-
-                      axisTicks: {
-                        show: true
-                      },
-                      axisBorder: {
-                        show: false,
-                        color: "#000"
-                      },
-                      labels: {
-                        style: {
-                          colors: ["##000"]
-                        },
-                        formatter : (value) => {return new Intl.NumberFormat().format(value)}
-                      },
-                      title: {
-                        style: {
-                          color: "##000"
-                        }
-                      },
-                      tooltip: {
-                        enabled: true
-                      }
-                    },
-                  )
-                } else {
-
-                  this.lineYAxisKurs.push({
-                    show: true,
-                    showAlways: true,
-                    seriesName: "USD",
-                    min:minVal - 200,
-                    max:maxVal,
-
-                    axisTicks: {
-                      show: false,
-                    },
-                    axisBorder: {
-                      show: false,
-                    },
-                    labels: {
-                      show:false,
-                    },
-                    title: {
-                      text: "",
-                    },
-                    tooltip: {
-                      enabled: false
-                    }
-                  })
-                }
-                }
-
-                for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
-                  const currentDate = this.trendKursCategories.d.arrayTanggal[i];
-
-                  this.tesXaxis.categories.push(currentDate);
-                  if(i < 1){
-                    this.tesXaxis.labels = {
-                      formatter: function(value, timestamp){
-                        return moment(new Date(value)).format("DD MMM YYYY")
-                      }
-                    }
+                  axisTicks: {
+                    show: false,
+                  },
+                  axisBorder: {
+                    show: false,
+                  },
+                  labels: {
+                    show:false,
+                  },
+                  title: {
+                    text: "",
+                  },
+                  tooltip: {
+                    enabled: false
                   }
+                })
+              }
+              }
+
+              this.tesXaxis.labels = {
+                formatter: function(value, timestamp){
+                  return moment(new Date(value)).format("DD MMM YYYY")
                 }
               }
+
+              // for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
+              //   const currentDate = this.trendKursCategories.d.arrayTanggal[i];
+
+              //   this.tesXaxis.categories.push(currentDate);
+              //   if(i < 1){
+              //     this.tesXaxis.labels = {
+              //       formatter: function(value, timestamp){
+              //         return moment(new Date(value)).format("DD MMM YYYY")
+              //       }
+              //     }
+              //   }
+              // }
             }
-            else{
-              this.isLoadingKursLine = true;
-            }
+          }
+          else{
+            this.isLoadingKursLine = true;
+            this.lineChartKursSeries = [];
+            this.dataKurs = [];
+          }
 
         break;
 
@@ -859,119 +884,157 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.activeButtonLineKurs = range;
           this.isLoadingKursLine = true;
 
-            responseData  = await this.marketUpdateService.fetchDataKursTrend(oneYearsAgo, today);
-            responseData  = await this.marketUpdateService.fetchDataKursTrend(oneYearsAgo, today);
+          responseData  = await this.marketUpdateService.fetchDataKursTrend(oneYearsAgo, today);
+          // responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today);
 
-            this.dataKurs = responseData;
-            this.trendKursCategories = responseData;
+          this.dataKurs = responseData;
+          this.trendKursCategories = responseData;
 
-            if(this.dataKurs.s === 200){
-              this.isLoadingKursLine = false;
-              if(this.dataKurs.d.hasOwnProperty('arrayData')){
-                localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
+          if(this.dataKurs.s === 200){
+            this.isLoadingKursLine = false;
+            if(this.dataKurs.d.hasOwnProperty('arrayData')){
+              localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
 
-                this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.kurs));
+              this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.name));
 
-                this.valueJPY = responseData;
-                this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
+              this.valueJPY = responseData;
+              this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.name === 'JPY')
 
-                // updateValueOFJPY = this.valueJPY.map((item: any) => {
-                //   return item.data.map((value: any) => {
-                //     const val = value / 100;
-                //     const slice = val.toString().slice(0,6)
-                //     const toNumber = parseFloat(slice)
-                //     return toNumber
-                //   });
-                // });
+              // updateValueOFJPY = this.valueJPY.map((item: any) => {
+              //   return item.data.map((value: any) => {
+              //     const val = value / 100;
+              //     const slice = val.toString().slice(0,6)
+              //     const toNumber = parseFloat(slice)
+              //     return toNumber
+              //   });
+              // });
 
-                // this.valueJPY = updateValueOFJPY;
+              // this.valueJPY = updateValueOFJPY;
 
-                this.lineChartKursSeries = [];
-                console.log(this.dataKurs);
+              this.lineChartKursSeries = [];
+              this.tesXaxis = {
+                categories: [],
+                labels: {},
+                type:'datetime'
+              }
 
-                for(let i=0; i < this.dataKurs.length ; i++){
-                  const kurs = this.dataKurs[i].kurs;
+              console.log(this.dataKurs);
 
-                  if(kurs == 'JPY'){
-                    const jpyValue = this.dataKurs[i].data
-                    const kursJPY = this.dataKurs[i].kurs
+              for(let i=0; i < this.dataKurs.length ; i++){
+                const kurs = this.dataKurs[i].name;
 
-                    this.lineChartKursSeries.push({
-                      name: kursJPY,
-                      data: this.valueJPY[0]
-                    })
+                if(kurs == 'JPY'){
+                  const jpyValue = this.dataKurs[i].data
+                  const kursJPY = this.dataKurs[i].name
+
+                  this.lineChartKursSeries.push({
+                    name: kursJPY,
+                    data: this.valueJPY[0].data
+                  })
+                }
+                else{
+                  this.lineChartKursSeries.push(
+                    {
+                    name: `${kurs}`,
+                    data: this.dataKurs[i].data,
+                    },
+                  )
+                }
+              }
+
+              this.lineYAxisKurs = [];
+
+              for(let i=0; i< this.dataKurs.length; i++){
+                const kurs = this.dataKurs[i].name
+
+                var minVal;
+                var maxVal;
+
+                let minValJPY;
+                let maxValJPY;
+
+                if(kurs != 'JPY' && i < 1){
+                  // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
+
+                  for(let k = 0; k<this.dataKurs[0].data.length; k++){
+                    combinedArray.push(parseFloat(this.dataKurs[0].data[k].y))
                   }
-                  else{
-                    this.lineChartKursSeries.push(
-                      {
-                      name: `${kurs}`,
-                      data: this.dataKurs[i].data,
-                      },
-                    )
+
+                  console.log(combinedArray);
+
+                  minVal = combinedArray[0];
+                  maxVal = combinedArray[0];
+
+                  for(let j=0; j<combinedArray.length; j++){
+                    if (combinedArray[j] < minVal) {
+                      minVal = combinedArray[j];
+                    }
+                    else if(combinedArray[j] > maxVal){
+                      maxVal = combinedArray[j]
+                    }
                   }
+                  // console.log(minVal, maxVal);
                 }
 
-                this.lineYAxisKurs = [];
-                this.tesXaxis = {
-                  categories: [],
-                  labels: {},
-                  type:'datetime'
+                else if(kurs == 'JPY'){
+
+                  minValJPY = this.valueJPY[0].data[0].y;
+                  maxValJPY = this.valueJPY[0].data[0].y;
+
+                  for(let j=0; j<this.valueJPY[0].data.length; j++){
+                    if (this.valueJPY[0].data[j].y < minValJPY) {
+                      minValJPY = this.valueJPY[0].data[j].y;
+                    }
+                    else if(this.valueJPY[0].data[j].y > maxValJPY){
+                      maxValJPY = this.valueJPY[0].data[j].y
+                    }
+                  }
+                  console.log(minValJPY, maxValJPY);
 
                 }
 
-                for(let i=0; i< this.dataKurs.length; i++){
-                  const kurs = this.dataKurs[i].kurs
 
-                  var minVal;
-                  var maxVal;
+              if(kurs === 'USD'){
 
-                  let minValJPY;
-                  let maxValJPY;
-
-                  if(kurs != 'JPY' && i < 1){
-                    // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
-                    combinedArray = combinedArray.concat(this.dataKurs[i].data)
-
-                    minVal = combinedArray[0];
-                    maxVal = combinedArray[0];
-
-                    for(let j=0; j<combinedArray.length; j++){
-                      if (combinedArray[j] < minVal) {
-                        minVal = combinedArray[j];
-                      }
-                      else if(combinedArray[j] > maxVal){
-                        maxVal = combinedArray[j]
-                      }
+                this.lineYAxisKurs.push({
+                  showAlways: true,
+                  seriesName: kurs,
+                  min: minVal - 50,
+                  max: maxVal + 50,
+                  axisTicks: {
+                    show: true
+                  },
+                  axisBorder: {
+                    show: false,
+                    color: "#000"
+                  },
+                  labels: {
+                    style: {
+                      colors: ["#000"]
+                    },
+                    formatter : (value) => {return new Intl.NumberFormat().format(value)}
+                  },
+                  title: {
+                    style: {
+                      color: "#000"
                     }
-                    // console.log(minVal, maxVal);
+                  },
+                  tooltip: {
+                    enabled: true
                   }
+                    },)
+              }else if(kurs === 'JPY'){
+                console.log(kurs);
 
-                  if(kurs == 'JPY'){
-                    // let combinedArray = this.dataKurs[i].data
-                    // console.log(combinedArray);
+                this.lineYAxisKurs.push({
 
-                    minValJPY = this.valueJPY[0][0];
-                    maxValJPY = this.valueJPY[0][0];
-
-                    for(let j=0; j<this.valueJPY[0].length; j++){
-                      if (this.valueJPY[0][j] < minValJPY) {
-                        minValJPY = this.valueJPY[0][j];
-                      }
-                      else if(this.valueJPY[0][j] > maxValJPY){
-                        maxValJPY = this.valueJPY[0][j]
-                      }
-                    }
-                    console.log(minValJPY, maxValJPY);
-                  }
-
-
-                if(kurs === 'USD'){
-
-                  this.lineYAxisKurs.push({
                     showAlways: true,
                     seriesName: kurs,
-                    min: minVal - 50,
-                    max: maxVal + 50,
+                    min: minValJPY,
+                    max: maxValJPY,
+                    tickAmount: 15,
+                    opposite: true,
+
                     axisTicks: {
                       show: true
                     },
@@ -981,319 +1044,306 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                     },
                     labels: {
                       style: {
-                        colors: ["#000"]
+                        colors: ["##000"]
                       },
                       formatter : (value) => {return new Intl.NumberFormat().format(value)}
                     },
                     title: {
                       style: {
-                        color: "#000"
+                        color: "##000"
                       }
                     },
                     tooltip: {
                       enabled: true
                     }
-                      },)
-                }else if(kurs === 'JPY'){
-                  console.log(kurs);
+                  },
+                )
+              } else {
 
-                  this.lineYAxisKurs.push({
+                this.lineYAxisKurs.push({
+                  show: true,
+                  showAlways: true,
+                  seriesName: "USD",
+                  min:minVal - 200,
+                  max:maxVal,
 
-                      showAlways: true,
-                      seriesName: kurs,
-                      min: minValJPY,
-                      max: maxValJPY,
-                      tickAmount: 15,
-                      opposite: true,
-
-                      axisTicks: {
-                        show: true
-                      },
-                      axisBorder: {
-                        show: false,
-                        color: "#000"
-                      },
-                      labels: {
-                        style: {
-                          colors: ["##000"]
-                        },
-                        formatter : (value) => {return new Intl.NumberFormat().format(value)}
-                      },
-                      title: {
-                        style: {
-                          color: "##000"
-                        }
-                      },
-                      tooltip: {
-                        enabled: true
-                      }
-                    },
-                  )
-                } else {
-
-                  this.lineYAxisKurs.push({
-                    show: true,
-                    showAlways: true,
-                    seriesName: "USD",
-                    min:minVal - 200,
-                    max:maxVal,
-
-                    axisTicks: {
-                      show: false,
-                    },
-                    axisBorder: {
-                      show: false,
-                    },
-                    labels: {
-                      show:false,
-                    },
-                    title: {
-                      text: "",
-                    },
-                    tooltip: {
-                      enabled: false
-                    }
-                  })
-                }
-                }
-
-                for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
-                  const currentDate = this.trendKursCategories.d.arrayTanggal[i];
-
-                  this.tesXaxis.categories.push(currentDate);
-                  if(i < 1){
-                    this.tesXaxis.labels = {
-                      formatter: function(value, timestamp){
-                        return moment(new Date(value)).format("DD MMM YYYY")
-                      }
-                    }
+                  axisTicks: {
+                    show: false,
+                  },
+                  axisBorder: {
+                    show: false,
+                  },
+                  labels: {
+                    show:false,
+                  },
+                  title: {
+                    text: "",
+                  },
+                  tooltip: {
+                    enabled: false
                   }
+                })
+              }
+              }
+
+              this.tesXaxis.labels = {
+                formatter: function(value, timestamp){
+                  return moment(new Date(value)).format("DD MMM YYYY")
                 }
               }
+
+              // for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
+              //   const currentDate = this.trendKursCategories.d.arrayTanggal[i];
+
+              //   this.tesXaxis.categories.push(currentDate);
+              //   if(i < 1){
+              //     this.tesXaxis.labels = {
+              //       formatter: function(value, timestamp){
+              //         return moment(new Date(value)).format("DD MMM YYYY")
+              //       }
+              //     }
+              //   }
+              // }
             }
-            else{
-              this.isLoadingKursLine = true;
-            }
+          }
+          else{
+            this.isLoadingKursLine = true;
+            this.lineChartKursSeries = [];
+            this.dataKurs = [];
+          }
           break;
 
         case '3years':
           this.activeButtonLineKurs = range;
           this.isLoadingKursLine = true;
 
-              responseData  = await this.marketUpdateService.fetchDataKursTrend(threeYearsAgo, today);
+          responseData  = await this.marketUpdateService.fetchDataKursTrend(threeYearsAgo, today);
+          // responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today);
 
-              this.dataKurs = responseData;
-              this.trendKursCategories = responseData;
+          this.dataKurs = responseData;
+          this.trendKursCategories = responseData;
 
+          if(this.dataKurs.s === 200){
+            this.isLoadingKursLine = false;
+            if(this.dataKurs.d.hasOwnProperty('arrayData')){
+              localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
 
-              if(this.dataKurs.s === 200){
-                this.isLoadingKursLine = false;
-                if(this.dataKurs.d.hasOwnProperty('arrayData')){
-                  localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
+              this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.name));
 
-                  this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.kurs));
+              this.valueJPY = responseData;
+              this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.name === 'JPY')
 
-                  this.valueJPY = responseData;
-                  this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
+              // updateValueOFJPY = this.valueJPY.map((item: any) => {
+              //   return item.data.map((value: any) => {
+              //     const val = value / 100;
+              //     const slice = val.toString().slice(0,6)
+              //     const toNumber = parseFloat(slice)
+              //     return toNumber
+              //   });
+              // });
 
-                  // updateValueOFJPY = this.valueJPY.map((item: any) => {
-                  //   return item.data.map((value: any) => {
-                  //     const val = value / 100;
-                  //     const slice = val.toString().slice(0,6)
-                  //     const toNumber = parseFloat(slice)
-                  //     return toNumber
-                  //   });
-                  // });
+              // this.valueJPY = updateValueOFJPY;
 
-                  // this.valueJPY = updateValueOFJPY;
+              this.lineChartKursSeries = [];
+              console.log(this.dataKurs);
 
-                  this.lineChartKursSeries = [];
-                  console.log(this.dataKurs);
+              for(let i=0; i < this.dataKurs.length ; i++){
+                const kurs = this.dataKurs[i].name;
 
-                  for(let i=0; i < this.dataKurs.length ; i++){
-                    const kurs = this.dataKurs[i].kurs;
+                if(kurs == 'JPY'){
+                  const jpyValue = this.dataKurs[i].data
+                  const kursJPY = this.dataKurs[i].name
 
-                    if(kurs == 'JPY'){
-                      const jpyValue = this.dataKurs[i].data
-                      const kursJPY = this.dataKurs[i].kurs
-
-                      this.lineChartKursSeries.push({
-                        name: kursJPY,
-                        data: this.valueJPY[0]
-                      })
-                    }
-                    else{
-                      this.lineChartKursSeries.push(
-                        {
-                        name: `${kurs}`,
-                        data: this.dataKurs[i].data,
-                        },
-                      )
-                    }
-                  }
-
-                  this.lineYAxisKurs = [];
-                  this.tesXaxis = {
-                    categories: [],
-                    labels: {},
-                    type:'datetime'
-                  }
-
-                  for(let i=0; i< this.dataKurs.length; i++){
-                    const kurs = this.dataKurs[i].kurs
-
-                    var minVal;
-                    var maxVal;
-
-                    let minValJPY;
-                    let maxValJPY;
-
-                    if(kurs != 'JPY' && i < 1){
-                      // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
-                      combinedArray = combinedArray.concat(this.dataKurs[i].data)
-
-                      minVal = combinedArray[0];
-                      maxVal = combinedArray[0];
-
-                      for(let j=0; j<combinedArray.length; j++){
-                        if (combinedArray[j] < minVal) {
-                          minVal = combinedArray[j];
-                        }
-                        else if(combinedArray[j] > maxVal){
-                          maxVal = combinedArray[j]
-                        }
-                      }
-                      // console.log(minVal, maxVal);
-                    }
-
-                    if(kurs == 'JPY'){
-                      // let combinedArray = this.dataKurs[i].data
-                      // console.log(combinedArray);
-
-                      minValJPY = this.valueJPY[0][0];
-                      maxValJPY = this.valueJPY[0][0];
-
-                      for(let j=0; j<this.valueJPY[0].length; j++){
-                        if (this.valueJPY[0][j] < minValJPY) {
-                          minValJPY = this.valueJPY[0][j];
-                        }
-                        else if(this.valueJPY[0][j] > maxValJPY){
-                          maxValJPY = this.valueJPY[0][j]
-                        }
-                      }
-                      console.log(minValJPY, maxValJPY);
-                    }
-
-
-                  if(kurs === 'USD'){
-
-                    this.lineYAxisKurs.push({
-                      showAlways: true,
-                      seriesName: kurs,
-                      min: minVal - 50,
-                      max: maxVal + 50,
-                      axisTicks: {
-                        show: true
-                      },
-                      axisBorder: {
-                        show: false,
-                        color: "#000"
-                      },
-                      labels: {
-                        style: {
-                          colors: ["#000"]
-                        },
-                        formatter : (value) => {return new Intl.NumberFormat().format(value)}
-                      },
-                      title: {
-                        style: {
-                          color: "#000"
-                        }
-                      },
-                      tooltip: {
-                        enabled: true
-                      }
-                        },)
-                  }else if(kurs === 'JPY'){
-                    console.log(kurs);
-
-                    this.lineYAxisKurs.push({
-
-                        showAlways: true,
-                        seriesName: kurs,
-                        min: minValJPY,
-                        max: maxValJPY,
-                        tickAmount: 15,
-                        opposite: true,
-
-                        axisTicks: {
-                          show: true
-                        },
-                        axisBorder: {
-                          show: false,
-                          color: "#000"
-                        },
-                        labels: {
-                          style: {
-                            colors: ["##000"]
-                          },
-                          formatter : (value) => {return new Intl.NumberFormat().format(value)}
-                        },
-                        title: {
-                          style: {
-                            color: "##000"
-                          }
-                        },
-                        tooltip: {
-                          enabled: true
-                        }
-                      },
-                    )
-                  } else {
-
-                    this.lineYAxisKurs.push({
-                      show: true,
-                      showAlways: true,
-                      seriesName: "USD",
-                      min:minVal - 200,
-                      max:maxVal,
-
-                      axisTicks: {
-                        show: false,
-                      },
-                      axisBorder: {
-                        show: false,
-                      },
-                      labels: {
-                        show:false,
-                      },
-                      title: {
-                        text: "",
-                      },
-                      tooltip: {
-                        enabled: false
-                      }
-                    })
-                  }
-                  }
-
-                  for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
-                    const currentDate = this.trendKursCategories.d.arrayTanggal[i];
-
-                    this.tesXaxis.categories.push(currentDate);
-                    if(i < 1){
-                      this.tesXaxis.labels = {
-                        formatter: function(value, timestamp){
-                          return moment(new Date(value)).format("DD MMM YYYY")
-                        }
-                      }
-                    }
-                  }
+                  this.lineChartKursSeries.push({
+                    name: kursJPY,
+                    data: this.valueJPY[0].data
+                  })
+                }
+                else{
+                  this.lineChartKursSeries.push(
+                    {
+                    name: `${kurs}`,
+                    data: this.dataKurs[i].data,
+                    },
+                  )
                 }
               }
-              else{
-                this.isLoadingKursLine = true;
+
+              this.lineYAxisKurs = [];
+              this.tesXaxis = {
+                categories: [],
+                labels: {},
+                type: 'datetime'
               }
+
+              for(let i=0; i< this.dataKurs.length; i++){
+                const kurs = this.dataKurs[i].name
+
+                var minVal;
+                var maxVal;
+
+                let minValJPY;
+                let maxValJPY;
+
+                if(kurs != 'JPY' && i < 1){
+                  // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
+
+                  for(let k = 0; k<this.dataKurs[0].data.length; k++){
+                    combinedArray.push(parseFloat(this.dataKurs[0].data[k].y))
+                  }
+
+                  console.log(combinedArray);
+
+                  minVal = combinedArray[0];
+                  maxVal = combinedArray[0];
+
+                  for(let j=0; j<combinedArray.length; j++){
+                    if (combinedArray[j] < minVal) {
+                      minVal = combinedArray[j];
+                    }
+                    else if(combinedArray[j] > maxVal){
+                      maxVal = combinedArray[j]
+                    }
+                  }
+                  console.log(minVal, maxVal);
+                }
+
+                else if(kurs == 'JPY'){
+
+                  minValJPY = this.valueJPY[0].data[0].y;
+                  maxValJPY = this.valueJPY[0].data[0].y;
+
+                  for(let j=0; j<this.valueJPY[0].data.length; j++){
+                    if (this.valueJPY[0].data[j].y < minValJPY) {
+                      minValJPY = this.valueJPY[0].data[j].y;
+                    }
+                    else if(this.valueJPY[0].data[j].y > maxValJPY){
+                      maxValJPY = this.valueJPY[0].data[j].y
+                    }
+                  }
+                  console.log(minValJPY, maxValJPY);
+
+                }
+
+
+              if(kurs === 'USD'){
+
+                this.lineYAxisKurs.push({
+                  showAlways: true,
+                  seriesName: kurs,
+                  min: minVal - 50,
+                  max: maxVal + 50,
+                  axisTicks: {
+                    show: true
+                  },
+                  axisBorder: {
+                    show: false,
+                    color: "#000"
+                  },
+                  labels: {
+                    style: {
+                      colors: ["#000"]
+                    },
+                    formatter : (value) => {return new Intl.NumberFormat().format(value)}
+                  },
+                  title: {
+                    style: {
+                      color: "#000"
+                    }
+                  },
+                  tooltip: {
+                    enabled: true
+                  }
+                    },)
+              }else if(kurs === 'JPY'){
+                console.log(kurs);
+
+                this.lineYAxisKurs.push({
+
+                    showAlways: true,
+                    seriesName: kurs,
+                    min: minValJPY,
+                    max: maxValJPY,
+                    tickAmount: 15,
+                    opposite: true,
+
+                    axisTicks: {
+                      show: true
+                    },
+                    axisBorder: {
+                      show: false,
+                      color: "#000"
+                    },
+                    labels: {
+                      style: {
+                        colors: ["##000"]
+                      },
+                      formatter : (value) => {return new Intl.NumberFormat().format(value)}
+                    },
+                    title: {
+                      style: {
+                        color: "##000"
+                      }
+                    },
+                    tooltip: {
+                      enabled: true
+                    }
+                  },
+                )
+              } else {
+
+                this.lineYAxisKurs.push({
+                  show: true,
+                  showAlways: true,
+                  seriesName: "USD",
+                  min:minVal - 200,
+                  max:maxVal,
+
+                  axisTicks: {
+                    show: false,
+                  },
+                  axisBorder: {
+                    show: false,
+                  },
+                  labels: {
+                    show:false,
+                  },
+                  title: {
+                    text: "",
+                  },
+                  tooltip: {
+                    enabled: false
+                  }
+                })
+              }
+              }
+
+              this.tesXaxis.labels = {
+                formatter: function(value, timestamp){
+                  return moment(new Date(value)).format("DD MMM YYYY")
+                }
+              }
+
+              // for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
+              //   const currentDate = this.trendKursCategories.d.arrayTanggal[i];
+
+              //   this.tesXaxis.categories.push(currentDate);
+              //   if(i < 1){
+              //     this.tesXaxis.labels = {
+              //       formatter: function(value, timestamp){
+              //         return moment(new Date(value)).format("DD MMM YYYY")
+              //       }
+              //     }
+              //   }
+              // }
+            }
+          }
+          else{
+            this.isLoadingKursLine = true;
+            this.lineChartKursSeries = [];
+            this.dataKurs = [];
+          }
+
             break;
 
         default: console.log("range doesn't match");
@@ -1309,7 +1359,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.isLoadingKursLine = true;
 
           responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgoFiltered, this.filteredDate);
-          responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgoFiltered, this.filteredDate);
+          // responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgoFiltered, this.filteredDate);
 
           this.dataKurs = responseData;
           this.trendKursCategories = responseData;
@@ -1319,10 +1369,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
             if(this.dataKurs.d.hasOwnProperty('arrayData')){
               localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
 
-              this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.kurs));
+              this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.name));
 
               this.valueJPY = responseData;
-              this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
+              this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.name === 'JPY')
 
               // updateValueOFJPY = this.valueJPY.map((item: any) => {
               //   return item.data.map((value: any) => {
@@ -1339,15 +1389,15 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               console.log(this.dataKurs);
 
               for(let i=0; i < this.dataKurs.length ; i++){
-                const kurs = this.dataKurs[i].kurs;
+                const kurs = this.dataKurs[i].name;
 
                 if(kurs == 'JPY'){
                   const jpyValue = this.dataKurs[i].data
-                  const kursJPY = this.dataKurs[i].kurs
+                  const kursJPY = this.dataKurs[i].name
 
                   this.lineChartKursSeries.push({
                     name: kursJPY,
-                    data: this.valueJPY[0]
+                    data: this.valueJPY[0].data
                   })
                 }
                 else{
@@ -1363,11 +1413,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               this.lineYAxisKurs = [];
               this.tesXaxis = {
                 categories: [],
-                labels: {}
+                labels: {},
+                type:'datetime'
               }
 
               for(let i=0; i< this.dataKurs.length; i++){
-                const kurs = this.dataKurs[i].kurs
+                const kurs = this.dataKurs[i].name
 
                 var minVal;
                 var maxVal;
@@ -1377,8 +1428,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
                 if(kurs != 'JPY' && i < 1){
                   // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
-                  combinedArray = combinedArray.concat(this.dataKurs[i].data)
+                  for(let k = 0; k<this.dataKurs[0].data.length; k++){
+                    combinedArray.push(parseFloat(this.dataKurs[0].data[k].y))
+                  }
 
+                  console.log(combinedArray);
                   minVal = combinedArray[0];
                   maxVal = combinedArray[0];
 
@@ -1393,22 +1447,21 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                   // console.log(minVal, maxVal);
                 }
 
-                if(kurs == 'JPY'){
-                  // let combinedArray = this.dataKurs[i].data
-                  // console.log(combinedArray);
+                else if(kurs == 'JPY'){
 
-                  minValJPY = this.valueJPY[0][0];
-                  maxValJPY = this.valueJPY[0][0];
+                  minValJPY = this.valueJPY[0].data[0].y;
+                  maxValJPY = this.valueJPY[0].data[0].y;
 
-                  for(let j=0; j<this.valueJPY[0].length; j++){
-                    if (this.valueJPY[0][j] < minValJPY) {
-                      minValJPY = this.valueJPY[0][j];
+                  for(let j=0; j<this.valueJPY[0].data.length; j++){
+                    if (this.valueJPY[0].data[j].y < minValJPY) {
+                      minValJPY = this.valueJPY[0].data[j].y;
                     }
-                    else if(this.valueJPY[0][j] > maxValJPY){
-                      maxValJPY = this.valueJPY[0][j]
+                    else if(this.valueJPY[0].data[j].y > maxValJPY){
+                      maxValJPY = this.valueJPY[0].data[j].y
                     }
                   }
                   console.log(minValJPY, maxValJPY);
+
                 }
 
 
@@ -1504,18 +1557,24 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               }
               }
 
-              for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
-                const currentDate = this.trendKursCategories.d.arrayTanggal[i];
-
-                this.tesXaxis.categories.push(currentDate);
-                if(i < 1){
-                  this.tesXaxis.labels = {
-                    formatter: function(value, timestamp){
-                      return moment(new Date(value)).format("DD MMM YYYY")
-                    }
-                  }
+              this.tesXaxis.labels = {
+                formatter: function(value, timestamp){
+                  return moment(new Date(value)).format("DD MMM YYYY")
                 }
               }
+
+              // for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
+              //   const currentDate = this.trendKursCategories.d.arrayTanggal[i];
+
+              //   this.tesXaxis.categories.push(currentDate);
+              //   if(i < 1){
+              //     this.tesXaxis.labels = {
+              //       formatter: function(value, timestamp){
+              //         return moment(new Date(value)).format("DD MMM YYYY")
+              //       }
+              //     }
+              //   }
+              // }
             }
           }
           else{
@@ -1540,10 +1599,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               if(this.dataKurs.d.hasOwnProperty('arrayData')){
                 localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
 
-                this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.kurs));
+                this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.name));
 
                 this.valueJPY = responseData;
-                this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
+                this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.name === 'JPY')
 
                 // updateValueOFJPY = this.valueJPY.map((item: any) => {
                 //   return item.data.map((value: any) => {
@@ -1560,11 +1619,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                 console.log(this.dataKurs);
 
                 for(let i=0; i < this.dataKurs.length ; i++){
-                  const kurs = this.dataKurs[i].kurs;
+                  const kurs = this.dataKurs[i].name;
 
                   if(kurs == 'JPY'){
                     const jpyValue = this.dataKurs[i].data
-                    const kursJPY = this.dataKurs[i].kurs
+                    const kursJPY = this.dataKurs[i].name
 
                     this.lineChartKursSeries.push({
                       name: kursJPY,
@@ -1588,7 +1647,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                 }
 
                 for(let i=0; i< this.dataKurs.length; i++){
-                  const kurs = this.dataKurs[i].kurs
+                  const kurs = this.dataKurs[i].name
 
                   var minVal;
                   var maxVal;
@@ -1598,8 +1657,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
                   if(kurs != 'JPY' && i < 1){
                     // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
-                    combinedArray = combinedArray.concat(this.dataKurs[i].data)
+                    for(let k = 0; k<this.dataKurs[0].data.length; k++){
+                      combinedArray.push(parseFloat(this.dataKurs[0].data[k].y))
+                    }
 
+                    console.log(combinedArray);
                     minVal = combinedArray[0];
                     maxVal = combinedArray[0];
 
@@ -1614,22 +1676,21 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                     // console.log(minVal, maxVal);
                   }
 
-                  if(kurs == 'JPY'){
-                    // let combinedArray = this.dataKurs[i].data
-                    // console.log(combinedArray);
+                  else if(kurs == 'JPY'){
 
-                    minValJPY = this.valueJPY[0][0];
-                    maxValJPY = this.valueJPY[0][0];
+                    minValJPY = this.valueJPY[0].data[0].y;
+                    maxValJPY = this.valueJPY[0].data[0].y;
 
-                    for(let j=0; j<this.valueJPY[0].length; j++){
-                      if (this.valueJPY[0][j] < minValJPY) {
-                        minValJPY = this.valueJPY[0][j];
+                    for(let j=0; j<this.valueJPY[0].data.length; j++){
+                      if (this.valueJPY[0].data[j].y < minValJPY) {
+                        minValJPY = this.valueJPY[0].data[j].y;
                       }
-                      else if(this.valueJPY[0][j] > maxValJPY){
-                        maxValJPY = this.valueJPY[0][j]
+                      else if(this.valueJPY[0].data[j].y > maxValJPY){
+                        maxValJPY = this.valueJPY[0].data[j].y
                       }
                     }
                     console.log(minValJPY, maxValJPY);
+
                   }
 
 
@@ -1725,18 +1786,24 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                 }
                 }
 
-                for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
-                  const currentDate = this.trendKursCategories.d.arrayTanggal[i];
-
-                  this.tesXaxis.categories.push(currentDate);
-                  if(i < 1){
-                    this.tesXaxis.labels = {
-                      formatter: function(value, timestamp){
-                        return moment(new Date(value)).format("DD MMM YYYY")
-                      }
-                    }
+                this.tesXaxis.labels = {
+                  formatter: function(value, timestamp){
+                    return moment(new Date(value)).format("DD MMM YYYY")
                   }
                 }
+
+                // for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
+                //   const currentDate = this.trendKursCategories.d.arrayTanggal[i];
+
+                //   this.tesXaxis.categories.push(currentDate);
+                //   if(i < 1){
+                //     this.tesXaxis.labels = {
+                //       formatter: function(value, timestamp){
+                //         return moment(new Date(value)).format("DD MMM YYYY")
+                //       }
+                //     }
+                //   }
+                // }
               }
             }
             else{
@@ -1760,10 +1827,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
               if(this.dataKurs.d.hasOwnProperty('arrayData')){
                 localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
 
-                this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.kurs));
+                this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.name));
 
                 this.valueJPY = responseData;
-                this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
+                this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.name === 'JPY')
 
                 // updateValueOFJPY = this.valueJPY.map((item: any) => {
                 //   return item.data.map((value: any) => {
@@ -1780,15 +1847,15 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                 console.log(this.dataKurs);
 
                 for(let i=0; i < this.dataKurs.length ; i++){
-                  const kurs = this.dataKurs[i].kurs;
+                  const kurs = this.dataKurs[i].name;
 
                   if(kurs == 'JPY'){
                     const jpyValue = this.dataKurs[i].data
-                    const kursJPY = this.dataKurs[i].kurs
+                    const kursJPY = this.dataKurs[i].name
 
                     this.lineChartKursSeries.push({
                       name: kursJPY,
-                      data: this.valueJPY[0]
+                      data: this.valueJPY[0].data
                     })
                   }
                   else{
@@ -1810,7 +1877,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                 }
 
                 for(let i=0; i< this.dataKurs.length; i++){
-                  const kurs = this.dataKurs[i].kurs
+                  const kurs = this.dataKurs[i].name
 
                   var minVal;
                   var maxVal;
@@ -1820,8 +1887,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
                   if(kurs != 'JPY' && i < 1){
                     // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
-                    combinedArray = combinedArray.concat(this.dataKurs[i].data)
 
+                    for(let k = 0; k<this.dataKurs[0].data.length; k++){
+                      combinedArray.push(parseFloat(this.dataKurs[0].data[k].y))
+                    }
                     minVal = combinedArray[0];
                     maxVal = combinedArray[0];
 
@@ -1836,24 +1905,22 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                     // console.log(minVal, maxVal);
                   }
 
-                  if(kurs == 'JPY'){
-                    // let combinedArray = this.dataKurs[i].data
-                    // console.log(combinedArray);
+                  else if(kurs == 'JPY'){
 
-                    minValJPY = this.valueJPY[0][0];
-                    maxValJPY = this.valueJPY[0][0];
+                    minValJPY = this.valueJPY[0].data[0].y;
+                    maxValJPY = this.valueJPY[0].data[0].y;
 
-                    for(let j=0; j<this.valueJPY[0].length; j++){
-                      if (this.valueJPY[0][j] < minValJPY) {
-                        minValJPY = this.valueJPY[0][j];
+                    for(let j=0; j<this.valueJPY[0].data.length; j++){
+                      if (this.valueJPY[0].data[j].y < minValJPY) {
+                        minValJPY = this.valueJPY[0].data[j].y;
                       }
-                      else if(this.valueJPY[0][j] > maxValJPY){
-                        maxValJPY = this.valueJPY[0][j]
+                      else if(this.valueJPY[0].data[j].y > maxValJPY){
+                        maxValJPY = this.valueJPY[0].data[j].y
                       }
                     }
                     console.log(minValJPY, maxValJPY);
-                  }
 
+                  }
 
                 if(kurs === 'USD'){
 
@@ -1947,18 +2014,24 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                 }
                 }
 
-                for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
-                  const currentDate = this.trendKursCategories.d.arrayTanggal[i];
-
-                  this.tesXaxis.categories.push(currentDate);
-                  if(i < 1){
-                    this.tesXaxis.labels = {
-                      formatter: function(value, timestamp){
-                        return moment(new Date(value)).format("DD MMM YYYY")
-                      }
-                    }
+                this.tesXaxis.labels = {
+                  formatter: function(value, timestamp){
+                    return moment(new Date(value)).format("DD MMM YYYY")
                   }
                 }
+
+                // for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
+                //   const currentDate = this.trendKursCategories.d.arrayTanggal[i];
+
+                //   this.tesXaxis.categories.push(currentDate);
+                //   if(i < 1){
+                //     this.tesXaxis.labels = {
+                //       formatter: function(value, timestamp){
+                //         return moment(new Date(value)).format("DD MMM YYYY")
+                //       }
+                //     }
+                //   }
+                // }
               }
             }
             else{
@@ -1981,10 +2054,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                 if(this.dataKurs.d.hasOwnProperty('arrayData')){
                   localStorage.setItem('dataLineKurs', JSON.stringify(this.dataKurs.d.arrayData))
 
-                  this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.kurs));
+                  this.dataKurs = this.dataKurs.d.arrayData.filter((item: any) => ['USD'].includes(item.name));
 
                   this.valueJPY = responseData;
-                  this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.kurs === 'JPY')
+                  this.valueJPY = this.valueJPY.d.arrayData.filter((item: any) => item.name === 'JPY')
 
                   // updateValueOFJPY = this.valueJPY.map((item: any) => {
                   //   return item.data.map((value: any) => {
@@ -2001,15 +2074,15 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                   console.log(this.dataKurs);
 
                   for(let i=0; i < this.dataKurs.length ; i++){
-                    const kurs = this.dataKurs[i].kurs;
+                    const kurs = this.dataKurs[i].name;
 
                     if(kurs == 'JPY'){
                       const jpyValue = this.dataKurs[i].data
-                      const kursJPY = this.dataKurs[i].kurs
+                      const kursJPY = this.dataKurs[i].name
 
                       this.lineChartKursSeries.push({
                         name: kursJPY,
-                        data: this.valueJPY[0]
+                        data: this.valueJPY[0].data
                       })
                     }
                     else{
@@ -2030,7 +2103,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                   }
 
                   for(let i=0; i< this.dataKurs.length; i++){
-                    const kurs = this.dataKurs[i].kurs
+                    const kurs = this.dataKurs[i].name
 
                     var minVal;
                     var maxVal;
@@ -2040,8 +2113,10 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
                     if(kurs != 'JPY' && i < 1){
                       // combinedArray = this.dataKurs[i].data.concat(this.dataKurs[2].data, this.dataKurs[3].data)
-                      combinedArray = combinedArray.concat(this.dataKurs[i].data)
 
+                      for(let k = 0; k<this.dataKurs[0].data.length; k++){
+                        combinedArray.push(parseFloat(this.dataKurs[0].data[k].y))
+                      }
                       minVal = combinedArray[0];
                       maxVal = combinedArray[0];
 
@@ -2056,22 +2131,21 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                       // console.log(minVal, maxVal);
                     }
 
-                    if(kurs == 'JPY'){
-                      // let combinedArray = this.dataKurs[i].data
-                      // console.log(combinedArray);
+                    else if(kurs == 'JPY'){
 
-                      minValJPY = this.valueJPY[0][0];
-                      maxValJPY = this.valueJPY[0][0];
+                      minValJPY = this.valueJPY[0].data[0].y;
+                      maxValJPY = this.valueJPY[0].data[0].y;
 
-                      for(let j=0; j<this.valueJPY[0].length; j++){
-                        if (this.valueJPY[0][j] < minValJPY) {
-                          minValJPY = this.valueJPY[0][j];
+                      for(let j=0; j<this.valueJPY[0].data.length; j++){
+                        if (this.valueJPY[0].data[j].y < minValJPY) {
+                          minValJPY = this.valueJPY[0].data[j].y;
                         }
-                        else if(this.valueJPY[0][j] > maxValJPY){
-                          maxValJPY = this.valueJPY[0][j]
+                        else if(this.valueJPY[0].data[j].y > maxValJPY){
+                          maxValJPY = this.valueJPY[0].data[j].y
                         }
                       }
                       console.log(minValJPY, maxValJPY);
+
                     }
 
 
@@ -2167,18 +2241,24 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
                   }
                   }
 
-                  for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
-                    const currentDate = this.trendKursCategories.d.arrayTanggal[i];
-
-                    this.tesXaxis.categories.push(currentDate);
-                    if(i < 1){
-                      this.tesXaxis.labels = {
-                        formatter: function(value, timestamp){
-                          return moment(new Date(value)).format("DD MMM YYYY")
-                        }
-                      }
+                  this.tesXaxis.labels = {
+                    formatter: function(value, timestamp){
+                      return moment(new Date(value)).format("DD MMM YYYY")
                     }
                   }
+
+                  // for(let i = 0; i < this.trendKursCategories.d.arrayTanggal.length; i++){
+                  //   const currentDate = this.trendKursCategories.d.arrayTanggal[i];
+
+                  //   this.tesXaxis.categories.push(currentDate);
+                  //   if(i < 1){
+                  //     this.tesXaxis.labels = {
+                  //       formatter: function(value, timestamp){
+                  //         return moment(new Date(value)).format("DD MMM YYYY")
+                  //       }
+                  //     }
+                  //   }
+                  // }
                 }
               }
               else{
@@ -4510,9 +4590,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         this.lineYAxisKurs.push({
           showAlways: true,
           seriesName: "USD",
-          min: 14600 - 100,
+          min: minVal - 100,
           max: maxVal + 100,
-
+          tickAmount: 10,
           axisTicks: {
             show: true
           },
@@ -4611,7 +4691,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     }
       else{
         this.lineChartKursSeries = [];
-        this.defaultKurs = {};
+        this.defaultKurs = [];
+        console.log(this.lineChartKursSeries);
+
         // Swal.fire({
         //   title: 'Data Kurs Tidak Ditemukan!',
         //   icon: "info",
@@ -5104,7 +5186,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     if(this.filteredDate != '' && this.isVisibleLine){
 
       try {
-        const getOneYear = moment().subtract(1, 'years').format('DD/MM/YYYY');
+        // let getYear = moment().subtract(1, 'years');
+        let getYear = moment(this.filteredDate, 'DD/MM/YYYY').subtract(1, 'years');
         this.stateLoadingTrue();
 
         this.activeButtonLineKurs = '1year';
@@ -5125,9 +5208,21 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         this.activeButtonLineInterest = '1year';
         this.activeButtonBarInterest = '1year';
 
-        const reFetchKurs = await this.fetchDataLineKurs(this.filteredDate, getOneYear);
-        const reFetchCommodity = await this.fetchDataLineCommodities(this.filteredDate, getOneYear);
-        const reFetchInterest = await this.fetchDataLineInterest(this.filteredDate, getOneYear);
+        // this.filteredDate = moment(new Date(this.filteredDate), "DD/MM/YYYY")
+        // const isBeforeEndDate = moment(this.filteredDate, 'DD/MM/YYYY').isBefore(moment(getYear, 'DD/MM/YYYY'))
+        // console.log(isBeforeEndDate);
+
+        // if(isBeforeEndDate){
+        //   getYear = getYear.subtract(1, 'years');
+        //   console.log(getYear);
+        // }
+        // else{
+        //   getYear = moment().subtract(1, 'years');
+        // }
+
+        const reFetchKurs = await this.fetchDataLineKurs(this.filteredDate, getYear.format('DD/MM/YYYY'));
+        const reFetchCommodity = await this.fetchDataLineCommodities(this.filteredDate, getYear.format('DD/MM/YYYY'));
+        const reFetchInterest = await this.fetchDataLineInterest(this.filteredDate, getYear.format('DD/MM/YYYY'));
 
         console.log(reFetchKurs, reFetchCommodity, reFetchInterest);
 
