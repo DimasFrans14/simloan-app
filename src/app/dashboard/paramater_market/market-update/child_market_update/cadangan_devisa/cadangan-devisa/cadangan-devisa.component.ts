@@ -54,30 +54,38 @@ export class CadanganDevisaComponent {
       const data = await this.marketUpdateService.fetchDataRealisasiCadev();
       this.dataDetailRealisasi = data;
       this.dataDetailRealisasi = this.dataDetailRealisasi.data.content;
-      this.dataDetailRealisasi.sort((a: { bulan: string; tahun: number; }, b: { bulan: string; tahun: number; }) => {
-        const aIndex = this.months.indexOf(a.bulan);
-        const bIndex = this.months.indexOf(b.bulan);
-  
-        if (a.tahun > b.tahun) {
-          return -1;
-        }
-        if (a.tahun < b.tahun) {
-          return 1;
-        }
-        if (aIndex > bIndex) {
-          return 1;
-        }
-        if (aIndex < bIndex) {
-          return -1;
-        }
-        return 0;
-      });
+      if(this.dataDetailRealisasi == null){
+        console.log('data kosong')
+      } else {
+        this.dataDetailRealisasi.sort((a: { bulan: string; tahun: number; }, b: { bulan: string; tahun: number; }) => {
+          const aIndex = this.months.indexOf(a.bulan);
+          const bIndex = this.months.indexOf(b.bulan);
+    
+          if (a.tahun > b.tahun) {
+            return -1;
+          }
+          if (a.tahun < b.tahun) {
+            return 1;
+          }
+          if (aIndex > bIndex) {
+            return 1;
+          }
+          if (aIndex < bIndex) {
+            return -1;
+          }
+          return 0;
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    if(this.dataDetailRealisasi == null){
+      console.log('data kosong')
+    } else{
       this.dataDetailRealisasi.map((item: any) =>{
         item.miliar_usd != null ? item.miliar_usd = parseFloat(item.miliar_usd) : item.miliar_usd = 0;
         item.miliar_usd = item.miliar_usd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      })
-    } catch (error) {
-      console.log(error);
+      });
     }
     this.tableConfig.setDataRealisasiCadev(this.dataDetailRealisasi);
     console.log('finish get data in func');
@@ -116,15 +124,40 @@ export class CadanganDevisaComponent {
       const data = await this.marketUpdateService.fetchDataOutlookCadev();
       this.dataDetailOutlook = data;
       this.dataDetailOutlook = this.dataDetailOutlook.data.content;
-      this.dataDetailOutlook.sort((a: { tahun: number; }, b: { tahun: number; }) => {
-        const aYear = a.tahun || 0;
-        const bYear = b.tahun || 0;
-        return bYear - aYear;
-      });
+      if (this.dataDetailOutlook == null){
+        console.log('data kosong')
+      } else {
+        this.dataDetailOutlook.sort((a: { bulan: string; tahun: number; }, b: { bulan: string; tahun: number; }) => {
+          const aIndex = this.months.indexOf(a.bulan);
+          const bIndex = this.months.indexOf(b.bulan);
+    
+          if (a.tahun < b.tahun) {
+            return -1;
+          }
+          if (a.tahun > b.tahun) {
+            return 1;
+          }
+          if (aIndex > bIndex) {
+            return 1;
+          }
+          if (aIndex < bIndex) {
+            return -1;
+          }
+          return 0;
+        });
+      }
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
     } catch (error) {
       console.log(error);
+    }
+    if(this.dataDetailOutlook == null){
+      console.log('data kosong')
+    } else{
+      this.dataDetailRealisasi.map((item: any) =>{
+        item.miliar_usd != null ? item.miliar_usd = parseFloat(item.miliar_usd) : item.miliar_usd = 0;
+        item.miliar_usd = item.miliar_usd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      });
     }
     this.tableConfig.setDataOutlookCadev(this.dataDetailOutlook)
     console.log('finish get data in func');

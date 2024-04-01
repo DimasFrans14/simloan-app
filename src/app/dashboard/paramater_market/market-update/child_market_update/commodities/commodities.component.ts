@@ -63,19 +63,22 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
       const data = await this.marketUpdateService.fetchDataRealisasiCommodities();
       this.dataDetailRealisasi = data;
       this.dataDetailRealisasi = this.dataDetailRealisasi.data;
-      this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) => {
-        const dateParts = item.tanggal.split("/");
-        const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
-        item.tanggal = dateObject.toISOString().split("T")[0];
-        
-        return item;
-        }).sort((a: any, b: any) => {
-          return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
-        });
-        this.dataDetailRealisasi.map((item:any)=>{
-          item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
-          return item
+      if (this.dataDetailRealisasi == null){
+        console.log('data kosong')
+      } else{
+        this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) => {
+          const dateParts = item.tanggal.split("/");
+          const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]), Number(dateParts[0]));
+          item.tanggal = dateObject.toISOString().split("T")[0];
+          return item;
+          }).sort((a: any, b: any) => {
+            return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
+          });
+          this.dataDetailRealisasi.map((item:any)=>{
+            item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
+            return item
         })
+      }
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
     } catch (error) {
@@ -106,11 +109,10 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
   async getDataOutlook(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
-
     try {
       const data = await this.marketUpdateService.fetchDataOutlookCommodities();
       this.dataDetailOutlook = data;
-      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data.content;
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
     } catch (error) {
