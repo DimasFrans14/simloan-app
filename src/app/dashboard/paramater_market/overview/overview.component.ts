@@ -6051,13 +6051,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
 
       let tempArrInterestRate: any[] = []
-      this.lineChartInterestRateSeries = [];
-
-      console.log('first', this.lineChartInterestRateSeries);
-
-      // this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData;
-
-      console.log('kedua', this.lineChartInterestRateSeries);
 
       if(this.filteredMinMaxInterestRateData.d != null){
 
