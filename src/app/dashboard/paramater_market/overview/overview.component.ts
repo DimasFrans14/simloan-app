@@ -230,7 +230,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   activeButtonLineInterest: string = '1year';
   activeButtonBarInterest: string = '1year';
 
-  filteredDate: any;
+  filteredDate: any = '';
 
   addSample(event: any){
     // console.log(event);
@@ -417,6 +417,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         case '1week':
           this.activeButtonLineKurs = range;
           this.isLoadingKursLine = true;
+
+          console.log(today);
+
 
           responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today);
           // responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today);
@@ -650,6 +653,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         case '1month':
           this.activeButtonLineKurs = range;
           this.isLoadingKursLine = true;
+          console.log(today);
+
 
           responseData  = await this.marketUpdateService.fetchDataKursTrend(oneMonthAgo, today);
           // responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today);
@@ -2287,7 +2292,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     const oneYearsAgoFiltered = moment(this.date).subtract(1, 'years').format('DD/MM/YYYY');
     const threeYearsAgoFiltered = moment(this.date).subtract(3, 'years').format('DD/MM/YYYY');
 
+    let tempArrInterestRateFilter: any[] = []
     let responseData;
+    let formattedTempArrFilter;
+    let interestMinValFilter;
+    let interestMaxValFilter;
+
     if(this.filteredDate === ''){
       switch(range){
         case '1week':
@@ -2298,6 +2308,50 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.trendInterestData = responseData;
           this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData;
+          this.filteredMinMaxInterestRateData = responseData;
+
+          if(this.filteredMinMaxInterestRateData.d != null){
+            for(let i=0; i<this.filteredMinMaxInterestRateData.d.arrayData.length; i++){
+              for(let j=0; j<this.filteredMinMaxInterestRateData.d.arrayData[i].data.length; j++){
+                tempArrInterestRateFilter.push(this.filteredMinMaxInterestRateData.d.arrayData[i].data[j].y)
+              }
+            }
+          }
+          else{
+
+          }
+
+          formattedTempArrFilter = tempArrInterestRateFilter.map((item: any) => {
+            let toNumber = parseFloat(item)
+            return toNumber
+          })
+
+          tempArrInterestRateFilter = formattedTempArrFilter;
+
+          interestMinValFilter = tempArrInterestRateFilter[0]
+          interestMaxValFilter = tempArrInterestRateFilter[0]
+          for(let i=0; i<tempArrInterestRateFilter.length; i++){
+            if(tempArrInterestRateFilter[i] < interestMinValFilter){
+              interestMinValFilter = tempArrInterestRateFilter[i]
+            }
+            else if(tempArrInterestRateFilter[i] > interestMaxValFilter){
+              interestMaxValFilter = tempArrInterestRateFilter[i]
+            }
+          }
+
+          console.log(interestMinValFilter, interestMaxValFilter);
+
+          this.interestRateYAxis = {
+          min: parseFloat(interestMinValFilter),
+          max: parseFloat(interestMaxValFilter),
+          labels: {
+            formatter: function(val, index) {
+              return val.toLocaleString('en-US')
+            }
+          }
+        }
+
+
 
           this.interestRateXaxis = {
             labels: {
@@ -2326,6 +2380,50 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.trendInterestData = responseData;
           this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData
 
+          this.filteredMinMaxInterestRateData = responseData;
+
+          if(this.filteredMinMaxInterestRateData.d != null){
+            for(let i=0; i<this.filteredMinMaxInterestRateData.d.arrayData.length; i++){
+              for(let j=0; j<this.filteredMinMaxInterestRateData.d.arrayData[i].data.length; j++){
+                tempArrInterestRateFilter.push(this.filteredMinMaxInterestRateData.d.arrayData[i].data[j].y)
+              }
+            }
+          }
+          else{
+
+          }
+
+          formattedTempArrFilter = tempArrInterestRateFilter.map((item: any) => {
+            let toNumber = parseFloat(item)
+            return toNumber
+          })
+
+          tempArrInterestRateFilter = formattedTempArrFilter;
+
+          interestMinValFilter = tempArrInterestRateFilter[0]
+          interestMaxValFilter = tempArrInterestRateFilter[0]
+          for(let i=0; i<tempArrInterestRateFilter.length; i++){
+            if(tempArrInterestRateFilter[i] < interestMinValFilter){
+              interestMinValFilter = tempArrInterestRateFilter[i]
+            }
+            else if(tempArrInterestRateFilter[i] > interestMaxValFilter){
+              interestMaxValFilter = tempArrInterestRateFilter[i]
+            }
+          }
+
+          console.log(interestMinValFilter, interestMaxValFilter);
+
+          this.interestRateYAxis = {
+          min: parseFloat(interestMinValFilter),
+          max: parseFloat(interestMaxValFilter),
+          labels: {
+            formatter: function(val, index) {
+              return val.toLocaleString('en-US')
+            }
+          }
+        }
+
+
           this.interestRateXaxis = {
             labels: {
                 formatter: function(value, timestamp){
@@ -2352,6 +2450,50 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.trendInterestData = responseData;
           this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData;
+
+          this.filteredMinMaxInterestRateData = responseData;
+
+          if(this.filteredMinMaxInterestRateData.d != null){
+            for(let i=0; i<this.filteredMinMaxInterestRateData.d.arrayData.length; i++){
+              for(let j=0; j<this.filteredMinMaxInterestRateData.d.arrayData[i].data.length; j++){
+                tempArrInterestRateFilter.push(this.filteredMinMaxInterestRateData.d.arrayData[i].data[j].y)
+              }
+            }
+          }
+          else{
+
+          }
+
+          formattedTempArrFilter = tempArrInterestRateFilter.map((item: any) => {
+            let toNumber = parseFloat(item)
+            return toNumber
+          })
+
+          tempArrInterestRateFilter = formattedTempArrFilter;
+
+          interestMinValFilter = tempArrInterestRateFilter[0]
+          interestMaxValFilter = tempArrInterestRateFilter[0]
+          for(let i=0; i<tempArrInterestRateFilter.length; i++){
+            if(tempArrInterestRateFilter[i] < interestMinValFilter){
+              interestMinValFilter = tempArrInterestRateFilter[i]
+            }
+            else if(tempArrInterestRateFilter[i] > interestMaxValFilter){
+              interestMaxValFilter = tempArrInterestRateFilter[i]
+            }
+          }
+
+          console.log(interestMinValFilter, interestMaxValFilter);
+
+          this.interestRateYAxis = {
+          min: parseFloat(interestMinValFilter),
+          max: parseFloat(interestMaxValFilter),
+          labels: {
+            formatter: function(val, index) {
+              return val.toLocaleString('en-US')
+            }
+          }
+        }
+
 
           this.interestRateXaxis = {
             labels:{},
@@ -2382,6 +2524,50 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
         this.trendInterestData = responseData;
         this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData;
+
+        this.filteredMinMaxInterestRateData = responseData;
+
+          if(this.filteredMinMaxInterestRateData.d != null){
+            for(let i=0; i<this.filteredMinMaxInterestRateData.d.arrayData.length; i++){
+              for(let j=0; j<this.filteredMinMaxInterestRateData.d.arrayData[i].data.length; j++){
+                tempArrInterestRateFilter.push(this.filteredMinMaxInterestRateData.d.arrayData[i].data[j].y)
+              }
+            }
+          }
+          else{
+
+          }
+
+          formattedTempArrFilter = tempArrInterestRateFilter.map((item: any) => {
+            let toNumber = parseFloat(item)
+            return toNumber
+          })
+
+          tempArrInterestRateFilter = formattedTempArrFilter;
+
+          interestMinValFilter = tempArrInterestRateFilter[0]
+          interestMaxValFilter = tempArrInterestRateFilter[0]
+          for(let i=0; i<tempArrInterestRateFilter.length; i++){
+            if(tempArrInterestRateFilter[i] < interestMinValFilter){
+              interestMinValFilter = tempArrInterestRateFilter[i]
+            }
+            else if(tempArrInterestRateFilter[i] > interestMaxValFilter){
+              interestMaxValFilter = tempArrInterestRateFilter[i]
+            }
+          }
+
+          console.log(interestMinValFilter, interestMaxValFilter);
+
+          this.interestRateYAxis = {
+          min: parseFloat(interestMinValFilter),
+          max: parseFloat(interestMaxValFilter),
+          labels: {
+            formatter: function(val, index) {
+              return val.toLocaleString('en-US')
+            }
+          }
+        }
+
 
         this.interestRateXaxis = {
           labels:{},
@@ -2417,6 +2603,50 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           this.trendInterestData = responseData;
           this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData;
 
+          this.filteredMinMaxInterestRateData = responseData;
+
+          if(this.filteredMinMaxInterestRateData.d != null){
+            for(let i=0; i<this.filteredMinMaxInterestRateData.d.arrayData.length; i++){
+              for(let j=0; j<this.filteredMinMaxInterestRateData.d.arrayData[i].data.length; j++){
+                tempArrInterestRateFilter.push(this.filteredMinMaxInterestRateData.d.arrayData[i].data[j].y)
+              }
+            }
+          }
+          else{
+
+          }
+
+          formattedTempArrFilter = tempArrInterestRateFilter.map((item: any) => {
+            let toNumber = parseFloat(item)
+            return toNumber
+          })
+
+          tempArrInterestRateFilter = formattedTempArrFilter;
+
+          interestMinValFilter = tempArrInterestRateFilter[0]
+          interestMaxValFilter = tempArrInterestRateFilter[0]
+          for(let i=0; i<tempArrInterestRateFilter.length; i++){
+            if(tempArrInterestRateFilter[i] < interestMinValFilter){
+              interestMinValFilter = tempArrInterestRateFilter[i]
+            }
+            else if(tempArrInterestRateFilter[i] > interestMaxValFilter){
+              interestMaxValFilter = tempArrInterestRateFilter[i]
+            }
+          }
+
+          console.log(interestMinValFilter, interestMaxValFilter);
+
+          this.interestRateYAxis = {
+          min: parseFloat(interestMinValFilter),
+          max: parseFloat(interestMaxValFilter),
+          labels: {
+            formatter: function(val, index) {
+              return val.toLocaleString('en-US')
+            }
+          }
+        }
+
+
           this.interestRateXaxis = {
             labels: {
                 formatter: function(value, timestamp){
@@ -2443,6 +2673,48 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.trendInterestData = responseData;
           this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData
+          this.filteredMinMaxInterestRateData = responseData;
+
+          if(this.filteredMinMaxInterestRateData.d != null){
+            for(let i=0; i<this.filteredMinMaxInterestRateData.d.arrayData.length; i++){
+              for(let j=0; j<this.filteredMinMaxInterestRateData.d.arrayData[i].data.length; j++){
+                tempArrInterestRateFilter.push(this.filteredMinMaxInterestRateData.d.arrayData[i].data[j].y)
+              }
+            }
+          }
+          else{
+
+          }
+
+          formattedTempArrFilter = tempArrInterestRateFilter.map((item: any) => {
+            let toNumber = parseFloat(item)
+            return toNumber
+          })
+
+          tempArrInterestRateFilter = formattedTempArrFilter;
+
+          interestMinValFilter = tempArrInterestRateFilter[0]
+          interestMaxValFilter = tempArrInterestRateFilter[0]
+          for(let i=0; i<tempArrInterestRateFilter.length; i++){
+            if(tempArrInterestRateFilter[i] < interestMinValFilter){
+              interestMinValFilter = tempArrInterestRateFilter[i]
+            }
+            else if(tempArrInterestRateFilter[i] > interestMaxValFilter){
+              interestMaxValFilter = tempArrInterestRateFilter[i]
+            }
+          }
+
+          console.log(interestMinValFilter, interestMaxValFilter);
+
+          this.interestRateYAxis = {
+          min: parseFloat(interestMinValFilter),
+          max: parseFloat(interestMaxValFilter),
+          labels: {
+            formatter: function(val, index) {
+              return val.toLocaleString('en-US')
+            }
+          }
+        }
 
           this.interestRateXaxis = {
             labels: {
@@ -2470,6 +2742,49 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
           this.trendInterestData = responseData;
           this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData;
+          this.filteredMinMaxInterestRateData = responseData;
+
+          if(this.filteredMinMaxInterestRateData.d != null){
+            for(let i=0; i<this.filteredMinMaxInterestRateData.d.arrayData.length; i++){
+              for(let j=0; j<this.filteredMinMaxInterestRateData.d.arrayData[i].data.length; j++){
+                tempArrInterestRateFilter.push(this.filteredMinMaxInterestRateData.d.arrayData[i].data[j].y)
+              }
+            }
+          }
+          else{
+
+          }
+
+          formattedTempArrFilter = tempArrInterestRateFilter.map((item: any) => {
+            let toNumber = parseFloat(item)
+            return toNumber
+          })
+
+          tempArrInterestRateFilter = formattedTempArrFilter;
+
+          interestMinValFilter = tempArrInterestRateFilter[0]
+          interestMaxValFilter = tempArrInterestRateFilter[0]
+          for(let i=0; i<tempArrInterestRateFilter.length; i++){
+            if(tempArrInterestRateFilter[i] < interestMinValFilter){
+              interestMinValFilter = tempArrInterestRateFilter[i]
+            }
+            else if(tempArrInterestRateFilter[i] > interestMaxValFilter){
+              interestMaxValFilter = tempArrInterestRateFilter[i]
+            }
+          }
+
+          console.log(interestMinValFilter, interestMaxValFilter);
+
+          this.interestRateYAxis = {
+          min: parseFloat(interestMinValFilter),
+          max: parseFloat(interestMaxValFilter),
+          labels: {
+            formatter: function(val, index) {
+              return val.toLocaleString('en-US')
+            }
+          }
+        }
+
 
           this.interestRateXaxis = {
             labels:{},
@@ -2500,6 +2815,49 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
         this.trendInterestData = responseData;
         this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData;
+        this.filteredMinMaxInterestRateData = responseData;
+
+          if(this.filteredMinMaxInterestRateData.d != null){
+            for(let i=0; i<this.filteredMinMaxInterestRateData.d.arrayData.length; i++){
+              for(let j=0; j<this.filteredMinMaxInterestRateData.d.arrayData[i].data.length; j++){
+                tempArrInterestRateFilter.push(this.filteredMinMaxInterestRateData.d.arrayData[i].data[j].y)
+              }
+            }
+          }
+          else{
+
+          }
+
+          formattedTempArrFilter = tempArrInterestRateFilter.map((item: any) => {
+            let toNumber = parseFloat(item)
+            return toNumber
+          })
+
+          tempArrInterestRateFilter = formattedTempArrFilter;
+
+          interestMinValFilter = tempArrInterestRateFilter[0]
+          interestMaxValFilter = tempArrInterestRateFilter[0]
+          for(let i=0; i<tempArrInterestRateFilter.length; i++){
+            if(tempArrInterestRateFilter[i] < interestMinValFilter){
+              interestMinValFilter = tempArrInterestRateFilter[i]
+            }
+            else if(tempArrInterestRateFilter[i] > interestMaxValFilter){
+              interestMaxValFilter = tempArrInterestRateFilter[i]
+            }
+          }
+
+          console.log(interestMinValFilter, interestMaxValFilter);
+
+          this.interestRateYAxis = {
+          min: parseFloat(interestMinValFilter),
+          max: parseFloat(interestMaxValFilter),
+          labels: {
+            formatter: function(val, index) {
+              return val.toLocaleString('en-US')
+            }
+          }
+        }
+
 
         this.interestRateXaxis = {
           labels:{},
@@ -6046,13 +6404,6 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
 
       let tempArrInterestRate: any[] = []
-      this.lineChartInterestRateSeries = [];
-
-      console.log('first', this.lineChartInterestRateSeries);
-
-      // this.lineChartInterestRateSeries = this.trendInterestData.d.arrayData;
-
-      console.log('kedua', this.lineChartInterestRateSeries);
 
       if(this.filteredMinMaxInterestRateData.d != null){
 
@@ -6086,6 +6437,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           interestMaxVal = tempArrInterestRate[i]
         }
       }
+
+      console.log(interestMinVal, interestMaxVal);
+
 
 
       if(this.trendInterestData.d){
@@ -6139,7 +6493,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
           max: parseFloat(interestMaxVal),
           labels: {
             formatter: function(val, index) {
-              return val.toLocaleString('id').slice(0,4)
+              return val.toLocaleString('en-US')
             }
           }
         }
