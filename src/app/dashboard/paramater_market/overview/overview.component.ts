@@ -230,7 +230,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
   activeButtonLineInterest: string = '1year';
   activeButtonBarInterest: string = '1year';
 
-  filteredDate: any;
+  filteredDate: any = '';
 
   addSample(event: any){
     // console.log(event);
@@ -417,6 +417,9 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         case '1week':
           this.activeButtonLineKurs = range;
           this.isLoadingKursLine = true;
+
+          console.log(today);
+
 
           responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today);
           // responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today);
@@ -650,6 +653,8 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
         case '1month':
           this.activeButtonLineKurs = range;
           this.isLoadingKursLine = true;
+          console.log(today);
+
 
           responseData  = await this.marketUpdateService.fetchDataKursTrend(oneMonthAgo, today);
           // responseData  = await this.marketUpdateService.fetchDataKursTrend(oneWeekAgo, today);
