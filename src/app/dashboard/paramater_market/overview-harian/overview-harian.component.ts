@@ -654,7 +654,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     const responseMacroIndicator = await this.marketUpdateService.fetchDataMacroIndicatorOverview(moment().format('DD/MM/YYYY'));
 
     this.dataMacroIndicator = responseMacroIndicator;
-    this.dataMacroIndicator.s === 200 ? this.isLoadingMacro = false : this.isLoadingMacro = true;
+    this.dataMacroIndicator.s != null ? this.isLoadingMacro = false : this.isLoadingMacro = true;
 
     this.dataMacroIndicator = this.dataMacroIndicator.d;
     this.listEditMacroIndicator = this.dataMacroIndicator;
@@ -665,7 +665,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview(moment().format('DD/MM/YYYY'));
 
     this.dataCommodities = commoditiesOverview;
-    this.dataCommodities.s === 200 ? this.isLoadingCommodity = false : this.isLoadingCommodity = true;
+    this.dataCommodities.s != null ? this.isLoadingCommodity = false : this.isLoadingCommodity = true;
 
     if(this.dataCommodities.d != null){
       this.dataCommodities = this.dataCommodities.d;
@@ -683,7 +683,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     const currenciesOverview = await this.marketUpdateService.fetchDataKursOverview(moment().format('DD/MM/YYYY'))
 
     this.dataCurrency = currenciesOverview;
-    this.dataCurrency.s === 200 ? this.isLoadingKurs = false : this.isLoadingKurs = true;
+    this.dataCurrency.s != null ? this.isLoadingKurs = false : this.isLoadingKurs = true;
 
     if(this.dataCurrency.d.length > 0){
       this.dataCurrency = this.dataCurrency.d.slice(0,3);
@@ -702,7 +702,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     const interestRateOverview = await this.marketUpdateService.fetchDataInterestOverview(moment().format('DD/MM/YYYY'));
 
     this.dataInterestRate = interestRateOverview;
-    this.dataInterestRate.s === 200 ? this.isLoadingInterestRate = false : this.isLoadingInterestRate = true;
+    this.dataInterestRate.s != null ? this.isLoadingInterestRate = false : this.isLoadingInterestRate = true;
 
     this.dataInterestRate = this.dataInterestRate.d;
 
@@ -715,7 +715,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
     console.log(getKeyTakewaysRes);
 
     this.getKeyTakeways = getKeyTakewaysRes;
-    this.getKeyTakeways.s === 200 ? this.isLoadingKeyTakeways = false : this.isLoadingKeyTakeways = true;
+    this.getKeyTakeways.s != null ? this.isLoadingKeyTakeways = false : this.isLoadingKeyTakeways = true;
 
     const checkLabel = this.getKeyTakeways.d.hasOwnProperty('label');
     checkLabel ? this.getKeyTakeways = this.getKeyTakeways.d.label : this.getKeyTakeways = ""
@@ -724,7 +724,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   fetchFootnotes = async (date:string) => {
     const res = await this.quillConfig.getFootnotes(date);
     this.resObject = res;
-    this.resObject.s === 200 ? this.isLoadingFootnote = false : this.isLoadingFootnote = true;
+    this.resObject.s != null ? this.isLoadingFootnote = false : this.isLoadingFootnote = true;
     this.quillInnerHTMLFootnote = this.resObject.d;
   }
 
