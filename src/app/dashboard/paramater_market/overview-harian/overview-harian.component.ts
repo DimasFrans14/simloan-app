@@ -525,66 +525,83 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       const responseMacroIndicator = await this.marketUpdateService.fetchDataMacroIndicatorOverview(date);
 
       this.dataMacroIndicator = responseMacroIndicator;
-      this.dataMacroIndicator.s === 200 ? this.isLoadingMacro = false : this.isLoadingMacro = true;
+      this.dataMacroIndicator.s != null ? this.isLoadingMacro = false : this.isLoadingMacro = true;
 
-      this.dataMacroIndicator = this.dataMacroIndicator.d;
+      this.dataMacroIndicator.d.length > 0 ? this.dataMacroIndicator = this.dataMacroIndicator.d : this.dataMacroIndicator = [];
+
       this.listEditMacroIndicator = this.dataMacroIndicator;
 
       const commoditiesOverview = await this.marketUpdateService.fetchDataCommoditiesOverview(date);
 
       this.dataCommodities = commoditiesOverview;
-      this.dataCommodities.s === 200 ? this.isLoadingCommodity = false : this.isLoadingCommodity = true;
+      this.dataCommodities.s != null ? this.isLoadingCommodity = false : this.isLoadingCommodity = true;
 
-      this.dataCommodities = this.dataCommodities.d;
-      this.listEditCommodities = this.dataCommodities;
+      if(this.dataCommodities.d != null){
+        this.dataCommodities = this.dataCommodities.d
+        this.listEditCommodities = this.dataCommodities;
+        this.dataDefaultCommodities = this.dataCommodities.slice(0,3);
 
-      for(let i=0; i<this.dataCommodities.length; i++){
-        this.dataCommodities[i].nilai_rkap = parseFloat(this.dataCommodities[i].nilai_rkap).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        this.dataCommodities[i].nilai_real = parseFloat(this.dataCommodities[i].nilai_real).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        this.dataCommodities[i].nilai_outlook = parseFloat(this.dataCommodities[i].nilai_outlook).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
+        for(let i=0; i<this.dataCommodities.length; i++){
+          this.dataCommodities[i].nilai_rkap = parseFloat(this.dataCommodities[i].nilai_rkap).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          this.dataCommodities[i].nilai_real = parseFloat(this.dataCommodities[i].nilai_real).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          this.dataCommodities[i].nilai_outlook = parseFloat(this.dataCommodities[i].nilai_outlook).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+      }else{
+        this.dataCommodities = [];
+        this.listEditCommodities = [];
+        this.dataDefaultCommodities = [];
       }
-      this.dataDefaultCommodities = this.dataCommodities.slice(0,3);
 
       const currenciesOverview = await this.marketUpdateService.fetchDataKursOverview(date);
 
       this.dataCurrency = currenciesOverview;
-      this.dataCurrency.s === 200 ? this.isLoadingKurs = false : this.isLoadingKurs = true;
+      this.dataCurrency.s != null ? this.isLoadingKurs = false : this.isLoadingKurs = true;
 
-      this.dataCurrency = this.dataCurrency.d;
-      for(let i=0; i<this.dataCurrency.length; i++){
-        this.dataCurrency[i].nilai_rkap = parseFloat(this.dataCurrency[i].nilai_rkap).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        this.dataCurrency[i].nilai_real = parseFloat(this.dataCurrency[i].nilai_real).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        this.dataCurrency[i].nilai_outlook = parseFloat(this.dataCurrency[i].nilai_outlook).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        // console.log(parseFloat(this.dataCommodities[i].nilai_rkap).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-
+      if(this.dataCurrency.d.length > 0){
+        this.dataCurrency = this.dataCurrency.d;
+        for(let i=0; i<this.dataCurrency.length; i++){
+          this.dataCurrency[i].nilai_rkap = parseFloat(this.dataCurrency[i].nilai_rkap).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          this.dataCurrency[i].nilai_real = parseFloat(this.dataCurrency[i].nilai_real).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          this.dataCurrency[i].nilai_outlook = parseFloat(this.dataCurrency[i].nilai_outlook).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          // console.log(parseFloat(this.dataCommodities[i].nilai_rkap).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+        }
+        this.listEditCurrency = currenciesOverview;
+        this.listEditCurrency = this.listEditCurrency.d;
+        this.dataDefaultCurrency = this.dataCurrency.slice(0,3);
       }
-      this.listEditCurrency = currenciesOverview;
-      this.listEditCurrency = this.listEditCurrency.d;
-      this.dataDefaultCurrency = this.dataCurrency.slice(0,3);
+      else{
+        this.dataCurrency = [];
+        this.listEditCurrency = [];
+        this.dataDefaultCurrency = [];
+      }
 
       const interestRateOverview = await this.marketUpdateService.fetchDataInterestOverview(date);
       this.dataInterestRate = interestRateOverview;
-      this.dataInterestRate.s === 200 ? this.isLoadingInterestRate = false : this.isLoadingInterestRate = true;
+      this.dataInterestRate.s != null ? this.isLoadingInterestRate = false : this.isLoadingInterestRate = true;
 
-      this.dataInterestRate = this.dataInterestRate.d;
+      if(this.dataInterestRate.d.length > 0){
+        this.dataInterestRate = this.dataInterestRate.d;
+        this.listEditInterest = interestRateOverview;
+        this.listEditInterest = this.listEditInterest.d;
 
-      this.listEditInterest = interestRateOverview;
-      this.listEditInterest = this.listEditInterest.d;
-
-      for(let i=0; i<this.dataInterestRate.length; i++){
-        this.dataInterestRate[i].nilai_realisasi = this.dataInterestRate[i].nilai_realisasi.slice(0,4);
+        for(let i=0; i<this.dataInterestRate.length; i++){
+          this.dataInterestRate[i].nilai_realisasi = this.dataInterestRate[i].nilai_realisasi.slice(0,4);
+        }
+      }
+      else{
+        this.dataInterestRate = [];
+        this.listEditInterest = [];
       }
 
       const getKeyTakewaysRes = await this.quillConfig.getKeyTakeways(date)
       console.log(getKeyTakewaysRes);
       this.getKeyTakeways = getKeyTakewaysRes;
-      this.getKeyTakeways.s === 200 ? this.isLoadingKeyTakeways = false : this.isLoadingKeyTakeways = true;
+      this.getKeyTakeways.s != null ? this.isLoadingKeyTakeways = false : this.isLoadingKeyTakeways = true;
 
       const checkLabel = this.getKeyTakeways.d.hasOwnProperty('label');
       checkLabel ? this.getKeyTakeways = this.getKeyTakeways.d.label : this.getKeyTakeways = "";
 
-      this.fetchFootnotes(date)
+      await this.fetchFootnotes(date)
 
   }
 
