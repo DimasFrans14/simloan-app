@@ -5506,7 +5506,7 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     const response = await this.marketUpdateService.fetchDataCompareChangeRKAP(date);
 
     this.dataCompareChangeRKAP = response;
-    if(this.dataCompareChangeRKAP.d.length > 0){
+    if(this.dataCompareChangeRKAP.d != null){
       this.dataCompareChangeRKAP = this.dataCompareChangeRKAP.d;
       this.dataCompareChangeRKAP.map((item: any) => {
         item.change_rkap != null ? item.change_rkap = parseFloat(item.change_rkap).toFixed(2) : item.change_rkap = 0;
