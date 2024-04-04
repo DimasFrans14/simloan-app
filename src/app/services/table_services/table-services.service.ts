@@ -573,7 +573,7 @@ export class TableServicesService {
     const formattedYear = moment().format('DD/MM/YYYY').slice(-2, 10);
 
     this.tableCurrency = new Tabulator(".table-currency", {
-      height: "335px",
+      height: "100%",
       data:this.dataKurs,
       layout:"fitColumns",
       columns:[
@@ -684,7 +684,7 @@ export class TableServicesService {
 
     this.tablePDB = new Tabulator(".table-pdb", {
       // height:20,
-      height: "555px",
+      height: "635px",
       data:this.dataPDB,
       layout:"fitDataTable",
       columnMoved:function(column, _columns){
@@ -699,7 +699,7 @@ export class TableServicesService {
 
     this.tableInflasi = new Tabulator(".table-inflasi", {
       // height:205,
-      height:"555px",
+      // height:"555px",
       data:this.dataInflasi,
       layout:"fitColumns",
       // frozenRows: 4,
@@ -716,7 +716,7 @@ export class TableServicesService {
 
     this.tableMoneySupply = new Tabulator(".table-moneySupply", {
       // height:205,
-      height:"555px",
+      // height:"555px",
       data:this.dataMoneySupply,
       layout:"fitColumns",
       // frozenRows: 4,
@@ -733,7 +733,7 @@ export class TableServicesService {
 
     this.tableForeignExchange = new Tabulator(".table-foreignExchange", {
       // height:205,
-      height:"555px",
+      // height:"555px",
       data:this.dataDevisa,
       layout:"fitColumns",
       // frozenRows: 4,
@@ -763,7 +763,7 @@ export class TableServicesService {
 
     this.tablePMI = new Tabulator(".table-pmi", {
       // height:205,
-      height:"555px",
+      // height:"555px",
       data:this.dataPMI,
       layout:"fitColumns",
       // frozenRows: 4,
@@ -780,7 +780,7 @@ export class TableServicesService {
 
     this.tableRetail = new Tabulator(".table-retail", {
       // height:205,
-      height:"555px",
+      // height:"555px",
       data:this.dataRetail,
       layout:"fitColumns",
       // frozenRows: 4,
@@ -1499,7 +1499,7 @@ export class TableServicesService {
       ],
     });
   }
-  
+
   initializeTableDataCurrency(arrayDate: any[]){
     const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/plus-square.svg'></span>";
@@ -1521,7 +1521,7 @@ export class TableServicesService {
     }
     const formattedYear = moment().format('DD/MM/YYYY').slice(-2, 10);
 
-    
+
     this.tableCurrencyDetail = new Tabulator(".table-currencyDetail", {
       height: "335px",
       data:this.dataKurs,
@@ -1545,7 +1545,7 @@ export class TableServicesService {
         {title:"Change 1 Day %", field:"change_1day", headerHozAlign:"center", hozAlign:'center', headerSort:false},
       ],
     });
-    
+
   this.tableRealisasiCurrencyRate = new Tabulator(".table-realisasi", {
     pagination:true, //enable.
     paginationSize:20,
@@ -1565,7 +1565,7 @@ export class TableServicesService {
       {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtoRealisasiCurrency, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       {title:"Cancel", field:"CancelAddButton",formatter:cancelBtn, cellClick:this.cellClick_cancelAddButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonRealisasiCurrency, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
-    ] 
+    ]
   });
 
   this.tableRkapCurrencyRate = new Tabulator(".table-RKAP", {
@@ -1620,7 +1620,7 @@ export class TableServicesService {
       {title:"Tambah", field:"SaveAddButton",formatter:saveAddBtn, cellClick:this.cellClick_addButtonOutlookCurrency, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
       ],
   });
-  
+
   //tabledataoutlook2 get data from API
 
   //   this.tableDataOutlook2 = [
@@ -3431,9 +3431,9 @@ export class TableServicesService {
       sortData.map((item: any) =>{
         item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
         item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-        
+
         item.kurs != null ? item.kurs = parseFloat(item.kurs) : item.kurs = 0;
-        item.kurs = item.kurs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2} 
+        item.kurs = item.kurs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2}
         );
         return item;
       });
@@ -3536,7 +3536,7 @@ export class TableServicesService {
       const dateParts = item.tanggal.split("/");
       const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
       item.tanggal = dateObject.toISOString().split("T")[0];
-      
+
       return item;
       }).sort((a: any, b: any) => {
         return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
@@ -3553,7 +3553,7 @@ export class TableServicesService {
       const dateParts = item.tanggal.split("/");
       const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
       item.tanggal = dateObject.toISOString().split("T")[0];
-      
+
       return item;
       }).sort((a: any, b: any) => {
         return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
@@ -3586,7 +3586,7 @@ export class TableServicesService {
       const dateParts = item.tanggal.split("/");
       const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
       item.tanggal = dateObject.toISOString().split("T")[0];
-      
+
       return item;
       }).sort((a: any, b: any) => {
         return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
@@ -5227,7 +5227,7 @@ export class TableServicesService {
       }
     }
   }
-  cellClick_deleteButtonRealisasiCurrency = async (e: any, cell:any) => {  
+  cellClick_deleteButtonRealisasiCurrency = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
       id: rowData.id,
@@ -5892,7 +5892,7 @@ export class TableServicesService {
     if (!cell.getRow().isSelected()){
       return
     }
-    
+
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
