@@ -65,7 +65,7 @@ export class MarketUpdateService {
     const data1= {
       "id_mst_jisdor": data.id_mst_jisdor,
       "mata_uang": data.mataUang,
-      "nilai": data.nilai,
+      "nilai": data.kurs,
       "tanggal": data.tanggal
       }
     try {
@@ -79,12 +79,9 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateRealisasiKursUsd(data:any){
     const data1 = {
-      "id_mst_jisdor": data.idJisdor,
       "mata_uang": data.mataUang,
       "nilai": data.kurs,
-      "kurs": data.nilai,
-      "tanggal": data.tanggal,
-      "is_active": true
+      "tanggal": data.tanggal
     }
     try {
     return await lastValueFrom(
@@ -96,12 +93,9 @@ export class MarketUpdateService {
   }
   }
   async fetchDeleteDataRealisasiCurrencyRate(data:any){
-    const data1 ={
-      "id" : data.id
-    }
     try {
       return await lastValueFrom(
-        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/delete_jisdor?id=${data1.id}`)
+        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/delete_jisdor?id=${data.id}`)
       );
     } catch (error) {
       console.log(error);
@@ -120,7 +114,7 @@ export class MarketUpdateService {
   }
   async fetchDataInputRealisasiKursNonUsd(data:any){
     const data1= {
-      "mata_uang": data.mataUang,
+      "mata_uang":data.mataUang,
       "nilai": data.nilai,
       "kurs": data.kurs,
       "tanggal": data.tanggal
@@ -136,16 +130,14 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateRealisasiKursNonUsd(data:any){
     const data1 = {
-      "id_mst_jisdor": data.idJisdor,
       "mata_uang":data.mataUang,
       "nilai": data.nilai,
       "kurs": data.kurs,
-      "tanggal": data.tanggal,
-      "is_active": true
+      "tanggal": data.tanggal
     }
   try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/real?id=${data.idNonJisdor}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/real-kurs/master-usd-nonusd/real?id=${data.id}`, data1)
     )
   } catch (error) {
     console.log(error);
@@ -272,7 +264,7 @@ export class MarketUpdateService {
   async fetchDataOutlookKursUsd(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/list`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/list?isActive=true`)
       );
     } catch (error) {
       console.log(error);
@@ -282,7 +274,7 @@ export class MarketUpdateService {
   async fetchDataOutlookKursNonUsd(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/nonusd`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/nonusd?isActive=true`)
       );
     } catch (error) {
       console.log(error);
@@ -324,7 +316,7 @@ export class MarketUpdateService {
   async fetchDeleteDataOutlookCurrencyRate(data:any){
     try {
       return await lastValueFrom(
-        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap/non-macro/list_rby?=${data.id}`)
+        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/jisdor?id=${data.idJisdor}`)
       );
     } catch (error) {
       console.log(error);
@@ -453,16 +445,9 @@ export class MarketUpdateService {
   }
   }
   async fetchDeleteDataOutlookNonUsd(data:any){
-    const kurs = parseInt(data.kurs)
-    const data1 = {
-      "mata_uang": data.mataUang,
-      "nilai": data.nilai,
-      "kurs": kurs,
-      "tanggal": data.tanggal
-    }
   try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/usd_nonusd=${data.idNonJisdor}`, data1)
+      this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/usd_nonusd?id=${data.idNonJisdor}`)
     )
   } catch (error) {
     console.log(error);
@@ -572,7 +557,7 @@ export class MarketUpdateService {
   async fetchDataRealisasiBondYieldSBN(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/list_rby?grup=SBN`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/list_rby?grup=SBN&isActive=true`)
       );
     } catch (error) {
       console.log(error);
@@ -601,6 +586,7 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateRealisasiBondYieldSBN(data:any){
     const data1= {
+      "grup": data.grup,
       "tanggal": data.tanggal,
       "yr5": data.yr5,
       "yr7": data.yr7,
@@ -701,7 +687,7 @@ export class MarketUpdateService {
       }
       console.log(params)
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?grup=SBN&is_active=true`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?grup=SBN&isActive=true`)
       );
     } catch (error) {
       console.log(error);
@@ -711,19 +697,18 @@ export class MarketUpdateService {
   async fetchDataInputOutlookBondYieldSBN(data:any){
     const data1= {
       "tanggal": data.tanggal,
-      "get_5y": data.get_5y,
-      "get_7y": data.get_7y,
-      "get_10y": data.get_10y,
-      "get_15y": data.get_15y,
-      "get_20y": data.get_20y,
-      "get_25y": data.get_25y,
-      "get_30y": data.get_30y,
-      "group":data.group,
-      "is_active": true
+      "5yr": data.yr5,
+      "7yr": data.yr7,
+      "10yr": data.yr10,
+      "15yr": data.yr15,
+      "20yr": data.yr20,
+      "25yr": data.yr25,
+      "30yr": data.yr30,
+      "grup":data.grup
       }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?grup=US_TREASURY`, data1)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?grup=SBN`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -732,7 +717,6 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateOutlookBondYieldSBN(data:any){
     const data1= {
-      "grup":data.grup,
       "tanggal": data.tanggal,
       "yr5": data.yr5,
       "yr7": data.yr7,
@@ -740,11 +724,12 @@ export class MarketUpdateService {
       "yr15": data.yr15,
       "yr20": data.yr20,
       "yr25": data.yr25,
-      "yr30": data.yr30
+      "yr30": data.yr30,
+      "grup":data.grup
       }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?id=${data.id}&grup=US_TREASURY`, data1)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?id=${data.id}`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -911,18 +896,18 @@ export class MarketUpdateService {
   async fetchDataInputOutlookBondYieldUsTreasury(data:any){
     const data1= {
       "tanggal": data.tanggal,
-      "grup": data.grup,
+      "grup": "US_TREASURY",
       "yr5": data.yr5,
       "yr7": data.yr7,
       "yr10": data.yr10,
       "yr15": data.yr15,
       "yr20": data.yr20,
       "yr25": data.yr25,
-      "yr30": data.yr30
+      "yr30": data.yr30,
       }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?grup=US_TREASURY`, data1)
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -933,14 +918,14 @@ export class MarketUpdateService {
     const data1= {
       "tanggal": data.tanggal,
       "yr5": data.yr5,
-      "yr7": data.yr7,
-      "yr10": data.yr10,
-      "yr15": data.yr15,
-      "yr20": data.yr20,
-      "yr25": data.yr25,
-      "yr30": data.yr30,
-      "grup": data.grup
-      }
+      "yr7": data.yr5,
+      "yr10": data.yr5,
+      "yr15": data.yr5,
+      "yr20": data.yr5,
+      "yr25": data.yr5,
+      "yr30": data.yr5,
+      "grup": "US_TREASURY"
+    }
     try {
       return await lastValueFrom(
         this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?id=${data.id}`, data1)
@@ -2411,7 +2396,7 @@ export class MarketUpdateService {
   async fetchDataOutlookInterestRate(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-interest-rate`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-interest-rate?isActive=true`)
       );
     } catch (error) {
       console.log(error);
