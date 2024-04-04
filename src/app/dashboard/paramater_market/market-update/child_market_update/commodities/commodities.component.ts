@@ -102,7 +102,7 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
     } catch (error) {
       console.log(error);
     }
-    this.dataDetailRkap = this.dataDetailRkap.content.filter((item:any)=>{
+    this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
       return item.grup ==="COMMODITIES"
     })
     this.tableConfig.setDataRkapCommodities(this.dataDetailRkap);
