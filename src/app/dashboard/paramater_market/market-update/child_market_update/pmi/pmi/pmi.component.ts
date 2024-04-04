@@ -35,6 +35,21 @@ export class PmiComponent {
   allLabelDate: any[] = [];
   allLabelYear: any[] = [];
 
+  months = [
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember"
+  ];
+
   async getData(){
     const today = moment().format('DD/MM/YYYY');
     this.isLoading = true;
@@ -75,16 +90,33 @@ export class PmiComponent {
       const data = await this.marketUpdateService.fetchDataRealisasiPMI();
       this.dataDetailRealisasi = data;
       this.dataDetailRealisasi = this.dataDetailRealisasi.data.content;
-      this.dataDetailRealisasi = this.dataDetailRealisasi.sort((a: { tahun: number; }, b: { tahun: number; }) => {
-        const aYear = a.tahun || 0;
-        const bYear = b.tahun || 0;
-        return bYear - aYear;
-      });
-      this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
-        item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
-        item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        return item;
-      })
+      if (this.dataDetailRealisasi == null){
+        console.log('data kosong')
+      } else {
+        this.dataDetailRealisasi.sort((a: { bulan: string; tahun: number; }, b: { bulan: string; tahun: number; }) => {
+          const aIndex = this.months.indexOf(a.bulan);
+          const bIndex = this.months.indexOf(b.bulan);
+    
+          if (a.tahun > b.tahun) {
+            return -1;
+          }
+          if (a.tahun < b.tahun) {
+            return 1;
+          }
+          if (aIndex > bIndex) {
+            return 1;
+          }
+          if (aIndex < bIndex) {
+            return -1;
+          }
+          return 0;
+        });
+        this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
+          item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+          item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          return item;
+        })
+      }
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
     } catch (error) {
@@ -97,24 +129,32 @@ export class PmiComponent {
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
     try {
-      const data = await this.marketUpdateService.fetchDataRkapPMI();
+      const data = await this.marketUpdateService.fetchDataAllRkap();
       this.dataDetailRkap = data;
       this.dataDetailRkap = this.dataDetailRkap.data.content;
-      this.dataDetailRkap.sort((a: { tahun: number; }, b: { tahun: number; }) => {
-        const aYear = a.tahun || 0;
-        const bYear = b.tahun || 0;
-        return bYear - aYear;
-      });
+      if (this.dataDetailRkap != null){
+        this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
+          return item.mtu === "PMI"
+        });
+        this.dataDetailRkap.sort((a: { tahun: number; }, b: { tahun: number; }) => {
+          const aYear = a.tahun || 0;
+          const bYear = b.tahun || 0;
+          return bYear - aYear;
+        });
+        this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
+          item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+          item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          return item;
+        })
+      }else {
+        console.log('data kosong')
+      }
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRkap);
     } catch (error) {
       console.log(error);
     }
-    this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
-      item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
-      item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      return item;
-    })
+    
     this.tableConfig.setDataRkapPMI(this.dataDetailRkap)
     console.log('finish get data in func');
   }
@@ -125,12 +165,17 @@ export class PmiComponent {
       const data = await this.marketUpdateService.fetchDataOutlookPMI();
       this.dataDetailOutlook = data;
       this.dataDetailOutlook = this.dataDetailOutlook.data.content;
-      if (this.dataDetailOutlook == !null){
+      if (this.dataDetailOutlook != null){
         this.dataDetailOutlook.sort((a: { tahun: number; }, b: { tahun: number; }) => {
           const aYear = a.tahun || 0;
           const bYear = b.tahun || 0;
           return bYear - aYear;
         });
+        this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
+          item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
+          item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          return item;
+        })
       }else {
         console.log('data kosong')
       } 
@@ -138,15 +183,6 @@ export class PmiComponent {
       console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
     } catch (error) {
       console.log(error);
-    }
-    if (this.dataDetailOutlook == !null){
-      this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
-        item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
-        item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        return item;
-      })
-    }else {
-      console.log('data kosong')
     }
     this.tableConfig.setDataOutlookPMI(this.dataDetailOutlook)
     console.log('finish get data in func');

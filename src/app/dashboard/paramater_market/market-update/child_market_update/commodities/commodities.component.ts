@@ -38,23 +38,6 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
 
   kursSelect: any;
 
-  async getData(){
-    this.isLoading = true;
-    console.log(this.isLoading, 'loading 1');
-
-    try {
-      const data = await this.marketUpdateService.fetchDataCommoditiesAll(moment().format('YYYY'));
-      this.dataDetail = data;
-      this.dataDetail = this.dataDetail.data;
-      this.isLoading = false;
-      console.log(this.isLoading, 'loading 2', this.dataDetail);
-    } catch (error) {
-      console.log(error);
-    }
-    this.tableConfig.setDataPdb(this.dataDetail);
-    console.log('finish get data in func');
-
-  }
   async getDataRealisasi(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
@@ -63,19 +46,22 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
       const data = await this.marketUpdateService.fetchDataRealisasiCommodities();
       this.dataDetailRealisasi = data;
       this.dataDetailRealisasi = this.dataDetailRealisasi.data;
-      this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) => {
-        const dateParts = item.tanggal.split("/");
-        const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
-        item.tanggal = dateObject.toISOString().split("T")[0];
-        
-        return item;
-        }).sort((a: any, b: any) => {
-          return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
-        });
-        this.dataDetailRealisasi.map((item:any)=>{
-          item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
-          return item
+      if (this.dataDetailRealisasi == null){
+        console.log('data kosong')
+      } else{
+        this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) => {
+          const dateParts = item.tanggal.split("/");
+          const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1])-1, Number(dateParts[0])+1);
+          item.tanggal = dateObject.toISOString().split("T")[0];
+          return item;
+          }).sort((a: any, b: any) => {
+            return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
+          });
+          this.dataDetailRealisasi.map((item:any)=>{
+            item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
+            return item
         })
+      }
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
     } catch (error) {
@@ -91,7 +77,26 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
     try {
       const data = await this.marketUpdateService.fetchDataAllRkap();
       this.dataDetailRkap = data;
-      this.dataDetailRkap = this.dataDetailRkap.data;
+      this.dataDetailRkap = this.dataDetailRkap.data.content;
+      if (this.dataDetailRkap == null){
+        console.log('data kosong')
+      } else{
+        this.dataDetailRkap = this.dataDetailRkap.map((item: any) => {
+        const dateParts = item.tanggal.split("/");
+        const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1])-1, Number(dateParts[0])+1);
+        item.tanggal = dateObject.toISOString().split("T")[0];
+        return item;}).sort((a: any, b: any) => {
+          return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
+        })
+        this.dataDetailRkap.map((item:any)=>{
+          item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
+          return item
+        })
+      }
+      this.dataDetailRkap.map((item: any) =>{
+        item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+        item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      });
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRkap);
     } catch (error) {
@@ -106,11 +111,25 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
   async getDataOutlook(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
-
     try {
       const data = await this.marketUpdateService.fetchDataOutlookCommodities();
       this.dataDetailOutlook = data;
-      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data.content;
+      this.dataDetailOutlook.sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
+        const dateA = new Date(a.tahun, a.tanggal.split('/')[0], a.tanggal.split('/')[1]);
+        const dateB = new Date(b.tahun, b.tanggal.split('/')[0], b.tanggal.split('/')[1]);
+        if (dateA > dateB) {
+          return -1;
+        } else if (dateA < dateB) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+      this.dataDetailOutlook.map((item: any) =>{
+        item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
+        item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      });
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
     } catch (error) {
@@ -204,7 +223,6 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
     let formatThreeDaysBefore = moment(threeDaysBefore).format("DD/MM/YYYY").toString();
     console.log('load data');
 
-    await this.getData();
     await this.getDataRealisasi();
     await this.getDataRkap();
     await this.getDataOutlook();

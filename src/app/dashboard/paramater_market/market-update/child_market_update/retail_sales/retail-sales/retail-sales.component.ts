@@ -33,38 +33,21 @@ export class RetailSalesComponent {
   allLabelDate: any[] = [];
   getLabelYear: any;
   allLabelYear: any[] = [];
+  months = [
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember"
+  ];
 
-  async getData(){
-    const today = moment().format('DD/MM/YYYY');
-    this.isLoading = true;
-    console.log(this.isLoading, 'loading 1');
-    try {
-      const data = await this.marketUpdateService.fetchAllDataMacroIndicator(today, "RETAIL");
-      this.dataDetail = data;
-      this.dataDetail = this.dataDetail.data;
-      this.isLoading = false;
-      console.log(this.isLoading, 'loading 2', this.dataDetail);
-    } catch (error) {
-      console.log(error);
-    }
-    this.dataDetail = this.dataDetail.map((item: any) =>{
-      item.year_min_0 != null ? item.year_min_0 = parseFloat(item.year_min_0) : item.year_min_0 = 0;
-      item.year_min_0 = item.year_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-      item.year_min_1 != null ? item.year_min_1 = parseFloat(item.year_min_1) : item.year_min_1 = 0;
-      item.year_min_1 = item.year_min_1.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-      item.year_min_2 != null ? item.year_min_2 = parseFloat(item.year_min_2) : item.year_min_2 = 0;
-      item.year_min_2 = item.year_min_2.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-      item.year_min_3 != null ? item.year_min_3 = parseFloat(item.year_min_3) : item.year_min_3 = 0;
-      item.year_min_3 = item.year_min_3.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      
-      return item;
-    })
-    this.tableConfig.setDataRetail(this.dataDetail);
-    console.log('finish get data in func');
-  }
   async getDataRealisasi(){
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
@@ -72,15 +55,41 @@ export class RetailSalesComponent {
       const data = await this.marketUpdateService.fetchDataRealisasiRetail();
       this.dataDetailRealisasi = data;
       this.dataDetailRealisasi = this.dataDetailRealisasi.data.content;
+      if ( this.dataDetailRealisasi == null){
+        console.log('data kosong')
+      } else {
+        this.dataDetailRealisasi.sort((a: { bulan: string; tahun: number; }, b: { bulan: string; tahun: number; }) => {
+          const aIndex = this.months.indexOf(a.bulan);
+          const bIndex = this.months.indexOf(b.bulan);
+    
+          if (a.tahun > b.tahun) {
+            return -1;
+          }
+          if (a.tahun < b.tahun) {
+            return 1;
+          }
+          if (aIndex > bIndex) {
+            return 1;
+          }
+          if (aIndex < bIndex) {
+            return -1;
+          }
+          return 0;
+        });
+      }
+      this.isLoading = false;
+      console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
+    } catch (error) {
+      console.log(error);
+    }
+    if (this.dataDetailRealisasi == null){
+      console.log('data kosong')
+    } else {
       this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
         item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
         item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         return item;
       })
-      this.isLoading = false;
-      console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
-    } catch (error) {
-      console.log(error);
     }
     this.tableConfig.setDataRealisasiRetail(this.dataDetailRealisasi);
     console.log('finish get data in func');
@@ -89,7 +98,7 @@ export class RetailSalesComponent {
     this.isLoading = true;
     console.log(this.isLoading, 'loading 1');
     try {
-      const data = await this.marketUpdateService.fetchDataRkapRetail();
+      const data = await this.marketUpdateService.fetchDataAllRkap();
       this.dataDetailRkap = data;
       this.dataDetailRkap = this.dataDetailRkap.data.content;
       this.dataDetailRkap.sort((a: { tahun: number; }, b: { tahun: number; }) => {
@@ -97,6 +106,9 @@ export class RetailSalesComponent {
         const bYear = b.tahun || 0;
         return bYear - aYear;
       });
+      this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
+        return item.mtu ==="RETAIL"
+      })
       this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
         item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
         item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -117,20 +129,60 @@ export class RetailSalesComponent {
       const data = await this.marketUpdateService.fetchDataOutlookRetail();
       this.dataDetailOutlook = data;
       this.dataDetailOutlook = this.dataDetailOutlook.data.content;
-      this.dataDetailOutlook.sort((a: { tahun: number; }, b: { tahun: number; }) => {
-        const aYear = a.tahun || 0;
-        const bYear = b.tahun || 0;
-        return bYear - aYear;
-      });
-      this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
-        item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
-        item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        return item;
-      })
+      if ( this.dataDetailOutlook == null){
+          console.log('data kosong')
+      } else {
+        this.dataDetailOutlook.sort((a: { tahun: any; quartal: any; }, b: { tahun: any; quartal: any; }) => {
+          const aYear = a.tahun;
+          const bYear = b.tahun;
+          if (aYear === bYear) {
+            const aQuartal = a.quartal;
+            const bQuartal = b.quartal;
+            if (aQuartal === bQuartal) {
+              return 0;
+            }
+            if (aQuartal === "Q4") {
+              return -1;
+            }
+            if (bQuartal === "Q4") {
+              return 1;
+            }
+            if (aQuartal === "Q3") {
+              return -1;
+            }
+            if (bQuartal === "Q3") {
+              return 1;
+            }
+            if (aQuartal === "Q2") {
+              return -1;
+            }
+            if (bQuartal === "Q2") {
+              return 1;
+            }
+            if (aQuartal === "Q1") {
+              return 1;
+            }
+            return -1;
+          }
+          if (aYear > bYear) {
+            return -1;
+          }
+          return 1;
+        });
+      }
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
     } catch (error) {
       console.log(error);
+    }
+    if ( this.dataDetailOutlook == null ){
+      console.log('data kosong')
+    } else {
+      this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
+        item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
+        item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return item;
+      })
     }
     this.tableConfig.setDataOutlookRetail(this.dataDetailOutlook);
     console.log('finish get data in func');
