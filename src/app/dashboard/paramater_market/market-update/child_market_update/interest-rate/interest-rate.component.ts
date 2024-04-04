@@ -67,15 +67,25 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
     try {
       const data = await this.marketUpdateService.fetchDataAllRkap();
       this.dataDetailRkap = data;
-      this.dataDetailRkap = this.dataDetailRkap.data;
+      this.dataDetailRkap = this.dataDetailRkap.data.content;
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRkap);
     } catch (error) {
       console.log(error);
     }
-    this.dataDetailRkap = this.dataDetailRkap.content.filter((item:any)=>{
-      return item.grup ==="INTEREST_RATE"
-    })
+    if (this.dataDetailRkap == null){
+      console.log('data kosong')
+    } else {
+      this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
+        return item.grup ==="INTEREST_RATE"
+      });
+      this.dataDetailRkap.sort((a: { tahun: number; }, b: { tahun: number; }) => {
+        const aYear = a.tahun || 0;
+        const bYear = b.tahun || 0;
+        return bYear - aYear;
+      });
+    }
+    
     this.tableConfig.setDataRkapInterestRate(this.dataDetailRkap);
     console.log('finish get data in func');
   }
@@ -85,7 +95,22 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
     try {
       const data = await this.marketUpdateService.fetchDataOutlookInterestRate();
       this.dataDetailOutlook = data;
-      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      this.dataDetailOutlook = this.dataDetailOutlook.data.content;
+      if(this.dataDetailOutlook == null){
+        console.log('data kosong')
+      } else {
+        this.dataDetailOutlook.sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
+          const dateA = new Date(a.tahun, a.tanggal.split('/')[0], a.tanggal.split('/')[1]);
+          const dateB = new Date(b.tahun, b.tanggal.split('/')[0], b.tanggal.split('/')[1]);
+          if (dateA > dateB) {
+            return -1;
+          } else if (dateA < dateB) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+      }
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
     } catch (error) {

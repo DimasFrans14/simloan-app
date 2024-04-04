@@ -52,7 +52,7 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
       } else {
         this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) => {
           const dateParts = item.tanggal.split("/");
-          const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
+          const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1])-1, Number(dateParts[0]));
           item.tanggal = dateObject.toISOString().split("T")[0];
           
           return item;
@@ -150,16 +150,20 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     } catch(error) {
       console.log(error)
     }
-    this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
-      item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
-      item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      return item;
-    })
-    this.dataDetailOutlookNonUsd = this.dataDetailOutlookNonUsd.map((item: any) =>{
-      item.kurs != null ? item.kurs = parseFloat(item.kurs) : item.kurs = 0;
-      item.kurs = item.kurs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      return item;
-    })
+    if ( this.dataDetailOutlook == null ){
+      console.log('data kosong')
+    } else {
+      this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
+        item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
+        item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return item;
+      })
+      this.dataDetailOutlookNonUsd = this.dataDetailOutlookNonUsd.map((item: any) =>{
+        item.kurs != null ? item.kurs = parseFloat(item.kurs) : item.kurs = 0;
+        item.kurs = item.kurs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return item;
+      })
+    }
     this.tableConfig.setDataOutlookKursUsd(this.dataDetailOutlook, this.dataDetailOutlookNonUsd);
     console.log('finish get data by function')
   }

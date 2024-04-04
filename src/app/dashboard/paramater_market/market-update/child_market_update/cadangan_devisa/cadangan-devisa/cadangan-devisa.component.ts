@@ -97,18 +97,22 @@ export class CadanganDevisaComponent {
       const data = await this.marketUpdateService.fetchDataAllRkap();
       this.dataDetailRkap = data;
       this.dataDetailRkap = this.dataDetailRkap.data.content;
-      this.dataDetailRkap.sort((a: { tahun: number; }, b: { tahun: number; }) => {
-        const aYear = a.tahun || 0;
-        const bYear = b.tahun || 0;
-        return bYear - aYear;
-      });
-      this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
-        return item.mtu ==="CADANG"
-      })
-      this.dataDetailRkap.map((item: any) =>{
-        item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
-        item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      })
+      if (this.dataDetailRkap == null){
+        console.log('data kosong')
+      } else {
+        this.dataDetailRkap.sort((a: { tahun: number; }, b: { tahun: number; }) => {
+          const aYear = a.tahun || 0;
+          const bYear = b.tahun || 0;
+          return bYear - aYear;
+        });
+        this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
+          return item.mtu ==="CADEV"
+        })
+        this.dataDetailRkap.map((item: any) =>{
+          item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+          item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        })
+      }
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRkap);
     } catch (error) {
