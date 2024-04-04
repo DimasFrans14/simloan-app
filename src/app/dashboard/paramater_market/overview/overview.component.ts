@@ -5159,9 +5159,13 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
       this.allTrendDataKursBarChart = this.allTrendDataKursBarChart.d.arrayData;
 
       this.trendKursDataBarChart.d.arrayData.map((item: any) => {
+        item.data = item.data.map((items: any) => {
+          items.y = (items.y === null || items.y === undefined) ? 0 : items.y;
+          return items;
+        });
         item.data.sort((a: any, b: any) => a.id - b.id)
-        return item
-      })
+        return item;
+      });
 
       console.log(this.trendKursDataBarChart);
 
@@ -5219,10 +5223,14 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     if(this.dataWTIBRENTBarChart.d.hasOwnProperty('arrayData')){
       this.dataBarChartWtiBrent = this.dataWTIBRENTBarChart.d.arrayData
       .map((item: any) => {
-        item.data.sort((a: any, b: any) => a.id - b.id);
+        item.data = item.data.map((items: any) => {
+          items.y = (items.y === null || items.y === undefined) ? 0 : items.y;
+          return items;
+        });
+        item.data.sort((a: any, b: any) => a.id - b.id)
         return item;
       })
-      .filter((items: any) => items.name === 'WTI')
+      .filter((items: any) => items.name === 'BRENT')
 
       console.log(this.dataBarChartWtiBrent);
 
@@ -5274,7 +5282,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
     if(this.trenddataICPBarChart.d.hasOwnProperty('arrayData')){
 
       this.trenddataICPBarChart.d.arrayData.map((item: any) => {
+        item.data = item.data.map((items: any) => {
+          items.y = (items.y === null || items.y === undefined) ? 0 : items.y;
+          return items;
+        });
         item.data.sort((a: any, b: any) => a.id - b.id)
+        return item;
       })
 
       this.dataIcpBarChart = this.trenddataICPBarChart.d.arrayData
@@ -5333,7 +5346,11 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
       this.dataChartCoalBar = this.dataCOALBarChart.d.arrayData
         .map((item: any) => {
-          item.data.sort((a: any, b: any) => a.id - b.id);
+          item.data = item.data.map((items: any) => {
+            items.y = (items.y === null || items.y === undefined) ? 0 : items.y;
+            return items;
+          });
+          item.data.sort((a: any, b: any) => a.id - b.id)
           return item;
         })
         .filter((items: any) => items.name === 'COAL');
@@ -5388,8 +5405,12 @@ export class ParameterMarketOverviewComponent implements AfterViewInit, OnInit{
 
     if(this.dataLNGBarChart.d.hasOwnProperty('arrayData')){
       this.dataChartLngBar = this.dataLNGBarChart.d.arrayData.map((item: any) => {
-        item.data.sort((a: any, b: any) => a.id - b.id);
-        return item
+        item.data = item.data.map((items: any) => {
+          items.y = (items.y === null || items.y === undefined) ? 0 : items.y;
+          return items;
+        });
+        item.data.sort((a: any, b: any) => a.id - b.id)
+        return item;
       })
       .filter((items: any) => items.name === 'LNG')
       console.log(this.dataChartLngBar);
