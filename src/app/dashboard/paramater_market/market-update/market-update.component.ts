@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 // import {TabulatorFull as Tabulator} from 'tabulator-tables';
@@ -12,6 +12,10 @@ import { ViewportScroller } from '@angular/common';
 import { MatInput } from '@angular/material/input';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 import { OverviewChartService } from 'src/app/services/chart_serivces/overviewChart/overview-chart.service';
+import { NgxCaptureService } from 'ngx-capture';
+import { forkJoin, tap } from 'rxjs';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 interface ExcelData {
   [key: string]: any;
@@ -24,11 +28,24 @@ interface ExcelData {
 })
 export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
+  @ViewChild('currencyRate', { static: true }) currencyRate!: ElementRef;
+  @ViewChild('interestRate', { static: true }) interestRate!: ElementRef;
+  @ViewChild('bondYieldSBN', { static: true }) bondYieldSBN!: ElementRef;
+  @ViewChild('bondYieldUST', { static: true }) bondYieldUST!: ElementRef;
+  @ViewChild('commodity', { static: true }) commodity!: ElementRef;
+  @ViewChild('PDB', { static: true }) PDB!: ElementRef;
+  @ViewChild('inflasi', { static: true }) inflasi!: ElementRef;
+  @ViewChild('PMI', { static: true }) PMI!: ElementRef;
+  @ViewChild('retailSales', { static: true }) retailSales!: ElementRef;
+  @ViewChild('moneySupply', { static: true }) moneySupply!: ElementRef;
+  @ViewChild('cadanganDevisa', { static: true }) cadanganDevisa!: ElementRef;
+
   constructor(
     private tableConfig: TableServicesService,
     private viewportScroller: ViewportScroller,
     private marketUpdateService: MarketUpdateService,
-    private lineChartCommodity: OverviewChartService
+    private lineChartCommodity: OverviewChartService,
+    private captureService: NgxCaptureService,
     // private router: Router
     ){
       // console.log(this.lineChartCommodity);
@@ -223,6 +240,121 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
 
   updateColumn(){
     this.tableConfig.editTitle();
+  }
+
+  captureCurencyRate: any;
+  captureInterestRate: any;
+  captureBondYieldSBN: any;
+  captureBondYieldUST: any;
+  captureCommodity: any;
+  capturePDB: any;
+  captureInflasi: any;
+  capturePMI: any;
+  captureRetailSales: any;
+  captureMoneySupply: any;
+  captureCadanganDevisa: any;
+
+  isVisible: boolean = false;
+
+  toggleModal(condition: boolean) {
+    this.isVisible = condition;
+
+    const backdropElement = document.querySelector('.modal-backdrop') as HTMLElement;
+    if (backdropElement) {
+        backdropElement.style.display = condition ? 'block' : 'none';
+    }
+  }
+
+  isCapture: boolean = false;
+  async captureAndConvertToPDF() {
+    this.isCapture = true;
+    this.toggleModal(true);
+
+    setTimeout(() => {
+    this.isCapture = false;
+      if (this.isCapture) {
+        const captureCalls = [
+          this.captureService.getImage(this.currencyRate.nativeElement, true),
+          this.captureService.getImage(this.interestRate.nativeElement, true),
+          this.captureService.getImage(this.bondYieldSBN.nativeElement, true),
+          this.captureService.getImage(this.bondYieldUST.nativeElement, true),
+          this.captureService.getImage(this.commodity.nativeElement, true),
+          this.captureService.getImage(this.PDB.nativeElement, true),
+          // this.captureService.getImage(this.inflasi.nativeElement, true),
+          this.captureService.getImage(this.PMI.nativeElement, true),
+          // this.captureService.getImage(this.retailSales.nativeElement, true),
+          this.captureService.getImage(this.moneySupply.nativeElement, true),
+          // this.captureService.getImage(this.cadanganDevisa.nativeElement, true)
+        ];
+
+        forkJoin(captureCalls).subscribe(
+          (images: any[]) => {
+            // console.log(images);
+
+            let docDefinition: any = {
+              content: [
+                { text: 'Currency Rate', style: 'header' },
+                { image: images[0], width: 520 },
+                { text: 'Interest Rate', margin: [0, 10, 0, 0], style: 'header' },
+                { image: images[1], width: 520 },
+
+                { text: '', pageBreak: 'after' },
+
+                { text: 'Bond Yield SBN', margin: [0, 10, 0, 0], style: 'header' },
+                { image: images[2], width: 520 },
+                { text: 'Bond Yield US Treasury', margin: [0, 10, 0, 0], style: 'header' },
+                { image: images[3], width: 520 },
+
+                { text: '', pageBreak: 'after' },
+
+                { text: 'Commodity', margin: [0, 10, 0, 0], style: 'header' },
+                { image: images[4], width: 520 },
+                { text: 'Macro Indicator', margin: [0, 10, 0, 0], style: 'header' },
+                { image: images[5], width: 520 },
+
+                // { text: '', pageBreak: 'after' },
+
+                { text: '', margin: [0, 10, 0, 0], style: 'header' },
+                { image: images[6], width: 520 },
+
+                { text: '', pageBreak: 'after' },
+
+                { text: '', margin: [0, 10, 0, 0], style: 'header' },
+                { image: images[7], width: 520 },
+
+                // { text: '', pageBreak: 'after' },
+
+                // { text: 'Retail Sales', margin: [0, 10, 0, 0], style: 'header' },
+                // { image: images[8], width: 250 },
+
+                // { text: '', pageBreak: 'after' },
+
+                // { text: 'Money Supply', margin: [0, 10, 0, 0], style: 'header' },
+                // { image: images[9], width: 250 },
+
+                // { text: '', pageBreak: 'after' },
+
+                // { text: 'Cadangan Devisa', margin: [0, 10, 0, 0], style: 'header' },
+                // { image: images[10], width: 250 },
+                // Tambahan blok untuk elemen-elemen lainnya
+              ],
+              styles: {
+                header: { fontSize: 15, bold: true },
+              }
+            };
+
+            this.toggleModal(false);
+            pdfMake.createPdf(docDefinition).open();
+          },
+          error => {
+            console.error('Error capturing images:', error);
+            // Handle error jika ada
+          }
+        );
+      } else {
+        this.isCapture = false;
+      }
+    }, 2000);
   }
 
   async searchData(){

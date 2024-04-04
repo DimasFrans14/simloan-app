@@ -26,10 +26,53 @@
             <button type="button" class="btn btn-light border border-dark-subtle me-2" style="font-size: 14px;" (click)="resetFilter()">Reset</button>
         </div>
         <div>
-          <button class="bg-light rounded p-3 me-5" style="border: none;" type="button">
+          <button
+            class="bg-light rounded p-3"
+            style="border: none"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            [disabled]="isLoading"
+          >
             <i class="bi bi-download"></i>
           </button>
+          <ul class="dropdown-menu border border-1">
+            <!-- <li style="cursor: pointer" (click)="getPPT()">
+              <a class="dropdown-item"
+                ><i class="bi bi-filetype-ppt me-2"></i>PPT</a
+              >
+            </li> -->
+            <li style="cursor: pointer" (click)="captureAndConvertToPDF()" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              <a class="dropdown-item"
+                ><i class="bi bi-filetype-pdf me-2"></i>PDF</a
+              >
+            </li>
+          </ul>
         </div>
+      </div>
+
+      <div class="modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" [style.display]="isVisible ? 'block' : 'none'">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="d-flex justify-content-center align-items-center">
+                <span class="fw-semibold">Exporting to PDF...</span>
+                <div class="spinner-border ms-2" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-dialog modal-dialog-centered" [style.display]="isCapture ? 'block' : 'none'">
+        <!-- <div class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div> -->
+
       </div>
 
       <!-- Sub Menu -->
@@ -96,283 +139,287 @@
 
     </div>
 
-    <div id="currencyRate" class="pt-2"></div>
-    <div class="d-flex justify-content-between align-items-center mt-5">
-      <div>
-        <h4>Currency Rate</h4>
-      <!-- <input type="file" name="" id="" (change)="readExcel($event)"> -->
+    <div>
+      <div id="currencyRate" class="pt-2"></div>
+      <div class="d-flex justify-content-between align-items-center mt-5">
+        <div>
+          <h4>Currency Rate</h4>
+        <!-- <input type="file" name="" id="" (change)="readExcel($event)"> -->
+        </div>
+
+        <!-- Button Customize Table (Show/Hide Column) -->
+        <!-- <div>
+          <button class="btn btn-transparant border-secondary bg-white dropdown-toggle me-2" style="font-size: 14px;" type="button" data-bs-toggle="dropdown" aria-expanded="false">Customize Table</button>
+          <div class="dropdown-menu ps-2">
+            <form (ngSubmit)="onSubmit($event)">
+              <div style="font-size: 15px;">
+                <input type="checkbox" name="IDR" id="mata_uang">
+                <label class="ms-2" value="mata_uang" for="IDR">IDR</label>
+                <br/>
+                <input type="checkbox" name="Exchange Rate" id="nilai_rkap">
+                <label class="ms-2" value="" for="Exchange Rate">Exchange Rate</label>
+                <br/>
+                <input type="checkbox" name="Change RKAP" id="change_rkap">
+                <label class="ms-2" value="" for="Change RKAP">Change RKAP</label>
+                <br/>
+                <input type="checkbox" name="Change MoM" id="change_mom">
+                <label class="ms-2" value="" for="Change MoM">Change MoM</label>
+                <br/>
+                <input type="checkbox" name="Change WoW" id="change_wow">
+                <label class="ms-2" value="" for="Change WoW">Change WoW</label>
+                <br/>
+                <input type="checkbox" name="Change 1 Day" id="change_1day">
+                <label class="ms-2" value="" for="Change 1 Day">Change 1 Day</label>
+              </div>
+              <button type="submit" class="btn btn-primary btn-sm mt-2">Save Change</button>
+            </form>
+          </div>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/currency_rate">Lihat Detail</button>
+        </div> -->
+        <div>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/currency_rate">Lihat Detail</button>
+        </div>
       </div>
 
-      <!-- Button Customize Table (Show/Hide Column) -->
-      <!-- <div>
-        <button class="btn btn-transparant border-secondary bg-white dropdown-toggle me-2" style="font-size: 14px;" type="button" data-bs-toggle="dropdown" aria-expanded="false">Customize Table</button>
-        <div class="dropdown-menu ps-2">
-          <form (ngSubmit)="onSubmit($event)">
-            <div style="font-size: 15px;">
-              <input type="checkbox" name="IDR" id="mata_uang">
-              <label class="ms-2" value="mata_uang" for="IDR">IDR</label>
-              <br/>
-              <input type="checkbox" name="Exchange Rate" id="nilai_rkap">
-              <label class="ms-2" value="" for="Exchange Rate">Exchange Rate</label>
-              <br/>
-              <input type="checkbox" name="Change RKAP" id="change_rkap">
-              <label class="ms-2" value="" for="Change RKAP">Change RKAP</label>
-              <br/>
-              <input type="checkbox" name="Change MoM" id="change_mom">
-              <label class="ms-2" value="" for="Change MoM">Change MoM</label>
-              <br/>
-              <input type="checkbox" name="Change WoW" id="change_wow">
-              <label class="ms-2" value="" for="Change WoW">Change WoW</label>
-              <br/>
-              <input type="checkbox" name="Change 1 Day" id="change_1day">
-              <label class="ms-2" value="" for="Change 1 Day">Change 1 Day</label>
+      <div class="row">
+        <div class="col-12">
+          <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+            <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+              <div class="spinner-border" role="status">
+              </div>
+              <span class="text-dark ms-1">Memuat data tabel...</span>
             </div>
-            <button type="submit" class="btn btn-primary btn-sm mt-2">Save Change</button>
-          </form>
-        </div>
-        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/currency_rate">Lihat Detail</button>
-      </div> -->
-      <div>
-        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/currency_rate">Lihat Detail</button>
-      </div>
-    </div>
+          </div>
 
-    <div class="row">
-      <div class="col-12">
-        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
-          <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
-            <div class="spinner-border" role="status">
+          <div [style.display]="isLoading ? 'none' : 'block'">
+            <div class="table-currency mt-2" #currencyRate></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="interestRate" class="pt-2"></div>
+      <div class="d-flex justify-content-between align-items-center mt-5">
+        <div>
+          <h4>Interest Rate</h4>
+        </div>
+
+        <div>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/interest_rate">Lihat Detail</button>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+            <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+              <div class="spinner-border" role="status">
+              </div>
+              <span class="text-dark ms-1">Memuat data tabel...</span>
             </div>
-            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+          <div [style.display]="isLoading ? 'none' : 'block'">
+            <div class="table-interest mt-2" #interestRate></div>
           </div>
         </div>
+      </div>
 
-        <div [style.display]="isLoading ? 'none' : 'block'">
-          <div class="table-currency mt-2"></div>
+      <div id="bondYield" class="pt-2"></div>
+      <div class="d-flex justify-content-between align-items-center mt-5">
+        <div>
+          <h4>Bond Yield</h4>
         </div>
-      </div>
-    </div>
 
-    <div id="interestRate" class="pt-2"></div>
-    <div class="d-flex justify-content-between align-items-center mt-5">
-      <div>
-        <h4>Interest Rate</h4>
+        <div>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/bond_yield">Lihat Detail</button>
+        </div>
+
       </div>
 
-      <div>
-        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/interest_rate">Lihat Detail</button>
-      </div>
-
-    </div>
-
-    <div class="row">
-      <div class="col-12">
-        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
-          <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
-            <div class="spinner-border" role="status">
+      <h5>SBN</h5>
+      <div class="row">
+        <div class="col-12">
+          <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+            <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+              <div class="spinner-border" role="status">
+              </div>
+              <span class="text-dark ms-1">Memuat data tabel...</span>
             </div>
-            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+          <div [style.display]="isLoading ? 'none' : 'block'">
+            <div class="table-bondYieldSBN mt-2" #bondYieldSBN></div>
           </div>
         </div>
-        <div [style.display]="isLoading ? 'none' : 'block'">
-          <div class="table-interest mt-2"></div>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <div><h5 class="mt-4">US Treasury</h5></div>
+        <div class="mt-3">
+        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/usTrasury">Lihat Detail</button>
         </div>
       </div>
-    </div>
 
-    <div id="bondYield" class="pt-2"></div>
-    <div class="d-flex justify-content-between align-items-center mt-5">
-      <div>
-        <h4>Bond Yield</h4>
-      </div>
-
-      <div>
-        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/bond_yield">Lihat Detail</button>
-      </div>
-
-    </div>
-    <h5>SBN</h5>
-    <div class="row">
-      <div class="col-12">
-        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
-          <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
-            <div class="spinner-border" role="status">
+      <div class="row">
+        <div class="col-12">
+          <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+            <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+              <div class="spinner-border" role="status">
+              </div>
+              <span class="text-dark ms-1">Memuat data tabel...</span>
             </div>
-            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+          <div [style.display]="isLoading ? 'none' : 'block'">
+            <div class="table-bondYieldUST mt-2" #bondYieldUST></div>
           </div>
         </div>
-        <div [style.display]="isLoading ? 'none' : 'block'">
-          <div class="table-bondYieldSBN mt-2"></div>
-        </div>
       </div>
-    </div>
 
-    <div class="d-flex justify-content-between">
-      <div><h5 class="mt-4">US Treasury</h5></div>
-      <div class="mt-3">
-      <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/usTrasury">Lihat Detail</button>
+      <div id="commodities" class="pt-2"></div>
+      <div class="d-flex justify-content-between align-items-center mt-5">
+        <div>
+          <h4>Commodities</h4>
+        </div>
+
+        <div>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/commodities">Lihat Detail</button>
+          <!-- <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" (click)="updateColumn()">Tes</button> -->
+        </div>
+
       </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
-          <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
-            <div class="spinner-border" role="status">
+
+      <div class="row">
+        <div class="col-12" #commodity>
+          <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+            <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+              <div class="spinner-border" role="status">
+              </div>
+              <span class="text-dark ms-1">Memuat data tabel...</span>
             </div>
-            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+          <div [style.display]="isLoading ? 'none' : 'block'">
+            <div class="table-commodities mt-2"></div>
           </div>
         </div>
-        <div [style.display]="isLoading ? 'none' : 'block'">
-          <div class="table-bondYieldUST mt-2"></div>
+      </div>
+
+      <div id="macroIndicator" class="pt-2"></div>
+      <div class="d-flex justify-content-between align-items-center mt-5">
+        <div>
+          <h4>Macro Indicator</h4>
         </div>
-      </div>
-    </div>
 
-    <div id="commodities" class="pt-2"></div>
-    <div class="d-flex justify-content-between align-items-center mt-5">
-      <div>
-        <h4>Commodities</h4>
+        <!-- <div>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Lihat Detail</button>
+        </div> -->
+
       </div>
 
-      <div>
-        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/commodities">Lihat Detail</button>
-        <!-- <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" (click)="updateColumn()">Tes</button> -->
-      </div>
-
-    </div>
-
-    <div class="row">
-      <div class="col-12">
-        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
-          <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
-            <div class="spinner-border" role="status">
+      <div class="row" #PDB>
+        <div class="col-6">
+          <div class="d-flex justify-content-between align-items-center" style="max-width: 420px;">
+            <div>
+              <p class="fw-semibold">PDB (Yoy %)</p>
             </div>
-            <span class="text-dark ms-1">Memuat data tabel...</span>
-          </div>
-        </div>
-         <div [style.display]="isLoading ? 'none' : 'block'">
-          <div class="table-commodities mt-2"></div>
-        </div>
-      </div>
-    </div>
-
-    <div id="macroIndicator" class="pt-2"></div>
-    <div class="d-flex justify-content-between align-items-center mt-5">
-      <div>
-        <h4>Macro Indicator</h4>
-      </div>
-
-      <!-- <div>
-        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;">Lihat Detail</button>
-      </div> -->
-
-    </div>
-
-    <div class="row">
-      <div class="col-6">
-        <div class="d-flex justify-content-between align-items-center" style="max-width: 420px;">
-          <div>
-            <p class="fw-semibold">PDB (Yoy %)</p>
-          </div>
-          <div>
-            <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;"  routerLink="/market_update/pdb">Lihat Detail</button>
-          </div>
-        </div>
-        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
-          <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
-            <div class="spinner-border" role="status">
+            <div>
+              <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;"  routerLink="/market_update/pdb" [style.display]="isCapture ? 'none' : 'block'">Lihat Detail</button>
             </div>
-            <span class="text-dark ms-1">Memuat data tabel...</span>
           </div>
-        </div>
-        <div [style.display]="isLoading ? 'none' : 'block'">
-          <div class="table-pdb"></div>
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="d-flex justify-content-between align-items-center">
-          <p class="fw-semibold">Inflasi (Yoy %)</p>
-          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;"  routerLink="/market_update/inflasi">Lihat Detail</button>
-        </div>
-        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
-          <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
-            <div class="spinner-border" role="status">
+          <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+            <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+              <div class="spinner-border" role="status">
+              </div>
+              <span class="text-dark ms-1">Memuat data tabel...</span>
             </div>
-            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+          <div [style.display]="isLoading ? 'none' : 'block'">
+            <div class="table-pdb"></div>
           </div>
         </div>
-        <div [style.display]="isLoading ? 'none' : 'block'">
-          <div class="table-inflasi mt-2"></div>
+        <div class="col-6">
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="fw-semibold">Inflasi (Yoy %)</span>
+            <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;"  routerLink="/market_update/inflasi" [style.display]="isCapture ? 'none' : 'block'">Lihat Detail</button>
+          </div>
+          <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+            <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+              <div class="spinner-border" role="status">
+              </div>
+              <span class="text-dark ms-1">Memuat data tabel...</span>
+            </div>
+          </div>
+          <div [style.display]="isLoading ? 'none' : 'block'">
+            <div class="table-inflasi mt-2"></div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="row mt-4">
-      <div class="col-6">
-        <div class="d-flex justify-content-between align-items-center">
-          <p class="fw-semibold">PMI (Point)</p>
-          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;"  routerLink="/market_update/pmi">Lihat Detail</button>
-        </div>
-        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
-          <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
-            <div class="spinner-border" role="status">
+      <div class="row mt-4" #PMI>
+        <div class="col-6">
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="fw-semibold">PMI (Point)</p>
+            <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;"  routerLink="/market_update/pmi" [style.display]="isCapture ? 'none' : 'block'">Lihat Detail</button>
+          </div>
+          <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+            <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+              <div class="spinner-border" role="status">
+              </div>
+              <span class="text-dark ms-1">Memuat data tabel...</span>
             </div>
-            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+          <div [style.display]="isLoading ? 'none' : 'block'">
+            <div class="table-pmi mt-2"></div>
           </div>
         </div>
-        <div [style.display]="isLoading ? 'none' : 'block'">
-          <div class="table-pmi mt-2"></div>
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="d-flex justify-content-between align-items-center">
-          <p class="fw-semibold">Retail (Yoy %)</p>
-          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;"  routerLink="/market_update/retail_sales">Lihat Detail</button>
-        </div>
-        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
-          <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
-            <div class="spinner-border" role="status">
+        <div class="col-6">
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="fw-semibold">Retail (Yoy %)</p>
+            <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;"  routerLink="/market_update/retail_sales" [style.display]="isCapture ? 'none' : 'block'">Lihat Detail</button>
+          </div>
+          <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+            <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+              <div class="spinner-border" role="status">
+              </div>
+              <span class="text-dark ms-1">Memuat data tabel...</span>
             </div>
-            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+          <div [style.display]="isLoading ? 'none' : 'block'">
+            <div class="table-retail mt-2"></div>
           </div>
         </div>
-        <div [style.display]="isLoading ? 'none' : 'block'">
-          <div class="table-retail mt-2"></div>
-        </div>
       </div>
-    </div>
 
-    <div class="row mt-4">
-      <div class="col-6">
-        <div class="d-flex justify-content-between align-items-center">
-          <p class="fw-semibold">Money Supply/Uang Beredar (M2) Rp/Triliun</p>
-          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/money_supply">Lihat Detail</button>
-        </div>
-        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
-          <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
-            <div class="spinner-border" role="status">
+      <div class="row mt-4" #moneySupply>
+        <div class="col-6">
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="fw-semibold">Money Supply/Uang Beredar (M2) Rp/Triliun</p>
+            <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/money_supply" [style.display]="isCapture ? 'none' : 'block'">Lihat Detail</button>
+          </div>
+          <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+            <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+              <div class="spinner-border" role="status">
+              </div>
+              <span class="text-dark ms-1">Memuat data tabel...</span>
             </div>
-            <span class="text-dark ms-1">Memuat data tabel...</span>
+          </div>
+          <div [style.display]="isLoading ? 'none' : 'block'">
+            <div class="table-moneySupply mt-2"></div>
           </div>
         </div>
-        <div [style.display]="isLoading ? 'none' : 'block'">
-          <div class="table-moneySupply mt-2"></div>
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="d-flex justify-content-between align-items-center">
-          <p class="fw-semibold">Foreign Exchange Reserves/Cadangan Devisa (Miliar/Usd)</p>
-          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;"  routerLink="/market_update/cadev">Lihat Detail</button>
-        </div>
-        <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
-          <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
-            <div class="spinner-border" role="status">
-            </div>
-            <span class="text-dark ms-1">Memuat data tabel...</span>
+        <div class="col-6">
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="fw-semibold">Foreign Exchange Reserves/Cadangan Devisa (Miliar/Usd)</p>
+            <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;"  routerLink="/market_update/cadev" [style.display]="isCapture ? 'none' : 'block'">Lihat Detail</button>
           </div>
-        </div>
-        <div [style.display]="isLoading ? 'none' : 'block'">
-          <div class="table-foreignExchange mt-2"></div>
+          <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
+            <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
+              <div class="spinner-border" role="status">
+              </div>
+              <span class="text-dark ms-1">Memuat data tabel...</span>
+            </div>
+          </div>
+          <div [style.display]="isLoading ? 'none' : 'block'">
+            <div class="table-foreignExchange mt-2"></div>
+          </div>
         </div>
       </div>
     </div>
