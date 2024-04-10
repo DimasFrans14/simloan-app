@@ -9,3 +9,19 @@
 #main{
   margin-top: 60px;
 }
+
+
+.input-pengembalian{
+  width: 244.5px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--Color-Silver-200, #E4E4E4);
+  background: var(--Color-Silver-0, #FFF);
+
+  /* Shadow/xs */
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+
+.form-check-input{
+  margin-left: 0px !important;
+}
