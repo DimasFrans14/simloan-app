@@ -103,7 +103,7 @@ export class ShlCreateAgreementComponent implements OnInit{
   ];
 
   firstFormGroup = this._formBuilder.group({
-    idAnakPerusahaan: [null, Validators.required],
+    // idAnakPerusahaan: [null, Validators.required],
     nomorSHL: ['', Validators.required],
     nomorAPSHL: ['', Validators.required],
     tanggalSHLAgreement: ['', Validators.required],
@@ -566,6 +566,8 @@ export class ShlCreateAgreementComponent implements OnInit{
     this.secondFormGroup.reset();
   }
 
+  isPenerusanPinjaman: boolean = false;
+
   onNextClickFirst() {
     this.submitted = true;
 
@@ -580,17 +582,23 @@ export class ShlCreateAgreementComponent implements OnInit{
         )
       );
 
-      // const nomorSHLPLN = this.firstFormGroup.get('nomorSHL')?.value;
-      // const nomorSHLAnakPerusahaanPLN = this.firstFormGroup.get('nomorAPSHL')?.value;
+      const sourceOfFundingValue = this.firstFormGroup.get('SourceOfFunding')?.value
 
-      // const dataSHL = {
-      //   nomorSHLPLN: this.firstFormGroup.get('nomorSHL')?.value,
-      //   nomorSHLAnakPerusahaanPLN: this.firstFormGroup.get('nomorAPSHL')?.value,
-      // };
+      if(sourceOfFundingValue === 'penerusan_pinjaman'){
 
-      localStorage.setItem('dataForm1', JSON.stringify(this.firstFormGroup.value));
-      this.submitted = false;
-      this.stepper.next();
+        this.isPenerusanPinjaman = true;
+        localStorage.setItem('dataForm1', JSON.stringify(this.firstFormGroup.value));
+        this.submitted = false;
+        this.stepper.next();
+
+      }else{
+
+        this.isPenerusanPinjaman = false;
+        localStorage.setItem('dataForm1', JSON.stringify(this.firstFormGroup.value));
+        this.submitted = false;
+        this.stepper.next();
+
+      }
     }
   }
 

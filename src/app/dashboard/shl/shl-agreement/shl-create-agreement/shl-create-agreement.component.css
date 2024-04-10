@@ -42,6 +42,10 @@ line-height: 24px; /* 150% */
   margin-top: 25px;
 } */
 
+.input-date{
+  height: 60px !important;
+}
+
 .input-date-agreement{
   width: 495px;
   height: 60px;
