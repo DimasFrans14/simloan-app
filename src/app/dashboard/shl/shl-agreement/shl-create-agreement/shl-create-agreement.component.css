@@ -42,8 +42,17 @@ line-height: 24px; /* 150% */
   margin-top: 25px;
 } */
 
-.input-date{
+.button-project{
+  padding: 6px 140px 6px 12px
+}
+
+.button-add-project{
+  padding: 6px 70px 6px 12px
+}
+
+.input-date-startEnd{
   height: 60px !important;
+  min-width: 15rem;
 }
 
 .input-date-agreement{
