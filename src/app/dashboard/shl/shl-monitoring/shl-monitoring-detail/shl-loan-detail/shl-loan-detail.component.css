@@ -3,13 +3,27 @@
   /* padding-left: 278px;
   padding-bottom: 20px;
   padding-top: 15px; */
-  padding: 20px 0px 20px 278px;
+  padding: 20px 0px 0px 278px;
+}
+
+.submenu-market {
+  color: #000000;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s, color 0.3s;
+  margin-right: 24px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.submenu-market:hover,
+.submenu-market:focus {
+  border-bottom: 2px solid #2E75F0;
+  color: #2E75F0;
 }
 
 #main{
   margin-top: 60px;
 }
-
 
 .input-pengembalian{
   width: 244.5px;
