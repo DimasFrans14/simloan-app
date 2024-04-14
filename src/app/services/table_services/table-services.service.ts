@@ -465,6 +465,9 @@ export class TableServicesService {
   tableSHLMonitoringDetail: any;
   tableDataSHLMonitoringDetail: any;
 
+  tableSHLMonitoringLoanDetail: any;
+  tableDataSHLMonitoringLoanDetail: any;
+
   //table import findebt
   tableDataImport:any;
   tableImport:any;
@@ -2823,6 +2826,63 @@ export class TableServicesService {
       ],
     });
   }
+
+  initializeTableLoanDetail(){
+    this.tableDataSHLMonitoringLoanDetail = [
+      {
+        id:1, tanggal_jatuh_tempo:"20-Dec-24", uraian:"Pokok % Bunga", hari: "447", masa:"1.24", saldo:"700.000.000.000", pokok:"41.200.000.000", biaya_bunga: "0.00", total_kewajiban:'0.00', yang_diterima_pln: '0.00', pot_pph_23: '0.00', skb: "0.00", tanggal_diterima: "DD/MM/YYYY", telat: "0", status:"Belum Dibayar"
+      },
+      {
+        id:2, tanggal_jatuh_tempo:"20-Dec-24", uraian:"Pokok % Bunga", hari: "447", masa:"1.24", saldo:"700.000.000.000", pokok:"41.200.000.000", biaya_bunga: "0.00", total_kewajiban:'0.00', yang_diterima_pln: '0.00', pot_pph_23: '0.00', skb: "0.00", tanggal_diterima: "DD/MM/YYYY", telat: "0", status:"Belum Dibayar"
+      },
+      {
+        id:3, tanggal_jatuh_tempo:"20-Dec-24", uraian:"Pokok % Bunga", hari: "447", masa:"1.24", saldo:"700.000.000.000", pokok:"41.200.000.000", biaya_bunga: "0.00", total_kewajiban:'0.00', yang_diterima_pln: '0.00', pot_pph_23: '0.00', skb: "0.00", tanggal_diterima: "DD/MM/YYYY", telat: "0", status:"Belum Dibayar"
+      },
+      {
+        id:4, tanggal_jatuh_tempo:"20-Dec-24", uraian:"Pokok % Bunga", hari: "447", masa:"1.24", saldo:"700.000.000.000", pokok:"41.200.000.000", biaya_bunga: "0.00", total_kewajiban:'0.00', yang_diterima_pln: '0.00', pot_pph_23: '0.00', skb: "0.00", tanggal_diterima: "DD/MM/YYYY", telat: "0", status:"Belum Dibayar"
+      },
+      {
+        id:5, tanggal_jatuh_tempo:"20-Dec-24", uraian:"Pokok % Bunga", hari: "447", masa:"1.24", saldo:"700.000.000.000", pokok:"41.200.000.000", biaya_bunga: "0.00", total_kewajiban:'0.00', yang_diterima_pln: '0.00', pot_pph_23: '0.00', skb: "0.00", tanggal_diterima: "DD/MM/YYYY", telat: "0", status:"Belum Dibayar"
+      },
+      {
+        id:6, tanggal_jatuh_tempo:"20-Dec-24", uraian:"Pokok % Bunga", hari: "447", masa:"1.24", saldo:"700.000.000.000", pokok:"41.200.000.000", biaya_bunga: "0.00", total_kewajiban:'0.00', yang_diterima_pln: '0.00', pot_pph_23: '0.00', skb: "0.00", tanggal_diterima: "DD/MM/YYYY", telat: "0", status:"Belum Dibayar"
+      },
+    ];
+
+    const actionBtn = function(_cell: any, _formatterParams: any){
+      return "<button type='button' class='btn'><i class='bi bi-eye'></i></button> <button type='button' class='btn' (click)='alert('clicked')'><i class='bi bi-pencil-square'></i></button";
+    }
+
+    const checkBox = function(_cell:any, _formatterParams: any){
+      return "<input type='checkbox'></input>"
+    }
+
+    this.tableSHLMonitoringLoanDetail = new Tabulator(".table-SHLMonitoringLoanDetail", {
+      // height:205,
+      data:this.tableDataSHLMonitoringLoanDetail,
+
+      layout:"fitColumns",
+      columns:[
+        // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
+        {title:"Tanggal Jatuh Tempo", field:"tanggal_jatuh_tempo", headerHozAlign:"left", hozAlign:'left', headerSort:true, width:200, frozen: true},
+        {title:"Uraian", field:"uraian", hozAlign:"left", headerHozAlign:"left", width:200},
+        {title:"Hari", field:"hari", hozAlign:"left", headerHozAlign:"left", width:120},
+        {title:"Masa", field:"masa", hozAlign:"left", headerHozAlign:"left", width:120},
+        {title:"Saldo", field:"saldo", hozAlign:"left", headerHozAlign:"left", width:250},
+        {title:"Pokok", field:"pokok", hozAlign:"left", headerHozAlign:"left", width:250},
+        {title:"Biaya Bunga (7.68%)", field:"biaya_bunga", hozAlign:"left", headerHozAlign:"left", width:150},
+        {title:"Total Kewajiban", field:"total_kewajiban", hozAlign:"left", headerHozAlign:"left", width:150},
+        {title:"Yang Diterima PLN", field:"yang_diterima_pln", hozAlign:"left", headerHozAlign:"left", width:150},
+        {title:"Pot. Pph 23", field:"pot_pph_23", hozAlign:"left", headerHozAlign:"left", width:120},
+        {title:"SKB", field:"skb", hozAlign:"left", headerHozAlign:"left", width:120},
+        {title:"Tanggal Diterima", field:"tanggal_diterima", hozAlign:"left", headerHozAlign:"left", width:150},
+        {title:"Telat", field:"telat", hozAlign:"left", headerHozAlign:"left", width:120},
+        {title:"Status Pembayaran", field:"status", hozAlign:"left", headerHozAlign:"left", width:200},
+        {title: "Action", formatter:actionBtn, width:120,hozAlign:"center", headerHozAlign:"center"},
+      ],
+    });
+  }
+
 
   editTitle(){
     const tabel = this.tableCommodities;
