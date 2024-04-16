@@ -46,6 +46,11 @@ export class CommoditiesComponent implements OnInit, AfterViewInit {
       const data = await this.marketUpdateService.fetchDataRealisasiCommodities();
       this.dataDetailRealisasi = data;
       this.dataDetailRealisasi = this.dataDetailRealisasi.data;
+      if (this.dataDetailRealisasi.kode === "BRENT" ){
+        this.dataDetailRealisasi.kode.replaceData('BRENT OIL')
+      } else {
+        console.log('')
+      }
       if (this.dataDetailRealisasi == null){
         console.log('data kosong')
       } else{
