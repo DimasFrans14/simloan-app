@@ -103,7 +103,7 @@ export class ShlCreateAgreementComponent implements OnInit{
   ];
 
   firstFormGroup = this._formBuilder.group({
-    idAnakPerusahaan: [null, Validators.required],
+    // idAnakPerusahaan: [null, Validators.required],
     nomorSHL: ['', Validators.required],
     nomorAPSHL: ['', Validators.required],
     tanggalSHLAgreement: ['', Validators.required],
@@ -131,17 +131,18 @@ export class ShlCreateAgreementComponent implements OnInit{
     bunga: ['', Validators.required],
   });
 
-  thirdFormGroup = this._formBuilder.group({
-    // dokumenPLN: ['', Validators.required],
-    // kepdirSirkuler: ['', Validators.required],
-    // paktaIntegritas: ['', Validators.required],
-    // dokumenLainnya: ['', Validators.required],
-    // dokumenAnakPerusahaan: ['', Validators.required],
-    // RKAP: ['', Validators.required],
-    // kepdirAnakPerusahaan: ['', Validators.required],
-    // paktaIntegritasAnakPerusahaan: ['', Validators.required],
-    // suratRekomendasiRekom: ['', Validators.required],
-    // dokumenAnakPerusahaanLainnya: ['', Validators.required],
+  penerusanPinjamanForm = this._formBuilder.group({
+    totalPagu: ['', Validators.required],
+    berakhirPerjanjianStart: ['', Validators.required],
+    berakhirPerjanjianEnd: ['', Validators.required],
+    AvailabilityPeriodeStart: ['', Validators.required],
+    AvailabilityPeriodeEnd: ['', Validators.required],
+    GracePeriodStart: ['', Validators.required],
+    GracePeriodEnd: ['', Validators.required],
+    tenor: ['', Validators.required],
+    repaymentMethod: ['', Validators.required],
+    pembayaranPokokPinjaman: ['PRORATE', Validators.required],
+    interestType: ['FIXED', Validators.required],
   });
 
   isLinear = false;
@@ -566,31 +567,55 @@ export class ShlCreateAgreementComponent implements OnInit{
     this.secondFormGroup.reset();
   }
 
+  isPenerusanPinjaman: boolean = false;
+
   onNextClickFirst() {
     this.submitted = true;
 
-    if (this.firstFormGroup.invalid) {
-      console.log('Form submission failed. Please check for errors.');
-      // return;
-    } else {
-      console.log('Form submitted successfully!', this.firstFormGroup.value);
-      console.log(
-        moment(this.firstFormGroup.get('tanggalSHLAgreement')?.value).format(
-          'DD/MM/YYYY'
-        )
-      );
+    // if (this.firstFormGroup.invalid) {
+    //   console.log('Form submission failed. Please check for errors.');
+    // } else {
+    //   console.log('Form submitted successfully!', this.firstFormGroup.value);
+    //   console.log(
+    //     moment(this.firstFormGroup.get('tanggalSHLAgreement')?.value).format(
+    //       'DD/MM/YYYY'
+    //     )
+    //   );
 
-      // const nomorSHLPLN = this.firstFormGroup.get('nomorSHL')?.value;
-      // const nomorSHLAnakPerusahaanPLN = this.firstFormGroup.get('nomorAPSHL')?.value;
+    //   const sourceOfFundingValue = this.firstFormGroup.get('SourceOfFunding')?.value
 
-      // const dataSHL = {
-      //   nomorSHLPLN: this.firstFormGroup.get('nomorSHL')?.value,
-      //   nomorSHLAnakPerusahaanPLN: this.firstFormGroup.get('nomorAPSHL')?.value,
-      // };
+    //   if(sourceOfFundingValue === 'penerusan_pinjaman'){
 
+    //     this.isPenerusanPinjaman = true;
+    //     localStorage.setItem('dataForm1', JSON.stringify(this.firstFormGroup.value));
+    //     this.submitted = false;
+    //     this.stepper.next();
+
+    //   }else{
+
+    //     this.isPenerusanPinjaman = false;
+    //     localStorage.setItem('dataForm1', JSON.stringify(this.firstFormGroup.value));
+    //     this.submitted = false;
+    //     this.stepper.next();
+
+    //   }
+    // }
+    const sourceOfFundingValue = this.firstFormGroup.get('SourceOfFunding')?.value
+
+    if(sourceOfFundingValue === 'penerusan_pinjaman'){
+
+      this.isPenerusanPinjaman = true;
       localStorage.setItem('dataForm1', JSON.stringify(this.firstFormGroup.value));
       this.submitted = false;
       this.stepper.next();
+
+    }else{
+
+      this.isPenerusanPinjaman = false;
+      localStorage.setItem('dataForm1', JSON.stringify(this.firstFormGroup.value));
+      this.submitted = false;
+      this.stepper.next();
+
     }
   }
 
@@ -600,14 +625,19 @@ export class ShlCreateAgreementComponent implements OnInit{
     this.submitted = true;
 
     if (this.secondFormGroup.invalid) {
-      console.log('Form submission failed. Please check for errors.');
-      // return;
+      if(this.penerusanPinjamanForm.invalid){
+        console.log('form kosong');
+      }
+      else{
+        console.log('Form submitted successfully!', this.penerusanPinjamanForm.value);
+        this.submitted = false;
+        this.stepper.next();
+        localStorage.setItem('dataForm2', JSON.stringify(this.penerusanPinjamanForm.value))
+      }
     } else {
       console.log('Form submitted successfully!', this.secondFormGroup.value);
       this.submitted = false;
-      this.dataSHL = localStorage.getItem('dataForm1');
       this.stepper.next();
-      this.dataSHL = JSON.parse(this.dataSHL);
       localStorage.setItem('dataForm2', JSON.stringify(this.secondFormGroup.value))
     }
   }

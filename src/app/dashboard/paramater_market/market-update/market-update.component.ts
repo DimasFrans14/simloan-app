@@ -271,7 +271,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
     this.toggleModal(true);
 
     setTimeout(() => {
-    this.isCapture = false;
+    // this.isCapture = false;
       if (this.isCapture) {
         const captureCalls = [
           this.captureService.getImage(this.currencyRate.nativeElement, true),
@@ -287,9 +287,12 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
           // this.captureService.getImage(this.cadanganDevisa.nativeElement, true)
         ];
 
+        console.log(captureCalls);
+
+
         forkJoin(captureCalls).subscribe(
           (images: any[]) => {
-            // console.log(images);
+            console.log(images);
 
             let docDefinition: any = {
               content: [
@@ -348,6 +351,7 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
           },
           error => {
             console.error('Error capturing images:', error);
+            this.toggleModal(false);
             // Handle error jika ada
           }
         );

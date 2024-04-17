@@ -45,7 +45,7 @@
                 />
               </svg>
             </div>
-            <ng-select
+            <!-- <ng-select
               [items]="dataMasterAnakPerusahaan"
               class="form-control"
               bindLabel="anak_perusahan"
@@ -58,6 +58,16 @@
                   submitted && firstFormGroup.controls.idAnakPerusahaan.errors
               }"
               required
+            >
+            </ng-select> -->
+            <ng-select
+              [items]="dataMasterAnakPerusahaan"
+              class="form-control"
+              bindLabel="anak_perusahan"
+              id="anakPerusahaan"
+              placeholder="Pilih Nama Anak Perusahaan"
+              bindValue="id_anak_prhsan"
+              formControlName="idAnakPerusahaan"
             >
             </ng-select>
           </div>
@@ -357,7 +367,7 @@
       </mat-step>
 
       <!-- STEP 2 -->
-      <mat-step [stepControl]="secondFormGroup">
+      <mat-step *ngIf="!isPenerusanPinjaman" [stepControl]="secondFormGroup">
         <div class="row">
           <div class="col-3" style="border-right: 1px solid #d9d9d9">
             <span class="title-nonPenerusan">Non Penerusan Pinjaman</span>
@@ -368,24 +378,21 @@
               class="d-flex flex-column justify-content-center align-items-start mt-4 list-project"
               style="gap: 24px"
             >
-            <ng-container *ngFor="let item of buttonProject">
+            <div *ngFor="let item of buttonProject">
               <button
-              class="btn btn-outline-primary p-2 text-start"
-              style="min-width: 260px"
+              class="btn btn-outline-primary text-start button-project"
               (click)="getDataProject(item)"
               >
                 <i class="bi bi-file-earmark-lock px-1"></i>Project {{item}}
               </button>
-            </ng-container>
+            </div>
               <!-- <button
-                class="btn btn-outline-primary p-2 text-start"
-                style="min-width: 260px"
+                class="btn btn-outline-primary text-start button-project"
               >
                 <i class="bi bi-file-earmark-lock px-1"></i>Project 2
               </button> -->
               <button
-                class="btn btn-outline-primary p-2 text-start"
-                style="min-width: 260px"
+                class="btn btn-outline-primary text-start button-add-project"
                 (click)="tambahProject()"
               >
                 <i class="bi bi-plus-lg px-1"></i>Tambah Project Baru
@@ -987,6 +994,33 @@
 
               <div class="d-flex justify-content-between align-items-baseline">
                 <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4">Jadwal Pembayaran Pokok Pinjaman</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="mb-3">
+                  <textarea
+                    class="form-control text-area-deskripsi-proyek"
+                    id="deskripsiProyek"
+                    rows="3"
+                    placeholder="Deskripsi Pembayaran Pokok Pinjaman"
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
                   <span class="label-inputAgreement mb-4">Interest Type</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -1078,6 +1112,607 @@
                   >
                 </div>
               </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4">Jadwal Pembayaran Bunga Pinjaman</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="mb-3">
+                  <textarea
+                    class="form-control text-area-deskripsi-proyek"
+                    id="deskripsiProyek"
+                    rows="3"
+                    placeholder="Jadwal Pembayaran Bunga Pinjaman"
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4">Syarat Penarikan</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="mb-3">
+                  <textarea
+                    class="form-control text-area-deskripsi-proyek"
+                    id="deskripsiProyek"
+                    rows="3"
+                    placeholder="Syarat Penarikan"
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end align-items-center gap-1">
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                </div>
+                <div>
+                  <button mat-button (click)="onNextClickSecond()">Next</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </mat-step>
+
+      <mat-step *ngIf="isPenerusanPinjaman" [stepControl]="penerusanPinjamanForm">
+        <div class="row">
+          <div class="col-3" style="border-right: 1px solid #d9d9d9">
+            <div class="mb-3">
+              <span class="title-nonPenerusan">Penerusan Pinjaman</span>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-start border border-info rounded p-3" style="background-color: #F2F7FF;">
+              <i class="bi bi-file-earmark-lock text-info px-1"></i>
+              <span class="text-info">
+                Pekerjaan Pembangunan TL 150 kV Punagaya - Tanjung Bunga
+              </span>
+            </div>
+
+          </div>
+
+          <div class="col-9">
+            <form [formGroup]="penerusanPinjamanForm">
+              <ng-template matStepLabel>Create Agreement</ng-template>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4 me-1">Total Pagu</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+                <input
+                  matInput
+                  type="text"
+                  class="form-control input-number-agreement"
+                  id="noSHL"
+                  placeholder="Masukan Nomor SHL Agreement Number"
+                  formControlName="totalPagu"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted && penerusanPinjamanForm.controls.totalPagu.errors
+                  }"
+                  required
+                />
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4"
+                    >Berakhir Perjanjian</span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div
+              class="d-flex justify-content-between align-items-center gap-1"
+            >
+              <div class="d-flex flex-column">
+                <span class="label-gracePeriod">Start Date</span>
+                <mat-form-field class="input-date-startEnd">
+                  <mat-label class="label-datepicker">Select Date</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="startDateBerakhirPerjanjianPicker"
+                    autocomplete="off"
+                    formControlName="berakhirPerjanjianStart"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          penerusanPinjamanForm.controls.berakhirPerjanjianStart
+                            .errors
+                      }"
+                    style="color: black"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="startDateBerakhirPerjanjianPicker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker
+                    #startDateBerakhirPerjanjianPicker
+                    color="primary"
+                    disabled="false"
+                  ></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="d-flex flex-column">
+                <span class="label-gracePeriod">End Date</span>
+                <mat-form-field class="input-date-startEnd" style="height: 60px;">
+                  <mat-label class="label-datepicker">Select Date</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="endDateBerakhirPerjanjianPicker"
+                    autocomplete="off"
+                    formControlName="berakhirPerjanjianEnd"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          penerusanPinjamanForm.controls.berakhirPerjanjianEnd
+                            .errors
+                      }"
+                    style="color: black"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="endDateBerakhirPerjanjianPicker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker
+                    #endDateBerakhirPerjanjianPicker
+                    color="primary"
+                    disabled="false"
+                  ></mat-datepicker>
+                </mat-form-field>
+              </div>
+                </div>
+              </div>
+
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4"
+                    >Availability Period</span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div
+                class="d-flex justify-content-between align-items-center gap-1"
+              >
+                <div class="d-flex flex-column">
+                  <span class="label-gracePeriod">Start Date</span>
+                  <mat-form-field class="input-date-startEnd">
+                    <mat-label class="label-datepicker">Select Date</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="startDateAvailabilityPicker"
+                      autocomplete="off"
+                      formControlName="AvailabilityPeriodeStart"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          penerusanPinjamanForm.controls.AvailabilityPeriodeStart
+                            .errors
+                      }"
+                      style="color: black"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="startDateAvailabilityPicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker
+                      #startDateAvailabilityPicker
+                      color="primary"
+                      disabled="false"
+                    ></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="d-flex flex-column">
+                  <span class="label-gracePeriod">End Date</span>
+                  <mat-form-field class="input-date-startEnd" style="height: 60px;">
+                    <mat-label class="label-datepicker">Select Date</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="endDateAvailabilityPicker"
+                      autocomplete="off"
+                      formControlName="AvailabilityPeriodeEnd"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          penerusanPinjamanForm.controls.AvailabilityPeriodeEnd
+                            .errors
+                      }"
+                      style="color: black"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="endDateAvailabilityPicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker
+                      #endDateAvailabilityPicker
+                      color="primary"
+                      disabled="false"
+                    ></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                  </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4">Grace Period</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div
+                class="d-flex justify-content-between align-items-center gap-1"
+              >
+                <div class="d-flex flex-column">
+                  <span class="label-gracePeriod">Start Date</span>
+                  <mat-form-field class="input-date-startEnd">
+                    <mat-label class="label-datepicker">Select Date</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="startDateGracePeriodePicker"
+                      autocomplete="off"
+                      formControlName="GracePeriodStart"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          penerusanPinjamanForm.controls.GracePeriodStart
+                            .errors
+                      }"
+                      style="color: black"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="startDateGracePeriodePicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker
+                      #startDateGracePeriodePicker
+                      color="primary"
+                      disabled="false"
+                    ></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="d-flex flex-column">
+                  <span class="label-gracePeriod">End Date</span>
+                  <mat-form-field class="input-date-startEnd" style="height: 60px;">
+                    <mat-label class="label-datepicker">Select Date</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="endDateGracePeriodePicker"
+                      autocomplete="off"
+                      formControlName="GracePeriodEnd"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          penerusanPinjamanForm.controls.GracePeriodEnd
+                            .errors
+                      }"
+                      style="color: black"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="endDateGracePeriodePicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker
+                      #endDateGracePeriodePicker
+                      color="primary"
+                      disabled="false"
+                    ></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4 me-1">Tenor</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-tenor"
+                      id="noSHL"
+                      placeholder="Masukan Nomor SHL Agreement Number"
+                      formControlName="tenor"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && penerusanPinjamanForm.controls.tenor.errors
+                      }"
+                      required
+                    />
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      id="buttonTenor"
+                    >
+                      Bulan
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <ng-container *ngFor="let item of listItemTenor">
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            id="item.id"
+                            (click)="getDropdownVal(item.name)"
+                            >{{ item.name }}</a
+                          >
+                        </li>
+                      </ng-container>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4"
+                    >Repayment Period</span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+                <ng-select
+                  [items]="repaymentMethod"
+                  bindLabel="name"
+                  bindValue="name"
+                  [(ngModel)]="repayment_method"
+                  class="form-control"
+                  formControlName="repaymentMethod"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted &&
+                      penerusanPinjamanForm.controls.repaymentMethod.errors
+                  }"
+                  required
+                >
+                </ng-select>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4"
+                    >Pembayaran Pokok Pinjaman</span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-baseline">
+                  <div class="form-check input-pengembalian me-2">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="pembayaranPokokPinjaman"
+                      id="prorate"
+                      [value]="'PRORATE'"
+                      formControlName="pembayaranPokokPinjaman"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          penerusanPinjamanForm.controls.pembayaranPokokPinjaman
+                            .errors
+                      }"
+                      required
+                    />
+                    <label class="form-check-label" for="prorate">
+                      PRORATE
+                    </label>
+                  </div>
+                  <div class="form-check input-pengembalian">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="pembayaranPokokPinjaman"
+                      id="balloning"
+                      [value]="'BALLONING'"
+                      formControlName="pembayaranPokokPinjaman"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          penerusanPinjamanForm.controls.pembayaranPokokPinjaman
+                            .errors
+                      }"
+                      required
+                    />
+                    <label class="form-check-label" for="balloning">
+                      BALLONING
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4">Interest Type</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-baseline">
+                  <div class="form-check input-pengembalian me-2">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="interestType"
+                      id="fixed"
+                      [value]="'FIXED'"
+                      formControlName="interestType"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          penerusanPinjamanForm.controls.interestType.errors
+                      }"
+                      required
+                    />
+                    <label class="form-check-label" for="fixed"> FIXED </label>
+                  </div>
+                  <div class="form-check input-pengembalian">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="interestType"
+                      id="floating"
+                      [value]="'FLOATING'"
+                      formControlName="interestType"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          penerusanPinjamanForm.controls.interestType.errors
+                      }"
+                      required
+                    />
+                    <label class="form-check-label" for="floating">
+                      FLOATING
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end align-items-baseline">
+                <!-- <div class="d-flex justify-content-baseline">
+                  <span class="label-inputAgreement mb-4">Deskripsi Denda</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    fill="currentColor"
+                    class="bi bi-asterisk mandatorySign"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                    />
+                  </svg>
+                </div> -->
+
+                <div class="mb-3">
+                  <textarea
+                    class="form-control text-area-deskripsi-proyek"
+                    id="deskripsiProyek"
+                    rows="3"
+                    placeholder="Deskripsi"
+                  ></textarea>
+                </div>
+              </div>
+
               <div class="d-flex justify-content-end align-items-center gap-1">
                 <div>
                   <button mat-button matStepperPrevious>Back</button>
