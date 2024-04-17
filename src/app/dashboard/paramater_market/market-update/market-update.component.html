@@ -177,11 +177,11 @@
           <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/currency_rate">Lihat Detail</button>
         </div> -->
         <div>
-          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/currency_rate">Lihat Detail</button>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/currency_rate"  [style.display]="isCapture ? 'none' : 'block'">Lihat Detail</button>
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" #currencyRate>
         <div class="col-12">
           <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
             <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
@@ -192,7 +192,7 @@
           </div>
 
           <div [style.display]="isLoading ? 'none' : 'block'">
-            <div class="table-currency mt-2" #currencyRate></div>
+            <div class="table-currency mt-2"></div>
           </div>
         </div>
       </div>
@@ -204,12 +204,12 @@
         </div>
 
         <div>
-          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/interest_rate">Lihat Detail</button>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/interest_rate"  [style.display]="isCapture ? 'none' : 'block'">Lihat Detail</button>
         </div>
 
       </div>
 
-      <div class="row">
+      <div class="row" #interestRate>
         <div class="col-12">
           <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
             <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
@@ -219,7 +219,7 @@
             </div>
           </div>
           <div [style.display]="isLoading ? 'none' : 'block'">
-            <div class="table-interest mt-2" #interestRate></div>
+            <div class="table-interest mt-2"></div>
           </div>
         </div>
       </div>
@@ -231,13 +231,13 @@
         </div>
 
         <div>
-          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/bond_yield">Lihat Detail</button>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/bond_yield"  [style.display]="isCapture ? 'none' : 'block'">Lihat Detail</button>
         </div>
 
       </div>
 
       <h5>SBN</h5>
-      <div class="row">
+      <div class="row" #bondYieldSBN>
         <div class="col-12">
           <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
             <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
@@ -247,7 +247,7 @@
             </div>
           </div>
           <div [style.display]="isLoading ? 'none' : 'block'">
-            <div class="table-bondYieldSBN mt-2" #bondYieldSBN></div>
+            <div class="table-bondYieldSBN mt-2"></div>
           </div>
         </div>
       </div>
@@ -255,11 +255,11 @@
       <div class="d-flex justify-content-between">
         <div><h5 class="mt-4">US Treasury</h5></div>
         <div class="mt-3">
-        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/usTrasury">Lihat Detail</button>
+        <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/usTrasury"  [style.display]="isCapture ? 'none' : 'block'">Lihat Detail</button>
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" #bondYieldUST>
         <div class="col-12">
           <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
             <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
@@ -269,7 +269,7 @@
             </div>
           </div>
           <div [style.display]="isLoading ? 'none' : 'block'">
-            <div class="table-bondYieldUST mt-2" #bondYieldUST></div>
+            <div class="table-bondYieldUST mt-2"></div>
           </div>
         </div>
       </div>
@@ -281,14 +281,14 @@
         </div>
 
         <div>
-          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/commodities">Lihat Detail</button>
+          <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" routerLink="/market_update/commodities"  [style.display]="isCapture ? 'none' : 'block'">Lihat Detail</button>
           <!-- <button class="btn btn-transparant border-secondary bg-white" style="font-size: 14px;" (click)="updateColumn()">Tes</button> -->
         </div>
 
       </div>
 
-      <div class="row">
-        <div class="col-12" #commodity>
+      <div class="row" #commodity>
+        <div class="col-12">
           <div class="text-primary" [style.display]="isLoading ? 'block' : 'none'">
             <div class="d-flex align-items-center justify-content-center bg-white" style="padding: 50px;">
               <div class="spinner-border" role="status">
