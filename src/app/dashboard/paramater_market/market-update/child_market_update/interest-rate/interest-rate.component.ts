@@ -76,16 +76,15 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
     if (this.dataDetailRkap == null){
       console.log('data kosong')
     } else {
-      this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
-        return item.grup ==="INTEREST_RATE"
-      });
-      this.dataDetailRkap.sort((a: { tahun: number; }, b: { tahun: number; }) => {
-        const aYear = a.tahun || 0;
-        const bYear = b.tahun || 0;
-        return bYear - aYear;
-      });
+    this.dataDetailRkap.sort((a: { tahun: number; }, b: { tahun: number; }) => {
+      const aYear = a.tahun || 0;
+      const bYear = b.tahun || 0;
+      return bYear - aYear;
+    });
     }
-    
+    this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
+      return item.grup ==="INTEREST_RATE"
+    });
     this.tableConfig.setDataRkapInterestRate(this.dataDetailRkap);
     console.log('finish get data in func');
   }

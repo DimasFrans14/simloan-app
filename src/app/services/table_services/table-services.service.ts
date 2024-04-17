@@ -2921,7 +2921,7 @@ export class TableServicesService {
   //replace data table detail
   public replaceTableRealisasiPDB (data:any){
     const table = this.tableRealisasiPdb;
-    if ( data.data.content){
+    if ( data.data.content == null){
       console.log('data kosong')
       table.replaceData(data.data.content)
     } else {
@@ -2993,7 +2993,7 @@ export class TableServicesService {
   }
   public replaceTableOutlookPDB (data:any){
     const table = this.tableOutlookPdb;
-    if( data.data.content){
+    if( data.data.content == null){
       console.log('data kosong')
       table.replaceData(data.data.content)
     } else {
@@ -3830,7 +3830,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      quartal: rowData.quartal,
+      quartal: rowData.quartal.toUpperCase(),
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
@@ -3859,7 +3859,7 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      quartal: rowData.quartal,
+      quartal: rowData.quartal.toUpperCase(),
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
@@ -3909,8 +3909,8 @@ export class TableServicesService {
       tanggal: rowData.tanggal,
       tahun: rowData.tahun,
       rate: rowData.rate,
-      grup: rowData.grup,
-      mtu: rowData.mtu
+      grup: "MACRO_INDICATOR",
+      mtu: "PDB"
     }
     const responesUpdate = await this.marketUpdateService.fetchDataUpdateAllRkap(data);
     this.responseUpdate = responesUpdate;
@@ -3988,7 +3988,7 @@ export class TableServicesService {
     const data = {
       id: rowData.id,
       nilai: rowData.nilai,
-      quartal: rowData.quartal,
+      quartal: rowData.quartal.toUpperCase(),
       tahun: rowData.tahun,
     }
     console.log(data.id)
@@ -4017,7 +4017,7 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      quartal: rowData.quartal,
+      quartal: rowData.quartal.toUpperCase(),
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
@@ -4043,7 +4043,7 @@ export class TableServicesService {
     if (this.responseDelete.status == 200){
       console.log('data berhasil dihapus')
       const dataReplace = await this.marketUpdateService.fetchDataOutlookPdb();
-      this.replaceTableOutlookPDB(dataReplace)
+      this.replaceTableOutlookPDB(dataReplace);
     } else {
       console.log('gagal hapus')
       const dataReplace = await this.marketUpdateService.fetchDataOutlookPdb();
@@ -4065,7 +4065,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
@@ -4094,7 +4094,7 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
@@ -4222,7 +4222,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       nilai: rowData.nilai,
     }
@@ -4251,7 +4251,7 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
@@ -4300,7 +4300,7 @@ export class TableServicesService {
     const data = {
       id: rowData.id,
       rate: rowData.rate,
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
     }
     const responesRealisasi = await this.marketUpdateService.fetchDataUpdateRealisasiPMI(data);
@@ -4328,7 +4328,7 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       rate: rowData.rate
     }
@@ -4534,7 +4534,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
@@ -4563,7 +4563,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveAddButton")
     const data = {
       nilai: rowData.nilai,
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun
     }
     const responeseRealisasi = await this.marketUpdateService.fetchDataInputRealisasiRetail(data);
@@ -4685,7 +4685,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
@@ -4713,7 +4713,7 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       nilai: rowData.nilai
     }
@@ -4759,7 +4759,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       triliun_beredar: rowData.triliun_beredar
     }
@@ -4787,7 +4787,7 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       triliun_beredar: rowData.triliun_beredar
     }
@@ -4908,7 +4908,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       triliun_beredar: rowData.triliun_beredar
     }
@@ -4937,7 +4937,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveAddButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       triliun_beredar: rowData.triliun_beredar
     }
@@ -4983,7 +4983,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       miliar_usd: rowData.miliar_usd
     }
@@ -5012,7 +5012,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveAddButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       miliar_usd: rowData.miliar_usd
     }
@@ -5135,7 +5135,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       miliar_usd: rowData.miliar_usd
     }
@@ -5164,7 +5164,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveAddButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       miliar_usd: rowData.miliar_usd
     }
@@ -5214,7 +5214,7 @@ export class TableServicesService {
     const data = {
       idJisdor: rowData.id,
       idNonJisdor: rowData.id,
-      mataUang: rowData.mata_uang,
+      mataUang: rowData.mata_uang.toUpperCase(),
       nilai : parseFloat(nilai1),
       tanggal: rowData.tanggal,
       kurs: parseFloat(kurs1)
@@ -5258,7 +5258,7 @@ export class TableServicesService {
     const data = {
       idJisdor: rowData.id_mst_jisdor,
       idNonJisdor: rowData.id,
-      mataUang: rowData.mata_uang,
+      mataUang: rowData.mata_uang.toUpperCase(),
       nilai: rowData.nilai,
       tanggal: rowData.tanggal,
       kurs: rowData.kurs
@@ -5326,7 +5326,7 @@ export class TableServicesService {
       tahun: rowData.tahun,
       rate: parseFloat(rate),
       grup: "KURS",
-      mtu: rowData.mtu
+      mtu: rowData.mtu.toUpperCase()
     }
     const responeseRkap = await this.marketUpdateService.fetchDataUpdateAllRkap(data);
     this.responseUpdate = responeseRkap;
@@ -5357,7 +5357,7 @@ export class TableServicesService {
       tahun: rowData.tahun,
       rate: rowData.rate,
       grup: "KURS",
-      mtu: rowData.mtu
+      mtu: rowData.mtu.toUpperCase()
     }
     const responeseRkap = await this.marketUpdateService.fetchDataInputAllRkap(data);
     this.responseCreate = responeseRkap;
@@ -5404,7 +5404,7 @@ export class TableServicesService {
     const data = {
       idJisdor: rowData.id_mst_outjisdor,
       idNonJisdor: rowData.id,
-      mataUang: rowData.mata_uang,
+      mataUang: rowData.mata_uang.toUpperCase(),
       nilai: parseFloat(nilai1),
       tanggal: rowData.tanggal,
       kurs: parseFloat(kurs1)
@@ -5452,7 +5452,7 @@ export class TableServicesService {
     const data = {
       idJisdor: rowData.id_mst_jisdor,
       idNonJisdor: rowData.id,
-      mataUang: rowData.mata_uang,
+      mataUang: rowData.mata_uang.toUpperCase(),
       nilai: rowData.nilai,
       tanggal: rowData.tanggal,
       kurs: rowData.kurs
@@ -5770,7 +5770,7 @@ export class TableServicesService {
     }
     const data = {
       id: rowData.id,
-      kode: rowData.kode,
+      kode: rowData.kode.toUpperCase(),
       tahun: rowData.tahun,
       tanggal: rowData.tanggal,
       nilai: rowData.nilai,
@@ -5803,7 +5803,7 @@ export class TableServicesService {
       rowData.kode = 'LNG_JKL';
     }
     const data = {
-      kode: rowData.kode,
+      kode: rowData.kode.toUpperCase(),
       tahun: rowData.tahun,
       tanggal: rowData.tanggal,
       nilai: rowData.nilai,
@@ -5853,7 +5853,7 @@ export class TableServicesService {
       tahun: rowData.tahun,
       rate: rowData.rate,
       grup: "COMMODITIES",
-      mtu: rowData.mtu
+      mtu: rowData.mtu.toUppercase()
     }
     const responeseRkap = await this.marketUpdateService.fetchDataUpdateAllRkap(data);
     this.responseUpdate = responeseRkap;
@@ -5884,7 +5884,7 @@ export class TableServicesService {
       tahun: rowData.tahun,
       rate: rowData.rate,
       grup: "COMMODITIES",
-      mtu: rowData.mtu
+      mtu: rowData.mtu.toUpperCase()
     }
     const responeseRkap = await this.marketUpdateService.fetchDataInputAllRkap(data);
     this.responseCreate = responeseRkap;
@@ -5918,8 +5918,6 @@ export class TableServicesService {
     if (!cell.getRow().isSelected()){
       return
     }
-    const nilai1 = rowData.nilai.replace(',','')
-    console.log(nilai1)
     const currentTable = cell.getTable()
     currentTable.deselectRow()
     currentTable.showColumn("EditButton")
@@ -5929,10 +5927,10 @@ export class TableServicesService {
     currentTable.hideColumn("SaveButton")
     const data = {
       id_outlook_com: rowData.id_outlook_com,
-      kode_item: rowData.kode_item,
+      kode_item: rowData.kode_item.toUpperCase(),
       tahun: rowData.tahun,
       tanggal: rowData.tanggal,
-      nilai: parseFloat(nilai1),
+      nilai: rowData.nilai,
       keterangan: rowData.keterangan
     }
     console.log(data)
@@ -5961,10 +5959,10 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      kode_item: rowData.kode_item,
+      kode_item: rowData.kode_item.toUpperCase(),
       tahun: rowData.tahun,
       tanggal: rowData.tanggal,
-      // nilai: parseFloat(rowData.nilai.replace(',', '')),
+      nilai: rowData.nilai,
       keterangan: rowData.keterangan
     }
     console.log(data)

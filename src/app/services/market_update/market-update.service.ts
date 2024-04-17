@@ -783,7 +783,7 @@ export class MarketUpdateService {
       console.log(data1)
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/update_by?id=${data.id}&ustreasury_usbn=US_TREASURY`, data1)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/update_by?id=${data.id}&ustreasury_usbn=US_TREASURY`, data1)
       )
     } catch (error) {
       console.log(error);
