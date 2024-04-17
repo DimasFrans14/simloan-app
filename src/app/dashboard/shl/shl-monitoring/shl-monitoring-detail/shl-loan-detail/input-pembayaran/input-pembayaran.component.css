@@ -99,9 +99,13 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   max-width: 495px;
 }
 
+#noSHL{
+  width: 372px;
+}
+
 .text-area-deskripsi-proyek,
 .form-control{
-  width: 372px;
+  width: 495px;
 }
 
 ::placeholder {
@@ -111,6 +115,10 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 .input-group,
 .input-tenor{
   width: 426px;
+}
+
+.input-disabled{
+  width: 440px;
 }
 
 .input-group,
@@ -164,4 +172,15 @@ ngx-dropzone-preview{
 
 .border-danger {
   border: 2px dashed red !important;
+}
+
+::ng-deep .mat-mdc-form-field{
+  /* width: 495px; */
+  /* height: 60px; */
+  /* margin-top: 25px; */
+  background-color: #fff;
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled){
+  background-color: #fff !important;
 }

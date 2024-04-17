@@ -45,6 +45,57 @@ export class InputPembayaranComponent implements OnInit{
     diterimaPLN: ['', Validators.required],
   });
 
+  pembayaranPokok: boolean = true;
+  pembayaranBunga: boolean = false;
+  pembayaranPPH23: boolean = true;
+  pembayaranSKB: boolean = false;
+  pembayaranDenda: string = '';
+
+  changePembayaranPokok = () => {
+    const valuePokok = this.firstFormGroup.get('pembayaran_pokok')?.value;
+
+    valuePokok ? this.pembayaranPokok = valuePokok : this.pembayaranPokok = false;
+    console.log(valuePokok);
+
+  }
+
+  changePembayaranBunga = () => {
+    const valueBunga = this.firstFormGroup.get('pembayaran_bunga')?.value;
+
+    valueBunga ? this.pembayaranBunga = valueBunga : this.pembayaranBunga = false;
+    console.log(valueBunga);
+
+  }
+
+  changePembayaranPPH23 = () => {
+    const valuePPH = this.firstFormGroup.get('pembayaran_pph')?.value;
+
+    valuePPH ? this.pembayaranPPH23 = valuePPH : this.pembayaranPPH23 = false;
+    console.log(valuePPH);
+
+  }
+
+  changePembayaranSKB = () => {
+    const valueSKB = this.firstFormGroup.get('pembayaran_skb')?.value;
+
+    valueSKB ? this.pembayaranSKB = valueSKB : this.pembayaranSKB = false;
+    console.log(valueSKB);
+
+  }
+
+  changePembayaranDenda = () => {
+    const valueDenda = this.firstFormGroup.get('denda')?.value;
+
+    if(valueDenda){
+      this.pembayaranDenda = valueDenda;
+    }
+    else{
+
+    }
+
+    console.log(valueDenda);
+  }
+
   submitFirstForm = () => {
     console.log(this.firstFormGroup.value);
   }
