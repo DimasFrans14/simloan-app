@@ -545,7 +545,7 @@ export class TableServicesService {
     const formattedYear = moment().format('DD/MM/YYYY').slice(-2, 10);
 
     this.tableCurrency = new Tabulator(".table-currency", {
-      height: "100%",
+      height: "100%", 
       data:this.dataKurs,
       layout:"fitColumns",
       columns:[
@@ -5511,7 +5511,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveAddButton")
     const data = {
       id: rowData.id,
-      grup: rowData.kode,
+      grup: rowData.kode.toUpperCase(),
       tanggal: rowData.tanggal,
       tahun: rowData.tahun,
       rate: rowData.rate,
