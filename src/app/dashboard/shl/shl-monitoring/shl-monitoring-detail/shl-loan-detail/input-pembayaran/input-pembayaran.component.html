@@ -52,7 +52,7 @@
               type="text"
               class="form-control input-number-agreement"
               id="noSHL"
-              placeholder="Masukan Nomor SHL Agreement Number"
+              placeholder="Angsuran"
               formControlName="angsuran"
               [ngClass]="{
                 'is-invalid':
@@ -184,14 +184,8 @@
                   name="pembayaran_pokok"
                   id="pokok"
                   [value]="'pokok'"
-                  formControlName="pembayaran_pokok"
-                  [ngClass]="{
-                    'is-invalid':
-                      submitted &&
-                      firstFormGroup.controls.pembayaran_pokok
-                        .errors
-                  }"
-                  (change)="changePembayaranPokok()"
+                  (change)="changePembayaranPokok($event)"
+                  checked
                   required
                 />
                 <label class="form-check-label" for="pokok">
@@ -205,14 +199,8 @@
                   name="pembayaran_bunga"
                   id="bunga"
                   [value]="'bunga'"
-                  formControlName="pembayaran_bunga"
-                  [ngClass]="{
-                    'is-invalid':
-                      submitted &&
-                      firstFormGroup.controls.pembayaran_bunga
-                        .errors
-                  }"
-                  (change)="changePembayaranBunga()"
+
+                  (change)="changePembayaranBunga($event)"
                   required
                 />
                 <label class="form-check-label" for="bunga">
@@ -347,14 +335,8 @@
                   name="pembayaran_pph"
                   id="pph23"
                   [value]="'pph23'"
-                  formControlName="pembayaran_pph"
-                  [ngClass]="{
-                    'is-invalid':
-                      submitted &&
-                      firstFormGroup.controls.pembayaran_pph
-                        .errors
-                  }"
-                  (change)="changePembayaranPPH23()"
+                  (change)="changePembayaranPPH23($event)"
+                  checked
                   required
                 />
                 <label class="form-check-label" for="pph23">
@@ -368,14 +350,7 @@
                   name="pembayaran_skb"
                   id="skb"
                   [value]="'skb'"
-                  formControlName="pembayaran_skb"
-                  [ngClass]="{
-                    'is-invalid':
-                      submitted &&
-                      firstFormGroup.controls.pembayaran_skb
-                        .errors
-                  }"
-                  (change)="changePembayaranSKB()"
+                  (change)="changePembayaranSKB($event)"
                   required
                 />
                 <label class="form-check-label" for="skb">
