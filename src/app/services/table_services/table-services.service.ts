@@ -539,13 +539,13 @@ export class TableServicesService {
     console.log('tanggal', arrayDate);
     console.log('tahun', arrayYear);
 
-    console.log(arrayDate[0][0].h_min_30);
+    // console.log(arrayDate[0][0].h_min_30);
 
     // console.log(today.slice(-2, 10));
     const formattedYear = moment().format('DD/MM/YYYY').slice(-2, 10);
 
     this.tableCurrency = new Tabulator(".table-currency", {
-      height: "100%", 
+      height: "100%",
       data:this.dataKurs,
       layout:"fitColumns",
       columns:[
@@ -635,7 +635,7 @@ export class TableServicesService {
     data:this.dataCommodities,
     layout:"fitColumns",
     columns:[
-      {title:"Commodities", field:"kode", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+      {title:"Commodities", field:"keterangan", headerHozAlign:"center", hozAlign:'left', headerSort:false},
       {//create column group
         title:"Price",
         columns:[
@@ -658,7 +658,7 @@ export class TableServicesService {
       // height:20,
       height: "635px",
       data:this.dataPDB,
-      layout:"fitDataTable",
+      layout:"fitColumns",
       columnMoved:function(column, _columns){
         alert("The user has moved column: " + column.getField()); //display the columns field name
     },
@@ -6449,7 +6449,7 @@ export class TableServicesService {
     }
   }
   // end save edit non macro
-  
+
   cellClick_EditButton(_e: any, cell: any): void {
     const currentRow = cell.getRow()
     const currentTable = cell.getTable()
