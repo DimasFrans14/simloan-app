@@ -27,6 +27,7 @@ export class HitungFincostComponent {
 
   }
   
+  nama_fincost = new FormControl('');
   tanggal = new FormControl('');
   bank = new FormControl('');
   tenor1 = new FormControl('');
@@ -61,7 +62,7 @@ export class HitungFincostComponent {
     const indicativeyield = this.hitungSimulasi1.get('indicative_yield')?.value as unknown as number;
     const kurs = this.hitungSimulasi1.get('kurs')?.value as unknown as number;
     //bunga perbulan
-    this.hasilBungaPerBulan = asumsipinjaman * (indicativeyield/12);
+    this.hasilBungaPerBulan = asumsipinjaman * ((indicativeyield/100)/12);
     //bunga per tahun
     this.hasilBungaPerTahun = (indicativeyield * asumsipinjaman * kurs)/1000000000000; // kurs
     //total bunga
@@ -86,17 +87,17 @@ export class HitungFincostComponent {
     const indicativeyield = this.hitungSimulasi2.get('indicative_yield')?.value as unknown as number;
     const kurs = this.hitungSimulasi2.get('kurs')?.value as unknown as number;
     //bunga perbulan
-    this.hasilBungaPerBulan1 = (asumsipinjaman * (indicativeyield/12));
+    this.hasilBungaPerBulan1 = (asumsipinjaman * ((indicativeyield/100)/12));
     //bunga per tahun
-  this.hasilBungaPerTahun1 = (indicativeyield * asumsipinjaman * kurs)/1000000000000; // kurs
+    this.hasilBungaPerTahun1 = (indicativeyield * asumsipinjaman * kurs)/1000000000000; // kurs
     //total bunga
     this.hasilTotalBunga1 = this.hasilBungaPerTahun1*tenor2;
     //selisih delta pertahun
     const bungatahun  =  this.hasilBungaPerTahun;
     const bungatahun1 =  this.hasilBungaPerTahun1;
-    this.selisihDeltaMiliar = (bungatahun - bungatahun1)*1000;; //milliar
-    this.selisihDeltaTriliun = this.selisihDeltaMiliar*1000;
-    //selisih delta 3 tahun
+    this.selisihDeltaMiliar = (bungatahun - bungatahun1)*1000000; //milliar
+    this.selisihDeltaTriliun = this.selisihDeltaMiliar*1000000;
+    //selisih delta 30 tahun
     const totalbunga1 = this.hasilTotalBunga;
     const totalbunga2 = this.hasilTotalBunga1;
     this.selisihDelta30TahunTriliun = totalbunga1 - totalbunga2;
@@ -109,6 +110,7 @@ export class HitungFincostComponent {
       selisih_delta_30_tahun_triliun : this.selisihDelta30TahunTriliun,
     }
     const hasil = {
+      nama_fincost: this.nama_fincost.value,
       tanggal: this.tanggal.value,
       bank: this.bank.value,
       tenor_2: this.tenor1.value,
@@ -118,18 +120,10 @@ export class HitungFincostComponent {
       total_bunga: this.hasilTotalBunga1,
     }
     console.log('simulasi_2:',hasil)
-    console.log('selisih_Delta:', selisihDelta )
-    // console.log('Simulasi 2:',this.hitungSimulasi1.value);
   }
 
   hitung(){
     this.hitungbunga()
     this.hitungbunga1()
   }
-
-  // bungapertahun(){
-  //   this.hasilBungaPerTahun = (this.indicativeyield * this.asumsipinjaman * 15000)/1000000000; // kurs
-  //   console.log(this.hasilBungaPerTahun)
-  // }
-
 }

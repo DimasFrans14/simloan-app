@@ -8,7 +8,7 @@
                     <div class="p-2"><h4>Financing Cost</h4></div>
                     <div class="p-2 flex-grow-1"><button class="btn btn-outline-secondary btn-sm">Select Date</button></div>
                     <div class="p-2">
-                        <div class="btn btn-light btn-sm"><img src="/assets/icon/download-02.svg" alt=""></div>
+                        <div class="btn btn-light btn-sm"><img src="assets/icon/download-02.svg" alt=""></div>
                     </div>
                     <div class="p-2">
                         <div class="dropdown">
@@ -19,12 +19,7 @@
                               <li><a class="dropdown-item" routerLink="/gmtn" routerLinkActive="active">GMTN</a></li>
                               <li><a class="dropdown-item" routerLink="/hitung_fincost" routerLinkActive="active">Hitung FIncost</a></li>
                             </ul>
-                          </div>
-                        <!-- <div class="btn btn-primary btn-sm">
-                            <div routerLink="/hitung_fincost" routerLinkActive="active">
-                                <i class=""></i><span>Create</span>
-                            </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
                 <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
@@ -66,7 +61,6 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body overflow-y-auto">
-
                                                 <quill-editor [styles]="{height: '250px'}">
                                                 </quill-editor>
                                             </div>
@@ -100,12 +94,12 @@
                 </div>
                 <div class="d-flex mt-5">
                     <div class="" style="padding: 0px 0.5rem 0.5rem;">
-                        <div class="card card2 d-flex justify-content-start" style="width: 18rem;">
+                        <div class="card d-flex justify-content-start" style="width: 18rem;">
                             <div class="card-header text-center bg-light">
                                 Penambahan Utang
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><img src="/assets/icon/debt.svg" alt="">
+                                <li class="list-group-item"><img src="assets/icon/debt.svg" alt="">
                                     <p>
                                         Ilustrasi apabila PLN menambah utang sebesar USD 1 miliar pada tahun 2023
                                         denganskema
@@ -285,56 +279,51 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-check dropdown-item">
-                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedId" (change)="toggleColumnVisibilityId()" checked>
-                                                <label class="form-check-label" for="flexCheckDefault">ID</label>
-                                            </div>
-                                            <div class="form-check dropdown-item">
-                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedCreateDate" (change)="toggleColumnVisibilityCreateDate()" value="createDate" id="createDate" checked>
+                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedCreateDate" (change)="submitfliter()" value="createDate" id="createDate">
                                                 <label class="form-check-label" for="flexCheckDefault">Creation Date </label>
                                             </div>
                                             <div class="form-check dropdown-item">
-                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedCreateBy" (change)="toggleColumnVisibilityCreateBy()" value="createBy" id="createBy" checked>
+                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedCreateBy" (change)="submitfliter()" value="createBy" id="createBy">
                                                 <label class="form-check-label" for="flexCheckDefault">Create By</label>
                                             </div>
                                             <div class="form-check dropdown-item">
-                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedStatus" (change)="toggleColumnVisibilityStatus()" value="status" id="status" checked>
+                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedStatus" (change)="submitfliter()" value="status" id="status">
                                                 <label class="form-check-label" for="flexCheckDefault">Status</label>
                                             </div>
                                             <div class="form-check dropdown-item">
-                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedType" (change)="toggleColumnVisibilityType()" value="Type" id="Type" checked>
+                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedType" (change)="submitfliter()" value="Type" id="Type">
                                                 <label class="form-check-label" for="flexCheckDefault">Type</label>
                                             </div>
                                             <div class="form-check dropdown-item">
-                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedBank" (change)="toggleColumnVisibilityBank()" value="bank" id="bank" checked>
+                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedBank" (change)="submitfliter()" value="bank" id="bank">
                                                 <label class="form-check-label" for="flexCheckDefault">Bank</label>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-check dropdown-item">
-                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedTglIndicative" (change)="toggleColumnVisibilityTglindicative()" value="tglIndicative" id="tglIndicative" checked>
+                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedTglIndicative" (change)="submitfliter()" value="tglIndicative" id="tglIndicative">
                                                 <label class="form-check-label" for="flexCheckDefault">Tanggal Indicative</label>
                                             </div>
                                             <div class="form-check dropdown-item">
-                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedApprover" (change)="toggleColumnVisibilityApprover()" value="approver" id="approver" checked>
+                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedApprover" (change)="submitfliter()" value="approver" id="approver">
                                                 <label class="form-check-label" for="flexCheckDefault">Approver</label>
                                             </div>
                                             <div class="form-check dropdown-item">
-                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedModifDate" (change)="toggleColumnVisibilityModifDate()" value="modifDate" id="modifDate" checked>
+                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedModifDate" (change)="submitfliter()" value="modifDate" id="modifDate">
                                                 <label class="form-check-label" for="flexCheckDefault">Modification Date</label>
                                             </div>
                                             <div class="form-check dropdown-item">
-                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedNotes" (change)="toggleColumnVisibilityNotes()" value="note" id="note" checked>
+                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedNotes" (change)="submitfliter()" value="note" id="note">
                                                 <label class="form-check-label" for="flexCheckDefault">Notes</label>
                                             </div>
                                             <div class="form-check dropdown-item">
-                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedRevisionDate" (change)="toggleColumnVisibilityRevisionDate()" value="revDAte" id="revDate" checked>
+                                                <input class="form-check-input" type="checkbox" [(ngModel)]="isCheckedRevisionDate" value="revDAte" id="revDate">
                                                 <label class="form-check-label" for="flexCheckDefault">Revision Deadline</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="d-flex flex-row-reverse p-2">
-                                        <div class="btn btn-outline-primary btn-sm p-2">Apply Change</div>
-                                        <div class="btn btn-outline-primary btn-sm p-2">Reset to Default</div>
+                                        <div class="btn btn-outline-primary btn-sm p-2" (change)="submitfliter()">Close</div>
                                     </div>
                                 </ul>
                                 <!-- End CheckBox -->

@@ -17,6 +17,7 @@ import { ParameterMarketOverviewComponent } from './dashboard/paramater_market/o
 import { OverviewHarian } from './dashboard/paramater_market/overview-harian/overview-harian.component';
 import { LiabilitiesComponent } from './dashboard/paramater_market/liabilities/liabilities.component';
 import { FinancingCostComponent } from './dashboard/paramater_market/financing-cost/financing-cost.component';
+import { DetailComponent } from './dashboard/paramater_market/financing-cost/detail/detail.component';
 import { DataService } from './data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MarketUpdateComponent } from './dashboard/paramater_market/market-update/market-update.component';
@@ -132,6 +133,7 @@ import { ShlLoanDetailComponent } from './dashboard/shl/shl-monitoring/shl-monit
     ShlMonitoringComponent,
     ShlMonitoringDetailComponent,
     ShlLoanDetailComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,

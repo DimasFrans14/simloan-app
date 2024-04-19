@@ -1,5 +1,4 @@
-import { Component, AfterViewInit, OnInit ,Input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, AfterViewInit, OnInit ,Input} from '@angular/core';
 import * as moment from 'moment';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
 // import { Router } from '@angular/router';
@@ -16,7 +15,6 @@ export class PdbComponent {
   constructor(
     private tableConfig: TableServicesService,
     private marketUpdateService: MarketUpdateService,
-    private formBuil1der:FormBuilder
   ){
     // console.log(this.tableConfig.initializeTableDataCurrency(), this.tableConfig.initializeTableData());
   }

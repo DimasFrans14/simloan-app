@@ -1,6 +1,7 @@
 import { Injectable, AfterViewInit } from '@angular/core';
 import { CellComponent, TabulatorFull as Tabulator } from 'tabulator-tables';
 import { MarketUpdateService } from '../market_update/market-update.service';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Server } from 'http';
@@ -223,13 +224,11 @@ export class TableServicesService {
     this.shareDataRkapKursUsd = data;
     console.log(this.shareDataRkapKursUsd);
   }
-  setDataOutlookKursUsd(dataUsd:any, dataNonUsd:any){
-    this.shareDataOutlookKursUsd = dataUsd.concat(dataNonUsd);
-    console.log(this.shareDataOutlookKursUsd);
+  setDataOutlookKursUsd(dataUsd:any){
+    this.shareDataOutlookKursUsd = dataUsd;
   }
   setDataRealisasiInterestRate(data:any){
     this.shareDataRealisasiInterestRate = data;
-    console.log(this.shareDataRealisasiInterestRate);
   }
   setDataRkapInterestRate(data:any){
     this.shareDataRkapInterestRate = data;
@@ -237,7 +236,6 @@ export class TableServicesService {
   }
   setDataOutlookInterestRate(data:any){
     this.shareDataOutlookInterestRate = data;
-    console.log(this.shareDataOutlookInterestRate);
   }
   setDataRealisasiBondYieldSBN(data:any){
     this.shareDataRealisasiBondYieldSBN = data;
@@ -360,17 +358,11 @@ export class TableServicesService {
 
   //Data Interest Rate
   tableInterestRate: any;
-  tableDataInterestRate: any;
   tableRealisasiInterestRate: any;
-  tableDataRealisasiInterestRate: any;
   tableRkapInterestRate: any;
-  tableDataRkapInterestRate: any;
   tableOutlookInterestRate: any;
-  tableDataOutlookInterestRate: any;
-
   //Data Bond Yield
   tableBondYield: any;
-
   tableBondYieldSBN: any;
   tableBondYieldUST: any;
   tableDataBondYield: any;
@@ -489,58 +481,35 @@ export class TableServicesService {
   tableDataCreateLiabiliteis:any;
   tableCreateLiabiilities:any;
 
-  tableDataDetailPdb:any;
   tableDetailPdb:any;
-  tableDataRealisasiPdb:any;
   tableRealisasiPdb:any;
-  tableDataRkapPdb:any;
   tableRkapPdb:any;
-  tableDataOutlookPdb:any;
   tableOutlookPdb:any;
 
   tableDataDetailInflasi:any;
-  tableDetailInflasi:any;
-  tableDataRealisasiInflasi:any;
   tableRealisasiInflasi:any;
-  tableDataRkapInflasi:any;
   tableRkapInflasi:any;
   tableDataOutlookInflasi:any;
   tableOutlookInflasi:any;
 
-  tableDataDetailPmi:any;
   tableDetailPmi:any;
-  tableDataRealisasiPmi:any;
   tableRealisasiPmi:any;
-  tableDataRkapPmi:any;
   tableRkapPmi:any;
-  tableDataOutlookPmi:any;
   tableOutlookPmi:any;
 
-  tableDataDetailRetail:any;
   tableDetailRetail:any;
-  tableDataRealisasiRetail:any;
   tableRealisasiRetail:any;
-  tableDataRkapRetail:any;
   tableRkapRetail:any;
-  tableDataOutlookRetail:any;
   tableOutlookRetail:any;
 
-  tableDataDetailMoneySupply:any;
   tableDetailMoneySupply:any;
-  tableDataRealisasiMoneySupply:any;
   tableRealisasiMoneySupply:any;
-  tableDataRkapMoneySupply:any;
   tableRkapMoneySupply:any;
-  tableDataOutlookMoneySupply:any;
   tableOutlookMoneySupply:any;
 
-  tableDataDetailForeignExchange:any;
   tableDetailForeignExchange:any;
-  tableDataRealisasiForeignExchange:any;
   tableRealisasiForeignExchange:any;
-  tableDataRkapForeignExchange:any;
   tableRkapForeignExchange:any;
-  tableDataOutlookForeignExchange:any;
   tableOutlookForeignExchange:any;
 
   tableDataFincost:any;
@@ -1000,7 +969,7 @@ export class TableServicesService {
     });
   }
 
-  initializeTableDataInflasi( arrayYear: any[]){
+  initializeTableDataInflasi(arrayYear: any[]){
     const addBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
       return "<span><img src='assets/icon/plus-square.svg'></span>";
     }
@@ -1693,23 +1662,14 @@ export class TableServicesService {
       data:this.shareDataRealisasiInterestRate,
       layout:"fitColumns",
       columns:[
-        {title:"Rates", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, width:130},
+        {title:"Rates", field:"kode", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor: "input", headerFilter:"list", headerFilterParams:{valuesLookup:"all", clearable:true}, width:130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input", headerSort:false},
-        {title: "Nilai", formatter: function(cell) {
-            // Mendapatkan nilai 'nilai' atau 'kurs' berdasarkan data di setiap baris
-            const interest = cell.getRow().getData().grup;
-            const fieldValue = interest === 'JIBOR_3M'|| interest === 'AVG_SOFR_3M' || interest === 'EURIBOR_3M' ? 'month3' : interest === 'JIBOR_6M' || interest === 'AVG_SOFR_6M' || interest === 'EURIBOR_6M' ? 'month6' : 'rate';
-            // Mengembalikan nilai yang ingin ditampilkan di dalam sel
-            return cell.getRow().getData()[fieldValue];
-          },
-          headerHozAlign: "center",
-          hozAlign: 'center',
-          editable: this.isRowSelected, editor:"number"},
+        {title: "Nilai", field:"rate", headerHozAlign: "center", hozAlign: 'center', editable: this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
-        {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
-        {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
-        {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
+          {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"Hapus", field:"deleteButton", formatter:deleteBtn, cellClick: this.cellClick_deleteButtonRealisasiInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false},
         ]},
         {title:"Cancel", field:"CancelButton", formatter:cancelBtn, cellClick:this.cellClick_CancelButton, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
         {title:"Simpan", field:"SaveButton",formatter:saveBtn, cellClick:this.cellClick_SaveButtonInterestRate, headerSort:false, headerHozAlign:"center", hozAlign:"center", resizable:false,visible:false},
@@ -1744,22 +1704,10 @@ export class TableServicesService {
       data:this.shareDataOutlookInterestRate,
       layout:"fitColumns",
       columns:[
-        {title:"Rates", field:"grup", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input",headerFilterParams:{valuesLookup:"all", clearable:true}, minWidth: 130},
+        {title:"Rates", field:"kode", headerHozAlign:"left", hozAlign:'left', editable:this.isRowSelected, editor: "input",headerFilterParams:{valuesLookup:"all", clearable:true}, minWidth: 130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "input"},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, headerSort:false, editor: "number"},
-        {
-          title: "Nilai",
-          formatter: function(cell) {
-            // Mendapatkan nilai 'nilai' atau 'kurs' berdasarkan data di setiap baris
-            const interest = cell.getRow().getData().grup;
-            const fieldValue = interest === 'JIBOR_3M'|| interest === 'AVG_SOFR_3M' || interest === 'EURIBOR_3M' ? 'month3' : interest === 'JIBOR_6M' || interest === 'AVG_SOFR_6M' || interest === 'EURIBOR_6M' ? 'month6' : 'rate';
-
-            // Mengembalikan nilai yang ingin ditampilkan di dalam sel
-            return cell.getRow().getData()[fieldValue];
-          },
-          headerHozAlign: "center",
-          hozAlign: 'center',
-          editable: this.isRowSelected, editor:"number"},
+        {title: "Nilai", field:"rate", headerHozAlign: "center", hozAlign: 'center', editable: this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
@@ -2166,11 +2114,8 @@ export class TableServicesService {
     {title:"Yield Change <br/>MoM %", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     {title:"Yield Change <br/>WoW %", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
     {title:"Yield Change <br/>1 Day %", field:objectKeys[2], headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "input"},
-      ],
-
+  ],
   });
-
-
   }
 
   initializeTableDataFincost(){
@@ -2188,7 +2133,8 @@ export class TableServicesService {
 
     this.tableFincost = new Tabulator ('.tableDataFincost',{
       data:this.tableDataFincost,
-      layout:"fitData",
+      layout:"fitDataStretch",
+      resizableRows:true,
       // rowContextMenu: rowMenu, //add context menu to rows
       columns:[
         {title:"ID", field:"id", hozAlign:"center", headerHozAlign:"center"},
@@ -2202,7 +2148,8 @@ export class TableServicesService {
         {title:"Modification Date", field:"modifDate", hozAlign:"center", headerHozAlign:"center"},
         {title:"Notes", field:"notes", hozAlign:"center", headerHozAlign:"center"},
         {title:"RevisionDate", field:"revisionDate", hozAlign:"center", headerHozAlign:"center"},
-    ],
+        {title:"Action", field:"revisionDate", hozAlign:"center", headerHozAlign:"center"}
+      ],
     })
   }
 
@@ -2829,27 +2776,27 @@ export class TableServicesService {
     tabel.updateColumnDefinition("mata_uang", {title:`${this.dataCommodities[0].mata_uang}`});
   }
 
-  public updateTabelInflasi(data: any){
+  public updateTabelInflasi(data:any){
     const tabel = this.tableInflasi;
     tabel.replaceData(data.data);
   }
 
-  public updateTabelPMI(data: any){
+  public updateTabelPMI(data:any){
     const tabel = this.tablePMI;
     tabel.replaceData(data);
   }
 
-  public updateTabelRetail(data: any){
+  public updateTabelRetail(data:any){
     const tabel = this.tableRetail;
     tabel.replaceData(data);
   }
 
-  public updateTabelMoneySuply(data: any){
+  public updateTabelMoneySuply(data:any){
     const tabel = this.tableMoneySupply;
     tabel.replaceData(data);
   }
 
-  public updateTabelDevisa(data: any){
+  public updateTabelDevisa(data:any){
     const tabel = this.tableForeignExchange;
     tabel.replaceData(data);
   }
@@ -3418,7 +3365,7 @@ export class TableServicesService {
     const table = this.tableRealisasiCurrencyRate;
     const sortData = data.data.map((item: any) => {
       const dateParts = item.tanggal.split("/");
-      const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1])-1, Number(dateParts[0]));
+      const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1])-1, Number(dateParts[0])+1);
       item.tanggal = dateObject.toISOString().split("T")[0];
       return item;
       }).sort((a: any, b: any) => {
@@ -3461,7 +3408,16 @@ export class TableServicesService {
   }
   public replaceTableRealisasiInterest (data:any){
     const table = this.tableRealisasiInterestRate;
-    table.replaceData(data.data.content);
+    const sortedData = data.data.sort((a: { tahun: number; }, b: { tahun: number; }) => {
+      const aYear = a.tahun || 0;
+      const bYear = b.tahun || 0;
+      return bYear - aYear;
+    });
+    sortedData.map((item: any) =>{
+      item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+      item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    });
+    table.replaceData(sortedData);
   }
   public replaceTableRkapInterest (data:any){
     const table = this.tableRkapPdb;
@@ -3481,7 +3437,7 @@ export class TableServicesService {
   }
   public replaceTableOutlookInterest (data:any){
     const table = this.tableOutlookInterestRate;
-    const sortedData = data.data.content.sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
+    const sortedData = data.data.sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
       const dateA = new Date(a.tahun, a.tanggal.split('/')[0] - 1, a.tanggal.split('/')[1]);
       const dateB = new Date(b.tahun, b.tanggal.split('/')[0] - 1, b.tanggal.split('/')[1]);
       if (dateA > dateB) {
@@ -3493,8 +3449,8 @@ export class TableServicesService {
       }
     });
     sortedData.map((item: any) =>{
-      item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
-      item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+      item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     });
     table.replaceData(sortedData);
   }
@@ -5354,7 +5310,7 @@ export class TableServicesService {
       const responeseOutlook = await this.marketUpdateService.fetchDataUpdateOutlookKursUsd(data);
       this.responseUpdate = responeseOutlook;
       if (this.responseUpdate.status == 200){
-        const dataReplaceUsd = await this.marketUpdateService.fetchDataOutlookKursUsd();
+        const dataReplaceUsd = await this.marketUpdateService.fetchDataOutlookKurs();
         const dataReplacenonUsd = await  this.marketUpdateService.fetchDataOutlookKursNonUsd();
         this.replaceTableOutlookCurrency(dataReplaceUsd, dataReplacenonUsd)
       }else{
@@ -5366,11 +5322,11 @@ export class TableServicesService {
       const responeseOutlookNonUsd = await this.marketUpdateService.fetchDataUpdateOutlookKursUsd(data);
       this.responseUpdate = responeseOutlookNonUsd;
       if (this.responseUpdate.status == 200){
-        const dataReplaceUsd = await this.marketUpdateService.fetchDataOutlookKursUsd();
+        const dataReplaceUsd = await this.marketUpdateService.fetchDataOutlookKurs();
         const dataReplacenonUsd = await  this.marketUpdateService.fetchDataOutlookKursNonUsd();
         this.replaceTableOutlookCurrency(dataReplaceUsd, dataReplacenonUsd)
       }else{
-        const dataReplaceUsd = await this.marketUpdateService.fetchDataOutlookKursUsd();
+        const dataReplaceUsd = await this.marketUpdateService.fetchDataOutlookKurs();
         const dataReplacenonUsd = await  this.marketUpdateService.fetchDataOutlookKursNonUsd();
         console.log('data kosong');
       }
@@ -5460,10 +5416,10 @@ export class TableServicesService {
     currentTable.showColumn("tambahButton")
     currentTable.showColumn("deleteButton")
     currentTable.hideColumn("CancelButton")
-    currentTable.hideColumn("SaveBut;ton")
+    currentTable.hideColumn("SaveButton")
     const data = {
       id: rowData.id,
-      grup: rowData.grup,
+      grup: rowData.kode.toUpperCase(),
       tanggal: rowData.tanggal,
       tahun: rowData.tahun,
       rate: rowData.rate,
@@ -5494,8 +5450,8 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      id: rowData.id_outlook_ir,
-      grup: rowData.grup,
+      id: rowData.id,
+      grup: rowData.kode,
       tanggal: rowData.tanggal,
       tahun: rowData.tahun,
       rate: rowData.rate,
@@ -5625,8 +5581,8 @@ export class TableServicesService {
       rowData.month6 = cell.getRow().getData();
     }
     const data = {
-      id: rowData.id_outlook_ir,
-      interest_rate_enum: rowData.grup,
+      id: rowData.id,
+      grup: rowData.kode,
       tanggal: rowData.tanggal,
       tahun: rowData.tahun,
       rate: rowData.rate,
@@ -5657,12 +5613,12 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      grup: rowData.grup,
+      grup: rowData.kode,
       tanggal: rowData.tanggal,
       tahun: rowData.tahun,
-      rate: rowData.formatter,
-      month3: rowData.formatter,
-      month6: rowData.formatter,
+      rate: rowData.rate,
+      month3: rowData.rate,
+      month6: rowData.rate,
     }
     console.log(data)
     const responeseOutlook = await this.marketUpdateService.fetchDataInputOutlookInterestRate(data);
@@ -5679,7 +5635,7 @@ export class TableServicesService {
   cellClick_deleteButtonOutlookInterestRate = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
-      id: rowData.id_outlook_ir,
+      id: rowData.id,
     }
     const responeseOutlook = await this.marketUpdateService.fetchDeleteDataOutlookInterestRate(data);
     this.responseDelete = responeseOutlook;
@@ -6433,7 +6389,7 @@ export class TableServicesService {
     }
   }
   // end save edit non macro
-
+  
   cellClick_EditButton(_e: any, cell: any): void {
     const currentRow = cell.getRow()
     const currentTable = cell.getTable()

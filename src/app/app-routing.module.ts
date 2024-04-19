@@ -50,6 +50,7 @@ import { ShlCreateScheduleComponent } from './dashboard/shl/shl-schedule/shl-cre
 import { ShlMonitoringComponent } from './dashboard/shl/shl-monitoring/shl-monitoring.component';
 import { ShlMonitoringDetailComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-monitoring-detail.component';
 import { ShlLoanDetailComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-loan-detail/shl-loan-detail.component';
+import { DetailComponent } from './dashboard/paramater_market/financing-cost/detail/detail.component';
 import { RouteGuard } from './guard/route-guard.guard';
 
 const routes: Routes = [
@@ -67,6 +68,7 @@ const routes: Routes = [
   { path: 'overview_trending', component: ParameterMarketOverviewComponent ,canActivate:[RouteGuard]},
   { path: 'overview_harian', component: OverviewHarian ,canActivate:[RouteGuard]},
   { path: 'financing_cost', component: FinancingCostComponent ,canActivate:[RouteGuard]},
+  { path: 'detail-fincost', component: FinancingCostComponent ,canActivate:[RouteGuard]},
   { path: 'liabilities', component: LiabilitiesComponent,canActivate:[RouteGuard]},
   { path: 'market_update', component: MarketUpdateComponent, canActivate:[RouteGuard]
   },

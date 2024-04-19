@@ -38,25 +38,20 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
     try {
       const data = await this.marketUpdateService.fetchDataRealisasiInterestRate();
       this.dataDetailRealisasi = data;
-      this.dataDetailRealisasi = this.dataDetailRealisasi.data.content;
-      
-      this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) => {
-        const dateParts = item.tanggal.split("/");
-        const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
-        item.tanggal = dateObject.toISOString().split("T")[0];
-        return item;
-        }).sort((a: any, b: any) => {
-          return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
-        });
-        this.dataDetailRealisasi.map((item:any)=>{
-          item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
-          return item
-        })
-
+      this.dataDetailRealisasi = this.dataDetailRealisasi.data;
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
     } catch (error) {
       console.log(error);
+    }
+    if (this.dataDetailRealisasi == null){
+      console.log('data kosong')
+    } else {
+    this.dataDetailRealisasi.sort((a: { tahun: number; }, b: { tahun: number; }) => {
+      const aYear = a.tahun || 0;
+      const bYear = b.tahun || 0;
+      return bYear - aYear;
+    });
     }
     this.tableConfig.setDataRealisasiInterestRate(this.dataDetailRealisasi);
     console.log('finish get data in func');
@@ -94,10 +89,10 @@ export class InterestRateComponent implements OnInit, AfterViewInit {
     try {
       const data = await this.marketUpdateService.fetchDataOutlookInterestRate();
       this.dataDetailOutlook = data;
-      this.dataDetailOutlook = this.dataDetailOutlook.data.content;
+      this.dataDetailOutlook = this.dataDetailOutlook.data;
       if(this.dataDetailOutlook == null){
         console.log('data kosong')
-      } else {
+       } else {
         this.dataDetailOutlook.sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
           const dateA = new Date(a.tahun, a.tanggal.split('/')[0], a.tanggal.split('/')[1]);
           const dateB = new Date(b.tahun, b.tanggal.split('/')[0], b.tanggal.split('/')[1]);

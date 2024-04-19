@@ -24,7 +24,7 @@ export class FinancingCostComponent {
     this.marketUpdateService.fetchDataKurs(moment().format('YYYY'));
   }
   //filter table
-  isCheckedId: boolean = true;
+  
   isCheckedCreateDate: boolean = true;
   isCheckedCreateBy: boolean = true;
   isCheckedStatus: boolean = true;
@@ -48,12 +48,17 @@ export class FinancingCostComponent {
   columnToHideNotes: string = 'notes';
   columnToHideRevisionDate: string = 'revisionDate';
 
-  toggleColumnVisibilityId() {
-    if (this.isCheckedId) {
-      this.tableConfig.tableFincost.showColumn(this.columnToHideId);
-    } else {
-      this.tableConfig.tableFincost.hideColumn(this.columnToHideId);
-    }
+  submitfliter(){
+    this.toggleColumnVisibilityApprover();
+    this.toggleColumnVisibilityBank();
+    this.toggleColumnVisibilityCreateBy();
+    this.toggleColumnVisibilityCreateDate();
+    this.toggleColumnVisibilityModifDate();
+    this.toggleColumnVisibilityNotes();
+    this.toggleColumnVisibilityRevisionDate();
+    this.toggleColumnVisibilityStatus();
+    this.toggleColumnVisibilityTglindicative();
+    this.toggleColumnVisibilityType();
   }
 
   toggleColumnVisibilityCreateDate() {

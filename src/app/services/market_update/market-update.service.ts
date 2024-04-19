@@ -264,7 +264,7 @@ export class MarketUpdateService {
   async fetchDataOutlookKursUsd(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/list?isActive=true`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/get_view_rekapout_master_kurs?status_active=1`)
       );
     } catch (error) {
       console.log(error);
@@ -312,7 +312,6 @@ export class MarketUpdateService {
     return error
   }
   }
-  //belum ada end point
   async fetchDeleteDataOutlookCurrencyRate(data:any){
     try {
       return await lastValueFrom(
@@ -403,7 +402,7 @@ export class MarketUpdateService {
   async fetchDataOutlookKurs(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-outlook-Kurs`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/get_view_rekapout_master_kurs?status_active=1`)
       );
     } catch (error) {
       console.log(error);
@@ -2275,7 +2274,7 @@ export class MarketUpdateService {
   async fetchDataRealisasiInterestRate(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/list/interest`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/get_view_rekapreal_interestrate?status_active=1`)
       );
     } catch (error) {
       console.log(error);
@@ -2287,15 +2286,14 @@ export class MarketUpdateService {
       "grup": data.grup,
       "tanggal": data.tanggal,
       "tahun": data.tahun,
-      "mtu": data.mtu,
-      "month3": data.month,
-      "month6": data.month6,
+      "month3": "",
+      "month6": "",
       "rate": data.rate
     }
     console.log(data1)
   try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/create_ir?interest_rate_enum=${data.grup}`, data1)
+      this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/create_ir?interest_rate_enum=${data.grup}`, data1)
     )
     } catch (error) {
       console.log(error);
@@ -2307,7 +2305,6 @@ export class MarketUpdateService {
       "grup": data.grup,
       "tanggal": data.tanggal,
       "tahun": data.tahun,
-      "mtu": data.mtu,
       "month3": data.month3,
       "month6": data.month6,
       "rate": data.rate
@@ -2396,7 +2393,7 @@ export class MarketUpdateService {
   async fetchDataOutlookInterestRate(){
     try {
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-interest-rate?isActive=true`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/cm25-loan-views/get_view_rekapout_interestrate?status_active=1`)
       );
     } catch (error) {
       console.log(error);
@@ -2409,8 +2406,8 @@ export class MarketUpdateService {
       "tanggal": data.tanggal,
       "tahun": data.tahun,
       "rate": data.rate,
-      "month3": data.month3,
-      "month6": data.month6,
+      "month3": "",
+      "month6": "",
     }
     console.log(data1)
   try {
@@ -2424,17 +2421,17 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateOutlookInterestRate(data:any){
     const data1 = {
-      "grup": data.interest_rate_enum,
+      "grup": data.grup,
       "tanggal": data.tanggal,
       "tahun": data.tahun,
       "rate": data.rate,
-      "month3": data.month3,
-      "month6": data.month6
+      "month3": "",
+      "month6": ""
     }
     console.log(data1)
   try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-interest-rate?id=${data.id}&interest_rate_enum=${data.interest_rate_enum}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-interest-rate?id=${data.id}&interest_rate_enum=${data.grup}`, data1)
     )
     } catch (error) {
       console.log(error);
@@ -2717,6 +2714,78 @@ export class MarketUpdateService {
     } catch (error) {
       console.log(error);
       return null
+    }
+  }
+  async fetchDataGmtnFincost(){
+    try {
+      return await lastValueFrom(
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/master-obligasi?isActive=true`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  async fetchDataUpdateGmtnFincost(data:any){
+      const data1 = {
+        "list_dashboard_rkap_dtolist": [
+          {
+            "mtu": "PDB",
+            "grup": "MACRO_INDICATOR",
+            "rate": data.rate,
+            "tahun": data.tahun,
+            "tanggal": data.tanggal
+          }
+        ]
+      }
+    try {
+      return await lastValueFrom(
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap/update_ir?id=${data.id}`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataInputGmtnFincost(data:any){
+    const data1= {
+      "master_obligasit_creates": [
+        {
+          "baseline_estimasi_list": [
+            {
+              "tahun": data.tahun,
+              "tenor": data.tenor,
+              "rate_coupon": data.rate_coupon,
+              "kurs": data.kurs,
+              "tahun_estimasi": data.tahun_estimasi,
+              "tenor_estimasi": data.tenor_estimasi,
+              "indicative_rate": data.indicative_rate,
+              "kurs_estimasi": data.akurs_estimasi
+            }
+          ],
+          "tanggal": data.tanggal,
+          "nama_obligasi": data.nama_obligasi,
+          "keterangan": data.keterangan
+        }
+      ]
+    }
+    try {
+      return await lastValueFrom(
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/master-obligasi`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDeleteDataGmtnFincost(data:any){
+    try {
+      return await lastValueFrom(
+        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/master-obligasi?id=${data.id}`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
     }
   }
 

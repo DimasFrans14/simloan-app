@@ -52,7 +52,7 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
       } else {
         this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) => {
           const dateParts = item.tanggal.split("/");
-          const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1])-1, Number(dateParts[0]));
+          const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1])-1, Number(dateParts[0])+1);
           item.tanggal = dateObject.toISOString().split("T")[0];
           
           return item;
@@ -98,14 +98,19 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     } catch(error) {
       console.log(error)
     }
-    this.dataDetailRkap = this.dataDetailRkap.content.filter((item:any)=>{
-      return item.grup ==="KURS"
-    })
-    this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
-      item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
-      item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      return item;
-    })
+    if (this.dataDetailRkap == null){
+      console.log('data kosong')
+    } else {
+      this.dataDetailRkap = this.dataDetailRkap.content.filter((item:any)=>{
+        return item.grup ==="KURS"
+      })
+      this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
+        item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+        item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return item;
+      })
+    }
+    
     this.tableConfig.setDataRkapKursUsd(this.dataDetailRkap);
     console.log('finish get data by function')
   }
@@ -114,39 +119,28 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
     console.log(this.isLoading, 'loading RealisasiKursUsd');
     try{
       const dataUsd = await this.marketUpdateService.fetchDataOutlookKursUsd();
-      const dataNonUsd = await this.marketUpdateService.fetchDataOutlookKursNonUsd();
       this.dataDetailOutlook = dataUsd;
-      this.dataDetailOutlook = this.dataDetailOutlook.data.content;
-      this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) => {
-        const dateParts = item.tanggal.split("/");
-        const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
-        item.tanggal = dateObject.toISOString().split("T")[0];
-        
-        return item;
-        }).sort((a: any, b: any) => {
-          return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
-        });
-        this.dataDetailOutlook.map((item:any)=>{
-          item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
-          return item
-        })
-      this.dataDetailOutlookNonUsd = dataNonUsd;
-      this.dataDetailOutlookNonUsd = this.dataDetailOutlookNonUsd.data.content;
-      this.dataDetailOutlookNonUsd = this.dataDetailOutlookNonUsd.map((item: any) => {
-        const dateParts = item.tanggal.split("/");
-        const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
-        item.tanggal = dateObject.toISOString().split("T")[0];
-        
-        return item;
-        }).sort((a: any, b: any) => {
-          return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
-        });
-        this.dataDetailOutlookNonUsd.map((item:any)=>{
-          item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
-          return item
-        })
+      this.dataDetailOutlook = this.dataDetailOutlook.data;
+      //sort tanggal USD 
+      if (this.dataDetailOutlook == null){
+        console.log('data kosong')
+      } else {
+        this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) => {
+          const dateParts = item.tanggal.split("/");
+          const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1])-1, Number(dateParts[0])+1);
+          item.tanggal = dateObject.toISOString().split("T")[0];
+          
+          return item;
+          }).sort((a: any, b: any) => {
+            return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
+          });
+          this.dataDetailRealisasi.map((item:any)=>{
+            item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
+            return item
+          })
+      }
       this.isLoading = false;
-      console.log(this.isLoading,'loading 2', this.dataDetailOutlook);
+      console.log(this.isLoading,'loading 2', this.dataDetailRealisasi);
     } catch(error) {
       console.log(error)
     }
@@ -164,7 +158,7 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
         return item;
       })
     }
-    this.tableConfig.setDataOutlookKursUsd(this.dataDetailOutlook, this.dataDetailOutlookNonUsd);
+    this.tableConfig.setDataOutlookKursUsd(this.dataDetailOutlook);
     console.log('finish get data by function')
   }
 
