@@ -452,7 +452,7 @@
                     />
                   </svg>
                 </div>
-                <input
+                <!-- <input
                   matInput
                   type="text"
                   class="form-control input-number-agreement"
@@ -464,7 +464,40 @@
                       submitted && secondFormGroup.controls.totalPagu.errors
                   }"
                   required
-                />
+                /> -->
+
+                <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                    type="text"
+                    class="form-control input-tenor"
+                    id="noSHL"
+                    placeholder="Masukan Nomor SHL Agreement Number"
+                    formControlName="totalPagu"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted && secondFormGroup.controls.totalPagu.errors
+                    }"
+                    required
+                    />
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      id="buttonTotalPagu"
+                    >
+                      IDR
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>IDR</li>
+                      <li>USD</li>
+                      <li>EUR</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
 
               <div class="d-flex justify-content-between align-items-baseline">
@@ -1015,6 +1048,14 @@
                     id="deskripsiProyek"
                     rows="3"
                     placeholder="Deskripsi Pembayaran Pokok Pinjaman"
+                    formControlName="jadwalPokokPinjaman"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted &&
+                        secondFormGroup.controls.jadwalPokokPinjaman
+                          .errors
+                    }"
+                    required
                   ></textarea>
                 </div>
               </div>
@@ -1136,6 +1177,14 @@
                     id="deskripsiProyek"
                     rows="3"
                     placeholder="Jadwal Pembayaran Bunga Pinjaman"
+                    formControlName="jadwalBungaPinjaman"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted &&
+                        secondFormGroup.controls.jadwalBungaPinjaman
+                          .errors
+                    }"
+                    required
                   ></textarea>
                 </div>
               </div>
@@ -1163,6 +1212,14 @@
                     id="deskripsiProyek"
                     rows="3"
                     placeholder="Syarat Penarikan"
+                    formControlName="syaratPenarikan"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted &&
+                        secondFormGroup.controls.syaratPenarikan
+                          .errors
+                    }"
+                    required
                   ></textarea>
                 </div>
               </div>
@@ -1221,7 +1278,7 @@
                   type="text"
                   class="form-control input-number-agreement"
                   id="noSHL"
-                  placeholder="Masukan Nomor SHL Agreement Number"
+                  placeholder="Total Pagu"
                   formControlName="totalPagu"
                   [ngClass]="{
                     'is-invalid':
@@ -1498,7 +1555,7 @@
                       type="text"
                       class="form-control input-tenor"
                       id="noSHL"
-                      placeholder="Masukan Nomor SHL Agreement Number"
+                      placeholder="Masukan tenor"
                       formControlName="tenor"
                       [ngClass]="{
                         'is-invalid':
@@ -1832,7 +1889,7 @@
               <ngx-dropzone-preview
                 *ngFor="let f of parameterCurrency"
                 [removable]="true"
-                (removed)="onRemove(f)"
+                (removed)="onRemoveFile(f, 'KEPDIR')"
               >
                 <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
               </ngx-dropzone-preview>
@@ -1879,7 +1936,7 @@
                 <ngx-dropzone-preview
                   *ngFor="let f of previewKEPDIR"
                   [removable]="true"
-                  (removed)="onRemoveKepdirPLN(f)"
+                  (removed)="onRemoveFile(f, 'KEPDIR')"
                 >
                   <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
@@ -1908,6 +1965,9 @@
 
             <div>
               <ngx-dropzone
+                [disableClick]="disablePakta"
+                [disabled]="false"
+                [accept]="'.pdf'"
                 (change)="onSelectDokumen($event, 'PAKTA_INTEGRITAS')"
                 required
               >
@@ -1924,7 +1984,7 @@
                 <ngx-dropzone-preview
                   *ngFor="let f of previewPaktaIntegritas"
                   [removable]="true"
-                  (removed)="onRemove(f)"
+                  (removed)="onRemoveFile(f, 'PAKTA')"
                 >
                   <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
@@ -1953,6 +2013,9 @@
 
             <div>
               <ngx-dropzone
+                [disableClick]="disableDokumenLainnya"
+                [disabled]="false"
+                [accept]="'.pdf'"
                 (change)="onSelectDokumen($event, 'DOKUMEN_LAINNYA')"
                 required
               >
@@ -1969,7 +2032,7 @@
                 <ngx-dropzone-preview
                   *ngFor="let f of previewDocumentLainnya"
                   [removable]="true"
-                  (removed)="onRemove(f)"
+                  (removed)="onRemoveFile(f, 'DOKUMEN_LAINNYA')"
                 >
                   <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
@@ -2019,7 +2082,7 @@
                 <ngx-dropzone-preview
                   *ngFor="let f of previewDocumentAnakPerusahaan"
                   [removable]="true"
-                  (removed)="onRemove(f)"
+                  (removed)="onRemoveFile(f, 'KEPDIR')"
                 >
                   <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
@@ -2051,7 +2114,11 @@
             </div>
 
             <div>
-              <ngx-dropzone (change)="onSelectDokumen($event, 'RKAP')" required>
+              <ngx-dropzone
+              [disableClick]="disableRKAP"
+                [disabled]="false"
+                [accept]="'.pdf'"
+              (change)="onSelectDokumen($event, 'RKAP')" required>
                 <ngx-dropzone-label>
                   <img src="./assets/icon/upload-cloud-02.svg" alt="" />
                   <div class="text-center">
@@ -2065,7 +2132,7 @@
                 <ngx-dropzone-preview
                   *ngFor="let f of previewDocumentRKAP"
                   [removable]="true"
-                  (removed)="onRemove(f)"
+                  (removed)="onRemoveFile(f, 'RKAP')"
                 >
                   <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
@@ -2094,6 +2161,9 @@
 
             <div>
               <ngx-dropzone
+              [disableClick]="disableKepdirAP"
+                [disabled]="false"
+                [accept]="'.pdf'"
                 (change)="onSelectDokumen($event, 'KEPDIR_AP')"
                 required
               >
@@ -2110,7 +2180,7 @@
                 <ngx-dropzone-preview
                   *ngFor="let f of previewDocumentKEPDIR_AP"
                   [removable]="true"
-                  (removed)="onRemove(f)"
+                  (removed)="onRemoveFile(f, 'KEPDIR_AP')"
                 >
                   <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
@@ -2139,6 +2209,9 @@
 
             <div>
               <ngx-dropzone
+              [disableClick]="disablePaktaAP"
+                [disabled]="false"
+                [accept]="'.pdf'"
                 (change)="onSelectDokumen($event, 'PAKTA_INTEGRITAS_AP')"
                 required
               >
@@ -2155,7 +2228,7 @@
                 <ngx-dropzone-preview
                   *ngFor="let f of previewPaktaIntegritasAP"
                   [removable]="true"
-                  (removed)="onRemove(f)"
+                  (removed)="onRemoveFile(f, 'PAKTA_AP')"
                 >
                   <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
@@ -2184,6 +2257,9 @@
 
             <div>
               <ngx-dropzone
+              [disableClick]="disableDekom"
+                [disabled]="false"
+                [accept]="'.pdf'"
                 (change)="onSelectDokumen($event, 'REKOMENDASI_DEKOM')"
                 required
               >
@@ -2200,7 +2276,7 @@
                 <ngx-dropzone-preview
                   *ngFor="let f of previewRekomendasiDekom"
                   [removable]="true"
-                  (removed)="onRemove(f)"
+                  (removed)="onRemoveFile(f, 'REKOMENDASI_DEKOM')"
                 >
                   <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
@@ -2229,6 +2305,9 @@
 
             <div>
               <ngx-dropzone
+              [disableClick]="disableDokumenLainnyaAP"
+                [disabled]="false"
+                [accept]="'.pdf'"
                 (change)="onSelectDokumen($event, 'DOKUMEN_LAINNYA_AP')"
                 required
               >
@@ -2245,7 +2324,7 @@
                 <ngx-dropzone-preview
                   *ngFor="let f of previewDocumentLainnyaAP"
                   [removable]="true"
-                  (removed)="onRemove(f)"
+                  (removed)="onRemoveFile(f, 'DOKUMEN_LAINNYA_AP')"
                 >
                   <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
                 </ngx-dropzone-preview>

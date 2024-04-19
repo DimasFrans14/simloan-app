@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnInit, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
@@ -129,6 +129,9 @@ export class ShlCreateAgreementComponent implements OnInit{
     pembayaranPokokPinjaman: ['PRORATE', Validators.required],
     interestType: ['FIXED', Validators.required],
     bunga: ['', Validators.required],
+    jadwalPokokPinjaman: ['', Validators.required],
+    jadwalBungaPinjaman: ['', Validators.required],
+    syaratPenarikan: ['', Validators.required],
   });
 
   penerusanPinjamanForm = this._formBuilder.group({
@@ -219,6 +222,13 @@ export class ShlCreateAgreementComponent implements OnInit{
   ];
 
   disableKepdir: boolean = false;
+  disablePakta: boolean = false;
+  disableDokumenLainnya: boolean = false;
+  disableRKAP: boolean = false;
+  disableKepdirAP: boolean = false;
+  disablePaktaAP: boolean = false;
+  disableDekom: boolean = false;
+  disableDokumenLainnyaAP: boolean = false;
 
   onSelectDokumen(event: { addedFiles: any }, section: string) {
     let allDocumentsUploaded;
@@ -270,6 +280,13 @@ export class ShlCreateAgreementComponent implements OnInit{
           (docArray) => docArray.length > 0
         );
 
+        if(this.documentPaktaIntegritas.length > 0){
+          this.disablePakta = true;
+        }
+        else{
+          this.disablePakta = false;
+        }
+
         if (allDocumentsUploaded) {
           this.isDisable = false;
         }
@@ -279,11 +296,17 @@ export class ShlCreateAgreementComponent implements OnInit{
         this.previewDocumentLainnya.push(...event.addedFiles);
         this.documentLainnya.push(...event.addedFiles);
 
-
         this.allFileUpload.push(...event.addedFiles);
         allDocumentsUploaded = this.allDocumentsUploaded.every(
           (docArray) => docArray.length > 0
         );
+
+        if(this.documentLainnya.length > 0){
+          this.disableDokumenLainnya = true;
+        }
+        else{
+          this.disableDokumenLainnya = false;
+        }
 
         if (allDocumentsUploaded) {
           this.isDisable = false;
@@ -300,6 +323,13 @@ export class ShlCreateAgreementComponent implements OnInit{
           (docArray) => docArray.length > 0
         );
 
+        // if(this.documentLainnya.length > 0){
+        //   this.disableDokumenLainnya = true;
+        // }
+        // else{
+        //   this.disableDokumenLainnya = false;
+        // }
+
         if (allDocumentsUploaded) {
           this.isDisable = false;
         }
@@ -310,11 +340,17 @@ export class ShlCreateAgreementComponent implements OnInit{
         this.documentRKAP.push(...event.addedFiles);
         this.dokumenAnakPerusahaan.push(...event.addedFiles);
 
-
         this.allFileUpload.push(...event.addedFiles);
         allDocumentsUploaded = this.allDocumentsUploaded.every(
           (docArray) => docArray.length > 0
         );
+
+        if(this.documentRKAP.length > 0){
+          this.disableRKAP = true;
+        }
+        else{
+          this.disableRKAP = false;
+        }
 
         if (allDocumentsUploaded) {
           this.isDisable = false;
@@ -332,6 +368,13 @@ export class ShlCreateAgreementComponent implements OnInit{
           (docArray) => docArray.length > 0
         );
 
+        if(this.documentKEPDIR_AP.length > 0){
+          this.disableKepdirAP = true;
+        }
+        else{
+          this.disableKepdirAP = false;
+        }
+
         if (allDocumentsUploaded) {
           this.isDisable = false;
         }
@@ -348,6 +391,13 @@ export class ShlCreateAgreementComponent implements OnInit{
           (docArray) => docArray.length > 0
         );
 
+        if(this.documentPaktaIntegritasAP.length > 0){
+          this.disablePaktaAP = true;
+        }
+        else{
+          this.disablePaktaAP = false;
+        }
+
         if (allDocumentsUploaded) {
           this.isDisable = false;
         }
@@ -363,6 +413,13 @@ export class ShlCreateAgreementComponent implements OnInit{
         allDocumentsUploaded = this.allDocumentsUploaded.every(
           (docArray) => docArray.length > 0
         );
+
+        if(this.documentRekomendasiDekom.length > 0){
+          this.disableDekom = true;
+        }
+        else{
+          this.disableDekom = false;
+        }
 
         if (allDocumentsUploaded) {
           this.isDisable = false;
@@ -381,6 +438,13 @@ export class ShlCreateAgreementComponent implements OnInit{
           (docArray) => docArray.length > 0
         );
 
+        if(this.documentLainnyaAP.length > 0){
+          this.disableDokumenLainnyaAP = true;
+        }
+        else{
+          this.disableDokumenLainnyaAP = false;
+        }
+
         if (allDocumentsUploaded) {
           this.isDisable = false;
         }
@@ -398,16 +462,114 @@ export class ShlCreateAgreementComponent implements OnInit{
     this.readExcel(event);
   }
 
-  onRemoveKepdirPLN(event: File) {
-    console.log(event);
-    this.previewKEPDIR.splice(this.previewKEPDIR.indexOf(event), 1);
-    console.log(this.previewKEPDIR);
+  onRemoveFile(event: File, section: string) {
+    switch(section){
+      case 'KEPDIR':
+        console.log(event);
+        this.previewKEPDIR.splice(this.previewKEPDIR.indexOf(event), 1);
+        console.log(this.previewKEPDIR);
 
-    if(this.documentKEPDIR.length > 0){
-      this.disableKepdir = false;
-    }
-    else{
-      this.disableKepdir = true;
+        if(this.documentKEPDIR.length > 0){
+          this.disableKepdir = false;
+        }
+        else{
+          this.disableKepdir = true;
+        }
+      break;
+
+      case 'PAKTA':
+        console.log(event);
+        this.previewPaktaIntegritas.splice(this.previewPaktaIntegritas.indexOf(event), 1);
+        console.log(this.previewPaktaIntegritas);
+
+        if(this.documentPaktaIntegritas.length > 0){
+          this.disablePakta = false;
+        }
+        else{
+          this.disablePakta = true;
+        }
+      break;
+
+      case 'DOKUMEN_LAINNYA':
+        console.log(event);
+        this.previewDocumentLainnya.splice(this.previewDocumentLainnya.indexOf(event), 1);
+        console.log(this.previewDocumentLainnya);
+
+        if(this.documentKEPDIR.length > 0){
+          this.disableDokumenLainnya = false;
+        }
+        else{
+          this.disableDokumenLainnya = true;
+        }
+      break;
+
+      case 'RKAP':
+        console.log(event);
+        this.previewDocumentRKAP.splice(this.previewDocumentRKAP.indexOf(event), 1);
+        console.log(this.previewDocumentRKAP);
+
+        if(this.documentRKAP.length > 0){
+          this.disableRKAP = false;
+        }
+        else{
+          this.disableRKAP = true;
+        }
+      break;
+
+      case 'KEPDIR_AP':
+        console.log(event);
+        this.previewDocumentKEPDIR_AP.splice(this.previewDocumentKEPDIR_AP.indexOf(event), 1);
+        console.log(this.previewDocumentKEPDIR_AP);
+
+        if(this.documentKEPDIR_AP.length > 0){
+          this.disableKepdirAP = false;
+        }
+        else{
+          this.disableKepdirAP = true;
+        }
+      break;
+
+      case 'PAKTA_AP':
+        console.log(event);
+        this.previewPaktaIntegritasAP.splice(this.previewPaktaIntegritasAP.indexOf(event), 1);
+        console.log(this.previewPaktaIntegritasAP);
+
+        if(this.documentPaktaIntegritasAP.length > 0){
+          this.disablePaktaAP = false;
+        }
+        else{
+          this.disablePaktaAP = true;
+        }
+      break;
+
+      case 'REKOMENDASI_DEKOM':
+        console.log(event);
+        this.previewRekomendasiDekom.splice(this.previewRekomendasiDekom.indexOf(event), 1);
+        console.log(this.previewRekomendasiDekom);
+
+        if(this.documentRekomendasiDekom.length > 0){
+          this.disableDekom = false;
+        }
+        else{
+          this.disableDekom = true;
+        }
+      break;
+
+      case 'DOKUMEN_LAINNYA_AP':
+        console.log(event);
+        this.previewDocumentLainnyaAP.splice(this.previewDocumentLainnyaAP.indexOf(event), 1);
+        console.log(this.previewDocumentLainnyaAP);
+
+        if(this.documentLainnyaAP.length > 0){
+          this.disableDokumenLainnyaAP = false;
+        }
+        else{
+          this.disableDokumenLainnyaAP = true;
+        }
+      break;
+
+      default: alert('no section');
+
     }
   }
 
@@ -431,6 +593,7 @@ export class ShlCreateAgreementComponent implements OnInit{
 
   getDataProject = (param: number) => {
     // console.log(param);
+    console.log(this.secondFormGroup.value);
 
     if(this.secondFormGroup.value != null){
 
@@ -450,6 +613,9 @@ export class ShlCreateAgreementComponent implements OnInit{
         pembayaranPokokPinjaman: this.secondFormGroup.get('pembayaranPokokPinjaman')?.value,
         interestType: this.secondFormGroup.get('interestType')?.value,
         bunga: this.secondFormGroup.get('bunga')?.value,
+        jadwalPokokPinjaman: this.secondFormGroup.get('jadwalPokokPinjaman')?.value,
+        jadwalBungaPinjaman: this.secondFormGroup.get('jadwalBungaPinjaman')?.value,
+        syaratPenarikan: this.secondFormGroup.get('syaratPenarikan')?.value,
       }
 
       const getCheckDataFirst = localStorage.getItem('allDataProjectAgreement');
@@ -471,43 +637,80 @@ export class ShlCreateAgreementComponent implements OnInit{
           console.log('data dobel');
         }
         else{
-          this.allDataProject.push(data)
-          localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
+          if(data.namaProyek != '' && data.namaProyek != null){
+            this.allDataProject.push(data)
+            localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
+          }
+          else{
+
+          }
         }
       }
       else{
-        this.allDataProject.push(data)
-        localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
+        // this.allDataProject.push(data)
+        // localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
+        console.log('no object');
+
       }
 
-      this.allDataProject.push(data)
-      localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
+      // this.allDataProject.push(data)
+      // localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
     }
 
     const getProjectData = localStorage.getItem('allDataProjectAgreement');
+    console.log(getProjectData);
+
     getProjectData ? this.dataProjectIndex = JSON.parse(getProjectData) : {}
 
     this.dataProjectIndex = this.dataProjectIndex[param - 1];
 
     console.log(this.dataProjectIndex);
 
-    this.secondFormGroup = this._formBuilder.group({
-      namaProyek: [this.dataProjectIndex.namaProyek, Validators.required],
-      totalPagu: [this.dataProjectIndex.totalPagu, Validators.required],
-      berakhirPerjanjian: [this.dataProjectIndex.berakhirPerjanjian, Validators.required],
-      deskripsiBerakhirPerjanjian: [this.dataProjectIndex.deskripsiBerakhirPerjanjian, Validators.required],
-      availabilityPeriode: [this.dataProjectIndex.availabilityPeriode, Validators.required],
-      deskripsiAvailabilityPeriode: [this.dataProjectIndex.deskripsiAvailabilityPeriode, Validators.required],
-      gracePeriod: [this.dataProjectIndex.gracePeriod, Validators.required],
-      deskripsiGracePeriod: [this.dataProjectIndex.deskripsiGracePeriod, Validators.required],
-      tenor: [this.dataProjectIndex.tenor, Validators.required],
-      repaymentMethod: [this.dataProjectIndex.repaymentMethod, Validators.required],
-      dateRepayment: [this.dataProjectIndex.dateRepayment, Validators.required],
-      deskripsiDenda: [this.dataProjectIndex.deskripsiDenda, Validators.required],
-      pembayaranPokokPinjaman: [this.dataProjectIndex.pembayaranPokokPinjaman, Validators.required],
-      interestType: [this.dataProjectIndex.interestType, Validators.required],
-      bunga: [this.dataProjectIndex.bunga, Validators.required],
-    });
+    if(this.dataProjectIndex != undefined){
+      this.secondFormGroup = this._formBuilder.group({
+        namaProyek: [this.dataProjectIndex.namaProyek, Validators.required],
+        totalPagu: [this.dataProjectIndex.totalPagu, Validators.required],
+        berakhirPerjanjian: [this.dataProjectIndex.berakhirPerjanjian, Validators.required],
+        deskripsiBerakhirPerjanjian: [this.dataProjectIndex.deskripsiBerakhirPerjanjian, Validators.required],
+        availabilityPeriode: [this.dataProjectIndex.availabilityPeriode, Validators.required],
+        deskripsiAvailabilityPeriode: [this.dataProjectIndex.deskripsiAvailabilityPeriode, Validators.required],
+        gracePeriod: [this.dataProjectIndex.gracePeriod, Validators.required],
+        deskripsiGracePeriod: [this.dataProjectIndex.deskripsiGracePeriod, Validators.required],
+        tenor: [this.dataProjectIndex.tenor, Validators.required],
+        repaymentMethod: [this.dataProjectIndex.repaymentMethod, Validators.required],
+        dateRepayment: [this.dataProjectIndex.dateRepayment, Validators.required],
+        deskripsiDenda: [this.dataProjectIndex.deskripsiDenda, Validators.required],
+        pembayaranPokokPinjaman: [this.dataProjectIndex.pembayaranPokokPinjaman, Validators.required],
+        interestType: [this.dataProjectIndex.interestType, Validators.required],
+        bunga: [this.dataProjectIndex.bunga, Validators.required],
+        jadwalPokokPinjaman: [this.dataProjectIndex.jadwalPokokPinjaman, Validators.required],
+        jadwalBungaPinjaman: [this.dataProjectIndex.jadwalBungaPinjaman, Validators.required],
+        syaratPenarikan: [this.dataProjectIndex.syaratPenarikan, Validators.required],
+      });
+    }
+    else{
+      this.secondFormGroup = this._formBuilder.group({
+        namaProyek: ['', Validators.required],
+        totalPagu: ['', Validators.required],
+        berakhirPerjanjian: ['FREE_TEXT', Validators.required],
+        deskripsiBerakhirPerjanjian: ['', Validators.required],
+        availabilityPeriode: ['FREE_TEXT', Validators.required],
+        deskripsiAvailabilityPeriode: ['', Validators.required],
+        gracePeriod: ['FREE_TEXT', Validators.required],
+        deskripsiGracePeriod: ['', Validators.required],
+        tenor: ['', Validators.required],
+        repaymentMethod: ['', Validators.required],
+        dateRepayment: ['', Validators.required],
+        deskripsiDenda: ['', Validators.required],
+        pembayaranPokokPinjaman: ['PRORATE', Validators.required],
+        interestType: ['FIXED', Validators.required],
+        bunga: ['', Validators.required],
+        jadwalPokokPinjaman: ['', Validators.required],
+        jadwalBungaPinjaman: ['', Validators.required],
+        syaratPenarikan: ['', Validators.required],
+      });
+    }
+
   }
 
   tambahProject = () => {
@@ -531,6 +734,9 @@ export class ShlCreateAgreementComponent implements OnInit{
       pembayaranPokokPinjaman: this.secondFormGroup.get('pembayaranPokokPinjaman')?.value,
       interestType: this.secondFormGroup.get('interestType')?.value,
       bunga: this.secondFormGroup.get('bunga')?.value,
+      jadwalPokokPinjaman: this.secondFormGroup.get('jadwalPokokPinjaman')?.value,
+      jadwalBungaPinjaman: this.secondFormGroup.get('jadwalBungaPinjaman')?.value,
+      syaratPenarikan: this.secondFormGroup.get('syaratPenarikan')?.value,
     }
 
     const getCheckDataFirst = localStorage.getItem('allDataProjectAgreement');
@@ -552,8 +758,14 @@ export class ShlCreateAgreementComponent implements OnInit{
         console.log('data dobel');
       }
       else{
-        this.allDataProject.push(data)
-        localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
+        if(tempData[tempData.length - 1].namaProyek === null){
+          tempData[tempData.length - 1] = data;
+          localStorage.setItem('allDataProjectAgreement', JSON.stringify(tempData));
+        }
+        else{
+          this.allDataProject.push(data)
+          localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
+        }
       }
     }
     else{
@@ -564,7 +776,26 @@ export class ShlCreateAgreementComponent implements OnInit{
     // this.allDataProject.push(data)
     // localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
 
-    this.secondFormGroup.reset();
+    this.secondFormGroup = this._formBuilder.group({
+      namaProyek: ['', Validators.required],
+      totalPagu: ['', Validators.required],
+      berakhirPerjanjian: ['FREE_TEXT', Validators.required],
+      deskripsiBerakhirPerjanjian: ['', Validators.required],
+      availabilityPeriode: ['FREE_TEXT', Validators.required],
+      deskripsiAvailabilityPeriode: ['', Validators.required],
+      gracePeriod: ['FREE_TEXT', Validators.required],
+      deskripsiGracePeriod: ['', Validators.required],
+      tenor: ['', Validators.required],
+      repaymentMethod: ['', Validators.required],
+      dateRepayment: ['', Validators.required],
+      deskripsiDenda: ['', Validators.required],
+      pembayaranPokokPinjaman: ['PRORATE', Validators.required],
+      interestType: ['FIXED', Validators.required],
+      bunga: ['', Validators.required],
+      jadwalPokokPinjaman: ['', Validators.required],
+      jadwalBungaPinjaman: ['', Validators.required],
+      syaratPenarikan: ['', Validators.required],
+    });
   }
 
   isPenerusanPinjaman: boolean = false;
