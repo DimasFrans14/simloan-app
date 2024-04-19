@@ -5,24 +5,83 @@
   <div id="header" class="header">
     <div class="col-12 bg-white sub-nav border-top">
       <div class="d-flex justify-content-between align-items-center">
-        <div class="me-2">
-          <h4>Loan Monitoring</h4>
+        <div class="d-flex justify-content-center align-items-center">
+          <div>
+            <a style="cursor: pointer;">
+              <i class="bi bi-arrow-left me-1"></i>
+            </a>
+            </div>
+          <div class="me-2">
+            <h4>Loan Monitoring</h4>
+          </div>
         </div>
 
         <button
           type="button"
           class="btn btn-primary me-4"
           style="font-size: 14px"
-          [routerLink]="['/shl_monitoring']"
-          routerLinkActive="active"
+          data-bs-toggle="modal"
+          data-bs-target="#inputPembayaran"
         >
           <i class="bi bi-plus-lg me-1"></i>Input Pembayaran
         </button>
+
+        <div class="modal fade" id="inputPembayaran" tabindex="-1" aria-labelledby="inputPembayaranLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="inputPembayaranLabel">Pilih Tipe Pembayaran</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="d-flex justify-content-center align-items-baseline">
+                  <div class="form-check input-pengembalian me-2">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="repayment"
+                      id="Repayment"
+                      [value]="'Repayment'"
+                      checked
+                    />
+                    <label class="form-check-label" for="Repayment"> Repayment </label>
+                  </div>
+                  <div class="form-check input-pengembalian">
+                    <input
+                      class="form-check-input me-1"
+                      type="radio"
+                      name="repayment"
+                      id="Prepayment"
+                      [value]="'Prepayment'"
+                    />
+                    <label class="form-check-label" for="Prepayment">
+                      Prepayment
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                  <button type="button" class="btn btn-outline-light border text-dark" data-bs-dismiss="modal">Kembali</button>
+                  <button type="button" class="btn btn-primary" (click)="navigateToInputPembayaran()">Lanjutkan</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-start align-items-center text-dark mt-3">
+        <a class="submenu-market" tabindex="0" [style.border-bottom]="skedulPembayaranDisplay ? '2px solid #2E75F0' : ''" [style.color]="skedulPembayaranDisplay ? '#2E75F0': '' " (click)="skedulPembayaran()">Skedul Pembayaran</a>
+        <a class="submenu-market" tabindex="0" (click)="dokumenPembayaran()">Kelengkapan Dokumen Pembayaran</a>
       </div>
     </div>
   </div>
 
   <main class="main" id="main">
-    <div>tes {{dataDetailLoan.id}}</div>
+    <div class="bg-white p-3 rounded">
+      <span class="fw-semibold">Skedul Pembayaran</span>
+    </div>
+    <div class="table-SHLMonitoringLoanDetail"></div>
   </main>
 </div>

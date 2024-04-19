@@ -1,0 +1,1060 @@
+<div>
+  <app-header></app-header>
+  <app-sidebar></app-sidebar>
+
+  <div id="header" class="header">
+    <div class="col-12 bg-white sub-nav border-top">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-center align-items-center">
+          <div>
+            <a style="cursor: pointer;">
+              <i class="bi bi-arrow-left me-1"></i>
+            </a>
+            </div>
+          <div class="me-2">
+            <h4>Input {{paymentType}}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="main" id="main">
+
+    <mat-stepper [linear]="false" #stepper>
+      <!-- STEP 1 -->
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Input {{paymentType}}</ng-template>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4"
+                >Angsuran</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="d-flex justify-content-end align-items-center gap-2">
+              <input
+              matInput
+              type="text"
+              class="form-control input-number-agreement"
+              id="noSHL"
+              placeholder="Masukan Nomor SHL Agreement Number"
+              formControlName="angsuran"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && firstFormGroup.controls.angsuran.errors
+              }"
+              required
+            />
+
+            <button type="button" class="btn btn-outline-primary">View Skedul</button>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >Tanggal Jatuh Tempo
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <mat-form-field class="ms-2 input-date-agreement">
+            <mat-label class="label-datepicker">Select Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="tanggalJatuhTempo"
+              autocomplete="off"
+              [ngClass]="{
+                'is-invalid':
+                  submitted &&
+                  firstFormGroup.controls.tanggalJatuhTempo.errors
+              }"
+              formControlName="tanggalJatuhTempo"
+              style="color: black"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="tanggalJatuhTempo"
+            ></mat-datepicker-toggle>
+            <mat-datepicker
+              #tanggalJatuhTempo
+              color="primary"
+              disabled="false"
+            ></mat-datepicker>
+          </mat-form-field>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4"
+                >Tanggal Terima</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <mat-form-field class="ms-2 input-date-agreement">
+              <mat-label class="label-datepicker">Select Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="tanggalTerima"
+                autocomplete="off"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted &&
+                    firstFormGroup.controls.tanggalTerima.errors
+                }"
+                formControlName="tanggalTerima"
+                style="color: black"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="tanggalTerima"
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                #tanggalTerima
+                color="primary"
+                disabled="false"
+              ></mat-datepicker>
+            </mat-form-field>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4"
+                >Pembayaran</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-baseline">
+              <div class="form-check input-pengembalian me-2">
+                <input
+                  class="form-check-input me-1"
+                  type="checkbox"
+                  name="pembayaran_pokok"
+                  id="pokok"
+                  [value]="'pokok'"
+                  formControlName="pembayaran_pokok"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted &&
+                      firstFormGroup.controls.pembayaran_pokok
+                        .errors
+                  }"
+                  (change)="changePembayaranPokok()"
+                  required
+                />
+                <label class="form-check-label" for="pokok">
+                  Pokok
+                </label>
+              </div>
+              <div class="form-check input-pengembalian">
+                <input
+                  class="form-check-input me-1"
+                  type="checkbox"
+                  name="pembayaran_bunga"
+                  id="bunga"
+                  [value]="'bunga'"
+                  formControlName="pembayaran_bunga"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted &&
+                      firstFormGroup.controls.pembayaran_bunga
+                        .errors
+                  }"
+                  (change)="changePembayaranBunga()"
+                  required
+                />
+                <label class="form-check-label" for="bunga">
+                  Bunga
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center" *ngIf="pembayaranPokok">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Pokok</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-tenor"
+                      id="tenor"
+                      placeholder=""
+                      formControlName="diterimaPLN"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && firstFormGroup.controls.diterimaPLN.errors
+                      }"
+                      required
+                    />
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      id="buttonTenor"
+                    >
+                      IDR
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>IDR</li>
+                      <li>USD</li>
+                    </ul>
+                  </div>
+                </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center" *ngIf="pembayaranBunga">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Bunga</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-tenor"
+                      id="tenor"
+                      placeholder=""
+                      formControlName="diterimaPLN"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && firstFormGroup.controls.diterimaPLN.errors
+                      }"
+                      required
+                    />
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      id="buttonTenor"
+                    >
+                      IDR
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>IDR</li>
+                      <li>USD</li>
+                    </ul>
+                  </div>
+                </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Pembayaran</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-baseline">
+              <div class="form-check input-pengembalian me-2">
+                <input
+                  class="form-check-input me-1"
+                  type="checkbox"
+                  name="pembayaran_pph"
+                  id="pph23"
+                  [value]="'pph23'"
+                  formControlName="pembayaran_pph"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted &&
+                      firstFormGroup.controls.pembayaran_pph
+                        .errors
+                  }"
+                  (change)="changePembayaranPPH23()"
+                  required
+                />
+                <label class="form-check-label" for="pph23">
+                  Pot. Pph 23
+                </label>
+              </div>
+              <div class="form-check input-pengembalian">
+                <input
+                  class="form-check-input me-1"
+                  type="checkbox"
+                  name="pembayaran_skb"
+                  id="skb"
+                  [value]="'skb'"
+                  formControlName="pembayaran_skb"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted &&
+                      firstFormGroup.controls.pembayaran_skb
+                        .errors
+                  }"
+                  (change)="changePembayaranSKB()"
+                  required
+                />
+                <label class="form-check-label" for="skb">
+                  SKB
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center" *ngIf="pembayaranPPH23">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Potongan PPH 23</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-tenor"
+                      id="tenor"
+                      placeholder=""
+                      formControlName="diterimaPLN"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && firstFormGroup.controls.diterimaPLN.errors
+                      }"
+                      required
+                    />
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      id="buttonTenor"
+                    >
+                      IDR
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>IDR</li>
+                      <li>USD</li>
+                    </ul>
+                  </div>
+                </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center" *ngIf="pembayaranSKB">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">SKB</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-tenor"
+                      id="tenor"
+                      placeholder=""
+                      formControlName="diterimaPLN"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && firstFormGroup.controls.diterimaPLN.errors
+                      }"
+                      required
+                    />
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      id="buttonTenor"
+                    >
+                      IDR
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>IDR</li>
+                      <li>USD</li>
+                    </ul>
+                  </div>
+                </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Denda</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-baseline">
+              <div class="form-check input-pengembalian me-2">
+                <input
+                  class="form-check-input me-1"
+                  type="radio"
+                  name="denda"
+                  id="isTrue"
+                  [value]="'isTrue'"
+                  formControlName="denda"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted &&
+                      firstFormGroup.controls.denda
+                        .errors
+                  }"
+                  (change)="changePembayaranDenda()"
+                  required
+                />
+                <label class="form-check-label" for="isTrue">
+                  Ya
+                </label>
+              </div>
+              <div class="form-check input-pengembalian">
+                <input
+                  class="form-check-input me-1"
+                  type="radio"
+                  name="denda"
+                  id="isFalse"
+                  [value]="'isFalse'"
+                  formControlName="denda"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted &&
+                      firstFormGroup.controls.denda
+                        .errors
+                  }"
+                  (change)="changePembayaranDenda()"
+                  required
+                />
+                <label class="form-check-label" for="isFalse">
+                  No
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center" *ngIf="pembayaranDenda === 'isTrue'">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Nominal Denda</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-tenor"
+                      id="tenor"
+                      placeholder=""
+                      formControlName="diterimaPLN"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && firstFormGroup.controls.diterimaPLN.errors
+                      }"
+                      required
+                    />
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      id="buttonTenor"
+                    >
+                      IDR
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>IDR</li>
+                      <li>USD</li>
+                    </ul>
+                  </div>
+                </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Diterima PLN</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-tenor"
+                      id="tenor"
+                      placeholder=""
+                      formControlName="diterimaPLN"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && firstFormGroup.controls.diterimaPLN.errors
+                      }"
+                      required
+                    />
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      id="buttonTenor"
+                    >
+                      IDR
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>IDR</li>
+                      <li>USD</li>
+                    </ul>
+                  </div>
+                </div>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Total Kewajiban</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-disabled"
+                      id="tenor"
+                      placeholder=""
+                      disabled
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      id="buttonTenor"
+                      disabled
+                    >
+                      IDR
+                    </button>
+                  </div>
+                </div>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Selisih Pembayaran Pokok</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-disabled"
+                      id="tenor"
+                      placeholder=""
+                      disabled
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      id="buttonTenor"
+                      disabled
+                    >
+                      IDR
+                    </button>
+                  </div>
+                </div>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Selisih Pembayaran Bunga</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-disabled"
+                      id="tenor"
+                      placeholder=""
+                      disabled
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      id="buttonTenor"
+                      disabled
+                    >
+                      IDR
+                    </button>
+                  </div>
+                </div>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Selisih Tanggal Pembayaran</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-disabled"
+                      id="tenor"
+                      placeholder=""
+                      disabled
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      id="buttonTenor"
+                      disabled
+                    >
+                      IDR
+                    </button>
+                  </div>
+                </div>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Notes</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="mb-3">
+              <textarea
+                class="form-control text-area-deskripsi-proyek"
+                id="notes"
+                rows="3"
+                placeholder="notes"
+              ></textarea>
+            </div>
+
+          </div>
+
+          <div>
+            <button mat-button (click)="submitFirstForm()">Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- STEP 2 -->
+      <mat-step>
+        <form>
+          <ng-template matStepLabel>Upload Dokumen</ng-template>
+          <div class="d-flex justify-content-between align-items-start my-4">
+            <div class="d-flex justify-content-baseline">
+              <div>
+                <span class="label-inputAgreement mb-4 me-1">Upload Dokumen</span>
+                <br />
+                <span class="subtitle-dokumen">Maimum file size 2MB</span>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <!-- <ngx-dropzone (change)="onSelectDokumen($event, 'PLN')">
+              <ngx-dropzone-label>
+                <img src="./assets/icon/upload-cloud-02.svg" alt="" />
+                <div class="text-center">
+                  Drag and Drop here or
+                  <span class="text-primary">Browser here</span>
+
+                </div>
+              </ngx-dropzone-label>
+              <ngx-dropzone-preview
+                *ngFor="let f of parameterCurrency"
+                [removable]="true"
+                (removed)="onRemove(f)"
+              >
+                <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+              </ngx-dropzone-preview>
+            </ngx-dropzone> -->
+          </div>
+
+          <div class="d-flex justify-content-between align-items-start my-4">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >Bukti Transfer</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <ngx-dropzone
+                [disabled]="false"
+                [accept]="'.pdf'"
+                (change)="onSelectDokumen($event, 'buktiTF')"
+                required
+              >
+                <ngx-dropzone-label>
+                  <img src="./assets/icon/upload-cloud-02.svg" alt="" />
+                  <div class="text-center">
+                    Drag and Drop here or
+                    <span class="text-primary">Browser here</span>
+                    <!-- <div *ngIf="submitted && thirdFormGroup.controls.kepdirSirkuler.errors" class="text-danger">
+                      Please upload a file.
+                    </div> -->
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview
+                  *ngFor="let f of previewbuktiTF"
+                  [removable]="true"
+                  (removed)="onRemoveKepdirPLN(f)"
+                >
+                  <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-start my-4">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >Dokumen Potong Pajak</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <ngx-dropzone
+                (change)="onSelectDokumen($event, 'dokPotongPajak')"
+                required
+              >
+                <ngx-dropzone-label>
+                  <img src="./assets/icon/upload-cloud-02.svg" alt="" />
+                  <div class="text-center">
+                    Drag and Drop here or
+                    <span class="text-primary">Browser here</span>
+                    <!-- <div *ngIf="submitted && thirdFormGroup.controls.paktaIntegritas.errors" class="text-danger">
+                      Please upload a file.
+                    </div> -->
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview
+                  *ngFor="let f of previewdokPotongPajak"
+                  [removable]="true"
+                  (removed)="onRemove(f)"
+                >
+                  <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-start my-4">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >Dokumen Lainnya</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <ngx-dropzone
+                (change)="onSelectDokumen($event, 'DOKUMEN_LAINNYA')"
+                required
+              >
+                <ngx-dropzone-label>
+                  <img src="./assets/icon/upload-cloud-02.svg" alt="" />
+                  <div class="text-center">
+                    Drag and Drop here or
+                    <span class="text-primary">Browser here</span>
+                    <!-- <div *ngIf="submitted && thirdFormGroup.controls.dokumenLainnya.errors" class="text-danger">
+                      Please upload a file.
+                    </div> -->
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview
+                  *ngFor="let f of previewDocumentLainnya"
+                  [removable]="true"
+                  (removed)="onRemove(f)"
+                >
+                  <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end align-items-center">
+            <!-- <button mat-button matStepperPrevious>Back</button> -->
+            <button
+              type="button"
+              class="btn btn-outline-secondary bg-transparant p-2 rounded me-2"
+            >
+              Save as Draft
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary p-2 rounded"
+              [disabled]="false"
+            >
+              Preview
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- STEP 3 -->
+      <mat-step>
+        <ng-template matStepLabel>Agreement Document</ng-template>
+
+      </mat-step>
+    </mat-stepper>
+
+  </main>
+</div>

@@ -78,6 +78,8 @@ import { ShlCreateScheduleComponent } from './dashboard/shl/shl-schedule/shl-cre
 import { ShlMonitoringComponent } from './dashboard/shl/shl-monitoring/shl-monitoring.component';
 import { ShlMonitoringDetailComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-monitoring-detail.component';
 import { ShlLoanDetailComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-loan-detail/shl-loan-detail.component';
+import { InputPembayaranComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-loan-detail/input-pembayaran/input-pembayaran.component';
+import { ShlSimulationComponent } from './dashboard/shl/shl-simulation/shl-simulation.component';
 
 @NgModule({
   declarations: [
@@ -133,7 +135,9 @@ import { ShlLoanDetailComponent } from './dashboard/shl/shl-monitoring/shl-monit
     ShlMonitoringComponent,
     ShlMonitoringDetailComponent,
     ShlLoanDetailComponent,
-    DetailComponent
+    DetailComponent,
+    InputPembayaranComponent,
+    ShlSimulationComponent,
   ],
   imports: [
     BrowserModule,
@@ -148,7 +152,7 @@ import { ShlLoanDetailComponent } from './dashboard/shl/shl-monitoring/shl-monit
     HttpClientModule,
     NgxDropzoneModule,
     NgxCaptureModule,
-    FormsModule, 
+    FormsModule,
     MatStepperModule,
     MatButtonModule,
     MatDividerModule,
