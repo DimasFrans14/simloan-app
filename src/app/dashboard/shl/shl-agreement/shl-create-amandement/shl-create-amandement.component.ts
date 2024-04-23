@@ -3,18 +3,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { format } from 'path';
 import { first } from 'rxjs';
 import { MasterAnakPerusahaanService } from 'src/app/services/master_anakPerusahaan/master-anak-perusahaan.service';
 import { ShlAgreementService } from 'src/app/services/shl_agreement_service/shl-agreement.service';
 import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'app-shl-create-agreement',
-  templateUrl: './shl-create-agreement.component.html',
-  styleUrls: ['./shl-create-agreement.component.css'],
+  selector: 'app-shl-create-amandement',
+  templateUrl: './shl-create-amandement.component.html',
+  styleUrls: ['./shl-create-amandement.component.css']
 })
-export class ShlCreateAgreementComponent implements OnInit{
+export class ShlCreateAmandementComponent {
   @ViewChild('stepper') stepper!: MatStepper;
 
   constructor(
@@ -86,17 +85,7 @@ export class ShlCreateAgreementComponent implements OnInit{
   submitted: boolean = false;
   isDisable: boolean = true;
 
-  freeTextBerakhirPerjanjian: boolean = true;
-  freeTextAvailabilityPeriod: boolean = true;
-  freeTextGracePeriod: boolean = true;
-
-  dateBerakhirPerjanjian: boolean = false;
-  dateAvailabilityPeriod: boolean = false;
-  dateGracePeriod: boolean = false;
-
   dataMasterAnakPerusahaan: any;
-
-  dateVal: any = { value: new Date() };
 
   anakPerusahaan = [
     { id: 1, name: 'PT Indonesia Comnets Plus' },
@@ -127,12 +116,12 @@ export class ShlCreateAgreementComponent implements OnInit{
   secondFormGroup = this._formBuilder.group({
     namaProyek: ['', Validators.required],
     totalPagu: ['', Validators.required],
-    // berakhirPerjanjian: ['FREE_TEXT', Validators.required],
-    // deskripsiBerakhirPerjanjian: ['', Validators.required],
-    // availabilityPeriode: ['FREE_TEXT', Validators.required],
-    // deskripsiAvailabilityPeriode: ['', Validators.required],
-    // gracePeriod: ['FREE_TEXT', Validators.required],
-    // deskripsiGracePeriod: ['', Validators.required],
+    berakhirPerjanjian: ['FREE_TEXT', Validators.required],
+    deskripsiBerakhirPerjanjian: ['', Validators.required],
+    availabilityPeriode: ['FREE_TEXT', Validators.required],
+    deskripsiAvailabilityPeriode: ['', Validators.required],
+    gracePeriod: ['FREE_TEXT', Validators.required],
+    deskripsiGracePeriod: ['', Validators.required],
     tenor: ['', Validators.required],
     repaymentMethod: ['', Validators.required],
     dateRepayment: ['', Validators.required],
@@ -194,37 +183,6 @@ export class ShlCreateAgreementComponent implements OnInit{
     this.berakhirPerjanjian =
       this.secondFormGroup.get('berakhirPerjanjian')?.value;
     console.log(this.berakhirPerjanjian);
-  }
-
-  checkboxEvent = (section: string, params: string) => {
-    switch(section){
-      case "berakhir_perjanjian":
-        if(params === 'free_text'){
-          this.freeTextBerakhirPerjanjian = !this.freeTextBerakhirPerjanjian;
-        }
-        else{
-          this.dateBerakhirPerjanjian = !this.dateBerakhirPerjanjian;
-        }
-      break;
-
-      case "availability_period":
-        if(params === 'free_text'){
-          this.freeTextAvailabilityPeriod = !this.freeTextAvailabilityPeriod;
-        }
-        else{
-          this.dateAvailabilityPeriod = !this.dateAvailabilityPeriod;
-        }
-      break;
-
-      case "grace_period":
-        if(params === 'free_text'){
-          this.freeTextGracePeriod = !this.freeTextGracePeriod;
-        }
-        else{
-          this.dateGracePeriod = !this.dateGracePeriod;
-        }
-      break;
-    }
   }
 
   availabilityPeriodeClick() {
@@ -712,12 +670,12 @@ export class ShlCreateAgreementComponent implements OnInit{
       this.secondFormGroup = this._formBuilder.group({
         namaProyek: [this.dataProjectIndex.namaProyek, Validators.required],
         totalPagu: [this.dataProjectIndex.totalPagu, Validators.required],
-        // berakhirPerjanjian: [this.dataProjectIndex.berakhirPerjanjian, Validators.required],
-        // deskripsiBerakhirPerjanjian: [this.dataProjectIndex.deskripsiBerakhirPerjanjian, Validators.required],
-        // availabilityPeriode: [this.dataProjectIndex.availabilityPeriode, Validators.required],
-        // deskripsiAvailabilityPeriode: [this.dataProjectIndex.deskripsiAvailabilityPeriode, Validators.required],
-        // gracePeriod: [this.dataProjectIndex.gracePeriod, Validators.required],
-        // deskripsiGracePeriod: [this.dataProjectIndex.deskripsiGracePeriod, Validators.required],
+        berakhirPerjanjian: [this.dataProjectIndex.berakhirPerjanjian, Validators.required],
+        deskripsiBerakhirPerjanjian: [this.dataProjectIndex.deskripsiBerakhirPerjanjian, Validators.required],
+        availabilityPeriode: [this.dataProjectIndex.availabilityPeriode, Validators.required],
+        deskripsiAvailabilityPeriode: [this.dataProjectIndex.deskripsiAvailabilityPeriode, Validators.required],
+        gracePeriod: [this.dataProjectIndex.gracePeriod, Validators.required],
+        deskripsiGracePeriod: [this.dataProjectIndex.deskripsiGracePeriod, Validators.required],
         tenor: [this.dataProjectIndex.tenor, Validators.required],
         repaymentMethod: [this.dataProjectIndex.repaymentMethod, Validators.required],
         dateRepayment: [this.dataProjectIndex.dateRepayment, Validators.required],
@@ -734,12 +692,12 @@ export class ShlCreateAgreementComponent implements OnInit{
       this.secondFormGroup = this._formBuilder.group({
         namaProyek: ['', Validators.required],
         totalPagu: ['', Validators.required],
-        // berakhirPerjanjian: ['FREE_TEXT', Validators.required],
-        // deskripsiBerakhirPerjanjian: ['', Validators.required],
-        // availabilityPeriode: ['FREE_TEXT', Validators.required],
-        // deskripsiAvailabilityPeriode: ['', Validators.required],
-        // gracePeriod: ['FREE_TEXT', Validators.required],
-        // deskripsiGracePeriod: ['', Validators.required],
+        berakhirPerjanjian: ['FREE_TEXT', Validators.required],
+        deskripsiBerakhirPerjanjian: ['', Validators.required],
+        availabilityPeriode: ['FREE_TEXT', Validators.required],
+        deskripsiAvailabilityPeriode: ['', Validators.required],
+        gracePeriod: ['FREE_TEXT', Validators.required],
+        deskripsiGracePeriod: ['', Validators.required],
         tenor: ['', Validators.required],
         repaymentMethod: ['', Validators.required],
         dateRepayment: ['', Validators.required],
@@ -821,12 +779,12 @@ export class ShlCreateAgreementComponent implements OnInit{
     this.secondFormGroup = this._formBuilder.group({
       namaProyek: ['', Validators.required],
       totalPagu: ['', Validators.required],
-      // berakhirPerjanjian: ['FREE_TEXT', Validators.required],
-      // deskripsiBerakhirPerjanjian: ['', Validators.required],
-      // availabilityPeriode: ['FREE_TEXT', Validators.required],
-      // deskripsiAvailabilityPeriode: ['', Validators.required],
-      // gracePeriod: ['FREE_TEXT', Validators.required],
-      // deskripsiGracePeriod: ['', Validators.required],
+      berakhirPerjanjian: ['FREE_TEXT', Validators.required],
+      deskripsiBerakhirPerjanjian: ['', Validators.required],
+      availabilityPeriode: ['FREE_TEXT', Validators.required],
+      deskripsiAvailabilityPeriode: ['', Validators.required],
+      gracePeriod: ['FREE_TEXT', Validators.required],
+      deskripsiGracePeriod: ['', Validators.required],
       tenor: ['', Validators.required],
       repaymentMethod: ['', Validators.required],
       dateRepayment: ['', Validators.required],
@@ -941,16 +899,7 @@ export class ShlCreateAgreementComponent implements OnInit{
   }
 
   async ngOnInit(): Promise<void> {
-    const res = await this.masterAnakPerusahaan.getAnakPerusahaan();
-
-    // let dateString = "04/12/2023"
-    // let formattedDate = dateString.split("/");
-    // let day = parseInt(formattedDate[0], 10);
-    // let month = parseInt(formattedDate[1], 10);
-    // let year = parseInt(formattedDate[2], 10);
-
-    // console.log(day, month, year);
-    // console.log(new Date(year, month - 1, day));
+    const res = await this.masterAnakPerusahaan.getAnakPerusahaan()
 
     this.dataMasterAnakPerusahaan = res;
     this.dataMasterAnakPerusahaan = this.dataMasterAnakPerusahaan.data.content;

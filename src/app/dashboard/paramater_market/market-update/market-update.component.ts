@@ -347,6 +347,8 @@ export class MarketUpdateComponent implements OnInit, AfterViewInit{
             };
 
             this.toggleModal(false);
+            document.querySelector('body')?.classList.remove('modal-open');
+            document.querySelector('body')?.removeAttribute("style");
             pdfMake.createPdf(docDefinition).open();
           },
           error => {

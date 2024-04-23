@@ -3,7 +3,7 @@ import Quill from 'quill';
 import { QuillServicesService } from 'src/app/services/textArea_services/quill-services.service';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 import { NgxCaptureService } from 'ngx-capture';
-import { filter, tap } from 'rxjs';
+import { filter, forkJoin, tap } from 'rxjs';
 import PptxGenJS from 'pptxgenjs';
 import { DataService } from 'src/app/data.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
@@ -28,6 +28,13 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   @ViewChild('footnote') footnote!: ElementRef;
   @ViewChild('Mention') Mention!: ElementRef;
   @ViewChild('screen', { static: true }) screen!: ElementRef;
+
+  //Get element for Capture
+  @ViewChild('macroIndicator', { static: true }) macroIndicator!: ElementRef;
+  @ViewChild('commodityCurrency', { static: true }) commodityCurrency!: ElementRef;
+  @ViewChild('interestRate', { static: true }) interestRate!: ElementRef;
+  @ViewChild('keyTakewaysCapture', { static: true }) keyTakewaysCapture!: ElementRef;
+  @ViewChild('footnoteCapture', { static: true }) footnoteCapture!: ElementRef;
 
   constructor(private quillConfig: QuillServicesService,
      private tableConfig: TableServicesService,
@@ -182,36 +189,90 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   isCapture: boolean = false;
 
+  getQuartal: any;
+  getYear: any;
+
+  setDefaultQuartalAndYear = () => {
+    const formattedDate = moment().format("DD/MM/YYYY");
+    this.getYear = formattedDate.slice(8,10)
+    const quarter = Math.ceil(parseInt(formattedDate.slice(3, 5)) / 3);
+    switch (quarter) {
+      case 1:
+        this.getQuartal = "1Q";
+        break;
+      case 2:
+        this.getQuartal = "2Q";
+        break;
+      case 3:
+        this.getQuartal = "3Q";
+        break;
+      case 4:
+        this.getQuartal = "4Q";
+        break;
+    }
+  }
+
   async captureAndConvertToPDF() {
     this.isCapture = true;
+    setTimeout(() => {
+      // this.isCapture = false;
+        if (this.isCapture) {
+          const captureCalls = [
+            this.captureService.getImage(this.macroIndicator.nativeElement, true),
+            this.captureService.getImage(this.commodityCurrency.nativeElement, true),
+            this.captureService.getImage(this.interestRate.nativeElement, true),
+            this.captureService.getImage(this.keyTakewaysCapture.nativeElement, true),
+            this.captureService.getImage(this.footnoteCapture.nativeElement, true),
+          ];
 
-    if(this.isCapture){
-      this.captureService
-  .getImage(this.screen.nativeElement, true)
-  .pipe(
-    tap((img) => {
-      console.log(img);
-      let docDefinition = {
-      content: [
-        {
-          image: img,
-          width: 550,
+          console.log(captureCalls);
+
+
+          forkJoin(captureCalls).subscribe(
+            (images: any[]) => {
+              console.log(images);
+
+              let docDefinition: any = {
+                content: [
+                  { text: 'Macro Indicator', style: 'header' },
+                  { image: images[0], width: 520 },
+                  { text: 'Row 2', margin: [0, 10, 0, 0], style: 'header' },
+                  { image: images[1], width: 520 },
+
+                  { text: '', pageBreak: 'after' },
+
+                  { text: 'Interest Rate', margin: [0, 10, 0, 0], style: 'header' },
+                  { image: images[2], width: 520 },
+                  { text: 'Key Takeways', margin: [0, 10, 0, 0], style: 'header' },
+                  { image: images[3], width: 520 },
+
+                  { text: '', pageBreak: 'after' },
+
+                  { text: 'Footnote', margin: [0, 10, 0, 0], style: 'header' },
+                  { image: images[4], width: 520 },
+
+                ],
+                styles: {
+                  header: { fontSize: 15, bold: true },
+                }
+              };
+
+              // this.toggleModal(false);
+              // document.querySelector('body')?.classList.remove('modal-open');
+              // document.querySelector('body')?.removeAttribute("style");
+              pdfMake.createPdf(docDefinition).open();
+            },
+            error => {
+              console.error('Error capturing images:', error);
+              // this.toggleModal(false);
+              // Handle error jika ada
+            }
+          );
+        this.isCapture = false;
+        } else {
+          this.isCapture = false;
         }
-      ]
-    }
-
-    pdfMake.createPdf(docDefinition).open();
-    }),
-  )
-  .subscribe();
-    }
-    else{
-      this.isCapture = false;
-    }
-
-  setTimeout(() => {
-    this.isCapture = false;
-  }, 3500);
+      }, 2000);
   }
 
 
@@ -605,29 +666,6 @@ export class OverviewHarian implements OnInit, AfterViewInit{
 
   }
 
-  getQuartal: any;
-  getYear: any;
-
-  setDefaultQuartalAndYear = () => {
-    const formattedDate = moment().format("DD/MM/YYYY");
-    this.getYear = formattedDate.slice(8,10)
-    const quarter = Math.ceil(parseInt(formattedDate.slice(3, 5)) / 3);
-    switch (quarter) {
-      case 1:
-        this.getQuartal = "1Q";
-        break;
-      case 2:
-        this.getQuartal = "2Q";
-        break;
-      case 3:
-        this.getQuartal = "3Q";
-        break;
-      case 4:
-        this.getQuartal = "4Q";
-        break;
-    }
-  }
-
   async onDate(event: MatDatepickerInputEvent<Date>) {
     const selectedDate = event.value;
     console.log(selectedDate);
@@ -757,6 +795,7 @@ export class OverviewHarian implements OnInit, AfterViewInit{
   date:string = moment().format('DD/MM/YYYY');
   async ngOnInit(): Promise<void> {
     console.log(this.filteredDate);
+    this.setDefaultQuartalAndYear();
 
     try {
 
@@ -768,8 +807,6 @@ export class OverviewHarian implements OnInit, AfterViewInit{
       await this.fetchInterestRate();
       await this.fetchKeyTakeWays();
       await this.fetchFootnotes(this.date);
-
-      this.setDefaultQuartalAndYear();
     }
     catch(err){
       console.log(err);

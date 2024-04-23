@@ -1,0 +1,167 @@
+.submenu-market {
+  color: #000000;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s, color 0.3s;
+}
+
+.submenu-market:hover,
+.submenu-market:focus {
+  border-bottom: 2px solid #2E75F0;
+  color: #2E75F0;
+}
+
+.sub-nav{
+  margin-top: 60px;
+  padding-left: 280px;
+  /* padding-bottom: 20px; */
+  padding-top: 15px;
+}
+
+#main{
+  margin-top: 20px;
+}
+
+::ng-deep .ng-select.ng-select-single .ng-select-container {
+  width: 443px;
+}
+
+.label-inputAgreement{
+  color: var(--Color-Silver-950, #0C0C0F);
+
+/* Text xs/Bold */
+font-family: Satoshi;
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: 24px; /* 150% */
+}
+
+/* ::ng-deep .mat-mdc-form-field{
+  width: 495px;
+  height: 60px;
+  margin-top: 25px;
+} */
+
+.button-project{
+  padding: 6px 140px 6px 12px
+}
+
+.button-add-project{
+  padding: 6px 70px 6px 12px
+}
+
+.input-date-startEnd{
+  height: 60px !important;
+  min-width: 15rem;
+}
+
+.input-date-agreement{
+  width: 495px;
+  height: 60px;
+  margin-top: 25px;
+}
+
+::ng-deep .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+  /* background-color: none; */
+  border: 1px solid rgba(1, 41, 112, 0.2) !important;
+  border-radius: 10px !important;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix{
+  padding-top: 20px;
+}
+
+::ng-deep .mdc-text-field {
+  align-items: center !important;
+}
+
+::ng-deep .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control{
+  font-size: 14px !important;
+}
+
+.input-pengembalian{
+  width: 244.5px;
+  padding: 8px 12px;
+  border-radius: 8px;
+border: 1px solid var(--Color-Silver-200, #E4E4E4);
+background: var(--Color-Silver-0, #FFF);
+
+/* Shadow/xs */
+box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+
+.form-check .form-check-input {
+  float: left;
+  margin-left: 0px;
+}
+
+.form-control{
+  max-width: 495px;
+}
+
+.text-area-deskripsi-proyek,
+.form-control{
+  width: 495px;
+}
+
+::placeholder {
+  color: var(--c, black);
+}
+
+.input-group,
+.input-tenor{
+  width: 420px;
+}
+
+.input-group,
+.input-bunga{
+  width: 495px;
+}
+
+.title-nonPenerusan{
+  color: #000;
+font-family: Satoshi;
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: 24px; /* 150% */
+}
+
+.list-project{
+  font-family: Satoshi;
+}
+
+.subtitle-dokumen{
+  color: var(--Color-Silver-900, #4E4E4E);
+
+/* Text xxs/Regular */
+font-family: Satoshi;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 22px; /* 157.143% */
+letter-spacing: 0.07px;
+}
+
+ngx-dropzone{
+  width: 495px;
+  height: 88px;
+  /* background-color: #F8F8F8; */
+}
+
+ngx-dropzone-preview{
+  min-height: 60px !important;
+  height: 68px !important;
+}
+
+.mandatorySign{
+  color: #ed151c;
+}
+
+.invalid-placeholder::placeholder {
+  color: red;
+}
+
+.border-danger {
+  border: 2px dashed red !important;
+}

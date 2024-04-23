@@ -515,13 +515,13 @@ export class TableServicesService {
     console.log('tanggal', arrayDate);
     console.log('tahun', arrayYear);
 
-    //console.log(arrayDate[0][0].h_min_30);
+    //// console.log(arrayDate[0][0].h_min_30);
 
     // console.log(today.slice(-2, 10));
     const formattedYear = moment().format('DD/MM/YYYY').slice(-2, 10);
 
     this.tableCurrency = new Tabulator(".table-currency", {
-      height: "100%", 
+      height: "100%",
       data:this.dataKurs,
       layout:"fitColumns",
       columns:[
@@ -611,7 +611,7 @@ export class TableServicesService {
     data:this.dataCommodities,
     layout:"fitColumns",
     columns:[
-      {title:"Commodities", field:"kode", headerHozAlign:"center", hozAlign:'left', headerSort:false},
+      {title:"Commodities", field:"keterangan", headerHozAlign:"center", hozAlign:'left', headerSort:false},
       {//create column group
         title:"Price",
         columns:[
@@ -634,7 +634,7 @@ export class TableServicesService {
       // height:20,
       height: "635px",
       data:this.dataPDB,
-      layout:"fitDataTable",
+      layout:"fitColumns",
       columnMoved:function(column, _columns){
         alert("The user has moved column: " + column.getField()); //display the columns field name
     },
@@ -2203,18 +2203,33 @@ export class TableServicesService {
     ];
 
     const actionBtn = function(_cell: any, _formatterParams: any){
-      return "<button type='button' class='btn'><i class='bi bi-eye'></i></button> <button type='button' class='btn' (click)='alert('clicked')'><i class='bi bi-pencil-square'></i></button";
+      return "<button type='button' class='btn'><i class='bi bi-eye'></i></button>";
+    }
+
+    const actionBtnAmandement = function(_cell: any, _formatterParams: any){
+      return "<button type='button' class='btn'><i class='bi bi-pencil-square'></i></button";
+    }
+
+    const actionBtnDelete = function(_cell: any, _formatterParams: any){
+      return "<button type='button' class='btn'><i class='bi bi-trash'></i></button";
     }
 
     const checkBox = function(_cell:any, _formatterParams: any){
       return "<input type='checkbox'></input>"
     }
 
+    const navigateToAmandement = (e: any, cell: any) => {
+      console.log(cell.getRow().getData());
+      this.router.navigate(['shl_agreement/create_amandement']);
+    }
+
+    const deleteRow = () => {
+      alert('icon clicked');
+    }
+
     this.tableSHLAgreementNonPenerusanPinjaman = new Tabulator(".table-shlAgreement", {
       // height:205,
       data:this.tableDataSHLAgreementNonPenerusanPinjaman,
-
-
       layout:"fitColumns",
       columns:[
         // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
@@ -2228,7 +2243,12 @@ export class TableServicesService {
         {title:"Created By", field:"created_by", hozAlign:"left", headerHozAlign:"left", width:120},
         {title:"Status", field:"status", hozAlign:"left", headerHozAlign:"left", width:120},
         {title:"Approver", field:"approver", hozAlign:"left", headerHozAlign:"left", width:120},
-        {title: "Action", formatter:actionBtn, cellClick:this.getRowData, width:120,hozAlign:"center", headerHozAlign:"center"},
+        // {title: "Action", cellClick:this.getRowData, width:120,hozAlign:"center", headerHozAlign:"center"},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"", formatter:actionBtn, width:70, cellClick:this.getRowData, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"", formatter:actionBtnAmandement, width:70, cellClick:navigateToAmandement, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"", formatter:actionBtnDelete, width:70, cellClick: deleteRow, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false}
+        ]},
       ],
     });
   }
@@ -6473,7 +6493,7 @@ export class TableServicesService {
     }
   }
   // end save edit non macro
-  
+
   cellClick_EditButton(_e: any, cell: any): void {
     const currentRow = cell.getRow()
     const currentTable = cell.getTable()

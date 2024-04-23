@@ -2,12 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute } from '@angular/router';
+import { ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-input-pembayaran',
   templateUrl: './input-pembayaran.component.html',
   styleUrls: ['./input-pembayaran.component.css']
 })
+
 export class InputPembayaranComponent implements OnInit{
   files: any;
   @ViewChild('stepper') stepper!: MatStepper;
@@ -15,7 +17,19 @@ export class InputPembayaranComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private _formBuilder: FormBuilder
-  ){}
+  ){
+    // this.firstFormGroup = this._formBuilder.group({
+    //   angsuran: ['', Validators.required],
+    //   tanggalJatuhTempo: ['', Validators.required],
+    //   tanggalTerima: ['', Validators.required],
+    //   pembayaran_pokok: [true, Validators.required],
+    //   pembayaran_bunga: [false, Validators.required],
+    //   pembayaran_pph: [true, Validators.required],
+    //   pembayaran_skb: [false, Validators.required],
+    //   denda: ['isFalse', Validators.required],
+    //   diterimaPLN: ['', Validators.required],
+    // }, { validators: this.atLeastOneCheckboxSelectedValidator });
+  }
 
   paymentType: string = ''
 
@@ -37,10 +51,11 @@ export class InputPembayaranComponent implements OnInit{
     angsuran: ['', Validators.required],
     tanggalJatuhTempo: ['', Validators.required],
     tanggalTerima: ['', Validators.required],
-    pembayaran_pokok: [true, Validators.required],
-    pembayaran_bunga: [false, Validators.required],
-    pembayaran_pph: [true, Validators.required],
-    pembayaran_skb: [false, Validators.required],
+    pilihPembayaran: ['sebagian', Validators.required],
+    // pembayaran_pokok: [true, Validators.required],
+    // pembayaran_bunga: [false, Validators.required],
+    // pembayaran_pph: [true, Validators.required],
+    // pembayaran_skb: [false, Validators.required],
     denda: ['isFalse', Validators.required],
     diterimaPLN: ['', Validators.required],
   });
@@ -51,36 +66,66 @@ export class InputPembayaranComponent implements OnInit{
   pembayaranSKB: boolean = false;
   pembayaranDenda: string = '';
 
-  changePembayaranPokok = () => {
-    const valuePokok = this.firstFormGroup.get('pembayaran_pokok')?.value;
+  changePembayaranPokok = (event: any) => {
+    // this.firstFormGroup.get('pembayaran_bunga')?.setValue(false);
+    // const pokokChecked = this.firstFormGroup.get('pembayaran_pokok')?.value;
+    // const bungaChecked = this.firstFormGroup.get('pembayaran_bunga')?.value;
 
-    valuePokok ? this.pembayaranPokok = valuePokok : this.pembayaranPokok = false;
-    console.log(valuePokok);
+    // pokokChecked ? this.pembayaranPokok = pokokChecked : this.pembayaranPokok = false;
 
+    // if (pokokChecked && bungaChecked) {
+    //   this.firstFormGroup.get('pembayaran_bunga')?.setValue(false);
+    // }
+    // console.log('pokok:'+ pokokChecked, 'bunga:' + bungaChecked);
+
+    if (event.target.checked) {
+      this.pembayaranPokok = event.target.checked
+    }else{
+      this.pembayaranPokok = false;
+    }
   }
 
-  changePembayaranBunga = () => {
-    const valueBunga = this.firstFormGroup.get('pembayaran_bunga')?.value;
+  changePembayaranBunga = (event: any) => {
+    console.log(event);
+    // this.firstFormGroup.get('pembayaran_pokok')?.setValue(false);
+    // const pokokChecked = this.firstFormGroup.get('pembayaran_pokok')?.value;
+    // const bungaChecked = this.firstFormGroup.get('pembayaran_bunga')?.value;
+    // console.log('pokok 1:'+ pokokChecked, 'bunga 1:' + bungaChecked);
 
-    valueBunga ? this.pembayaranBunga = valueBunga : this.pembayaranBunga = false;
-    console.log(valueBunga);
+    if (event.target.checked) {
+      this.pembayaranBunga = event.target.checked
+    }else{
+      this.pembayaranBunga = false;
+    }
 
+    // bungaChecked ? this.pembayaranBunga = bungaChecked : this.pembayaranBunga = false;
+    // console.log('pokok 2:'+ pokokChecked, 'bunga 2:' + bungaChecked);
   }
 
-  changePembayaranPPH23 = () => {
-    const valuePPH = this.firstFormGroup.get('pembayaran_pph')?.value;
+  changePembayaranPPH23 = (event: any) => {
+    // const valuePPH = this.firstFormGroup.get('pembayaran_pph')?.value;
 
-    valuePPH ? this.pembayaranPPH23 = valuePPH : this.pembayaranPPH23 = false;
-    console.log(valuePPH);
+    // valuePPH ? this.pembayaranPPH23 = valuePPH : this.pembayaranPPH23 = false;
+    // console.log(valuePPH);
 
+    if (event.target.checked) {
+      this.pembayaranPPH23 = event.target.checked
+    }else{
+      this.pembayaranPPH23 = false;
+    }
   }
 
-  changePembayaranSKB = () => {
-    const valueSKB = this.firstFormGroup.get('pembayaran_skb')?.value;
+  changePembayaranSKB = (event: any) => {
+    // const valueSKB = this.firstFormGroup.get('pembayaran_skb')?.value;
 
-    valueSKB ? this.pembayaranSKB = valueSKB : this.pembayaranSKB = false;
-    console.log(valueSKB);
+    // valueSKB ? this.pembayaranSKB = valueSKB : this.pembayaranSKB = false;
+    // console.log(valueSKB);
 
+    if (event.target.checked) {
+      this.pembayaranSKB = event.target.checked
+    }else{
+      this.pembayaranSKB = false;
+    }
   }
 
   changePembayaranDenda = () => {
@@ -97,6 +142,13 @@ export class InputPembayaranComponent implements OnInit{
   }
 
   submitFirstForm = () => {
+    if(this.firstFormGroup.invalid){
+      this.submitted = true;
+    }
+    else{
+      this.submitted = false;
+    }
+
     console.log(this.firstFormGroup.value);
   }
 
