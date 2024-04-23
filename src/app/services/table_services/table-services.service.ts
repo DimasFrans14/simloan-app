@@ -2217,18 +2217,33 @@ export class TableServicesService {
     ];
 
     const actionBtn = function(_cell: any, _formatterParams: any){
-      return "<button type='button' class='btn'><i class='bi bi-eye'></i></button> <button type='button' class='btn' (click)='alert('clicked')'><i class='bi bi-pencil-square'></i></button";
+      return "<button type='button' class='btn'><i class='bi bi-eye'></i></button>";
+    }
+
+    const actionBtnAmandement = function(_cell: any, _formatterParams: any){
+      return "<button type='button' class='btn'><i class='bi bi-pencil-square'></i></button";
+    }
+
+    const actionBtnDelete = function(_cell: any, _formatterParams: any){
+      return "<button type='button' class='btn'><i class='bi bi-trash'></i></button";
     }
 
     const checkBox = function(_cell:any, _formatterParams: any){
       return "<input type='checkbox'></input>"
     }
 
+    const navigateToAmandement = (e: any, cell: any) => {
+      console.log(cell.getRow().getData());
+      this.router.navigate(['shl_agreement/create_amandement']);
+    }
+
+    const deleteRow = () => {
+      alert('icon clicked');
+    }
+
     this.tableSHLAgreementNonPenerusanPinjaman = new Tabulator(".table-shlAgreement", {
       // height:205,
       data:this.tableDataSHLAgreementNonPenerusanPinjaman,
-
-
       layout:"fitColumns",
       columns:[
         // {title:"",formatter:checkBox,width:50,hozAlign:"center", headerHozAlign:"center"},
@@ -2242,7 +2257,12 @@ export class TableServicesService {
         {title:"Created By", field:"created_by", hozAlign:"left", headerHozAlign:"left", width:120},
         {title:"Status", field:"status", hozAlign:"left", headerHozAlign:"left", width:120},
         {title:"Approver", field:"approver", hozAlign:"left", headerHozAlign:"left", width:120},
-        {title: "Action", formatter:actionBtn, cellClick:this.getRowData, width:120,hozAlign:"center", headerHozAlign:"center"},
+        // {title: "Action", cellClick:this.getRowData, width:120,hozAlign:"center", headerHozAlign:"center"},
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"", formatter:actionBtn, width:70, cellClick:this.getRowData, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"", formatter:actionBtnAmandement, width:70, cellClick:navigateToAmandement, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"", formatter:actionBtnDelete, width:70, cellClick: deleteRow, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false}
+        ]},
       ],
     });
   }
