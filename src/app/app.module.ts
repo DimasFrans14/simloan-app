@@ -80,6 +80,8 @@ import { ShlMonitoringDetailComponent } from './dashboard/shl/shl-monitoring/shl
 import { ShlLoanDetailComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-loan-detail/shl-loan-detail.component';
 import { InputPembayaranComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-loan-detail/input-pembayaran/input-pembayaran.component';
 import { ShlSimulationComponent } from './dashboard/shl/shl-simulation/shl-simulation.component';
+import { ShlCreateSimulationComponent } from './dashboard/shl/shl-simulation/shl-create-simulation/shl-create-simulation.component';
+import { ShlCreateAmandementComponent } from './dashboard/shl/shl-agreement/shl-create-amandement/shl-create-amandement.component';
 
 @NgModule({
   declarations: [
@@ -138,6 +140,8 @@ import { ShlSimulationComponent } from './dashboard/shl/shl-simulation/shl-simul
     DetailComponent,
     InputPembayaranComponent,
     ShlSimulationComponent,
+    ShlCreateSimulationComponent,
+    ShlCreateAmandementComponent,
   ],
   imports: [
     BrowserModule,

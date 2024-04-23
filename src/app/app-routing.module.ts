@@ -54,6 +54,8 @@ import { DetailComponent } from './dashboard/paramater_market/financing-cost/det
 import { RouteGuard } from './guard/route-guard.guard';
 import { InputPembayaranComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-loan-detail/input-pembayaran/input-pembayaran.component';
 import { ShlSimulationComponent } from './dashboard/shl/shl-simulation/shl-simulation.component';
+import { ShlCreateSimulationComponent } from './dashboard/shl/shl-simulation/shl-create-simulation/shl-create-simulation.component';
+import { ShlCreateAmandementComponent } from './dashboard/shl/shl-agreement/shl-create-amandement/shl-create-amandement.component';
 
 const routes: Routes = [
   //error msg
@@ -115,6 +117,7 @@ const routes: Routes = [
   { path: 'shl_agreement/details/:id', component: ShlAgreementDetailComponent, canActivate:[RouteGuard]},
   { path: 'shl_agreement/create', component: ShlCreateAgreementComponent, canActivate:[RouteGuard]},
   { path: 'shl_agreement/preview_create', component: ShlPreviewCreateAgreementComponent, canActivate:[RouteGuard]},
+  { path: 'shl_agreement/create_amandement', component: ShlCreateAmandementComponent, canActivate:[RouteGuard]},
 
   //Child Path SHL Withdawal
   { path: 'shl_withdrawal/create', component: ShlCreateWithdrawalComponent, canActivate:[RouteGuard]},
@@ -126,6 +129,9 @@ const routes: Routes = [
   { path: 'shl_monitoring/details/:id', component: ShlMonitoringDetailComponent, canActivate:[RouteGuard]},
   { path: 'shl_monitoring/details/:id/loan_monitoring/:id', component: ShlLoanDetailComponent, canActivate:[RouteGuard]},
   { path: 'shl_monitoring/input_pembayaran', component: InputPembayaranComponent, canActivate:[RouteGuard]},
+
+  //Child Path SHL Monitoring
+  { path: 'shl_simulation/create', component: ShlCreateSimulationComponent, canActivate:[RouteGuard]},
 
 ];
 
