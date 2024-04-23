@@ -109,8 +109,10 @@ export class ShlCreateAgreementComponent implements OnInit{
   ];
 
   repaymentMethod = [
-    { id: 1, name: '1 Bulan' },
-    { id: 2, name: '3 Bulan' },
+    { id: 1, name: '3 Bulan' },
+    { id: 2, name: '4 Bulan' },
+    { id: 3, name: '5 Bulan' },
+    { id: 4, name: '6 Bulan' },
   ];
 
   firstFormGroup = this._formBuilder.group({

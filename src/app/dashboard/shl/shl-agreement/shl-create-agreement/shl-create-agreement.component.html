@@ -495,6 +495,9 @@
                       <li>IDR</li>
                       <li>USD</li>
                       <li>EUR</li>
+                      <li>JPY</li>
+                      <li>GBP</li>
+                      <li>AUD</li>
                     </ul>
                   </div>
                 </div>
@@ -651,7 +654,7 @@
                 </div>
               </div>
 
-              <div class="d-flex justify-content-between align-items-center" *ngIf="freeTextBerakhirPerjanjian">
+              <div class="d-flex justify-content-between align-items-start" *ngIf="freeTextBerakhirPerjanjian">
                 <div class="d-flex justify-content-baseline">
                   <span class="label-inputAgreement mb-4">Free Text</span>
                   <svg
@@ -818,7 +821,7 @@
                 </ng-container>
               </div> -->
 
-              <div class="d-flex justify-content-between align-items-center mb-3">
+              <div class="d-flex justify-content-between align-items-start mb-3">
                 <div class="d-flex justify-content-baseline">
                   <span class="label-inputAgreement mb-4"
                     >Availability Period</span
@@ -870,7 +873,7 @@
                 </div>
               </div>
 
-              <div class="d-flex justify-content-between align-items-center" *ngIf="freeTextAvailabilityPeriod">
+              <div class="d-flex justify-content-between align-items-start" *ngIf="freeTextAvailabilityPeriod">
                 <div class="d-flex justify-content-baseline">
                   <span class="label-inputAgreement mb-4">Free Text</span>
                   <svg
@@ -1032,7 +1035,7 @@
                 </ng-container>
               </div> -->
 
-              <div class="d-flex justify-content-between align-items-center mb-3">
+              <div class="d-flex justify-content-between align-items-start mb-3">
                 <div class="d-flex justify-content-baseline">
                   <span class="label-inputAgreement mb-4"
                     >Grace Period</span
@@ -1084,7 +1087,7 @@
                 </div>
               </div>
 
-              <div class="d-flex justify-content-between align-items-center" *ngIf="freeTextGracePeriod">
+              <div class="d-flex justify-content-between align-items-start" *ngIf="freeTextGracePeriod">
                 <div class="d-flex justify-content-baseline">
                   <span class="label-inputAgreement mb-4">Free Text</span>
                   <svg
@@ -1244,7 +1247,7 @@
                 </ng-select>
               </div>
 
-              <div class="d-flex justify-content-between align-items-baseline">
+              <div class="d-flex justify-content-between align-items-baseline my-3">
                 <div class="d-flex justify-content-baseline">
                   <span class="label-inputAgreement mb-4">Date Repayment</span>
                   <svg
@@ -1260,7 +1263,7 @@
                     />
                   </svg>
                 </div>
-                <mat-form-field class="ms-2 input-date-agreement">
+                <!-- <mat-form-field class="ms-2 input-date-agreement">
                   <mat-label class="label-datepicker">Select Date</mat-label>
                   <input
                     matInput
@@ -1283,7 +1286,21 @@
                     color="primary"
                     disabled="false"
                   ></mat-datepicker>
-                </mat-form-field>
+                </mat-form-field> -->
+
+                <textarea
+                    class="form-control text-area-deskripsi-proyek"
+                    id="deskripsiProyek"
+                    rows="3"
+                    placeholder="Deskripsi date repayment"
+                    formControlName="dateRepayment"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted &&
+                        secondFormGroup.controls.dateRepayment.errors
+                    }"
+                    required
+                  ></textarea>
               </div>
 
               <div class="d-flex justify-content-between align-items-baseline">
@@ -1631,7 +1648,7 @@
                     />
                   </svg>
                 </div>
-                <input
+                <!-- <input
                   matInput
                   type="text"
                   class="form-control input-number-agreement"
@@ -1643,7 +1660,43 @@
                       submitted && penerusanPinjamanForm.controls.totalPagu.errors
                   }"
                   required
-                />
+                /> -->
+
+                <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                    type="text"
+                    class="form-control input-tenor"
+                    id="noSHL"
+                    placeholder="Masukan Nomor SHL Agreement Number"
+                    formControlName="totalPagu"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted && secondFormGroup.controls.totalPagu.errors
+                    }"
+                    required
+                    />
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      id="buttonTotalPagu"
+                    >
+                      IDR
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>IDR</li>
+                      <li>USD</li>
+                      <li>EUR</li>
+                      <li>JPY</li>
+                      <li>GBP</li>
+                      <li>AUD</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
 
               <div class="d-flex justify-content-between align-items-baseline">
