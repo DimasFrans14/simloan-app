@@ -76,20 +76,16 @@ export class RetailSalesComponent {
           }
           return 0;
         });
+        this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
+          item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
+          item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          return item;
+        })
       }
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRealisasi);
     } catch (error) {
       console.log(error);
-    }
-    if (this.dataDetailRealisasi == null){
-      console.log('data kosong')
-    } else {
-      this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
-        item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
-        item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        return item;
-      })
     }
     this.tableConfig.setDataRealisasiRetail(this.dataDetailRealisasi);
     console.log('finish get data in func');
@@ -132,42 +128,23 @@ export class RetailSalesComponent {
       if ( this.dataDetailOutlook == null){
           console.log('data kosong')
       } else {
-        this.dataDetailOutlook.sort((a: { tahun: any; quartal: any; }, b: { tahun: any; quartal: any; }) => {
-          const aYear = a.tahun;
-          const bYear = b.tahun;
-          if (aYear === bYear) {
-            const aQuartal = a.quartal;
-            const bQuartal = b.quartal;
-            if (aQuartal === bQuartal) {
-              return 0;
-            }
-            if (aQuartal === "Q4") {
-              return -1;
-            }
-            if (bQuartal === "Q4") {
-              return 1;
-            }
-            if (aQuartal === "Q3") {
-              return -1;
-            }
-            if (bQuartal === "Q3") {
-              return 1;
-            }
-            if (aQuartal === "Q2") {
-              return -1;
-            }
-            if (bQuartal === "Q2") {
-              return 1;
-            }
-            if (aQuartal === "Q1") {
-              return 1;
-            }
+        this.dataDetailOutlook.sort((a: { bulan: string; tahun: number; }, b: { bulan: string; tahun: number; }) => {
+          const aIndex = this.months.indexOf(a.bulan);
+          const bIndex = this.months.indexOf(b.bulan);
+    
+          if (a.tahun > b.tahun) {
             return -1;
           }
-          if (aYear > bYear) {
+          if (a.tahun < b.tahun) {
+            return 1;
+          }
+          if (aIndex > bIndex) {
+            return 1;
+          }
+          if (aIndex < bIndex) {
             return -1;
           }
-          return 1;
+          return 0;
         });
       }
       this.isLoading = false;

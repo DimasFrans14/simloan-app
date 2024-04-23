@@ -4,12 +4,13 @@
 }
 #main{
   margin-top: 15px;
+  padding-right: 25px;
 }
 
 #footer {
   margin-left: 0px;
 }
 .sub-footer{
-  margin-top: 85px;
+  margin-top: 255px;
   padding-left: 290px;
 }

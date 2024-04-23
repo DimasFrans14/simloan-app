@@ -2,11 +2,11 @@
 <app-sidebar></app-sidebar>
 <div id="header" class="header">
     <div class="col-12 bg-white sub-nav border-top"
-        style="margin-top: 60px; padding-left: 265px; padding-top: 10px; padding-bottom: 5px;">
-        <div class="container">
+        style="margin-top: 60px; padding-left: 285px; padding-right: 25px; padding-top: 10px; padding-bottom: 5px;">
+        <!-- <div class="container"> -->
             <div class="d-flex">
                 <div class="p-2 btn btn-sm" routerLink="/financing_cost" routerLinkActive="active"><img src="assets/icon/arrow-left.svg" alt=""></div>
-                <div class="p-2 flex-grow-1 align-self-center"><h5>GMTN</h5></div>
+                <div class="p-2 flex-grow-1 justify-content-between"><h5>GMTN</h5></div>
                 <div style="font-size: 12px; color: #606060;" class="align-self-center" *ngIf="createAt"> Created at {{today |
                     date:"MMM dd, yyyy 'at' hh:mm a"}}
                 </div>
@@ -16,135 +16,133 @@
                     </button> 
                 </div>
             </div>
-        </div>
+        <!-- </div> -->
     </div>
 </div>
 <main id="main" class="main">
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between mt-3  mb-3">
-                    <div class="fw-bold align-self-center">Nama Obligasi*</div>
-                    <div class="col-6">
-                        <input matInput [formControl]="nama_obligasi" type="text" class="form-control" required>
-                    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between mt-3  mb-3">
+                <div class="fw-bold align-self-center">Nama Obligasi*</div>
+                <div class="col-6">
+                    <input matInput [formControl]="nama_obligasi" type="text" class="form-control" required>
                 </div>
-                <div class="d-flex justify-content-between mt-3  mb-3">
-                    <div class="fw-bold align-self-center">Pilih Tanggal*</div>
-                    <div class="col-6">
-                        <input matInput [formControl]="tanggal" type="date" class="form-control" required>
-                    </div>
+            </div>
+            <div class="d-flex justify-content-between mt-3  mb-3">
+                <div class="fw-bold align-self-center">Pilih Tanggal*</div>
+                <div class="col-6">
+                    <input matInput [formControl]="tanggal" type="date" class="form-control" required>
                 </div>
-                <mat-divider></mat-divider>
-                <div class="row">
-                    <!-- Baseline GMTN -->
-                    <div class="col-6 mt-2">
-                        <form [formGroup]="baselineGMTN">
-                        <h6 class="fw-bold">Baseline GMTN</h6>
-                        <div class="d-flex justify-content-between mt-2">
-                            <div class="fw-bold align-self-center">Pilih Tahun</div>
-                            <div class="col-7">
-                                <input matInput formControlName="tahun" type="date" class="form-control">
-                            </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="row">
+                <!-- Baseline GMTN -->
+                <div class="col-6 mt-2">
+                    <form [formGroup]="baselineGMTN">
+                    <h6 class="fw-bold">Baseline GMTN</h6>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div class="fw-bold align-self-center">Pilih Tahun</div>
+                        <div class="col-7">
+                            <input matInput formControlName="tahun" type="text" class="form-control">
                         </div>
-                        <div class="d-flex justify-content-between mt-2">
-                            <div class="fw-bold align-self-center">Pilih Tenor</div>
-                            <div class="col-7">
-                                <select  matInput formControlName="tenor" class="form-select" aria-label="Default select example">
-                                    <option selected>Pilih Tenor</option>
-                                    <option value="1 tahun">1 Tahun</option>
-                                    <option value="5 tahun">5 Tahun</option>
-                                    <option value="7 tahun">7 Tahun</option>
-                                    <option value="10 tahun">10 Tahun</option>
-                                    <option value="15 tahun">15 Tahun</option>
-                                    <option value="20 tahun">20 Tahun</option>
-                                    <option value="25 tahun">25 Tahun</option>
-                                    <option value="30 tahun">30 Tahun</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between mt-2">
-                            <div class="fw-bold align-self-center">Rate Coupon</div>
-                            <div class="col-7">
-                                <div class="input-group">
-                                    <input type="number" matInput formControlName="rateCoupon" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                    <span class="input-group-text">% percent</span>
-                                  </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between mt-2">
-                            <div class="fw-bold align-self-center">Kurs</div>
-                            <div class="col-7">
-                                <div class="input-group">
-                                    <input matInput formControlName="kurs" type="number" class="form-control" aria-label="Text input with segmented dropdown button" required>
-                                    <span>
-                                        <select id="inputState" class="form-select bg-white" required>
-                                            <option selected="">IDR</option>
-                                            <option value="#">USD</option>
-                                            <option value="#">EUR</option>
-                                        </select>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        </form>
                     </div>
-                    <!-- end Baseline GMTN -->
-                    <!-- Estimasi Baseline GMTN -->
-                    <div class="col-6 mt-2">
-                        <form [formGroup]="estimasiBaselineGMTN">
-                        <h6 class="fw-bold">Estimasi Baseline GMTN</h6>
-                        <div class="d-flex justify-content-between mt-2">
-                            <div class="fw-bold align-self-center">Pilih Tahun</div>
-                            <div class="col-7">
-                                <input type="date" matInput formControlName="tahun" class="form-control" name="" id="">
-                            </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div class="fw-bold align-self-center">Pilih Tenor</div>
+                        <div class="col-7">
+                            <select  matInput formControlName="tenor" class="form-select" aria-label="Default select example">
+                                <option selected>Pilih Tenor</option>
+                                <option value="1">1 Tahun</option>
+                                <option value="5">5 Tahun</option>
+                                <option value="7">7 Tahun</option>
+                                <option value="10">10 Tahun</option>
+                                <option value="15">15 Tahun</option>
+                                <option value="20">20 Tahun</option>
+                                <option value="25">25 Tahun</option>
+                                <option value="30">30 Tahun</option>
+                            </select>
                         </div>
-                        <div class="d-flex justify-content-between mt-2">
-                            <div class="fw-bold align-self-center">Pilih Tenor</div>
-                            <div class="col-7">
-                                <select matInput formControlName="tenor" class="form-select" aria-label="Default select example">
-                                    <option selected>Pilih Tenor</option>
-                                    <option value="1 Tahun">1 Tahun</option>
-                                    <option value="5 Tahun">5 Tahun</option>
-                                    <option value="7 Tahun">7 Tahun</option>
-                                    <option value="10 Tahun">10 Tahun</option>
-                                    <option value="15 Tahun">15 Tahun</option>
-                                    <option value="20 Tahun">20 Tahun</option>
-                                    <option value="25 Tahun">25 Tahun</option>
-                                    <option value="30 Tahun">30 Tahun</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between mt-2">
-                            <div class="fw-bold align-self-center">Indicative Rate</div>
-                            <div class="col-7">
-                                <div class="input-group">
-                                    <input type="number" matInput formControlName="indicativeRate" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                    <span class="input-group-text">% percent</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between mt-2">
-                            <div class="fw-bold align-self-center">Kurs</div>
-                            <div class="col-7">
-                                <div class="input-group">
-                                    <input type="number" matInput  formControlName="kurs" class="form-control" aria-label="Text input with segmented dropdown button" required>
-                                    <!-- <button type="button" class="btn btn-light btn-sm">USD</button> -->
-                                    <span>
-                                        <select id="inputState" class="form-select bg-white" required>
-                                            <option value="IDR" selected="">IDR</option>
-                                            <option value="USD">USD</option>
-                                            <option value="EUR">EUR</option>
-                                        </select>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        </form>
                     </div>
-                    <!-- end Estimasi Baseline GMTN -->
+                    <div class="d-flex justify-content-between mt-2">
+                        <div class="fw-bold align-self-center">Rate Coupon</div>
+                        <div class="col-7">
+                            <div class="input-group">
+                                <input type="text" matInput formControlName="rateCoupon" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <span class="input-group-text">% percent</span>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div class="fw-bold align-self-center">Kurs</div>
+                        <div class="col-7">
+                            <div class="input-group">
+                                <input matInput formControlName="kurs" type="number" class="form-control" aria-label="Text input with segmented dropdown button" required>
+                                <span>
+                                    <select id="inputState" class="form-select bg-white" required>
+                                        <option selected="">IDR</option>
+                                        <option value="#">USD</option>
+                                        <option value="#">EUR</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
                 </div>
+                <!-- end Baseline GMTN -->
+                <!-- Estimasi Baseline GMTN -->
+                <div class="col-6 mt-2">
+                    <form [formGroup]="estimasiBaselineGMTN">
+                    <h6 class="fw-bold">Estimasi Baseline GMTN</h6>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div class="fw-bold align-self-center">Pilih Tahun</div>
+                        <div class="col-7">
+                            <input type="text" matInput formControlName="tahun" class="form-control" name="" id="">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div class="fw-bold align-self-center">Pilih Tenor</div>
+                        <div class="col-7">
+                            <select matInput formControlName="tenor" class="form-select" aria-label="Default select example">
+                                <option selected>Pilih Tenor</option>
+                                <option value="1">1 Tahun</option>
+                                <option value="5">5 Tahun</option>
+                                <option value="7">7 Tahun</option>
+                                <option value="10">10 Tahun</option>
+                                <option value="15">15 Tahun</option>
+                                <option value="20">20 Tahun</option>
+                                <option value="25">25 Tahun</option>
+                                <option value="30">30 Tahun</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div class="fw-bold align-self-center">Indicative Rate</div>
+                        <div class="col-7">
+                            <div class="input-group">
+                                <input type="text" matInput formControlName="indicativeRate" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <span class="input-group-text">% percent</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div class="fw-bold align-self-center">Kurs</div>
+                        <div class="col-7">
+                            <div class="input-group">
+                                <input type="number" matInput  formControlName="kurs" class="form-control" aria-label="Text input with segmented dropdown button" required>
+                                <!-- <button type="button" class="btn btn-light btn-sm">USD</button> -->
+                                <span>
+                                    <select id="inputState" class="form-select bg-white" required>
+                                        <option value="IDR" selected="">IDR</option>
+                                        <option value="USD">USD</option>
+                                        <option value="EUR">EUR</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                <!-- end Estimasi Baseline GMTN -->
             </div>
         </div>
     </div>
