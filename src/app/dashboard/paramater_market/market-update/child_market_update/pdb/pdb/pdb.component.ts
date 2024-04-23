@@ -109,10 +109,16 @@ export class PdbComponent {
       this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
       return item.mtu ==="PDB"
     })
-      this.dataDetailRkap.sort((a: { tahun: number; }, b: { tahun: number; }) => {
-        const aYear = a.tahun || 0;
-        const bYear = b.tahun || 0;
-        return bYear - aYear;
+      this.dataDetailRkap.sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
+        const dateA = new Date(a.tahun, a.tanggal.split('/')[0], a.tanggal.split('/')[1]);
+        const dateB = new Date(b.tahun, b.tanggal.split('/')[0], b.tanggal.split('/')[1]);
+        if (dateA > dateB) {
+          return -1;
+        } else if (dateA < dateB) {
+          return 1;
+        } else {
+          return 0;
+        }
       });
       this.isLoading = false;
       console.log(this.isLoading,'loading 2', this.dataDetailRkap);

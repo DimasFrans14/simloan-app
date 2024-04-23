@@ -82,6 +82,8 @@ export class TableServicesService {
   public shareDataRealisasiBondYieldUsTreasury: any;
   public shareDataRkapBondYieldUsTreasury: any;
   public shareDataOutlookBondYieldUsTreasury: any;
+  public shareDataGMTN: any;
+  public shareDataHitungFincos: any;
 
   public testData: any;
 
@@ -113,6 +115,10 @@ export class TableServicesService {
     // console.log(dataRow);
   }
 
+  setDataGMTN(data:any){
+    this.shareDataGMTN = data;
+  }
+
   setDataPdb(data:any){
     this.sharedDataPdb = data;
   }
@@ -134,95 +140,72 @@ export class TableServicesService {
   }
   setDataRealisasiPdb(data:any){
     this.shareDataRealisasiPdb = data;
-    console.log(this.shareDataRealisasiPdb)
   }
   setDataOutlookPdb(data:any){
     this.shareDataOutlookPdb = data;
-    console.log(this.shareDataOutlookPdb)
   }
   setDataRkapPdb(data:any){
     this.shareDataRkapPdb = data;
-    console.log(this.shareDataRkapPdb)
   }
   setDataRealisasiInflasi(data:any){
     this.shareDataRealisasiInflasi = data;
-    console.log(this.shareDataRealisasiInflasi)
   }
   setDataRkapInflasi(data:any){
     this.shareDataRkapInflasi = data;
-    console.log(this.shareDataRkapInflasi)
   }
   setDataOutlookInflasi(data:any){
     this.shareDataOutlookInflasi = data;
-    console.log(this.shareDataOutlookInflasi)
   }
   setDataRealisasiPMI(data:any){
     this.shareDataRealisasiPMI = data;
-    console.log(this.shareDataRealisasiPMI);
   }
   setDataRkapPMI(data:any){
     this.shareDataRkapPMI = data;
-    console.log(this.shareDataRkapPMI);
   }
   setDataOutlookPMI(data:any){
     this.shareDataOutlookPMI = data;
-    console.log(this.shareDataOutlookPMI);
   }
   setDataRealisasiRetail(data:any){
     this.shareDataRealisasiRetail = data;
-    console.log(this.shareDataRealisasiRetail);
   }
   setDataRkapRetail(data:any){
     this.shareDataRkapRetail = data;
-    console.log(this.shareDataRkapRetail);
   }
   setDataOutlookRetail(data:any){
     this.shareDataOutlookRetail = data;
-    console.log(this.shareDataOutlookRetail);
   }
   setDataRealisasiMoneySupply(data:any){
     this.shareDataRealisasiMoneySupply = data;
-    console.log(this.shareDataRealisasiMoneySupply);
   }
   setDataRkapMoneySupply(data:any){
     this.shareDataRkapMoneySupply = data;
-    console.log(this.shareDataRkapMoneySupply);
   }
   setDataOutlookMoneySupply(data:any){
     this.shareDataOutlookMoneySupply = data;
-    console.log(this.shareDataOutlookMoneySupply);
   }
   setDataRealisasiCadev(data:any){
     this.shareDataRealisasiCadev = data;
-    console.log(this.shareDataRealisasiCadev);
   }
   setDataRkapCadev(data:any){
     this.shareDataRkapCadev = data;
-    console.log(this.shareDataRkapCadev);
   }
   setDataOutlookCadev(data:any){
     this.shareDataOutlookCadev = data;
-    console.log(this.shareDataOutlookCadev);
   }
   setDataRealisasiCommodities(data:any){
     this.shareDataRealisasiCommodities = data;
-    console.log(this.shareDataRealisasiCommodities);
   }
   setDataRkapCommodities(data:any){
     this.shareDataRkapCommodities = data;
-    console.log(this.shareDataRkapCommodities);
   }
   setDataOutlookCommodities(data:any){
     this.shareDataOutlookCommodities = data;
-    console.log(this.shareDataOutlookCommodities);
   }
   setDataRealisasiKurs(dataUsd:any){
     this.shareDataRealisasiKurs = dataUsd;
-    console.log(this.shareDataRealisasiKurs)
   }
   setDataRkapKursUsd(data:any){
     this.shareDataRkapKursUsd = data;
-    console.log(this.shareDataRkapKursUsd);
   }
   setDataOutlookKursUsd(dataUsd:any){
     this.shareDataOutlookKursUsd = dataUsd;
@@ -232,34 +215,27 @@ export class TableServicesService {
   }
   setDataRkapInterestRate(data:any){
     this.shareDataRkapInterestRate = data;
-    console.log(this.shareDataRkapInterestRate);
   }
   setDataOutlookInterestRate(data:any){
     this.shareDataOutlookInterestRate = data;
   }
   setDataRealisasiBondYieldSBN(data:any){
     this.shareDataRealisasiBondYieldSBN = data;
-    console.log(this.shareDataRealisasiBondYieldSBN);
   }
   setDataRkapBondYieldSBN(data:any){
     this.shareDataRkapBondYieldSBN = data;
-    console.log(this.shareDataRkapBondYieldSBN);
   }
   setDataOutlookBondYieldSBN(data:any){
     this.shareDataOutlookBondYieldSBN = data;
-    console.log(this.shareDataOutlookBondYieldSBN);
   }
   setDataRealisasiBondYieldUsTreasury(data:any){
     this.shareDataRealisasiBondYieldUsTreasury = data;
-    console.log(this.shareDataRealisasiBondYieldUsTreasury);
   }
   setDataRkapBondYieldUsTreasury(data:any){
     this.shareDataRkapBondYieldUsTreasury = data;
-    console.log(this.shareDataRkapBondYieldUsTreasury);
   }
   setDataOutlookBondYieldUsTreasury(data:any){
     this.shareDataOutlookBondYieldUsTreasury = data;
-    console.log(this.shareDataOutlookBondYieldUsTreasury);
   }
 
   getDataCommodities(data: any){
@@ -539,7 +515,7 @@ export class TableServicesService {
     console.log('tanggal', arrayDate);
     console.log('tahun', arrayYear);
 
-    console.log(arrayDate[0][0].h_min_30);
+    //console.log(arrayDate[0][0].h_min_30);
 
     // console.log(today.slice(-2, 10));
     const formattedYear = moment().format('DD/MM/YYYY').slice(-2, 10);
@@ -1360,7 +1336,7 @@ export class TableServicesService {
       data:this.shareDataOutlookMoneySupply,
       layout:"fitColumns",
       columns:[
-        {title:"Periode", field:"bulan", headerHozAlign:"left", hozAlign:'left', editor: "input", editable:this.isRowSelected,},
+        {title:"Bulan", field:"bulan", headerHozAlign:"left", hozAlign:'left', editor: "input", editable:this.isRowSelected,},
         {title:"Tahun", field:"tahun", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Nilai", field:"triliun_beredar", headerHozAlign:"center", hozAlign:'center', headerSort:false, editor: "number", editable:this.isRowSelected},
         {title:"Action", headerHozAlign:"center", columns:[
@@ -1889,13 +1865,13 @@ export class TableServicesService {
       columns:[
         {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false,editable:this.isRowSelected, editor:"input", minWidth: 130},
         {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-        {title:"5Yr", field:"yr5", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-        {title:"7Yr", field:"yr7", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-        {title:"10Yr", field:"yr10", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-        {title:"15Yr", field:"yr15", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-        {title:"20Yr", field:"yr20", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-        {title:"25Yr", field:"yr25", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-        {title:"30Yr", field:"yr30", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
+        {title:"5Yr", field:"yr5", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"7Yr", field:"yr7", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"10Yr", field:"yr10", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"15Yr", field:"yr15", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"20Yr", field:"yr20", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"25Yr", field:"yr25", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+        {title:"30Yr", field:"yr30", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center" ,hozAlign:"center", headerSort:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerSort:false, headerHozAlign:"center", hozAlign:"center"},
@@ -1936,13 +1912,13 @@ export class TableServicesService {
       columns:[
         {title:"Group", field:"grup", headerHozAlign:"left", hozAlign:'left', headerSort:false, editable:this.isRowSelected, editor: "input", minWidth: 130},
           {title:"Tanggal", field:"tanggal", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-          {title:"5Yr", field:"yr5", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-          {title:"7Yr", field:"yr7", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-          {title:"10Yr", field:"yr10", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-          {title:"15Yr", field:"yr15", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-          {title:"20Yr", field:"yr20", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-          {title:"25Yr", field:"yr25", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
-          {title:"30Yr", field:"yr30", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"input"},
+          {title:"yr5", field:"yr5", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+          {title:"yr7", field:"yr7", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+          {title:"yr10", field:"yr10", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+          {title:"yr15", field:"yr15", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+          {title:"yr20", field:"yr20", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+          {title:"yr25", field:"yr25", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
+          {title:"yr30", field:"yr30", headerHozAlign:"center", hozAlign:'center', editable:this.isRowSelected, editor:"number"},
         {title:"Action", headerHozAlign:"center", columns:[
           {title:"Edit", field:"EditButton", formatter:editBtn, cellClick: this.cellClick_EditButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"Tambah", field:"tambahButton", formatter:addBtn, cellClick: this.cellClick_addButton, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
@@ -2122,6 +2098,13 @@ export class TableServicesService {
   }
 
   initializeTableDataFincost(){
+    const detailBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span><i class='bi bi-eye'></i></span>";
+    }
+    const dropdownBtn = function(_cell: any, _formatterParams:any, _onRendered:any){
+      return "<span><i class='bi bi-three-dots'></i></i></span>";
+    }
+
     this.tableDataFincost = [
       {id:"01", createDate:"26/02/2024", createBy:"Ceptary Tyas", status:"Approved", type:"Fincost", bank:"STANDAR CHARTERED", tgl_indicative:"26/02/2024", approver:"Cecep Gorbachev", modifDate:"26/02/2024", notes:"abcdefhgij", revisionDate:"26/02/2024"},
       {id:"02", createDate:"26/02/2024", createBy:"Ceptary Tyas", status:"Approved", type:"Fincost", bank:"STANDAR CHARTERED", tgl_indicative:"26/02/2024", approver:"Cecep Gorbachev", modifDate:"26/02/2024", notes:"abcdefhgij", revisionDate:"26/02/2024"},
@@ -2151,7 +2134,10 @@ export class TableServicesService {
         {title:"Modification Date", field:"modifDate", hozAlign:"center", headerHozAlign:"center"},
         {title:"Notes", field:"notes", hozAlign:"center", headerHozAlign:"center"},
         {title:"RevisionDate", field:"revisionDate", hozAlign:"center", headerHozAlign:"center"},
-        {title:"Action", field:"revisionDate", hozAlign:"center", headerHozAlign:"center"}
+        {title:"Action", headerHozAlign:"center", columns:[
+          {title:"", field:"", formatter:detailBtn, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+          {title:"", field:"", formatter:dropdownBtn, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
+        ]},
       ],
     })
   }
@@ -2925,10 +2911,16 @@ export class TableServicesService {
     } else {
       const filterData = data.data.content.filter((item:any)=>{
         return item.mtu ==="PDB"
-      }).sort((a: { tahun: number; }, b: { tahun: number; }) => {
-        const aYear = a.tahun || 0;
-        const bYear = b.tahun || 0;
-        return bYear - aYear;
+      }).sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
+        const dateA = new Date(a.tahun, a.tanggal.split('/')[0], a.tanggal.split('/')[1]);
+        const dateB = new Date(b.tahun, b.tanggal.split('/')[0], b.tanggal.split('/')[1]);
+        if (dateA > dateB) {
+          return -1;
+        } else if (dateA < dateB) {
+          return 1;
+        } else {
+          return 0;
+        }
       });
       filterData.map((item: any) =>{
         item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
@@ -3028,10 +3020,16 @@ export class TableServicesService {
     } else {
       const filterData = data.data.content.filter((item:any)=>{
         return item.mtu ==="INFLASI"
-      }).sort((a: { tahun: number; }, b: { tahun: number; }) => {
-        const aYear = a.tahun || 0;
-        const bYear = b.tahun || 0;
-        return bYear - aYear;
+      }).sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
+        const dateA = new Date(a.tahun, a.tanggal.split('/')[0], a.tanggal.split('/')[1]);
+        const dateB = new Date(b.tahun, b.tanggal.split('/')[0], b.tanggal.split('/')[1]);
+        if (dateA > dateB) {
+          return -1;
+        } else if (dateA < dateB) {
+          return 1;
+        } else {
+          return 0;
+        }
       });
       filterData.map((item: any) =>{
         item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
@@ -3111,10 +3109,16 @@ export class TableServicesService {
     }else{
       const filterData = data.data.content.filter((item:any)=>{
         return item.mtu ==="PMI"
-      }).sort((a: { tahun: number; }, b: { tahun: number; }) => {
-        const aYear = a.tahun || 0;
-        const bYear = b.tahun || 0;
-        return bYear - aYear;
+      }).sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
+        const dateA = new Date(a.tahun, a.tanggal.split('/')[0], a.tanggal.split('/')[1]);
+        const dateB = new Date(b.tahun, b.tanggal.split('/')[0], b.tanggal.split('/')[1]);
+        if (dateA > dateB) {
+          return -1;
+        } else if (dateA < dateB) {
+          return 1;
+        } else {
+          return 0;
+        }
       });
       filterData.map((item: any) =>{
         item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
@@ -3179,8 +3183,8 @@ export class TableServicesService {
         return 0;
       });
       sortdata.map((item: any) =>{
-        item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
-        item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
+        item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         return item;
       })
       table.replaceData(sortdata);
@@ -3194,10 +3198,16 @@ export class TableServicesService {
     } else {
       const filterData = data.data.content.filter((item:any)=>{
         return item.mtu ==="RETAIL"
-      }).sort((a: { tahun: number; }, b: { tahun: number; }) => {
-        const aYear = a.tahun || 0;
-        const bYear = b.tahun || 0;
-        return bYear - aYear;
+      }).sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
+        const dateA = new Date(a.tahun, a.tanggal.split('/')[0], a.tanggal.split('/')[1]);
+        const dateB = new Date(b.tahun, b.tanggal.split('/')[0], b.tanggal.split('/')[1]);
+        if (dateA > dateB) {
+          return -1;
+        } else if (dateA < dateB) {
+          return 1;
+        } else {
+          return 0;
+        }
       });
       filterData.map((item: any) =>{
         item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
@@ -3211,43 +3221,24 @@ export class TableServicesService {
     const table = this.tableOutlookRetail;
     if (data.data.content == null ){
       console.log('data kosong')
+      table.replaceData(data.data.content)
     } else {
-      const sortedData = data.data.content.sort((a: { tahun: any; quartal: any; }, b: { tahun: any; quartal: any; }) => {
-        const aYear = a.tahun;
-        const bYear = b.tahun;
-        if (aYear === bYear) {
-          const aQuartal = a.quartal;
-          const bQuartal = b.quartal;
-          if (aQuartal === bQuartal) {
-            return 0;
-          }
-          if (aQuartal === "Q4") {
-            return -1;
-          }
-          if (bQuartal === "Q4") {
-            return 1;
-          }
-          if (aQuartal === "Q3") {
-            return -1;
-          }
-          if (bQuartal === "Q3") {
-            return 1;
-          }
-          if (aQuartal === "Q2") {
-            return -1;
-          }
-          if (bQuartal === "Q2") {
-            return 1;
-          }
-          if (aQuartal === "Q1") {
-            return 1;
-          }
+      const sortedData = data.data.content.sort((a: { bulan: string; tahun: number; }, b: { bulan: string; tahun: number; }) => {
+        const aIndex = this.months.indexOf(a.bulan);
+        const bIndex = this.months.indexOf(b.bulan);
+        if (a.tahun > b.tahun) {
           return -1;
         }
-        if (aYear > bYear) {
+        if (a.tahun < b.tahun) {
+          return 1;
+        }
+        if (aIndex > bIndex) {
+          return 1;
+        }
+        if (aIndex < bIndex) {
           return -1;
         }
-        return 1;
+        return 0;
       });
       sortedData.map((item: any) =>{
         item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
@@ -3259,13 +3250,14 @@ export class TableServicesService {
   }
   public replaceTableRealisasiMoneySupply (data:any){
     const table = this.tableRealisasiMoneySupply;
-    if (data.data.content){
+    if (data.data.content == null){
       console.log('data kosong')
       table.replaceData(data.data.content)
     }else{
       const sortdata = data.data.content.sort((a: { bulan: string; tahun: number; }, b: { bulan: string; tahun: number; }) => {
         const aIndex = this.months.indexOf(a.bulan);
         const bIndex = this.months.indexOf(b.bulan);
+
         if (a.tahun > b.tahun) {
           return -1;
         }
@@ -3296,10 +3288,16 @@ export class TableServicesService {
     } else {
       const filterData = data.data.content.filter((item:any)=>{
         return item.mtu ==="MONEY_SUPPLY"
-      }).sort((a: { tahun: number; }, b: { tahun: number; }) => {
-        const aYear = a.tahun || 0;
-        const bYear = b.tahun || 0;
-        return bYear - aYear;
+      }).sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
+        const dateA = new Date(a.tahun, a.tanggal.split('/')[0], a.tanggal.split('/')[1]);
+        const dateB = new Date(b.tahun, b.tanggal.split('/')[0], b.tanggal.split('/')[1]);
+        if (dateA > dateB) {
+          return -1;
+        } else if (dateA < dateB) {
+          return 1;
+        } else {
+          return 0;
+        }
       });
       filterData.map((item: any) =>{
         item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
@@ -3450,10 +3448,16 @@ export class TableServicesService {
     const table = this.tableRkapCurrencyRate;
     const filterData = data.data.content.filter((item:any)=>{
       return item.grup ==="KURS"
-    }).sort((a: { tahun: number; }, b: { tahun: number; }) => {
-      const aYear = a.tahun || 0;
-      const bYear = b.tahun || 0;
-      return bYear - aYear;
+    }).sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
+      const dateA = new Date(a.tahun, a.tanggal.split('/')[0], a.tanggal.split('/')[1]);
+      const dateB = new Date(b.tahun, b.tanggal.split('/')[0], b.tanggal.split('/')[1]);
+      if (dateA > dateB) {
+        return -1;
+      } else if (dateA < dateB) {
+        return 1;
+      } else {
+        return 0;
+      }
     });
     filterData.map((item: any) =>{
       item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
@@ -3483,10 +3487,16 @@ export class TableServicesService {
     const table = this.tableRkapPdb;
     const filterData = data.data.content.filter((item:any)=>{
       return item.grup ==="INTEREST_RATE"
-    }).sort((a: { tahun: number; }, b: { tahun: number; }) => {
-      const aYear = a.tahun || 0;
-      const bYear = b.tahun || 0;
-      return bYear - aYear;
+    }).sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
+      const dateA = new Date(a.tahun, a.tanggal.split('/')[0], a.tanggal.split('/')[1]);
+      const dateB = new Date(b.tahun, b.tanggal.split('/')[0], b.tanggal.split('/')[1]);
+      if (dateA > dateB) {
+        return -1;
+      } else if (dateA < dateB) {
+        return 1;
+      } else {
+        return 0;
+      }
     });
     filterData.map((item: any) =>{
       item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
@@ -3497,16 +3507,10 @@ export class TableServicesService {
   }
   public replaceTableOutlookInterest (data:any){
     const table = this.tableOutlookInterestRate;
-    const sortedData = data.data.sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
-      const dateA = new Date(a.tahun, a.tanggal.split('/')[0] - 1, a.tanggal.split('/')[1]);
-      const dateB = new Date(b.tahun, b.tanggal.split('/')[0] - 1, b.tanggal.split('/')[1]);
-      if (dateA > dateB) {
-        return -1;
-      } else if (dateA < dateB) {
-        return 1;
-      } else {
-        return 0;
-      }
+    const sortedData = data.data.sort((a: { tahun: number; }, b: { tahun: number; }) => {
+      const aYear = a.tahun || 0;
+      const bYear = b.tahun || 0;
+      return bYear - aYear;
     });
     sortedData.map((item: any) =>{
       item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
@@ -3518,7 +3522,7 @@ export class TableServicesService {
     const table = this.tableRealisasiBondYield;
     const sorted = data.data.content.map((item: any) => {
       const dateParts = item.tanggal.split("/");
-      const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
+      const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1])-1, Number(dateParts[0])+1);
       item.tanggal = dateObject.toISOString().split("T")[0];
       return item;
       }).sort((a: any, b: any) => {
@@ -3534,10 +3538,16 @@ export class TableServicesService {
     const table = this.tableRKAPBondYield;
     const filterData = data.data.content.filter((item:any)=>{
       return item.mtu ==="SBN"
-    }).sort((a: { tahun: number; }, b: { tahun: number; }) => {
-      const aYear = a.tahun || 0;
-      const bYear = b.tahun || 0;
-      return bYear - aYear;
+    }).sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
+      const dateA = new Date(a.tahun, a.tanggal.split('/')[0], a.tanggal.split('/')[1]);
+      const dateB = new Date(b.tahun, b.tanggal.split('/')[0], b.tanggal.split('/')[1]);
+      if (dateA > dateB) {
+        return -1;
+      } else if (dateA < dateB) {
+        return 1;
+      } else {
+        return 0;
+      }
     });
     filterData.map((item: any) =>{
       item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
@@ -3548,9 +3558,9 @@ export class TableServicesService {
   }
   public replaceTableOutlookBondYield (data:any){
     const table = this.tableOutlookBondYield;
-    const sorted = this.tableRealisasiUSTreasury.map((item: any) => {
+    const sorted = data.data.content.map((item: any) => {
       const dateParts = item.tanggal.split("/");
-      const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
+      const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1])-1, Number(dateParts[0])+1);
       item.tanggal = dateObject.toISOString().split("T")[0];
 
       return item;
@@ -3565,16 +3575,16 @@ export class TableServicesService {
   }
   public replaceTableRealisasiUsTreasury (data:any){
     const table = this.tableRealisasiUSTreasury;
-    const sorted = this.tableRealisasiUSTreasury.map((item: any) => {
+    const sorted = data.data.content.map((item: any) => {
       const dateParts = item.tanggal.split("/");
-      const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
+      const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0])+1);
       item.tanggal = dateObject.toISOString().split("T")[0];
 
       return item;
       }).sort((a: any, b: any) => {
-        return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
+        return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime(); 
       });
-      this.dataDetailRealisasi.map((item:any)=>{
+      sorted.map((item:any)=>{
         item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
         return item
       })
@@ -3582,12 +3592,21 @@ export class TableServicesService {
   }
   public replaceTableRkapUsTreasury (data:any){
     const table = this.tableRKAPUSTreasury;
+    if (table == null){
+      
+    }
     const filterData = data.data.content.filter((item:any)=>{
       return item.mtu ==="US_TREASURY"
-    }).sort((a: { tahun: number; }, b: { tahun: number; }) => {
-      const aYear = a.tahun || 0;
-      const bYear = b.tahun || 0;
-      return bYear - aYear;
+    }).sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
+      const dateA = new Date(a.tahun, a.tanggal.split('/')[0], a.tanggal.split('/')[1]);
+      const dateB = new Date(b.tahun, b.tanggal.split('/')[0], b.tanggal.split('/')[1]);
+      if (dateA > dateB) {
+        return -1;
+      } else if (dateA < dateB) {
+        return 1;
+      } else {
+        return 0;
+      }
     });
     filterData.map((item: any) =>{
       item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
@@ -3598,16 +3617,15 @@ export class TableServicesService {
   }
   public replaceTableOutlookUsTreasury (data:any){
     const table = this.tableOutlookUSTreasury;
-    const sorted = this.tableRealisasiUSTreasury.map((item: any) => {
+    const sorted = data.data.content.map((item: any) => {
       const dateParts = item.tanggal.split("/");
       const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
       item.tanggal = dateObject.toISOString().split("T")[0];
-
       return item;
       }).sort((a: any, b: any) => {
         return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
       });
-      this.dataDetailRealisasi.map((item:any)=>{
+      sorted.map((item:any)=>{
         item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
         return item
       })
@@ -3638,10 +3656,16 @@ export class TableServicesService {
     const table = this.tableRKAPComodities;
     const filterData = data.data.content.filter((item:any)=>{
       return item.grup ==="COMMODITIES"
-    }).sort((a: { tahun: number; }, b: { tahun: number; }) => {
-      const aYear = a.tahun || 0;
-      const bYear = b.tahun || 0;
-      return bYear - aYear;
+    }).sort((a: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }, b: { tahun: number; tanggal: { split: (arg0: string) => number[]; }; }) => {
+      const dateA = new Date(a.tahun, a.tanggal.split('/')[0], a.tanggal.split('/')[1]);
+      const dateB = new Date(b.tahun, b.tanggal.split('/')[0], b.tanggal.split('/')[1]);
+      if (dateA > dateB) {
+        return -1;
+      } else if (dateA < dateB) {
+        return 1;
+      } else {
+        return 0;
+      }
     });
     filterData.map((item: any) =>{
       item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
@@ -4157,11 +4181,11 @@ export class TableServicesService {
     if (this.responseDelete == true){
       console.log('data berhasil dihapus')
       const dataReplace = await this.marketUpdateService.fetchDataAllRkap();
-      this.replaceTableRkapPDB(dataReplace)
+      this.replaceTableRkapInflasi(dataReplace)
     } else {
       console.log('data gagal dihapus')
       const dataReplace = await this.marketUpdateService.fetchDataAllRkap();
-      this.replaceTableRkapPDB(dataReplace)
+      this.replaceTableRkapInflasi(dataReplace)
     }
   }
   cellClick_SaveButtonOutlookInflasi = async (e: any, cell:any) => {
@@ -4442,7 +4466,7 @@ export class TableServicesService {
     currentTable.hideColumn("SaveAddButton")
     const data = {
       id: rowData.id,
-      bulan: rowData.bulan,
+      bulan: rowData.bulan.charAt(0).toUpperCase() + rowData.bulan.slice(1),
       tahun: rowData.tahun,
       rate: rowData.rate
     }
@@ -4696,7 +4720,7 @@ export class TableServicesService {
       this.replaceTableOutlookRetail(dataReplace)
     } else {
       const dataReplace = await this.marketUpdateService.fetchDataRealisasiRetail();
-      this.replaceTableRealisasiRetail(dataReplace)
+      this.replaceTableOutlookRetail(dataReplace)
       console.log('gagal hapus')
     }
   }
@@ -4727,7 +4751,7 @@ export class TableServicesService {
     } else {
       const dataReplace = await this.marketUpdateService.fetchDataRealisasiMoneySupply();
       this.replaceTableRealisasiMoneySupply(dataReplace)
-      console.log('gagal hapus')
+      console.log('gagal update data')
     }
   }
   cellClick_addButtonRealisasiMoneySupply = async (e: any, cell:any) => {
@@ -4837,7 +4861,7 @@ export class TableServicesService {
   cellClick_deleteButtonRkapMoneySupply = async (e: any, cell:any) => {
     const rowData = cell.getRow().getData();
     const data = {
-      id: rowData.id_dash_Rkap,
+      id: rowData.id_dash_rkap,
     }
     const responeseRkap = await this.marketUpdateService.fetchDeleteDataAllRkap(data);
     this.responseDelete = responeseRkap;
@@ -5642,12 +5666,12 @@ export class TableServicesService {
     }
     const data = {
       id: rowData.id,
-      grup: rowData.kode,
+      grup: rowData.kode.toUpperCase(),
       tanggal: rowData.tanggal,
       tahun: rowData.tahun,
       rate: rowData.rate,
-      month3: rowData.month3,
-      month6: rowData.month6,
+      month3: rowData.rate,
+      month6: rowData.rate,
     }
     const responeseOutlook = await this.marketUpdateService.fetchDataUpdateOutlookInterestRate(data);
     this.responseUpdate = responeseOutlook;
@@ -5673,7 +5697,7 @@ export class TableServicesService {
     currentTable.hideColumn("CancelAddButton")
     currentTable.hideColumn("SaveAddButton")
     const data = {
-      grup: rowData.kode,
+      grup: rowData.kode.toUpperCase(),
       tanggal: rowData.tanggal,
       tahun: rowData.tahun,
       rate: rowData.rate,
@@ -5809,7 +5833,7 @@ export class TableServicesService {
       tahun: rowData.tahun,
       rate: rowData.rate,
       grup: "COMMODITIES",
-      mtu: rowData.mtu.toUppercase()
+      mtu: rowData.mtu.toUpperCase()
     }
     const responeseRkap = await this.marketUpdateService.fetchDataUpdateAllRkap(data);
     this.responseUpdate = responeseRkap;
@@ -6129,13 +6153,13 @@ export class TableServicesService {
     const data = {
       id: rowData.id_outlook_by,
       tanggal: rowData.tanggal,
-      yr5: parseFloat(rowData.yr5),
-      yr7: parseFloat(rowData.yr7),
-      yr10: parseFloat(rowData.yr10),
-      yr15: parseFloat(rowData.yr15),
-      yr20: parseFloat(rowData.yr20),
-      yr25: parseFloat(rowData.yr25),
-      yr30: parseFloat(rowData.yr30),
+      yr5: rowData.yr5,
+      yr7: rowData.yr7,
+      yr10: rowData.yr10,
+      yr15: rowData.yr15,
+      yr20: rowData.yr20,
+      yr25: rowData.yr25,
+      yr30: rowData.yr30,
       grup: rowData.grup
     }
     const responesOutlook = await this.marketUpdateService.fetchDataUpdateOutlookBondYieldSBN(data);
@@ -6441,10 +6465,10 @@ export class TableServicesService {
     this.responseDelete = responeseOutlook;
     if (this.responseDelete.status == 200){
       const dataReplace = await this.marketUpdateService.fetchDataOutlookBondYieldUsTreasury();
-      this.replaceTableRkapUsTreasury(dataReplace)
+      this.replaceTableOutlookUsTreasury(dataReplace)
     } else {
       const dataReplace = await this.marketUpdateService.fetchDataOutlookBondYieldUsTreasury();
-      this.replaceTableRkapUsTreasury(dataReplace)
+      this.replaceTableOutlookUsTreasury(dataReplace)
       console.log('gagal hapus')
     }
   }

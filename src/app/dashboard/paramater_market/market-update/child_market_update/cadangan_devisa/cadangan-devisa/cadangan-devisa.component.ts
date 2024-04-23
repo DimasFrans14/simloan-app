@@ -105,19 +105,19 @@ export class CadanganDevisaComponent {
           const bYear = b.tahun || 0;
           return bYear - aYear;
         });
-        this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
-          return item.mtu ==="CADEV"
-        })
-        this.dataDetailRkap.map((item: any) =>{
-          item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
-          item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        })
       }
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRkap);
     } catch (error) {
       console.log(error);
     }
+    this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
+      return item.mtu ==="CADEV"
+    })
+    this.dataDetailRkap.map((item: any) =>{
+      item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+      item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    })
     this.tableConfig.setDataRkapCadev(this.dataDetailRkap);
     console.log('finish get data in func');
   }

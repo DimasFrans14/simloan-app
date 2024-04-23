@@ -39,6 +39,58 @@ export class MarketUpdateService {
       return null;
     }
   }
+  async fetchDataUpdateAllRkap(data:any){
+    const data1= {
+      "list_dashboard_rkap_dtolist":[
+        {
+          "mtu": data.mtu,
+          "grup": data.grup,
+          "rate": data.rate,
+          "tahun": data.tahun,
+          "tanggal": data.tanggal
+        }
+      ]
+    }      
+    try {
+      return await lastValueFrom(
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap/update_ir?id=${data.id}`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDataInputAllRkap(data:any){
+    const data1= {
+      "list_dashboard_rkap_dtolist": [
+        {
+          "mtu": data.mtu,
+          "grup": data.grup,
+          "rate": data.rate,
+          "tahun": data.tahun,
+          "tanggal": data.tanggal
+        }
+      ]
+    }
+    try {
+      return await lastValueFrom(
+        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap/create_ir`, data1)
+      )
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+  async fetchDeleteDataAllRkap(data:any){
+    try {
+      return await lastValueFrom(
+        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap/delete_ir?id=${data.id}`)
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
 //kurs
   async fetchDataKurs(year: string){
     try {
@@ -597,7 +649,7 @@ export class MarketUpdateService {
       }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/update_by?id=${data.id}&ustreasury_usbn=SBN`, data1)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/realisasi/non-macro/update_by?id=${data.id}&ustreasury_usbn=SBN`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -696,13 +748,13 @@ export class MarketUpdateService {
   async fetchDataInputOutlookBondYieldSBN(data:any){
     const data1= {
       "tanggal": data.tanggal,
-      "5yr": data.yr5,
-      "7yr": data.yr7,
-      "10yr": data.yr10,
-      "15yr": data.yr15,
-      "20yr": data.yr20,
-      "25yr": data.yr25,
-      "30yr": data.yr30,
+      "yr5": data.yr5,
+      "yr7": data.yr7,
+      "yr10": data.yr10,
+      "yr15": data.yr15,
+      "yr20": data.yr20,
+      "yr25": data.yr25,
+      "yr30": data.yr30,
       "grup":data.grup
       }
     try {
@@ -917,17 +969,17 @@ export class MarketUpdateService {
     const data1= {
       "tanggal": data.tanggal,
       "yr5": data.yr5,
-      "yr7": data.yr5,
-      "yr10": data.yr5,
-      "yr15": data.yr5,
-      "yr20": data.yr5,
-      "yr25": data.yr5,
-      "yr30": data.yr5,
+      "yr7": data.yr7,
+      "yr10": data.yr10,
+      "yr15": data.yr15,
+      "yr20": data.yr20,
+      "yr25": data.yr25,
+      "yr30": data.yr30,
       "grup": "US_TREASURY"
     }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?id=${data.id}`, data1)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?id=${data.id}`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -1244,19 +1296,13 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateRealisasiPDB(data:any){
       const data1 = {
-        "list_dashboard_rkap_dtolist": [
-          {
-            "mtu": "PDB",
-            "grup": "MACRO_INDICATOR",
-            "rate": data.rate,
-            "tahun": data.tahun,
-            "tanggal": data.tanggal
-          }
-        ]
+        "quartal": data.quartal,
+        "tahun": data.tahun,
+        "nilai": data.nilai
       }
     try {
       return await lastValueFrom(
-        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap/update_ir?id=${data.id}`, data1)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`, data1)
       )
     } catch (error) {
       console.log(error);
@@ -1285,68 +1331,6 @@ export class MarketUpdateService {
     try {
       return await lastValueFrom(
         this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-real-pdb?id=${data.id}`)
-      );
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  }
-  async fetchDataRkapPDB(){
-    try {
-      return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/macro/master-rkap-pdb?is_active=true`)
-      );
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  }
-  async fetchDataUpdateAllRkap(data:any){
-    const data1= {
-      "list_dashboard_rkap_dtolist":[
-        {
-          "mtu": data.mtu,
-          "grup": data.grup,
-          "rate": data.rate,
-          "tahun": data.tahun,
-          "tanggal": data.tanggal
-        }
-      ]
-    }      
-    try {
-      return await lastValueFrom(
-        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap/update_ir?id=${data.id}`, data1)
-      )
-    } catch (error) {
-      console.log(error);
-      return error
-    }
-  }
-  async fetchDataInputAllRkap(data:any){
-    const data1= {
-      "list_dashboard_rkap_dtolist": [
-        {
-          "mtu": data.mtu,
-          "grup": data.grup,
-          "rate": data.rate,
-          "tahun": data.tahun,
-          "tanggal": data.tanggal
-        }
-      ]
-    }
-    try {
-      return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap/create_ir`, data1)
-      )
-    } catch (error) {
-      console.log(error);
-      return error
-    }
-  }
-  async fetchDeleteDataAllRkap(data:any){
-    try {
-      return await lastValueFrom(
-        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/dashboard/rkap/delete_ir?id=${data.id}`)
       );
     } catch (error) {
       console.log(error);
@@ -2286,8 +2270,8 @@ export class MarketUpdateService {
       "grup": data.grup,
       "tanggal": data.tanggal,
       "tahun": data.tahun,
-      "month3": "",
-      "month6": "",
+      "month3": data.rate,
+      "month6": data.rate,
       "rate": data.rate
     }
     console.log(data1)
@@ -2305,8 +2289,8 @@ export class MarketUpdateService {
       "grup": data.grup,
       "tanggal": data.tanggal,
       "tahun": data.tahun,
-      "month3": data.month3,
-      "month6": data.month6,
+      "month3": data.rate,
+      "month6": data.rate,
       "rate": data.rate
     }
     console.log(data1)
@@ -2406,8 +2390,8 @@ export class MarketUpdateService {
       "tanggal": data.tanggal,
       "tahun": data.tahun,
       "rate": data.rate,
-      "month3": "",
-      "month6": "",
+      "month3": data.rate,
+      "month6": data.rate,
     }
     console.log(data1)
   try {
@@ -2425,8 +2409,8 @@ export class MarketUpdateService {
       "tanggal": data.tanggal,
       "tahun": data.tahun,
       "rate": data.rate,
-      "month3": "",
-      "month6": ""
+      "month3": data.rate,
+      "month6": data.rate
     }
     console.log(data1)
   try {
@@ -2728,13 +2712,23 @@ export class MarketUpdateService {
   }
   async fetchDataUpdateGmtnFincost(data:any){
       const data1 = {
-        "list_dashboard_rkap_dtolist": [
+        "master_obligasit_creates": [
           {
-            "mtu": "PDB",
-            "grup": "MACRO_INDICATOR",
-            "rate": data.rate,
-            "tahun": data.tahun,
-            "tanggal": data.tanggal
+            "baseline_estimasi_list": [
+              {
+                "tahun": "2024",
+                "tenor": "30",
+                "rate_coupon": "6.65",
+                "kurs": 15329,
+                "tahun_estimasi": "2024",
+                "tenor_estimasi": "30",
+                "indicative_rate": "4",
+                "kurs_estimasi": 14302
+              }
+            ],
+            "tanggal": "22/04/2024",
+            "nama_obligasi": "GMTN 2024",
+            "keterangan": "test"
           }
         ]
       }
@@ -2753,22 +2747,23 @@ export class MarketUpdateService {
         {
           "baseline_estimasi_list": [
             {
-              "tahun": data.tahun,
-              "tenor": data.tenor,
+              "tahun": data.tahun_baseline,
+              "tenor": data.tenor_baseline,
               "rate_coupon": data.rate_coupon,
-              "kurs": data.kurs,
-              "tahun_estimasi": data.tahun_estimasi,
-              "tenor_estimasi": data.tenor_estimasi,
+              "kurs": data.rate_kurs,
+              "tahun_estimasi": data.tahun_estimasi_baseline,
+              "tenor_estimasi": data.tenor_estimasi_baseline,
               "indicative_rate": data.indicative_rate,
-              "kurs_estimasi": data.akurs_estimasi
+              "kurs_estimasi": data.rate_kurs_estimasi_baseline
             }
           ],
           "tanggal": data.tanggal,
           "nama_obligasi": data.nama_obligasi,
-          "keterangan": data.keterangan
+          "keterangan": "test"
         }
       ]
     }
+    console.log(data1)
     try {
       return await lastValueFrom(
         this.http.post(`${environment.apiUrl1}/simloan/ws-v01/master-obligasi`, data1)
@@ -2788,5 +2783,4 @@ export class MarketUpdateService {
       return null;
     }
   }
-
 }

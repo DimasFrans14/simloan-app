@@ -118,13 +118,13 @@ export class MoneySuplyComponent {
     this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
       return item.mtu ==="MONEY_SUPPLY"
     })
-    if (this.dataDetailRkap == !null){
-      this.dataDetailRkap.map((item: any) =>{
-        item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
-        item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      })
-    } else {
+    if (this.dataDetailRkap == null){
       console.log('data kosong')
+    } else {
+      this.dataDetailRkap.map((item: any) =>{
+        item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+        item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      })
     }
     this.tableConfig.setDataRkapMoneySupply(this.dataDetailRkap);
     console.log('finish get data in func');
@@ -185,7 +185,7 @@ export class MoneySuplyComponent {
       const responseMoneySupply = await this.marketUpdateService.fetchAllDataMacroIndicator(today, "MONEY");
 
       this.dataMoneySupply = responseMoneySupply;
-
+      
       if(this.dataMoneySupply.data.length > 0){
         this.getLabelYear = this.dataMoneySupply.data.filter((item: any) => {
           return item.bulan === 'Bulan';
@@ -195,26 +195,16 @@ export class MoneySuplyComponent {
         })
       }
       else{
-        this.dataMoneySupply = [];
+      this.dataMoneySupply = [];
       }
-      this.dataMoneySupply.map((item: any)=>{
-        item.year_min_0 != null ? item.year_min_0 = item.year_min_0.toFixed(2) : item.year_min_0 = 0;
-        item.year_min_0 = item.year_min_0.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        return item;
-      })
-      this.dataMoneySupply.map((item: any)=>{
-        item.year_min_1 != null ? item.year_min_1 = item.year_min_1.toFixed(2) : item.year_min_1 = 0;
-        item.year_min_1 = item.year_min_1.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        return item;
-      })
-      this.dataMoneySupply.map((item: any)=>{
-        item.year_min_2 != null ? item.year_min_2 = item.year_min_2.toFixed(2) : item.year_min_2 = 0;
-        item.year_min_2 = item.year_min_2.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        return item;
-      })
-      this.dataMoneySupply.map((item: any)=>{
-        item.year_min_3 != null ? item.year_min_3 = item.year_min_3.toFixed(2) : item.year_min_3 = 0;
-        item.year_min_3 = item.year_min_3.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      this.dataMoneySupply = this.dataMoneySupply.map((item: any)=>{
+        item.year_min_0 != null ? item.year_min_0 = parseFloat(item.year_min_0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_0 = 0;
+
+        item.year_min_1 != null ? item.year_min_1 = parseFloat(item.year_min_1).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_1 = 0;
+
+        item.year_min_2 != null ? item.year_min_2 = parseFloat(item.year_min_2).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_2 = 0;
+
+        item.year_min_3 != null ? item.year_min_3 = parseFloat(item.year_min_3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : item.year_min_3 = 0;
         return item;
       })
       this.allLabelYear = [];

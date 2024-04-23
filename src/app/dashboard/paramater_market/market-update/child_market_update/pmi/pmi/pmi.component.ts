@@ -172,8 +172,8 @@ export class PmiComponent {
           return bYear - aYear;
         });
         this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
-          item.pdb != null ? item.pdb = parseFloat(item.pdb) : item.pdb = 0;
-          item.pdb = item.pdb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
+          item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
           return item;
         })
       }else {

@@ -57,11 +57,10 @@ export class BondYieldComponent {
       const data = await this.marketUpdateService.fetchDataRealisasiBondYieldSBN();
       this.dataDetailRealisasi = data;
       this.dataDetailRealisasi = this.dataDetailRealisasi.data.content;
-      this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) => {
+      this.dataDetailRealisasi.map((item: any) => {
         const dateParts = item.tanggal.split("/");
-        const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]), Number(dateParts[0]));
+        const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1])-1, Number(dateParts[0])+1);
         item.tanggal = dateObject.toISOString().split("T")[0];
-        
         return item;
         }).sort((a: any, b: any) => {
           return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
@@ -78,6 +77,18 @@ export class BondYieldComponent {
     this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
       item.yr5 != null ? item.yr5 = parseFloat(item.yr5) : item.yr5 = 0;
       item.yr5 = item.yr5.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr7 != null ? item.yr7 = parseFloat(item.yr7) : item.yr7 = 0;
+      item.yr7 = item.yr7.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr10 != null ? item.yr10 = parseFloat(item.yr10) : item.yr10 = 0;
+      item.yr10 = item.yr10.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr15 != null ? item.yr15 = parseFloat(item.yr15) : item.yr15 = 0;
+      item.yr15 = item.yr15.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr20 != null ? item.yr20 = parseFloat(item.yr20) : item.yr20 = 0;
+      item.yr20 = item.yr20.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr25 != null ? item.yr25 = parseFloat(item.yr25) : item.yr25 = 0;
+      item.yr25 = item.yr25.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr30 != null ? item.yr30 = parseFloat(item.yr30) : item.yr30 = 0;
+      item.yr30 = item.yr30.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       return item;
     })
     this.tableConfig.setDataRealisasiBondYieldSBN(this.dataDetailRealisasi);
@@ -118,24 +129,21 @@ export class BondYieldComponent {
     try {
       const data = await this.marketUpdateService.fetchDataOutlookBondYieldSBN();
       this.dataDetailOutlook = data;
-      this.dataDetailOutlook = this.dataDetailOutlook;
+      this.dataDetailOutlook = this.dataDetailOutlook.data.content;
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
     } catch (error) {
       console.log(error);
     }
-
-    this.dataDetailOutlook = this.dataDetailOutlook.data.content.filter((item: any) => {
-      return item.grup != 'US_TREASURY';
-    })
-
-    // console.log(this.dataDetailOutlook);
-
+    if (this.dataDetailOutlook == null){
+      console.log('data kosong')
+    } else {
       this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
         item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
         item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         return item;
       });
+    }
     this.tableConfig.setDataOutlookBondYieldSBN(this.dataDetailOutlook);
     console.log('finish get data in func');
   }

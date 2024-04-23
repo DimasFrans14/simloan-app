@@ -46,7 +46,7 @@ export class UsTreasuryComponent {
       } else {
         this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) => {
           const dateParts = item.tanggal.split("/");
-          const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
+          const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1])-1, Number(dateParts[0])+2);
           item.tanggal = dateObject.toISOString().split("T")[0];
           
           return item;
