@@ -1,0 +1,1354 @@
+<div>
+  <app-header [headerTitle]="'Shareholder Loan'"></app-header>
+  <app-sidebar></app-sidebar>
+
+  <div id="header" class="header">
+    <div class="col-12 bg-white sub-nav border-top">
+      <div class="d-flex justify-content-start align-items-center">
+        <div class="me-2">
+          <a routerLink="/shl_agreement" routerLinkActive="active">
+            <i class="bi bi-arrow-left text-dark"></i>
+          </a>
+        </div>
+        <div>
+          <h4>Create Simulation</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <main class="main" id="main">
+
+    <mat-stepper [linear]="false" #stepper>
+
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Choose Agreement</ng-template>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputWithdrawal mb-4"
+                >Nama Anak Perusahaan</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <ng-select
+              [items]="anakPerusahaan"
+              class="form-control"
+              bindLabel="name"
+              id="anakPerusahaan"
+              placeholder="Pilih Nama Anak Perusahaan"
+              bindValue="name"
+              formControlName="selectedAP"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && firstFormGroup.controls.selectedAP.errors
+              }"
+              required
+            >
+            </ng-select>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputWithdrawal mb-4"
+                >Pilih Nomor SHL Agreement</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <ng-select
+              [items]="shlAgreementList"
+              class="form-control"
+              bindLabel="no_shl_agreement"
+              placeholder="Pilih Nomor SHL Agreement"
+              bindValue="no_shl_agreement"
+              formControlName="noSHLAgreementList"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && firstFormGroup.controls.noSHLAgreementList.errors
+              }"
+              required
+              (change)="onChange($event)"
+            >
+            </ng-select>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputWithdrawal mb-4"
+                >Nomor SHL Agreement Anak Perusahaan</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <input type="text" class="form-control" [disabled]="true" [value]="selectedNoSHLAnakPerusahaan ? selectedNoSHLAnakPerusahaan : null">
+            <!-- <ng-select
+              [items]="noSHLAnakPerusahaan"
+              class="form-control"
+              bindLabel="name"
+              id="noSHLAnakPerusahaan"
+              placeholder="Pilih Nama Anak Perusahaan"
+              bindValue="name"
+              formControlName="noSHLAnakPerusahaan"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && firstFormGroup.controls.noSHLAnakPerusahaan.errors
+              }"
+              required
+            >
+            </ng-select> -->
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputWithdrawal mb-4"
+                >Nama Proyek</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <ng-select
+              [items]="proyekList"
+              class="form-control"
+              bindLabel="name"
+              id="proyekList"
+              placeholder="Pilih Nama Proyek"
+              bindValue="name"
+              formControlName="selectedProyek"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && firstFormGroup.controls.selectedProyek.errors
+              }"
+              (change)="namaProyekChange($event)"
+              required
+            >
+            </ng-select>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputWithdrawal mb-4"
+                >Pilih Withdrawal</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <ng-select
+              [items]="agreementKe"
+              class="form-control"
+              bindLabel="idx_withdrawal"
+              id="agreementKe"
+              placeholder="Pilih Nama Proyek"
+              bindValue="idx_withdrawal"
+              formControlName="selectedWithdrawal"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && firstFormGroup.controls.selectedWithdrawal.errors
+              }"
+              (change)="chooseWithdrawal($event)"
+              required
+            >
+        </ng-select>
+          </div>
+
+        <div class="d-flex justify-content-between align-items-baseline">
+          <div class="d-flex justify-content-baseline">
+            <span class="label-inputWithdrawal mb-4">Grace Period</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="8"
+              height="8"
+              fill="currentColor"
+              class="bi bi-asterisk mandatorySign"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+              />
+            </svg>
+          </div>
+
+          <div
+          class="d-flex justify-content-between align-items-center gap-1"
+        >
+          <div class="d-flex flex-column">
+            <span class="label-gracePeriod">Start Date</span>
+            <mat-form-field class="input-date-startEnd" style="height: 60px;">
+              <mat-label class="label-datepicker">Select Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="startDateGracePeriodePicker"
+                autocomplete="off"
+                formControlName="startDateGracePeriode"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted &&
+                    firstFormGroup.controls.startDateGracePeriode
+                      .errors
+                }"
+                style="color: black"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="startDateGracePeriodePicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                #startDateGracePeriodePicker
+                color="primary"
+                disabled="false"
+              ></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="d-flex flex-column">
+            <span class="label-gracePeriod">End Date</span>
+            <mat-form-field class="input-date-startEnd" style="height: 60px;">
+              <mat-label class="label-datepicker">Select Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="endDateGracePeriodePicker"
+                autocomplete="off"
+                formControlName="endDateGracePeriode"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted &&
+                    firstFormGroup.controls.endDateGracePeriode
+                      .errors
+                }"
+                style="color: black"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="endDateGracePeriodePicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                #endDateGracePeriodePicker
+                color="primary"
+                disabled="false"
+              ></mat-datepicker>
+            </mat-form-field>
+          </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end align-items-baseline">
+          <div class="mb-3">
+            <textarea
+              class="form-control text-area-deskripsi-proyek"
+              id="deskripsiProyek"
+              rows="3"
+              placeholder="Deskripsi"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-baseline">
+          <div class="d-flex justify-content-baseline">
+            <span class="label-inputWithdrawal mb-4 me-1">Pembayaran Pokok yang sudah dibayarkan</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="8"
+              height="8"
+              fill="currentColor"
+              class="bi bi-asterisk mandatorySign"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+              />
+            </svg>
+          </div>
+
+          <div
+            class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+          >
+            <div class="d-flex justify-content-end align-items-center">
+              <input
+                type="text"
+                class="form-control input-tenor"
+                id="noSHL"
+                placeholder=""
+                formControlName="pokok_dibayarkan"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted && firstFormGroup.controls.pokok_dibayarkan.errors
+                }"
+                required
+              />
+              <button
+                class="btn btn-outline-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                id="buttonTenor"
+              >
+                IDR
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>USD</li>
+                <li>EUR</li>
+                <li>IDR</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-baseline">
+          <div class="d-flex justify-content-baseline">
+            <span class="label-inputWithdrawal mb-4 me-1">Pembayaran Bunga yang sudah dibayarkan</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="8"
+              height="8"
+              fill="currentColor"
+              class="bi bi-asterisk mandatorySign"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+              />
+            </svg>
+          </div>
+
+          <div
+            class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+          >
+            <div class="d-flex justify-content-end align-items-center">
+              <input
+                type="text"
+                class="form-control input-tenor"
+                id="noSHL"
+                placeholder=""
+                formControlName="bunga_dibayarkan"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted && firstFormGroup.controls.bunga_dibayarkan.errors
+                }"
+                required
+              />
+              <button
+                class="btn btn-outline-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                id="buttonTenor"
+              >
+                IDR
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>USD</li>
+                <li>EUR</li>
+                <li>IDR</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary px-3 py-1 rounded" (click)="firstWithdrawalForm()">Next</button>
+          </div>
+
+        </form>
+
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Agreemnet Detail</ng-template>
+
+        <div class="bg-white rounded">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <img
+                src="assets/image/detail_agreement_left_header.svg"
+                alt=""
+              />
+            </div>
+            <div class="me-3">
+              <img
+                src="assets/image/detail_agreement_right_header.svg"
+                alt=""
+              />
+            </div>
+          </div>
+
+          <div class="row p-3">
+            <div class="col-6" style="border-right: 1px solid #e4e4e4">
+              <!-- <ng-container *ngFor="let item of detailDataSHLAgreement"> -->
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <span>Nama Anak Perusahaan</span>
+                <span
+                  class="p-2 rounded detail-data"
+                  id="detailDataSHLAgreement.id"
+                  >{{ this.firstFormGroup.value.selectedAP }}</span
+                >
+              </div>
+
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <span>Nomor SHL Agreement</span>
+                <span class="p-2 rounded detail-data">{{
+                  this.firstFormGroup.value.noSHLAgreementList
+                }}</span>
+              </div>
+
+              <div
+                class="d-flex flex-nowrap justify-content-between align-items-center mb-3"
+              >
+                <span>SHL Agreement Date</span>
+                <span class="p-2 rounded detail-data">DD/MM/YYYY</span>
+              </div>
+
+              <div
+                class="d-flex flex-nowrap justify-content-between align-items-center mb-3"
+              >
+                <span>Masa Penarikan / Available Period</span>
+                <span class="p-2 rounded detail-data">DD/MM/YYYY</span>
+              </div>
+              <div
+                class="d-flex flex-nowrap justify-content-between align-items-center mb-3"
+              >
+                <span>Masa Tenggang / End-Date - Grace Period</span>
+                <span class="p-2 rounded detail-data">Grace Period</span>
+              </div>
+              <div
+                class="d-flex flex-nowrap justify-content-between align-items-center mb-3"
+              >
+                <span>Masa Pengembalian / Repayment Period</span>
+                <span class="p-2 rounded detail-data">Repayment Period</span>
+              </div>
+              <div
+                class="d-flex flex-nowrap justify-content-between align-items-center mb-3"
+              >
+                <span>Pembayaran Pokok</span>
+                <span class="p-2 rounded detail-data">0.00</span>
+              </div>
+
+              <!-- </ng-container> -->
+            </div>
+
+            <div class="col-6">
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <span>Nama Proyek</span>
+                <span class="p-2 rounded detail-data">SIMLOAN</span>
+              </div>
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <span>Mata Uang</span>
+                <span class="p-2 rounded detail-data">USD</span>
+              </div>
+
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <span>Total Pagu</span>
+                <span class="p-2 rounded detail-data">750.000.000.000</span>
+              </div>
+
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <span>Total Withdrawal</span>
+                <span class="p-2 rounded detail-data">50.000.000.000</span>
+              </div>
+
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <span>Sisa Pagu</span>
+                <span class="p-2 rounded detail-data">50.000.000.000</span>
+              </div>
+
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <span>Bunga</span>
+                <span class="p-2 rounded detail-data">0.00%</span>
+              </div>
+
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <span>Terakhir Penarikan</span>
+                <span class="p-2 rounded detail-data"
+                  >Penarikan ke-1</span
+                >
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+
+        <div class="py-3">
+          <span class="fw-bold">Detail Withdrawal</span>
+        </div>
+
+        <div class="table-withdrawalDetail2 pb-2" id="previewTabelProyek"></div>
+
+      </mat-step>
+
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Payment Simulation</ng-template>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4"
+                >Angsuran</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="d-flex justify-content-end align-items-center gap-2">
+              <input
+              matInput
+              type="text"
+              class="form-control input-angsuran"
+              id="angsuran"
+              placeholder="Angsuran"
+              formControlName="angsuran"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && secondFormGroup.controls.angsuran.errors
+              }"
+              required
+            />
+
+            <button type="button" class="btn btn-outline-primary">View Skedul</button>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4 me-1"
+                >Tanggal Jatuh Tempo
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <mat-form-field class="ms-2 input-date-agreement">
+            <mat-label class="label-datepicker">Select Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="tanggalJatuhTempo"
+              autocomplete="off"
+              [ngClass]="{
+                'is-invalid':
+                  submitted &&
+                  secondFormGroup.controls.tanggalJatuhTempo.errors
+              }"
+              formControlName="tanggalJatuhTempo"
+              style="color: black"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="tanggalJatuhTempo"
+            ></mat-datepicker-toggle>
+            <mat-datepicker
+              #tanggalJatuhTempo
+              color="primary"
+              disabled="false"
+            ></mat-datepicker>
+          </mat-form-field>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4"
+                >Tanggal Terima</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <mat-form-field class="ms-2 input-date-agreement">
+              <mat-label class="label-datepicker">Select Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="tanggalTerima"
+                autocomplete="off"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted &&
+                    secondFormGroup.controls.tanggalTerima.errors
+                }"
+                formControlName="tanggalTerima"
+                style="color: black"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="tanggalTerima"
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                #tanggalTerima
+                color="primary"
+                disabled="false"
+              ></mat-datepicker>
+            </mat-form-field>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4"
+                >Pembayaran</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-baseline">
+              <div class="form-check input-pengembalian me-2">
+                <input
+                  class="form-check-input me-1"
+                  type="checkbox"
+                  name="pembayaran_pokok"
+                  id="pokok"
+                  [value]="'pokok'"
+                  (change)="changePembayaranPokok($event)"
+                  checked
+                  required
+                />
+                <label class="form-check-label" for="pokok">
+                  Pokok
+                </label>
+              </div>
+              <div class="form-check input-pengembalian">
+                <input
+                  class="form-check-input me-1"
+                  type="checkbox"
+                  name="pembayaran_bunga"
+                  id="bunga"
+                  [value]="'bunga'"
+
+                  (change)="changePembayaranBunga($event)"
+                  required
+                />
+                <label class="form-check-label" for="bunga">
+                  Bunga
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center" *ngIf="pembayaranPokok">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Pokok</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-tenor"
+                      id="tenor"
+                      placeholder=""
+                      formControlName="diterimaPLN"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && secondFormGroup.controls.diterimaPLN.errors
+                      }"
+                      required
+                    />
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      id="buttonTenor"
+                    >
+                      IDR
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>IDR</li>
+                      <li>USD</li>
+                    </ul>
+                  </div>
+                </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center" *ngIf="pembayaranBunga">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Bunga</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-tenor"
+                      id="tenor"
+                      placeholder=""
+                      formControlName="diterimaPLN"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && secondFormGroup.controls.diterimaPLN.errors
+                      }"
+                      required
+                    />
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      id="buttonTenor"
+                    >
+                      IDR
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>IDR</li>
+                      <li>USD</li>
+                    </ul>
+                  </div>
+                </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Pembayaran</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-baseline">
+              <div class="form-check input-pengembalian me-2">
+                <input
+                  class="form-check-input me-1"
+                  type="checkbox"
+                  name="pembayaran_pph"
+                  id="pph23"
+                  [value]="'pph23'"
+                  (change)="changePembayaranPPH23($event)"
+                  checked
+                  required
+                />
+                <label class="form-check-label" for="pph23">
+                  Pot. Pph 23
+                </label>
+              </div>
+              <div class="form-check input-pengembalian">
+                <input
+                  class="form-check-input me-1"
+                  type="checkbox"
+                  name="pembayaran_skb"
+                  id="skb"
+                  [value]="'skb'"
+                  (change)="changePembayaranSKB($event)"
+                  required
+                />
+                <label class="form-check-label" for="skb">
+                  SKB
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center" *ngIf="pembayaranPPH23">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Potongan PPH 23</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-tenor"
+                      id="tenor"
+                      placeholder=""
+                      formControlName="diterimaPLN"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && secondFormGroup.controls.diterimaPLN.errors
+                      }"
+                      required
+                    />
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      id="buttonTenor"
+                    >
+                      IDR
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>IDR</li>
+                      <li>USD</li>
+                    </ul>
+                  </div>
+                </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center" *ngIf="pembayaranSKB">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">SKB</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-tenor"
+                      id="tenor"
+                      placeholder=""
+                      formControlName="diterimaPLN"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && secondFormGroup.controls.diterimaPLN.errors
+                      }"
+                      required
+                    />
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      id="buttonTenor"
+                    >
+                      IDR
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>IDR</li>
+                      <li>USD</li>
+                    </ul>
+                  </div>
+                </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Denda</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-baseline">
+              <div class="form-check input-pengembalian me-2">
+                <input
+                  class="form-check-input me-1"
+                  type="radio"
+                  name="denda"
+                  id="isTrue"
+                  [value]="'isTrue'"
+                  formControlName="denda"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted &&
+                      secondFormGroup.controls.denda
+                        .errors
+                  }"
+                  (change)="changePembayaranDenda()"
+                  required
+                />
+                <label class="form-check-label" for="isTrue">
+                  Ya
+                </label>
+              </div>
+              <div class="form-check input-pengembalian">
+                <input
+                  class="form-check-input me-1"
+                  type="radio"
+                  name="denda"
+                  id="isFalse"
+                  [value]="'isFalse'"
+                  formControlName="denda"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted &&
+                      secondFormGroup.controls.denda
+                        .errors
+                  }"
+                  (change)="changePembayaranDenda()"
+                  required
+                />
+                <label class="form-check-label" for="isFalse">
+                  No
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center" *ngIf="pembayaranDenda === 'isTrue'">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Nominal Denda</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-tenor"
+                      id="tenor"
+                      placeholder=""
+                      formControlName="diterimaPLN"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && secondFormGroup.controls.diterimaPLN.errors
+                      }"
+                      required
+                    />
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      id="buttonTenor"
+                    >
+                      IDR
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>IDR</li>
+                      <li>USD</li>
+                    </ul>
+                  </div>
+                </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Diterima PLN</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-tenor"
+                      id="tenor"
+                      placeholder=""
+                      formControlName="diterimaPLN"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && secondFormGroup.controls.diterimaPLN.errors
+                      }"
+                      required
+                    />
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      id="buttonTenor"
+                    >
+                      IDR
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>IDR</li>
+                      <li>USD</li>
+                    </ul>
+                  </div>
+                </div>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Total Kewajiban</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-disabled"
+                      id="tenor"
+                      placeholder=""
+                      disabled
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      id="buttonTenor"
+                      disabled
+                    >
+                      IDR
+                    </button>
+                  </div>
+                </div>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Selisih Pembayaran Pokok</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-disabled"
+                      id="tenor"
+                      placeholder=""
+                      disabled
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      id="buttonTenor"
+                      disabled
+                    >
+                      IDR
+                    </button>
+                  </div>
+                </div>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Selisih Pembayaran Bunga</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-disabled"
+                      id="tenor"
+                      placeholder=""
+                      disabled
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      id="buttonTenor"
+                      disabled
+                    >
+                      IDR
+                    </button>
+                  </div>
+                </div>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Selisih Tanggal Pembayaran</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                  <div class="d-flex justify-content-end align-items-center">
+                    <input
+                      type="text"
+                      class="form-control input-disabled"
+                      id="tenor"
+                      placeholder=""
+                      disabled
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      id="buttonTenor"
+                      disabled
+                    >
+                      IDR
+                    </button>
+                  </div>
+                </div>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Notes</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="mb-3">
+              <textarea
+                class="form-control text-area-deskripsi-proyek"
+                id="notes"
+                rows="3"
+                placeholder="notes"
+              ></textarea>
+            </div>
+
+          </div>
+
+          <div>
+            <button mat-button (click)="submitFirstForm()">Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Preview Simulation</ng-template>
+      </mat-step>
+
+    </mat-stepper>
+
+   </main>
+</div>
