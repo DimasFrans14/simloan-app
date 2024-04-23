@@ -51,6 +51,7 @@ export class InputPembayaranComponent implements OnInit{
     angsuran: ['', Validators.required],
     tanggalJatuhTempo: ['', Validators.required],
     tanggalTerima: ['', Validators.required],
+    pilihPembayaran: ['sebagian', Validators.required],
     // pembayaran_pokok: [true, Validators.required],
     // pembayaran_bunga: [false, Validators.required],
     // pembayaran_pph: [true, Validators.required],
