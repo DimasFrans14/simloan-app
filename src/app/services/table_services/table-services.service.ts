@@ -2248,7 +2248,7 @@ export class TableServicesService {
           {title:"", formatter:actionBtn, width:70, cellClick:this.getRowData, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"", formatter:actionBtnAmandement, width:70, cellClick:navigateToAmandement, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false},
           {title:"", formatter:actionBtnDelete, width:70, cellClick: deleteRow, headerHozAlign:"center", hozAlign:"center", headerSort:false, resizable:false}
-        ]},
+        ], frozen: true},
       ],
     });
   }
@@ -3602,7 +3602,7 @@ export class TableServicesService {
 
       return item;
       }).sort((a: any, b: any) => {
-        return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime(); 
+        return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
       });
       sorted.map((item:any)=>{
         item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
@@ -3613,7 +3613,7 @@ export class TableServicesService {
   public replaceTableRkapUsTreasury (data:any){
     const table = this.tableRKAPUSTreasury;
     if (table == null){
-      
+
     }
     const filterData = data.data.content.filter((item:any)=>{
       return item.mtu ==="US_TREASURY"
@@ -3781,6 +3781,27 @@ export class TableServicesService {
       }
     }
     console.log([columnName, showColumn, hiddenColumns, checked]);
+  }
+
+  customizeColumn = (allCheckboxData: any[], checkedColumn: any[], isChecked: any[]) => {
+    console.log(allCheckboxData, checkedColumn, isChecked);
+
+    let showColumn = allCheckboxData.filter((item: any) => !checkedColumn.includes(item));
+
+    for(let i=0; i<isChecked.length; i++){
+      if(isChecked[i]){
+        for(let j=0; j<checkedColumn.length; j++){
+          this.tableSHLAgreementNonPenerusanPinjaman.hideColumn(checkedColumn[j]);
+          console.log('hide', checkedColumn[j]);
+        }
+        console.log('true');
+      }
+      else{
+        console.log('false');
+        // console.log('show', showColumn[i]);
+        this.tableSHLAgreementNonPenerusanPinjaman.showColumn(showColumn[i]);
+      }
+    }
   }
 
   showColumn(){

@@ -35,30 +35,45 @@
             <i class="bi bi-filter me-1"></i>Filter
           </button>
           <div class="dropdown-menu ps-2">
-            <form>
+            <form (submit)="onSubmit($event)">
               <div style="font-size: 15px">
-                <input type="checkbox" name="IDR" id="mata_uang" />
-                <label class="ms-2" value="mata_uang" for="IDR">IDR</label>
+                <input type="checkbox" name="agreement_number" id="agreement_number" />
+                <label class="ms-2" value="agreement_number" for="agreement_number">SHL Agreement Number"</label>
                 <br />
-                <input type="checkbox" name="Exchange Rate" id="nilai_rkap" />
-                <label class="ms-2" value="" for="Exchange Rate"
-                  >Exchange Rate</label
+                <input type="checkbox" name="agreement_number_anakperusahaan" id="agreement_number_anakperusahaan" />
+                <label class="ms-2" value="" for="agreement_number_anakperusahaan"
+                  >Agreement Anak Perusahaan</label
                 >
                 <br />
-                <input type="checkbox" name="Change RKAP" id="change_rkap" />
-                <label class="ms-2" value="" for="Change RKAP"
-                  >Change RKAP</label
+                <input type="checkbox" name="tanggal_dibuat" id="tanggal_dibuat" />
+                <label class="ms-2" value="" for="tanggal_dibuat"
+                  >Tanggal Dibuat</label
                 >
                 <br />
-                <input type="checkbox" name="Change MoM" id="change_mom" />
-                <label class="ms-2" value="" for="Change MoM">Change MoM</label>
+                <input type="checkbox" name="deskripsi" id="deskripsi" />
+                <label class="ms-2" value="" for="deskripsi">Deskripsi</label>
                 <br />
-                <input type="checkbox" name="Change WoW" id="change_wow" />
-                <label class="ms-2" value="" for="Change WoW">Change WoW</label>
+                <input type="checkbox" name="jumlah_amandement" id="jumlah_amandement" />
+                <label class="ms-2" value="" for="jumlah_amandement">Jumlah Amandement</label>
                 <br />
-                <input type="checkbox" name="Change 1 Day" id="change_1day" />
+                <input type="checkbox" name="amandement_agreement_number" id="amandement_agreement_number" />
+                <label class="ms-2" value="" for="amandement_agreement_number"
+                  >Amandement Agreement Number</label
+                >
+                <br />
+                <input type="checkbox" name="created_by" id="created_by" />
+                <label class="ms-2" value="" for="created_by"
+                  >Created By</label
+                >
+                <br />
+                <input type="checkbox" name="status" id="status" />
                 <label class="ms-2" value="" for="Change 1 Day"
-                  >Change 1 Day</label
+                  >Status</label
+                >
+                <br />
+                <input type="checkbox" name="approver" id="approver" />
+                <label class="ms-2" value="" for="Change 1 Day"
+                  >Approver</label
                 >
               </div>
               <button type="submit" class="btn btn-primary btn-sm mt-2">

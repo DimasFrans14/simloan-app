@@ -198,41 +198,108 @@
               </svg>
             </div>
 
-            <div class="d-flex justify-content-center align-items-center">
+            <div class="d-flex justify-content-center align-items-baseline">
               <div class="form-check input-pengembalian me-2">
                 <input
                   class="form-check-input me-1"
-                  type="radio"
-                  name="masaPengembalian"
-                  id="flexRadioDefault1"
-                  [value]="'FREE_TEXT'"
-                  formControlName="masaPengembalian"
-                  (change)="onChange()"
+                  type="checkbox"
+                  name="free_text"
+                  id="free_text"
+                  [value]="'free_text'"
+                  (change)="checkboxEvent('masa_pengembalian', 'free_text')"
+                  checked
                   required
                 />
-                <label class="form-check-label" for="flexRadioDefault1">
+                <label class="form-check-label" for="free_text">
                   Free Text
                 </label>
               </div>
               <div class="form-check input-pengembalian">
                 <input
                   class="form-check-input me-1"
-                  type="radio"
-                  name="masaPengembalian"
-                  id="flexRadioDefault2"
+                  type="checkbox"
+                  name="date"
+                  id="date"
                   [value]="'date'"
-                  formControlName="masaPengembalian"
-                  (change)="onChange()"
+                  (change)="checkboxEvent('masa_pengembalian', 'date')"
                   required
                 />
-                <label class="form-check-label" for="flexRadioDefault2">
+                <label class="form-check-label" for="date">
                   Date
                 </label>
               </div>
             </div>
           </div>
 
-          <div class="d-flex justify-content-end align-items-center my-4">
+          <div class="d-flex justify-content-between align-items-start" *ngIf="freeTextMasaPengembalian">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Free Text</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div class="input-group mb-3 d-flex justify-content-end align-items-center input-grup">
+              <textarea
+                class="form-control text-area-deskripsi-proyek"
+                rows="3"
+                placeholder="Deskripsi Tanggal"
+              ></textarea>
+                </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center" *ngIf="dateMasaPengembalian">
+            <div class="d-flex justify-content-baseline">
+              <span class="label-inputAgreement mb-4">Date</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="8"
+                fill="currentColor"
+                class="bi bi-asterisk mandatorySign"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+
+            <div
+                  class="input-group mb-3 d-flex justify-content-end align-items-center input-grup"
+                >
+                <mat-form-field class="ms-2 input-date-agreement">
+                  <mat-label class="label-datepicker">Select Date</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="perjanjianPicker"
+                    autocomplete="off"
+
+                    style="color: black"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="perjanjianPicker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker
+                    #perjanjianPicker
+                    color="primary"
+                    disabled="false"
+                  ></mat-datepicker>
+                </mat-form-field>
+                </div>
+          </div>
+
+          <!-- <div class="d-flex justify-content-end align-items-center my-4">
             <ng-container *ngIf="selectionOptionCreateAgreement !== 'date'">
               <textarea
                 class="form-control text-area-deskripsi-proyek"
@@ -274,7 +341,7 @@
                 ></mat-datepicker>
               </mat-form-field>
             </ng-container>
-          </div>
+          </div> -->
 
           <div class="d-flex justify-content-between align-items-baseline">
             <div class="d-flex justify-content-baseline">
@@ -378,14 +445,31 @@
               class="d-flex flex-column justify-content-center align-items-start mt-4 list-project"
               style="gap: 24px"
             >
-            <div *ngFor="let item of buttonProject">
-              <button
-              class="btn btn-outline-primary text-start button-project"
-              (click)="getDataProject(item)"
-              >
-                <i class="bi bi-file-earmark-lock px-1"></i>Project {{item}}
-              </button>
-            </div>
+              <div *ngFor="let item of buttonProject">
+                <div class="d-flex justify-content-between aling-items-center gap-2">
+                  <button
+                  class="btn btn-outline-primary text-start button-project"
+                  (click)="getDataProject(item)"
+                  >
+                    <i class="bi bi-file-earmark-lock px-1"></i>Project {{item}}
+                  </button>
+
+                  <button
+                  class="btn btn-outline-danger rounded"
+                  (click)="deleteData(item)"
+                  >
+                  <i class="bi bi-x-lg"></i>
+
+                </button>
+
+                <button
+                  class="btn btn-outline-primary rounded"
+                  (click)="saveTemporary(item)"
+                  >
+                  <i class="bi bi-floppy"></i>
+                </button>
+                </div>
+              </div>
               <!-- <button
                 class="btn btn-outline-primary text-start button-project"
               >
@@ -474,7 +558,7 @@
                     type="text"
                     class="form-control input-tenor"
                     id="noSHL"
-                    placeholder="Masukan Nomor SHL Agreement Number"
+                    placeholder="Total Pagu"
                     formControlName="totalPagu"
                     [ngClass]="{
                       'is-invalid':
@@ -492,12 +576,11 @@
                       IDR
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                      <li>IDR</li>
-                      <li>USD</li>
-                      <li>EUR</li>
-                      <li>JPY</li>
-                      <li>GBP</li>
-                      <li>AUD</li>
+                      <a class="dropdown-item">IDR</a>
+                      <a class="dropdown-item">USD</a>
+                      <a class="dropdown-item">EUR</a>
+                      <a class="dropdown-item">JPY</a>
+                      <a class="dropdown-item">GBP</a>
                     </ul>
                   </div>
                 </div>
@@ -706,7 +789,7 @@
                         matInput
                         [matDatepicker]="perjanjianPicker"
                         autocomplete="off"
-                        [value]="dateVal.value"
+
                         style="color: black"
                       />
                       <mat-datepicker-toggle
@@ -1670,7 +1753,7 @@
                     type="text"
                     class="form-control input-tenor"
                     id="noSHL"
-                    placeholder="Masukan Nomor SHL Agreement Number"
+                    placeholder="Total Pagu"
                     formControlName="totalPagu"
                     [ngClass]="{
                       'is-invalid':
@@ -1688,12 +1771,14 @@
                       IDR
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                      <li>IDR</li>
-                      <li>USD</li>
-                      <li>EUR</li>
-                      <li>JPY</li>
-                      <li>GBP</li>
-                      <li>AUD</li>
+                      <li>
+                        <a class="dropdown-item">IDR</a>
+                        <a class="dropdown-item">USD</a>
+                        <a class="dropdown-item">EUR</a>
+                        <a class="dropdown-item">JPY</a>
+                        <a class="dropdown-item">GBP</a>
+
+                      </li>
                     </ul>
                   </div>
                 </div>
