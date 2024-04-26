@@ -89,10 +89,12 @@ export class ShlCreateAgreementComponent implements OnInit{
   freeTextBerakhirPerjanjian: boolean = true;
   freeTextAvailabilityPeriod: boolean = true;
   freeTextGracePeriod: boolean = true;
+  freeTextMasaPengembalian: boolean = true;
 
   dateBerakhirPerjanjian: boolean = false;
   dateAvailabilityPeriod: boolean = false;
   dateGracePeriod: boolean = false;
+  dateMasaPengembalian: boolean = false;
 
   dataMasterAnakPerusahaan: any;
 
@@ -109,8 +111,10 @@ export class ShlCreateAgreementComponent implements OnInit{
   ];
 
   repaymentMethod = [
-    { id: 1, name: '1 Bulan' },
-    { id: 2, name: '3 Bulan' },
+    { id: 1, name: '3 Bulan' },
+    { id: 2, name: '4 Bulan' },
+    { id: 3, name: '5 Bulan' },
+    { id: 4, name: '6 Bulan' },
   ];
 
   firstFormGroup = this._formBuilder.group({
@@ -222,6 +226,15 @@ export class ShlCreateAgreementComponent implements OnInit{
         }
         else{
           this.dateGracePeriod = !this.dateGracePeriod;
+        }
+      break;
+
+      case "masa_pengembalian":
+        if(params === 'free_text'){
+          this.freeTextMasaPengembalian= !this.freeTextMasaPengembalian;
+        }
+        else{
+          this.dateMasaPengembalian= !this.dateMasaPengembalian;
         }
       break;
     }
@@ -680,7 +693,9 @@ export class ShlCreateAgreementComponent implements OnInit{
         }
         else{
           if(data.namaProyek != '' && data.namaProyek != null){
-            this.allDataProject.push(data)
+            this.allDataProject.push(data);
+            console.log('hit button project', this.allDataProject);
+
             localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
           }
           else{
@@ -700,7 +715,9 @@ export class ShlCreateAgreementComponent implements OnInit{
     }
 
     const getProjectData = localStorage.getItem('allDataProjectAgreement');
-    console.log(getProjectData);
+    if(getProjectData){
+      console.log(JSON.parse(getProjectData));
+    }
 
     getProjectData ? this.dataProjectIndex = JSON.parse(getProjectData) : {}
 
@@ -760,6 +777,56 @@ export class ShlCreateAgreementComponent implements OnInit{
     this.buttonProject.push(this.totalProjectList)
     console.log(this.totalProjectList);
 
+    // this.allDataProject.push(data)
+    // localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
+
+    this.secondFormGroup = this._formBuilder.group({
+      namaProyek: ['', Validators.required],
+      totalPagu: ['', Validators.required],
+      // berakhirPerjanjian: ['FREE_TEXT', Validators.required],
+      // deskripsiBerakhirPerjanjian: ['', Validators.required],
+      // availabilityPeriode: ['FREE_TEXT', Validators.required],
+      // deskripsiAvailabilityPeriode: ['', Validators.required],
+      // gracePeriod: ['FREE_TEXT', Validators.required],
+      // deskripsiGracePeriod: ['', Validators.required],
+      tenor: ['', Validators.required],
+      repaymentMethod: ['', Validators.required],
+      dateRepayment: ['', Validators.required],
+      deskripsiDenda: ['', Validators.required],
+      pembayaranPokokPinjaman: ['PRORATE', Validators.required],
+      interestType: ['FIXED', Validators.required],
+      bunga: ['', Validators.required],
+      jadwalPokokPinjaman: ['', Validators.required],
+      jadwalBungaPinjaman: ['', Validators.required],
+      syaratPenarikan: ['', Validators.required],
+    });
+  }
+
+  deleteData = (item: number) => {
+    alert(`delete data ke: ${item}`);
+    console.log(this.buttonProject);
+    if(this.totalProjectList > 1){
+      this.totalProjectList = this.totalProjectList - 1;
+      this.buttonProject.pop();
+    }else{
+      alert('minimal project 1');
+    }
+    console.log(this.buttonProject);
+
+    let getDataProject = localStorage.getItem('allDataProjectAgreement');
+    if(getDataProject != undefined){
+      this.allDataProject = JSON.parse(getDataProject);
+      let temporaryData = JSON.parse(getDataProject);
+      temporaryData.splice(item - 1, 1);
+      localStorage.setItem('allDataProjectAgreement', JSON.stringify(temporaryData))
+    }else{
+      alert('data not found');
+    }
+
+  }
+
+  saveTemporary = (params: number) => {
+    // alert(`clicked: ${params}`);
     const data = {
       namaProyek: this.secondFormGroup.get('namaProyek')?.value,
       totalPagu: this.secondFormGroup.get('totalPagu')?.value,
@@ -785,6 +852,7 @@ export class ShlCreateAgreementComponent implements OnInit{
 
     if(getCheckDataFirst){
       let tempData = JSON.parse(getCheckDataFirst)
+      this.allDataProject = JSON.parse(getCheckDataFirst);
       console.log(tempData);
 
       console.log(tempData[0].namaProyek, data.namaProyek);
@@ -805,39 +873,19 @@ export class ShlCreateAgreementComponent implements OnInit{
           localStorage.setItem('allDataProjectAgreement', JSON.stringify(tempData));
         }
         else{
-          this.allDataProject.push(data)
+          this.allDataProject.push(data);
+          console.log('nama proyek terakhir tidak null', this.allDataProject);
+
           localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
         }
       }
     }
     else{
-      this.allDataProject.push(data)
+      this.allDataProject.push(data);
+      console.log(this.allDataProject);
+
       localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
     }
-
-    // this.allDataProject.push(data)
-    // localStorage.setItem('allDataProjectAgreement', JSON.stringify(this.allDataProject));
-
-    this.secondFormGroup = this._formBuilder.group({
-      namaProyek: ['', Validators.required],
-      totalPagu: ['', Validators.required],
-      // berakhirPerjanjian: ['FREE_TEXT', Validators.required],
-      // deskripsiBerakhirPerjanjian: ['', Validators.required],
-      // availabilityPeriode: ['FREE_TEXT', Validators.required],
-      // deskripsiAvailabilityPeriode: ['', Validators.required],
-      // gracePeriod: ['FREE_TEXT', Validators.required],
-      // deskripsiGracePeriod: ['', Validators.required],
-      tenor: ['', Validators.required],
-      repaymentMethod: ['', Validators.required],
-      dateRepayment: ['', Validators.required],
-      deskripsiDenda: ['', Validators.required],
-      pembayaranPokokPinjaman: ['PRORATE', Validators.required],
-      interestType: ['FIXED', Validators.required],
-      bunga: ['', Validators.required],
-      jadwalPokokPinjaman: ['', Validators.required],
-      jadwalBungaPinjaman: ['', Validators.required],
-      syaratPenarikan: ['', Validators.required],
-    });
   }
 
   isPenerusanPinjaman: boolean = false;

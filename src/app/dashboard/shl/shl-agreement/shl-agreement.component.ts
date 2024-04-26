@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, booleanAttribute } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
 
@@ -78,8 +78,43 @@ export class ShlAgreementComponent implements OnInit{
 
   }
 
+  onSubmit(event: any) {
+    let allCheckbox = [];
+    let targetColumn = [];
+    let targetBool = [];
+
+    for(let i=0; i < event.target.length; i++){
+      allCheckbox.push(event.target[i].id)
+    }
+
+    for(let i=0; i<event.target.length - 1; i++){
+      if(event.target[i].checked){
+        targetColumn.push(event.target[i].id);
+      }
+    }
+    for(let i=0; i<event.target.length - 1; i++){
+      if(event.target[i]){
+        targetBool.push(event.target[i].checked);
+      }
+    }
+
+    // console.log(allCheckbox, targetColumn, targetBool);
+    this.tableConfig.customizeColumn(allCheckbox, targetColumn, targetBool)
+
+  }
+
   async ngOnInit(): Promise<void> {
     this.tableConfig.initializeTableSHLAgreementNonPenerusanPinjaman();
+
+    setTimeout(() => {
+      let frozenRight = document.querySelectorAll('[aria-title="Action"]');
+
+      frozenRight.forEach(elem => {
+        if (elem instanceof HTMLElement) {
+          elem.style.right = '0px';
+        }
+      });
+    }, 500);
   }
 
 }

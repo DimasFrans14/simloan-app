@@ -43,7 +43,7 @@ line-height: 24px; /* 150% */
 } */
 
 .button-project{
-  padding: 6px 140px 6px 12px
+  padding: 6px 40px 6px 12px
 }
 
 .button-add-project{
@@ -99,9 +99,9 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   max-width: 495px;
 }
 
-.text-area-deskripsi-proyek,
-.form-control{
+.text-area-deskripsi-proyek{
   width: 495px;
+  height: 150px;
 }
 
 ::placeholder {
