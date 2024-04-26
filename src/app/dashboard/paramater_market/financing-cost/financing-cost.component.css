@@ -38,8 +38,6 @@
     box-shadow: none;
 }
 .card{
-  border: #000;
-  border-width: 1px;
   box-shadow: none;
 }
 .gap{
@@ -49,11 +47,11 @@ a {
     text-decoration: none;
 }
 
-.sub-nav{
-  margin-top: 60px;
-  padding-right: 0px;
-  padding-left: 150px;
-  padding-top: 15px;
+.sub-nav {
+  margin-top: 60px; 
+  padding-left: 285px; 
+  padding-right: 25px; 
+  padding-top: 10px; 
 }
 
 @media (max-width: 1199px) {

@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class MarketUpdateService {
+  
   fetchDeleteDataRkapCurrencyRate(data: { id: any; }) {
     throw new Error('Method not implemented.');
   }
@@ -357,17 +358,17 @@ export class MarketUpdateService {
     }
   try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/jisdor=${data.idJisdor}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/jisdor?id=${data.id}`, data1)
     )
   } catch (error) {
     console.log(error);
     return error
   }
   }
-  async fetchDeleteDataOutlookCurrencyRate(data:any){
+  async   fetchDeleteDataOutlookCurrencyRate(data:any){
     try {
       return await lastValueFrom(
-        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/jisdor?id=${data.idJisdor}`)
+        this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/jisdor?id=${data.id}`)
       );
     } catch (error) {
       console.log(error);
@@ -410,7 +411,7 @@ export class MarketUpdateService {
     }
   try {
     return await lastValueFrom(
-      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/usd_nonusd=${data.idNonJisdor}`, data1)
+      this.http.put(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/usd_nonusd?id=${data.id}`, data1)
     )
   } catch (error) {
     console.log(error);
@@ -498,7 +499,7 @@ export class MarketUpdateService {
   async fetchDeleteDataOutlookNonUsd(data:any){
   try {
     return await lastValueFrom(
-      this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/usd_nonusd?id=${data.idNonJisdor}`)
+      this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/usd_nonusd?id=${data.id}`)
     )
   } catch (error) {
     console.log(error);
@@ -738,7 +739,7 @@ export class MarketUpdateService {
       }
       console.log(params)
       return await lastValueFrom(
-        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?grup=SBN&isActive=true`)
+        this.http.get(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?isActive=true&keyword=SBN`)
       );
     } catch (error) {
       console.log(error);
@@ -780,7 +781,7 @@ export class MarketUpdateService {
       }
     try {
       return await lastValueFrom(
-        this.http.post(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?id=${data.id}`, data1)
+        this.http.put(`${environment.apiUrl1}/simloan/ws-v01/dashboard/non-macro/outlook-bond-yield?id=${data.id}`, data1)
       )
     } catch (error) {
       console.log(error);

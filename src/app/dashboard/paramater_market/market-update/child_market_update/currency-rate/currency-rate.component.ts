@@ -134,30 +134,30 @@ export class CurrencyRateComponent implements OnInit, AfterViewInit {
           }).sort((a: any, b: any) => {
             return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
           });
-          this.dataDetailRealisasi.map((item:any)=>{
+          this.dataDetailOutlook.map((item:any)=>{
             item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
             return item
           })
       }
       this.isLoading = false;
-      console.log(this.isLoading,'loading 2', this.dataDetailRealisasi);
+      console.log(this.isLoading,'loading 2', this.dataDetailOutlook);
     } catch(error) {
       console.log(error)
     }
-    if ( this.dataDetailOutlook == null ){
-      console.log('data kosong')
-    } else {
-      this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
-        item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
-        item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        return item;
-      })
-      this.dataDetailOutlookNonUsd = this.dataDetailOutlookNonUsd.map((item: any) =>{
-        item.kurs != null ? item.kurs = parseFloat(item.kurs) : item.kurs = 0;
-        item.kurs = item.kurs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        return item;
-      })
-    }
+    // if ( this.dataDetailOutlook == null ){
+    //   console.log('data kosong')
+    // } else {
+    //   this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
+    //     item.nilai != null ? item.nilai = parseFloat(item.nilai) : item.nilai = 0;
+    //     item.nilai = item.nilai.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    //     return item;
+    //   })
+    //   this.dataDetailOutlookNonUsd = this.dataDetailOutlookNonUsd.map((item: any) =>{
+    //     item.kurs != null ? item.kurs = parseFloat(item.kurs) : item.kurs = 0;
+    //     item.kurs = item.kurs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    //     return item;
+    //   })
+    // }
     this.tableConfig.setDataOutlookKursUsd(this.dataDetailOutlook);
     console.log('finish get data by function')
   }

@@ -51,6 +51,7 @@ import { ShlMonitoringComponent } from './dashboard/shl/shl-monitoring/shl-monit
 import { ShlMonitoringDetailComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-monitoring-detail.component';
 import { ShlLoanDetailComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-loan-detail/shl-loan-detail.component';
 import { DetailComponent } from './dashboard/paramater_market/financing-cost/detail/detail.component';
+import { EditGmtnComponent } from './dashboard/paramater_market/financing-cost/edit-gmtn/edit-gmtn.component';
 import { RouteGuard } from './guard/route-guard.guard';
 import { InputPembayaranComponent } from './dashboard/shl/shl-monitoring/shl-monitoring-detail/shl-loan-detail/input-pembayaran/input-pembayaran.component';
 import { ShlSimulationComponent } from './dashboard/shl/shl-simulation/shl-simulation.component';
@@ -74,10 +75,11 @@ const routes: Routes = [
   { path: 'financing_cost', component: FinancingCostComponent ,canActivate:[RouteGuard]},
   { path: 'detail-fincost', component: FinancingCostComponent ,canActivate:[RouteGuard]},
   { path: 'liabilities', component: LiabilitiesComponent,canActivate:[RouteGuard]},
-  { path: 'market_update', component: MarketUpdateComponent, canActivate:[RouteGuard]
-  },
+  { path: 'market_update', component: MarketUpdateComponent, canActivate:[RouteGuard]},
   { path: 'hitung_fincost', component: HitungFincostComponent, canActivate:[RouteGuard]},
   { path: 'gmtn', component: GMTNComponent, canActivate:[RouteGuard]},
+  { path: 'detail_gmtn', component: DetailComponent, canActivate:[RouteGuard]},
+  { path: 'edit_gmtn', component: EditGmtnComponent, canActivate:[RouteGuard]},
   { path: 'shl_agreement', component: ShlAgreementComponent, canActivate:[RouteGuard]},
   { path: 'shl_withdrawal', component: ShlWithdrawalComponent, canActivate:[RouteGuard]},
   { path: 'shl_schedule', component: ShlScheduleComponent, canActivate:[RouteGuard]},

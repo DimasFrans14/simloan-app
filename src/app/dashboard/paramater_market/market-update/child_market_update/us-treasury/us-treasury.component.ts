@@ -63,6 +63,23 @@ export class UsTreasuryComponent {
     } catch (error) {
       console.log(error);
     }
+    this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
+      item.yr5 != null ? item.yr5 = parseFloat(item.yr5) : item.yr5 = 0;
+      item.yr5 = item.yr5.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr7 != null ? item.yr7 = parseFloat(item.yr7) : item.yr7 = 0;
+      item.yr7 = item.yr7.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr10 != null ? item.yr10 = parseFloat(item.yr10) : item.yr10 = 0;
+      item.yr10 = item.yr10.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr15 != null ? item.yr15 = parseFloat(item.yr15) : item.yr15 = 0;
+      item.yr15 = item.yr15.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr20 != null ? item.yr20 = parseFloat(item.yr20) : item.yr20 = 0;
+      item.yr20 = item.yr20.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr25 != null ? item.yr25 = parseFloat(item.yr25) : item.yr25 = 0;
+      item.yr25 = item.yr25.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr30 != null ? item.yr30 = parseFloat(item.yr30) : item.yr30 = 0;
+      item.yr30 = item.yr30.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
     this.tableConfig.setDataRealisasiBondYieldUsTreasury(this.dataDetailRealisasi);
   }
   async getDataRkap(){
@@ -90,7 +107,7 @@ export class UsTreasuryComponent {
       const data = await this.marketUpdateService.fetchDataOutlookBondYieldUsTreasury();
       this.dataDetailOutlook = data;
       this.dataDetailOutlook = this.dataDetailOutlook.data.content;
-      if(this.dataDetailRealisasi == null){
+      if(this.dataDetailOutlook == null){
         console.log('data kosong')
       } else {
         this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) => {
@@ -112,6 +129,23 @@ export class UsTreasuryComponent {
     } catch (error) {
       console.log(error);
     }
+    this.dataDetailRealisasi = this.dataDetailRealisasi.map((item: any) =>{
+      item.yr5 != null ? item.yr5 = parseFloat(item.yr5) : item.yr5 = 0;
+      item.yr5 = item.yr5.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr7 != null ? item.yr7 = parseFloat(item.yr7) : item.yr7 = 0;
+      item.yr7 = item.yr7.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr10 != null ? item.yr10 = parseFloat(item.yr10) : item.yr10 = 0;
+      item.yr10 = item.yr10.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr15 != null ? item.yr15 = parseFloat(item.yr15) : item.yr15 = 0;
+      item.yr15 = item.yr15.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr20 != null ? item.yr20 = parseFloat(item.yr20) : item.yr20 = 0;
+      item.yr20 = item.yr20.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr25 != null ? item.yr25 = parseFloat(item.yr25) : item.yr25 = 0;
+      item.yr25 = item.yr25.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      item.yr30 != null ? item.yr30 = parseFloat(item.yr30) : item.yr30 = 0;
+      item.yr30 = item.yr30.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return item;
+    })
     this.tableConfig.setDataOutlookBondYieldUsTreasury(this.dataDetailOutlook);
   }
   onDate(event: any){

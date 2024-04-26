@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MarketUpdateService } from 'src/app/services/market_update/market-update.service';
-// import { Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { TableServicesService } from 'src/app/services/table_services/table-services.service';
+import Swal from 'sweetalert2';
+import { TYPE } from 'src/app/message.constant';
 
 @Component({
   selector: 'app-gmtn',
@@ -10,13 +12,16 @@ import { TableServicesService } from 'src/app/services/table_services/table-serv
   styleUrls: ['./gmtn.component.css']
 })
 export class GMTNComponent {
+  
   constructor (  
     private formBuil1der:FormBuilder,
     private tableConfig: TableServicesService,
     private marketUpdateService: MarketUpdateService,
+    private router: Router,
   )
   {}
-
+  // router: any;
+  public responsePostData: any;
   dataGMTN : any;
   today: number = Date.now();
 
@@ -66,8 +71,6 @@ export class GMTNComponent {
   onSubmit(){
     const dataBaselineGMTN = this.baselineGMTN.value.tahun;
     const dataEstimasiBaselineGMTN = this.estimasiBaselineGMTN.value.kurs;
-    // const waktu = this.today = Date.now();
-    // console.log(waktu);
     console.log('Data Baseline:', dataBaselineGMTN);
     console.log('Data Estimasi:', dataEstimasiBaselineGMTN);
     this.postDataGMTN();
@@ -93,10 +96,29 @@ export class GMTNComponent {
       tenor_estimasi_baseline : this.estimasiBaselineGMTN.value.tenor,
       indicative_rate : this.estimasiBaselineGMTN.value.indicativeRate,
       rate_kurs_estimasi_baseline : this.estimasiBaselineGMTN.value.kurs,
-      nama_obligasi : this.nama_obligasi.value.toUpperCase(),
+      nama_obligasi : this.nama_obligasi.value.toUpperCase(), 
       tanggal : this.tanggal.value, 
     }
-    await this.marketUpdateService.fetchDataInputGmtnFincost(dataBaselineGMTN);
+    const responsePostData = await this.marketUpdateService.fetchDataInputGmtnFincost(dataBaselineGMTN);
     console.log(dataBaselineGMTN)
+    this.responsePostData = responsePostData;
+    if (this.responsePostData.status == 200){
+      this.router.navigate(['/financing_cost']);
+      this.showSuccess();
+    } else {
+      this.showFailed()
+    }
+  }
+  showSuccess(typeIcon = TYPE.SUCCESS) {
+    Swal.fire({
+      title: 'Success!',
+      icon: typeIcon,
+    });
+  }
+  showFailed(typeIcon = TYPE.ERROR) {
+    Swal.fire({
+      title: 'Failed!',
+      icon: typeIcon
+    });
   }
 }

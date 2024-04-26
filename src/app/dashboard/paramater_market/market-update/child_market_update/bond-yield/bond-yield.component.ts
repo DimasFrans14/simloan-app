@@ -92,7 +92,6 @@ export class BondYieldComponent {
       return item;
     })
     this.tableConfig.setDataRealisasiBondYieldSBN(this.dataDetailRealisasi);
-    console.log('finish get data in func');
   }
 
   async getDataRkap(){
@@ -101,13 +100,14 @@ export class BondYieldComponent {
     try {
       const data = await this.marketUpdateService.fetchDataAllRkap();
       this.dataDetailRkap = data;
-      this.dataDetailRkap = this.dataDetailRkap.data;
+      this.dataDetailRkap = this.dataDetailRkap.data.content;
+      if (this.dataDetailRkap == null){}
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailRkap);
     } catch (error) {
       console.log(error);
     }
-    this.dataDetailRkap = this.dataDetailRkap.content.filter((item:any)=>{
+    this.dataDetailRkap = this.dataDetailRkap.filter((item:any)=>{
       return item.grup ==="BOND_YIELD" && item.mtu ==="SBN"
     })
     this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
@@ -115,13 +115,7 @@ export class BondYieldComponent {
       item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       return item;
     })
-      this.dataDetailRkap = this.dataDetailRkap.map((item: any) =>{
-        item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
-        item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        return item;
-      });
     this.tableConfig.setDataRkapBondYieldSBN(this.dataDetailRkap);
-    console.log('finish get data in func');
   }
   async getDataOutlook(){
     this.isLoading = true;
@@ -130,6 +124,23 @@ export class BondYieldComponent {
       const data = await this.marketUpdateService.fetchDataOutlookBondYieldSBN();
       this.dataDetailOutlook = data;
       this.dataDetailOutlook = this.dataDetailOutlook.data.content;
+      if(this.dataDetailOutlook == null){
+        console.log('data kosong')
+      } else {
+        this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) => {
+          const dateParts = item.tanggal.split("/");
+          const dateObject = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0])+1);
+          item.tanggal = dateObject.toISOString().split("T")[0];
+          
+          return item;
+          }).sort((a: any, b: any) => {
+            return new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime();
+          });
+          this.dataDetailOutlook.map((item:any)=>{
+            item.tanggal = moment(item.tanggal).format('DD/MM/YYYY')
+            return item
+          })
+        }
       this.isLoading = false;
       console.log(this.isLoading, 'loading 2', this.dataDetailOutlook);
     } catch (error) {
@@ -139,10 +150,22 @@ export class BondYieldComponent {
       console.log('data kosong')
     } else {
       this.dataDetailOutlook = this.dataDetailOutlook.map((item: any) =>{
-        item.rate != null ? item.rate = parseFloat(item.rate) : item.rate = 0;
-        item.rate = item.rate.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        item.yr5 != null ? item.yr5 = parseFloat(item.yr5) : item.yr5 = 0;
+        item.yr5 = item.yr5.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        item.yr7 != null ? item.yr7 = parseFloat(item.yr7) : item.yr7 = 0;
+        item.yr7 = item.yr7.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        item.yr10 != null ? item.yr10 = parseFloat(item.yr10) : item.yr10 = 0;
+        item.yr10 = item.yr10.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        item.yr15 != null ? item.yr15 = parseFloat(item.yr15) : item.yr15 = 0;
+        item.yr15 = item.yr15.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        item.yr20 != null ? item.yr20 = parseFloat(item.yr20) : item.yr20 = 0;
+        item.yr20 = item.yr20.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        item.yr25 != null ? item.yr25 = parseFloat(item.yr25) : item.yr25 = 0;
+        item.yr25 = item.yr25.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        item.yr30 != null ? item.yr30 = parseFloat(item.yr30) : item.yr30 = 0;
+        item.yr30 = item.yr30.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         return item;
-      });
+      })
     }
     this.tableConfig.setDataOutlookBondYieldSBN(this.dataDetailOutlook);
     console.log('finish get data in func');

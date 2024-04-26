@@ -82,6 +82,10 @@ import { InputPembayaranComponent } from './dashboard/shl/shl-monitoring/shl-mon
 import { ShlSimulationComponent } from './dashboard/shl/shl-simulation/shl-simulation.component';
 import { ShlCreateSimulationComponent } from './dashboard/shl/shl-simulation/shl-create-simulation/shl-create-simulation.component';
 import { ShlCreateAmandementComponent } from './dashboard/shl/shl-agreement/shl-create-amandement/shl-create-amandement.component';
+import { EditGmtnComponent } from './dashboard/paramater_market/financing-cost/edit-gmtn/edit-gmtn.component';
+import { DetailFincostComponent } from './dashboard/paramater_market/detail-fincost/detail-fincost.component';
+import { EditFincostComponent } from './dashboard/paramater_market/edit-fincost/edit-fincost.component';
+
 
 @NgModule({
   declarations: [
@@ -142,6 +146,9 @@ import { ShlCreateAmandementComponent } from './dashboard/shl/shl-agreement/shl-
     ShlSimulationComponent,
     ShlCreateSimulationComponent,
     ShlCreateAmandementComponent,
+    EditGmtnComponent,
+    DetailFincostComponent,
+    EditFincostComponent,
   ],
   imports: [
     BrowserModule,
