@@ -369,7 +369,7 @@ export class MarketUpdateService {
     try {
       return await lastValueFrom(
         this.http.delete(`${environment.apiUrl1}/simloan/ws-v01/out-kurs/master-usd-nonusd/jisdor?id=${data.id}`)
-      );
+      )
     } catch (error) {
       console.log(error);
       return null;
